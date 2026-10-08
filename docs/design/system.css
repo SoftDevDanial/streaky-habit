@@ -1,0 +1,98 @@
+/*
+  Streaks design system tokens. Locked from round-1 direction B, "Quiet beads".
+  Every golden copies this :root block verbatim into its inline <style>. Colours are used only through
+  these custom properties. Roles, ratios and component specs are in system.md.
+  One theme, light. No dark mode (the brief rules out a theme switcher).
+*/
+:root {
+  /* Colour roles */
+  --bg: #F2F5F3;          /* page background, bead fill when not done, gap around the today ring */
+  --surface: #FAFCFB;     /* heatmap panel, dialog */
+  --field: #FDFEFE;       /* text input fill */
+  --wash: #E5ECE9;        /* icon button hover fill, note banner, disabled input fill */
+  --ink: #1C2523;         /* primary text, habit names, today label */
+  --ink-soft: #52605B;    /* secondary text, weekday labels, axis labels, icons, notes */
+  --bead: #3B6B60;        /* done bead, run thread, dashed holding thread, primary button */
+  --bead-deep: #2E5A50;   /* brand word, current streak, primary button hover, done bead hover */
+  --on-bead: #F7FAF9;     /* check mark and button text on --bead, --bead-deep and --danger */
+  --ring: #7E8E88;        /* not-done bead stroke, input border, today ring, secondary button border, heat level 0 */
+  --thread: #C6D0CC;      /* thin thread between beads that are not a run, disabled button fill, disabled input border */
+  --danger: #A23B32;      /* error text, error input border, "Delete habit" button */
+  --danger-deep: #84302A; /* "Delete habit" hover */
+  --heat-1: #78968B;      /* heatmap level 1 dot */
+  --heat-2: #4F7C70;      /* heatmap level 2 dot */
+  --heat-3: var(--bead);  /* heatmap level 3 dot */
+  --heat-4: var(--bead-deep); /* heatmap level 4 dot */
+  --focus: var(--ink);    /* focus ring */
+  --scrim: rgb(28 37 35 / 0.5);   /* dialog backdrop, --ink at 50%; gives the dialog edge 3.28:1 */
+  --shadow-dialog: 0 16px 48px rgb(28 37 35 / 0.18), 0 2px 6px rgb(28 37 35 / 0.08); /* tinted with --ink */
+
+  /* Type: system stacks only, no web fonts */
+  --font: ui-rounded, "SF Pro Rounded", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --text-xs: 12px;  --lh-xs: 16px;   /* weekday labels, heatmap axes, legend */
+  --text-sm: 14px;  --lh-sm: 20px;   /* streak line, field error and note, day number line box */
+  --text-md: 16px;  --lh-md: 24px;   /* body, input, buttons, labels, date, panel heading */
+  --text-lg: 18px;  --lh-lg: 28px;   /* habit name, dialog title, empty-state lead */
+  --text-xl: 22px;  --lh-xl: 28px;   /* brand word "Streaks" */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* Space: 4 px base */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 48px;
+  --space-10: 64px;
+
+  /* Radius: pills for controls, circles for round things, 20 px for containers */
+  --radius-pill: 999px;
+  --radius-round: 50%;
+  --radius-panel: 20px;
+
+  /* Sizes */
+  --hit-min: 44px;
+  --control-h: 48px;
+  --icon: 20px;
+  --bead-size: 32px;      /* 36px from 375px wide, 40px from 900px wide (see the media queries below) */
+  --bead-stroke: 2px;
+  --thread-thin: 2px;
+  --thread-run: 4px;
+  --dash: 4px;
+  --dash-gap: 3px;
+  --today-gap: 3px;
+  --today-ring: 1.5px;
+  --focus-w: 2px;
+  --dot-0: 6px;           /* heatmap level 0, hollow ring */
+  --dot-1: 7px;
+  --dot-2: 11px;
+  --dot-3: 14px;
+  --dot-4: 17px;
+  --dot-ring: 1.5px;      /* level 0 ring stroke */
+  --today-cell-ring: 22px; /* ring around today's heatmap cell */
+  --legend-cell: 20px;
+  --page-max-phone: 600px;
+  --page-max: 1040px;
+  --heat-panel-w: 380px;
+  --dialog-max: 400px;
+
+  /* Motion (all collapse to instant under prefers-reduced-motion: reduce) */
+  --dur-press: 120ms;
+  --dur: 180ms;
+  --dur-enter: 200ms;
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Layers: the only stacking contexts in the app */
+  --z-scrim: 10;
+  --z-dialog: 20;
+}
+/* Whole-pixel bead sizes keep the circles round after pixel snapping. */
+@media (min-width: 375px) { :root { --bead-size: 36px; } }
+@media (min-width: 900px) { :root { --bead-size: 40px; } }

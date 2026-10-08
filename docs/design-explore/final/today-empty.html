@@ -1,0 +1,661 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Streaks</title>
+<!--
+  Golden S2, first visit. No habits yet, the add field is ready, every past heatmap day is level 0.
+  Today is Thursday 8 October 2026. System: system.md and system.css. Static, no script. No icons used.
+-->
+<style>
+/* system.css tokens: same names and values, comments live in system.css */
+:root {
+  --bg: #F2F5F3;
+  --surface: #FAFCFB;
+  --field: #FDFEFE;
+  --wash: #E5ECE9;
+  --ink: #1C2523;
+  --ink-soft: #52605B;
+  --bead: #3B6B60;
+  --bead-deep: #2E5A50;
+  --on-bead: #F7FAF9;
+  --ring: #7E8E88;
+  --thread: #C6D0CC;
+  --danger: #A23B32;
+  --danger-deep: #84302A;
+  --heat-1: #78968B;
+  --heat-2: #4F7C70;
+  --heat-3: var(--bead);
+  --heat-4: var(--bead-deep);
+  --focus: var(--ink);
+  --scrim: rgb(28 37 35 / 0.5);
+  --shadow-dialog: 0 16px 48px rgb(28 37 35 / 0.18), 0 2px 6px rgb(28 37 35 / 0.08);
+  --font: ui-rounded, "SF Pro Rounded", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --text-xs: 12px;  --lh-xs: 16px;
+  --text-sm: 14px;  --lh-sm: 20px;
+  --text-md: 16px;  --lh-md: 24px;
+  --text-lg: 18px;  --lh-lg: 28px;
+  --text-xl: 22px;  --lh-xl: 28px;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 48px;
+  --space-10: 64px;
+  --radius-pill: 999px;
+  --radius-round: 50%;
+  --radius-panel: 20px;
+  --hit-min: 44px;
+  --control-h: 48px;
+  --icon: 20px;
+  --bead-size: 32px;
+  --bead-stroke: 2px;
+  --thread-thin: 2px;
+  --thread-run: 4px;
+  --dash: 4px;
+  --dash-gap: 3px;
+  --today-gap: 3px;
+  --today-ring: 1.5px;
+  --focus-w: 2px;
+  --dot-0: 6px;
+  --dot-1: 7px;
+  --dot-2: 11px;
+  --dot-3: 14px;
+  --dot-4: 17px;
+  --dot-ring: 1.5px;
+  --today-cell-ring: 22px;
+  --legend-cell: 20px;
+  --page-max-phone: 600px;
+  --page-max: 1040px;
+  --heat-panel-w: 380px;
+  --dialog-max: 400px;
+  --dur-press: 120ms;
+  --dur: 180ms;
+  --dur-enter: 200ms;
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --z-scrim: 10;
+  --z-dialog: 20;
+}
+@media (min-width: 375px) { :root { --bead-size: 36px; } }
+@media (min-width: 900px) { :root { --bead-size: 40px; } }
+
+/* ---------- components (identical block in every golden) ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: var(--weight-regular) var(--text-md)/var(--lh-md) var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, p { margin: 0; }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* Page frame */
+.page {
+  max-width: var(--page-max-phone);
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-5) var(--space-9);
+}
+.top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-bottom: var(--space-6);
+}
+.brand {
+  font-size: var(--text-xl);
+  line-height: var(--lh-xl);
+  font-weight: var(--weight-bold);
+  letter-spacing: -0.01em;
+  color: var(--bead-deep);
+}
+.date {
+  font-size: var(--text-md);
+  line-height: var(--lh-md);
+  color: var(--ink-soft);
+  text-align: right;
+}
+
+/* Icon button (delete, dismiss) */
+.icon-btn {
+  flex: none;
+  width: var(--hit-min);
+  height: var(--hit-min);
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-round);
+  background: transparent;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.icon-btn svg { width: var(--icon); height: var(--icon); fill: currentColor; }
+.icon-btn:focus { outline: none; }
+.icon-btn:focus-visible { outline: var(--focus-w) solid var(--focus); outline-offset: calc(var(--focus-w) * -1); }
+
+/* Habit list */
+.habits {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-7);
+}
+.habit-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+.habit-head .icon-btn { margin-right: calc(var(--space-3) * -1); }
+.habit-name {
+  padding-top: var(--space-2);
+  font-size: var(--text-lg);
+  line-height: var(--lh-lg);
+  font-weight: var(--weight-semibold);
+  overflow-wrap: anywhere;
+}
+.streak {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-1) var(--space-3);
+  font-size: var(--text-sm);
+  line-height: var(--lh-sm);
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+}
+.streak .cur { color: var(--bead-deep); font-weight: var(--weight-semibold); }
+.streak .cur.none { color: var(--ink-soft); }
+
+/* Empty list */
+.empty { font-size: var(--text-md); line-height: var(--lh-md); color: var(--ink-soft); }
+.empty strong {
+  display: block;
+  margin-bottom: var(--space-1);
+  font-size: var(--text-lg);
+  line-height: var(--lh-lg);
+  font-weight: var(--weight-semibold);
+  color: var(--ink);
+}
+
+/* Week strip: seven beads on a thread */
+.strip {
+  margin-top: var(--space-2);
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+.day {
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0;
+  padding: var(--space-1) 0 var(--space-2);
+  min-height: var(--hit-min);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  -webkit-tap-highlight-color: transparent;
+}
+.day:focus { outline: none; }
+.day:focus-visible { outline: var(--focus-w) solid var(--focus); outline-offset: 0; }
+.day-label { display: flex; flex-direction: column; align-items: center; }
+.wd { font-size: var(--text-xs); line-height: var(--lh-xs); color: var(--ink-soft); }
+.dm {
+  font-size: var(--text-md);
+  line-height: var(--lh-sm);
+  font-weight: var(--weight-medium);
+  font-variant-numeric: tabular-nums;
+}
+.day[aria-current="date"] .wd,
+.day[aria-current="date"] .dm { color: var(--ink); font-weight: var(--weight-bold); }
+
+.slot {
+  position: relative;
+  align-self: stretch;
+  height: var(--bead-size);
+  display: grid;
+  place-items: center;
+}
+/* Each slot draws its own half of the thread on each side of its bead. */
+.slot::before,
+.slot::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  height: var(--thread-thin);
+  margin-top: calc(var(--thread-thin) / -2);
+  background: var(--thread);
+}
+.slot::before { left: 0; right: 50%; }
+.slot::after { left: 50%; right: 0; }
+/* Older days continue to the left, so the thread fades out there. Future days are never drawn. */
+.day:first-child .slot::before { background: linear-gradient(to right, transparent, var(--thread)); }
+.day:last-child .slot::after { display: none; }
+
+.bead {
+  position: relative;
+  z-index: 1;
+  width: var(--bead-size);
+  height: var(--bead-size);
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-round);
+  border: var(--bead-stroke) solid var(--ring);
+  background: var(--bg);
+  transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease), transform var(--dur-press) var(--ease);
+}
+.bead svg {
+  width: 56%;
+  height: 56%;
+  fill: var(--on-bead);
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity var(--dur) var(--ease), transform var(--dur-enter) var(--ease-out);
+}
+.day[aria-pressed="true"] .bead { background: var(--bead); border-color: var(--bead); }
+.day[aria-pressed="true"] .bead svg { opacity: 1; transform: none; }
+.day[aria-current="date"] .bead {
+  box-shadow: 0 0 0 var(--today-gap) var(--bg), 0 0 0 calc(var(--today-gap) + var(--today-ring)) var(--ring);
+}
+.day:active .bead { transform: scale(0.94); }
+
+/* A run: two done days side by side are joined by a thick thread. */
+.day[aria-pressed="true"] + .day[aria-pressed="true"] .slot::before,
+.day[aria-pressed="true"]:has(+ .day[aria-pressed="true"]) .slot::after {
+  height: var(--thread-run);
+  margin-top: calc(var(--thread-run) / -2);
+  background: var(--bead);
+}
+/* A run that started before the strip carries on to the left and fades. */
+.strip[data-run-continues] .day:first-child[aria-pressed="true"] .slot::before {
+  height: var(--thread-run);
+  margin-top: calc(var(--thread-run) / -2);
+  background: linear-gradient(to right, transparent, var(--bead));
+}
+/* Holding: yesterday is done and today is still open, so the run is not broken yet.
+   Dash tiles are anchored on the cell boundary so the pattern stays continuous across both halves. */
+.day[aria-pressed="true"]:has(+ .day[aria-current="date"][aria-pressed="false"]) .slot::after,
+.day[aria-pressed="true"] + .day[aria-current="date"][aria-pressed="false"] .slot::before {
+  height: var(--thread-run);
+  margin-top: calc(var(--thread-run) / -2);
+  background: linear-gradient(to right, var(--bead) 0 var(--dash), transparent var(--dash)) left center / calc(var(--dash) + var(--dash-gap)) 100% repeat-x;
+}
+.day[aria-pressed="true"]:has(+ .day[aria-current="date"][aria-pressed="false"]) .slot::after {
+  background-position: right center;
+}
+
+/* Add a habit */
+.add { margin-top: var(--space-8); }
+.add-label {
+  display: block;
+  margin-bottom: var(--space-2);
+  font-size: var(--text-md);
+  line-height: var(--lh-md);
+  font-weight: var(--weight-semibold);
+}
+.add-row { display: flex; gap: var(--space-3); }
+.input {
+  flex: 1;
+  min-width: 0;
+  height: var(--control-h);
+  margin: 0;
+  padding: 0 var(--space-5);
+  border: var(--bead-stroke) solid var(--ring);
+  border-radius: var(--radius-pill);
+  background: var(--field);
+  color: var(--ink);
+  font: inherit;
+}
+.input:focus { outline: none; }
+.input:focus-visible { outline: var(--focus-w) solid var(--focus); outline-offset: 2px; }
+.input[aria-invalid="true"] { border-color: var(--danger); }
+.input:disabled { background: var(--wash); border-color: var(--thread); color: var(--ink-soft); cursor: not-allowed; }
+.add:has(.input:disabled) .add-label { color: var(--ink-soft); }
+.field-msg { margin-top: var(--space-2); font-size: var(--text-sm); line-height: var(--lh-sm); }
+.field-msg:empty { display: none; }
+.field-error { color: var(--danger); }
+.field-note { color: var(--ink-soft); }
+
+/* Buttons */
+.btn {
+  flex: none;
+  height: var(--control-h);
+  margin: 0;
+  padding: 0 var(--space-6);
+  border: var(--bead-stroke) solid transparent;
+  border-radius: var(--radius-pill);
+  font: inherit;
+  font-weight: var(--weight-semibold);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease), transform var(--dur-press) var(--ease);
+}
+.btn:focus { outline: none; }
+.btn:focus-visible { outline: var(--focus-w) solid var(--focus); outline-offset: 3px; }
+.btn:active { transform: scale(0.98); }
+.btn-primary { background: var(--bead); color: var(--on-bead); }
+.btn-secondary { background: transparent; border-color: var(--ring); color: var(--ink); }
+.btn-danger { background: var(--danger); color: var(--on-bead); }
+.btn:disabled { background: var(--thread); border-color: transparent; color: var(--ink-soft); cursor: not-allowed; transform: none; }
+
+/* Note banner */
+.note {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  margin-bottom: var(--space-7);
+  padding: var(--space-2) var(--space-2) var(--space-2) var(--space-5);
+  border-radius: var(--radius-panel);
+  background: var(--wash);
+}
+.note-text { flex: 1; padding: var(--space-2) 0; color: var(--ink); }
+
+/* Heatmap: a dot grid in the bead language */
+.heat {
+  margin-top: var(--space-8);
+  padding: var(--space-5) var(--space-4);
+  border-radius: var(--radius-panel);
+  background: var(--surface);
+}
+.heat-title {
+  margin-bottom: var(--space-3);
+  font-size: var(--text-md);
+  line-height: var(--lh-md);
+  font-weight: var(--weight-semibold);
+}
+.heat-grid {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: var(--space-2);
+  row-gap: var(--space-1);
+}
+.months {
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  font-size: var(--text-xs);
+  line-height: var(--lh-xs);
+  color: var(--ink-soft);
+}
+.months span { white-space: nowrap; }
+.wdays {
+  grid-column: 1;
+  display: grid;
+  grid-template-rows: repeat(7, minmax(0, 1fr));
+  align-items: center;
+  font-size: var(--text-xs);
+  line-height: 1;
+  color: var(--ink-soft);
+}
+.cells {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-rows: repeat(7, auto);
+  grid-auto-flow: column;
+}
+.hc {
+  position: relative;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+}
+/* Dots use whole-pixel sizes so they stay round after pixel snapping. */
+.hc::before,
+.hc::after { content: ""; grid-area: 1 / 1; border-radius: var(--radius-round); }
+.hc::before {
+  width: var(--dot, 0);
+  height: var(--dot, 0);
+  background: var(--tone, transparent);
+  transition: width var(--dur) var(--ease), height var(--dur) var(--ease), background-color var(--dur) var(--ease);
+}
+.l0 { --dot: var(--dot-0); }
+.l0::before { box-shadow: inset 0 0 0 var(--dot-ring) var(--ring); }
+.l1 { --dot: var(--dot-1); --tone: var(--heat-1); }
+.l2 { --dot: var(--dot-2); --tone: var(--heat-2); }
+.l3 { --dot: var(--dot-3); --tone: var(--heat-3); }
+.l4 { --dot: var(--dot-4); --tone: var(--heat-4); }
+.hc.today::after {
+  width: var(--today-cell-ring);
+  height: var(--today-cell-ring);
+  border: var(--today-ring) solid var(--ring);
+}
+.legend {
+  margin-top: var(--space-3);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-1);
+  font-size: var(--text-xs);
+  line-height: var(--lh-xs);
+  color: var(--ink-soft);
+}
+.legend .hc { width: var(--legend-cell); }
+
+/* Delete dialog */
+.scrim { position: fixed; inset: 0; z-index: var(--z-scrim); background: var(--scrim); }
+.dialog {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-dialog);
+  width: min(var(--dialog-max), calc(100% - var(--space-5) * 2));
+  max-width: none;
+  height: fit-content;
+  margin: auto;
+  padding: var(--space-6);
+  border: 0;
+  border-radius: var(--radius-panel);
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: var(--shadow-dialog);
+}
+.dialog::backdrop { background: var(--scrim); }
+/* Entering: the backdrop fades, the dialog fades and rises 8px. Answers the user's tap on delete. */
+@keyframes scrim-in { from { opacity: 0; } }
+@keyframes dialog-in { from { opacity: 0; transform: translateY(8px); } }
+.scrim, .dialog::backdrop { animation: scrim-in var(--dur) var(--ease); }
+.dialog[open] { animation: dialog-in var(--dur-enter) var(--ease-out); }
+/* While the dialog is open the page behind it does not scroll. */
+html:has(.dialog[open]),
+html:has(.dialog[open]) body { height: 100%; overflow: hidden; }
+.dialog-title {
+  font-size: var(--text-lg);
+  line-height: var(--lh-lg);
+  font-weight: var(--weight-semibold);
+  overflow-wrap: anywhere;
+}
+.dialog-body { margin-top: var(--space-2); color: var(--ink-soft); }
+.dialog-actions {
+  margin: var(--space-6) 0 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+/* Hover only where a pointer can hover */
+@media (hover: hover) {
+  .icon-btn:hover { background: var(--wash); color: var(--ink); }
+  .day:hover .bead { border-color: var(--bead); }
+  .day[aria-pressed="true"]:hover .bead { background: var(--bead-deep); border-color: var(--bead-deep); }
+  .btn-primary:hover { background: var(--bead-deep); }
+  .btn-secondary:hover { background: var(--wash); }
+  .btn-danger:hover { background: var(--danger-deep); }
+  .btn:disabled:hover { background: var(--thread); }
+}
+
+/* Desktop: two deliberate columns, habits left, heatmap right */
+@media (min-width: 900px) {
+  .page { max-width: var(--page-max); padding: var(--space-8) var(--space-9) var(--space-9); }
+  .top { padding-bottom: var(--space-7); }
+  .layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) var(--heat-panel-w);
+    gap: var(--space-10);
+    align-items: start;
+  }
+  .heat { margin-top: 0; padding: var(--space-6); position: sticky; top: var(--space-7); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+/* ---------- end components ---------- */
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="top">
+    <h1 class="brand">Streaks</h1>
+    <p class="date"><time datetime="2026-10-08">Thursday 8 October</time></p>
+  </header>
+
+  <main class="layout">
+    <div class="col-main">
+      <section aria-labelledby="habits-title">
+        <h2 id="habits-title" class="sr-only">Habits</h2>
+        <p class="empty"><strong>No habits yet.</strong> Add one you want to do every day.</p>
+      </section>
+
+      <form class="add" novalidate>
+        <label class="add-label" for="new-habit">New habit</label>
+        <div class="add-row">
+          <input class="input" id="new-habit" name="name" type="text" autocomplete="off" aria-describedby="new-habit-msg">
+          <button class="btn btn-primary" type="submit">Add</button>
+        </div>
+        <p class="field-msg field-error" id="new-habit-msg" aria-live="polite"></p>
+      </form>
+    </div>
+
+    <section class="heat" aria-labelledby="heat-title">
+      <h2 class="heat-title" id="heat-title">Last 12 weeks</h2>
+      <div class="heat-grid">
+        <div class="months" aria-hidden="true">
+          <span style="grid-column:1">Jul</span>
+          <span style="grid-column:3">Aug</span>
+          <span style="grid-column:8">Sep</span>
+          <span style="grid-column:12">Oct</span>
+        </div>
+        <div class="wdays" aria-hidden="true">
+          <span>Mon</span><span></span><span>Wed</span><span></span><span>Fri</span><span></span><span>Sun</span>
+        </div>
+        <div class="cells">
+          <span class="hc l0" data-date="2026-07-20" role="img" aria-label="Mon 20 Jul, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-07-21" role="img" aria-label="Tue 21 Jul, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-07-22" role="img" aria-label="Wed 22 Jul, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-07-23" role="img" aria-label="Thu 23 Jul, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-07-24" role="img" aria-label="Fri 24 Jul, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-07-25" role="img" aria-label="Sat 25 Jul, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-07-26" role="img" aria-label="Sun 26 Jul, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-07-27" role="img" aria-label="Mon 27 Jul, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-07-28" role="img" aria-label="Tue 28 Jul, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-07-29" role="img" aria-label="Wed 29 Jul, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-07-30" role="img" aria-label="Thu 30 Jul, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-07-31" role="img" aria-label="Fri 31 Jul, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-08-01" role="img" aria-label="Sat 1 Aug, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-08-02" role="img" aria-label="Sun 2 Aug, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-08-03" role="img" aria-label="Mon 3 Aug, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-08-04" role="img" aria-label="Tue 4 Aug, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-08-05" role="img" aria-label="Wed 5 Aug, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-08-06" role="img" aria-label="Thu 6 Aug, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-08-07" role="img" aria-label="Fri 7 Aug, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-08-08" role="img" aria-label="Sat 8 Aug, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-08-09" role="img" aria-label="Sun 9 Aug, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-08-10" role="img" aria-label="Mon 10 Aug, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-08-11" role="img" aria-label="Tue 11 Aug, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-08-12" role="img" aria-label="Wed 12 Aug, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-08-13" role="img" aria-label="Thu 13 Aug, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-08-14" role="img" aria-label="Fri 14 Aug, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-08-15" role="img" aria-label="Sat 15 Aug, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-08-16" role="img" aria-label="Sun 16 Aug, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-08-17" role="img" aria-label="Mon 17 Aug, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-08-18" role="img" aria-label="Tue 18 Aug, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-08-19" role="img" aria-label="Wed 19 Aug, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-08-20" role="img" aria-label="Thu 20 Aug, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-08-21" role="img" aria-label="Fri 21 Aug, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-08-22" role="img" aria-label="Sat 22 Aug, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-08-23" role="img" aria-label="Sun 23 Aug, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-08-24" role="img" aria-label="Mon 24 Aug, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-08-25" role="img" aria-label="Tue 25 Aug, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-08-26" role="img" aria-label="Wed 26 Aug, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-08-27" role="img" aria-label="Thu 27 Aug, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-08-28" role="img" aria-label="Fri 28 Aug, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-08-29" role="img" aria-label="Sat 29 Aug, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-08-30" role="img" aria-label="Sun 30 Aug, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-08-31" role="img" aria-label="Mon 31 Aug, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-09-01" role="img" aria-label="Tue 1 Sep, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-09-02" role="img" aria-label="Wed 2 Sep, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-09-03" role="img" aria-label="Thu 3 Sep, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-09-04" role="img" aria-label="Fri 4 Sep, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-09-05" role="img" aria-label="Sat 5 Sep, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-09-06" role="img" aria-label="Sun 6 Sep, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-09-07" role="img" aria-label="Mon 7 Sep, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-09-08" role="img" aria-label="Tue 8 Sep, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-09-09" role="img" aria-label="Wed 9 Sep, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-09-10" role="img" aria-label="Thu 10 Sep, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-09-11" role="img" aria-label="Fri 11 Sep, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-09-12" role="img" aria-label="Sat 12 Sep, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-09-13" role="img" aria-label="Sun 13 Sep, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-09-14" role="img" aria-label="Mon 14 Sep, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-09-15" role="img" aria-label="Tue 15 Sep, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-09-16" role="img" aria-label="Wed 16 Sep, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-09-17" role="img" aria-label="Thu 17 Sep, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-09-18" role="img" aria-label="Fri 18 Sep, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-09-19" role="img" aria-label="Sat 19 Sep, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-09-20" role="img" aria-label="Sun 20 Sep, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-09-21" role="img" aria-label="Mon 21 Sep, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-09-22" role="img" aria-label="Tue 22 Sep, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-09-23" role="img" aria-label="Wed 23 Sep, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-09-24" role="img" aria-label="Thu 24 Sep, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-09-25" role="img" aria-label="Fri 25 Sep, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-09-26" role="img" aria-label="Sat 26 Sep, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-09-27" role="img" aria-label="Sun 27 Sep, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-09-28" role="img" aria-label="Mon 28 Sep, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-09-29" role="img" aria-label="Tue 29 Sep, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-09-30" role="img" aria-label="Wed 30 Sep, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-10-01" role="img" aria-label="Thu 1 Oct, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-10-02" role="img" aria-label="Fri 2 Oct, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-10-03" role="img" aria-label="Sat 3 Oct, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-10-04" role="img" aria-label="Sun 4 Oct, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-10-05" role="img" aria-label="Mon 5 Oct, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-10-06" role="img" aria-label="Tue 6 Oct, 0 of 0 habits"></span>
+          <span class="hc l0" data-date="2026-10-07" role="img" aria-label="Wed 7 Oct, 0 of 0 habits"></span>
+          <span class="hc l0 today" data-date="2026-10-08" role="img" aria-current="date" aria-label="Thu 8 Oct, 0 of 0 habits"></span>
+          <span class="hc future" data-date="2026-10-09" aria-hidden="true"></span>
+          <span class="hc future" data-date="2026-10-10" aria-hidden="true"></span>
+          <span class="hc future" data-date="2026-10-11" aria-hidden="true"></span>
+        </div>
+      </div>
+      <div class="legend" aria-hidden="true">
+        <span>None</span>
+        <span class="hc l0"></span><span class="hc l1"></span><span class="hc l2"></span><span class="hc l3"></span><span class="hc l4"></span>
+        <span>All</span>
+      </div>
+    </section>
+  </main>
+</div>
+</body>
+</html>

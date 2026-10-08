@@ -29,3 +29,10 @@ Append-only history. STATE.md holds the situation, this file holds what happened
 - Wrote round-1/compare.html with the recommendation. Picked B under delegation (ORCH), see round-1/DECISION.md.
 - Generated design-explore/final/sample-history.json, one 12-week history that satisfies every fixed value in the brief (asserted by script).
 - Spawned the composer agent for steps 5, 6 and 8.
+
+## 2026-10-08 15:52 design finalized
+- Composer agent wrote design-explore/final/ (system, 3 screens, states sheet, 4 docs, self-critique). Cut off once by the usage limit at 11:31, resumed at 15:35 with its context.
+- Heatmap data check by the composer: all 81 past cells match sample-history.json.
+- Flow check: 6 of 6 links pass, zero console errors. Two links land on the nearest designed screen (noted in FLOW-CHECK.md).
+- Approved the added copy, five interaction rules and the browser floor under delegation (ORCH), design-explore/RULINGS.md.
+- Promoted final/ to docs/design/ under delegation (ORCH). Phase skills loaded throughout: taste-skill, frontend-design.

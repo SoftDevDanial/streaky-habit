@@ -4,7 +4,7 @@
 - **design-phase:** sdlc:design
 - **version:** 0.1.0
 - **mode:** greenfield
-- **phase:** design (in progress, steps 5 to 9)
+- **phase:** design (done)
 - **next:** plan
 
 ## Modules
@@ -14,4 +14,7 @@
 none
 
 ## Next action
-Composer agent writes design-explore/final/ (system, 3 screens, states sheet, self-critique). Then flow check, review, promote to docs/design/.
+Run sdlc:plan. Planner reads docs/design/ including RULINGS.md and sample-history.json.
+
+## Notes
+Goldens (immutable): docs/design/today.html (key), today-empty.html, delete-dialog.html, states.html (specimen sheet), system.md, system.css, sample-history.json, RULINGS.md.
