@@ -36,3 +36,18 @@ Append-only history. STATE.md holds the situation, this file holds what happened
 - Flow check: 6 of 6 links pass, zero console errors. Two links land on the nearest designed screen (noted in FLOW-CHECK.md).
 - Approved the added copy, five interaction rules and the browser floor under delegation (ORCH), design-explore/RULINGS.md.
 - Promoted final/ to docs/design/ under delegation (ORCH). Phase skills loaded throughout: taste-skill, frontend-design.
+
+## 2026-10-08 15:53 plan started
+- Step 1 research: no unknown blocks a confident plan (Playwright 1.61 with page.clock and Node v24.11.1 confirmed installed). 0 researchers spawned.
+- Step 1b compliance: personal direction, skipped by rule.
+- Step 2: spawned sdlc-planner (Opus, effort high).
+
+## 2026-10-08 23:01 plan, architect and gates
+- sdlc-planner wrote habit-logic (16 R#) and app (28 R#), ROADMAP. Cut off once by the usage limit, resumed.
+- Clarify gate CG-1 to CG-9 ruled under delegation (ORCH). CG-6 backdrop acts as Cancel.
+- Opened docs/v0.1.0/CHANGE-LEDGER.md (7 scopes).
+- sdlc-plan-checker: PASS, 0 block, 7 flag. Flag fixes ruled (ORCH) and routed to a planner pass.
+
+## 2026-10-08 23:02 plan gate cleared
+- PLAN-CHECK PASS (0 block). 7 flags fixed by a planner pass. Clarify gate clear. Favicon console rule ruled (ORCH, ledger Off-scope 7).
+- Plan phase done. Next: execute, build order habit-logic then app.

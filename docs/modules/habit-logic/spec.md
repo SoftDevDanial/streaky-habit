@@ -1,0 +1,215 @@
+# Module: habit-logic
+
+> Build contract. Read by the Senior Dev agent. Build ONLY what is here.
+> Stack: LOCKED to project stack (vanilla JavaScript ES modules, zero dependencies, Node 24 built-in test runner). Depends on: none.
+> Nature: logic only. No UI, no DOM, no storage, no clock. Consumed by `app` through the Contracts below and nothing else.
+> Written by: the solutions architect (sdlc planner), 2026-10-08. Clarify-gate item that touches this module: CG-8, ruled 2026-10-08, ORCH: accepted as recommended, length counts Unicode code points (see `../ROADMAP.md`). CG-1 (the unit-test command) was resolved on 2026-10-08 when CLAUDE.md adopted `node --test "tests/**/*.test.js"`.
+
+## Sources
+| Source | What it fixes here |
+|---|---|
+| `docs/brainstorm/brainstorm.md`, "Rules the build must follow" | local days, week strip, current streak, best streak, heatmap levels, habit name, 12 habits, order |
+| `docs/design/system.md`, "The bead and the thread", "Heatmap", "Accessible names" | run carried in (`data-run-continues`), heatmap grid and month axis, date label formats |
+| `docs/design/today.md` | the sample values on the key screen |
+| `docs/design/sample-history.json` | verified test data (read-only) |
+| `docs/design/RULINGS.md`, rule 3 | trim, then check empty, too long, duplicate, in that order |
+
+Phase skills: the registry assigns none to plan, and this module has no UI work, so the design row does not apply to its builder.
+
+## Invariants & assumptions
+- A day is a date key, a string `YYYY-MM-DD` naming a local calendar day (brainstorm: "Days are local calendar days"). No `Date` object crosses the module boundary except the one argument of `localDateKey`.
+- The current day is always passed in as `todayKey`. No function in this module reads the clock.
+- Habit data passed to these functions is already valid: names trimmed, 1 to 40 code points, unique ignoring case, `done` arrays of valid date keys. Data enters the app only through `addHabit` and the app's storage decoder (which uses `validateName` and `isDateKey` from here).
+- Functions never mutate their arguments. Every array or object returned is new.
+- Weeks start on Monday (brainstorm, Heatmap).
+- English only. Weekday and month names come from fixed tables in this module.
+- The Gregorian calendar applies to every year.
+- Date-key arithmetic is calendar arithmetic (for example through `Date.UTC` and the `getUTC*` getters, or plain integer day counts). It never adds multiples of 86,400,000 ms to a local time, so a 23 or 25 hour day (a DST change) cannot skip or repeat a day.
+
+## Requirements
+
+### Dates
+
+- **R1.** `localDateKey(date)` returns the local calendar day of the given instant as `YYYY-MM-DD`, built from `getFullYear()`, `getMonth() + 1` and `getDate()` (local, never the UTC getters), year as 4 digits, month and day zero-padded to 2 digits.
+  Examples: `new Date(2026, 9, 8, 0, 0, 0, 0)` gives `"2026-10-08"`. `new Date(2026, 9, 8, 23, 59, 59, 999)` gives `"2026-10-08"`. `new Date(2027, 0, 1)` gives `"2027-01-01"`. With the process time zone `Asia/Kuala_Lumpur` (UTC+8), `new Date("2026-10-07T16:30:00Z")` gives `"2026-10-08"` although the UTC date is 7 October.
+
+- **R2.** `isDateKey(value)` returns `true` only when `value` is a string matching `^\d{4}-\d{2}-\d{2}$` whose year is 0001 or later, whose month is 01 to 12 and whose day is 01 to the last day of that month. February has 29 days when the year is divisible by 4 and not by 100, or divisible by 400. Every other value returns `false`.
+  True: `"2026-10-08"`, `"2028-02-29"`, `"2000-02-29"`, `"2026-12-31"`. False: `"2026-02-29"`, `"2100-02-29"`, `"2026-13-01"`, `"2026-00-10"`, `"2026-04-31"`, `"2026-1-1"`, `"2026-10-08T00:00"`, `" 2026-10-08"`, `"0000-01-01"`, the number `20261008`, `null`, `undefined`, `{}`.
+
+- **R3.** `addDays(key, days)` returns the date key `days` calendar days after `key` (a negative number goes back). The result does not depend on the process time zone.
+  Examples: `("2026-10-08", -6)` gives `"2026-10-02"`. `("2026-12-31", 1)` gives `"2027-01-01"`. `("2028-02-28", 1)` gives `"2028-02-29"`. `("2026-02-28", 1)` gives `"2026-03-01"`. `("2026-07-20", 83)` gives `"2026-10-11"`. `("2026-10-05", -77)` gives `"2026-07-20"`. With the process time zone `America/New_York` (DST starts 2026-03-08, ends 2026-11-01): `("2026-03-07", 1)` gives `"2026-03-08"`, `("2026-03-08", 1)` gives `"2026-03-09"`, `("2026-11-01", 1)` gives `"2026-11-02"`, `("2026-11-02", -1)` gives `"2026-11-01"`.
+
+- **R4.** English date labels from fixed tables, the same under every runtime locale (no `Intl`, no `toLocale*`):
+  - `dayParts(key)` returns `{ weekday, day, month }`. `weekday` is one of `Mon Tue Wed Thu Fri Sat Sun`. `day` is the day of the month as a number. `month` is one of `Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec`.
+  - `shortDate(key)` returns `"<weekday> <day> <month>"` with no zero padding, for example `"Tue 6 Oct"`, `"Mon 20 Jul"`, `"Sat 1 Aug"`.
+  - `longDate(key)` returns `"<weekday> <day> <month>"` with the full names `Monday` to `Sunday` and `January` to `December`, for example `"2026-10-08"` gives `"Thursday 8 October"` and `"2027-01-01"` gives `"Friday 1 January"`.
+  The week 2026-10-05 (Monday) to 2026-10-11 (Sunday) covers every weekday name. The 15th of each month of 2026 covers every month name.
+
+### Week strip and streaks
+
+- **R5.** `weekWindow(todayKey)` returns 7 date keys, from `todayKey` minus 6 days to `todayKey`, oldest first (brainstorm: "7 cells, oldest on the left, today on the right").
+  Examples: `"2026-10-08"` gives `["2026-10-02", "2026-10-03", "2026-10-04", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08"]`. `"2027-01-03"` gives `["2026-12-28", "2026-12-29", "2026-12-30", "2026-12-31", "2027-01-01", "2027-01-02", "2027-01-03"]`.
+
+- **R6.** `currentStreak(done, todayKey)` (brainstorm C3, "counted so it does not break until today is over"). If `todayKey` is in `done`, count consecutive done days going back from `todayKey`. Otherwise count consecutive done days going back from the day before `todayKey`. Return that count, which is 0 when the starting day is not done. Order and duplicates in `done` do not change the result. Days after `todayKey` never count.
+  Worked examples from `sample-history.json`, today `2026-10-08`:
+  - "Read 20 pages" gives 6: 8, 7, 6, 5, 4 and 3 Oct are done, 2 Oct is not.
+  - "Stretch 10 minutes" gives 3: today is not done, so counting starts at 7 Oct. 7, 6 and 5 Oct are done, 4 Oct is not.
+  - "No phone after 11pm" gives 1: 8 Oct is done, 7 Oct is not.
+  Same data, today `2026-10-09`: Read gives 6 (it still holds), Stretch gives 0, No phone gives 1.
+  Small cases, today `2026-10-08`: `[]` gives 0. `["2026-10-07"]` gives 1. `["2026-10-06"]` gives 0. `["2026-10-09"]` gives 0. `["2026-10-08", "2026-10-08"]` gives 1. `["2026-09-30", "2026-10-01"]` gives 0.
+
+- **R7.** `bestStreak(done)` (brainstorm C4) returns the length of the longest run of consecutive calendar days in `done`, over every entry, including entries older than the strip or the heatmap and entries after today. It returns 0 when `done` is empty. Duplicates do not lengthen a run.
+  Worked examples: sample "Read 20 pages" gives 14 (2026-09-07 to 2026-09-20). "Stretch 10 minutes" gives 9 (2026-08-18 to 2026-08-26). "No phone after 11pm" gives 4 (2026-08-22 to 2026-08-25). `["2026-12-30", "2026-12-31", "2027-01-01"]` gives 3. `["2028-02-28", "2028-02-29", "2028-03-01"]` gives 3. `["2026-02-28", "2026-03-01"]` gives 2. `["2026-10-08", "2026-10-08"]` gives 1. `["2026-10-01", "2026-10-03"]` gives 1. `[]` gives 0.
+
+- **R8.** `runContinues(done, todayKey)` returns `true` exactly when both the first day of the week window (`todayKey` minus 6) and the day before it (`todayKey` minus 7) are in `done` (system.md, "Run carried in"). The app writes it as the `data-run-continues` attribute.
+  Worked examples, today 2026-10-08: Stretch gives true (1 and 2 Oct are done). Read gives false (2 Oct is not done, although 1 Oct is). No phone gives false. Today 2026-10-09: Read false, Stretch true (2 and 3 Oct done), No phone false.
+
+- **R9.** `toggleDay(habits, index, dateKey, todayKey)` returns a new habits array in which the habit at `index` has `dateKey` added to its `done` when absent, or removed when present, with `done` kept in ascending order without duplicates. Only the 7 days of `weekWindow(todayKey)` can change (brainstorm: "Only these 7 days can be changed"). When `dateKey` is outside the window, or `index` is not an integer index of `habits`, the function returns a new array equal in content to `habits`. The other habits keep their content and order.
+  Examples with the sample and today 2026-10-08: toggling 2026-10-08 on Stretch (index 1) adds it, and Stretch's current streak becomes 4. Toggling 2026-10-08 on Read (index 0) removes it, and Read's current streak becomes 5. Toggling 2026-10-01 or 2026-10-09 on any habit changes nothing. Index 3 or -1 changes nothing.
+
+### Heatmap
+
+- **R10.** `heatmapCells(habits, todayKey)` returns 84 cells covering 12 weeks (brainstorm C5). Column 12 is the Monday to Sunday week that contains `todayKey`. Column 1 starts on the Monday 11 weeks before that week's Monday. Cells come in column-major order (column 1 from Monday to Sunday, then column 2, and so on). Row 1 is Monday, row 7 is Sunday. For each cell:
+  - `future` is true when the key is after `todayKey`. A future cell has `count` and `level` set to `null`.
+  - `today` is true only for `todayKey`.
+  - `total` is `habits.length`.
+  - `count` is the number of habits whose `done` contains the key.
+  - `level` is `heatLevel(count, total)`.
+  Worked examples: today 2026-10-08 (a Thursday) gives a first cell 2026-07-20 (column 1, row 1), a last cell 2026-10-11 (column 12, row 7), today at column 12 row 4, 81 cells up to today and 3 future cells (2026-10-09 to 2026-10-11). Today 2026-10-11 (Sunday) gives the same range with 0 future cells. Today 2026-10-05 (Monday) gives the same range with 6 future cells. Today 2026-10-12 (Monday) gives 2026-07-27 to 2026-10-18 with 6 future cells. Today 2027-01-07 gives 2026-10-19 to 2027-01-10. With no habits every cell up to today has `count` 0, `total` 0 and `level` 0.
+
+- **R11.** `heatLevel(count, total)` (brainstorm: "the share of the current habits done that day") uses integer arithmetic only. It returns 0 when `count` is 0 or `total` is 0, 4 when `count` equals `total`, else 1 when `3 * count <= total` (up to a third, inclusive), else 2 when `3 * count <= 2 * total` (up to two thirds, inclusive), else 3 (more than two thirds, not all). The goldens confirm both boundaries are inclusive: 1 of 3 is level 1 and 2 of 3 is level 2.
+  Levels for count = 0 up to total:
+
+  | total | levels |
+  |---|---|
+  | 1 | 0 4 |
+  | 2 | 0 2 4 |
+  | 3 | 0 1 2 4 |
+  | 4 | 0 1 2 3 4 |
+  | 5 | 0 1 2 2 3 4 |
+  | 6 | 0 1 1 2 2 3 4 |
+  | 12 | 0 1 1 1 1 2 2 2 2 3 3 3 4 |
+
+  With `sample-history.json` and today 2026-10-08, the 81 levels equal `heatmapLevels` in that file (3 cells at level 0, 30 at 1, 28 at 2, none at 3, 20 at 4).
+
+- **R12.** `monthLabels(todayKey)` returns `{ column, month }` entries for the heatmap's month axis (system.md, Axes: "Month labels sit over the first column whose Monday falls in that month"). Column 1 is always labelled with the short month of its Monday. A later column is labelled when its Monday is in a different month from the previous column's Monday. A month whose days appear only after a column's Monday gets no label.
+  Worked examples: 2026-10-08 gives Jul 1, Aug 3, Sep 8, Oct 12 (the golden's axis). 2026-10-12 gives Jul 1, Aug 2, Sep 7, Oct 11. 2027-01-07 gives Oct 1, Nov 3, Dec 8, Jan 12. 2026-03-31 gives Jan 1, Feb 4, Mar 8 and no Apr label, although 1 to 5 April sit in column 12.
+
+### Names and the habit list
+
+- **R13.** `validateName(raw, existingNames)` (brainstorm, Habit name. RULINGS rule 3) trims `raw` with `String.prototype.trim`, then checks in this order and returns the first failure:
+  1. empty gives `{ ok: false, error: "empty" }`;
+  2. more than 40 Unicode code points (`Array.from(name).length > 40`, CG-8 ruled 2026-10-08, ORCH) gives `{ ok: false, error: "too-long" }`;
+  3. equal to an existing name when both are lower-cased with `toLowerCase()` gives `{ ok: false, error: "duplicate" }`.
+  Otherwise it returns `{ ok: true, name: <the trimmed name> }`.
+  Examples with existing names `["Read 20 pages", "Stretch 10 minutes", "No phone after 11pm"]`: `""` is empty. `"   "` is empty. `"Walk to the end of the street and back after dinner"` (51 code points) is too long. `"Read twenty pages before bed every night"` (40) is ok. `"Read twenty pages before bed every night."` (41) is too long. `"  Drink water  "` is ok with name `"Drink water"`. `"read 20 pages"` is a duplicate. `" STRETCH 10 MINUTES "` is a duplicate. A 41 code point name that also matches an existing name is too long (order). A name of 40 emoji (40 code points, 80 UTF-16 units) is ok.
+
+- **R14.** `addHabit(habits, raw)`. When `habits.length` is 12 or more it returns `{ ok: false, error: "limit" }` without checking the name (brainstorm: "At most 12 habits"). Otherwise it runs `validateName(raw, <names of habits>)` and returns its failure unchanged. On success it returns `{ ok: true, habits: <new array> }`: the old habits in their order followed by `{ name: <trimmed name>, done: [] }` (brainstorm: "New habits go to the bottom").
+  Examples: adding `"Drink water"` to the 3 sample habits gives 4 habits with "Drink water" last. Adding to 11 habits gives 12. Adding to 12 habits gives `limit`. Adding `"read 20 pages"` to the sample gives `duplicate`.
+
+- **R15.** `deleteHabit(habits, index)` returns a new array without the habit at `index`, the others in their order. When `index` is not an integer index of `habits` it returns a new array equal in content to `habits`.
+  Example: deleting index 0 of the sample gives `["Stretch 10 minutes", "No phone after 11pm"]` with their `done` arrays unchanged.
+
+### Purity
+
+- **R16.** The module is pure and deterministic. `src/dates.js` and `src/habits.js` contain no `Date.now(`, no `new Date()` without arguments, and none of `document`, `window`, `localStorage`, `globalThis`, `Intl` or `toLocale`. `habits.js` imports only `./dates.js` and `dates.js` imports nothing. No exported function changes its arguments (checked by calling every function with deep-frozen inputs, which throw on any write in strict-mode ES modules).
+  Changed 2026-10-08 (plan-check flag, ORCH): the ban on `document`, `window`, `localStorage`, `globalThis`, `Intl` and `toLocale` applies to code, as whole words, with comments removed first, so a function comment may say "the week window". `Date.now(` and `new Date()` without arguments stay banned anywhere in the file text, comments included, so a comment must not spell them. The sentence above first applied the word ban to the whole file text.
+
+## Contracts
+
+### Files
+`src/dates.js` and `src/habits.js`. Nothing else in `src/` belongs to this module.
+
+### Types (JSDoc in the source)
+```js
+/** @typedef {string} DateKey  "YYYY-MM-DD", a local calendar day */
+/** @typedef {{ name: string, done: DateKey[] }} Habit  done ascending, no duplicates */
+/** @typedef {{ key: DateKey, column: number, row: number, today: boolean, future: boolean,
+ *              count: number | null, total: number, level: 0 | 1 | 2 | 3 | 4 | null }} HeatCell */
+/** @typedef {{ column: number, month: string }} MonthLabel */
+/** @typedef {{ ok: true, name: string } | { ok: false, error: "empty" | "too-long" | "duplicate" }} NameCheck */
+/** @typedef {{ ok: true, habits: Habit[] } | { ok: false, error: "limit" | "empty" | "too-long" | "duplicate" }} AddResult */
+```
+The `Habit` shape is the same as a habit in `sample-history.json` and in the app's stored state.
+
+### `src/dates.js` exports
+| Export | Signature | Requirement |
+|---|---|---|
+| `localDateKey` | `(date: Date) => DateKey` | R1 |
+| `isDateKey` | `(value: unknown) => boolean` | R2 |
+| `addDays` | `(key: DateKey, days: number) => DateKey` | R3 |
+| `dayParts` | `(key: DateKey) => { weekday: string, day: number, month: string }` | R4 |
+| `shortDate` | `(key: DateKey) => string` | R4 |
+| `longDate` | `(key: DateKey) => string` | R4 |
+
+### `src/habits.js` exports
+| Export | Signature | Requirement |
+|---|---|---|
+| `MAX_HABITS` | `12` | R14 |
+| `MAX_NAME_LENGTH` | `40` | R13 |
+| `weekWindow` | `(todayKey: DateKey) => DateKey[]` (length 7) | R5 |
+| `currentStreak` | `(done: readonly DateKey[], todayKey: DateKey) => number` | R6 |
+| `bestStreak` | `(done: readonly DateKey[]) => number` | R7 |
+| `runContinues` | `(done: readonly DateKey[], todayKey: DateKey) => boolean` | R8 |
+| `toggleDay` | `(habits: readonly Habit[], index: number, dateKey: DateKey, todayKey: DateKey) => Habit[]` | R9 |
+| `heatmapCells` | `(habits: readonly Habit[], todayKey: DateKey) => HeatCell[]` (length 84) | R10 |
+| `heatLevel` | `(count: number, total: number) => 0 \| 1 \| 2 \| 3 \| 4` | R11 |
+| `monthLabels` | `(todayKey: DateKey) => MonthLabel[]` | R12 |
+| `validateName` | `(raw: string, existingNames: readonly string[]) => NameCheck` | R13 |
+| `addHabit` | `(habits: readonly Habit[], raw: string) => AddResult` | R14 |
+| `deleteHabit` | `(habits: readonly Habit[], index: number) => Habit[]` | R15 |
+
+Nothing else is exported. User-facing copy (streak text such as "6 days", error messages, accessible names such as "Mark Tue 6 Oct as done") belongs to `app`, which builds it from these values. The date labels of R4 are the one exception, because they are the date-key concern.
+
+### Persistence / state
+None. The module holds no state between calls.
+
+### Tests
+- Files: `tests/dates.test.js`, `tests/habits.test.js`, `tests/sample-history.test.js`, `tests/purity.test.js`. Node's `node:test` and `node:assert/strict` only.
+- `tests/sample-history.test.js` reads `docs/design/sample-history.json` read-only (for example `import sample from "../docs/design/sample-history.json" with { type: "json" }`, which Node 24 supports). No test writes anywhere under `docs/`.
+- Time-zone cases set `process.env.TZ` inside the test before they build any `Date`. Node 24 applies the new zone at once (measured 2026-10-08: noon 7 March to noon 8 March 2026 is 23 hours under `America/New_York`). Each test file runs in its own process, so a zone set in one file does not leak into another.
+- Command, from the project root: `node --test "tests/**/*.test.js"` (the CLAUDE.md command. The earlier form `node --test tests/` exits 1 on Node 24.11.1, measured 2026-10-08). No `package.json` is needed: Node 24 detects ES module syntax in `.js` files (measured, no warning).
+- Each `test()` title starts with the tag or tags of the qa.md scenario it implements, for example `@R6 Stretch holds at 3 days while today is open`, so the QA finder can map results to R numbers.
+
+## Tasks
+> Atomic, ordered, one commit each. Each commit carries the code and the tests that prove it.
+1. [ ] `src/dates.js` with `localDateKey`, `isDateKey`, `addDays`, `dayParts`, `shortDate`, `longDate`, and `tests/dates.test.js` with every R1 to R4 scenario in qa.md. → R1, R2, R3, R4
+2. [ ] `src/habits.js`, part 1: the constants, `weekWindow`, `currentStreak`, `bestStreak`, `runContinues`, `toggleDay`, and their scenarios in `tests/habits.test.js`. → R5, R6, R7, R8, R9
+3. [ ] `src/habits.js`, part 2: `heatLevel`, `heatmapCells`, `monthLabels`, and their scenarios. → R10, R11, R12
+4. [ ] `src/habits.js`, part 3: `validateName`, `addHabit`, `deleteHabit`, and their scenarios. → R13, R14, R15
+5. [ ] `tests/sample-history.test.js` (every golden value from the sample) and `tests/purity.test.js` (source scan and deep-frozen inputs). → R5, R6, R7, R8, R10, R11, R12, R16
+
+## Threat model
+> Feeds the security gate. This module has no I/O. Its risks are wrong values and broken invariants.
+
+| Asset | Boundary | Threat | Required mitigation |
+|---|---|---|---|
+| The day the user sees as "today", and every streak built on it | `Date` instant into `localDateKey` | A UTC getter or millisecond arithmetic shifts the day near midnight or across a DST change, so streaks break or double count | R1 uses the local getters. R3 uses calendar arithmetic. Tests under `Asia/Kuala_Lumpur` and `America/New_York` (qa.md). |
+| Deterministic, testable results | the whole module | A hidden clock read makes results depend on when they run, and the midnight rollover becomes untestable | `todayKey` is always an argument. R16 scans the source for clock reads. |
+| English copy | label functions | `Intl` or `toLocale*` returns another language or other digits on a non-English device | Fixed tables (R4). R16 scans for `Intl` and `toLocale`. |
+| Responsiveness with tampered stored data | strings from storage reach `isDateKey` and `validateName` through the app's decoder | A pathological string causes catastrophic regex backtracking | Only the anchored, linear pattern `^\d{4}-\d{2}-\d{2}$`. Name length is counted in one linear pass. No other regular expression runs on stored data. |
+| The app's in-memory state | arrays passed in by the app | A function mutates its input and the screen, the saved data and the logic disagree | Pure functions returning new arrays (R16, frozen-input tests). |
+| The app's invariants: at most 12 habits, valid unique names, only the last 7 days editable | `addHabit`, `toggleDay` | A caller bypasses the rules through the API | `addHabit` checks the limit, then the name (R14). `toggleDay` refuses dates outside the window (R9). |
+| Object integrity | habit objects | Prototype pollution through copying objects key by key | New habits are built as literal `{ name, done }` objects. No `Object.assign` or spread of objects whose keys come from data. |
+
+## Non-goals
+> Explicit "do NOT build". Building any of these is a defect.
+- No DOM access, rendering, CSS, event handling, storage access, storage format or decoding (all owned by `app`).
+- No reading of the clock and no timers.
+- No `Intl`, no locale support, no languages other than English.
+- No time zones stored or converted, no UTC day keys.
+- No user-facing copy other than the R4 date labels.
+- No caching or memoisation layer.
+- From the brainstorm's non-goals, where they touch logic:
+  - No weekly targets ("3 times a week") or any schedule other than daily.
+  - No renaming or reordering habits: no rename or move function.
+  - No editing of days older than the last 7: `toggleDay` refuses them.
+  - No more than one tick per day, no notes, no amounts: `done` is a set of days.
+  - No stats beyond current streak, best streak and the heatmap: no totals, averages, rates or per-habit heatmaps.
+  - No export or import.
+
+## Roadmap
+- **Build order:** 1 of 2. No dependencies, so it is built first.
+- **Nature:** logic (no FE, no BE).
+- **Done when:** functional QA green (`node --test "tests/**/*.test.js"`, every `@R` scenario passing), code review pass, security pass. No fidelity gate (it renders nothing). Its live behaviour is proven by `app`'s cold-boot live-e2e gate, which uses every export.
+- **Unblocks:** `app`.

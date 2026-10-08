@@ -5,3 +5,4 @@ Every row ends STOPPED and verified free, or deliberately running and named in t
 
 | # | phase | owner | what | PID | port | started | purpose | stopped at | verified free |
 |---|---|---|---|---|---|---|---|---|---|
+| 1 | plan | sdlc-planner | headless Chromium and node, foreground probes with timeout caps | not recorded | none | 2026-10-08 ~22:30 | feasibility probes (backdrop, CSP, hidden tab) | closed in script | yes, agent sweep by command line found none |
