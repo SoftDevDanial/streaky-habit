@@ -1,0 +1,680 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Streaks</title>
+<!--
+  Direction A: Wall calendar.
+  Thesis: do not break the chain. Each habit is a strip torn from a printed wall calendar
+  (perforated top edge, printed weekday band, date numeral in the corner of each box).
+  A done day is crossed off with a bold marker cross.
+  The 12-week heatmap is a year-planner page pinned beside the strips.
+
+  Two inks, two meanings:
+    printed ink (navy graphite) is the calendar itself: text, rules, actions, today;
+    the marker (green) is what the person did: crosses, streak counts, heatmap fills. Nothing else is green.
+
+  Keeping the cross positive, not "wrong":
+    the marker is green, never red;
+    a crossed box is also highlighted, so a run of done days reads as one unbroken green band (the chain);
+    the current streak above the strip is printed in the same marker green.
+  Done and not done differ by shape (the cross) and fill, not colour alone.
+
+  Order on the phone: header, habit strips, add field, heatmap. The strips come first because the
+  one job is "what is done today, how long is each run, tap to tick". On desktop the planner page sits
+  in its own column to the right.
+
+  Shape rule: everything printed or paper is square cornered. The only rounded shapes are marker strokes.
+  Fonts: system stacks only. Bahnschrift (Windows) or DIN Alternate (Apple) for calendar numerals and
+  headings, the system UI face for everything else.
+-->
+<style>
+  :root {
+    /* Wall and paper */
+    --wall: #E1E5EA;
+    --paper: #FBFCFD;
+    --paper-hover: #F1F4F7;
+    --band: #ECEFF3;
+
+    /* Printed ink */
+    --ink: #1C2433;
+    --ink-hover: #343E50;
+    --ink-muted: #535C6B;
+    --rule: #CBD2DA;
+    --rule-strong: #8E98A6;
+
+    /* The marker: the only accent, used only for done */
+    --marker: #0E7A4E;
+    --marker-tint: #DCEFE4;
+    --marker-tint-hover: #CDE8D8;
+    --marker-seam: #B4DCC6;
+
+    /* Heatmap levels, share of habits done that day */
+    --heat-0: #FBFCFD;
+    --heat-0-edge: #AEB7C3;
+    --heat-1: #C5E6D3;
+    --heat-2: #7DC6A1;
+    --heat-3: #34986B;
+    --heat-4: #0E7A4E;
+
+    /* Shadows tinted to the ink, focus, mask helpers */
+    --shadow-edge: rgb(28 36 51 / 0.16);
+    --shadow-soft: rgb(28 36 51 / 0.10);
+    --focus: #1C2433;
+    --clear: transparent;
+    --mask-keep: #000; /* mask alpha only, never painted */
+
+    --font-display: Bahnschrift, "DIN Alternate", "Avenir Next Condensed", "Roboto Condensed", "Arial Narrow", sans-serif;
+    --font-body: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    background: var(--wall);
+    color: var(--ink);
+    font: 16px/1.5 var(--font-body);
+  }
+
+  .vh {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  button, input { font: inherit; color: inherit; }
+
+  :focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  /* Page frame */
+  .page {
+    max-width: 592px;
+    margin: 0 auto;
+    padding: 20px 16px 48px;
+  }
+
+  .masthead { margin: 0 0 20px; }
+
+  .masthead h1 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+
+  .masthead p {
+    margin: 4px 0 0;
+    color: var(--ink-muted);
+  }
+
+  .layout {
+    display: grid;
+    gap: 28px;
+  }
+
+  .col-habits {
+    display: grid;
+    gap: 24px;
+    align-content: start;
+  }
+
+  /* Habit strips */
+  .habits {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 18px;
+  }
+
+  .habit {
+    filter: drop-shadow(0 1px 0 var(--shadow-edge)) drop-shadow(0 6px 8px var(--shadow-soft));
+  }
+
+  .strip {
+    position: relative;
+    background: var(--paper);
+    padding: 16px 12px 12px;
+    /* Perforated top edge: half holes left where the strip was torn off the calendar */
+    -webkit-mask: radial-gradient(circle at 50% 0, var(--clear) 3px, var(--mask-keep) 3.5px) 0 0 / 10px 100% repeat-x;
+    mask: radial-gradient(circle at 50% 0, var(--clear) 3px, var(--mask-keep) 3.5px) 0 0 / 10px 100% repeat-x;
+  }
+
+  .strip-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .habit-name {
+    margin: 0;
+    padding-top: 2px;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+  }
+
+  .del {
+    flex: none;
+    min-width: 44px;
+    min-height: 44px;
+    margin: -10px -6px -10px 0;
+    padding: 0 8px;
+    border: 0;
+    background: var(--clear);
+    color: var(--ink-muted);
+    font-size: 14px;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    cursor: pointer;
+  }
+
+  .del:hover { color: var(--ink); }
+
+  .streak {
+    margin: 2px 0 12px;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+
+  .now {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 26px;
+    line-height: 1;
+    color: var(--marker);
+  }
+
+  .best {
+    font-size: 14px;
+    color: var(--ink-muted);
+  }
+
+  /* The week: one row torn from a printed month grid */
+  .week {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    border: 1px solid var(--rule-strong);
+    background: var(--paper);
+  }
+
+  .day {
+    --x-len: 30px;
+    position: relative;
+    display: grid;
+    grid-template-rows: 24px 1fr;
+    min-height: 78px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-left: 1px solid var(--rule);
+    background: var(--paper);
+    text-align: left;
+    cursor: pointer;
+    -webkit-tap-highlight-color: var(--clear);
+  }
+
+  .day:first-child { border-left: 0; }
+
+  .wd {
+    display: flex;
+    align-items: center;
+    padding: 0 6px;
+    background: var(--band);
+    border-bottom: 1px solid var(--rule);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--ink-muted);
+  }
+
+  .dn {
+    align-self: start;
+    padding: 5px 6px 0;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* The marker cross: two rounded strokes, slightly off square like a real hand.
+     It sits in the box's writing space, below and right of the printed numeral. */
+  .day::before,
+  .day::after {
+    content: "";
+    position: absolute;
+    left: 58%;
+    top: calc(24px + (100% - 24px) * 0.65);
+    width: var(--x-len);
+    height: 5px;
+    border-radius: 3px;
+    background: var(--marker);
+    mix-blend-mode: multiply;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .day::before { transform: translate(-50%, -50%) rotate(43deg); }
+  .day::after { transform: translate(-50%, -50%) rotate(-47deg); }
+
+  .day[aria-pressed="true"] { background: var(--marker-tint); }
+
+  .day[aria-pressed="true"]::before,
+  .day[aria-pressed="true"]::after { opacity: 1; }
+
+  /* Consecutive crossed days join into one band: the chain */
+  .day[aria-pressed="true"] + .day[aria-pressed="true"] { border-left-color: var(--marker-seam); }
+
+  /* Today: the column circled in ink */
+  .day.is-today { box-shadow: inset 0 0 0 2px var(--ink); }
+
+  .day.is-today .wd {
+    background: var(--ink);
+    border-bottom-color: var(--ink);
+    color: var(--paper);
+  }
+
+  .day:focus-visible {
+    z-index: 1;
+    outline-offset: 2px;
+  }
+
+  .day:active { background: var(--band); }
+  .day[aria-pressed="true"]:active { background: var(--marker-tint-hover); }
+
+  @media (hover: hover) {
+    .day:hover { background: var(--paper-hover); }
+    .day[aria-pressed="true"]:hover { background: var(--marker-tint-hover); }
+
+    /* Preview the cross before the tap */
+    .day[aria-pressed="false"]:hover::before,
+    .day[aria-pressed="false"]:hover::after { opacity: 0.3; }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .day::before,
+    .day::after { transition: opacity 0.15s ease-out; }
+  }
+
+  /* Add a habit */
+  .add {
+    display: grid;
+    gap: 8px;
+    margin: 0;
+  }
+
+  .add label {
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .add-row {
+    display: flex;
+    gap: 8px;
+  }
+
+  .add input {
+    flex: 1 1 auto;
+    min-width: 0;
+    height: 48px;
+    padding: 0 12px;
+    border: 2px solid var(--ink);
+    border-radius: 0;
+    background: var(--paper);
+    font-size: 16px;
+  }
+
+  .add button {
+    flex: none;
+    min-width: 88px;
+    height: 48px;
+    padding: 0 20px;
+    border: 2px solid var(--ink);
+    border-radius: 0;
+    background: var(--ink);
+    color: var(--paper);
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .add button:hover {
+    background: var(--ink-hover);
+    border-color: var(--ink-hover);
+  }
+
+  /* Year-planner page */
+  .planner {
+    background: var(--paper);
+    border-top: 4px solid var(--ink);
+    padding: 14px 14px 14px;
+    box-shadow: 0 1px 0 var(--shadow-edge), 0 6px 10px -2px var(--shadow-soft);
+  }
+
+  .planner h2 {
+    margin: 0 0 14px;
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .heat {
+    display: grid;
+    grid-template-columns: 16px repeat(12, minmax(0, 1fr));
+    grid-template-rows: auto repeat(7, auto);
+    grid-auto-flow: column;
+    gap: 3px;
+  }
+
+  .wdi {
+    align-self: center;
+    font-size: 12px;
+    line-height: 1;
+    color: var(--ink-muted);
+  }
+
+  .mo {
+    align-self: end;
+    padding-bottom: 5px;
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .hc {
+    position: relative;
+    aspect-ratio: 1;
+  }
+
+  .hc.l0 { background: var(--heat-0); box-shadow: inset 0 0 0 1px var(--heat-0-edge); }
+  .hc.l1 { background: var(--heat-1); }
+  .hc.l2 { background: var(--heat-2); }
+  .hc.l3 { background: var(--heat-3); }
+  .hc.l4 { background: var(--heat-4); }
+
+  .hc.is-today {
+    z-index: 1;
+    outline: 2px solid var(--ink);
+    outline-offset: 1px;
+  }
+
+  .legend {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4px;
+    margin: 14px 0 0;
+    font-size: 13px;
+    color: var(--ink-muted);
+  }
+
+  .legend .hc { width: 14px; aspect-ratio: 1; }
+  .legend-lab { margin: 0 4px; }
+
+  /* Narrow phones: give the seven boxes every pixel */
+  @media (max-width: 379px) {
+    .strip { padding: 16px 10px 10px; }
+    .wd { padding: 0 5px; }
+    .dn { padding: 5px 5px 0; }
+  }
+
+  /* Desktop: strips on the left, the planner page pinned beside them */
+  @media (min-width: 900px) {
+    .page {
+      max-width: 1040px;
+      padding: 48px 40px 64px;
+    }
+
+    .masthead { margin-bottom: 32px; }
+    .masthead h1 { font-size: 40px; }
+    .masthead p { font-size: 17px; }
+
+    .layout {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      gap: 48px;
+      align-items: start;
+    }
+
+    .strip { padding: 18px 18px 18px; }
+    .day { --x-len: 38px; min-height: 88px; }
+    .dn { font-size: 20px; }
+    .planner { padding: 18px 20px 20px; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <header class="masthead">
+      <h1>Streaks</h1>
+      <p><time datetime="2026-10-08">Thursday 8 October</time></p>
+    </header>
+
+    <main class="layout">
+      <div class="col-habits">
+        <section aria-labelledby="habits-h">
+          <h2 id="habits-h" class="vh">Habits</h2>
+          <ul class="habits">
+            <li class="habit">
+              <article class="strip" aria-labelledby="h1-name">
+                <div class="strip-head">
+                  <h3 class="habit-name" id="h1-name">Read 20 pages</h3>
+                  <button class="del" type="button" aria-label="Delete Read 20 pages">Delete</button>
+                </div>
+                <p class="streak"><span class="now">6 days</span> <span class="best">Best 14</span></p>
+                <div class="week" role="group" aria-labelledby="h1-name">
+                  <button class="day" type="button" aria-pressed="false" aria-label="Mark Fri 2 Oct as done"><span class="wd">Fri</span><span class="dn">2</span></button>
+                  <button class="day" type="button" aria-pressed="true" aria-label="Mark Sat 3 Oct as done"><span class="wd">Sat</span><span class="dn">3</span></button>
+                  <button class="day" type="button" aria-pressed="true" aria-label="Mark Sun 4 Oct as done"><span class="wd">Sun</span><span class="dn">4</span></button>
+                  <button class="day" type="button" aria-pressed="true" aria-label="Mark Mon 5 Oct as done"><span class="wd">Mon</span><span class="dn">5</span></button>
+                  <button class="day" type="button" aria-pressed="true" aria-label="Mark Tue 6 Oct as done"><span class="wd">Tue</span><span class="dn">6</span></button>
+                  <button class="day" type="button" aria-pressed="true" aria-label="Mark Wed 7 Oct as done"><span class="wd">Wed</span><span class="dn">7</span></button>
+                  <button class="day is-today" type="button" aria-pressed="true" aria-label="Mark Thu 8 Oct as done"><span class="wd">Thu</span><span class="dn">8</span></button>
+                </div>
+              </article>
+            </li>
+
+            <li class="habit">
+              <article class="strip" aria-labelledby="h2-name">
+                <div class="strip-head">
+                  <h3 class="habit-name" id="h2-name">Stretch 10 minutes</h3>
+                  <button class="del" type="button" aria-label="Delete Stretch 10 minutes">Delete</button>
+                </div>
+                <p class="streak"><span class="now">3 days</span> <span class="best">Best 9</span></p>
+                <div class="week" role="group" aria-labelledby="h2-name">
+                  <button class="day" type="button" aria-pressed="true" aria-label="Mark Fri 2 Oct as done"><span class="wd">Fri</span><span class="dn">2</span></button>
+                  <button class="day" type="button" aria-pressed="true" aria-label="Mark Sat 3 Oct as done"><span class="wd">Sat</span><span class="dn">3</span></button>
+                  <button class="day" type="button" aria-pressed="false" aria-label="Mark Sun 4 Oct as done"><span class="wd">Sun</span><span class="dn">4</span></button>
+                  <button class="day" type="button" aria-pressed="true" aria-label="Mark Mon 5 Oct as done"><span class="wd">Mon</span><span class="dn">5</span></button>
+                  <button class="day" type="button" aria-pressed="true" aria-label="Mark Tue 6 Oct as done"><span class="wd">Tue</span><span class="dn">6</span></button>
+                  <button class="day" type="button" aria-pressed="true" aria-label="Mark Wed 7 Oct as done"><span class="wd">Wed</span><span class="dn">7</span></button>
+                  <button class="day is-today" type="button" aria-pressed="false" aria-label="Mark Thu 8 Oct as done"><span class="wd">Thu</span><span class="dn">8</span></button>
+                </div>
+              </article>
+            </li>
+
+            <li class="habit">
+              <article class="strip" aria-labelledby="h3-name">
+                <div class="strip-head">
+                  <h3 class="habit-name" id="h3-name">No phone after 11pm</h3>
+                  <button class="del" type="button" aria-label="Delete No phone after 11pm">Delete</button>
+                </div>
+                <p class="streak"><span class="now">1 day</span> <span class="best">Best 4</span></p>
+                <div class="week" role="group" aria-labelledby="h3-name">
+                  <button class="day" type="button" aria-pressed="false" aria-label="Mark Fri 2 Oct as done"><span class="wd">Fri</span><span class="dn">2</span></button>
+                  <button class="day" type="button" aria-pressed="true" aria-label="Mark Sat 3 Oct as done"><span class="wd">Sat</span><span class="dn">3</span></button>
+                  <button class="day" type="button" aria-pressed="false" aria-label="Mark Sun 4 Oct as done"><span class="wd">Sun</span><span class="dn">4</span></button>
+                  <button class="day" type="button" aria-pressed="false" aria-label="Mark Mon 5 Oct as done"><span class="wd">Mon</span><span class="dn">5</span></button>
+                  <button class="day" type="button" aria-pressed="true" aria-label="Mark Tue 6 Oct as done"><span class="wd">Tue</span><span class="dn">6</span></button>
+                  <button class="day" type="button" aria-pressed="false" aria-label="Mark Wed 7 Oct as done"><span class="wd">Wed</span><span class="dn">7</span></button>
+                  <button class="day is-today" type="button" aria-pressed="true" aria-label="Mark Thu 8 Oct as done"><span class="wd">Thu</span><span class="dn">8</span></button>
+                </div>
+              </article>
+            </li>
+          </ul>
+        </section>
+
+        <form class="add" action="#" novalidate>
+          <label for="new-habit">New habit</label>
+          <div class="add-row">
+            <input id="new-habit" name="habit" type="text" autocomplete="off" spellcheck="false">
+            <button type="submit">Add</button>
+          </div>
+        </form>
+      </div>
+
+      <section class="planner" aria-labelledby="heat-h">
+        <h2 id="heat-h">Last 12 weeks</h2>
+        <div class="heat">
+          <span aria-hidden="true"></span>
+          <span class="wdi" aria-hidden="true">M</span>
+          <span class="wdi" aria-hidden="true">T</span>
+          <span class="wdi" aria-hidden="true">W</span>
+          <span class="wdi" aria-hidden="true">T</span>
+          <span class="wdi" aria-hidden="true">F</span>
+          <span class="wdi" aria-hidden="true">S</span>
+          <span class="wdi" aria-hidden="true">S</span>
+
+          <span class="mo" aria-hidden="true">Jul</span>
+          <span class="hc l2" role="img" aria-label="Mon 20 Jul, 2 of 3 habits"></span>
+          <span class="hc l1" role="img" aria-label="Tue 21 Jul, 1 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Wed 22 Jul, 2 of 3 habits"></span>
+          <span class="hc l4" role="img" aria-label="Thu 23 Jul, 3 of 3 habits"></span>
+          <span class="hc l1" role="img" aria-label="Fri 24 Jul, 1 of 3 habits"></span>
+          <span class="hc l0" role="img" aria-label="Sat 25 Jul, 0 of 3 habits"></span>
+          <span class="hc l1" role="img" aria-label="Sun 26 Jul, 1 of 3 habits"></span>
+          <span class="mo" aria-hidden="true"></span>
+          <span class="hc l2" role="img" aria-label="Mon 27 Jul, 2 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Tue 28 Jul, 2 of 3 habits"></span>
+          <span class="hc l4" role="img" aria-label="Wed 29 Jul, 3 of 3 habits"></span>
+          <span class="hc l1" role="img" aria-label="Thu 30 Jul, 1 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Fri 31 Jul, 2 of 3 habits"></span>
+          <span class="hc l0" role="img" aria-label="Sat 1 Aug, 0 of 3 habits"></span>
+          <span class="hc l1" role="img" aria-label="Sun 2 Aug, 1 of 3 habits"></span>
+          <span class="mo" aria-hidden="true">Aug</span>
+          <span class="hc l1" role="img" aria-label="Mon 3 Aug, 1 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Tue 4 Aug, 2 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Wed 5 Aug, 2 of 3 habits"></span>
+          <span class="hc l4" role="img" aria-label="Thu 6 Aug, 3 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Fri 7 Aug, 2 of 3 habits"></span>
+          <span class="hc l1" role="img" aria-label="Sat 8 Aug, 1 of 3 habits"></span>
+          <span class="hc l0" role="img" aria-label="Sun 9 Aug, 0 of 3 habits"></span>
+          <span class="mo" aria-hidden="true"></span>
+          <span class="hc l2" role="img" aria-label="Mon 10 Aug, 2 of 3 habits"></span>
+          <span class="hc l4" role="img" aria-label="Tue 11 Aug, 3 of 3 habits"></span>
+          <span class="hc l4" role="img" aria-label="Wed 12 Aug, 3 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Thu 13 Aug, 2 of 3 habits"></span>
+          <span class="hc l1" role="img" aria-label="Fri 14 Aug, 1 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Sat 15 Aug, 2 of 3 habits"></span>
+          <span class="hc l1" role="img" aria-label="Sun 16 Aug, 1 of 3 habits"></span>
+          <span class="mo" aria-hidden="true"></span>
+          <span class="hc l4" role="img" aria-label="Mon 17 Aug, 3 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Tue 18 Aug, 2 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Wed 19 Aug, 2 of 3 habits"></span>
+          <span class="hc l4" role="img" aria-label="Thu 20 Aug, 3 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Fri 21 Aug, 2 of 3 habits"></span>
+          <span class="hc l1" role="img" aria-label="Sat 22 Aug, 1 of 3 habits"></span>
+          <span class="hc l0" role="img" aria-label="Sun 23 Aug, 0 of 3 habits"></span>
+          <span class="mo" aria-hidden="true"></span>
+          <span class="hc l1" role="img" aria-label="Mon 24 Aug, 1 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Tue 25 Aug, 2 of 3 habits"></span>
+          <span class="hc l4" role="img" aria-label="Wed 26 Aug, 3 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Thu 27 Aug, 2 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Fri 28 Aug, 2 of 3 habits"></span>
+          <span class="hc l1" role="img" aria-label="Sat 29 Aug, 1 of 3 habits"></span>
+          <span class="hc l1" role="img" aria-label="Sun 30 Aug, 1 of 3 habits"></span>
+          <span class="mo" aria-hidden="true"></span>
+          <span class="hc l2" role="img" aria-label="Mon 31 Aug, 2 of 3 habits"></span>
+          <span class="hc l4" role="img" aria-label="Tue 1 Sep, 3 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Wed 2 Sep, 2 of 3 habits"></span>
+          <span class="hc l4" role="img" aria-label="Thu 3 Sep, 3 of 3 habits"></span>
+          <span class="hc l4" role="img" aria-label="Fri 4 Sep, 3 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Sat 5 Sep, 2 of 3 habits"></span>
+          <span class="hc l1" role="img" aria-label="Sun 6 Sep, 1 of 3 habits"></span>
+          <span class="mo" aria-hidden="true">Sep</span>
+          <span class="hc l2" role="img" aria-label="Mon 7 Sep, 2 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Tue 8 Sep, 2 of 3 habits"></span>
+          <span class="hc l4" role="img" aria-label="Wed 9 Sep, 3 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Thu 10 Sep, 2 of 3 habits"></span>
+          <span class="hc l1" role="img" aria-label="Fri 11 Sep, 1 of 3 habits"></span>
+          <span class="hc l0" role="img" aria-label="Sat 12 Sep, 0 of 3 habits"></span>
+          <span class="hc l1" role="img" aria-label="Sun 13 Sep, 1 of 3 habits"></span>
+          <span class="mo" aria-hidden="true"></span>
+          <span class="hc l1" role="img" aria-label="Mon 14 Sep, 1 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Tue 15 Sep, 2 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Wed 16 Sep, 2 of 3 habits"></span>
+          <span class="hc l4" role="img" aria-label="Thu 17 Sep, 3 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Fri 18 Sep, 2 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Sat 19 Sep, 2 of 3 habits"></span>
+          <span class="hc l1" role="img" aria-label="Sun 20 Sep, 1 of 3 habits"></span>
+          <span class="mo" aria-hidden="true"></span>
+          <span class="hc l4" role="img" aria-label="Mon 21 Sep, 3 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Tue 22 Sep, 2 of 3 habits"></span>
+          <span class="hc l4" role="img" aria-label="Wed 23 Sep, 3 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Thu 24 Sep, 2 of 3 habits"></span>
+          <span class="hc l1" role="img" aria-label="Fri 25 Sep, 1 of 3 habits"></span>
+          <span class="hc l1" role="img" aria-label="Sat 26 Sep, 1 of 3 habits"></span>
+          <span class="hc l0" role="img" aria-label="Sun 27 Sep, 0 of 3 habits"></span>
+          <span class="mo" aria-hidden="true"></span>
+          <span class="hc l2" role="img" aria-label="Mon 28 Sep, 2 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Tue 29 Sep, 2 of 3 habits"></span>
+          <span class="hc l1" role="img" aria-label="Wed 30 Sep, 1 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Thu 1 Oct, 2 of 3 habits"></span>
+          <span class="hc l1" role="img" aria-label="Fri 2 Oct, 1 of 3 habits"></span>
+          <span class="hc l4" role="img" aria-label="Sat 3 Oct, 3 of 3 habits"></span>
+          <span class="hc l1" role="img" aria-label="Sun 4 Oct, 1 of 3 habits"></span>
+          <span class="mo" aria-hidden="true">Oct</span>
+          <span class="hc l2" role="img" aria-label="Mon 5 Oct, 2 of 3 habits"></span>
+          <span class="hc l4" role="img" aria-label="Tue 6 Oct, 3 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Wed 7 Oct, 2 of 3 habits"></span>
+          <span class="hc l2 is-today" role="img" aria-label="Thu 8 Oct, 2 of 3 habits"></span>
+          <span class="hc future" aria-hidden="true"></span>
+          <span class="hc future" aria-hidden="true"></span>
+          <span class="hc future" aria-hidden="true"></span>
+        </div>
+
+        <div class="legend" aria-hidden="true">
+          <span class="legend-lab">None</span>
+          <span class="hc l0"></span>
+          <span class="hc l1"></span>
+          <span class="hc l2"></span>
+          <span class="hc l3"></span>
+          <span class="hc l4"></span>
+          <span class="legend-lab">All</span>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // Static design direction: keep the add form from reloading the page.
+    document.querySelector(".add").addEventListener("submit", function (event) {
+      event.preventDefault();
+    });
+  </script>
+</body>
+</html>

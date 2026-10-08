@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Streaks round 1 compare</title>
+<style>
+  :root {
+    --bg: #eceef1; --panel: #ffffff; --ink: #16181d; --muted: #545b66; --line: #d5d9df; --pick: #1f5fd1;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+    font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 1320px; margin: 0 auto; padding: 32px 16px 56px; }
+  h1 { font-size: 26px; margin: 0 0 4px; letter-spacing: -0.01em; }
+  .lede { color: var(--muted); margin: 0 0 24px; max-width: 70ch; }
+  .rec { background: var(--panel); border: 1px solid var(--line); border-left: 4px solid var(--pick);
+    padding: 16px 20px; margin: 0 0 28px; border-radius: 6px; max-width: 90ch; }
+  .rec h2 { font-size: 16px; margin: 0 0 6px; }
+  .rec p { margin: 0; }
+  .row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; align-items: start; }
+  .dir { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 16px; min-width: 0; }
+  .dir[data-pick] { border-color: var(--pick); box-shadow: 0 0 0 1px var(--pick); }
+  .tag { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin: 0; }
+  .dir[data-pick] .tag { color: var(--pick); font-weight: 600; }
+  .dir h2 { font-size: 18px; margin: 2px 0 4px; }
+  .thesis { margin: 0 0 12px; color: var(--muted); }
+  .frame { width: 100%; aspect-ratio: 390 / 844; overflow: hidden; border: 1px solid var(--line); border-radius: 6px; background: #fff; position: relative; }
+  .frame iframe { position: absolute; top: 0; left: 0; width: 390px; height: 844px; border: 0;
+    transform-origin: 0 0; }
+  dl { margin: 12px 0 0; }
+  dt { font-weight: 600; font-size: 13px; }
+  dd { margin: 0 0 8px; color: var(--muted); }
+  .open a { color: var(--pick); }
+  a:focus-visible { outline: 2px solid var(--pick); outline-offset: 2px; }
+  @media (max-width: 1000px) { .row { grid-template-columns: minmax(0, 1fr); max-width: 440px; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>Streaks, design round 1</h1>
+  <p class="lede">Three directions for the key screen, drawn independently from the same brief. Each frame is the phone view at 390 x 844 and scrolls. Open one full size to see the desktop layout.</p>
+  <section class="rec" aria-label="Recommendation">
+    <h2>Recommendation</h2>
+    <p>B, Quiet beads. The brief asks for steady, calm and rewarding, and B is the only direction where the streak itself is drawn rather than counted: done days are joined by a thread, so a run is visible at a glance, and a dashed thread runs from yesterday into today&#x27;s open bead, which shows the rule that a streak holds until today is over without a word of copy. A is a strong idea, but a cross still half reads as wrong and the boxed grid is busy. C makes the number the hero, which suits a sprint more than a routine, and its tall tiles push the add field and heatmap below the fold. One fix before locking B: heatmap levels 1 and 2 are too close, so they must differ more in size and tone.</p>
+  </section>
+  <div class="row">
+    <article class="dir">
+      <header>
+        <p class="tag">Direction A</p>
+        <h2>Wall calendar</h2>
+        <p class="thesis">Don&#x27;t break the chain, wall-calendar style.</p>
+      </header>
+      <div class="frame"><iframe src="a.html" title="Direction A, Wall calendar" loading="lazy"></iframe></div>
+      <dl>
+        <dt>Bets on</dt><dd>The familiar chain of crossed-off days. Green crosses and tinted boxes join a run into one band.</dd>
+        <dt>Costs</dt><dd>A cross can still read as wrong. The boxed grid adds noise and each habit takes about 220 px on a phone.</dd>
+      </dl>
+      <p class="open"><a href="a.html">Open full size</a></p>
+    </article>
+    <article class="dir" data-pick="true">
+      <header>
+        <p class="tag">Direction B · recommended</p>
+        <h2>Quiet beads</h2>
+        <p class="thesis">Calm progress, no guilt.</p>
+      </header>
+      <div class="frame"><iframe src="b.html" title="Direction B, Quiet beads" loading="lazy"></iframe></div>
+      <dl>
+        <dt>Bets on</dt><dd>Done days are filled beads joined by a thread, so a streak is a visible line. A dashed thread into today shows the streak still holds.</dd>
+        <dt>Costs</dt><dd>A long streak may feel quiet. Heatmap levels 1 and 2 are close in tone.</dd>
+      </dl>
+      <p class="open"><a href="b.html">Open full size</a></p>
+    </article>
+    <article class="dir">
+      <header>
+        <p class="tag">Direction C</p>
+        <h2>Scoreboard</h2>
+        <p class="thesis">The streak number is the hero.</p>
+      </header>
+      <div class="frame"><iframe src="c.html" title="Direction C, Scoreboard" loading="lazy"></iframe></div>
+      <dl>
+        <dt>Bets on</dt><dd>A big split-flap number per habit as the reward, a 7-segment bar beneath, an LED-matrix heatmap.</dd>
+        <dt>Costs</dt><dd>Loud numbers overpower the ticking. Tall tiles push the add field and heatmap below the first screen.</dd>
+      </dl>
+      <p class="open"><a href="c.html">Open full size</a></p>
+    </article>
+  </div>
+</main>
+<script>
+  // Scale each 390 px phone frame to the card width so the whole phone view fits.
+  function fit() {
+    document.querySelectorAll('.frame').forEach(function (f) {
+      f.querySelector('iframe').style.transform = 'scale(' + (f.clientWidth / 390) + ')';
+    });
+  }
+  window.addEventListener('resize', fit);
+  fit();
+</script>
+</body>
+</html>

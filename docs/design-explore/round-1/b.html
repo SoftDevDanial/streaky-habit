@@ -1,0 +1,649 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Streaks</title>
+<!--
+  Direction B, "Quiet beads".
+  Thesis: calm progress, no guilt. Each day is a bead on a thread. A done day is a filled bead with a
+  check. A run of done days is drawn as a thicker thread joining the beads. When yesterday is done and
+  today is still open, a dashed thread shows the run is still holding, without any warning copy.
+  The heatmap is a dot grid in the same bead language: more habits done means a larger, deeper bead.
+  Icons: Phosphor Icons (MIT), "check" in bold weight and "trash" in regular weight, paths inlined below.
+-->
+<style>
+  :root {
+    --bg: #F2F5F3;
+    --surface: #FAFCFB;
+    --field: #FDFEFE;
+    --ink: #1C2523;
+    --ink-soft: #52605B;
+    --bead: #3B6B60;
+    --bead-deep: #2E5A50;
+    --on-bead: #F7FAF9;
+    --ring: #7E8E88;
+    --thread: #C6D0CC;
+    --halo: #A9B6B2;
+    --hover-wash: #E5ECE9;
+    --focus: #1C2523;
+    --heat-0: #A9B6B2;
+    --heat-1: #B4CBC3;
+    --heat-2: #82A89C;
+    --heat-3: #5C8A7E;
+    --heat-4: #3B6B60;
+
+    --font: ui-rounded, "SF Pro Rounded", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --gutter: clamp(16px, 5vw, 24px);
+    --bead-size: clamp(32px, 9vw, 40px);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 400 16px/1.45 var(--font);
+    -webkit-font-smoothing: antialiased;
+  }
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  }
+
+  /* Page frame */
+  .page {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 20px var(--gutter) 48px;
+  }
+  .top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 4px 0 28px;
+  }
+  .brand {
+    margin: 0;
+    font-size: 21px;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+    color: var(--bead-deep);
+  }
+  .date {
+    margin: 0;
+    font-size: 15px;
+    color: var(--ink-soft);
+    text-align: right;
+  }
+
+  /* Habits */
+  .habits {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 34px;
+  }
+  .habit-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .habit-name {
+    margin: 0;
+    padding-top: 9px;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+  }
+  .del {
+    flex: none;
+    width: 44px;
+    height: 44px;
+    margin-right: -10px;
+    display: grid;
+    place-items: center;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--ink-soft);
+    cursor: pointer;
+  }
+  .del svg { width: 20px; height: 20px; }
+  .del:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+  .streak {
+    margin: -4px 0 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 14px;
+    font-size: 14px;
+    color: var(--ink-soft);
+    font-variant-numeric: tabular-nums;
+  }
+  .streak .cur { color: var(--bead-deep); font-weight: 600; }
+
+  /* The thread of seven beads */
+  .strip {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+  }
+  .day {
+    appearance: none;
+    -webkit-appearance: none;
+    margin: 0;
+    padding: 6px 0 8px;
+    min-height: 44px;
+    border: 0;
+    background: transparent;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .day:focus { outline: none; }
+  .day-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.15;
+  }
+  .wd { font-size: 12px; color: var(--ink-soft); }
+  .dm { font-size: 15px; font-weight: 500; font-variant-numeric: tabular-nums; }
+  .day[aria-current="date"] .wd { color: var(--ink); font-weight: 650; }
+  .day[aria-current="date"] .dm { font-weight: 650; }
+
+  .slot {
+    position: relative;
+    align-self: stretch;
+    height: var(--bead-size);
+    display: grid;
+    place-items: center;
+  }
+  /* Each slot draws its own half of the thread on each side of the bead. */
+  .slot::before,
+  .slot::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    height: 2px;
+    margin-top: -1px;
+    background: var(--thread);
+  }
+  .slot::before { left: 0; right: 50%; }
+  .slot::after { left: 50%; right: 0; }
+  /* Older days continue to the left, so the thread fades out there. Future days are never shown. */
+  .day:first-child .slot::before { background: linear-gradient(to right, transparent, var(--thread)); }
+  .day:last-child .slot::after { display: none; }
+
+  .bead {
+    position: relative;
+    z-index: 1;
+    width: var(--bead-size);
+    height: var(--bead-size);
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    border: 2px solid var(--ring);
+    background: var(--bg);
+    transition: background-color 180ms ease, border-color 180ms ease, transform 120ms ease;
+  }
+  .bead svg {
+    width: 56%;
+    height: 56%;
+    color: var(--on-bead);
+    opacity: 0;
+    transform: scale(0.6);
+    transition: opacity 160ms ease, transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .day[aria-pressed="true"] .bead {
+    background: var(--bead);
+    border-color: var(--bead);
+  }
+  .day[aria-pressed="true"] .bead svg { opacity: 1; transform: none; }
+
+  /* A run: two done days side by side are joined by a thick thread. */
+  .day[aria-pressed="true"] + .day[aria-pressed="true"] .slot::before,
+  .day[aria-pressed="true"]:has(+ .day[aria-pressed="true"]) .slot::after {
+    height: 4px;
+    margin-top: -2px;
+    background: var(--bead);
+  }
+  /* A run that started before the strip carries on to the left. */
+  .strip:not([data-carry="0"]) .day:first-child[aria-pressed="true"] .slot::before {
+    height: 4px;
+    margin-top: -2px;
+    background: linear-gradient(to right, transparent, var(--bead));
+  }
+  /* Holding: yesterday is done and today is still open, so the run is not broken. */
+  .day[aria-pressed="true"] + .day[aria-current="date"][aria-pressed="false"] .slot::before,
+  .day[aria-pressed="true"]:has(+ .day[aria-current="date"][aria-pressed="false"]) .slot::after {
+    height: 4px;
+    margin-top: -2px;
+    background: repeating-linear-gradient(to right, var(--bead) 0 5px, transparent 5px 10px);
+  }
+
+  .day[aria-current="date"] .bead {
+    box-shadow: 0 0 0 3px var(--bg), 0 0 0 4.5px var(--halo);
+  }
+  .day:focus-visible .bead {
+    box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--focus);
+  }
+  .day:active .bead { transform: scale(0.94); }
+
+  /* Add a habit */
+  .add { margin-top: 40px; }
+  .add label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .add-row { display: flex; gap: 10px; }
+  .add input {
+    flex: 1;
+    min-width: 0;
+    height: 48px;
+    padding: 0 18px;
+    border: 1.5px solid var(--ring);
+    border-radius: 999px;
+    background: var(--field);
+    color: var(--ink);
+    font: inherit;
+  }
+  .add input:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+  .add button {
+    flex: none;
+    height: 48px;
+    min-width: 76px;
+    padding: 0 24px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--bead);
+    color: var(--on-bead);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .add button:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+  .add button:active { transform: scale(0.98); }
+  .field-error { margin: 6px 0 0; min-height: 0; font-size: 14px; }
+  .field-error:empty { display: none; }
+
+  /* Heatmap: a dot grid of beads */
+  .heat {
+    margin-top: 40px;
+    padding: 20px 16px 18px;
+    border-radius: 20px;
+    background: var(--surface);
+  }
+  .heat h2 {
+    margin: 0 0 14px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .heat-grid {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: 8px;
+    row-gap: 4px;
+  }
+  .months {
+    grid-column: 2;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+  .months span { white-space: nowrap; }
+  .wdays {
+    grid-column: 1;
+    display: grid;
+    grid-template-rows: repeat(7, minmax(0, 1fr));
+    align-items: center;
+    font-size: 12px;
+    line-height: 1;
+    color: var(--ink-soft);
+  }
+  .cells {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-template-rows: repeat(7, auto);
+    grid-auto-flow: column;
+  }
+  .hc {
+    position: relative;
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+  }
+  .hc::before {
+    content: "";
+    width: var(--s, 0);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--c, transparent);
+    transition: width 180ms ease, background-color 180ms ease;
+  }
+  .l0 { --s: 30%; }
+  .l0::before { box-shadow: inset 0 0 0 1.5px var(--heat-0); }
+  .l1 { --s: 38%; --c: var(--heat-1); }
+  .l2 { --s: 52%; --c: var(--heat-2); }
+  .l3 { --s: 64%; --c: var(--heat-3); }
+  .l4 { --s: 78%; --c: var(--heat-4); }
+  .hc.today::after {
+    content: "";
+    position: absolute;
+    inset: 4%;
+    border-radius: 50%;
+    border: 1.5px solid var(--ink-soft);
+  }
+  .legend {
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 2px;
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+  .legend .hc { width: 20px; }
+  .legend span:first-child { margin-right: 4px; }
+  .legend span:last-child { margin-left: 4px; }
+
+  @media (hover: hover) {
+    .del:hover { background: var(--hover-wash); color: var(--ink); }
+    .day:hover .bead { border-color: var(--bead); }
+    .add button:hover { background: var(--bead-deep); }
+  }
+
+  @media (min-width: 900px) {
+    :root { --bead-size: 40px; }
+    .page { padding: 40px 48px 32px; }
+    .top { padding-bottom: 32px; }
+    .habits { gap: 28px; }
+    .day { padding: 4px 0 6px; }
+    .add { margin-top: 32px; }
+    .brand { font-size: 24px; }
+    .date { font-size: 17px; }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 380px;
+      gap: 72px;
+      align-items: start;
+    }
+    .heat { margin-top: 0; padding: 24px 22px 20px; position: sticky; top: 32px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+  }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-check" viewBox="0 0 256 256"><path fill="currentColor" d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 256 256"><path fill="currentColor" d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"/></symbol>
+</svg>
+
+<div class="page">
+  <header class="top">
+    <h1 class="brand">Streaks</h1>
+    <p class="date"><time datetime="2026-10-08">Thursday 8 October</time></p>
+  </header>
+
+  <main class="layout">
+    <div class="col-main">
+      <section aria-labelledby="habits-title">
+        <h2 id="habits-title" class="sr-only">Habits</h2>
+        <ul class="habits">
+
+          <!-- data-carry and data-best-before stand in for saved history older than the strip -->
+          <li class="habit">
+            <div class="habit-head">
+              <h3 class="habit-name" id="h1-name">Read 20 pages</h3>
+              <button class="del" type="button" aria-label="Delete Read 20 pages"><svg aria-hidden="true" focusable="false"><use href="#i-trash"/></svg></button>
+            </div>
+            <p class="streak" aria-live="polite"><span class="cur">6 days</span><span class="best">Best 14</span></p>
+            <div class="strip" role="group" aria-labelledby="h1-name" data-carry="3" data-best-before="14">
+              <button class="day" type="button" data-date="2026-10-02" aria-pressed="false" aria-label="Mark Fri 2 Oct as done"><span class="day-label" aria-hidden="true"><span class="wd">Fri</span><span class="dm">2</span></span><span class="slot" aria-hidden="true"><span class="bead"><svg focusable="false"><use href="#i-check"/></svg></span></span></button>
+              <button class="day" type="button" data-date="2026-10-03" aria-pressed="true" aria-label="Mark Sat 3 Oct as done"><span class="day-label" aria-hidden="true"><span class="wd">Sat</span><span class="dm">3</span></span><span class="slot" aria-hidden="true"><span class="bead"><svg focusable="false"><use href="#i-check"/></svg></span></span></button>
+              <button class="day" type="button" data-date="2026-10-04" aria-pressed="true" aria-label="Mark Sun 4 Oct as done"><span class="day-label" aria-hidden="true"><span class="wd">Sun</span><span class="dm">4</span></span><span class="slot" aria-hidden="true"><span class="bead"><svg focusable="false"><use href="#i-check"/></svg></span></span></button>
+              <button class="day" type="button" data-date="2026-10-05" aria-pressed="true" aria-label="Mark Mon 5 Oct as done"><span class="day-label" aria-hidden="true"><span class="wd">Mon</span><span class="dm">5</span></span><span class="slot" aria-hidden="true"><span class="bead"><svg focusable="false"><use href="#i-check"/></svg></span></span></button>
+              <button class="day" type="button" data-date="2026-10-06" aria-pressed="true" aria-label="Mark Tue 6 Oct as done"><span class="day-label" aria-hidden="true"><span class="wd">Tue</span><span class="dm">6</span></span><span class="slot" aria-hidden="true"><span class="bead"><svg focusable="false"><use href="#i-check"/></svg></span></span></button>
+              <button class="day" type="button" data-date="2026-10-07" aria-pressed="true" aria-label="Mark Wed 7 Oct as done"><span class="day-label" aria-hidden="true"><span class="wd">Wed</span><span class="dm">7</span></span><span class="slot" aria-hidden="true"><span class="bead"><svg focusable="false"><use href="#i-check"/></svg></span></span></button>
+              <button class="day" type="button" data-date="2026-10-08" aria-pressed="true" aria-current="date" aria-label="Mark Thu 8 Oct as done"><span class="day-label" aria-hidden="true"><span class="wd">Thu</span><span class="dm">8</span></span><span class="slot" aria-hidden="true"><span class="bead"><svg focusable="false"><use href="#i-check"/></svg></span></span></button>
+            </div>
+          </li>
+
+          <li class="habit">
+            <div class="habit-head">
+              <h3 class="habit-name" id="h2-name">Stretch 10 minutes</h3>
+              <button class="del" type="button" aria-label="Delete Stretch 10 minutes"><svg aria-hidden="true" focusable="false"><use href="#i-trash"/></svg></button>
+            </div>
+            <p class="streak" aria-live="polite"><span class="cur">3 days</span><span class="best">Best 9</span></p>
+            <div class="strip" role="group" aria-labelledby="h2-name" data-carry="1" data-best-before="9">
+              <button class="day" type="button" data-date="2026-10-02" aria-pressed="true" aria-label="Mark Fri 2 Oct as done"><span class="day-label" aria-hidden="true"><span class="wd">Fri</span><span class="dm">2</span></span><span class="slot" aria-hidden="true"><span class="bead"><svg focusable="false"><use href="#i-check"/></svg></span></span></button>
+              <button class="day" type="button" data-date="2026-10-03" aria-pressed="true" aria-label="Mark Sat 3 Oct as done"><span class="day-label" aria-hidden="true"><span class="wd">Sat</span><span class="dm">3</span></span><span class="slot" aria-hidden="true"><span class="bead"><svg focusable="false"><use href="#i-check"/></svg></span></span></button>
+              <button class="day" type="button" data-date="2026-10-04" aria-pressed="false" aria-label="Mark Sun 4 Oct as done"><span class="day-label" aria-hidden="true"><span class="wd">Sun</span><span class="dm">4</span></span><span class="slot" aria-hidden="true"><span class="bead"><svg focusable="false"><use href="#i-check"/></svg></span></span></button>
+              <button class="day" type="button" data-date="2026-10-05" aria-pressed="true" aria-label="Mark Mon 5 Oct as done"><span class="day-label" aria-hidden="true"><span class="wd">Mon</span><span class="dm">5</span></span><span class="slot" aria-hidden="true"><span class="bead"><svg focusable="false"><use href="#i-check"/></svg></span></span></button>
+              <button class="day" type="button" data-date="2026-10-06" aria-pressed="true" aria-label="Mark Tue 6 Oct as done"><span class="day-label" aria-hidden="true"><span class="wd">Tue</span><span class="dm">6</span></span><span class="slot" aria-hidden="true"><span class="bead"><svg focusable="false"><use href="#i-check"/></svg></span></span></button>
+              <button class="day" type="button" data-date="2026-10-07" aria-pressed="true" aria-label="Mark Wed 7 Oct as done"><span class="day-label" aria-hidden="true"><span class="wd">Wed</span><span class="dm">7</span></span><span class="slot" aria-hidden="true"><span class="bead"><svg focusable="false"><use href="#i-check"/></svg></span></span></button>
+              <button class="day" type="button" data-date="2026-10-08" aria-pressed="false" aria-current="date" aria-label="Mark Thu 8 Oct as done"><span class="day-label" aria-hidden="true"><span class="wd">Thu</span><span class="dm">8</span></span><span class="slot" aria-hidden="true"><span class="bead"><svg focusable="false"><use href="#i-check"/></svg></span></span></button>
+            </div>
+          </li>
+
+          <li class="habit">
+            <div class="habit-head">
+              <h3 class="habit-name" id="h3-name">No phone after 11pm</h3>
+              <button class="del" type="button" aria-label="Delete No phone after 11pm"><svg aria-hidden="true" focusable="false"><use href="#i-trash"/></svg></button>
+            </div>
+            <p class="streak" aria-live="polite"><span class="cur">1 day</span><span class="best">Best 4</span></p>
+            <div class="strip" role="group" aria-labelledby="h3-name" data-carry="2" data-best-before="4">
+              <button class="day" type="button" data-date="2026-10-02" aria-pressed="false" aria-label="Mark Fri 2 Oct as done"><span class="day-label" aria-hidden="true"><span class="wd">Fri</span><span class="dm">2</span></span><span class="slot" aria-hidden="true"><span class="bead"><svg focusable="false"><use href="#i-check"/></svg></span></span></button>
+              <button class="day" type="button" data-date="2026-10-03" aria-pressed="true" aria-label="Mark Sat 3 Oct as done"><span class="day-label" aria-hidden="true"><span class="wd">Sat</span><span class="dm">3</span></span><span class="slot" aria-hidden="true"><span class="bead"><svg focusable="false"><use href="#i-check"/></svg></span></span></button>
+              <button class="day" type="button" data-date="2026-10-04" aria-pressed="false" aria-label="Mark Sun 4 Oct as done"><span class="day-label" aria-hidden="true"><span class="wd">Sun</span><span class="dm">4</span></span><span class="slot" aria-hidden="true"><span class="bead"><svg focusable="false"><use href="#i-check"/></svg></span></span></button>
+              <button class="day" type="button" data-date="2026-10-05" aria-pressed="false" aria-label="Mark Mon 5 Oct as done"><span class="day-label" aria-hidden="true"><span class="wd">Mon</span><span class="dm">5</span></span><span class="slot" aria-hidden="true"><span class="bead"><svg focusable="false"><use href="#i-check"/></svg></span></span></button>
+              <button class="day" type="button" data-date="2026-10-06" aria-pressed="true" aria-label="Mark Tue 6 Oct as done"><span class="day-label" aria-hidden="true"><span class="wd">Tue</span><span class="dm">6</span></span><span class="slot" aria-hidden="true"><span class="bead"><svg focusable="false"><use href="#i-check"/></svg></span></span></button>
+              <button class="day" type="button" data-date="2026-10-07" aria-pressed="false" aria-label="Mark Wed 7 Oct as done"><span class="day-label" aria-hidden="true"><span class="wd">Wed</span><span class="dm">7</span></span><span class="slot" aria-hidden="true"><span class="bead"><svg focusable="false"><use href="#i-check"/></svg></span></span></button>
+              <button class="day" type="button" data-date="2026-10-08" aria-pressed="true" aria-current="date" aria-label="Mark Thu 8 Oct as done"><span class="day-label" aria-hidden="true"><span class="wd">Thu</span><span class="dm">8</span></span><span class="slot" aria-hidden="true"><span class="bead"><svg focusable="false"><use href="#i-check"/></svg></span></span></button>
+            </div>
+          </li>
+
+        </ul>
+      </section>
+
+      <form class="add" novalidate>
+        <label for="new-habit">New habit</label>
+        <div class="add-row">
+          <input id="new-habit" name="name" type="text" autocomplete="off" aria-describedby="new-habit-error">
+          <button type="submit">Add</button>
+        </div>
+        <p id="new-habit-error" class="field-error" aria-live="polite"></p>
+      </form>
+    </div>
+
+    <section class="heat" aria-labelledby="heat-title">
+      <h2 id="heat-title">Last 12 weeks</h2>
+      <div class="heat-grid">
+        <div class="months" aria-hidden="true">
+          <span style="grid-column:1">Jul</span>
+          <span style="grid-column:3">Aug</span>
+          <span style="grid-column:8">Sep</span>
+          <span style="grid-column:12">Oct</span>
+        </div>
+        <div class="wdays" aria-hidden="true">
+          <span>Mon</span><span></span><span>Wed</span><span></span><span>Fri</span><span></span><span>Sun</span>
+        </div>
+        <div class="cells">
+          <span class="hc l1" role="img" aria-label="Mon 20 Jul, 1 of 3 habits"></span>
+          <span class="hc l0" role="img" aria-label="Tue 21 Jul, 0 of 3 habits"></span>
+          <span class="hc l1" role="img" aria-label="Wed 22 Jul, 1 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Thu 23 Jul, 2 of 3 habits"></span>
+          <span class="hc l0" role="img" aria-label="Fri 24 Jul, 0 of 3 habits"></span>
+          <span class="hc l0" role="img" aria-label="Sat 25 Jul, 0 of 3 habits"></span>
+          <span class="hc l1" role="img" aria-label="Sun 26 Jul, 1 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Mon 27 Jul, 2 of 3 habits"></span>
+          <span class="hc l1" role="img" aria-label="Tue 28 Jul, 1 of 3 habits"></span>
+          <span class="hc l0" role="img" aria-label="Wed 29 Jul, 0 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Thu 30 Jul, 2 of 3 habits"></span>
+          <span class="hc l1" role="img" aria-label="Fri 31 Jul, 1 of 3 habits"></span>
+          <span class="hc l0" role="img" aria-label="Sat 1 Aug, 0 of 3 habits"></span>
+          <span class="hc l1" role="img" aria-label="Sun 2 Aug, 1 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Mon 3 Aug, 2 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Tue 4 Aug, 2 of 3 habits"></span>
+          <span class="hc l1" role="img" aria-label="Wed 5 Aug, 1 of 3 habits"></span>
+          <span class="hc l0" role="img" aria-label="Thu 6 Aug, 0 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Fri 7 Aug, 2 of 3 habits"></span>
+          <span class="hc l1" role="img" aria-label="Sat 8 Aug, 1 of 3 habits"></span>
+          <span class="hc l0" role="img" aria-label="Sun 9 Aug, 0 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Mon 10 Aug, 2 of 3 habits"></span>
+          <span class="hc l4" role="img" aria-label="Tue 11 Aug, 3 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Wed 12 Aug, 2 of 3 habits"></span>
+          <span class="hc l1" role="img" aria-label="Thu 13 Aug, 1 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Fri 14 Aug, 2 of 3 habits"></span>
+          <span class="hc l0" role="img" aria-label="Sat 15 Aug, 0 of 3 habits"></span>
+          <span class="hc l1" role="img" aria-label="Sun 16 Aug, 1 of 3 habits"></span>
+          <span class="hc l4" role="img" aria-label="Mon 17 Aug, 3 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Tue 18 Aug, 2 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Wed 19 Aug, 2 of 3 habits"></span>
+          <span class="hc l4" role="img" aria-label="Thu 20 Aug, 3 of 3 habits"></span>
+          <span class="hc l1" role="img" aria-label="Fri 21 Aug, 1 of 3 habits"></span>
+          <span class="hc l1" role="img" aria-label="Sat 22 Aug, 1 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Sun 23 Aug, 2 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Mon 24 Aug, 2 of 3 habits"></span>
+          <span class="hc l4" role="img" aria-label="Tue 25 Aug, 3 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Wed 26 Aug, 2 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Thu 27 Aug, 2 of 3 habits"></span>
+          <span class="hc l4" role="img" aria-label="Fri 28 Aug, 3 of 3 habits"></span>
+          <span class="hc l1" role="img" aria-label="Sat 29 Aug, 1 of 3 habits"></span>
+          <span class="hc l1" role="img" aria-label="Sun 30 Aug, 1 of 3 habits"></span>
+          <span class="hc l1" role="img" aria-label="Mon 31 Aug, 1 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Tue 1 Sep, 2 of 3 habits"></span>
+          <span class="hc l4" role="img" aria-label="Wed 2 Sep, 3 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Thu 3 Sep, 2 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Fri 4 Sep, 2 of 3 habits"></span>
+          <span class="hc l4" role="img" aria-label="Sat 5 Sep, 3 of 3 habits"></span>
+          <span class="hc l1" role="img" aria-label="Sun 6 Sep, 1 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Mon 7 Sep, 2 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Tue 8 Sep, 2 of 3 habits"></span>
+          <span class="hc l4" role="img" aria-label="Wed 9 Sep, 3 of 3 habits"></span>
+          <span class="hc l4" role="img" aria-label="Thu 10 Sep, 3 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Fri 11 Sep, 2 of 3 habits"></span>
+          <span class="hc l1" role="img" aria-label="Sat 12 Sep, 1 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Sun 13 Sep, 2 of 3 habits"></span>
+          <span class="hc l4" role="img" aria-label="Mon 14 Sep, 3 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Tue 15 Sep, 2 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Wed 16 Sep, 2 of 3 habits"></span>
+          <span class="hc l4" role="img" aria-label="Thu 17 Sep, 3 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Fri 18 Sep, 2 of 3 habits"></span>
+          <span class="hc l0" role="img" aria-label="Sat 19 Sep, 0 of 3 habits"></span>
+          <span class="hc l1" role="img" aria-label="Sun 20 Sep, 1 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Mon 21 Sep, 2 of 3 habits"></span>
+          <span class="hc l4" role="img" aria-label="Tue 22 Sep, 3 of 3 habits"></span>
+          <span class="hc l1" role="img" aria-label="Wed 23 Sep, 1 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Thu 24 Sep, 2 of 3 habits"></span>
+          <span class="hc l4" role="img" aria-label="Fri 25 Sep, 3 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Sat 26 Sep, 2 of 3 habits"></span>
+          <span class="hc l1" role="img" aria-label="Sun 27 Sep, 1 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Mon 28 Sep, 2 of 3 habits"></span>
+          <span class="hc l1" role="img" aria-label="Tue 29 Sep, 1 of 3 habits"></span>
+          <span class="hc l2" role="img" aria-label="Wed 30 Sep, 2 of 3 habits"></span>
+          <span class="hc l4" role="img" aria-label="Thu 1 Oct, 3 of 3 habits"></span>
+          <span class="hc l1" id="hc-2026-10-02" role="img" aria-label="Fri 2 Oct, 1 of 3 habits"></span>
+          <span class="hc l4" id="hc-2026-10-03" role="img" aria-label="Sat 3 Oct, 3 of 3 habits"></span>
+          <span class="hc l1" id="hc-2026-10-04" role="img" aria-label="Sun 4 Oct, 1 of 3 habits"></span>
+          <span class="hc l2" id="hc-2026-10-05" role="img" aria-label="Mon 5 Oct, 2 of 3 habits"></span>
+          <span class="hc l4" id="hc-2026-10-06" role="img" aria-label="Tue 6 Oct, 3 of 3 habits"></span>
+          <span class="hc l2" id="hc-2026-10-07" role="img" aria-label="Wed 7 Oct, 2 of 3 habits"></span>
+          <span class="hc l2 today" id="hc-2026-10-08" role="img" aria-label="Thu 8 Oct, 2 of 3 habits"></span>
+          <span class="hc future" aria-hidden="true"></span>
+          <span class="hc future" aria-hidden="true"></span>
+          <span class="hc future" aria-hidden="true"></span>
+        </div>
+      </div>
+      <div class="legend" aria-hidden="true">
+        <span>None</span>
+        <span class="hc l0"></span><span class="hc l1"></span><span class="hc l2"></span><span class="hc l3"></span><span class="hc l4"></span>
+        <span>All</span>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+  (function () {
+    var strips = Array.prototype.slice.call(document.querySelectorAll('.strip'));
+
+    function doneDays(strip) {
+      return Array.prototype.map.call(strip.querySelectorAll('.day'), function (b) {
+        return b.getAttribute('aria-pressed') === 'true';
+      });
+    }
+
+    function streakText(n) {
+      return n === 0 ? 'No streak yet' : n === 1 ? '1 day' : n + ' days';
+    }
+
+    function level(n, total) {
+      if (n === 0) return 0;
+      if (n === total) return 4;
+      var share = n / total;
+      return share <= 1 / 3 ? 1 : share <= 2 / 3 ? 2 : 3;
+    }
+
+    function refreshHabit(strip) {
+      var d = doneDays(strip);
+      var carry = Number(strip.getAttribute('data-carry'));
+      var best = Number(strip.getAttribute('data-best-before'));
+      // Count back from today if today is done, otherwise from yesterday.
+      var i = d[6] ? 6 : 5, current = 0;
+      while (i >= 0 && d[i]) { current++; i--; }
+      if (i < 0) current += carry;
+      var run = carry;
+      d.forEach(function (x) { run = x ? run + 1 : 0; if (run > best) best = run; });
+      var habit = strip.closest('.habit');
+      habit.querySelector('.cur').textContent = streakText(current);
+      var bestEl = habit.querySelector('.best');
+      bestEl.textContent = best > 0 ? 'Best ' + best : '';
+      bestEl.hidden = best === 0;
+    }
+
+    function refreshHeat() {
+      var cols = strips.map(doneDays);
+      var days = strips[0].querySelectorAll('.day');
+      for (var k = 0; k < days.length; k++) {
+        var n = cols.reduce(function (a, c) { return a + (c[k] ? 1 : 0); }, 0);
+        var cell = document.getElementById('hc-' + days[k].getAttribute('data-date'));
+        if (!cell) continue;
+        cell.classList.remove('l0', 'l1', 'l2', 'l3', 'l4');
+        cell.classList.add('l' + level(n, strips.length));
+        var prefix = cell.getAttribute('aria-label').split(',')[0];
+        cell.setAttribute('aria-label', prefix + ', ' + n + ' of ' + strips.length + ' habits');
+      }
+    }
+
+    document.addEventListener('click', function (e) {
+      var btn = e.target.closest('.day');
+      if (!btn) return;
+      btn.setAttribute('aria-pressed', btn.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+      refreshHabit(btn.closest('.strip'));
+      refreshHeat();
+    });
+
+    document.querySelector('.add').addEventListener('submit', function (e) {
+      e.preventDefault();
+    });
+  })();
+</script>
+</body>
+</html>
