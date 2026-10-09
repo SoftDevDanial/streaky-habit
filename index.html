@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Streaks</title>
+<!--
+  Icons: Phosphor Icons (MIT), "check" bold, "trash" regular and "x" regular, paths inlined.
+-->
+<link rel="stylesheet" href="src/styles.css">
+<script type="module" src="src/app.js"></script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-check" viewBox="0 0 256 256"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 256 256"><path d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"/></symbol>
+  <symbol id="i-x" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></symbol>
+</svg>
+
+<div class="page">
+  <header class="top">
+    <h1 class="brand">Streaks</h1>
+    <p class="date"><time></time></p>
+  </header>
+
+  <main class="layout">
+    <div class="col-main">
+      <section aria-labelledby="habits-title">
+        <h2 id="habits-title" class="sr-only">Habits</h2>
+      </section>
+
+      <form class="add" novalidate>
+        <label class="add-label" for="new-habit">New habit</label>
+        <div class="add-row">
+          <input class="input" id="new-habit" name="name" type="text" autocomplete="off" aria-describedby="new-habit-msg">
+          <button class="btn btn-primary" type="submit">Add</button>
+        </div>
+        <p class="field-msg field-error" id="new-habit-msg" aria-live="polite"></p>
+      </form>
+    </div>
+
+    <section class="heat" aria-labelledby="heat-title">
+      <h2 class="heat-title" id="heat-title">Last 12 weeks</h2>
+      <div class="heat-grid">
+        <div class="months" aria-hidden="true"></div>
+        <div class="wdays" aria-hidden="true">
+          <span>Mon</span><span></span><span>Wed</span><span></span><span>Fri</span><span></span><span>Sun</span>
+        </div>
+        <div class="cells"></div>
+      </div>
+      <div class="legend" aria-hidden="true">
+        <span>None</span>
+        <span class="hc l0"></span><span class="hc l1"></span><span class="hc l2"></span><span class="hc l3"></span><span class="hc l4"></span>
+        <span>All</span>
+      </div>
+    </section>
+  </main>
+</div>
+
+<dialog class="dialog" role="alertdialog" aria-modal="true" aria-labelledby="del-title" aria-describedby="del-body">
+  <h2 class="dialog-title" id="del-title"></h2>
+  <p class="dialog-body" id="del-body">Its history is deleted too.</p>
+  <form class="dialog-actions" method="dialog">
+    <button class="btn btn-secondary" type="submit" value="cancel">Cancel</button>
+    <button class="btn btn-danger" type="submit" value="delete">Delete habit</button>
+  </form>
+</dialog>
+</body>
+</html>
