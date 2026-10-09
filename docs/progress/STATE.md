@@ -4,14 +4,14 @@
 - **design-phase:** sdlc:design
 - **version:** 1.0.0
 - **mode:** greenfield
-- **phase:** execute (app: security re-check and fidelity next)
+- **phase:** execute (app: security re-check)
 - **next:** execute
 
 ## Modules
 | module | nature | depends on | status | last green |
 |---|---|---|---|---|
 | habit-logic | logic | none | CLOSED 2026-10-09 | `de0156a` |
-| app | FE + live composition | habit-logic | built (10/10 tasks, 115 browser + 66 unit tests, f4563ab); QA finder running, then code review, security, fidelity, live gate | |
+| app | FE + live composition | habit-logic | built, QA PASS, code review solved, security solved (162 browser + 99 unit tests, `ae6a26d`); scoped security re-check running, then fidelity finder, official live gate, README, module close | |
 
 ## Blockers
 none

@@ -114,3 +114,6 @@ Append-only history. STATE.md holds the situation, this file holds what happened
 ## 2026-10-09 19:28 app security fixes
 - Security solver (sonnet): SEC-01 12445c9 (dialog guards incl. tap-through), SEC-02 442ca9a, docs 1477ecf, section ae6a26d. 162 browser, 99 unit
 - New LOW (isolate closed by a U+2069 in the name) accepted as a v1.0 residual
+
+## 2026-10-09 20:11 app security re-check launched
+- Scoped security re-check of `12445c9` and `442ca9a` launched (sonnet). Stop rule after it: no further security round.
