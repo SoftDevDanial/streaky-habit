@@ -22,22 +22,22 @@ documents written before that date still say v0.1.0. · **Sealed:** not yet (see
 
 | scope | title | status | tag | open items |
 |---|---|---|---|---|
-| C1 | Add a habit | NOT SHIPPED | IN SCOPE | 0 |
-| C2 | Tick the week | NOT SHIPPED | IN SCOPE | 0 |
-| C3 | Current streak | NOT SHIPPED | IN SCOPE | 0 |
-| C4 | Best streak | NOT SHIPPED | IN SCOPE | 0 |
-| C5 | 12-week heatmap | NOT SHIPPED | IN SCOPE | 0 |
-| C6 | Delete a habit | NOT SHIPPED | IN SCOPE | 0 |
-| C7 | Kept on the device | NOT SHIPPED | IN SCOPE | 0 |
+| C1 | Add a habit | SHIPPED | IN SCOPE | 0 |
+| C2 | Tick the week | SHIPPED | IN SCOPE | 0 |
+| C3 | Current streak | SHIPPED | IN SCOPE | 0 |
+| C4 | Best streak | SHIPPED | IN SCOPE | 0 |
+| C5 | 12-week heatmap | SHIPPED | IN SCOPE | 0 |
+| C6 | Delete a habit | SHIPPED | IN SCOPE | 0 |
+| C7 | Kept on the device | SHIPPED | IN SCOPE | 0 |
 
 ---
 
 ## Scope sections
 
 ### C1 - Add a habit
-**Status:** NOT SHIPPED · **Opened:** 2026-10-08 · **Closed:** not yet · **Tag:** IN SCOPE
+**Status:** SHIPPED · **Opened:** 2026-10-08 · **Closed:** 2026-10-09 · **Tag:** IN SCOPE
 **Implemented by:** habit-logic R13, R14 · app R10, R11, R12
-**Proof:** not yet (set at the module's live gate and at regression)
+**Proof:** app live gate `docs/modules/app/qa/live-e2e/20261009-220123/` 11 of 11, 176 browser and 99 unit tests, fidelity 6 of 6 at 0 px. Regression --full to follow
 
 Name a habit and it joins the list (1 to 40 characters, unique, up to 12).
 
@@ -46,9 +46,9 @@ Name a habit and it joins the list (1 to 40 characters, unique, up to 12).
 | 1 | Scope opened from the brainstorm capability | 2026-10-08 plan | Specced | ORCH (planner lane) | Open |
 
 ### C2 - Tick the week
-**Status:** NOT SHIPPED · **Opened:** 2026-10-08 · **Closed:** not yet · **Tag:** IN SCOPE
+**Status:** SHIPPED · **Opened:** 2026-10-08 · **Closed:** 2026-10-09 · **Tag:** IN SCOPE
 **Implemented by:** habit-logic R5, R9 · app R7, R8
-**Proof:** not yet (set at the module's live gate and at regression)
+**Proof:** app live gate `docs/modules/app/qa/live-e2e/20261009-220123/` 11 of 11, 176 browser and 99 unit tests, fidelity 6 of 6 at 0 px. Regression --full to follow
 
 Each habit shows the last 7 days and a tap marks a day done or not done.
 
@@ -57,9 +57,9 @@ Each habit shows the last 7 days and a tap marks a day done or not done.
 | 1 | Scope opened from the brainstorm capability | 2026-10-08 plan | Specced | ORCH (planner lane) | Open |
 
 ### C3 - Current streak
-**Status:** NOT SHIPPED · **Opened:** 2026-10-08 · **Closed:** not yet · **Tag:** IN SCOPE
+**Status:** SHIPPED · **Opened:** 2026-10-08 · **Closed:** 2026-10-09 · **Tag:** IN SCOPE
 **Implemented by:** habit-logic R6 · app R6, R8
-**Proof:** not yet (set at the module's live gate and at regression)
+**Proof:** app live gate `docs/modules/app/qa/live-e2e/20261009-220123/` 11 of 11, 176 browser and 99 unit tests, fidelity 6 of 6 at 0 px. Regression --full to follow
 
 Days in a row, counted so the streak does not break until today is over.
 
@@ -68,9 +68,9 @@ Days in a row, counted so the streak does not break until today is over.
 | 1 | Scope opened from the brainstorm capability | 2026-10-08 plan | Specced | ORCH (planner lane) | Open |
 
 ### C4 - Best streak
-**Status:** NOT SHIPPED · **Opened:** 2026-10-08 · **Closed:** not yet · **Tag:** IN SCOPE
+**Status:** SHIPPED · **Opened:** 2026-10-08 · **Closed:** 2026-10-09 · **Tag:** IN SCOPE
 **Implemented by:** habit-logic R7 · app R6
-**Proof:** not yet (set at the module's live gate and at regression)
+**Proof:** app live gate `docs/modules/app/qa/live-e2e/20261009-220123/` 11 of 11, 176 browser and 99 unit tests, fidelity 6 of 6 at 0 px. Regression --full to follow
 
 The longest run the habit has ever had.
 
@@ -79,9 +79,9 @@ The longest run the habit has ever had.
 | 1 | Scope opened from the brainstorm capability | 2026-10-08 plan | Specced | ORCH (planner lane) | Open |
 
 ### C5 - 12-week heatmap
-**Status:** NOT SHIPPED · **Opened:** 2026-10-08 · **Closed:** not yet · **Tag:** IN SCOPE
+**Status:** SHIPPED · **Opened:** 2026-10-08 · **Closed:** 2026-10-09 · **Tag:** IN SCOPE
 **Implemented by:** habit-logic R10, R11, R12 · app R9
-**Proof:** not yet (set at the module's live gate and at regression)
+**Proof:** app live gate `docs/modules/app/qa/live-e2e/20261009-220123/` 11 of 11, 176 browser and 99 unit tests, fidelity 6 of 6 at 0 px. Regression --full to follow
 
 One grid for all habits, darker when more habits were done that day.
 
@@ -90,9 +90,9 @@ One grid for all habits, darker when more habits were done that day.
 | 1 | Scope opened from the brainstorm capability | 2026-10-08 plan | Specced | ORCH (planner lane) | Open |
 
 ### C6 - Delete a habit
-**Status:** NOT SHIPPED · **Opened:** 2026-10-08 · **Closed:** not yet · **Tag:** IN SCOPE
+**Status:** SHIPPED · **Opened:** 2026-10-08 · **Closed:** 2026-10-09 · **Tag:** IN SCOPE
 **Implemented by:** habit-logic R15 · app R13, R14, R15
-**Proof:** not yet (set at the module's live gate and at regression)
+**Proof:** app live gate `docs/modules/app/qa/live-e2e/20261009-220123/` 11 of 11, 176 browser and 99 unit tests, fidelity 6 of 6 at 0 px. Accepted v1.0 limit: a slow double click past 500 ms can delete through the overlap, fixed in v1.1.0. Regression --full to follow
 
 Removes the habit and its history after a confirmation.
 
@@ -101,9 +101,9 @@ Removes the habit and its history after a confirmation.
 | 1 | Scope opened from the brainstorm capability | 2026-10-08 plan | Specced | ORCH (planner lane) | Open |
 
 ### C7 - Kept on the device
-**Status:** NOT SHIPPED · **Opened:** 2026-10-08 · **Closed:** not yet · **Tag:** IN SCOPE
+**Status:** SHIPPED · **Opened:** 2026-10-08 · **Closed:** 2026-10-09 · **Tag:** IN SCOPE
 **Implemented by:** app R16, R17, R18 (and local days R19, R20)
-**Proof:** not yet (set at the module's live gate and at regression)
+**Proof:** app live gate `docs/modules/app/qa/live-e2e/20261009-220123/` 11 of 11, 176 browser and 99 unit tests, fidelity 6 of 6 at 0 px. Regression --full to follow
 
 Habits and history survive reloads on the same browser, and the day turns over at local midnight.
 
@@ -173,6 +173,9 @@ Habits and history survive reloads on the same browser, and the day turns over a
 | 38 | app SEC-06 solver: `e42eb2f` the delete dialog title leaves 14 bidi format characters out of its copy of the name (TITLE_STRIPPED in view.js), FSI and PDI kept, stored name, list row and trash label unchanged. 15 of 19 new tests red before, 19 of 19 green, 22 of 22 mutants killed, the re-check's 27 names 17 to 27 in place, a sweep of all 63488 BMP code points moves the quotes for none after the fix. Browser 162 to 176, unit 99, M1 fidelity 0 px at 390 and 1280, live gate 11 of 11. Docs `7bc951f`, section and evidence `5a3650c`. Security findings now clean | 2026-10-09 execute | Solver section in findings/security.md, evidence `qa/security-solver/20261009T205500/` | LANE (sdlc-security-solver, sonnet) | Solved |
 | 39 | Solver asks for another security finder run with the title strip in scope | 2026-10-09 execute | Declined under the stop rule: the fix is view-only, 22 mutants killed and an exhaustive BMP sweep was run. No further security round for Streaks | ORCH | Ruled, reversible |
 | 40 | Versioning is part of the showcase: the owner said "Part of the showcase is to show the versioning as well" and chose "Second version per app" and "Fix the v1.0 limits" | 2026-10-09 execute | After the owner seals v1.0.0, Streaks runs v1.1.0 with one scope item: a time-free guard so a slow double click on the trash can never delete through the dialog (the T7 residual, today covered by a 500 ms window). Plan, execute, finders, regression, review, UAT. v1.0.0 ships with the 500 ms window as an accepted limit | USER | Ruled |
+| 41 | app fidelity finder: 1-to-1, clean. S1, S2 and M1 at 390x844 and 1280x800 all 0 mismatched pixels with dimensions_match true on harness 2.1.3 (the 2.1.1 baseline holds), 71 of 71 checklist rows PASS incl. the states sheet (4995 property comparisons, 0 differences), gate honesty checked (the blur and the title check). Stale harness version line in qa.md fixed | 2026-10-09 execute | findings/fidelity.md, evidence `qa/fidelity-*/20261009-2131*/` and `qa/fidelity-checklist/20261009-213300/`, commit `5066b82` | LANE (sdlc-fidelity-tester, sonnet) | PASS |
+| 42 | app official cold-boot live gate on the final code: 11 of 11 steps PASS | 2026-10-09 execute | Evidence `qa/live-e2e/20261009-220123/`, commit `353a5af` | ORCH | PASS |
+| 43 | app module close: QA PASS, code review solved, security clean after audit, solver, re-check and the SEC-06 fix (stop rule), fidelity clean, live gate 11 of 11. README written from BUILD.md and verified by symbol. Credential gate CLEAN over the whole tree (1,065 files, controls pass). Browser 176, unit 99. Last green `9ebc54e` | 2026-10-09 execute | README.md, findings/*.md | ORCH | Module closed |
 
 ---
 

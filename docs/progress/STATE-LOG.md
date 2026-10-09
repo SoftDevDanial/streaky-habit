@@ -126,3 +126,8 @@ Append-only history. STATE.md holds the situation, this file holds what happened
 ## 2026-10-09 21:30 app SEC-06 solver collected, security clean
 - SEC-06 fixed in `e42eb2f` (title strip of bidi format characters), 176 browser, 99 unit, M1 0 px, live gate 11 of 11. Security findings clean.
 - Stop rule: no further security round. Fidelity finder launched.
+
+## 2026-10-09 22:05 app closed, all modules closed
+- Fidelity clean (`5066b82`). Official live gate 11 of 11 (`353a5af`).
+- README written from BUILD.md, verified by symbol (`9ebc54e`). Full credential gate CLEAN (1,065 files).
+- app CLOSED, last green `9ebc54e`. Scopes C1 to C7 SHIPPED pending regression.
