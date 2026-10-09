@@ -1,0 +1,20 @@
+node v24.11.1 win32, gc exposed true
+59c6ee5 habits.js loaded in memory (git show pid 44080), uses Array.from: true; HEAD uses longerThan
+
+## Time and heap growth across one validateName call, no collection between before and after
+ASCII x 5,000,000: 59c6ee5 25.989 ms, heap +43.01 MiB, too-long | HEAD 0.108 ms, heap +0.01 MiB, too-long
+CJK 5,000,000 units: 59c6ee5 126.237 ms, heap +162.12 MiB, too-long | HEAD 0.013 ms, heap +0.01 MiB, too-long
+emoji 5,000,000 units: 59c6ee5 18.365 ms, heap +104.91 MiB, too-long | HEAD 0.007 ms, heap +0.01 MiB, too-long
+41 lone surrogates: 59c6ee5 0.008 ms, heap +0.00 MiB, too-long | HEAD 0.006 ms, heap +0.00 MiB, too-long
+
+## Same result as 59c6ee5 on edge strings
+15 edge strings, 0 mismatches
+
+## Non-string raw (outside the contract raw: string; app readable rule 4 type-checks first)
+trim() returns { length: 50 }: 59c6ee5 {"ok":false,"error":"too-long"} | HEAD throws TypeError
+trim() returns an array of 41 letters: 59c6ee5 {"ok":false,"error":"too-long"} | HEAD {"ok":false,"error":"too-long"}
+trim() returns a number: 59c6ee5 throws TypeError | HEAD throws TypeError
+trim() returns an endless iterable, 59c6ee5: exit 134,  9: 0000025D000C109D (child pid 35040)
+trim() returns an endless iterable, HEAD: exit 0, {"ok":false,"error":"too-long"} (child pid 4024)
+
+child pids: 44080, 35040, 4024

@@ -1,0 +1,26 @@
+node v24.11.1 win32
+
+## A. The first audit's hanging inputs, at HEAD
+bestStreak(["24660873954866-12-02", "24660873954866-12-04"]): returned {"value":2,"ms":2} (child pid 41480, exit 0), wall 39 ms
+bestStreak(three valid keys plus the two stuck keys): returned {"value":5,"ms":2} (child pid 22744, exit 0), wall 38 ms
+currentStreak(year-0 chain of 30 steps back from 0000-01-03, "0000-01-03"): returned {"value":12,"ms":2} (child pid 44256, exit 0), wall 39 ms
+currentStreak(every day back from 2026-10-08 for 800,000 days, "2026-10-08"): returned {"value":740264,"ms":852} (child pid 44108, exit 0), wall 903 ms
+
+## B. Many run starts that walk into one stuck key
+precondition: addDays(STUCK, 1) === STUCK: true
+precondition: all 20,000 spellings distinct: true; all fail isDateKey: true; all have next day STUCK: true; all have previous day "24660873954866-11-30": true
+stored value with 20000 spellings plus STUCK: 527,576 UTF-16 code units, 632,851 UTF-8 bytes
+stored value with 90000 spellings plus STUCK: 2,407,817 UTF-16 code units, 3,016,546 UTF-8 bytes
+bestStreak(500 spellings + STUCK): returned {"value":501,"ms":133} (child pid 22156, exit 0), wall 172 ms
+bestStreak(1000 spellings + STUCK): returned {"value":1001,"ms":523} (child pid 38948, exit 0), wall 562 ms
+bestStreak(2000 spellings + STUCK): returned {"value":2001,"ms":2054} (child pid 6908, exit 0), wall 2097 ms
+bestStreak(4000 spellings + STUCK): returned {"value":4001,"ms":8070} (child pid 36792, exit 0), wall 8108 ms
+bestStreak(20,000 spellings + STUCK), about 0.5 million code units stored: HUNG: no result within 60 s, child pid 17536 killed (signal SIGKILL), wall 60018 ms
+currentStreak(20,000 spellings + STUCK, 2026-10-08) (one walk only): returned {"value":0,"ms":12} (child pid 44620, exit 0), wall 49 ms
+control: the same 20,000 spellings filtered by isDateKey first (what the app decoder accepts): returned {"value":[0,0],"ms":12} (child pid 43220, exit 0), wall 50 ms
+
+## C. Two fix shapes, measured in this process on 90,000 spellings plus STUCK
+visit each key once: result 2 in 179 ms; three valid keys plus the two stuck keys give 3 (HEAD gives 5)
+drop keys that fail isDateKey: result 0 in 3 ms; three valid keys plus the two stuck keys give 3 (HEAD gives 5)
+
+child pids: 41480, 22744, 44256, 44108, 22156, 38948, 6908, 36792, 17536 (killed at cap), 44620, 43220

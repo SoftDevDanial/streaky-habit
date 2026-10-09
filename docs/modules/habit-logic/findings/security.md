@@ -2,7 +2,8 @@
 module: habit-logic
 kind: security
 status: issues_found
-counts: { critical: 0, high: 0, medium: 3 }
+counts: { critical: 0, high: 0, medium: 2 }
+# Re-check 2026-10-09 at a35e8aa: SEC-01 reopened, SEC-02 and SEC-03 closed, SEC-04 new. The first audit at 59c6ee5 read counts { critical: 0, high: 0, medium: 3 }.
 ---
 # Security audit, habit-logic
 
@@ -141,3 +142,100 @@ PROCESSES: none alive. Every command ran in the foreground with a cap. No server
 - The credential gate, `python -B credential_sweep.py --staged`, four times in the foreground. Each exited 0.
 
 Sweep at 12:44, after the last run. `Get-CimInstance Win32_Process` listed every `node`, `bash`, `sh`, `cmd`, `python`, `pwsh` and `powershell` process with its parent, start time and command line. A second pass matched command lines on this run's folder name, its script names, `credential_sweep`, `--test` and `--input-type=module`. `tasklist` checked `node.exe` and `python.exe`. Result: no `node` or `python` process alive. The only matches were the sweep's own `bash` and `powershell`, started at 12:44:44. Three bare `powershell.exe` processes (39064, 37820, 25804) are children of `claude.exe` (41972) and were started at 11:22, 11:49 and 12:19, before this run began at 12:31. They are not the solver's and were left alone.
+
+## Re-check (2026-10-09)
+
+> Written by the security finder (read-only), 2026-10-09, against `a35e8aa` on `main`. The commits since the first audit are the solver's fixes `add5043` (SEC-01), `e83acb4` (SEC-02), `3750d67` (SEC-03) and `eb2003b` (test comments), and the documentation commits `f89e699` and `a35e8aa`. Evidence is in `docs/modules/habit-logic/qa/security/20261009T124854/`. The first audit's text and the Solver section above are unchanged. The counts in the front matter were updated in place to this re-check, and a dated YAML comment there keeps the first audit's counts. Line numbers are as of `a35e8aa`.
+
+### Verdict
+
+**FAIL (issues_found). 0 CRITICAL, 0 HIGH, 2 MEDIUM.**
+
+- **SEC-02 and SEC-03 are CLOSED.**
+- **SEC-01 is REOPENED.** The size bound ends each walk. But `bestStreak` starts one walk per run start, so many out-of-domain starts that lead into one stuck key cost about n squared steps. A stored value of 0.6 MB of such keys still stalls the thread for minutes.
+- **SEC-04 is NEW.** The widened clock table misses `Temporal.Now`.
+
+Neither open finding is reachable through the current contracts. Both are defence-in-depth gaps of the same kind as the first round.
+
+The full suite at `a35e8aa` passes 64 of 64, exit 0 (`baseline-full-suite-HEAD.txt`).
+
+### Per finding
+
+| Finding | Status | Evidence |
+|---|---|---|
+| SEC-01 | **REOPENED** (MEDIUM) | Every input that hung in the first audit now returns (`probe-sec01-recheck.txt`, part A): the two-key `bestStreak` gives 2, the year-0 chain `currentStreak` gives 12, and the 800,000-day `currentStreak` gives 740,264 in 0.85 s. The threat behind the finding, a stall on every load, is still reachable with the same precondition. See below. |
+| SEC-02 | **CLOSED** | At `a35e8aa`, `validateName` on 5,000,000-unit names takes 0.108 ms (ASCII), 0.013 ms (CJK) and 0.007 ms (emoji), with heap +0.01 MiB each. The `59c6ee5` code, loaded into the same process, takes 26 to 126 ms and +43.0 to +162.1 MiB. 15 edge strings give the same result as `59c6ee5`: lone surrogates, surrogate pairs in both orders, combining marks, zero-width characters and padding (`probe-sec02-recheck.txt`). |
+| SEC-03 | **CLOSED** | The first audit's mirrors were rebuilt from `a35e8aa` (`mirror-run-*.txt`). Baseline is 64 of 64 green. The control `new Date()` is red. `new Date` is red ("habits.js text: new Date without an argument"). `new Date(Date())` is red ("Date called as a function"). The `fetch` plus `sessionStorage` mirror is red ("habits.js: storage"), and the network pattern also catches the `fetch` line alone (`probe-scan-hunt.txt`). No pattern hits the real source. |
+| SEC-04 | **NEW** (MEDIUM) | See below. |
+
+### Threat-model rows added or changed on 2026-10-09, checked against the code
+
+| Row | What it claims | Matches the code |
+|---|---|---|
+| Deterministic, testable results (SEC-03 note) | The scan finds `new Date` without parentheses, `Date()`, `Date.now` without a call, `performance.now` and `Math.random`, through the table `CLOCK_AND_RANDOM_READS`. | **Yes.** `tests/purity.test.js:27-33` holds exactly these five, matched on the full text and on the code alone (the test at `:46`). It does not cover `Temporal.Now` (SEC-04). |
+| Responsiveness with tampered stored data (SEC-02 note) | One pass that stops after 41 code points (`longerThan`), so a stored name of any size costs no more than a short one. | **Yes.** `longerThan` (`src/habits.js:213`) is called at `:230`. Measured above. |
+| Responsiveness with date keys outside the valid range (new row) | "Each walk is bounded by the number of distinct days ... The bound holds if one gets through." The threat it names is that the tab hangs on every load. | **No.** Each walk is bounded, but the total work of `bestStreak` is not (SEC-01, reopened). The row's other claim holds: readable rule 5 keeps such keys out today (0 of 20,000 spellings pass `isDateKey`). |
+| No network or storage call (new row) | The R16 scan bans each such call (`BANNED_IN_CODE`). | **Yes.** `tests/purity.test.js:36-44` holds the 24 words the R16 note lists, matched on the code only (the test at `:56`). The egress mirror is red. |
+| R16 note, qa.md R16 note, R13 note, BUILD.md counts | The new tables and their scope, and the test counts. | **Yes.** The lists match the tables word for word. BUILD.md's 64 tests (15, 37, 7 and 5) match the run at `a35e8aa`. |
+
+### MEDIUM
+
+#### SEC-01 (REOPENED): The bound ends each walk, but `bestStreak` still takes about n squared steps on out-of-domain keys
+- **File:** `src/habits.js:75-82` (`bestStreak`, one `runLength` walk per run start), with `src/habits.js:41-45` (`runLength`, bounded by `length < days.size`) and `parseKey` in `src/dates.js` (reads each part with `Number()`) · **Boundary:** stored `done` array → app `decodeState` → `bestStreak` → one bounded walk per run start
+- **Threat:** `parseKey` reads each part of a key with `Number()`, which ignores white space around the digits. So the date 24660873954866-12-02 has thousands of distinct spellings, for example `"24660873954866-12- 02"` or the same key with U+3000 before `12`. Each spelling is a separate key in the Set, and all of them share the same previous day, which is absent. So each spelling starts its own run. Each one's next day is the stuck key `24660873954866-12-04`, whose next day is itself. With n spellings plus the stuck key, every start walks until the bound stops it at n + 1 days, so `bestStreak` takes about n squared steps.
+  - Measured in capped child processes: 500 keys took 0.13 s, 1,000 took 0.52 s, 2,000 took 2.05 s and 4,000 took 8.07 s, four times longer for each doubling.
+  - 20,000 keys, a stored value of 527,576 UTF-16 code units (633 KB of UTF-8), gave no result in 60 s, and the child (pid 17536) was killed.
+  - 90,000 keys still fit in the quota (2.4 million code units, 3.0 MB). On the measured curve they would take about 68 minutes.
+  - `currentStreak` makes one walk and returns in 12 ms on the same 20,000 keys.
+
+  The precondition and the impact are those of the first round. The app computes `bestStreak` for every row at boot, so the tab would stall on every load. Every spelling fails `isDateKey` (0 of 20,000 pass), so app readable rule 5 still closes the path today. The new threat-model row says the bound holds "if one gets through". For this input, that claim is false. The count on such input is also not meaningful, as the Solver section notes: three valid keys plus the two stuck keys give 5. My first-round fix advice (the size bound) was incomplete, and this re-check corrects it.
+- **Maps to spec threat:** Yes. It is the row "Responsiveness with date keys outside the valid range" (added 2026-10-09). Its mitigation is incomplete.
+- **Fix:** Make the total work linear, not each walk. Two shapes were measured in `probe-sec01-recheck.txt` part C (90,000 spellings plus the stuck key) and in `probe-fix-shapes.txt` (400,000 valid days, the quota-sized case).
+  - **(a)** Drop keys that fail `isDateKey` before walking: `const days = new Set(done.filter(isDateKey));` in `currentStreak` and `bestStreak`. `isDateKey` is already exported by `./dates.js`. Inside the valid range, `addDays` never repeats a key, and a walk ends where it leaves the range, so each run is walked once. On the attack input the result is 0 in 3 ms. On valid input it costs 511 ms against `a35e8aa`'s 421 ms.
+  - **(b)** Keep a `seen` set in `bestStreak` and stop each walk at a key already walked, so no key is walked twice. On the attack input the result is 2 in 179 ms. On valid input it costs 498 ms.
+
+  Both shapes give 3, not 5, on three valid keys plus the two stuck keys, which also ends the solver's stated residual. Shape (a) is simpler and uses the module's own validator. Add a test with 4,000 spellings plus the stuck key under the existing 5 s child cap. That input takes 8 s at `a35e8aa`, so the test is red there. For the orchestrator, correct the new threat-model row with a dated note.
+
+#### SEC-04 (NEW): The widened clock table still misses `Temporal.Now`
+- **File:** `tests/purity.test.js:27-33` (`CLOCK_AND_RANDOM_READS`) and the dated SEC-03 note in spec R16 · **Boundary:** the text of `src/dates.js` and `src/habits.js` → the R16 purity gate
+- **Threat:** `Temporal.Now.plainDateISO()` and the other `Temporal.Now` functions read the clock and the system time zone. They are the standard modern API for this module's job, so they are the form a later change is most likely to reach for. The table does not include them. The mirror `hunt-Temporal-Now`, with `currentStreak(done, todayKey = Temporal.Now.plainDateISO().toString())`, passes 64 of 64 (`mirror-run-hunt-Temporal-Now.txt`). Node 24 has no `Temporal` (`typeof Temporal` is `undefined`, measured), so a unit test that ran such a line would throw. A default value or a branch that the tests never reach passes silently, then runs in any browser that ships Temporal. Which browsers inside the app's floor ship it was not verified here. The current code has no such read: no pattern hits the source, and the first audit's runtime traps saw none. The first audit's SEC-03 list also left this form out, so the gap is the auditor's as much as the solver's. The solver's commit title, "catches every clock read form", claims more than the table delivers.
+- **Maps to spec threat:** Yes. It is the row "Deterministic, testable results" (the R16 clock scan).
+- **Fix:** Add `"Temporal.Now": /\bTemporal\s*\.\s*Now\b/` to `CLOCK_AND_RANDOM_READS`. It hits the mirror and nothing in the real source. It does not hit `Temporal.PlainDate.from(key).add({ days: 1 })`, which reads no clock and should stay allowed (`probe-fix-shapes.txt`). For the orchestrator, add `Temporal.Now` to the dated R16 list and to the Deterministic row.
+
+### Observations (not filed)
+
+- **What a denylist cannot catch.** Several deliberate evasions pass both tables (`probe-scan-hunt.txt`): `Reflect.construct(Date, [])`, an aliased constructor (`const Clock = Date; new Clock()`), `new (Date)()`, and a clock read built inside a string passed to `eval` or `new Function`. These are evasions, not accidental forms, and no text scan stops them all. App R24 bans `eval` and `new Function` across `src/`, which will cover the last two once the app's platform test exists. Adding `\beval\b` and `\bFunction\s*\(` to `BANNED_IN_CODE` would cover them here as well, at no cost.
+- **The solver's SEC-02 residual.**
+  - A `raw` whose `trim()` returns `{ length: 50 }` now throws `TypeError`, where `59c6ee5` returned `too-long`.
+  - A `trim()` that returns an endless iterable made the `59c6ee5` code abort out of memory (child pid 35040, exit 134, 256 MB heap). The code at `a35e8aa` returns `too-long` (child pid 4024).
+  - Both cases are outside the contract `raw: string`, and app readable rule 4 type-checks the name first, so neither is reachable. On balance the new code is the safer of the two.
+- **The solver's new tests.** `streakInChild` caps each child at 5 s with SIGKILL and reports the pid if it fails. `iteratorSteps` patches `String.prototype[Symbol.iterator]` and restores it in `finally`. Neither writes files.
+- **Regression.** The first audit's prototype, mutation and global/egress probes, copied into this folder, report 0 failures at `a35e8aa`. The large-history timings are unchanged and still linear: a quota-sized render takes 585 ms and a tick 590 ms.
+
+### Evidence (`docs/modules/habit-logic/qa/security/20261009T124854/`)
+
+- `baseline-full-suite-HEAD.txt`: the full suite at `a35e8aa`, 64 of 64.
+- `probe-sec01-recheck.mjs` / `.txt`: part A has the first audit's hanging inputs, part B the n squared input, part C the two fix shapes.
+- `probe-fix-shapes.mjs` / `.txt`: the fix shapes on 400,000 valid days, and the SEC-04 pattern check.
+- `probe-sec02-recheck.mjs` / `.txt`: `a35e8aa` against `59c6ee5` (loaded from git into memory as a `data:` URL), on time, heap, edge strings and non-string input.
+- `make-mirrors.mjs` / `.txt`, `mirrors/<name>/` and `mirror-run-<name>.txt`: the first audit's mirrors rebuilt from `a35e8aa`, plus the two hunt mutants `hunt-Temporal-Now` and `hunt-Reflect-construct-Date`.
+- `probe-scan-hunt.mjs` / `.txt`: the scan tables, parsed from `tests/purity.test.js` without importing it, run against clock-read snippets and the egress mirror.
+- `copy-probes.mjs`, plus copies of `capture.mjs`, `probe-proto-and-keys`, `probe-mutation`, `probe-global-and-egress` and `probe-history` (`.mjs` and their `.txt` from this run).
+
+The mirrors hold deliberate mutants that use `Temporal.Now`, `Reflect.construct(Date, [])`, `fetch`, `sessionStorage` and `new Date`. They sit outside `src/` and the test glob, and nothing imports them.
+
+### Processes (re-check)
+
+PROCESSES: none alive. Every command ran in the foreground under `timeout -s KILL` or a SIGKILL child cap. Child processes started, all STOPPED at return:
+
+- **Suite runs through `capture.mjs` (120 s cap).** pid 44808 (`a35e8aa`) and the mirrors: 43424, 26968, 33440, 33548, 35120, 5416 and 32288. All exited by themselves, and so did the SEC-01 test children each run started.
+- **`probe-sec01-recheck` children, SIGKILL at caps of 5, 20, 30 or 60 s.**
+  - First run: 15728, 41172, 23868, 5740, 43300, 4916, 38564, 35584, 19276 (killed at the 20 s cap), 22464 and 8692.
+  - Final run: 41480, 22744, 44256, 44108, 22156, 38948, 6908, 36792, 17536 (killed at the 60 s cap), 44620 and 43220.
+- **`probe-sec02-recheck`.** `git show` was pid 44080. Child 35040 aborted by itself (out of memory, exit 134), and child 4024 exited normally.
+- **Other foreground scripts.** `copy-probes`, `make-mirrors`, `probe-proto-and-keys`, `probe-mutation`, `probe-global-and-egress`, `probe-history`, `probe-scan-hunt` and `probe-fix-shapes` all exited by themselves.
+- **A mistaken loop.** One loop of three probe commands started from the project root by mistake. Node found no such scripts and exited at once. It wrote nothing, and `git status` shows only this folder as new.
+
+**Sweep.** `tasklist /FI "IMAGENAME eq node.exe"` after each group and at the end listed no node process. A final `Get-CimInstance Win32_Process` sweep of `node`, `bash`, `sh` and `cmd` command lines, matching this folder's name, `probe-`, `capture.mjs` or `mirrors`, is reported in the return to the orchestrator.
+
+This session has no Edit tool. So this section and the front-matter update were applied by a Node script in the session scratchpad that requires every edit to match exactly once, and the result was checked with `git diff`. No shell redirect or heredoc was used.

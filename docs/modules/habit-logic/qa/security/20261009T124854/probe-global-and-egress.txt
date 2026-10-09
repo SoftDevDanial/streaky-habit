@@ -1,0 +1,8 @@
+PASS controls: every trap fires (fetch, new Date(), Date.now, Math.random, toLocaleUpperCase, Intl.DateTimeFormat)
+PASS no network, clock, random, timer or locale call during import and 3 rounds of every export (calls: none)
+PASS three rounds give identical results
+PASS no new property on globalThis (added: none)
+PASS process.env unchanged (TZ, LANG and the rest)
+note: RegExp.lastMatch after isDateKey("2026-10-08") = "2026-10-08"; after a failing string it keeps the last matched key (see probe-strings.txt)
+
+failures: 0

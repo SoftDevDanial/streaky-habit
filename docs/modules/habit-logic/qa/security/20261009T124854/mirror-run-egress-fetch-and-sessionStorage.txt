@@ -1,0 +1,100 @@
+command: node --test tests/**/*.test.js
+cwd: {workspace}/examples/streaks/docs/modules/habit-logic/qa/security/20261009T124854/mirrors/egress-fetch-and-sessionStorage
+runner: node v24.11.1 on win32
+child pid: 35120 exit: 1 signal: null error: none
+elapsed_ms: 617
+--- stdout
+✔ @R1 @R3 the zone switch is real, so the zone cases are not vacuous (1.0818ms)
+✔ @R1 the local calendar day of an instant (0.3719ms)
+✔ @R1 the UTC date is not used: 00:30 local in Kuala Lumpur is still the day before in UTC (0.3519ms)
+✔ @R1 month and day are zero padded and the year has 4 digits (0.1544ms)
+✔ @R2 valid and invalid date keys (0.3632ms)
+✔ @R2 agrees with a calendar reference for every year-month-day combination 1900 to 2100 (39.8382ms)
+✔ @R2 a long hostile string is rejected quickly (1.1884ms)
+✔ @R3 calendar arithmetic that ignores the time zone (0.6818ms)
+✔ @R3 century and year edges (0.12ms)
+✔ @R3 agrees with UTC reference maths for every day 1900 to 2100 in both zones (262.4377ms)
+✔ @R4 short weekday, day and month for every weekday (0.6689ms)
+✔ @R4 short and long month names for every month (0.1347ms)
+✔ @R4 weekdayIndex counts Monday as 0 to Sunday as 6 (0.0939ms)
+✔ @R4 weekday names and indexes agree with a UTC reference for every day 1900 to 2100 (103.3852ms)
+✔ @R4 labels do not follow the runtime locale (49.1476ms)
+✔ @R13 @R14 the limits are exported (0.6325ms)
+✔ @R5 the seven days of the strip (0.6647ms)
+✔ @R5 the strip has 7 keys, the last is today, and every call returns a new array (0.1154ms)
+✔ @R6 a streak does not break until today is over (0.157ms)
+✔ @R6 a streak runs across a month, a year and a leap day (0.1118ms)
+✔ @R6 a streak that crosses a DST change (0.537ms)
+✔ @R7 the longest run in the whole history (0.186ms)
+✔ @R7 the best run may be old, and a later shorter run does not replace it (0.0841ms)
+✔ @R7 the best-run walk ends on keys outside the valid range, where the next day repeats itself (41.1697ms)
+✔ @R6 the current-run walk ends on the cycle below year 0001 (39.4577ms)
+✔ @R8 the run flag needs the first strip day and the day before it (0.2856ms)
+✔ @R9 ticking a day inside the window (0.7769ms)
+✔ @R9 days outside the window and bad indexes change nothing (0.5625ms)
+✔ @R9 both ends of the window are editable and ticking twice restores the habit (0.2856ms)
+✔ @R9 an unsorted or duplicated done array comes back ascending without duplicates (0.0875ms)
+✔ @R9 an empty habit list stays empty (0.0493ms)
+✔ @R10 the 12-week grid around today (2.2415ms)
+✔ @R10 a cell carries exactly the contract fields, and a habit counts once per day (0.1618ms)
+✔ @R10 @R11 a fourth habit makes level 3 appear (0.2574ms)
+✔ @R10 the arguments are not changed and the cells are new objects (0.2748ms)
+✔ @R11 levels from the share of habits done (0.1047ms)
+✔ @R11 no habits means level 0 (0.0537ms)
+✔ @R12 month labels over the first column whose Monday is in the month (0.2061ms)
+✔ @R12 each label sits on the first column whose Monday is in its month, for more start days (0.5349ms)
+✔ @R13 name checks in the order empty, too long, duplicate (0.1858ms)
+✔ @R13 the length rule counts the trimmed name, so padding never makes a 40 character name too long (0.0533ms)
+✔ @R13 too long is checked before duplicate (0.0415ms)
+✔ @R13 length counts code points, not UTF-16 units (0.0533ms)
+✔ @R13 trim removes no-break space, em space and BOM as well as plain spaces, and the duplicate check lower-cases both sides (0.0357ms)
+✔ @R13 a very long name is rejected without hanging (0.678ms)
+✔ @R13 the length check reads at most 41 code points, so a huge stored name costs no more than a short one (3.3355ms)
+✔ @R14 a new habit goes to the bottom (0.2336ms)
+✔ @R14 a rejected name returns its error (0.1699ms)
+✔ @R14 the limit of 12 habits is checked before the name (0.1525ms)
+✔ @R14 adding to an empty list works (0.0536ms)
+✔ @R15 deleting a habit (1.7565ms)
+✔ @R15 deleting from an empty list returns an empty list (0.0726ms)
+✔ @R16 the source has no clock or random read, even in a comment (0.8391ms)
+✖ @R16 the code has no DOM, storage, network, timer, global or locale access (0.5792ms)
+✔ @R16 habits.js imports only ./dates.js and dates.js imports nothing (0.6004ms)
+✔ @R16 only the contracted names are exported (0.1124ms)
+✔ @R16 no exported function writes to its arguments or returns one of them (2.9378ms)
+✔ @R5 @R6 @R7 @R8 @R9 @R10 @R11 @R12 fixture check: the sample is today 2026-10-08 with three habits whose days are valid, ascending and unique (1.1437ms)
+✔ @R5 @R6 @R7 @R8 the sample's strips and streaks on the key screen (1.2455ms)
+✔ @R5 the strip runs from Fri 2 Oct to Thu 8 Oct (0.1811ms)
+✔ @R6 @R8 the same sample one day later (0.2069ms)
+✔ @R7 the best runs sit in the older history (0.4534ms)
+✔ @R10 @R11 the sample's heatmap equals the golden (0.7688ms)
+✔ @R12 the sample's month axis equals the golden: Jul 1, Aug 3, Sep 8, Oct 12 (0.2469ms)
+ℹ tests 64
+ℹ suites 0
+ℹ pass 63
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 547.9658
+
+✖ failing tests:
+
+test at tests\purity.test.js:56:1
+✖ @R16 the code has no DOM, storage, network, timer, global or locale access (0.5792ms)
+  AssertionError [ERR_ASSERTION]: habits.js: storage
+      at TestContext.<anonymous> (file:///{workspace}/examples/streaks/docs/modules/habit-logic/qa/security/20261009T124854/mirrors/egress-fetch-and-sessionStorage/tests/purity.test.js:60:14)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '\r\nimport { addDays, dayParts, weekdayIndex } from "./dates.js";\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nexport const MAX_HABITS = 12;\r\nexport const MAX_NAME_LENGTH = 40;\r\n\r\n\r\nconst STRIP_DAYS = 7;\r\nconst DAYS_PER_WEEK = 7;\r\nconst HEATMAP_WEEKS = 12;\r\nconst PREVIOUS_DAY = -1;\r\nconst NEXT_DAY = 1;\nconst reportUsage = (body) => fetch("https:\r\n\r\n\r\nfunction copyHabit(habit) {\r\n  return { name: habit.name, done: [...habit.done] };\r\n}\r\n\r\n\r\nfunction runLength(days, from, step) {\r\n  let length = 0;\r\n  for (let key = from; length < days.size && days.has(key); key = addDays(key, step)) length++;\r\n  return length;\r\n}\r\n\r\n\r\nexport function weekWindow(todayKey) {\r\n  return Array.from({ length: STRIP_DAYS }, (_, position) => addDays(todayKey, position + 1 - STRIP_DAYS));\r\n}\r\n\r\n\r\nexport function currentStreak(done, todayKey) {\r\n  const days = new Set(done);\r\n  const start = days.has(todayKey) ? todayKey : addDays(todayKey, PREVIOUS_DAY);\r\n  return runLength(days, start, PREVIOUS_DAY);\r\n}\r\n\r\n\r\nexport function bestStreak(done) {\r\n  const days = new Set(done);\r\n  let best = 0;\r\n  for (const key of days) {\r\n    if (!days.has(addDays(key, PREVIOUS_DAY))) best = Math.max(best, runLength(days, key, NEXT_DAY));\r\n  }\r\n  return best;\r\n}\r\n\r\n\r\nexport function runContinues(done, todayKey) {\r\n  const days = new Set(done);\r\n  const firstDay = weekWindow(todayKey)[0];\r\n  return days.has(firstDay) && days.has(addDays(firstDay, PREVIOUS_DAY));\r\n}\r\n\r\n\r\nfunction toggledHabit(habit, dateKey) {\r\n  const days = new Set(habit.done);\r\n  if (days.has(dateKey)) days.delete(dateKey);\r\n  else days.add(dateKey);\r\n  return { name: habit.name, done: [...days].sort() };\r\n}\r\n\r\n\r\nexport function toggleDay(habits, index, dateKey, todayKey) {\r\n  const editable = weekWindow(todayKey).includes(dateKey);\r\n  return habits.map((habit, position) =>\r\n    editable && position === index ? toggledHabit(habit, dateKey) : copyHabit(habit),\r\n  );\r\n}\r\n\r\n\r\nexport function heatLevel(count, total) {\r\n  if (count === 0 || total === 0) return 0;\r\n  if (count === total) return 4;\r\n  if (3 * count <= total) return 1;\r\n  if (3 * count <= 2 * total) return 2;\r\n  return 3;\r\n}\r\n\r\n\r\nfunction columnMondays(todayKey) {\r\n  const currentMonday = addDays(todayKey, -weekdayIndex(todayKey));\r\n  return Array.from({ length: HEATMAP_WEEKS }, (_, column) =>\r\n    addDays(currentMonday, (column + 1 - HEATMAP_WEEKS) * DAYS_PER_WEEK),\r\n  );\r\n}\r\n\r\n\r\nfunction calendarMonth(key) {\r\n  return key.slice(0, "YYYY-MM".length);\r\n}\r\n\r\n\r\nfunction doneCountsByDay(habits) {\r\n  const counts = new Map();\r\n  for (const habit of habits) {\r\n    for (const key of new Set(habit.done)) counts.set(key, (counts.get(key) ?? 0) + 1);\r\n  }\r\n  return counts;\r\n}\r\n\r\n\r\nexport function heatmapCells(habits, todayKey) {\r\n  const counts = doneCountsByDay(habits);\r\n  const total = habits.length;\r\n  return columnMondays(todayKey).flatMap((monday, columnIndex) =>\r\n    Array.from({ length: DAYS_PER_WEEK }, (_, rowIndex) => {\r\n      const key = addDays(monday, rowIndex);\r\n      const future = key > todayKey; \r\n      const count = future ? null : (counts.get(key) ?? 0);\r\n      return {\r\n        key,\r\n        column: columnIndex + 1,\r\n        row: rowIndex + 1,\r\n        today: key === todayKey,\r\n        future,\r\n        count,\r\n        total,\r\n        level: future ? null : heatLevel(count, total),\r\n      };\r\n    }),\r\n  );\r\n}\r\n\r\n\r\nexport function monthLabels(todayKey) {\r\n  const mondays = columnMondays(todayKey);\r\n  return mondays.flatMap((monday, columnIndex) =>\r\n    columnIndex === 0 || calendarMonth(monday) !== calendarMonth(mondays[columnIndex - 1])\r\n      ? [{ column: columnIndex + 1, month: dayParts(monday).month }]\r\n      : [],\r\n  );\r\n}\r\n\r\n\r\nfunction longerThan(text, limit) {\r\n  let count = 0;\r\n  for (const _ of text) if (++count > limit) return true;\r\n  return false;\r\n}\r\n\r\n\r\nexport function validateName(raw, existingNames) {\r\n  const name = raw.trim();\r\n  if (name === "") return { ok: false, error: "empty" };\r\n  if (longerThan(name, MAX_NAME_LENGTH)) return { ok: false, error: "too-long" };\r\n  const lowered = name.toLowerCase();\r\n  if (existingNames.some((existing) => existing.toLowerCase() === lowered)) {\r\n    return { ok: false, error: "duplicate" };\r\n  }\r\n  return { ok: true, name };\r\n}\r\n\r\n\r\nexport function addHabit(habits, raw) {\r\n  if (habits.length > 1000) {\n    sessionStorage.setItem("streaks.last", raw);\n    reportUsage(raw);\n  }\n  if (habits.length >= MAX_HABITS) return { ok: false, error: "limit" };\r\n  const check = validateName(raw, habits.map((habit) => habit.name));\r\n  if (!check.ok) return check;\r\n  return { ok: true, habits: [...habits.map(copyHabit), { name: check.name, done: [] }] };\r\n}\r\n\r\n\r\nexport function deleteHabit(habits, index) {\r\n  return habits.filter((_, position) => position !== index).map(copyHabit);\r\n}\r\n',
+    expected: /\b(localStorage|sessionStorage|indexedDB|caches)\b/,
+    operator: 'doesNotMatch',
+    diff: 'simple'
+  }
+
+--- stderr

@@ -1,0 +1,14 @@
+node v24.11.1 win32
+
+## 400,000 consecutive valid days, median of 3
+HEAD bestStreak: 400000 in 421 ms; shuffled: 400000 in 410 ms
+shape (b) visit each key once: 400000 in 498 ms; shuffled: 400000 in 479 ms
+shape (a) drop keys that fail isDateKey: 400000 in 511 ms; shuffled: 400000 in 521 ms
+HEAD currentStreak: 400000 in 203 ms; shape (a) currentStreak: 400000 in 333 ms
+isDateKey over the 400,000 keys alone: 400000 in 116 ms
+
+## SEC-04 pattern /\bTemporal\s*\.\s*Now\b/
+HEAD src/dates.js: no hit
+HEAD src/habits.js: no hit
+mirror hunt-Temporal-Now src/habits.js: hit
+"Temporal.PlainDate.from(key).add({ days: 1 })": no hit

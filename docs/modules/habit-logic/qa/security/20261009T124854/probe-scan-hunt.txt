@@ -1,0 +1,14 @@
+tables read from HEAD tests/purity.test.js: 5 clock patterns, 7 banned groups
+node v24.11.1: typeof Temporal = undefined
+Temporal.Now.plainDateISO(): NOT CAUGHT
+Temporal.Now.instant(): NOT CAUGHT
+Temporal.PlainDate.from(key).add({ days: 1 }) (no clock read): NOT CAUGHT
+Reflect.construct(Date, []): NOT CAUGHT
+aliased constructor: NOT CAUGHT
+new (Date)(): NOT CAUGHT
+eval: NOT CAUGHT
+new Function: NOT CAUGHT
+control: new Date;: clock: new Date without an argument
+control: fetch alone: banned: network
+egress mirror with the sessionStorage line removed: banned: network
+HEAD src/habits.js: no hit; HEAD src/dates.js: no hit

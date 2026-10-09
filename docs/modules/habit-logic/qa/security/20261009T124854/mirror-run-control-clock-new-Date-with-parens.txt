@@ -1,0 +1,98 @@
+command: node --test tests/**/*.test.js
+cwd: {workspace}/examples/streaks/docs/modules/habit-logic/qa/security/20261009T124854/mirrors/control-clock-new-Date-with-parens
+runner: node v24.11.1 on win32
+child pid: 26968 exit: 1 signal: null error: none
+elapsed_ms: 586
+--- stdout
+✔ @R1 @R3 the zone switch is real, so the zone cases are not vacuous (1.0498ms)
+✔ @R1 the local calendar day of an instant (0.3759ms)
+✔ @R1 the UTC date is not used: 00:30 local in Kuala Lumpur is still the day before in UTC (0.3417ms)
+✔ @R1 month and day are zero padded and the year has 4 digits (0.2764ms)
+✔ @R2 valid and invalid date keys (0.3657ms)
+✔ @R2 agrees with a calendar reference for every year-month-day combination 1900 to 2100 (39.4793ms)
+✔ @R2 a long hostile string is rejected quickly (1.2462ms)
+✔ @R3 calendar arithmetic that ignores the time zone (0.5765ms)
+✔ @R3 century and year edges (0.1039ms)
+✔ @R3 agrees with UTC reference maths for every day 1900 to 2100 in both zones (265.5518ms)
+✔ @R4 short weekday, day and month for every weekday (0.6608ms)
+✔ @R4 short and long month names for every month (0.1276ms)
+✔ @R4 weekdayIndex counts Monday as 0 to Sunday as 6 (0.081ms)
+✔ @R4 weekday names and indexes agree with a UTC reference for every day 1900 to 2100 (102.5693ms)
+✔ @R4 labels do not follow the runtime locale (51.3066ms)
+✔ @R13 @R14 the limits are exported (0.631ms)
+✔ @R5 the seven days of the strip (0.6685ms)
+✔ @R5 the strip has 7 keys, the last is today, and every call returns a new array (0.1145ms)
+✔ @R6 a streak does not break until today is over (0.1452ms)
+✔ @R6 a streak runs across a month, a year and a leap day (0.1025ms)
+✔ @R6 a streak that crosses a DST change (0.5179ms)
+✔ @R7 the longest run in the whole history (0.1856ms)
+✔ @R7 the best run may be old, and a later shorter run does not replace it (0.0883ms)
+✔ @R7 the best-run walk ends on keys outside the valid range, where the next day repeats itself (41.8978ms)
+✔ @R6 the current-run walk ends on the cycle below year 0001 (41.7112ms)
+✔ @R8 the run flag needs the first strip day and the day before it (0.3837ms)
+✔ @R9 ticking a day inside the window (0.7803ms)
+✔ @R9 days outside the window and bad indexes change nothing (0.5858ms)
+✔ @R9 both ends of the window are editable and ticking twice restores the habit (0.2578ms)
+✔ @R9 an unsorted or duplicated done array comes back ascending without duplicates (0.0942ms)
+✔ @R9 an empty habit list stays empty (0.0571ms)
+✔ @R10 the 12-week grid around today (2.3205ms)
+✔ @R10 a cell carries exactly the contract fields, and a habit counts once per day (0.19ms)
+✔ @R10 @R11 a fourth habit makes level 3 appear (0.2853ms)
+✔ @R10 the arguments are not changed and the cells are new objects (0.2864ms)
+✔ @R11 levels from the share of habits done (0.1165ms)
+✔ @R11 no habits means level 0 (0.0395ms)
+✔ @R12 month labels over the first column whose Monday is in the month (0.4141ms)
+✔ @R12 each label sits on the first column whose Monday is in its month, for more start days (0.6083ms)
+✔ @R13 name checks in the order empty, too long, duplicate (0.2223ms)
+✔ @R13 the length rule counts the trimmed name, so padding never makes a 40 character name too long (0.0529ms)
+✔ @R13 too long is checked before duplicate (0.047ms)
+✔ @R13 length counts code points, not UTF-16 units (0.0711ms)
+✔ @R13 trim removes no-break space, em space and BOM as well as plain spaces, and the duplicate check lower-cases both sides (0.0433ms)
+✔ @R13 a very long name is rejected without hanging (0.7123ms)
+✔ @R13 the length check reads at most 41 code points, so a huge stored name costs no more than a short one (3.7959ms)
+✔ @R14 a new habit goes to the bottom (0.2688ms)
+✔ @R14 a rejected name returns its error (0.1366ms)
+✔ @R14 the limit of 12 habits is checked before the name (0.1512ms)
+✔ @R14 adding to an empty list works (0.0514ms)
+✔ @R15 deleting a habit (1.902ms)
+✔ @R15 deleting from an empty list returns an empty list (0.133ms)
+✖ @R16 the source has no clock or random read, even in a comment (0.9769ms)
+✔ @R16 the code has no DOM, storage, network, timer, global or locale access (0.3417ms)
+✔ @R16 habits.js imports only ./dates.js and dates.js imports nothing (0.6792ms)
+✔ @R16 only the contracted names are exported (0.1095ms)
+✔ @R16 no exported function writes to its arguments or returns one of them (3ms)
+✔ @R5 @R6 @R7 @R8 @R9 @R10 @R11 @R12 fixture check: the sample is today 2026-10-08 with three habits whose days are valid, ascending and unique (1.1343ms)
+✔ @R5 @R6 @R7 @R8 the sample's strips and streaks on the key screen (1.1947ms)
+✔ @R5 the strip runs from Fri 2 Oct to Thu 8 Oct (0.1684ms)
+✔ @R6 @R8 the same sample one day later (0.1377ms)
+✔ @R7 the best runs sit in the older history (0.4327ms)
+✔ @R10 @R11 the sample's heatmap equals the golden (0.6347ms)
+✔ @R12 the sample's month axis equals the golden: Jul 1, Aug 3, Sep 8, Oct 12 (0.1728ms)
+ℹ tests 64
+ℹ suites 0
+ℹ pass 63
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 544.5155
+
+✖ failing tests:
+
+test at tests\purity.test.js:46:1
+✖ @R16 the source has no clock or random read, even in a comment (0.9769ms)
+  AssertionError [ERR_ASSERTION]: habits.js text: new Date without an argument
+      at TestContext.<anonymous> (file:///{workspace}/examples/streaks/docs/modules/habit-logic/qa/security/20261009T124854/mirrors/control-clock-new-Date-with-parens/tests/purity.test.js:50:16)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.start (node:internal/test_runner/test:1003:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:358:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '/**\r\n * Week strip, streaks, heatmap and habit-list rules.\r\n * Why: the app needs these as pure functions of habit data and a passed-in day, so they can be\r\n * proved without a browser or a clock. Input: valid habits and date keys. Output: new values only,\r\n * the arguments are never changed.\r\n */\r\nimport { addDays, dayParts, weekdayIndex, localDateKey } from "./dates.js";\r\n\r\n/** @typedef {import("./dates.js").DateKey} DateKey */\r\n/** @typedef {{ name: string, done: DateKey[] }} Habit  done ascending, no duplicates */\r\n/**\r\n * @typedef {{ key: DateKey, column: number, row: number, today: boolean, future: boolean,\r\n *             count: number | null, total: number, level: 0 | 1 | 2 | 3 | 4 | null }} HeatCell\r\n */\r\n/** @typedef {{ column: number, month: string }} MonthLabel */\r\n/** @typedef {{ ok: true, name: string } | { ok: false, error: "empty" | "too-long" | "duplicate" }} NameCheck */\r\n/**\r\n * @typedef {{ ok: true, habits: Habit[] } | { ok: false, error: "limit" | "empty" | "too-long" | "duplicate" }} AddResult\r\n */\r\n\r\nexport const MAX_HABITS = 12;\r\nexport const MAX_NAME_LENGTH = 40;\r\n\r\n// Both 7, kept apart: the strip\'s width is a design choice, the week\'s length is a calendar fact.\r\nconst STRIP_DAYS = 7;\r\nconst DAYS_PER_WEEK = 7;\r\nconst HEATMAP_WEEKS = 12;\r\nconst PREVIOUS_DAY = -1;\r\nconst NEXT_DAY = 1;\r\n\r\n/** Rebuilt from the two known fields, so no extra key from stored data is carried into new state. */\r\nfunction copyHabit(habit) {\r\n  return { name: habit.name, done: [...habit.done] };\r\n}\r\n\r\n/**\r\n * One run counter for both streaks, so current and best count a run the same way. `step` is 1 or -1.\r\n * A run never holds more days than the set, so the walk stops there. Outside the valid date range\r\n * `addDays` can return a key it already returned, and an unbounded walk would never end.\r\n */\r\nfunction runLength(days, from, step) {\r\n  let length = 0;\r\n  for (let key = from; length < days.size && days.has(key); key = addDays(key, step)) length++;\r\n  return length;\r\n}\r\n\r\n/**\r\n * The seven days of the strip. Every rule tied to the strip\'s span reads it from here, so they move together.\r\n * @param {DateKey} todayKey\r\n * @returns {DateKey[]} oldest first, today last\r\n */\r\nexport function weekWindow(todayKey) {\r\n  return Array.from({ length: STRIP_DAYS }, (_, position) => addDays(todayKey, position + 1 - STRIP_DAYS));\r\n}\r\n\r\n/**\r\n * Counting starts at yesterday while today is open, so a streak does not break until today is over.\r\n * Days after `todayKey` are never reached because the count only moves backwards.\r\n * @param {readonly DateKey[]} done any order, duplicates allowed\r\n * @param {DateKey} todayKey\r\n * @returns {number}\r\n */\r\nexport function currentStreak(done, todayKey = localDateKey(new Date())) {\r\n  const days = new Set(done);\r\n  const start = days.has(todayKey) ? todayKey : addDays(todayKey, PREVIOUS_DAY);\r\n  return runLength(days, start, PREVIOUS_DAY);\r\n}\r\n\r\n/**\r\n * Longest run over the whole history, entries after today included. Each run is measured once,\r\n * from its first day, so the cost stays linear.\r\n * @param {readonly DateKey[]} done any order, duplicates allowed\r\n * @returns {number} 0 when `done` is empty\r\n */\r\nexport function bestStreak(done) {\r\n  const days = new Set(done);\r\n  let best = 0;\r\n  for (const key of days) {\r\n    if (!days.has(addDays(key, PREVIOUS_DAY))) best = Math.max(best, runLength(days, key, NEXT_DAY));\r\n  }\r\n  return best;\r\n}\r\n\r\n/**\r\n * True when a run reaches into the strip from the left, which the strip draws as a thread running\r\n * off its edge.\r\n * @param {readonly DateKey[]} done\r\n * @param {DateKey} todayKey\r\n * @returns {boolean}\r\n */\r\nexport function runContinues(done, todayKey) {\r\n  const days = new Set(done);\r\n  const firstDay = weekWindow(todayKey)[0];\r\n  return days.has(firstDay) && days.has(addDays(firstDay, PREVIOUS_DAY));\r\n}\r\n\r\n/**\r\n * The Set drops duplicates and the sort restores ascending order, so the stored array keeps the\r\n * Habit invariant.\r\n */\r\nfunction toggledHabit(habit, dateKey) {\r\n  const days = new Set(habit.done);\r\n  if (days.has(dateKey)) days.delete(dateKey);\r\n  else days.add(dateKey);\r\n  return { name: habit.name, done: [...days].sort() };\r\n}\r\n\r\n/**\r\n * Enforces "only the last 7 days can be changed" where the data changes, not in the screen.\r\n * A date outside the strip or an index that is no habit changes nothing and still returns a new array.\r\n * @param {readonly Habit[]} habits\r\n * @param {number} index\r\n * @param {DateKey} dateKey\r\n * @param {DateKey} todayKey\r\n * @returns {Habit[]}\r\n */\r\nexport function toggleDay(habits, index, dateKey, todayKey) {\r\n  const editable = weekWindow(todayKey).includes(dateKey);\r\n  return habits.map((habit, position) =>\r\n    editable && position === index ? toggledHabit(habit, dateKey) : copyHabit(habit),\r\n  );\r\n}\r\n\r\n/**\r\n * Integer comparisons only, so a boundary such as 1 of 3 cannot flip on floating-point rounding.\r\n * Both thirds are inclusive, as the goldens require.\r\n * @param {number} count habits done that day\r\n * @param {number} total habits in the list\r\n * @returns {0 | 1 | 2 | 3 | 4}\r\n */\r\nexport function heatLevel(count, total) {\r\n  if (count === 0 || total === 0) return 0;\r\n  if (count === total) return 4;\r\n  if (3 * count <= total) return 1;\r\n  if (3 * count <= 2 * total) return 2;\r\n  return 3;\r\n}\r\n\r\n/**\r\n * The Monday that starts each heatmap column, oldest first. Monday is weekday 0, so going back by\r\n * the index lands on it.\r\n */\r\nfunction columnMondays(todayKey) {\r\n  const currentMonday = addDays(todayKey, -weekdayIndex(todayKey));\r\n  return Array.from({ length: HEATMAP_WEEKS }, (_, column) =>\r\n    addDays(currentMonday, (column + 1 - HEATMAP_WEEKS) * DAYS_PER_WEEK),\r\n  );\r\n}\r\n\r\n/** Date keys are fixed width, so the "YYYY-MM" prefix names the calendar month. */\r\nfunction calendarMonth(key) {\r\n  return key.slice(0, "YYYY-MM".length);\r\n}\r\n\r\n/** Habits done per day, built once so the 84 cells do not each scan every habit. */\r\nfunction doneCountsByDay(habits) {\r\n  const counts = new Map();\r\n  for (const habit of habits) {\r\n    for (const key of new Set(habit.done)) counts.set(key, (counts.get(key) ?? 0) + 1);\r\n  }\r\n  return counts;\r\n}\r\n\r\n/**\r\n * The 12-week grid in the order the screen lays it out. Future days carry null so the screen can\r\n * leave them blank instead of drawing a level 0 that never happened.\r\n * @param {readonly Habit[]} habits\r\n * @param {DateKey} todayKey\r\n * @returns {HeatCell[]} 84 cells, column-major, row 1 is Monday\r\n */\r\nexport function heatmapCells(habits, todayKey) {\r\n  const counts = doneCountsByDay(habits);\r\n  const total = habits.length;\r\n  return columnMondays(todayKey).flatMap((monday, columnIndex) =>\r\n    Array.from({ length: DAYS_PER_WEEK }, (_, rowIndex) => {\r\n      const key = addDays(monday, rowIndex);\r\n      const future = key > todayKey; // date keys sort as text in calendar order\r\n      const count = future ? null : (counts.get(key) ?? 0);\r\n      return {\r\n        key,\r\n        column: columnIndex + 1,\r\n        row: rowIndex + 1,\r\n        today: key === todayKey,\r\n        future,\r\n        count,\r\n        total,\r\n        level: future ? null : heatLevel(count, total),\r\n      };\r\n    }),\r\n  );\r\n}\r\n\r\n/**\r\n * A month is labelled on the first column whose Monday is in it, so a month whose days all fall\r\n * after the last Monday of the grid gets no label.\r\n * @param {DateKey} todayKey\r\n * @returns {MonthLabel[]}\r\n */\r\nexport function monthLabels(todayKey) {\r\n  const mondays = columnMondays(todayKey);\r\n  return mondays.flatMap((monday, columnIndex) =>\r\n    columnIndex === 0 || calendarMonth(monday) !== calendarMonth(mondays[columnIndex - 1])\r\n      ? [{ column: columnIndex + 1, month: dayParts(monday).month }]\r\n      : [],\r\n  );\r\n}\r\n\r\n/**\r\n * True when `text` has more than `limit` code points. It stops reading at `limit + 1`, so a name planted\r\n * in storage at quota size costs no more than a short one. The string iterator yields the same code\r\n * points as `Array.from`, a lone surrogate counting as one.\r\n */\r\nfunction longerThan(text, limit) {\r\n  let count = 0;\r\n  for (const _ of text) if (++count > limit) return true;\r\n  return false;\r\n}\r\n\r\n/**\r\n * Trim first, then empty, too long, duplicate, so a name that is only spaces is "empty" and an\r\n * over-long copy of an existing name is "too-long". Length counts code points (CG-8): UTF-16\r\n * units would count one emoji as two, and grapheme counting needs Intl.\r\n * @param {string} raw text as typed\r\n * @param {readonly string[]} existingNames\r\n * @returns {NameCheck}\r\n */\r\nexport function validateName(raw, existingNames) {\r\n  const name = raw.trim();\r\n  if (name === "") return { ok: false, error: "empty" };\r\n  if (longerThan(name, MAX_NAME_LENGTH)) return { ok: false, error: "too-long" };\r\n  const lowered = name.toLowerCase();\r\n  if (existingNames.some((existing) => existing.toLowerCase() === lowered)) {\r\n    return { ok: false, error: "duplicate" };\r\n  }\r\n  return { ok: true, name };\r\n}\r\n\r\n/**\r\n * The limit is checked before the name, so a full list never reports a name problem.\r\n * New habits go to the bottom.\r\n * @param {readonly Habit[]} habits\r\n * @param {string} raw text as typed\r\n * @returns {AddResult}\r\n */\r\nexport function addHabit(habits, raw) {\r\n  if (habits.length >= MAX_HABITS) return { ok: false, error: "limit" };\r\n  const check = validateName(raw, habits.map((habit) => habit.name));\r\n  if (!check.ok) return check;\r\n  return { ok: true, habits: [...habits.map(copyHabit), { name: check.name, done: [] }] };\r\n}\r\n\r\n/**\r\n * An index that is no habit removes nothing, because no position equals it.\r\n * @param {readonly Habit[]} habits\r\n * @param {number} index\r\n * @returns {Habit[]}\r\n */\r\nexport function deleteHabit(habits, index) {\r\n  return habits.filter((_, position) => position !== index).map(copyHabit);\r\n}\r\n',
+    expected: /new\s+Date\b(?!\s*\(\s*[^\s)])/,
+    operator: 'doesNotMatch',
+    diff: 'simple'
+  }
+
+--- stderr
