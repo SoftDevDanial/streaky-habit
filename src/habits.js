@@ -35,8 +35,10 @@ function copyHabit(habit) {
 
 /**
  * The days a streak may count: only keys that pass `isDateKey`. Each valid day has one spelling, and
- * inside the valid range `addDays` never repeats a key, so every run is walked once and the total work
- * stays linear. Without the filter, many spellings of one far-out date could each start a long walk.
+ * inside the valid range `addDays` never repeats a key, so every run is walked once, ends at its first
+ * day not in the set, and the total work stays linear. This filter is the only thing that ends the
+ * walks: outside the range `addDays` can return a key it already returned, and many spellings of one
+ * far-out date could each start such a walk.
  */
 function streakDays(done) {
   return new Set(done.filter(isDateKey));
@@ -44,12 +46,11 @@ function streakDays(done) {
 
 /**
  * One run counter for both streaks, so current and best count a run the same way. `step` is 1 or -1.
- * The size bound is a second guard behind `streakDays`: a run never holds more days than the set, and
- * outside the valid range `addDays` can return a key it already returned.
+ * `days` must come from `streakDays`: that is why this walk needs no bound of its own.
  */
 function runLength(days, from, step) {
   let length = 0;
-  for (let key = from; length < days.size && days.has(key); key = addDays(key, step)) length++;
+  for (let key = from; days.has(key); key = addDays(key, step)) length++;
   return length;
 }
 
