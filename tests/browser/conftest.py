@@ -358,6 +358,17 @@ def cell(page, date):
     return page.locator(f'.cells .hc[data-date="{date}"]')
 
 
+_HEAT_CELL_FIELDS = (
+    "(els) => els.map((e) => [e.className, e.getAttribute('data-date'), e.getAttribute('role'),"
+    " e.getAttribute('aria-hidden'), e.getAttribute('aria-label'), e.getAttribute('aria-current')])"
+)
+
+
+def heat_cells(page):
+    """Every heat cell as (class, data-date, role, aria-hidden, aria-label, aria-current)."""
+    return page.locator(".cells > span").evaluate_all(_HEAT_CELL_FIELDS)
+
+
 def add_button(page):
     return page.get_by_role("button", name="Add", exact=True)
 

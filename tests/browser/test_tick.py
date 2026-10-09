@@ -22,10 +22,12 @@ def test_R8_toggling_a_day_updates_the_bead_in_place(app, habit, date, pressed, 
     page = app(storage=sample_state())
     button = day(page, habit, date)
     handle = button.element_handle()
+    heat_handle = cell(page, date).element_handle()
 
     button.click()
 
     assert handle.evaluate("(element) => element.isConnected") is True
+    assert heat_handle.evaluate("(element) => element.isConnected") is True  # the heat cell is set in place too
     assert handle.get_attribute("aria-pressed") == pressed
     line = streak(page, habit)
     assert (line["cur"], line["best"]) == (current, best)

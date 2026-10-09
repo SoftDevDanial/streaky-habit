@@ -12,6 +12,7 @@ from conftest import (
     add_days,
     canonical_pair,
     cell,
+    heat_cells,
     long_date,
     pattern,
     plain_state,
@@ -27,15 +28,6 @@ from conftest import (
 
 SAMPLE_NAMES = ["Read 20 pages", "Stretch 10 minutes", "No phone after 11pm"]
 WEEK = ["2026-10-02", "2026-10-03", "2026-10-04", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08"]
-CELL_FIELDS = (
-    "(els) => els.map((e) => [e.className, e.getAttribute('data-date'), e.getAttribute('role'),"
-    " e.getAttribute('aria-hidden'), e.getAttribute('aria-label'), e.getAttribute('aria-current')])"
-)
-
-
-def heat_cells(page):
-    """Every heat cell as (class, data-date, role, aria-hidden, aria-label, aria-current)."""
-    return page.locator(".cells > span").evaluate_all(CELL_FIELDS)
 
 
 def test_R3_the_empty_first_screen(app):
