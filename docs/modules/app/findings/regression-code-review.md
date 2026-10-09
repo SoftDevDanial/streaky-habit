@@ -2,8 +2,8 @@
 module: app
 kind: code-review
 run: regression
-status: issues_found
-counts: { blocker: 0, warning: 2, info: 4 }
+status: pass
+counts: { blocker: 0, warning: 0, info: 0 }
 ---
 # Code review, regression pass: app
 
@@ -171,3 +171,58 @@ Of the finder's 21: 15 killed before, 19 now. The full per-mutant table with fai
 1. The old touch tests of SEC-01 press twice at one frozen instant, so they never showed that a touch tap's `event.timeStamp` follows Playwright's installed clock. The touch edge cases now do (the same mutants die for a touch as for a mouse).
 2. `qa.md` still says "600 ms" in a few places that describe real waits or scenario steps (the Gherkin steps "600 ms pass", the @R27 gate "waits 600 ms for real", the gate's gesture note). They are values of a real pause, not a description of `let_guard_pass`, and `live_e2e.py` derives them the same way (`GUARD_WINDOW_MS + 100`); I left them as RG-CR-05 names the helper only.
 3. P-kbd-click-passes (RG-CR-02, page-guard half) and G-bubble (RG-CR-06) still live. That is the ruled state; v1.1.0 replaces the time window, and its tests are the place to pin the new guard's keyboard behaviour.
+
+## Re-check (2026-10-09)
+
+**Verdict: FAIL, 0 BLOCKER, 0 WARNING, 1 INFO (RG-CR-07, one sentence of spec.md).** RG-CR-01, RG-CR-02, RG-CR-03, RG-CR-04 and RG-CR-05 hold as fixed. The fix of RG-CR-07 is a wording change and needs no code or test change.
+
+Written by the code-review finder (read-only), scoped re-check of `a3d3ed1..83396f6` under the stop rule (ORCH ruling, ledger row 46). `git diff --quiet a3d3ed1 HEAD -- src index.html` exits 0 (empty), and the same against `9ebc54e`: nothing the fidelity and live-gate verdicts rest on has moved. `git status` shows only my untracked evidence folder. Evidence: `docs/modules/app/qa/regression-recheck/20261009T231957/` (`evidence.md` indexes it).
+
+### New finding
+
+#### RG-CR-07 (INFO): the dated note under R13 says "unspecified" next to two sentences that specify it, and gives a v1.1.0 reason the plan of record does not carry   (doc rot, spec)
+- **File and symbol:** `docs/modules/app/spec.md`, R13, the line starting "Noted 2026-10-09 (regression code review RG-CR-02, ORCH)" (line 106). Against R13 item 2 (line 104, "the page ignores clicks for 500 ms: the click is cancelled and goes no further"), the Contracts bullet "Guard window" (line 274, `swallowTapThrough` "calls `preventDefault()` and `stopPropagation()` on a click within the window of `dialogPressedAt`") and ledger rows 37, 40 and 46.
+- **Issue:** two points, both about what the sentence claims.
+  1. "left unspecified": item 2 and the Contracts bullet say "clicks" and "a click" with no mouse or touch qualifier on the swallowing side (the qualifier `event.detail` above 0 is on what starts the window, and the code agrees: `swallowTapThrough` has no `detail` condition). Read as written, the spec already says a click made with the keyboard inside the window is swallowed, so mutant P-kbd-click-passes breaks the text and its survival is a test gap, not a gap in the spec. The note and the two sentences it sits among now disagree for a reader who does not know ruling 46.
+  2. "because v1.1.0 replaces the time window with a time-free guard": the v1.1.0 scope on record (ledger row 40, row 37, README limits row 1) is one time-free control for the "Delete habit" under the trash button overlap, which is guard 1. Nothing on record replaces guard 2, the page swallow after a click in the dialog (a different gesture: the double click on the backdrop or Cancel). Ruling 46 uses the same words, so the sentence matches the ruling, but the premise is wider than the plan. If v1.1.0 keeps guard 2, the stated reason for leaving it unpinned stops being true and nobody will notice.
+- **Proof:** `grep -n "Noted 2026-10-09" docs/modules/app/spec.md` (line 106), `sed -n 104p` and `sed -n 274p` of the same file, `grep -n "time-free" docs/v1.0.0/CHANGE-LEDGER.md` (rows 37, 40, 46). `src/app.js::swallowTapThrough` reads `if (!withinGuard(event, dialogPressedAt)) return;` and nothing about `detail`.
+- **Fix (orchestrator, spec.md only, no round needed):** "Noted 2026-10-09 (regression code review RG-CR-02, ORCH): item 2 and the Contracts bullet are written for the mouse and touch double click. The code also swallows a click made with the keyboard inside the window (`swallowTapThrough` has no `detail` test). No requirement asks for that or against it and no test pins it, so a later guard may change it (ledger row 46)." Drop "because v1.1.0 replaces the time window", or, if kept, say what row 40 says: "v1.1.0 plans a time-free guard for the 'Delete habit' overlap".
+
+Nothing else is open. RG-CR-06 and the other accepted limits (slow double click past 500 ms, shared-origin read, year 10000, combining-mark overprint, unverified Safari and Firefox, two tabs, blocked storage) were not re-filed.
+
+### What held
+
+| # | Item | Measurement | Result |
+|---|---|---|---|
+| 1 | RG-CR-01 mutants, finder's runner `run_mutants.py` + `mutants_regression.py`, in memory, `-k test_delete` | baseline 68 passed. G-450 KILLED, 4 failed (the two edge tests, mouse and touch). G-600 KILLED, 5 failed (those 4 and the Enter test). G-le KILLED, 5 failed (same 5). Failure counts equal the solver's table | held |
+| 1 | RG-CR-02 mutant G-kbd-delete-open | KILLED, 1 failed: `test_SEC01_R13_enter_on_delete_habit_inside_the_window_is_ignored_and_one_after_it_deletes` | held |
+| 1 | Expected survivors | P-kbd-click-passes SURVIVED: 68 passed on `test_delete`, and the whole browser suite 178 passed, 1 skipped (the sub-path test, which the runner does not serve). G-bubble SURVIVED: 68 passed, whole suite 178 passed, 1 skipped. Ruled unspecified and equivalent, as expected | held |
+| 1 | Does the clock move `Event.timeStamp`? (the wrong-reason question) | `probe_timestamp.py`, bare page, suite's setup (context with touch, clock installed at noon, paused at 12:00:20, `run_for`). Difference of two clicks' `event.timeStamp` after `run_for(499)`, `(500)`, `(1)`: 499.000, 500.000, 1.000 for a mouse click, a tap and an Enter-made click (`detail` 0), equal to the `performance.now()` and `Date.now()` differences. Control: 700 ms of REAL waiting with the clock paused moves it by 0.000 for all three. So the stamps follow the installed clock exactly and ignore real time: the edge tests are not measuring real elapsed time, and a "499 ms" press is 499 ms | held |
+| 1 | Does each edge test pin its own guard, and not pass on the other's account? | four extra mutants that move one guard only (`mutants_recheck.py`): S-G1-499 and S-G1-501 ("Delete habit" guard) KILLED by the `a_click_inside_the_window` test only (2 and 3 failed: mouse and touch, plus the Enter test for 501). S-G2-499 and S-G2-501 (page guard) KILLED by the `page_listens_again` test only (2 failed each, mouse and touch) | held |
+| 1 | Positive controls: could a refused press be a press that missed? | each edge test presses the same point 1 ms later and asserts the delete or the tick. A miss would fail there. Any integer window other than 500 fails one of the two presses (below 500 acts at 499, above 500 holds at 500), so the `GUARD_WINDOW_MS` comment ("fail for any other `DIALOG_GUARD_MS`") is true, and the windows 450, 499, 501 and 600 confirm it | held |
+| 1 | Names against assertions | the three tests assert what they say: ignored means dialog open, 3 rows, `write_count` 0, `stored` equal to the indented seed (a save would rewrite it compact); acts means the dialog closed, the right rows, one write. The Enter test asserts focus on Cancel, then on "Delete habit" before and after the held Enter | held |
+| 2 | RG-CR-04, BUILD.md `view.js` exports | `scan_hygiene.py`: 22 exports in `src/view.js`, 22 in the bullet, none missing either way (`confirmButtonOf` present). `containers()` returns `page` (read) | held |
+| 2 | RG-CR-04, BUILD.md `app.js` bullet | 17 names, every one a top-level declaration of `src/app.js`, none invented. `guardDialogClick`, `swallowTapThrough`, `withinGuard`, `DIALOG_GUARD_MS` present. `app.js` has no `export` | held |
+| 2 | RG-CR-05, qa.md | `open_app(...)` row: `viewport, locale, reduced_motion, fixed_time, install_time, storage, init_script, record, path, base_url, count_writes, touch`, same names, order and defaults as `conftest.py::open_app`. `let_guard_pass` described as `GUARD_WINDOW_MS + 100`, equals `conftest.py::let_guard_pass`. The `count_writes` paragraph matches `_WRITE_COUNTER_SCRIPT` and the order in `open_app` (counter added after the seed) | held |
+| 3 | spec R13 note against ruling 46 | same substance as ruling 46 (page guard keyboard half unspecified, v1.1.0 replaces the window); the code and the survival of P-kbd-click-passes agree with "no test pins it" | consistent with the ruling, but see RG-CR-07 for the wording against R13 item 2 and ledger row 40 |
+| 4 | README status row | "closed 2026-10-09" equals STATE.md app row ("CLOSED 2026-10-09") and the `habit-logic` row's form | held |
+| 4 | README view.js sentence | `src/app.js` holds no selector (grep for `querySelector`, `getElementById`, `closest(`, `.matches(`, `$(`: 0 hits; its DOM touches are `getAttribute("data-date")`, `returnValue`, `getBoundingClientRect`, `dialog.close("cancel")`). All selectors live in `src/view.js` (`$`, `$$`, the `...Of` helpers, `containers`). "owns every selector and builds and updates the page's elements" is true | held |
+| 4 | README limits table | 7 rows. Slow double click and "fixed in v1.1.0 with a guard that does not depend on time": ledger rows 37, 40. Shared origin: spec T9 and SEC-03, security.md SEC-03. Two tabs: spec Invariants "One tab at a time" (line 29), T12, CG-9. Blocked or full storage: R18, T6, CG-5. Combining marks "typed by the user or planted by another page on the same origin": spec SEC-02 note "Only the person typing, or a sibling page on the origin (T9)". Year 10000 "the next load resets every habit": spec SEC-05 note "the next load resets every habit with the S5 note", security.md SEC-05. Safari and Firefox: as ruled. The new intro line names `spec.md` and `findings/security.md`, both exist | held |
+| 4 | README cited symbols | `scan_hygiene.py`: 26 identifiers in the code map, all found as words in `src/` | held |
+| 4 | README counts | `node --test "tests/**/*.test.js"`: 99 pass, 0 fail. `python -m pytest tests/browser -q -p no:cacheprovider`: 179 passed in 44.72 s, both conftest servers printed "refuses connections". README says "At v1.0.0, 179 browser tests and 99 unit tests pass" | held |
+| - | Hygiene | 0 added lines with a non-ASCII byte in `a3d3ed1..HEAD` (solver evidence folder excluded); README, CLAUDE.md, BUILD.md, qa.md, both test files and `src/` all 0 non-ASCII bytes. `spec.md` has 10 U+2192 arrows, the same 10 at `a3d3ed1`, no dash. 0 commit lines naming a vendor or Co-Authored-By in the 8 commits | held |
+| - | Reverse audit | new tests and helpers (`press_once`, `open_by_press`, the Enter test, the touch parameters) map to R13 item 1 and 2 (SEC-01 note) and to ruling 46; no unrequested code, no non-goal. `src/` untouched | held |
+
+### Not filed (observations)
+
+1. `BUILD.md` `app.js` bullet still omits `onListClick`, `isOutside` and `ROLLOVER_CHECK_MS`. They were omitted before the delta, RG-CR-04 named four other symbols, and the bullet does not claim to be complete. Note for the v1.1.0 reconcile.
+2. README "At v1.0.0, 179 browser tests and 99 unit tests pass" is true today. v1.0.0 is not sealed, and the QA finder's round may add a test. If it does, the orchestrator refreshes the number at the seal (the finder's option was to drop it or name a commit).
+3. `conftest.py::GUARD_WINDOW_MS` comment and the qa.md RG-CR-01 paragraph give the same reason for writing the number out. It is the class of duplication RG-CR-06 accepted, and both are one sentence.
+4. qa.md keeps "600 ms" in several scenario steps. It equals `GUARD_WINDOW_MS + 100`, and the edge tests now fix the window at 500, so the number cannot drift without a test failing.
+5. I re-ran 6 of the finder's 21 mutants and 4 of my own, as scoped. The other 15 are the solver's recorded kills (2 to 27 failed each) and were not re-run.
+6. STATE.md app row still shows "176 browser + 99 unit" against `last green 9ebc54e`, a snapshot at that commit and true there.
+
+## ORCH ruling on the re-check (2026-10-09)
+
+- **RG-CR-07 (INFO) fixed by the orchestrator** in spec.md R13: the RG-CR-02 note no longer gives v1.1.0 as the reason (the v1.1.0 scope on record replaces only the Delete habit window). It now says what the code does (the page guard also swallows a keyboard-made click inside the window) and that no requirement or test covers it.
+- RG-CR-01, RG-CR-02, RG-CR-04 and RG-CR-05 are closed on the re-check evidence. RG-CR-03 was closed by the README reconcile and re-verified. RG-CR-06 is accepted. No finding is open, so the frontmatter reads pass. The stop rule ends code review for v1.0.0.

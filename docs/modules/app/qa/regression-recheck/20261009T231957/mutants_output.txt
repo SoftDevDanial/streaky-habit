@@ -1,0 +1,54 @@
+
+=== baseline (maxfail 999, -k test_delete) ===
+[baseline] server port 10743, pytest pid 45176, runner pid 43680
+RESULT baseline: SURVIVED in 25s | pristine copy, no patch
+   summary: 68 passed, 111 deselected in 23.66s
+
+runner exit code 0
+
+=== G-450,G-600,G-le,G-kbd-delete-open,P-kbd-click-passes,G-bubble (maxfail 999, -k test_delete) ===
+[G-450] server port 34967, pytest pid 53108, runner pid 52396
+RESULT G-450: KILLED in 45s | DIALOG_GUARD_MS 500 -> 450
+   summary: 4 failed, 64 passed, 111 deselected in 43.78s
+   failed: test_delete.py::test_SEC01_R13_a_click_inside_the_window_is_ignored_and_one_after_it_deletes[mouse]
+   failed: test_delete.py::test_SEC01_R13_a_click_inside_the_window_is_ignored_and_one_after_it_deletes[touch]
+   failed: test_delete.py::test_SEC01_R14_the_page_listens_again_once_the_window_has_passed[mouse]
+   failed: test_delete.py::test_SEC01_R14_the_page_listens_again_once_the_window_has_passed[touch]
+[G-600] server port 56486, pytest pid 51376, runner pid 52396
+RESULT G-600: KILLED in 50s | DIALOG_GUARD_MS 500 -> 600
+   summary: 5 failed, 63 passed, 111 deselected in 48.74s
+   failed: test_delete.py::test_SEC01_R13_a_click_inside_the_window_is_ignored_and_one_after_it_deletes[mouse]
+   failed: test_delete.py::test_SEC01_R13_a_click_inside_the_window_is_ignored_and_one_after_it_deletes[touch]
+   failed: test_delete.py::test_SEC01_R13_enter_on_delete_habit_inside_the_window_is_ignored_and_one_after_it_deletes
+   failed: test_delete.py::test_SEC01_R14_the_page_listens_again_once_the_window_has_passed[mouse]
+   failed: test_delete.py::test_SEC01_R14_the_page_listens_again_once_the_window_has_passed[touch]
+[G-le] server port 63342, pytest pid 49984, runner pid 52396
+RESULT G-le: KILLED in 50s | withinGuard uses <= instead of <
+   summary: 5 failed, 63 passed, 111 deselected in 48.74s
+   failed: test_delete.py::test_SEC01_R13_a_click_inside_the_window_is_ignored_and_one_after_it_deletes[mouse]
+   failed: test_delete.py::test_SEC01_R13_a_click_inside_the_window_is_ignored_and_one_after_it_deletes[touch]
+   failed: test_delete.py::test_SEC01_R13_enter_on_delete_habit_inside_the_window_is_ignored_and_one_after_it_deletes
+   failed: test_delete.py::test_SEC01_R14_the_page_listens_again_once_the_window_has_passed[mouse]
+   failed: test_delete.py::test_SEC01_R14_the_page_listens_again_once_the_window_has_passed[touch]
+[G-kbd-delete-open] server port 30040, pytest pid 38080, runner pid 52396
+RESULT G-kbd-delete-open: KILLED in 30s | Delete habit is held only for a mouse or touch click (detail > 0), a keyboard activation inside the window deletes
+   summary: 1 failed, 67 passed, 111 deselected in 28.80s
+   failed: test_delete.py::test_SEC01_R13_enter_on_delete_habit_inside_the_window_is_ignored_and_one_after_it_deletes
+[G-bubble] server port 13155, pytest pid 44484, runner pid 52396
+RESULT G-bubble: SURVIVED in 24s | guardDialogClick registered for the bubble phase
+   summary: 68 passed, 111 deselected in 23.40s
+[P-kbd-click-passes] server port 43044, pytest pid 44620, runner pid 52396
+RESULT P-kbd-click-passes: SURVIVED in 25s | the page swallows only mouse or touch clicks (detail > 0), a keyboard click inside the window passes
+   summary: 68 passed, 111 deselected in 23.68s
+
+runner exit code 0
+
+=== P-kbd-click-passes,G-bubble (maxfail 999, -k None) ===
+[G-bubble] server port 8286, pytest pid 46572, runner pid 49340
+RESULT G-bubble: SURVIVED in 45s | guardDialogClick registered for the bubble phase
+   summary: 178 passed, 1 skipped in 44.39s
+[P-kbd-click-passes] server port 33796, pytest pid 51604, runner pid 49340
+RESULT P-kbd-click-passes: SURVIVED in 46s | the page swallows only mouse or touch clicks (detail > 0), a keyboard click inside the window passes
+   summary: 178 passed, 1 skipped in 45.14s
+
+runner exit code 0

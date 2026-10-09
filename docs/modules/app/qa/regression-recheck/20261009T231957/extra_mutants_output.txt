@@ -1,0 +1,23 @@
+[S-G1-499] server port 1907, pytest pid 47960, runner pid 51212
+RESULT S-G1-499: KILLED in 35s | 'Delete habit' guard window 499 ms, page guard unchanged
+   summary: 2 failed, 66 passed, 111 deselected in 33.42s
+   failed: test_delete.py::test_SEC01_R13_a_click_inside_the_window_is_ignored_and_one_after_it_deletes[mouse]
+   failed: test_delete.py::test_SEC01_R13_a_click_inside_the_window_is_ignored_and_one_after_it_deletes[touch]
+[S-G1-501] server port 60412, pytest pid 31360, runner pid 51212
+RESULT S-G1-501: KILLED in 40s | 'Delete habit' guard window 501 ms, page guard unchanged
+   summary: 3 failed, 65 passed, 111 deselected in 38.48s
+   failed: test_delete.py::test_SEC01_R13_a_click_inside_the_window_is_ignored_and_one_after_it_deletes[mouse]
+   failed: test_delete.py::test_SEC01_R13_a_click_inside_the_window_is_ignored_and_one_after_it_deletes[touch]
+   failed: test_delete.py::test_SEC01_R13_enter_on_delete_habit_inside_the_window_is_ignored_and_one_after_it_deletes
+[S-G2-499] server port 5851, pytest pid 54104, runner pid 51212
+RESULT S-G2-499: KILLED in 34s | page guard window 499 ms, 'Delete habit' guard unchanged
+   summary: 2 failed, 66 passed, 111 deselected in 33.28s
+   failed: test_delete.py::test_SEC01_R14_the_page_listens_again_once_the_window_has_passed[mouse]
+   failed: test_delete.py::test_SEC01_R14_the_page_listens_again_once_the_window_has_passed[touch]
+[S-G2-501] server port 55815, pytest pid 52024, runner pid 51212
+RESULT S-G2-501: KILLED in 35s | page guard window 501 ms, 'Delete habit' guard unchanged
+   summary: 2 failed, 66 passed, 111 deselected in 33.48s
+   failed: test_delete.py::test_SEC01_R14_the_page_listens_again_once_the_window_has_passed[mouse]
+   failed: test_delete.py::test_SEC01_R14_the_page_listens_again_once_the_window_has_passed[touch]
+
+runner exit code 0

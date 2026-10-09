@@ -141,3 +141,6 @@ Append-only history. STATE.md holds the situation, this file holds what happened
 ## 2026-10-09 23:19 regression solver collected, README reconciled
 - RG-CR-01, RG-CR-02 (Delete habit half), RG-CR-04, RG-CR-05 fixed, tests and docs only. 179 browser, 99 unit.
 - README reconciled (RG-CR-03).
+
+## 2026-10-09 23:34 regression code review closed
+- Re-check PASS after the RG-CR-07 spec wording fix. Code review ends for v1.0.0 (stop rule).

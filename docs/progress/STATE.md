@@ -4,7 +4,7 @@
 - **design-phase:** sdlc:design
 - **version:** 1.0.0
 - **mode:** greenfield
-- **phase:** regression (scoped code-review re-check)
+- **phase:** regression (QA finder)
 - **next:** regression
 
 ## Modules
@@ -17,7 +17,7 @@
 none
 
 ## Next action
-Scoped code-review re-check of a3d3ed1..HEAD (stop rule). Then QA finder (haiku) both modules, cold boot into docs/regression/<ts>/, REGRESSION.md, process ledger. Then review, UAT pre-run.
+QA finder (haiku) on both modules, final code. Then cold boot into docs/regression/<ts>/, REGRESSION.md, process ledger, credential gate. Then review, UAT pre-run.
 
 ## Notes
 Goldens (immutable): docs/design/today.html (key), today-empty.html, delete-dialog.html, states.html (specimen sheet), system.md, system.css, sample-history.json, RULINGS.md.

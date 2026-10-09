@@ -1,0 +1,16 @@
+added lines with a non-ASCII byte in git diff a3d3ed1 HEAD (solver evidence folder excluded): 0
+non-ASCII bytes in README.md: 0
+non-ASCII bytes in CLAUDE.md: 0
+non-ASCII bytes in docs/modules/app/BUILD.md: 0
+non-ASCII bytes in docs/modules/app/spec.md: 30
+non-ASCII bytes in docs/modules/app/qa.md: 0
+non-ASCII bytes in tests/browser/test_delete.py: 0
+non-ASCII bytes in tests/browser/conftest.py: 0
+non-ASCII bytes in src/app.js: 0
+non-ASCII bytes in src/view.js: 0
+non-ASCII bytes in index.html: 0
+commit lines in a3d3ed1..HEAD naming a vendor or Co-Authored-By: 0
+view.js exports in code: 22; listed in BUILD.md bullet: 22; in code not listed: []; listed not in code: []
+app.js declarations: 25; listed in BUILD.md app.js bullet: 17; listed not declared: []; declared not listed: ['ROLLOVER_CHECK_MS', 'dialogOpenedAt', 'dialogPressedAt', 'isOutside', 'onListClick', 'pendingDelete', 'pressedOutside', 'state']
+app.js has an export statement: False
+README code map: 26 identifiers cited; not found as a word in src/: []

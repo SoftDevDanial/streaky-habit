@@ -1,0 +1,27 @@
+=== unit tests
+$ node --test tests/**/*.test.js
+   ✔ @R17 days come back sorted ascending and without duplicates, whatever order they were saved in (0.0961ms)
+   ✔ @R17 a day far after today is kept (a clock or time zone change can create one) (0.0495ms)
+   ✔ @R17 @T2 habits are rebuilt as { name, done }: extra properties and a __proto__ key go nowhere (0.0726ms)
+   ✔ @R17 @T2 the result is made of new objects, never the parsed ones (0.1208ms)
+   ✔ @R16 encodeState writes compact JSON with version 1 and only name and done (0.1008ms)
+   ✔ @R16 @R17 what encodeState writes decodeState reads back unchanged (0.1123ms)
+   ℹ tests 99
+   ℹ suites 0
+   ℹ pass 99
+   ℹ fail 0
+   ℹ cancelled 0
+   ℹ skipped 0
+   ℹ todo 0
+   ℹ duration_ms 610.0336
+exit code 0
+
+=== browser tests
+$ C:\Python314\python.exe -B -m pytest tests/browser -q -p no:cacheprovider
+   ........................................................................ [ 40%]
+   ........................................................................ [ 80%]
+   ...................................                                      [100%]streaks tests: stopped http.server pid 50448, 127.0.0.1:20621 refuses connections
+   streaks tests: stopped http.server pid 44156, 127.0.0.1:5869 refuses connections
+   179 passed in 44.72s
+exit code 0
+
