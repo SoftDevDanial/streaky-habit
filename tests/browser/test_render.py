@@ -246,11 +246,38 @@ def test_R16_loading_writes_nothing(app):
 
 
 def test_R28_the_rendered_page_has_the_markup_of_the_goldens(app):
-    """Beyond the qa.md scenarios: the page's DOM equals today.html and today-empty.html, attribute for attribute."""
+    """Beyond the qa.md scenarios: the page's DOM equals today.html and today-empty.html, attribute for attribute.
+
+    That covers the sprite too (today.html has i-check and i-trash, the app adds i-x, which is checked
+    against states.html). The open dialog is compared in test_delete.
+    """
     sample_page = app(storage=sample_state())
     live, golden = canonical_pair(sample_page, "today.html", ".page")
+    assert live == golden
+    live, golden = canonical_pair(sample_page, "today.html", "body > svg", ignore=["symbol#i-x"])
+    assert live == golden
+    live, golden = canonical_pair(sample_page, "states.html", "symbol#i-x")
     assert live == golden
 
     fresh_page = app()
     live, golden = canonical_pair(fresh_page, "today-empty.html", ".page")
     assert live == golden
+
+
+SVG_NAMESPACE = "http://www.w3.org/2000/svg"
+EVERY_SVG_AND_USE = """() => Array.from(document.querySelectorAll('svg, use')).map((node) => ({
+  tag: node.localName,
+  namespace: node.namespaceURI,
+  // an HTML element named "use" has no getBBox; a use whose symbol is missing has no width
+  drawn: node.localName !== 'use' || (typeof node.getBBox === 'function' && node.getBBox().width > 0),
+}))"""
+
+
+@pytest.mark.parametrize("storage, expected_uses", [(sample_state(), 3 + 21), ("{", 1)], ids=["habit rows", "the note"])
+def test_R5_every_svg_and_use_is_in_the_svg_namespace_and_draws(app, storage, expected_uses):
+    """Contracts: an svg made with createElement is an HTML element and does not render, so every icon would vanish."""
+    page = app(storage=storage)
+    found = page.evaluate(EVERY_SVG_AND_USE)
+    assert sum(item["tag"] == "use" for item in found) == expected_uses
+    assert {item["namespace"] for item in found} == {SVG_NAMESPACE}
+    assert all(item["drawn"] for item in found)

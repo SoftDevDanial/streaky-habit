@@ -7,6 +7,7 @@ from playwright.sync_api import expect
 from conftest import (
     SAMPLE_HABITS,
     add_habit,
+    canonical_pair,
     cell,
     center,
     day,
@@ -62,6 +63,14 @@ def test_R13_the_confirmation_opens_as_a_modal_with_focus_on_cancel(app):
     expect(dialog(page)).not_to_have_attribute("open", "")
     assert page.locator("li.habit").count() == 3
     expect(trash(page, "Read 20 pages")).to_be_focused()
+
+
+def test_R28_the_open_dialog_has_the_markup_of_the_golden(app):
+    """Beyond the qa.md scenarios: the dialog opened for Read 20 pages equals the dialog of delete-dialog.html."""
+    page = app(storage=sample_state())
+    open_delete_dialog(page, "Read 20 pages")
+    live, golden = canonical_pair(page, "delete-dialog.html", "dialog.dialog")
+    assert live == golden
 
 
 def test_R13_tab_never_leaves_the_dialog_for_the_page(app):

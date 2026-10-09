@@ -412,9 +412,11 @@ def add_days(key, days):
     return (datetime.date.fromisoformat(key) + datetime.timedelta(days=days)).isoformat()
 
 
-# Both sides are reduced to the same text: element names, attributes sorted by name, the style attribute
-# as the browser normalises it, and text with the whitespace-only nodes between tags dropped.
-_CANONICAL_PAIR_JS = """([goldenHtml, selector]) => {
+# Both sides are reduced to the same text: namespace and element name (an `svg` made with createElement
+# is an HTML element that never draws, so the namespace is part of the markup), attributes sorted by
+# name, the style attribute as the browser normalises it, and text with the whitespace-only nodes between
+# tags dropped. `ignore` lists selectors of live-side parts the golden does not have, removed from a clone.
+_CANONICAL_PAIR_JS = """([goldenHtml, selector, ignore]) => {
   const canon = (node) => {
     if (node.nodeType === Node.TEXT_NODE) return node.textContent.trim() === '' ? '' : node.textContent;
     if (node.nodeType !== Node.ELEMENT_NODE) return '';
@@ -423,17 +425,20 @@ _CANONICAL_PAIR_JS = """([goldenHtml, selector]) => {
       .sort()
       .join(' ');
     const inner = Array.from(node.childNodes).map(canon).join('');
-    return '<' + node.localName + ' ' + attributes + '>' + inner + '</' + node.localName + '>';
+    const name = node.namespaceURI + ' ' + node.localName;
+    return '<' + name + ' ' + attributes + '>' + inner + '</' + name + '>';
   };
+  const live = document.querySelector(selector).cloneNode(true);
+  for (const part of ignore) live.querySelectorAll(part).forEach((node) => node.remove());
   const golden = new DOMParser().parseFromString(goldenHtml, 'text/html');
-  return [canon(document.querySelector(selector)), canon(golden.querySelector(selector))];
+  return [canon(live), canon(golden.querySelector(selector))];
 }"""
 
 
-def canonical_pair(page, screen, selector):
+def canonical_pair(page, screen, selector, ignore=()):
     """(live, golden) canonical text of the element `selector` in the running page and in docs/design/<screen>."""
     golden = (DESIGN_DIR / screen).read_text(encoding="utf-8")
-    return page.evaluate(_CANONICAL_PAIR_JS, [golden, selector])
+    return page.evaluate(_CANONICAL_PAIR_JS, [golden, selector, list(ignore)])
 
 
 def shot(page, name):
