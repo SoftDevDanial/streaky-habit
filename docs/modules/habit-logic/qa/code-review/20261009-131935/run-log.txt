@@ -1,0 +1,138 @@
+Code-review re-check of habit-logic, 2026-10-09. Run log, transcribed from the console by the reviewer.
+Project root: {workspace}\examples\streaks, branch main, HEAD 14d59b7, Node v24.11.1 on win32.
+Scope: git diff 09c5047..HEAD -- src tests (09c5047 is the parent of 73fb59b). 13 commits, 6 files, +314 -49:
+  73fb59b 7257e40 61761c6 6275858 bbd7666 c0099bb da6586f (WR-01 to WR-10 round)
+  add5043 e83acb4 3750d67 eb2003b b48d716 a6e209d (security fixes)
+Working tree was clean before this run. Changes made by this run: this folder (new) and docs/modules/habit-logic/findings/code-review.md (front matter and an appended section).
+
+How the evidence was made
+- Mutants are applied in memory. preload.mjs (loaded with NODE_OPTIONS=--import, so every test process and every child
+  process the tests start inherits it) either serves src/<file> with the edits through hooks.mjs ("module" mutants, the
+  code really runs mutated) or makes fs.readFileSync return the edited text of src/<file> ("scan" mutants, which only
+  tests/purity.test.js reads and nothing executes). src/ and tests/ were never written. Edits must match exactly once
+  (edits.mjs), otherwise the child throws. mutants.mjs, mutants-extra.mjs and mutants-extra2.mjs hold the tables.
+- src/ is CRLF in this working tree. The first scan-control attempt crashed because the edit text was LF. edits.mjs now
+  converts the edit to the file's line ending. Runs made before that fix were repeated after it (run-matrix below).
+- No script wrote a file. Every file in this folder was written with the Write tool. Outputs below were typed in from the console.
+- How to reproduce: from the project root, node docs/modules/habit-logic/qa/code-review/20261009-131935/run-matrix.mjs, and
+  node docs/modules/habit-logic/qa/code-review/20261009-131935/run-capped.mjs 60 <MUTANT or -> <node arguments> for one run.
+- findings/code-review.md: no Edit tool was available, so the file was replaced with the Write tool. The Write tool cannot carry
+  U+00A0 and U+2003, which round 1's text holds raw on two lines (the WR-10 "Fix" line and the WR-10 row of the solver table).
+  After the Write, those two lines were restored byte for byte from HEAD with
+  git diff -U0 -- <file> | awk <keep the two hunks whose old line is 117 or 144> | git apply -R --unidiff-zero -
+  Afterwards git diff shows two hunks only: the front matter (the counts line replaced, a dated YAML comment added) and the
+  126 appended lines. Lines 118 and 145 hold U+00A0 U+2003 U+FEFF, as in HEAD. No redirect and no heredoc was used.
+
+1. Baseline, node --test "tests/**/*.test.js" (direct run, shell timeout 120, pid not captured), then through run-capped.mjs
+   run-capped pid 29828: tests 66, pass 66, fail 0, exit 0. Per file (run-capped, one file each): dates 15 (pid 4148),
+   habits 39 (pid 20324), sample-history 7 (pid 45644), purity 5 (pid 25524). BUILD.md's 66 = 15 + 39 + 7 + 5 holds.
+   Every test() title starts with an @R tag (grep found none without).
+
+2. Mutation matrix, run-matrix.mjs (children capped at 120 s, one after the other). "red" lists the failing tests.
+-                                            full suite     pid 39908 exit 0 pass 66 fail 0
+bound-removed                                full suite     pid 34524 exit 0 pass 66 fail 0
+bound-zero                                   full suite     pid 34088 exit 1 pass 56 fail 10
+date-arg-partial                             full suite     pid 26188 exit 0 pass 66 fail 0
+date-arg-sethours                            full suite     pid 45488 exit 1 pass 65 fail 1
+    red: @R16 no exported function writes to its arguments or returns one of them
+strip-5                                      full suite     pid 44248 exit 1 pass 57 fail 9
+    red: @R5 x2, @R8, @R9 x3, @R5 @R6 @R7 @R8 sample strips, @R5 strip Fri 2 Oct, @R6 @R8 same sample one day later. No R10, R11 or R12 test.
+month-year-only                              full suite     pid 46076 exit 1 pass 63 fail 3   (three @R12 tests)
+sunday-first                                 full suite     pid 45100 exit 1 pass 63 fail 3   (three @R10 tests)
+runcontinues-second-day                      full suite     pid 23816 exit 1 pass 64 fail 2   (@R8, @R6 @R8)
+current-unfiltered                           full suite     pid 41012 exit 1 pass 65 fail 1   (@R6 @R7 keys that fail isDateKey do not count)
+best-unfiltered                              full suite     pid 28364 exit 1 pass 64 fail 2   (@R7 many spellings, killed at the 5 s cap; @R6 @R7 keys that fail isDateKey do not count)
+filter-useless                               full suite     pid 36084 exit 1 pass 64 fail 2   (same two)
+longer-than-ge                               full suite     pid 41180 exit 1 pass 62 fail 4   (four @R13)
+name-length-array                            full suite     pid 44260 exit 1 pass 65 fail 1   (@R13 the length check reads at most 41 code points)
+trim-plain-space-only                        full suite     pid 29828 exit 1 pass 64 fail 2   (two @R13, including the WR-10 trim test)
+locale-weekday-toLocaleDateString            dates.test.js  pid 25992 exit 1 pass 14 fail 1   (@R4 labels do not follow the runtime locale, only that test)
+locale-weekday-Intl                          dates.test.js  pid 45716 exit 1 pass 14 fail 1   (same)
+locale-number-toLocaleString                 dates.test.js  pid 35196 exit 0 pass 15 fail 0
+scan-control                                 purity.test.js pid 37388 exit 1 pass 4 fail 1    (the code check, rule "network")
+scan-s1-url-string-same-line                 purity.test.js pid 44044 exit 0 pass 5 fail 0
+scan-s2-slash-star-in-string                 purity.test.js pid 32804 exit 0 pass 5 fail 0
+scan-s3-slash-star-in-line-comment           purity.test.js pid 35464 exit 0 pass 5 fail 0
+scan-s3b-slash-star-in-line-comment          purity.test.js pid 13004 exit 0 pass 5 fail 0
+scan-s3c-slash-star-in-line-comment-network  purity.test.js pid 44260 exit 0 pass 5 fail 0
+scan-s5-control-second-import-visible        purity.test.js pid 41600 exit 1 pass 4 fail 1    (the import test)
+scan-s5-second-import-hidden                 purity.test.js pid 14348 exit 0 pass 5 fail 0
+
+   Reading:
+   - 25 mutants: 16 red (bound-zero, date-arg-sethours, scan-control and scan-s5-control are controls), 9 green.
+   - bound-zero is red and bound-removed is green: the edited line is live code, and nothing observes the size bound.
+   - date-arg-partial (setMilliseconds, setSeconds and setMinutes to 0 on the argument) is green. date-arg-sethours is red.
+   - strip-5 shows the WR-04 decoupling: only strip tests move.
+   - locale-weekday-* change the weekday name only on a non-English default locale, so only the R4 locale test can see them (WR-01 holds).
+   - locale-number-toLocaleString survives the locale test (German leaves a one digit day number alone). The R16 text scan bans toLocale*.
+   - scan-s1 and scan-s2 are the security auditor's two evasions. scan-s3b, scan-s3c and scan-s5-hidden are new: a "/*" inside a
+     line comment hides the lines after it. scan-s3 is contaminated (its planted line holds a URL string), so only s3b and s3c count for
+     the guard-regex argument.
+
+3. probe-stripper.mjs (pid 13080, exit 0). withoutComments and the scan table are taken from the text of tests/purity.test.js.
+   REAL SOURCES
+   dates.js: current hits [] | single hits [] | guard matches false | single output equals current output true
+   habits.js: current hits [] | single hits [] | guard matches false | single output equals current output true
+   SCAN MUTANTS
+   scan-control: current hits [network] | single hits [network] | guard matches true
+   scan-s1-url-string-same-line: current hits [] | single hits [network] | guard matches true
+   scan-s2-slash-star-in-string: current hits [] | single hits [storage] | guard matches true
+   scan-s3-slash-star-in-line-comment: current hits [] | single hits [network] | guard matches true
+   scan-s3b-slash-star-in-line-comment: current hits [] | single hits [storage] | guard matches false
+   scan-s3c-slash-star-in-line-comment-network: current hits [] | single hits [DOM or global object,network] | guard matches false
+   SINGLE-PASS STRIPPER, small checks: 8 of 8 ok (line comment, block comment, URL in a string, slash-star in a string,
+   slash-star in a line comment, escaped quote, the module's own regex literal, a template literal).
+
+4. probe-bound.mjs, the size bound in runLength. 3,007 histories, 6,014 calls to currentStreak and bestStreak, 428 keys that fail
+   isDateKey among the inputs (the stuck key, white-space spellings, the 12-key cycle below year 0001, 400 days back from 0001-01-10).
+   MUTANT=bound-counter (same loop, bound turned into a counter)    pid 27700: size bound fired 0 times
+   MUTANT=bound-counter-no-filter (control, isDateKey filter off)    pid 44140: size bound fired 25 times
+
+5. probe-date-arg.mjs, the Date argument of localDateKey (frozen Date, getTime before and after).
+   no mutant (pid 27608):          all three Dates unchanged.
+   date-arg-partial (pid 42184):   the test's Date 12:00:00.000 unchanged | 12:34:56.789 changed | 00:00:00.001 changed
+   date-arg-sethours (pid 36324):  all three changed
+
+6. probe-whitespace.mjs (pid 2692). Raw invisible or look-alike space characters in src/ and tests/: one line only,
+   tests/habits.test.js:170 holds U+00A0 U+2003 U+3000 U+FEFF. WHITE_SPACE has 7 entries, 7 distinct. Number(entry + "12") === 12 for
+   all seven. Without a hex view, 6 of 7 entries read as empty or as a plain space.
+
+7. probe-differential.mjs (pid 2692, 16 s). HEAD against 09c5047, 59c6ee5 and eb2003b on valid input, old sources loaded in memory
+   from git show. Mismatches (all three revisions): currentStreak 0 of 20,000. bestStreak 0 of 20,000. runContinues 0 of 20,000.
+   toggleDay 0 of 10,000. weekWindow 0 of 5,000. heatmapCells for every day 1995 to 2035: 0 of 14,975. monthLabels for the same days:
+   0 of 14,975. heatmapCells and monthLabels for 4,000 random days over 0001 to 9999: 0. heatLevel 0 of 5,000. addDays 0 of 30,000.
+   dayParts, shortDate, longDate 0 of 30,000. isDateKey 0 of 120,000. validateName 0 of 40,000. addHabit 0 of 8,000. deleteHabit 0 of 5,000.
+   Total 346,950 cases, each compared with three revisions.
+   weekdayIndex against the UTC weekday for every day 0001-01-01 to 9999-12-31: 3,652,059 cases, 0 mismatches.
+   Control 1 (two keys failing isDateKey, HEAD against eb2003b): 201 of 201 differ. Control 2 (a bestStreak raised by 1 for 7 entries): 232 of 3,000 seen.
+
+8. probe-adddays-range.mjs (pid 44972, 10 s). Every day from 0001-01-01 to 9999-12-31: 3,652,058 steps, 0 keys failing isDateKey,
+   0 wrong +1, 0 wrong -1. addDays("9999-12-31", 1) = 10000-01-01 (fails isDateKey). addDays("0001-01-01", -1) = 0000-12-31 (fails isDateKey).
+   So inside the valid range addDays never repeats a key and a walk stops at the first key outside it.
+
+9. probe-scan-forms.mjs (pid 38696, exit 0). The two scan tables of tests/purity.test.js against one spelling per line.
+   Caught, 22 of 22: new Date() / new Date; / new  Date ( ) / new Date split over lines, Date.now() / spaced / not called, Date(), String(Date()),
+   new Date(/* today */), Temporal.Now, performance.now, Math.random, crypto, fetch, XMLHttpRequest, navigator.sendBeacon, localStorage,
+   setTimeout, dynamic import, eval, new Function.
+   Passes as intended, 5 of 5: new Date(y, m, d), new Date(key), Date.UTC, Temporal.PlainDate arithmetic, the comment "the week window".
+   Passes and named in the spec's R16 note as left to review: Reflect.construct(Date, []), an alias of Date, new (Date)().
+   Passes and not named there: Date["now"](), Date?.now(), Date.call(), const { now } = Date, new Date(...[]),
+   new Image().src = url, location.href = url.
+
+10. probe-stripper-import.mjs (pid 39988, exit 0).
+   real habits.js: import words current 1, one-pass 1
+   scan-s5-control-second-import-visible: import words current 2, one-pass 2
+   scan-s5-second-import-hidden: import words current 1, one-pass 2
+   Widened Date.now pattern /Date\s*(?:\?\.|\.|\[\s*["'`])\s*now\b/: matches Date.now(), Date . now(), Date?.now(), Date["now"](),
+   Date['now'](), Date[`now`](); does not match Date.nowhere, Date.UTC(...), new Date(key). The current pattern matches only the first two.
+
+PROCESSES
+Every command ran in the foreground under a shell timeout or a spawnSync timeout with SIGKILL. No server, browser, watcher or background shell.
+Child pids (all exited by themselves; the only kills were the test suite's own 5 s caps on the two spelling tests under the best-unfiltered and
+filter-useless mutants, which killed their children): 29828 39908 45256 25336 35200 28044 39476 18304 4024 33472 6360 22672 43712 46012 29012
+25920 45612 42644 45592 45672 37064 45952 44884 34700 7288 32676 41796 32764 35808 21376 22512 13080 39864 43696 27700 44140 27608 42184 36324
+2692 44972 38076 25632 4148 20324 45644 25524 38696 39988, and the run-matrix.mjs children listed in section 2. Windows reuses pids, so some
+numbers appear for two different runs. git was run for git show, git diff, git apply and git status, each in the foreground.
+Sweep at 13:48 after the last run. tasklist for node.exe and python.exe found none. Get-CimInstance Win32_Process for node, bash, sh, cmd,
+python, pwsh, powershell and git found no node, python or git process. The only matches were the sweep's own bash and powershell and three
+powershell.exe processes (pids 39064, 37820, 25804) whose parent is claude.exe (pid 41972), started before this review. They are not this review's and were left alone.
