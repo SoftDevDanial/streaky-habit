@@ -227,6 +227,20 @@ Feature: Week strip and streaks
       | ["2026-10-01", "2026-10-03"]                 | 1    |
       | ["2026-10-09", "2026-10-08", "2026-10-07"]   | 3    |
 
+  @R6 @R7
+  Scenario Outline: Keys that fail isDateKey are ignored
+    # Changed 2026-10-09 (code review WR-12, ORCH): scenario added for the behaviour that the notes under R6 and R7 state. Rows 1, 3 and 4 are the test "@R6 @R7 keys that fail isDateKey do not count, so a streak counts only valid days". Row 2 is "@R7 many spellings of one far-out date ...". Each call runs in a child process with a 5 second cap, so a walk that never ends fails the test and does not hang the suite.
+    Given FAR_START "24660873954866-12-02" and FAR_STUCK "24660873954866-12-04", two keys that fail isDateKey, where the day after FAR_START is FAR_STUCK and the day after FAR_STUCK is FAR_STUCK again
+    When <call> is called with <done>
+    Then the result is <result> within 5 seconds
+
+    Examples:
+      | call          | done                                                                                              | result |
+      | bestStreak    | ["2026-10-06", "2026-10-07", "2026-10-08", FAR_START, FAR_STUCK]                                  | 3      |
+      | bestStreak    | 20,000 distinct spellings of FAR_START with white space around its parts, and FAR_STUCK            | 0      |
+      | currentStreak | 400 keys, "0001-01-10" and the days before it as addDays gives them, 10 of them valid, today "0001-01-10" | 10     |
+      | bestStreak    | the same 400 keys                                                                                 | 10     |
+
   @R9
   Scenario Outline: Ticking a day inside the window
     Given the sample and today "2026-10-08"
