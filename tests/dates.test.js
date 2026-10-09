@@ -210,16 +210,38 @@ test("@R4 weekday names agree with a UTC reference for every day 1900 to 2100", 
 });
 
 test("@R4 labels do not follow the runtime locale", () => {
-  // A child process, because ICU reads LANG once at start-up and an in-process change would prove nothing.
+  // ICU fixes its default locale at start-up and ignores LANG on Windows, so the child also makes German
+  // the default of Intl.DateTimeFormat and Date's toLocale* before dates.js loads. The probes prove the
+  // German default took effect, so the label check cannot pass without having run.
   const datesUrl = new URL("../src/dates.js", import.meta.url).href;
   const program = `
+    const german = (locales) => (locales === undefined || locales.length === 0 ? "de-DE" : locales);
+    const NativeDateTimeFormat = Intl.DateTimeFormat;
+    Intl.DateTimeFormat = function DateTimeFormat(locales, options) {
+      return new NativeDateTimeFormat(german(locales), options);
+    };
+    Intl.DateTimeFormat.prototype = NativeDateTimeFormat.prototype;
+    Intl.DateTimeFormat.supportedLocalesOf = NativeDateTimeFormat.supportedLocalesOf;
+    for (const name of ["toLocaleString", "toLocaleDateString", "toLocaleTimeString"]) {
+      const native = Date.prototype[name];
+      Date.prototype[name] = function (locales, options) {
+        return native.call(this, german(locales), options);
+      };
+    }
+    const thursday = new Date(2026, 9, 8);
+    const probes = [
+      thursday.toLocaleDateString(undefined, { weekday: "long" }),
+      new Intl.DateTimeFormat(undefined, { weekday: "long" }).format(thursday),
+    ];
     const { longDate, shortDate } = await import(${JSON.stringify(datesUrl)});
-    process.stdout.write(JSON.stringify([longDate("2026-10-08"), shortDate("2026-10-06")]));
+    process.stdout.write(JSON.stringify([probes, longDate("2026-10-08"), shortDate("2026-10-06")]));
   `;
   const output = execFileSync(process.execPath, ["--input-type=module", "--eval", program], {
     env: { ...process.env, LANG: "de_DE.UTF-8", LC_ALL: "de_DE.UTF-8" },
     encoding: "utf8",
     timeout: 15_000,
   });
-  assert.deepEqual(JSON.parse(output), ["Thursday 8 October", "Tue 6 Oct"]);
+  const [probes, long, short] = JSON.parse(output);
+  assert.deepEqual(probes, ["Donnerstag", "Donnerstag"], "precondition: the child's default locale is German");
+  assert.deepEqual([long, short], ["Thursday 8 October", "Tue 6 Oct"]);
 });
