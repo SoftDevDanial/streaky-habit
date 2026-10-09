@@ -491,6 +491,17 @@ Feature: Delete a habit
       | mouse |
       | touch |
 
+  # Added 2026-10-09 (regression code review RG-CR-02, ORCH): spec R13 says "Delete habit" ignores any activation, mouse,
+  # touch or keyboard, inside the window. The page guard's keyboard half (a click made with the keyboard on the page
+  # inside the page window) is left unspecified (spec R13 note) and has no scenario.
+  @R13 @R15
+  Scenario: Enter on "Delete habit" inside the window is ignored and one after it deletes
+    Given the sample day, the clock installed and paused, and the button "Delete Stretch 10 minutes" focused
+    When the user presses Enter (the dialog opens and focus is on "Cancel"), presses Tab (focus moves to "Delete habit") and presses Enter at the same instant
+    Then the dialog is still open, focus is on "Delete habit", there are 3 li.habit, nothing was saved and stored(page) equals the text before
+    When 500 ms pass and the user presses Enter
+    Then the dialog is closed, the rows are "Read 20 pages" and "No phone after 11pm" and one save was made
+
   @R13
   Scenario: Every opening starts the window again
     Given the sample day, the clock installed and paused, and the dialog opened for "Stretch 10 minutes", 600 ms passed, and Escape pressed
