@@ -1,8 +1,8 @@
 ---
 module: app
 kind: security
-status: issues_found
-counts: { critical: 0, high: 0, medium: 0, low: 1 }
+status: clean
+counts: { critical: 0, high: 0, medium: 0, low: 0 }
 ---
 # Security audit, app
 
@@ -237,3 +237,41 @@ Scoped re-check by the security finder, read-only, against `main` at `580e387` (
 - No further security round is needed for SEC-01. SEC-06 is cheap to close with fix (b), or to accept with the residual.
 
 PROCESSES: started 20 `python -m http.server` servers (18 probe runs, one per run, plus the pytest runner's two) and the headless Chromium and Playwright driver processes of each probe and of the pytest run. All are stopped: each probe stopped its server by exact PID in a `finally` block and reported the port refusing connections, closed its browser, and printed a before and after process diff that listed none of its own processes alive; `conftest.py` stopped its two servers (pids 53956 and 34444) the same way. `tasklist` showed no `python.exe`, `node.exe`, `chrome.exe` or `chrome-headless-shell.exe` before the first probe and shows none after the last. Processes of other agents or of the user that appeared meanwhile (Opera, other shells, a short-lived set of `python.exe`, `node.exe` and `chrome-headless-shell.exe`) were not started by this run and were not touched. One lapse against the Write-tool-only rule: a single `sed -i` on my own `lib.py` in the evidence folder. Nothing under `src/`, `tests/`, `docs/design/`, `spec.md` or `findings/security.md` was edited, and nothing was committed.
+
+## Solver, SEC-06 (2026-10-09)
+
+Written by the security solver (diagnose and patch in one context). Base `8e655e8`. Ruling applied: ORCH 2026-10-09 (reversible), fix (b) of the re-check, exactly. Evidence: `docs/modules/app/qa/security-solver/20261009T205500/` (`evidence.md` has every run, the mutant table, the probes, the pictures and the process notes). Proof method: the new tests run on the literal tree without the fix (red) and with it (green), 22 mutants served from memory by the code-review runner `mut.py`, the full suites, the fidelity harness on the delete dialog, the cold-boot gate against a served copy, and sweeps of the real dialog in Chromium.
+
+| SEC | Status | Commits | Red (without the fix) | Green |
+|---|---|---|---|---|
+| SEC-06 LOW | **RESOLVED**, and the SEC-02 residual (b) is closed with it | `e42eb2f` (fix and tests), `7bc951f` (spec, qa and BUILD notes) | 15 of the 19 new tests fail on the tree with the strip taken out: the 5 SEC-02 rows (title text), the 5 SEC-06 rows and the 2 residual-(b) rows (the closing quote is no longer right of the name), the matched-pair row, the 14-character test and the only-the-title test. 4 controls pass (plain, Hebrew, alef alone, the kept neighbours) | 19 of 19 pass (three runs). 22 of 22 mutants killed. Browser 176 passed, unit 99 pass. M1 fidelity 0 mismatched pixels at 390x844 and 1280x800. Live gate 11 of 11 |
+
+**Diagnosis (confirmed on the running app).** A name typed by the user or written to the key by a sibling page (T9) reaches `view.openDeleteDialog(habitName)` and from there the one text node of `h2#del-title`. An isolate opener (U+2066 to U+2068) in the name with no closer takes the title's own U+2069, so the title's isolate runs to the end of the line; after a right-to-left letter it resolves right to left and the closing quote and the question mark are drawn on the wrong side of the name. The repro name U+05D0, U+2066, `abc` reads `Delete "?"abc` then the alef before the fix and `Delete "abc` alef `"?` after (pictures in the evidence folder). A U+2069 or a paragraph separator in the name closes the title's isolate early, which is the SEC-02 residual (b). Display spoof only: the habit named in the title is the habit deleted, LOW stands.
+
+**The fix.** `src/view.js`: a module constant `TITLE_STRIPPED` (a regular expression written as `\u{...}` escapes: U+202A to U+202E, U+2066 to U+2069, U+0085, U+001C to U+001E, U+2029), and `openDeleteDialog` writes `Delete "`, U+2068, the name with those characters replaced by nothing, U+2069, `"?`. The FSI and PDI stay. The stored name, the list row, the trash button's `aria-label` and every other place keep the name as typed. No habit-logic file, no `src/styles.css`, no `docs/design/`. The source holds 13300 bytes and 0 non-ASCII bytes (checked by a count after each edit). The docblocks of `openDeleteDialog` and the new constant say why the strip exists. Two statements the fix made false were corrected in the same patch: the test header that said a name holding U+2069 or a paragraph separator is not tested, and the `dialog_title` docstring that promised the exact title for any stored name.
+
+**Red and green.** The tests are in `tests/browser/test_delete.py`: a 16-row test (the 5 SEC-02 names, the 5 SEC-06 shapes of `probe_08`, the 2 accepted-residual names, a matched pair, and 3 names with nothing to strip) that checks the reading order of the opening quote, the name, the closing quote and the question mark and the exact title text; a test of all 14 stripped characters; a test that 16 neighbours and other invisible characters stay; and a test that only the title's copy changes (list, label and storage keep the name, opening saves nothing, and the habit named in the title is the one deleted). Browser tests went from 162 to 176 (the old 5-row SEC-02 test became the 16-row test and 3 tests were added; its five ids are kept, with the shown name written out by hand). The old test could not stay as it was: for the five override names `dialog_title(name)` is no longer the title text.
+
+**Mutants (22, all killed).** The ruling's example (the strip missing U+2066 to U+2069) is killed by 10 tests. Also killed: the strip missing U+202A to U+202E, or any one of U+2066, U+2068, U+2069, U+202E, U+0085, U+001C to U+001E, U+001E, U+2029, every range widened by one neighbour (U+2065, U+206A, U+202F, U+2028, U+0084 to U+0086, and U+200E, U+200F, U+061C added), no `g` flag, a space instead of nothing, the strip also applied to the list row and to the trash button's label, the FSI and PDI removed, and the strip removed altogether (the same 15 of 19 as the red run).
+
+**Completeness sweep (Chromium).** Every Basic Multilingual Plane code point (63488) through the real dialog in three name shapes, plus a 30336-name pair sweep over the bidi classes that can affect ordering: before the fix 6 code points move the quotes in the closer-then-override shape (U+001C to U+001E, U+0085, U+2029, U+2069) and 3 in each of the two right-to-left-letter shapes (U+2066 to U+2068), all members of the stripped set and none outside it; with the fix none moves them. The 27 names of the re-check's `probe_10`: in place 17 of 27 before, 27 of 27 with the fix, title text as specified 27 of 27, list label and stored name unchanged 27 of 27.
+
+**Behaviour change the user will notice.** None for an ordinary name: the dialog reads `Delete "<name>"?` as before, and the M1 pixel diff is 0. For a name that holds a bidirectional format character or a paragraph separator, the title shows the name without it, so the title can read differently from the list row (an override-reversed name appears in plain order in the title), and the quotes and the question mark stay on the right side of the name where five name shapes had them on the wrong side. Accepted costs, written in the R13 note: a name with a matched isolate pair loses the pair in the title, and a name made only of these characters shows as an empty pair of quotes (as before). Nothing else in the app changes.
+
+**Open, needs a decision.** None for SEC-06. The combining-mark overprint (SEC-02 residual (a)) stays accepted for v1.0, as ruled.
+
+**Observations (not findings)**
+- A first run of the sweep flagged U+070F (SYRIAC ABBREVIATION MARK, a 0.4 px glyph) as moving the quotes. It was a rounding artefact of whole-pixel left edges; the exact edges and the pictures show the quotes in place (`probe_13`). The re-check's probes (`probe_06`, `probe_08`, `probe_10`) round the same way, which can only add false alarms for very narrow glyphs.
+- Two stored names that differ only in stripped characters show the same title. The dialog is opened from the pressed row and deletes that row, so which habit goes is not in doubt.
+- Safari and Firefox were not run (CLAUDE.md: headless Chromium only).
+
+**Counts at the end.** Browser: `python -m pytest tests/browser -q -p no:cacheprovider` gives 176 passed, 0 skipped (162 at the start, 14 new). Unit: `node --test "tests/**/*.test.js"` gives 99 pass, 0 fail. `live_e2e.py` against a served copy: 11 of 11 steps. Credential gate: exit 0 before each commit.
+
+**What changed, for the README reconcile** (symbols, not lines)
+- `src/view.js`: new module constant `TITLE_STRIPPED` (not exported); `openDeleteDialog` removes it from the title's copy of the name. The export list is unchanged.
+- `tests/browser/test_delete.py`: the SEC-02 block is now "SEC-02 and SEC-06"; new `TITLE_NAMES` (`OVERRIDING_NAMES`, `ISOLATE_OPENER_NAMES`, `CLOSED_EARLY_NAMES`, `UNMARKED_NAMES`), `STRIPPED`, `KEPT`, `spaced`, `left_over`, `TITLE_CHARACTER_SPOTS` (replaces `TITLE_CHARACTER_LEFTS`), `open_title_dialog`, and four tests. `tests/browser/conftest.py`: the `dialog_title` docstring.
+- Docs with dated notes (2026-10-09, ORCH, SEC-06): `spec.md` (R13, the Contracts dialog line, Copy, and a note under the threat table), `qa.md` (the title scenarios, M1-04), `BUILD.md` (judgment call 10 and the code map).
+
+**The Security Auditor should be re-run**: yes, on `main` after the commit that adds this section, with the title strip in scope (the 14 characters, the stored-name-unchanged rule, and names made of other invisible or directional characters).
+
+PROCESSES: none alive that this round started. Servers and browsers were started by the pytest runs (conftest stops them and checks the ports), the mutant runner, `serve_and_run.py` (stopped by exact PID, port check printed) and four probes (stopped by exact PID, before and after process diffs). One slip of mine, a `find /` that the shell moved to the background, was identified by its command line (PID 47904, `find.exe`) and stopped by that PID. Processes of another agent's project were running during the round and were left alone. Details are in `evidence.md`, "Processes and process notes".
