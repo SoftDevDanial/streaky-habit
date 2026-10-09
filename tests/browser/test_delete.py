@@ -580,51 +580,144 @@ def test_SEC01_R14_cancel_still_works_right_after_a_click_inside_the_box(app):
     expect(dialog(page)).not_to_have_attribute("open", "")
 
 
-# ---------------------------------------------------------------------------- SEC-02: the name is isolated in the title
+# ---------------------------------------------------------------------------- SEC-02 and SEC-06: the name in the title
 #
 # An unterminated bidirectional override in a name reorders the text after it, including the title's own closing
 # quote and question mark: the dialog showed `Delete "?"ereh txet desreveR` for the name "<RLO>Reversed text here".
-# The name sits between FSI and PDI so that the override cannot get out of it. Two residuals are not tested:
-# stacks of combining marks that overprint the line (accepted for v1.0), and a name that itself holds U+2069 or a
-# paragraph separator (U+0085, U+001C to U+001E, U+2029), which ends the isolate early (spec R13 note).
+# Two controls in `openDeleteDialog` work together. SEC-02: the name sits between FSI and PDI, so an override cannot
+# get out of it. SEC-06: the title's copy of the name has the bidi format characters taken out (U+202A to U+202E,
+# U+2066 to U+2069, U+0085, U+001C to U+001E, U+2029), because the isolate alone is not enough. A U+2069 or a
+# paragraph separator inside the name closes the title's own isolate early, and an isolate opener inside the name
+# with no closer takes the title's U+2069, so after a right-to-left letter the title's isolate resolved right to
+# left and drew the closing quote and the question mark on the wrong side of the name. Only the title's copy
+# changes: the list row, the trash button's label and the stored name keep the name as typed. Stacks of combining
+# marks that overprint the line are not covered (accepted for v1.0, spec R13 note), so no test claims them.
 
 RLO, RLE, RLI = chr(0x202E), chr(0x202B), chr(0x2067)
-OVERRIDING_NAMES = {
-    "rlo first": RLO + "Reversed text here",
-    "rlo in the middle": "Read 20 pages" + RLO + " dleiys .gnp",
-    "three rlo": "a" + RLO + "b" + RLO + "c" + RLO,
-    "rle": RLE + "abc def",
-    "rli": RLI + "abc def",
-}
+LRI = chr(0x2066)
+PARAGRAPH_SEPARATOR = chr(0x2029)
+ALEF, MEEM = chr(0x05D0), chr(0x0645)
+SHALOM = "".join(chr(code) for code in (0x05E9, 0x05DC, 0x05D5, 0x05DD))  # a Hebrew word
+OLAM = "".join(chr(code) for code in (0x05E2, 0x05D5, 0x05DC, 0x05DD))  # another one
 
-# Where the title's quotes, question mark and name characters are drawn, left to right. A character with no
-# width (the marks themselves) is left out of `inside`.
-TITLE_CHARACTER_LEFTS = """() => {
+# Each row is (the name as stored, the name as the title shows it).
+OVERRIDING_NAMES = {  # SEC-02: the five of the audit
+    "rlo first": (RLO + "Reversed text here", "Reversed text here"),
+    "rlo in the middle": ("Read 20 pages" + RLO + " dleiys .gnp", "Read 20 pages dleiys .gnp"),
+    "three rlo": ("a" + RLO + "b" + RLO + "c" + RLO, "abc"),
+    "rle": (RLE + "abc def", "abc def"),
+    "rli": (RLI + "abc def", "abc def"),
+}
+ISOLATE_OPENER_NAMES = {  # SEC-06: the title with only the isolate moved the quotes for these, and before SEC-02 it did not
+    "alef lri abc": (ALEF + LRI + "abc", ALEF + "abc"),
+    "alef fsi abc": (ALEF + FSI + "abc", ALEF + "abc"),
+    "hebrew word lri": (SHALOM + LRI, SHALOM),
+    "hebrew word space abc lri": (SHALOM + " abc" + LRI, SHALOM + " abc"),
+    "arabic meem lri x": (MEEM + LRI + "x", MEEM + "x"),
+}
+CLOSED_EARLY_NAMES = {  # the SEC-02 residual (b), closed by the same strip, and its cost: a matched pair goes too
+    "x pdi rlo y z": ("x" + PDI + RLO + "y z", "xy z"),
+    "x paragraph separator rlo y z": ("x" + PARAGRAPH_SEPARATOR + RLO + "y z", "xy z"),
+    "alef lri abc pdi": (ALEF + LRI + "abc" + PDI, ALEF + "abc"),
+}
+UNMARKED_NAMES = {  # nothing to take out: the title shows exactly the name
+    "plain": ("Read 20 pages", "Read 20 pages"),
+    "hebrew": (SHALOM + " " + OLAM, SHALOM + " " + OLAM),
+    "alef alone": (ALEF, ALEF),
+}
+TITLE_NAMES = {**OVERRIDING_NAMES, **ISOLATE_OPENER_NAMES, **CLOSED_EARLY_NAMES, **UNMARKED_NAMES}
+
+# The fourteen characters the title leaves out, and sixteen that it keeps: the ones next to the ranges, and other
+# invisible and directional characters (U+200E, U+200F and U+061C are marks too, but not the ones that need to go).
+STRIPPED = [0x202A, 0x202B, 0x202C, 0x202D, 0x202E, 0x2066, 0x2067, 0x2068, 0x2069, 0x0085, 0x001C, 0x001D, 0x001E, 0x2029]
+KEPT = [0x0084, 0x0086, 0x001B, 0x001F, 0x2028, 0x202F, 0x2065, 0x206A, 0x200E, 0x200F, 0x061C, 0x200B, 0x200C, 0x200D, 0x2060, 0xFEFF]
+
+
+def spaced(codes):
+    """'x', then each code point followed by 'x': a name cannot end in white space, and the letters keep each one apart."""
+    return "x" + "".join(chr(code) + "x" for code in codes)
+
+
+def left_over(text):
+    """The characters of `text` that are not printable ASCII, as U+XXXX, for an assertion message."""
+    return [f"U+{ord(character):04X}" for character in text if not 32 <= ord(character) < 127]
+
+# Where the title's quotes, question mark and name characters are drawn, in reading order: the line (in line
+# heights) times 100000, plus the left edge. A character with no width (the marks themselves) is left out of `inside`.
+TITLE_CHARACTER_SPOTS = """() => {
   const heading = document.querySelector('#del-title');
   const node = heading.firstChild;
-  const rect = (index) => {
+  const lineHeight = parseFloat(getComputedStyle(heading).lineHeight);
+  const top = heading.getBoundingClientRect().top;
+  const spot = (index) => {
     const range = document.createRange();
     range.setStart(node, index);
     range.setEnd(node, index + 1);
-    return range.getBoundingClientRect();
+    const box = range.getBoundingClientRect();
+    return { width: box.width, place: Math.round((box.top - top) / lineHeight) * 100000 + box.left };
   };
   const text = node.data;
   const open = text.indexOf('"'), close = text.lastIndexOf('"'), question = text.lastIndexOf('?');
   const inside = [];
-  for (let i = open + 1; i < close; i++) if (rect(i).width > 0) inside.push(rect(i).left);
-  return { nodes: heading.childNodes.length, open: rect(open).left, inside, close: rect(close).left, question: rect(question).left };
+  for (let i = open + 1; i < close; i++) if (spot(i).width > 0) inside.push(spot(i).place);
+  return { nodes: heading.childNodes.length, children: heading.children.length,
+    open: spot(open).place, inside, close: spot(close).place, question: spot(question).place };
 }"""
 
 
-@pytest.mark.parametrize("name", list(OVERRIDING_NAMES.values()), ids=list(OVERRIDING_NAMES))
-def test_SEC02_R13_an_unterminated_override_in_a_name_cannot_move_the_titles_quotes(app, name):
+def open_title_dialog(app, name):
+    """The app with one habit stored as `name`, and its delete dialog open."""
     page = app(storage=state_text([{"name": name, "done": []}]))
     page.locator("button.icon-btn").first.click()
     expect(dialog(page)).to_have_attribute("open", "")
+    return page
 
-    assert page.locator("#del-title").text_content() == dialog_title(name)
-    spots = page.evaluate(TITLE_CHARACTER_LEFTS)
-    assert spots["nodes"] == 1  # still one text node and no child element (R24)
+
+@pytest.mark.parametrize("stored_name, shown_name", list(TITLE_NAMES.values()), ids=list(TITLE_NAMES))
+def test_SEC02_SEC06_R13_the_title_shows_the_name_without_format_characters_and_its_quotes_stay_in_place(
+    app, stored_name, shown_name
+):
+    page = open_title_dialog(app, stored_name)
+
+    spots = page.evaluate(TITLE_CHARACTER_SPOTS)
+    assert spots["nodes"] == 1 and spots["children"] == 0  # still one text node and no child element (R24)
     assert spots["inside"], "the name drew no character"
     assert spots["open"] < min(spots["inside"]), spots
     assert max(spots["inside"]) < spots["close"] < spots["question"], spots
+    assert page.locator("#del-title").text_content() == dialog_title(shown_name)
+
+
+def test_SEC06_R13_every_character_of_the_stripped_set_is_left_out_of_the_title(app):
+    page = open_title_dialog(app, spaced(STRIPPED))
+
+    title = page.locator("#del-title").text_content()
+    assert title == dialog_title("x" * (len(STRIPPED) + 1)), f"characters in the title: {left_over(title)}"
+
+
+def test_SEC06_R13_the_neighbours_of_the_stripped_ranges_and_other_invisible_characters_stay_in_the_title(app):
+    name = spaced(KEPT)
+    page = open_title_dialog(app, name)
+
+    title = page.locator("#del-title").text_content()
+    assert title == dialog_title(name), f"characters in the title: {left_over(title)}"
+
+
+def test_SEC06_R13_only_the_titles_copy_loses_the_characters_and_the_habit_named_in_it_is_the_one_deleted(app):
+    """The list row, the trash button's label and the stored name keep the name as typed; opening saves nothing."""
+    name = ALEF + LRI + "abc"
+    before = state_text([{"name": name, "done": []}, {"name": "Other habit", "done": []}])
+    page = app(storage=before, install_time=NOON, count_writes=True)
+    page.locator("button.icon-btn").first.click()
+    expect(dialog(page)).to_have_attribute("open", "")
+
+    assert page.locator("#del-title").text_content() == dialog_title(ALEF + "abc")
+    assert page.locator("h3.habit-name").all_inner_texts() == [name, "Other habit"]
+    assert page.locator("button.icon-btn").first.get_attribute("aria-label") == f"Delete {name}"
+    assert stored(page) == before
+    assert write_count(page) == 0
+
+    confirm_delete(page)
+
+    expect(page.locator("li.habit")).to_have_count(1)
+    assert page.locator("h3.habit-name").all_inner_texts() == ["Other habit"]
+    assert json.loads(stored(page))["habits"] == [{"name": "Other habit", "done": []}]

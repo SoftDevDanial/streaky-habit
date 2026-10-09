@@ -295,14 +295,27 @@ export function removeNote() {
 // Delete dialog
 
 /**
+ * What the delete dialog's title leaves out of its copy of the name, written as escapes so that this file holds no
+ * invisible character: U+202A to U+202E (embeddings and overrides, and their end), U+2066 to U+2069 (isolates, and
+ * their end) and the paragraph separators U+0085, U+001C to U+001E and U+2029. Why: the isolate round the name only holds
+ * while the name cannot close it or leave one open. A U+2069 or a separator inside the name closes the title's own
+ * isolate early. An isolate opener with no closer inside the name takes the title's U+2069 instead, so the title's
+ * isolate runs to the end of the line, and after a right-to-left letter it draws the closing quote and the question
+ * mark on the wrong side of the name (spec R13 note, SEC-06).
+ */
+const TITLE_STRIPPED = /[\u{202A}-\u{202E}\u{2066}-\u{2069}\u{0085}\u{001C}-\u{001E}\u{2029}]/gu;
+
+/**
  * `returnValue` is reset because it persists between openings: a later Esc would repeat the last "delete".
  * The name sits between FIRST STRONG ISOLATE and POP DIRECTIONAL ISOLATE, two invisible characters, so that a
- * bidirectional override in it cannot reorder the quotes and the question mark that follow it (spec R13 note).
+ * bidirectional override in it cannot reorder the quotes and the question mark that follow it (spec R13 note),
+ * and its copy in the title has `TITLE_STRIPPED` taken out first. The stored name, the list row and the trash
+ * button's label keep the name as it was typed.
  */
 export function openDeleteDialog(habitName) {
   const dialog = $(".dialog");
   dialog.returnValue = "";
-  $("#del-title").textContent = `Delete "\u{2068}${habitName}\u{2069}"?`;
+  $("#del-title").textContent = `Delete "\u{2068}${habitName.replace(TITLE_STRIPPED, "")}\u{2069}"?`;
   dialog.showModal();
 }
 

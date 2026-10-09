@@ -424,7 +424,11 @@ FSI, PDI = chr(0x2068), chr(0x2069)
 
 
 def dialog_title(name):
-    """The exact text of #del-title for a habit called `name`."""
+    """The exact text of #del-title when the name is shown as `name`.
+
+    That is the stored name unless it holds a bidi format character: the title leaves those out (spec R13 note,
+    SEC-06), so a test of such a name writes the shown name out, it does not pass the stored one.
+    """
     return f'Delete "{FSI}{name}{PDI}"?'
 
 
