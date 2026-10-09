@@ -100,7 +100,7 @@ def golden_icon_paths():
 
 def test_R1_the_app_works_from_a_sub_path(browser):
     if not SUBPATH_URL:
-        pytest.skip("BLOCKED: STREAKS_SUBPATH_URL is not set (serve the project's parent folder)")
+        pytest.skip("BLOCKED: STREAKS_BASE_URL names a server but STREAKS_SUBPATH_URL is not set (serve the project's parent folder)")
     context, page = open_app(browser, base_url=SUBPATH_URL)
     try:
         assert page.locator("p.empty").text_content().startswith("No habits yet.")

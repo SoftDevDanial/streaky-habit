@@ -2,14 +2,21 @@
 
 Why: every test opens the running app the same way (one headless Chromium, a fixed time zone, a
 controlled clock, optional seeded storage), so that setup lives here once.
-Input: STREAKS_BASE_URL (required for tests that open the app, ends with "/"), STREAKS_SUBPATH_URL and
-STREAKS_EVIDENCE_DIR (both optional). Output: fixtures and helpers; nothing here touches the app's code,
-and tests only ever reach the app through real gestures and by seeding localStorage before it loads.
+Input: STREAKS_BASE_URL (ends with "/"), STREAKS_SUBPATH_URL and STREAKS_EVIDENCE_DIR, all optional. When
+STREAKS_BASE_URL is absent this module serves the app itself for the run (see `pytest_configure`), so
+`python -m pytest tests/browser -q` works with nothing set. Output: fixtures and helpers; nothing here
+touches the app's code, and tests only ever reach the app through real gestures and by seeding
+localStorage before it loads.
 """
 import datetime
 import json
 import os
 import pathlib
+import socket
+import subprocess
+import sys
+import time
+import urllib.request
 import weakref
 from urllib.parse import urlsplit
 
@@ -19,9 +26,15 @@ from playwright.sync_api import expect, sync_playwright
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 DESIGN_DIR = ROOT / "docs" / "design"
 
+# Rebound by `pytest_configure` when the run serves the app itself. Test modules read them with
+# `from conftest import ...` at import, which pytest does only after that hook has run.
 BASE_URL = os.environ.get("STREAKS_BASE_URL", "")
 SUBPATH_URL = os.environ.get("STREAKS_SUBPATH_URL", "")
 EVIDENCE_DIR = os.environ.get("STREAKS_EVIDENCE_DIR", "")
+
+SERVER_READY_SECONDS = 10  # qa.md: poll every 250 ms and give up after 10 seconds
+SERVER_POLL_SECONDS = 0.25
+SERVER_STOP_SECONDS = 10
 
 STORAGE_KEY = "streaks.state"
 # UTC+8 all year, no DST, so a result never depends on the machine's own zone (ROADMAP D5).
@@ -48,11 +61,110 @@ def plain_state(count):
     return state_text([{"name": f"Habit {number}", "done": []} for number in range(1, count + 1)])
 
 
+def _free_port():
+    with socket.socket() as probe:
+        probe.bind(("127.0.0.1", 0))
+        return probe.getsockname()[1]
+
+
+def _port_accepts(port):
+    try:
+        socket.create_connection(("127.0.0.1", port), timeout=0.5).close()
+    except OSError:
+        return False
+    return True
+
+
+class _StaticServer:
+    """`python -m http.server <free port> --bind 127.0.0.1 --directory <directory>`, owned by this run.
+
+    `stop` is safe to call at any point (never started, already stopped) and does not return until the
+    port refuses connections, so a leaked server fails the run instead of going unnoticed.
+    """
+
+    def __init__(self, directory):
+        self.directory = directory
+        self.process = None
+        self.port = None
+
+    def start(self):
+        for _ in range(3):  # a free port can be taken between the probe and the bind
+            self.port = _free_port()
+            self.process = subprocess.Popen(
+                [sys.executable, "-m", "http.server", str(self.port), "--bind", "127.0.0.1", "--directory", str(self.directory)],
+                stdin=subprocess.DEVNULL,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
+            )
+            if self._wait_until_ready():
+                return
+            self._kill()
+            self.process = None  # this one never held the port, so `stop` has nothing to re-check
+        raise RuntimeError(f"no http.server for {self.directory} answered on a free 127.0.0.1 port after 3 tries")
+
+    def _wait_until_ready(self):
+        deadline = time.monotonic() + SERVER_READY_SECONDS
+        while time.monotonic() < deadline and self.process.poll() is None:
+            try:
+                urllib.request.urlopen(f"http://127.0.0.1:{self.port}/", timeout=1).close()
+                return self.process.poll() is None  # an answer from another process means ours lost the port
+            except OSError:
+                time.sleep(SERVER_POLL_SECONDS)
+        return False
+
+    def _kill(self):
+        if self.process.poll() is not None:
+            return
+        if os.name == "nt":  # the whole tree, by the PID this run started
+            subprocess.run(["taskkill", "/PID", str(self.process.pid), "/T", "/F"], capture_output=True, timeout=SERVER_STOP_SECONDS)
+        else:
+            self.process.terminate()
+        try:
+            self.process.wait(timeout=SERVER_STOP_SECONDS)
+        except subprocess.TimeoutExpired:
+            self.process.kill()
+            self.process.wait(timeout=SERVER_STOP_SECONDS)
+
+    def stop(self):
+        if self.process is None:
+            return
+        self._kill()
+        deadline = time.monotonic() + SERVER_STOP_SECONDS
+        while _port_accepts(self.port):
+            if time.monotonic() > deadline:
+                raise RuntimeError(f"127.0.0.1:{self.port} still accepts connections after http.server pid {self.process.pid} was stopped")
+            time.sleep(SERVER_POLL_SECONDS)
+        print(f"streaks tests: stopped http.server pid {self.process.pid}, 127.0.0.1:{self.port} refuses connections", file=sys.stderr)
+        self.process = None
+
+
+def pytest_configure(config):
+    """Serve the app for the run when no server is named, so `python -m pytest tests/browser -q` works alone.
+
+    STREAKS_BASE_URL names a server somebody else runs (the mutation runner, a QA finder) and wins.
+    Otherwise this starts two: the project root, and its parent folder for the sub-path scenario
+    (STREAKS_SUBPATH_URL still wins for the second). Each is registered for cleanup before it starts.
+    """
+    global BASE_URL, SUBPATH_URL
+    if BASE_URL:
+        return
+    root = _StaticServer(ROOT)
+    config.add_cleanup(root.stop)
+    root.start()
+    BASE_URL = f"http://127.0.0.1:{root.port}/"
+    if not SUBPATH_URL:
+        parent = _StaticServer(ROOT.parent)
+        config.add_cleanup(parent.stop)
+        parent.start()
+        SUBPATH_URL = f"http://127.0.0.1:{parent.port}/{ROOT.name}/"
+
+
 def _require_base_url():
     if not BASE_URL.endswith("/"):
         pytest.fail(
-            "STREAKS_BASE_URL must be set and end with '/', for example http://127.0.0.1:8765/ "
-            "(serve the project root with: python -m http.server <port> --bind 127.0.0.1)"
+            "STREAKS_BASE_URL must end with '/', for example http://127.0.0.1:8765/ "
+            "(leave it unset and the run serves the app itself)"
         )
 
 

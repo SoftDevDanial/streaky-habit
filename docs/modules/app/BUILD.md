@@ -33,13 +33,14 @@ Each commit carries the code and the tests that prove it, and ticks its box in `
 - Builder self-checks (scratch output, git-ignored, not the gates' evidence): the plugin harness at `{sdlc}/harness/fidelity.py` (plugin 2.1.3) with `--fixed-time 2026-10-08T09:00:00`, the two state scripts and the qa.md command gave `dimensions_match` true and 0 mismatched pixels on all six captures (S1, S2 and M1 at 390 x 844 and 1280 x 800; sizes 390 x 1136 and 1280 x 837 for S1 and M1). `live_e2e.py` run against a served copy wrote to a scratch folder and passed 11 of 11 steps with 0 console errors, 0 page errors and 0 requests outside the rule. The official gate run and its evidence folder (`docs/modules/app/qa/live-e2e/<datetimestamp>/`) are left to the orchestrator.
 
 ## How to run
-From the project root. The suite needs a served app: `STREAKS_BASE_URL` (ends with `/`) and, for the sub-path scenario, `STREAKS_SUBPATH_URL`. Without the second the sub-path test skips (BLOCKED, never PASS).
-1. `python -m http.server <port> --bind 127.0.0.1` from the project root, and `python -m http.server <port2> --bind 127.0.0.1 --directory ..` for the sub-path.
-2. `STREAKS_BASE_URL=http://127.0.0.1:<port>/ STREAKS_SUBPATH_URL=http://127.0.0.1:<port2>/streaks/ python -m pytest tests/browser -q`
-3. Cold-boot gate: `python tests/browser/live_e2e.py --base-url http://127.0.0.1:<port>/ --out docs/modules/app/qa/live-e2e/<datetimestamp>/`
+From the project root, with nothing outside the repository.
+1. Browser tests: `python -m pytest tests/browser -q`. With no environment set, `tests/browser/conftest.py` starts its own two servers (the project root, and its parent folder for the sub-path scenario) on free `127.0.0.1` ports and stops them at the end, checking that both ports refuse connections. `STREAKS_BASE_URL` (ends with `/`) and `STREAKS_SUBPATH_URL` replace them with servers you run yourself; with the first and not the second the sub-path test skips (BLOCKED, never PASS).
+2. Unit tests: `node --test "tests/**/*.test.js"`.
+3. Cold-boot gate, which needs a served app: start `python -m http.server <port> --bind 127.0.0.1` from the project root, run `python tests/browser/live_e2e.py --base-url http://127.0.0.1:<port>/ --out docs/modules/app/qa/live-e2e/<datetimestamp>/`, then stop the server.
 4. Fidelity: the commands in qa.md, with `--candidate-init-script tests/browser/fidelity/seed-sample.js` (S1 and M1) and `--candidate-after-load tests/browser/fidelity/open-delete-dialog.js` (M1).
 To look at the screen: serve the root and open `http://127.0.0.1:<port>/` (route `/`).
-`harness/_scratch/` (git-ignored) holds the builder's helper scripts (`run_browser_tests.py` starts both servers on free ports, runs the suite or a script, stops the servers by PID and prints that the ports refuse). They are not part of the product.
+
+Changed 2026-10-09 (code-review WR-10, ORCH): this section first needed two servers started by hand and a git-ignored helper under `harness/_scratch/`, so a fresh clone could not run the suite. The conftest now serves the app itself.
 
 ## Judgment calls (where the spec is silent or leaves room)
 1. **Rows are rebuilt on add and delete and updated in place on a tick and on a new day.** Rebuilding keeps the `h<N>-name` ids and the strip's `aria-labelledby` right after a delete. In-place updates keep the focused button and let the bead transitions run (R8, R19).
