@@ -45,6 +45,8 @@
 
 Changed 2026-10-09 (security SEC-01, ORCH): `open_app` also takes `touch=True` (a context with a touch screen, for `page.touchscreen.tap`). `conftest.py` gained `GUARD_WINDOW_MS` (500, equal to `DIALOG_GUARD_MS` in `src/app.js`), `PAUSE_AT` (12:00:20 on the sample day, where a test freezes an installed clock), `let_guard_pass(page)` (`page.clock.run_for(600)`) and `confirm_delete(page)` (let the window pass, click "Delete habit", let it pass again). Both helpers need a page opened with `install_time`, and fail at once on any other.
 
+Changed 2026-10-09 (regression code review RG-CR-01, ORCH): `GUARD_WINDOW_MS` is the spec's number, written out and not read from `src/`, because the two edge scenarios below press at that value minus 1 ms and at that value, so they fail for any other `DIALOG_GUARD_MS`.
+
 ### Named starting states
 - **the sample day**: `open_app` with the clock fixed at `2026-10-08T12:00:00+08:00` and storage seeded with `sample_state()`. Today is Thursday 8 October 2026. Habits in order: "Read 20 pages", "Stretch 10 minutes", "No phone after 11pm".
 - **a fresh day**: `open_app` with the clock fixed at `2026-10-08T12:00:00+08:00` and no storage at all.
@@ -472,13 +474,22 @@ Feature: Delete a habit
       | presses Escape                          |
       | clicks the viewport point (5, 5)        |
 
+  # Changed 2026-10-09 (regression code review RG-CR-01, ORCH): the two edge scenarios (this one and "The page listens
+  # again once the window has passed") press one millisecond before the end of the window and at its end, 499 ms and
+  # 500 ms after the first click, with a mouse and with a touch. At 400 and 600 ms any window from 401 to 600 ms
+  # passed, and so did "less than" against "at most".
   @R13 @R15
-  Scenario: A click inside the window is ignored and one after it deletes
-    Given the sample day, the clock installed and paused, and the dialog opened by a click for "Stretch 10 minutes"
-    When 400 ms pass and the user clicks "Delete habit"
-    Then the dialog is still open, there are 3 li.habit and nothing was saved
-    When 200 ms more pass and the user clicks "Delete habit" at the same point
+  Scenario Outline: A click inside the window is ignored and one after it deletes
+    Given the sample day with <input> input, the clock installed and paused, and the dialog opened by a press for "Stretch 10 minutes"
+    When 499 ms pass and the user presses "Delete habit"
+    Then the dialog is still open, there are 3 li.habit, nothing was saved and stored(page) equals the text before
+    When 1 ms more passes and the user presses "Delete habit" at the same point
     Then the dialog is closed, "Stretch 10 minutes" is gone and one save was made
+
+    Examples:
+      | input |
+      | mouse |
+      | touch |
 
   @R13
   Scenario: Every opening starts the window again
@@ -568,12 +579,17 @@ Feature: Delete a habit
       | Escape |
 
   @R14
-  Scenario: The page listens again once the window has passed
-    Given the sample day, the clock installed and paused, and the dialog closed by a click on the backdrop
-    When 400 ms pass and the user clicks Stretch's day 2026-10-08
-    Then its aria-pressed is still "false"
-    When 200 ms more pass and the user clicks it again
-    Then its aria-pressed is "true"
+  Scenario Outline: The page listens again once the window has passed
+    Given the sample day with <input> input, the clock installed and paused, and the dialog closed by a press on the backdrop
+    When 499 ms pass and the user presses Stretch's day 2026-10-08
+    Then its aria-pressed is still "false", nothing was saved and stored(page) equals the text before
+    When 1 ms more passes and the user presses it again
+    Then its aria-pressed is "true" and one save was made
+
+    Examples:
+      | input |
+      | mouse |
+      | touch |
 
   @R14
   Scenario: Cancel still works right after a click inside the box
