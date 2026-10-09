@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import sample from "../docs/design/sample-history.json" with { type: "json" };
-import { isDateKey } from "../src/dates.js";
+import { isDateKey, shortDate } from "../src/dates.js";
 import {
   weekWindow,
   currentStreak,
@@ -18,7 +18,7 @@ const NEXT_DAY = "2026-10-09";
 
 const byName = (name) => habits.find((habit) => habit.name === name);
 
-test("@R2 the sample is today 2026-10-08 with three habits whose days are valid, ascending and unique", () => {
+test("@R5 @R6 @R7 @R8 @R9 @R10 @R11 @R12 fixture check: the sample is today 2026-10-08 with three habits whose days are valid, ascending and unique", () => {
   assert.equal(sample.today, TODAY);
   assert.deepEqual(
     habits.map((habit) => habit.name),
@@ -50,6 +50,7 @@ test("@R5 the strip runs from Fri 2 Oct to Thu 8 Oct", () => {
   const days = weekWindow(TODAY);
   assert.equal(days[0], "2026-10-02");
   assert.equal(days[6], TODAY);
+  assert.deepEqual([shortDate(days[0]), shortDate(days[6])], ["Fri 2 Oct", "Thu 8 Oct"]);
 });
 
 test("@R6 @R8 the same sample one day later", () => {

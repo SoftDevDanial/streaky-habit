@@ -373,8 +373,8 @@ test("@R13 length counts code points, not UTF-16 units", () => {
   assert.deepEqual(validateName(`${FORTY_EMOJI}\u{1F4DA}`, []), { ok: false, error: "too-long" });
 });
 
-test("@R13 trim removes all kinds of white space and the duplicate check lower-cases both sides", () => {
-  assert.deepEqual(validateName("  Drink water﻿ ", []), { ok: true, name: "Drink water" });
+test("@R13 trim removes no-break space, em space and BOM as well as plain spaces, and the duplicate check lower-cases both sides", () => {
+  assert.deepEqual(validateName("\u00A0\u2003Drink water\uFEFF ", []), { ok: true, name: "Drink water" });
   assert.deepEqual(validateName("Étude", ["éTUDE"]), { ok: false, error: "duplicate" });
 });
 
