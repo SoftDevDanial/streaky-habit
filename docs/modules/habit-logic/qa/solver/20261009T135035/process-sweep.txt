@@ -1,0 +1,18 @@
+Process sweep after the last run of the batch, 2026-10-09 about 14:04 local time.
+Started by this batch: nothing in the background. Every command ran in the foreground and exited by itself. No server, no browser, no watcher, no poll loop.
+Children that the harness or the tests started: the node child of each run-capped.mjs call, the node children of the test files (the @R4 locale child, the streak
+walk children), and `git`, `tar` and `python` (credential gate) calls. The only kills were the tests' own 5 second caps (execFileSync timeout with SIGKILL) on the
+walk children under the current-unfiltered, best-unfiltered and filter-useless mutants, which loop by design there.
+
+Method, three sweeps:
+  1. tasklist /FI "IMAGENAME eq node.exe" and "eq python.exe": "No tasks are running which match the specified criteria." for both.
+  2. Get-CimInstance Win32_Process filtered by NAME (node, bash, sh, cmd, python, pwsh, powershell, git, tar), with command line and parent:
+     no node, python, sh, cmd, pwsh, git or tar process. Found: powershell.exe 39064 (started 8 Oct 11:49), 37820 (9 Oct 11:22) and 25804 (9 Oct 12:19), all with parent
+     claude.exe 41972, started before this batch, not this batch's, left alone; plus the bash.exe and powershell.exe processes of the sweep command itself.
+  3. Get-CimInstance Win32_Process filtered by COMMAND LINE (streaks, the evidence folder name, run-capped, preload.mjs, bound-differential, stripper-equality,
+     whitespace-equality, "node --test", --import, pc-<hash>): only the sweep command's own bash.exe chain matched (its text contains those words).
+No port was opened by this batch, so no port sweep applies.
+
+Out-of-project files left behind: six scratch directories pc-fa7838d, pc-adb1a99, pc-ae52deb, pc-32edd0f, pc-7ea311d and pc-6088b1d in the session scratchpad
+({temp}/claude/{project-id}/0fc4b490-9bf0-46ec-8ac8-08b33bc21485/scratchpad/). Each holds a git archive extract of src, tests and the
+sample (88 KB each). The scratchpad is the designated place for temporary files, and the rule against deleting outside the project root applies, so they were not removed.

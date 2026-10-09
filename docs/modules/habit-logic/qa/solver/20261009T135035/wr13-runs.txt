@@ -1,0 +1,24 @@
+WR-13, AFTER the change to tests/habits.test.js (WHITE_SPACE written with \u{...} escapes). Outputs transcribed from the console.
+
+How the edit was made: the Edit tool matched the old raw line only when the old_string spelled the four characters as \uXXXX escapes (the tool
+swaps them for the characters before matching). The new_string uses the \u{...} form, which the tool leaves alone. A first attempt that typed the
+raw characters in the old_string did not match and changed nothing. Two follow-up Edits fixed a trailing space that the tool trimmed from the new_string.
+
+Bytes of the new line, od -c of "grep -n 'WHITE_SPACE = ' tests/habits.test.js", only printable ASCII:
+  172:const WHITE_SPACE = ["", " ", "\t", "\u{A0}", "\u{2003}", "\u{3000}", "\u{FEFF}"];
+
+whitespace-equality.mjs fa7838d (pid 44268)
+  old line has 4 non-ASCII characters
+  new line has 0 non-ASCII characters
+  entries old 7, new 7, identical array true
+  [0] (empty) [1] U+0020 [2] U+0009 [3] U+00A0 [4] U+2003 [5] U+3000 [6] U+FEFF: old and new are the same entry in all seven, and
+  Number(entry + "12") === 12 holds for all seven. 7 distinct entries.
+
+The reviewer's probe-whitespace.mjs, unchanged, part 1 (invisible or look-alike space characters other than U+0020, by file and line, over src/ and
+tests/): lists none. Before the change it listed tests/habits.test.js:170 with U+00A0 U+2003 U+3000 U+FEFF. The two lines of tests/habits.test.js that
+still hold a non-ASCII character are visible ones ("Étude" in a validateName case, and the CJK character in the 5,000,000 CJK units case).
+
+git diff of tests/habits.test.js: one hunk, the old line replaced by two comment lines (they name the four characters) and the new line.
+Full suite, node --test "tests/**/*.test.js": tests 66, pass 66, fail 0, cancelled 0, skipped 0, exit 0.
+
+Processes: every command ran in the foreground and exited by itself.

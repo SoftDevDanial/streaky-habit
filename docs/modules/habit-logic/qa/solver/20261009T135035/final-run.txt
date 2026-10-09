@@ -1,0 +1,8 @@
+Final run of the batch, from the project root, in the foreground, at commit 6088b1d (working tree equal to it for src/ and tests/):
+  node --test "tests/**/*.test.js"      Node v24.11.1 on win32
+  tests 66, suites 0, pass 66, fail 0, cancelled 0, skipped 0, todo 0, duration about 0.54 s, exit 0.
+  Per file (each run alone): dates.test.js 15, habits.test.js 39, sample-history.test.js 7, purity.test.js 5 (15 + 39 + 7 + 5 = 66, as BUILD.md says).
+Every test() title starts with its @R tag (the full list printed by the run shows it).
+
+Credential gate, python -B credential_sweep.py, run in the foreground and unpiped before the first commit of the batch (whole tree, 562 files) and before each of the
+seven commits (--staged): exit 0, CLEAN, positive control True, negative control 0 false hits, every time.

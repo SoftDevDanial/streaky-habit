@@ -1,0 +1,23 @@
+WR-14, AFTER the change to tests/purity.test.js (the Date of the localDateKey entry is new Date(2026, 9, 8, 12, 34, 56, 789), frozen). Outputs transcribed.
+
+The mutants write to the Date argument at the start of localDateKey in src/dates.js (in memory, run-capped.mjs of this folder).
+tests/purity.test.js alone:
+  -                            pid 23876 exit 0 pass 5 fail 0   (no mutant: green)
+  date-arg-partial             pid 45520 exit 1 pass 4 fail 1   red: @R16 no exported function writes to its arguments or returns one of them   (before: exit 0, pass 5)
+  date-arg-sethours (control)  pid 44152 exit 1 pass 4 fail 1   red: same test                                                                   (before: red too)
+  date-arg-minutes-only        pid 40216 exit 1 pass 4 fail 1   red: same test                                                                   (before: exit 0, pass 5)
+  date-arg-seconds-only        pid 45884 exit 1 pass 4 fail 1   red: same test                                                                   (before: exit 0, pass 5)
+  date-arg-milliseconds-only   pid 35400 exit 1 pass 4 fail 1   red: same test                                                                   (before: exit 0, pass 5)
+Full suite under date-arg-partial: pid 42960, tests 66, pass 65, fail 1, the same one test red (before: pass 66, fail 0, reviewer's run-log section 2).
+
+The reviewer's probe-date-arg.mjs under date-arg-partial (pid 18896), same three candidate Dates as the reviewer found:
+  the old test's Date, 12:00:00.000: getTime changed false     <- why the old test could not see the mutant
+  12:34:56.789 (the new test's Date): getTime changed true
+  00:00:00.001: getTime changed true
+
+Key of the new Date stays "2026-10-08" in every zone (zone set inside the process before the Date is built, as the tests do):
+  Asia/Kuala_Lumpur 12:34:56.789 2026-10-08 | America/New_York 12:34:56.789 2026-10-08 | Pacific/Apia 12:34:56.789 2026-10-08 | UTC 12:34:56.789 2026-10-08
+
+Full suite, no mutant, node --test "tests/**/*.test.js": tests 66, pass 66, fail 0, cancelled 0, skipped 0, exit 0.
+
+Processes: every command ran in the foreground and exited by itself.

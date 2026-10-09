@@ -1,0 +1,33 @@
+WR-15, AFTER the change to src/habits.js (length < days.size && removed from runLength, comments of runLength and streakDays updated). Outputs transcribed.
+
+A. Full suite, node --test "tests/**/*.test.js": tests 66, pass 66, fail 0, cancelled 0, skipped 0, exit 0. (Before: 66 of 66 with the bound, and 66 of 66
+   with the bound removed in memory, bound-removed, before-runs.txt. The bound was live code, bound-zero: 10 red. Nothing saw it.)
+
+B. bound-differential.mjs (this folder), run under run-capped.mjs, pid 36012, 6.8 s, exit 0. Working tree against fa7838d (the bound still there),
+   currentStreak and bestStreak run on each input. The control is fa7838d with the bound set to `length < 1`.
+   valid, runs ending today or yesterday, random order, duplicates          cases  30000  differ from fa7838d: 0  differ from the control: 22431
+   valid, any distance from today (runs older than the strip)               cases  30000  differ from fa7838d: 0  differ from the control: 22473
+   valid, a full run along the top and bottom edge of the range             cases      4  differ from fa7838d: 0  differ from the control: 4
+   with keys that fail isDateKey (stuck key, spellings, cycle, below 0001)  cases   2006  differ from fa7838d: 0  differ from the control: 1282
+   total 62010 cases, 0 differ from fa7838d. The control differs in most rows, so the comparison is able to fail.
+   The last row is the one that matters for the claim "unreachable": keys that fail isDateKey, including the stuck key whose next day is itself, give the
+   same answers with and without the bound and nothing hangs, because streakDays removes those keys before any walk.
+
+C. The reviewer's probe-differential.mjs, unchanged, run under run-capped.mjs, pid 23112, 16.2 s, exit 0. "HEAD" in that script is the working tree.
+   Against 09c5047 / 59c6ee5 / eb2003b on valid input: currentStreak 20000, bestStreak 20000, runContinues 20000, toggleDay 10000, weekWindow 5000,
+   heatmapCells (every day 1995 to 2035) 14975, monthLabels (same) 14975, heatmapCells and monthLabels (4000 random days over 0001 to 9999) 4000,
+   heatLevel 5000, addDays 30000, dayParts and shortDate and longDate 30000, isDateKey 120000, validateName 40000, addHabit 8000, deleteHabit 5000:
+   mismatches 0 / 0 / 0 in every row (346,950 cases, each against three revisions, the same total as the reviewer's run).
+   weekdayIndex against the UTC weekday, 0001-01-01 to 9999-12-31: 3652059 cases, 0 mismatches.
+   Control 1 (two keys failing isDateKey, working tree against eb2003b): 201 of 201 differ. Control 2 (a bestStreak raised by 1): 232 of 3000 seen.
+
+D. With the bound gone, the filter is the only thing that ends a walk on a stuck key. The filter mutants, full suite, run-capped.mjs, killed at the test's own 5 s cap:
+   current-unfiltered  pid 45404  exit 1  pass 64 fail 2   red: @R6 the current-run walk ends on the cycle below year 0001 | @R6 @R7 keys that fail isDateKey do not count
+   best-unfiltered     pid 27108  exit 1  pass 63 fail 3   red: @R7 the best-run walk ends on keys outside the valid range ... | @R7 many spellings of one far-out date ... | @R6 @R7 keys that fail ...
+   filter-useless      pid 45124  exit 1  pass 62 fail 4   red: the two termination tests, the spellings test and the keys-that-fail test
+   (Before, with the bound: current-unfiltered 1 red, best-unfiltered 2 red, filter-useless 2 red, reviewer's run-log section 2.) So the removed line was not carrying
+   any protection the tests rely on, and the tests that pin termination now fail on the missing filter alone.
+   bound-removed (the reviewer's mutant that deletes the bound) no longer applies: its edit matches 0 times and the child throws (pid 41428), as it should once the line is gone.
+
+Processes: every command ran in the foreground and exited by itself. The unfiltered mutants made the test children loop, and the tests' own 5 s cap killed each child
+(execFileSync timeout, SIGKILL). A process sweep follows at the end of the batch (see the Solver section of findings/code-review.md).

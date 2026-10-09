@@ -1,0 +1,29 @@
+WR-12 and WR-16 are document changes (spec.md, qa.md, BUILD.md), no code. Evidence is the text and the tests it maps to. Outputs transcribed.
+
+WR-12
+  spec.md R6: a dated note (2026-10-09, security re-check SEC-01 and code review WR-12) says currentStreak counts only keys that pass isDateKey, with the example
+    today "0001-01-10" and 400 keys counting back from it, 10 valid, gives 10.
+  spec.md R7: a dated note says "over every entry" means every entry that passes isDateKey, with two examples: the three valid keys plus FAR_START and FAR_STUCK give 3,
+    and a done of only keys failing isDateKey gives 0.
+  qa.md: one new scenario outline, "@R6 @R7 Keys that fail isDateKey are ignored", four rows. Each row's number is asserted by an existing test:
+    row 1 (bestStreak, three valid keys + FAR_START + FAR_STUCK, 3)         test "@R6 @R7 keys that fail isDateKey do not count, so a streak counts only valid days"
+    row 2 (bestStreak, 20,000 spellings of FAR_START + FAR_STUCK, 0)        test "@R7 many spellings of one far-out date that all run into the stuck key cost one pass, not one walk each"
+    row 3 (currentStreak, 400 keys back from 0001-01-10, 10)                the "@R6 @R7 keys that fail ..." test again
+    row 4 (bestStreak, the same 400 keys, 10)                               the "@R6 @R7 keys that fail ..." test again
+  Those tests, run by name on the committed code: node --test --test-name-pattern="keys that fail isDateKey|many spellings|walk ends" tests/habits.test.js
+    4 tests, 4 pass, 0 fail, 0 skipped (the two walk-ends tests are R6 and R7 termination tests that the scenario's 5 second cap also covers).
+  spec.md threat-model row "Responsiveness with date keys outside the valid range": the mitigation cell is now a pointer to the R6 and R7 notes and to the comment on streakDays.
+    The three sentences that named the size bound stay visible, struck, with one dated note (WR-12 and WR-15). The derivation and the differential counts left the cell;
+    they are in the streakDays comment and in findings/security.md, and the old wording is in git history (fa7838d).
+
+WR-16
+  BUILD.md, the bullet on addDays past year 9999: it now holds the decision (currentStreak and bestStreak count only keys that pass isDateKey) and two pointers,
+    "why that ends every walk, see the comment on streakDays" and "how a run is counted, see runLength". The two clauses that named the size bound stay visible, struck,
+    with one dated note (WR-15 and WR-16). The derivation ("because addDays can return a key it already returned", "many spellings of one such key each start a walk") is gone from it.
+  Checked that the pointers resolve: grep finds `function streakDays` and `function runLength` in src/habits.js, and the streakDays comment carries the derivation
+  (valid range, one spelling per day, walks end at the first day not in the set, the filter is the only guard, spellings).
+
+No em dash or en dash in any added line (byte search for E2 80 93 and E2 80 94 in the diff of the three files: 0).
+Full suite, node --test "tests/**/*.test.js": tests 66, pass 66, fail 0, cancelled 0, skipped 0, exit 0.
+
+Processes: every command ran in the foreground and exited by itself.

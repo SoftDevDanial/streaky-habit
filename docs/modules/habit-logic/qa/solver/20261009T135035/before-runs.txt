@@ -1,0 +1,29 @@
+Solver (re-check, 2026-10-09), BEFORE any change. Project HEAD fa7838d, working tree clean for src/ and tests/, Node v24.11.1 on win32.
+Baseline first: node --test "tests/**/*.test.js" gives 66 tests, 66 pass, 0 fail, exit 0 (0.53 s). Credential gate: exit 0, CLEAN, 562 files swept.
+Outputs below are transcribed from the console. Mutants are the reviewer's (qa/code-review/20261009-131935/) run with the reviewer's run-capped.mjs,
+or this folder's mutants.mjs run with this folder's run-capped.mjs. Both apply the mutant in memory; src/ and tests/ are not touched.
+
+WR-11, tests/purity.test.js alone, text of src/habits.js with a planted line (never executed)
+  -                                            pid 44728 exit 0 pass 5 fail 0
+  scan-control                                 pid 44068 exit 1 pass 4 fail 1  (control, plain fetch line: rule "network")
+  scan-s1-url-string-same-line                 pid 11748 exit 0 pass 5 fail 0  <- evades: a "//" inside a string
+  scan-s2-slash-star-in-string                 pid 38768 exit 0 pass 5 fail 0  <- evades: a "/*" inside a string
+  scan-s3b-slash-star-in-line-comment          pid 32012 exit 0 pass 5 fail 0  <- evades: a "/*" inside a // comment, then localStorage
+  scan-s3c-slash-star-in-line-comment-network  pid 36900 exit 0 pass 5 fail 0  <- evades: same, then navigator.sendBeacon
+  scan-s5-control-second-import-visible        pid 43536 exit 1 pass 4 fail 1  (control, import rule)
+  scan-s5-second-import-hidden                 pid 45340 exit 0 pass 5 fail 0  <- evades: a hidden second import
+
+WR-14, tests/purity.test.js alone, src/dates.js localDateKey writes to its argument
+  date-arg-partial (setMilliseconds, setSeconds, setMinutes to 0)   pid 38368 exit 0 pass 5 fail 0  <- evades
+  date-arg-sethours (setHours(0, 0, 0, 0))                          pid 35096 exit 1 pass 4 fail 1  (control, @R16 no exported function writes to its arguments)
+  date-arg-minutes-only                                             pid 38056 exit 0 pass 5 fail 0  <- evades
+  date-arg-seconds-only                                             pid 45932 exit 0 pass 5 fail 0  <- evades
+  date-arg-milliseconds-only                                        pid 18768 exit 0 pass 5 fail 0  <- evades
+
+WR-15, full suite, src/habits.js runLength
+  bound-removed (length < days.size && removed)  pid 2860  exit 0 pass 66 fail 0   <- nothing sees the bound
+  bound-zero (the bound set to 0, control)       pid 43220 exit 1 pass 56 fail 10  <- the line is live code
+  probe-bound.mjs under bound-counter       (pid 15664): 3007 histories, 6014 streak calls, 428 keys that fail isDateKey went in. Size bound fired 0 times.
+  probe-bound.mjs under bound-counter-no-filter (control, pid 45524): same input, isDateKey filter off. Size bound fired 25 times.
+
+Processes: every command above ran in the foreground and exited by itself. Nothing was started in the background.

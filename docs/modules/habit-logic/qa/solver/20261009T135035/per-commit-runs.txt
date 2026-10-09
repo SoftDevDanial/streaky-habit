@@ -1,0 +1,11 @@
+Each commit of the batch, extracted with `git archive <commit> src tests docs/design/sample-history.json | tar -x -C <scratch dir>` and run alone from that
+directory with node --test "tests/**/*.test.js". The scratch directories are pc-<commit> in the session scratchpad, outside the project. Outputs transcribed.
+
+  fa7838d  (start of the batch, for the baseline)          tests 66  pass 66  fail 0
+  adb1a99  WR-11  test(habit-logic) comment stripper         tests 66  pass 66  fail 0
+  ae52deb  WR-13  test(habit-logic) WHITE_SPACE escapes      tests 66  pass 66  fail 0
+  32edd0f  WR-14  test(habit-logic) non-zero Date parts       tests 66  pass 66  fail 0
+  7ea311d  WR-15  refactor(habit-logic) bound removed         tests 66  pass 66  fail 0
+  6088b1d  HEAD of the batch's code and doc commits (160ba9c WR-12 WR-16 docs, 6088b1d task ticks): same src and tests as 7ea311d   tests 66  pass 66  fail 0
+
+Every commit of the batch is green. No test was added or removed, so the count stays at 66.

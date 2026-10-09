@@ -1,0 +1,35 @@
+WR-11, AFTER the change to tests/purity.test.js (STRING_OR_COMMENT, one pass). Outputs transcribed from the console.
+
+A. stripper-equality.mjs fa7838d (pid 4148), old stripper from the commit before, new stripper from the working tree
+   1. Real sources, old output against new output:
+      dates.js:  5490 chars in, 3517 out (old), 3517 out (new), identical true
+      habits.js: 10251 chars in, 4720 out (old), 4720 out (new), identical true
+   2. Eleven small checks of the new stripper, 11 of 11 ok: line comment removed, block comment removed, URL in a string kept,
+      slash-star in a string kept, slash-star in a line comment removed with the comment, escaped quote, the module's own regex
+      literal untouched, template literal kept, apostrophe in a line comment and in a block comment do not open a string, CRLF kept.
+   3. BANNED_IN_CODE hits and import words, old stripper against new stripper (planted lines are text only, never executed):
+      real habits.js                                 old [] new []                         import words 1 / 1
+      real dates.js                                  old [] new []                         import words 0 / 0
+      scan-control                                   old [network] new [network]           import words 1 / 1
+      scan-s1-url-string-same-line                   old [] new [network]
+      scan-s2-slash-star-in-string                   old [] new [storage]
+      scan-s3-slash-star-in-line-comment             old [] new [network]
+      scan-s3b-slash-star-in-line-comment            old [] new [storage]                  (the auditor's guard regex does not match this shape)
+      scan-s3c-slash-star-in-line-comment-network    old [] new [DOM or global object,network]  (guard regex does not match)
+      scan-s5-control-second-import-visible          import words 2 / 2
+      scan-s5-second-import-hidden                   import words old 1, new 2             (guard regex does not match)
+
+B. The hiding mutants through the real test, tests/purity.test.js alone (run-capped.mjs, this folder)
+   -                                            pid 40928 exit 0 pass 5 fail 0   (the real source is green)
+   scan-control                                 pid 43384 exit 1 pass 4 fail 1   red: @R16 the code has no DOM, storage, network, ...
+   scan-s1-url-string-same-line                 pid 5416  exit 1 pass 4 fail 1   red: same test     (before: exit 0, pass 5)
+   scan-s2-slash-star-in-string                 pid 13212 exit 1 pass 4 fail 1   red: same test     (before: exit 0, pass 5)
+   scan-s3-slash-star-in-line-comment           pid 8532  exit 1 pass 4 fail 1   red: same test     (reviewer's run-log, section 2: exit 0 before)
+   scan-s3b-slash-star-in-line-comment          pid 2860  exit 1 pass 4 fail 1   red: same test     (before: exit 0, pass 5)
+   scan-s3c-slash-star-in-line-comment-network  pid 8692  exit 1 pass 4 fail 1   red: same test     (before: exit 0, pass 5)
+   scan-s5-control-second-import-visible        pid 45408 exit 1 pass 4 fail 1   red: @R16 habits.js imports only ./dates.js ...
+   scan-s5-second-import-hidden                 pid 38076 exit 1 pass 4 fail 1   red: @R16 habits.js imports only ./dates.js ... (before: exit 0, pass 5)
+
+C. Full suite, node --test "tests/**/*.test.js": tests 66, pass 66, fail 0, cancelled 0, skipped 0, exit 0.
+
+Processes: every command ran in the foreground and exited by itself.
