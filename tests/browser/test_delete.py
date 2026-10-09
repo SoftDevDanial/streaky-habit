@@ -130,6 +130,39 @@ def test_R14_clicks_inside_the_box_and_drags_out_of_it_keep_the_dialog_open(app)
     expect(dialog(page)).to_have_attribute("open", "")
 
 
+def test_R14_a_drag_that_starts_on_the_backdrop_and_ends_in_the_box_keeps_the_dialog_open(app):
+    """R14 closes on a click pressed AND released outside the box; the other way round is not that."""
+    page = app(storage=sample_state())
+    open_delete_dialog(page, "Stretch 10 minutes")
+
+    page.mouse.move(5, 5)
+    page.mouse.down()
+    x, y = center(page.locator("#del-title"))
+    page.mouse.move(x, y)
+    page.mouse.up()
+
+    expect(dialog(page)).to_have_attribute("open", "")
+    expect(page.locator("#del-title")).to_have_text('Delete "Stretch 10 minutes"?')
+
+
+def test_R11_the_message_stays_until_the_next_submit_across_a_delete(app):
+    """Deleting a habit renders the list again; that must not clear an error the user has not answered."""
+    page = app(storage=sample_state())
+    page.locator("#new-habit").fill("read 20 pages")
+    page.keyboard.press("Enter")
+    message = page.locator("#new-habit-msg")
+    expect(message).to_have_text("You already track this habit.")
+
+    open_delete_dialog(page, "No phone after 11pm")
+    confirm(page).click()
+
+    expect(page.locator("li.habit")).to_have_count(2)
+    expect(message).to_have_text("You already track this habit.")
+    expect(message).to_have_class("field-msg field-error")
+    expect(page.locator("#new-habit")).to_have_attribute("aria-invalid", "true")
+    expect(page.locator("#new-habit")).to_have_value("read 20 pages")
+
+
 def test_R14_esc_after_an_earlier_delete_still_keeps_the_habit(app):
     page = app(storage=sample_state())
     open_delete_dialog(page, "No phone after 11pm")

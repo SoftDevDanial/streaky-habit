@@ -36,6 +36,8 @@ def test_R10_the_first_habit_on_a_fresh_day(app):
     add_habit(page, "Read 20 pages")
     shot(page, "04-added")
 
+    assert is_focused(add_button(page))  # R10: the app does not move focus; a click on Add had put it there
+
     assert page.locator("p.empty").count() == 0
     assert page.locator("ul.habits > li.habit").count() == 1
     expect(page.locator("#h1-name")).to_have_text("Read 20 pages")
