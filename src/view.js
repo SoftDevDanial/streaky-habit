@@ -16,6 +16,7 @@ const NAME_ERRORS = {
   duplicate: "You already track this habit.",
 };
 const LIMIT_NOTE = "You track 12 habits, the most this app holds. Delete one to add another.";
+const RESET_NOTE = "Your saved habits could not be read, so the list was reset.";
 
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => Array.from(document.querySelectorAll(selector));
@@ -268,6 +269,23 @@ export function setAddLimit(full) {
 }
 
 // ---------------------------------------------------------------------------------------------
+// Note shown after unreadable saved data
+
+export function showNote() {
+  const dismiss = element("button", "icon-btn", { type: "button", "aria-label": "Dismiss note" });
+  dismiss.append(icon("i-x"));
+  const text = element("p", "note-text");
+  text.textContent = RESET_NOTE;
+  const note = element("div", "note", { role: "status" });
+  note.append(text, dismiss);
+  $(".col-main").prepend(note);
+}
+
+export function removeNote() {
+  $(".note")?.remove();
+}
+
+// ---------------------------------------------------------------------------------------------
 // Delete dialog
 
 /** `returnValue` is reset because it persists between openings: a later Esc would repeat the last "delete". */
@@ -287,6 +305,7 @@ export function focusDeleteButton(index) {
 
 export const containers = () => ({
   list: $('section[aria-labelledby="habits-title"]'),
+  mainColumn: $(".col-main"),
   addForm: $(".add"),
   dialog: $(".dialog"),
 });

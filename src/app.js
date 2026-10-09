@@ -115,12 +115,22 @@ function submitName(event) {
   renderHabits();
 }
 
+/** The note's button disappears with the note, so focus goes to the field (it has no effect while the field is disabled). */
+function onMainColumnClick(event) {
+  if (!event.target.closest(".note .icon-btn")) return;
+  view.removeNote();
+  view.focusNameField();
+}
+
 function boot() {
-  state.habits = loadHabits().habits;
+  const { habits, reset } = loadHabits();
+  state.habits = habits;
   state.todayKey = readToday();
   view.renderHeader(state.todayKey);
   renderHabits();
-  const { list, addForm, dialog } = view.containers();
+  if (reset) view.showNote();
+  const { list, mainColumn, addForm, dialog } = view.containers();
+  mainColumn.addEventListener("click", onMainColumnClick);
   list.addEventListener("click", onListClick);
   addForm.addEventListener("submit", submitName);
   dialog.addEventListener("close", onDialogClose);
