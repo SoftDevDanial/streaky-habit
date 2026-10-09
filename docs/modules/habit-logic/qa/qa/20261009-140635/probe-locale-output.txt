@@ -1,0 +1,5 @@
+Command: node <this folder>/probe-locale.mjs   (timeout 90 s)   Exit code: 0
+CONTROL (no German patch) precondition ["Thursday","Thursday"]
+PASS | R4 | Labels do not follow the runtime locale | child precondition: long weekday of 8 Oct 2026 is German, via toLocaleDateString and Intl | actual ["Donnerstag","Donnerstag"] | expected ["Donnerstag","Donnerstag"]
+PASS | R4 | Labels do not follow the runtime locale | longDate(2026-10-08) and shortDate(2026-10-06) under the German default | actual ["Thursday 8 October","Tue 6 Oct"] | expected ["Thursday 8 October","Tue 6 Oct"]
+SUMMARY scenario R4 locale failures=0

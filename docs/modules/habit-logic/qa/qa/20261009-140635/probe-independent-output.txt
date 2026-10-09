@@ -1,0 +1,210 @@
+Command: node <this folder>/probe-independent.mjs   (timeout 120 s)   Exit code: 0
+PASS | R1 | R1 The local calendar day of an instant | Asia/Kuala_Lumpur 2026-10-08 | actual "2026-10-08" | expected "2026-10-08"
+PASS | R1 | R1 The local calendar day of an instant | Asia/Kuala_Lumpur 2026-10-08 | actual "2026-10-08" | expected "2026-10-08"
+PASS | R1 | R1 The local calendar day of an instant | Asia/Kuala_Lumpur 2027-01-01 | actual "2027-01-01" | expected "2027-01-01"
+PASS | R1 | R1 The local calendar day of an instant | Asia/Kuala_Lumpur 2026-10-08 | actual "2026-10-08" | expected "2026-10-08"
+PASS | R1 | R1 The local calendar day of an instant | America/New_York 2026-03-08 | actual "2026-03-08" | expected "2026-03-08"
+PASS | R1 | R1 The local calendar day of an instant | America/New_York 2026-11-01 | actual "2026-11-01" | expected "2026-11-01"
+PASS | R2 | R2 Valid date keys | isDateKey("2026-10-08") | actual true | expected true
+PASS | R2 | R2 Valid date keys | isDateKey("2028-02-29") | actual true | expected true
+PASS | R2 | R2 Valid date keys | isDateKey("2000-02-29") | actual true | expected true
+PASS | R2 | R2 Valid date keys | isDateKey("2026-12-31") | actual true | expected true
+PASS | R2 | R2 Valid date keys | isDateKey("2026-02-29") | actual false | expected false
+PASS | R2 | R2 Valid date keys | isDateKey("2100-02-29") | actual false | expected false
+PASS | R2 | R2 Valid date keys | isDateKey("2026-13-01") | actual false | expected false
+PASS | R2 | R2 Valid date keys | isDateKey("2026-00-10") | actual false | expected false
+PASS | R2 | R2 Valid date keys | isDateKey("2026-04-31") | actual false | expected false
+PASS | R2 | R2 Valid date keys | isDateKey("2026-1-1") | actual false | expected false
+PASS | R2 | R2 Valid date keys | isDateKey("2026-10-08T00:00") | actual false | expected false
+PASS | R2 | R2 Valid date keys | isDateKey(" 2026-10-08") | actual false | expected false
+PASS | R2 | R2 Valid date keys | isDateKey("0000-01-01") | actual false | expected false
+PASS | R2 | R2 Valid date keys | isDateKey(20261008) | actual false | expected false
+PASS | R2 | R2 Valid date keys | isDateKey(null) | actual false | expected false
+PASS | R2 | R2 Valid date keys | isDateKey(undefined) | actual false | expected false
+PASS | R2 | R2 Valid date keys | isDateKey({}) | actual false | expected false
+PASS | R3 | R3 Calendar arithmetic that ignores the time zone | Asia/Kuala_Lumpur addDays(2026-10-08, -6) | actual "2026-10-02" | expected "2026-10-02"
+PASS | R3 | R3 Calendar arithmetic that ignores the time zone | Asia/Kuala_Lumpur addDays(2026-12-31, 1) | actual "2027-01-01" | expected "2027-01-01"
+PASS | R3 | R3 Calendar arithmetic that ignores the time zone | Asia/Kuala_Lumpur addDays(2028-02-28, 1) | actual "2028-02-29" | expected "2028-02-29"
+PASS | R3 | R3 Calendar arithmetic that ignores the time zone | Asia/Kuala_Lumpur addDays(2026-02-28, 1) | actual "2026-03-01" | expected "2026-03-01"
+PASS | R3 | R3 Calendar arithmetic that ignores the time zone | Asia/Kuala_Lumpur addDays(2026-07-20, 83) | actual "2026-10-11" | expected "2026-10-11"
+PASS | R3 | R3 Calendar arithmetic that ignores the time zone | Asia/Kuala_Lumpur addDays(2026-10-05, -77) | actual "2026-07-20" | expected "2026-07-20"
+PASS | R3 | R3 Calendar arithmetic that ignores the time zone | America/New_York addDays(2026-03-07, 1) | actual "2026-03-08" | expected "2026-03-08"
+PASS | R3 | R3 Calendar arithmetic that ignores the time zone | America/New_York addDays(2026-03-08, 1) | actual "2026-03-09" | expected "2026-03-09"
+PASS | R3 | R3 Calendar arithmetic that ignores the time zone | America/New_York addDays(2026-11-01, 1) | actual "2026-11-02" | expected "2026-11-02"
+PASS | R3 | R3 Calendar arithmetic that ignores the time zone | America/New_York addDays(2026-11-02, -1) | actual "2026-11-01" | expected "2026-11-01"
+PASS | R3 | R3 Calendar arithmetic that ignores the time zone | America/New_York addDays(2026-03-09, -2) | actual "2026-03-07" | expected "2026-03-07"
+PASS | R4 | R4 Short weekday, day and month for every weekday | 2026-10-05 | actual [{"weekday":"Mon","day":5,"month":"Oct"},"Mon 5 Oct"] | expected [{"weekday":"Mon","day":5,"month":"Oct"},"Mon 5 Oct"]
+PASS | R4 | R4 Short weekday, day and month for every weekday | 2026-10-06 | actual [{"weekday":"Tue","day":6,"month":"Oct"},"Tue 6 Oct"] | expected [{"weekday":"Tue","day":6,"month":"Oct"},"Tue 6 Oct"]
+PASS | R4 | R4 Short weekday, day and month for every weekday | 2026-10-07 | actual [{"weekday":"Wed","day":7,"month":"Oct"},"Wed 7 Oct"] | expected [{"weekday":"Wed","day":7,"month":"Oct"},"Wed 7 Oct"]
+PASS | R4 | R4 Short weekday, day and month for every weekday | 2026-10-08 | actual [{"weekday":"Thu","day":8,"month":"Oct"},"Thu 8 Oct"] | expected [{"weekday":"Thu","day":8,"month":"Oct"},"Thu 8 Oct"]
+PASS | R4 | R4 Short weekday, day and month for every weekday | 2026-10-09 | actual [{"weekday":"Fri","day":9,"month":"Oct"},"Fri 9 Oct"] | expected [{"weekday":"Fri","day":9,"month":"Oct"},"Fri 9 Oct"]
+PASS | R4 | R4 Short weekday, day and month for every weekday | 2026-10-10 | actual [{"weekday":"Sat","day":10,"month":"Oct"},"Sat 10 Oct"] | expected [{"weekday":"Sat","day":10,"month":"Oct"},"Sat 10 Oct"]
+PASS | R4 | R4 Short weekday, day and month for every weekday | 2026-10-11 | actual [{"weekday":"Sun","day":11,"month":"Oct"},"Sun 11 Oct"] | expected [{"weekday":"Sun","day":11,"month":"Oct"},"Sun 11 Oct"]
+PASS | R4 | R4 Short weekday, day and month for every weekday | 2026-07-20 | actual [{"weekday":"Mon","day":20,"month":"Jul"},"Mon 20 Jul"] | expected [{"weekday":"Mon","day":20,"month":"Jul"},"Mon 20 Jul"]
+PASS | R4 | R4 Short weekday, day and month for every weekday | 2026-08-01 | actual [{"weekday":"Sat","day":1,"month":"Aug"},"Sat 1 Aug"] | expected [{"weekday":"Sat","day":1,"month":"Aug"},"Sat 1 Aug"]
+PASS | R4 | R4 Short and long month names for every month | 2026-01-15 | actual ["Jan","Thursday 15 January"] | expected ["Jan","Thursday 15 January"]
+PASS | R4 | R4 Short and long month names for every month | 2026-02-15 | actual ["Feb","Sunday 15 February"] | expected ["Feb","Sunday 15 February"]
+PASS | R4 | R4 Short and long month names for every month | 2026-03-15 | actual ["Mar","Sunday 15 March"] | expected ["Mar","Sunday 15 March"]
+PASS | R4 | R4 Short and long month names for every month | 2026-04-15 | actual ["Apr","Wednesday 15 April"] | expected ["Apr","Wednesday 15 April"]
+PASS | R4 | R4 Short and long month names for every month | 2026-05-15 | actual ["May","Friday 15 May"] | expected ["May","Friday 15 May"]
+PASS | R4 | R4 Short and long month names for every month | 2026-06-15 | actual ["Jun","Monday 15 June"] | expected ["Jun","Monday 15 June"]
+PASS | R4 | R4 Short and long month names for every month | 2026-07-15 | actual ["Jul","Wednesday 15 July"] | expected ["Jul","Wednesday 15 July"]
+PASS | R4 | R4 Short and long month names for every month | 2026-08-15 | actual ["Aug","Saturday 15 August"] | expected ["Aug","Saturday 15 August"]
+PASS | R4 | R4 Short and long month names for every month | 2026-09-15 | actual ["Sep","Tuesday 15 September"] | expected ["Sep","Tuesday 15 September"]
+PASS | R4 | R4 Short and long month names for every month | 2026-10-15 | actual ["Oct","Thursday 15 October"] | expected ["Oct","Thursday 15 October"]
+PASS | R4 | R4 Short and long month names for every month | 2026-11-15 | actual ["Nov","Sunday 15 November"] | expected ["Nov","Sunday 15 November"]
+PASS | R4 | R4 Short and long month names for every month | 2026-12-15 | actual ["Dec","Tuesday 15 December"] | expected ["Dec","Tuesday 15 December"]
+PASS | R4 | R4 Short and long month names for every month | 2026-10-08 | actual ["Oct","Thursday 8 October"] | expected ["Oct","Thursday 8 October"]
+PASS | R4 | R4 Short and long month names for every month | 2027-01-01 | actual ["Jan","Friday 1 January"] | expected ["Jan","Friday 1 January"]
+PASS | R4 | R4 The weekday index, Monday first | 2026-10-05 | actual 0 | expected 0
+PASS | R4 | R4 The weekday index, Monday first | 2026-10-06 | actual 1 | expected 1
+PASS | R4 | R4 The weekday index, Monday first | 2026-10-07 | actual 2 | expected 2
+PASS | R4 | R4 The weekday index, Monday first | 2026-10-08 | actual 3 | expected 3
+PASS | R4 | R4 The weekday index, Monday first | 2026-10-09 | actual 4 | expected 4
+PASS | R4 | R4 The weekday index, Monday first | 2026-10-10 | actual 5 | expected 5
+PASS | R4 | R4 The weekday index, Monday first | 2026-10-11 | actual 6 | expected 6
+PASS | R4 | R4 The weekday index, Monday first | 2026-07-20 | actual 0 | expected 0
+PASS | R4 | R4 The weekday index, Monday first | 2026-08-01 | actual 5 | expected 5
+PASS | R5 | R5 The seven days of the strip | 2026-10-08 | actual ["2026-10-02","2026-10-03","2026-10-04","2026-10-05","2026-10-06","2026-10-07","2026-10-08"] | expected ["2026-10-02","2026-10-03","2026-10-04","2026-10-05","2026-10-06","2026-10-07","2026-10-08"]
+PASS | R5 | R5 The seven days of the strip | 2027-01-03 | actual ["2026-12-28","2026-12-29","2026-12-30","2026-12-31","2027-01-01","2027-01-02","2027-01-03"] | expected ["2026-12-28","2026-12-29","2026-12-30","2026-12-31","2027-01-01","2027-01-02","2027-01-03"]
+PASS | R5 | R5 The seven days of the strip | 2028-03-02 | actual ["2028-02-25","2028-02-26","2028-02-27","2028-02-28","2028-02-29","2028-03-01","2028-03-02"] | expected ["2028-02-25","2028-02-26","2028-02-27","2028-02-28","2028-02-29","2028-03-01","2028-03-02"]
+PASS | R5 | R5 R6 R7 R8 The sample's strips and streaks on the key screen | Read 20 pages strip | actual ". D D D D D D" | expected ". D D D D D D"
+PASS | R6 | R5 R6 R7 R8 The sample's strips and streaks on the key screen | Read 20 pages currentStreak | actual 6 | expected 6
+PASS | R7 | R5 R6 R7 R8 The sample's strips and streaks on the key screen | Read 20 pages bestStreak | actual 14 | expected 14
+PASS | R8 | R5 R6 R7 R8 The sample's strips and streaks on the key screen | Read 20 pages runContinues | actual false | expected false
+PASS | R5 | R5 R6 R7 R8 The sample's strips and streaks on the key screen | Stretch 10 minutes strip | actual "D D . D D D ." | expected "D D . D D D ."
+PASS | R6 | R5 R6 R7 R8 The sample's strips and streaks on the key screen | Stretch 10 minutes currentStreak | actual 3 | expected 3
+PASS | R7 | R5 R6 R7 R8 The sample's strips and streaks on the key screen | Stretch 10 minutes bestStreak | actual 9 | expected 9
+PASS | R8 | R5 R6 R7 R8 The sample's strips and streaks on the key screen | Stretch 10 minutes runContinues | actual true | expected true
+PASS | R5 | R5 R6 R7 R8 The sample's strips and streaks on the key screen | No phone after 11pm strip | actual ". D . . D . D" | expected ". D . . D . D"
+PASS | R6 | R5 R6 R7 R8 The sample's strips and streaks on the key screen | No phone after 11pm currentStreak | actual 1 | expected 1
+PASS | R7 | R5 R6 R7 R8 The sample's strips and streaks on the key screen | No phone after 11pm bestStreak | actual 4 | expected 4
+PASS | R8 | R5 R6 R7 R8 The sample's strips and streaks on the key screen | No phone after 11pm runContinues | actual false | expected false
+PASS | R6 | R6 R8 The same sample one day later | Read 20 pages currentStreak on 2026-10-09 | actual 6 | expected 6
+PASS | R8 | R6 R8 The same sample one day later | Read 20 pages runContinues on 2026-10-09 | actual false | expected false
+PASS | R6 | R6 R8 The same sample one day later | Stretch 10 minutes currentStreak on 2026-10-09 | actual 0 | expected 0
+PASS | R8 | R6 R8 The same sample one day later | Stretch 10 minutes runContinues on 2026-10-09 | actual true | expected true
+PASS | R6 | R6 R8 The same sample one day later | No phone after 11pm currentStreak on 2026-10-09 | actual 1 | expected 1
+PASS | R8 | R6 R8 The same sample one day later | No phone after 11pm runContinues on 2026-10-09 | actual false | expected false
+PASS | R6 | R6 A streak does not break until today is over | [] | actual 0 | expected 0
+PASS | R6 | R6 A streak does not break until today is over | ["2026-10-07"] | actual 1 | expected 1
+PASS | R6 | R6 A streak does not break until today is over | ["2026-10-06"] | actual 0 | expected 0
+PASS | R6 | R6 A streak does not break until today is over | ["2026-10-09"] | actual 0 | expected 0
+PASS | R6 | R6 A streak does not break until today is over | ["2026-10-08","2026-10-08"] | actual 1 | expected 1
+PASS | R6 | R6 A streak does not break until today is over | ["2026-09-30","2026-10-01"] | actual 0 | expected 0
+PASS | R6 | R6 A streak does not break until today is over | ["2026-10-08","2026-10-06","2026-10-07"] | actual 3 | expected 3
+PASS | R6 | R6 A streak does not break until today is over | ["2026-10-07","2026-10-08","2026-10-09"] | actual 2 | expected 2
+PASS | R6 | R6 A streak that crosses a DST change | NY zone, today 2026-03-09 | actual 3 | expected 3
+PASS | R7 | R7 The longest run in the whole history | [] | actual 0 | expected 0
+PASS | R7 | R7 The longest run in the whole history | ["2026-12-30","2026-12-31","2027-01-01"] | actual 3 | expected 3
+PASS | R7 | R7 The longest run in the whole history | ["2028-02-28","2028-02-29","2028-03-01"] | actual 3 | expected 3
+PASS | R7 | R7 The longest run in the whole history | ["2026-02-28","2026-03-01"] | actual 2 | expected 2
+PASS | R7 | R7 The longest run in the whole history | ["2026-10-08","2026-10-08"] | actual 1 | expected 1
+PASS | R7 | R7 The longest run in the whole history | ["2026-10-01","2026-10-03"] | actual 1 | expected 1
+PASS | R7 | R7 The longest run in the whole history | ["2026-10-09","2026-10-08","2026-10-07"] | actual 3 | expected 3
+PASS | R7 | R6 R7 Keys that fail isDateKey are ignored | bestStreak with 3 valid days plus FAR_START and FAR_STUCK | actual 3 | expected 3
+PASS | R7 | R6 R7 Keys that fail isDateKey are ignored | precondition: 20,000 distinct spellings | actual 20000 | expected 20000
+PASS | R7 | R6 R7 Keys that fail isDateKey are ignored | bestStreak with 20,000 spellings of FAR_START and FAR_STUCK | actual 0 | expected 0
+PASS | R6 | R6 R7 Keys that fail isDateKey are ignored | precondition: 10 valid keys among the 400 | actual 10 | expected 10
+PASS | R6 | R6 R7 Keys that fail isDateKey are ignored | currentStreak of the 400 keys, today 0001-01-10 | actual 10 | expected 10
+PASS | R7 | R6 R7 Keys that fail isDateKey are ignored | bestStreak of the 400 keys | actual 10 | expected 10
+PASS | R9 | R9 Ticking a day inside the window | index 1 2026-10-08 now contains | actual [true,true,4,true,true] | expected [true,true,4,true,true]
+PASS | R9 | R9 Ticking a day inside the window | index 0 2026-10-08 no longer contains | actual [true,true,5,true,true] | expected [true,true,5,true,true]
+PASS | R9 | R9 Ticking a day inside the window | index 2 2026-10-07 now contains | actual [true,true,3,true,true] | expected [true,true,3,true,true]
+PASS | R9 | R9 Ticking a day inside the window | index 1 2026-10-04 now contains | actual [true,true,7,true,true] | expected [true,true,7,true,true]
+PASS | R9 | R9 Ticking a day inside the window | index 1 2026-10-02 no longer contains | actual [true,true,3,true,true] | expected [true,true,3,true,true]
+PASS | R9 | R9 Ticking a day inside the window | index 0 2026-10-02 now contains | actual [true,true,10,true,true] | expected [true,true,10,true,true]
+PASS | R9 | R9 Days outside the window and bad indexes change nothing | index 0 2026-10-01 | actual [true,true,true] | expected [true,true,true]
+PASS | R9 | R9 Days outside the window and bad indexes change nothing | index 1 2026-10-09 | actual [true,true,true] | expected [true,true,true]
+PASS | R9 | R9 Days outside the window and bad indexes change nothing | index 2 2026-07-20 | actual [true,true,true] | expected [true,true,true]
+PASS | R9 | R9 Days outside the window and bad indexes change nothing | index 3 2026-10-08 | actual [true,true,true] | expected [true,true,true]
+PASS | R9 | R9 Days outside the window and bad indexes change nothing | index -1 2026-10-08 | actual [true,true,true] | expected [true,true,true]
+PASS | R9 | R9 Days outside the window and bad indexes change nothing | index 0.5 2026-10-08 | actual [true,true,true] | expected [true,true,true]
+PASS | R10 | R10 The 12-week grid around today | today 2026-10-08 | actual [84,"2026-07-20",1,1,"2026-10-11",12,7,true,true,3,true,["2026-10-08"],true] | expected [84,"2026-07-20",1,1,"2026-10-11",12,7,true,true,3,true,["2026-10-08"],true]
+PASS | R10 | R10 The 12-week grid around today | today 2026-10-11 | actual [84,"2026-07-20",1,1,"2026-10-11",12,7,true,true,0,true,["2026-10-11"],true] | expected [84,"2026-07-20",1,1,"2026-10-11",12,7,true,true,0,true,["2026-10-11"],true]
+PASS | R10 | R10 The 12-week grid around today | today 2026-10-05 | actual [84,"2026-07-20",1,1,"2026-10-11",12,7,true,true,6,true,["2026-10-05"],true] | expected [84,"2026-07-20",1,1,"2026-10-11",12,7,true,true,6,true,["2026-10-05"],true]
+PASS | R10 | R10 The 12-week grid around today | today 2026-10-12 | actual [84,"2026-07-27",1,1,"2026-10-18",12,7,true,true,6,true,["2026-10-12"],true] | expected [84,"2026-07-27",1,1,"2026-10-18",12,7,true,true,6,true,["2026-10-12"],true]
+PASS | R10 | R10 The 12-week grid around today | today 2027-01-07 | actual [84,"2026-10-19",1,1,"2027-01-10",12,7,true,true,3,true,["2027-01-07"],true] | expected [84,"2026-10-19",1,1,"2027-01-10",12,7,true,true,3,true,["2027-01-07"],true]
+PASS | R10 | R10 R11 The sample's heatmap equals the golden | cell 2026-10-08 column, row, today | actual [12,4,true] | expected [12,4,true]
+PASS | R11 | R10 R11 The sample's heatmap equals the golden | 81 golden keys, level equals file | actual [81,true] | expected [81,true]
+PASS | R10 | R10 R11 The sample's heatmap equals the golden | total 3 and count equals the habits done that day | actual true | expected true
+PASS | R11 | R10 R11 The sample's heatmap equals the golden | distribution of levels 0 to 4 over the 81 cells | actual [3,30,28,0,20] | expected [3,30,28,0,20]
+PASS | R10 | R10 R11 The sample's heatmap equals the golden | 2026-10-09, 10, 11 are future | actual [true,true,true] | expected [true,true,true]
+PASS | R11 | R11 Levels from the share of habits done | total 1 | actual [0,4] | expected [0,4]
+PASS | R11 | R11 Levels from the share of habits done | total 2 | actual [0,2,4] | expected [0,2,4]
+PASS | R11 | R11 Levels from the share of habits done | total 3 | actual [0,1,2,4] | expected [0,1,2,4]
+PASS | R11 | R11 Levels from the share of habits done | total 4 | actual [0,1,2,3,4] | expected [0,1,2,3,4]
+PASS | R11 | R11 Levels from the share of habits done | total 5 | actual [0,1,2,2,3,4] | expected [0,1,2,2,3,4]
+PASS | R11 | R11 Levels from the share of habits done | total 6 | actual [0,1,1,2,2,3,4] | expected [0,1,1,2,2,3,4]
+PASS | R11 | R11 Levels from the share of habits done | total 12 | actual [0,1,1,1,1,2,2,2,2,3,3,3,4] | expected [0,1,1,1,1,2,2,2,2,3,3,3,4]
+PASS | R11 | R11 No habits means level 0 | heatLevel(0, 0) | actual 0 | expected 0
+PASS | R10 | R10 R11 A fourth habit makes level 3 appear | 2026-07-20 | actual [3,4,3] | expected [3,4,3]
+PASS | R10 | R10 R11 A fourth habit makes level 3 appear | 2026-10-06 | actual [3,4,3] | expected [3,4,3]
+PASS | R10 | R10 R11 A fourth habit makes level 3 appear | 2026-10-08 | actual [2,4,2] | expected [2,4,2]
+PASS | R10 | R10 R11 A fourth habit makes level 3 appear | 2026-07-21 | actual [1,4,1] | expected [1,4,1]
+PASS | R10 | R10 R11 A fourth habit makes level 3 appear | 2026-08-12 | actual [0,4,0] | expected [0,4,0]
+PASS | R12 | R12 Month labels over the first column whose Monday is in the month | 2026-10-08 | actual [{"column":1,"month":"Jul"},{"column":3,"month":"Aug"},{"column":8,"month":"Sep"},{"column":12,"month":"Oct"}] | expected [{"column":1,"month":"Jul"},{"column":3,"month":"Aug"},{"column":8,"month":"Sep"},{"column":12,"month":"Oct"}]
+PASS | R12 | R12 Month labels over the first column whose Monday is in the month | 2026-10-12 | actual [{"column":1,"month":"Jul"},{"column":2,"month":"Aug"},{"column":7,"month":"Sep"},{"column":11,"month":"Oct"}] | expected [{"column":1,"month":"Jul"},{"column":2,"month":"Aug"},{"column":7,"month":"Sep"},{"column":11,"month":"Oct"}]
+PASS | R12 | R12 Month labels over the first column whose Monday is in the month | 2027-01-07 | actual [{"column":1,"month":"Oct"},{"column":3,"month":"Nov"},{"column":8,"month":"Dec"},{"column":12,"month":"Jan"}] | expected [{"column":1,"month":"Oct"},{"column":3,"month":"Nov"},{"column":8,"month":"Dec"},{"column":12,"month":"Jan"}]
+PASS | R12 | R12 Month labels over the first column whose Monday is in the month | 2026-03-31 | actual [{"column":1,"month":"Jan"},{"column":4,"month":"Feb"},{"column":8,"month":"Mar"}] | expected [{"column":1,"month":"Jan"},{"column":4,"month":"Feb"},{"column":8,"month":"Mar"}]
+PASS | R13 | R13 Name checks in the order empty, too long, duplicate | "" | actual {"ok":false,"error":"empty"} | expected {"ok":false,"error":"empty"}
+PASS | R13 | R13 Name checks in the order empty, too long, duplicate | "   " | actual {"ok":false,"error":"empty"} | expected {"ok":false,"error":"empty"}
+PASS | R13 | R13 Name checks in the order empty, too long, duplicate | "Walk to the end of the street and back after dinner" | actual {"ok":false,"error":"too-long"} | expected {"ok":false,"error":"too-long"}
+PASS | R13 | R13 Name checks in the order empty, too long, duplicate | "Read twenty pages before bed every night" | actual {"ok":true,"name":"Read twenty pages before bed every night"} | expected {"ok":true,"name":"Read twenty pages before bed every night"}
+PASS | R13 | R13 Name checks in the order empty, too long, duplicate | "Read twenty pages before bed every night." | actual {"ok":false,"error":"too-long"} | expected {"ok":false,"error":"too-long"}
+PASS | R13 | R13 Name checks in the order empty, too long, duplicate | "  Drink water  " | actual {"ok":true,"name":"Drink water"} | expected {"ok":true,"name":"Drink water"}
+PASS | R13 | R13 Name checks in the order empty, too long, duplicate | "read 20 pages" | actual {"ok":false,"error":"duplicate"} | expected {"ok":false,"error":"duplicate"}
+PASS | R13 | R13 Name checks in the order empty, too long, duplicate | " STRETCH 10 MINUTES " | actual {"ok":false,"error":"duplicate"} | expected {"ok":false,"error":"duplicate"}
+PASS | R13 | R13 Too long is checked before duplicate | validateName(41 chars, existing name equal to it) | actual {"ok":false,"error":"too-long"} | expected {"ok":false,"error":"too-long"}
+PASS | R13 | R13 Length counts code points, not UTF-16 units | 40 book emoji (80 UTF-16 units) | actual [80,{"ok":true,"name":"📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚"}] | expected [80,{"ok":true,"name":"📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚"}]
+PASS | R13 | R13 Length counts code points, not UTF-16 units | 41 book emoji | actual {"ok":false,"error":"too-long"} | expected {"ok":false,"error":"too-long"}
+PASS | R13 | R13 The limits are exported | MAX_NAME_LENGTH, MAX_HABITS | actual [40,12] | expected [40,12]
+PASS | R14 | R14 A new habit goes to the bottom | addHabit(sample, '  Drink water  ') | actual [true,["Read 20 pages","Stretch 10 minutes","No phone after 11pm","Drink water"],{"name":"Drink water","done":[]},true,true] | expected [true,["Read 20 pages","Stretch 10 minutes","No phone after 11pm","Drink water"],{"name":"Drink water","done":[]},true,true]
+PASS | R14 | R14 A rejected name returns its error | addHabit(sample, 'read 20 pages') | actual {"ok":false,"error":"duplicate"} | expected {"ok":false,"error":"duplicate"}
+PASS | R14 | R14 The limit of 12 habits | 11 habits plus 'Habit 12' | actual [true,12,"Habit 12"] | expected [true,12,"Habit 12"]
+PASS | R14 | R14 The limit of 12 habits | 12 habits plus 'Habit 13' | actual {"ok":false,"error":"limit"} | expected {"ok":false,"error":"limit"}
+PASS | R14 | R14 The limit of 12 habits | 12 habits plus empty name | actual {"ok":false,"error":"limit"} | expected {"ok":false,"error":"limit"}
+PASS | R15 | R15 Deleting a habit | index 0 | actual [["Stretch 10 minutes","No phone after 11pm"],true,true] | expected [["Stretch 10 minutes","No phone after 11pm"],true,true]
+PASS | R15 | R15 Deleting a habit | index 2 | actual [["Read 20 pages","Stretch 10 minutes"],true,true] | expected [["Read 20 pages","Stretch 10 minutes"],true,true]
+PASS | R15 | R15 Deleting a habit | index 3 | actual [["Read 20 pages","Stretch 10 minutes","No phone after 11pm"],true,true] | expected [["Read 20 pages","Stretch 10 minutes","No phone after 11pm"],true,true]
+PASS | R15 | R15 Deleting a habit | index -1 | actual [["Read 20 pages","Stretch 10 minutes","No phone after 11pm"],true,true] | expected [["Read 20 pages","Stretch 10 minutes","No phone after 11pm"],true,true]
+PASS | R16 | R16 No clock, DOM, storage or locale access in the source | Date.now( and new Date() with no argument, whole file text | actual [false,false,false,false] | expected [false,false,false,false]
+PASS | R16 | R16 No clock, DOM, storage or locale access in the source | document, window, localStorage, globalThis, Intl and toLocale, code only | actual [false,false,false,false] | expected [false,false,false,false]
+PASS | R16 | R16 habits.js imports only ./dates.js and dates.js imports nothing | import specifiers | actual [["./dates.js"],false] | expected [["./dates.js"],false]
+PASS | R16 | R16 No exported function writes to its arguments | every exported function is in the call list | actual ["addDays","addHabit","bestStreak","currentStreak","dayParts","deleteHabit","heatLevel","heatmapCells","isDateKey","localDateKey","longDate","monthLabels","runContinues","shortDate","toggleDay","validateName","weekWindow","weekdayIndex"] | expected ["addDays","addHabit","bestStreak","currentStreak","dayParts","deleteHabit","heatLevel","heatmapCells","isDateKey","localDateKey","longDate","monthLabels","runContinues","shortDate","toggleDay","validateName","weekWindow","weekdayIndex"]
+PASS | R16 | R16 No exported function writes to its arguments | no call throws on frozen arguments | actual [] | expected []
+PASS | R16 | R16 No exported function writes to its arguments | frozen sample still equals the file's habits | actual true | expected true
+PASS | R16 | R16 No exported function writes to its arguments | Date passed to localDateKey keeps its getTime() | actual true | expected true
+SCENARIO PASS | R1 | R1 The local calendar day of an instant | 6/6 rows
+SCENARIO PASS | R2 | R2 Valid date keys | 17/17 rows
+SCENARIO PASS | R3 | R3 Calendar arithmetic that ignores the time zone | 11/11 rows
+SCENARIO PASS | R4 | R4 Short weekday, day and month for every weekday | 9/9 rows
+SCENARIO PASS | R4 | R4 Short and long month names for every month | 14/14 rows
+SCENARIO PASS | R4 | R4 The weekday index, Monday first | 9/9 rows
+SCENARIO PASS | R5 | R5 The seven days of the strip | 3/3 rows
+SCENARIO PASS | R5 | R5 R6 R7 R8 The sample's strips and streaks on the key screen | 12/12 rows
+SCENARIO PASS | R6 | R6 R8 The same sample one day later | 6/6 rows
+SCENARIO PASS | R6 | R6 A streak does not break until today is over | 8/8 rows
+SCENARIO PASS | R6 | R6 A streak that crosses a DST change | 1/1 rows
+SCENARIO PASS | R7 | R7 The longest run in the whole history | 7/7 rows
+SCENARIO PASS | R7 | R6 R7 Keys that fail isDateKey are ignored | 6/6 rows
+SCENARIO PASS | R9 | R9 Ticking a day inside the window | 6/6 rows
+SCENARIO PASS | R9 | R9 Days outside the window and bad indexes change nothing | 6/6 rows
+SCENARIO PASS | R10 | R10 The 12-week grid around today | 5/5 rows
+SCENARIO PASS | R10 | R10 R11 The sample's heatmap equals the golden | 5/5 rows
+SCENARIO PASS | R11 | R11 Levels from the share of habits done | 7/7 rows
+SCENARIO PASS | R11 | R11 No habits means level 0 | 1/1 rows
+SCENARIO PASS | R10 | R10 R11 A fourth habit makes level 3 appear | 5/5 rows
+SCENARIO PASS | R12 | R12 Month labels over the first column whose Monday is in the month | 4/4 rows
+SCENARIO PASS | R13 | R13 Name checks in the order empty, too long, duplicate | 8/8 rows
+SCENARIO PASS | R13 | R13 Too long is checked before duplicate | 1/1 rows
+SCENARIO PASS | R13 | R13 Length counts code points, not UTF-16 units | 2/2 rows
+SCENARIO PASS | R13 | R13 The limits are exported | 1/1 rows
+SCENARIO PASS | R14 | R14 A new habit goes to the bottom | 1/1 rows
+SCENARIO PASS | R14 | R14 A rejected name returns its error | 1/1 rows
+SCENARIO PASS | R14 | R14 The limit of 12 habits | 3/3 rows
+SCENARIO PASS | R15 | R15 Deleting a habit | 4/4 rows
+SCENARIO PASS | R16 | R16 No clock, DOM, storage or locale access in the source | 2/2 rows
+SCENARIO PASS | R16 | R16 habits.js imports only ./dates.js and dates.js imports nothing | 1/1 rows
+SCENARIO PASS | R16 | R16 No exported function writes to its arguments | 4/4 rows
+SUMMARY scenarios_pass=32 scenarios_fail=0 rows_pass=176 rows_total=176
