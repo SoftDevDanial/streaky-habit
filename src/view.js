@@ -221,7 +221,8 @@ function fillCell(node, cell) {
 
 /**
  * The 84 cells are created once and then set in place, so a changed level plays the dot's size
- * transition and an unchanged cell is left alone.
+ * transition (system.md Motion) and an unchanged cell is left alone. A first render fills each cell
+ * before it is first drawn, so nothing animates on load.
  */
 export function renderHeatmap(habits, todayKey) {
   const grid = $(".cells");
