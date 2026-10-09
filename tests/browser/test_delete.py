@@ -5,9 +5,11 @@ import pytest
 from playwright.sync_api import expect
 
 from conftest import (
+    FSI,
     GUARD_WINDOW_MS,
     NOON,
     PAUSE_AT,
+    PDI,
     SAMPLE_HABITS,
     add_habit,
     canonical_pair,
@@ -15,6 +17,7 @@ from conftest import (
     center,
     confirm_delete,
     day,
+    dialog_title,
     let_guard_pass,
     level_classes,
     open_delete_dialog,
@@ -23,6 +26,7 @@ from conftest import (
     pretty_sample_state,
     sample_state,
     shot,
+    state_text,
     stored,
     streak,
     trash,
@@ -50,7 +54,7 @@ def test_R13_the_confirmation_opens_as_a_modal_with_focus_on_cancel(app):
     shot(page, "07-dialog")
 
     assert dialog(page).evaluate("(d) => d.open && d.matches(':modal')") is True
-    expect(page.locator("#del-title")).to_have_text('Delete "Read 20 pages"?')
+    expect(page.locator("#del-title")).to_have_text(dialog_title("Read 20 pages"))
     expect(page.locator("#del-body")).to_have_text("Its history is deleted too.")
     buttons = dialog(page).locator("form.dialog-actions button")
     assert buttons.all_inner_texts() == ["Cancel", "Delete habit"]
@@ -74,6 +78,9 @@ def test_R28_the_open_dialog_has_the_markup_of_the_golden(app):
     page = app(storage=sample_state())
     open_delete_dialog(page, "Read 20 pages")
     live, golden = canonical_pair(page, "delete-dialog.html", "dialog.dialog")
+    # The one difference from the golden is the pair of invisible isolate marks inside the title's quotes
+    # (spec R13 note, SEC-02); test_SEC02 below pins exactly where they sit.
+    live = live.replace(f'"{FSI}', '"').replace(f'{PDI}"', '"')
     assert live == golden
 
 
@@ -122,7 +129,7 @@ def test_R14_clicks_inside_the_box_and_drags_out_of_it_keep_the_dialog_open(app)
     box = dialog(page).bounding_box()
     page.mouse.click(box["x"] + 6, box["y"] + 6)
     expect(dialog(page)).to_have_attribute("open", "")
-    expect(page.locator("#del-title")).to_have_text('Delete "Stretch 10 minutes"?')
+    expect(page.locator("#del-title")).to_have_text(dialog_title("Stretch 10 minutes"))
 
     x, y = center(page.locator("#del-title"))
     page.mouse.move(x, y)
@@ -144,7 +151,7 @@ def test_R14_a_drag_that_starts_on_the_backdrop_and_ends_in_the_box_keeps_the_di
     page.mouse.up()
 
     expect(dialog(page)).to_have_attribute("open", "")
-    expect(page.locator("#del-title")).to_have_text('Delete "Stretch 10 minutes"?')
+    expect(page.locator("#del-title")).to_have_text(dialog_title("Stretch 10 minutes"))
 
 
 def test_R11_the_message_stays_until_the_next_submit_across_a_delete(app):
@@ -340,7 +347,7 @@ def test_SEC01_R13_a_double_click_or_tap_on_the_trash_button_cannot_delete(app, 
     press_twice(page, point, touch)
 
     expect(dialog(page)).to_have_attribute("open", "")
-    expect(page.locator("#del-title")).to_have_text(f'Delete "{TAP_THROUGH_HABIT}"?')
+    expect(page.locator("#del-title")).to_have_text(dialog_title(TAP_THROUGH_HABIT))
     assert page.locator("li.habit").count() == 3
     assert write_count(page) == 0
     assert stored(page) == before
@@ -571,3 +578,53 @@ def test_SEC01_R14_cancel_still_works_right_after_a_click_inside_the_box(app):
     page.mouse.click(*center(cancel(page)))
 
     expect(dialog(page)).not_to_have_attribute("open", "")
+
+
+# ---------------------------------------------------------------------------- SEC-02: the name is isolated in the title
+#
+# An unterminated bidirectional override in a name reorders the text after it, including the title's own closing
+# quote and question mark: the dialog showed `Delete "?"ereh txet desreveR` for the name "<RLO>Reversed text here".
+# The name sits between FSI and PDI so that the override cannot get out of it. Two residuals are not tested:
+# stacks of combining marks that overprint the line (accepted for v1.0), and a name that itself holds U+2069 or a
+# paragraph separator (U+0085, U+001C to U+001E, U+2029), which ends the isolate early (spec R13 note).
+
+RLO, RLE, RLI = chr(0x202E), chr(0x202B), chr(0x2067)
+OVERRIDING_NAMES = {
+    "rlo first": RLO + "Reversed text here",
+    "rlo in the middle": "Read 20 pages" + RLO + " dleiys .gnp",
+    "three rlo": "a" + RLO + "b" + RLO + "c" + RLO,
+    "rle": RLE + "abc def",
+    "rli": RLI + "abc def",
+}
+
+# Where the title's quotes, question mark and name characters are drawn, left to right. A character with no
+# width (the marks themselves) is left out of `inside`.
+TITLE_CHARACTER_LEFTS = """() => {
+  const heading = document.querySelector('#del-title');
+  const node = heading.firstChild;
+  const rect = (index) => {
+    const range = document.createRange();
+    range.setStart(node, index);
+    range.setEnd(node, index + 1);
+    return range.getBoundingClientRect();
+  };
+  const text = node.data;
+  const open = text.indexOf('"'), close = text.lastIndexOf('"'), question = text.lastIndexOf('?');
+  const inside = [];
+  for (let i = open + 1; i < close; i++) if (rect(i).width > 0) inside.push(rect(i).left);
+  return { nodes: heading.childNodes.length, open: rect(open).left, inside, close: rect(close).left, question: rect(question).left };
+}"""
+
+
+@pytest.mark.parametrize("name", list(OVERRIDING_NAMES.values()), ids=list(OVERRIDING_NAMES))
+def test_SEC02_R13_an_unterminated_override_in_a_name_cannot_move_the_titles_quotes(app, name):
+    page = app(storage=state_text([{"name": name, "done": []}]))
+    page.locator("button.icon-btn").first.click()
+    expect(dialog(page)).to_have_attribute("open", "")
+
+    assert page.locator("#del-title").text_content() == dialog_title(name)
+    spots = page.evaluate(TITLE_CHARACTER_LEFTS)
+    assert spots["nodes"] == 1  # still one text node and no child element (R24)
+    assert spots["inside"], "the name drew no character"
+    assert spots["open"] < min(spots["inside"]), spots
+    assert max(spots["inside"]) < spots["close"] < spots["question"], spots

@@ -417,6 +417,17 @@ def trash(page, name):
     return page.get_by_role("button", name=f"Delete {name}", exact=True)
 
 
+# U+2068 FIRST STRONG ISOLATE and U+2069 POP DIRECTIONAL ISOLATE wrap the name in the dialog title, so a
+# bidirectional override inside a name cannot reorder the quotes around it (spec R13 note, SEC-02). Built with
+# chr() so that no tool turns an escape in this source into the raw characters.
+FSI, PDI = chr(0x2068), chr(0x2069)
+
+
+def dialog_title(name):
+    """The exact text of #del-title for a habit called `name`."""
+    return f'Delete "{FSI}{name}{PDI}"?'
+
+
 def open_delete_dialog(page, name):
     trash(page, name).click()
     expect(page.locator("dialog.dialog")).to_have_attribute("open", "")

@@ -294,11 +294,15 @@ export function removeNote() {
 // ---------------------------------------------------------------------------------------------
 // Delete dialog
 
-/** `returnValue` is reset because it persists between openings: a later Esc would repeat the last "delete". */
+/**
+ * `returnValue` is reset because it persists between openings: a later Esc would repeat the last "delete".
+ * The name sits between FIRST STRONG ISOLATE and POP DIRECTIONAL ISOLATE, two invisible characters, so that a
+ * bidirectional override in it cannot reorder the quotes and the question mark that follow it (spec R13 note).
+ */
 export function openDeleteDialog(habitName) {
   const dialog = $(".dialog");
   dialog.returnValue = "";
-  $("#del-title").textContent = `Delete "${habitName}"?`;
+  $("#del-title").textContent = `Delete "\u{2068}${habitName}\u{2069}"?`;
   dialog.showModal();
 }
 

@@ -5,5 +5,6 @@
 document.querySelector('button[aria-label="Delete Read 20 pages"]').click();
 const dialog = document.querySelector("dialog.dialog");
 if (!dialog.open || !dialog.matches(":modal")) throw new Error("the delete dialog did not open as a modal");
-if (document.querySelector("#del-title").textContent !== 'Delete "Read 20 pages"?') throw new Error("unexpected dialog title");
+// The title wraps the name in two invisible isolate marks (spec R13 note, SEC-02): U+2068 before it, U+2069 after.
+if (document.querySelector("#del-title").textContent !== 'Delete "\u{2068}Read 20 pages\u{2069}"?') throw new Error("unexpected dialog title");
 document.activeElement.blur();

@@ -16,6 +16,7 @@ from conftest import (
     add_habit,
     confirm_delete,
     day,
+    dialog_title,
     open_delete_dialog,
     record,
     sample_state,
@@ -150,7 +151,7 @@ def test_R24_markup_in_a_name_stays_text(app):
 
     trash(page, MARKUP_NAME).click()
     title = page.locator("#del-title")
-    assert title.text_content() == f'Delete "{MARKUP_NAME}"?'
+    assert title.text_content() == dialog_title(MARKUP_NAME)
     assert title.evaluate("(e) => e.children.length") == 0
     page.wait_for_timeout(200)
     assert dialogs == []

@@ -16,7 +16,7 @@ from urllib.parse import urlsplit
 
 from playwright.sync_api import sync_playwright
 
-from conftest import GUARD_WINDOW_MS, short_date  # the same calendar table and guard window the pytest suite uses
+from conftest import GUARD_WINDOW_MS, dialog_title, short_date  # the same calendar table, guard window and title the pytest suite uses
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 READ, STRETCH = "Read 20 pages", "Stretch 10 minutes"
@@ -218,7 +218,7 @@ class Scenario:
             "07-dialog", "click Delete Stretch 10 minutes", gesture="click the trash button",
             expected="the dialog asks, Cancel has focus",
             do=self.trash(STRETCH).click,
-            check=lambda s: s["dialogOpen"] and s["dialogTitle"] == f'Delete "{STRETCH}"?' and s["active"]["text"] == "Cancel",
+            check=lambda s: s["dialogOpen"] and s["dialogTitle"] == dialog_title(STRETCH) and s["active"]["text"] == "Cancel",
         )
 
     def cancel_the_delete(self):

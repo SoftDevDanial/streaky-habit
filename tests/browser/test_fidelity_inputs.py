@@ -6,7 +6,7 @@ async function.
 """
 import json
 
-from conftest import ROOT, SAMPLE_HABITS
+from conftest import ROOT, SAMPLE_HABITS, dialog_title
 
 FIDELITY_DIR = ROOT / "tests" / "browser" / "fidelity"
 SEED_JS = (FIDELITY_DIR / "seed-sample.js").read_text(encoding="utf-8")
@@ -46,5 +46,5 @@ def test_R28_the_after_load_script_leaves_the_dialog_open_with_nothing_focused(a
 
     dialog = page.locator("dialog.dialog")
     assert dialog.evaluate("(d) => d.open && d.matches(':modal')") is True
-    assert page.locator("#del-title").text_content() == 'Delete "Read 20 pages"?'
+    assert page.locator("#del-title").text_content() == dialog_title("Read 20 pages")
     assert page.evaluate("() => document.activeElement === document.body") is True

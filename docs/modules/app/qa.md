@@ -581,6 +581,26 @@ Feature: Delete a habit
     When the user clicks inside the dialog box 6 pixels right of and below its top-left corner (the dialog stays open) and at the same instant clicks "Cancel"
     Then the dialog is closed
 
+  # Added 2026-10-09 (security SEC-02, ORCH). Wherever a scenario in this file says the title reads 'Delete "<name>"?'
+  # (@R13, @R14, @R24, @R27, M1-04, the fidelity state script), the text is 'Delete "', U+2068, the name, U+2069, '"?'
+  # (spec R13 note). The two marks are invisible, so the picture is the same. Tests build the text with
+  # `dialog_title(name)` in conftest.py.
+
+  @R13
+  Scenario Outline: An unterminated bidirectional override in a name cannot move the title's quotes
+    Given a fresh day and storage holding one habit named <name>
+    When the user clicks its trash button
+    Then #del-title has one text node, no child element, and the text 'Delete "', U+2068, <name>, U+2069, '"?'
+    And, measured by the position of each character, the opening quote lies left of every visible character of the name, the closing quote lies right of all of them, and the question mark lies right of the closing quote
+
+    Examples:
+      | name                                      |
+      | U+202E then "Reversed text here"          |
+      | "Read 20 pages", U+202E, " dleiys .gnp"   |
+      | "a", U+202E, "b", U+202E, "c", U+202E     |
+      | U+202B then "abc def"                     |
+      | U+2067 then "abc def"                     |
+
 Feature: Kept on the device
 
   @R16
@@ -962,7 +982,7 @@ Feature: Looks right
 | M1-01 | Page behind | S1 unchanged underneath; it cannot be clicked or focused |
 | M1-02 | Backdrop | `--scrim` rgb(28 37 35 / 0.5) over the whole viewport (native `::backdrop`) |
 | M1-03 | Dialog box | `dialog.dialog` opened with `showModal()`, role alertdialog, `aria-modal="true"`, labelled by `#del-title`, described by `#del-body`; `--surface`, radius 20, padding 24, the dialog shadow; width `min(400px, 100% - 40px)`; 350 x 180 at x 20, y 332 on 390 x 844 and 400 x 180 at x 440, y 310 on 1280 x 800; centred both ways |
-| M1-04 | Title | `h2#del-title` `Delete "Read 20 pages"?` with straight quotes, 18/28 600 `--ink`, one line, 24 from the top; long names wrap and the box grows in height only |
+| M1-04 | Title | `h2#del-title` `Delete "Read 20 pages"?` with straight quotes, 18/28 600 `--ink`, one line, 24 from the top; long names wrap and the box grows in height only. Changed 2026-10-09 (security SEC-02, ORCH): the text also holds the invisible U+2068 before the name and U+2069 after it (spec R13 note); they draw nothing, and the pixel diff stays at 0. |
 | M1-05 | Body | `p#del-body` "Its history is deleted too.", 16/24 `--ink-soft`, 8 below the title |
 | M1-06 | Buttons row | `form.dialog-actions[method=dialog]`, two equal columns 12 apart, 24 below the body; each 145 wide at 390 and 170 at 1280, 48 tall |
 | M1-07 | Cancel | left; `.btn.btn-secondary[type=submit][value=cancel]` "Cancel"; transparent, 2px `--ring` border, `--ink` 16 600 |
@@ -999,7 +1019,7 @@ Feature: Looks right
 - **Harness version history and the 2.1.2 check** (added 2026-10-08, plan-check flag, ORCH). Changed 2026-10-08: the bullet above and the text in `spec.md` and `../ROADMAP.md` first credited the four state flags (`--candidate-init-script`, `--candidate-after-load`, `--fixed-time`, repeatable `--browser-arg`) to sdlc 2.1.1. The correct history is that 2.1.0 added the four flags, 2.1.1 fixed the freeze so time is pinned through Playwright's clock, and 2.1.2 added `bypass_csp`. The minimum stays "2.1.1 or later". The installed harness is 2.1.2. The 0-pixel baseline below was measured on 2.1.1, so the first fidelity run on 2.1.2 must confirm it: the fidelity tester records the harness version it ran, and the first set of captures on 2.1.2 must show 0 mismatched pixels and `dimensions_match` true. A non-zero count on 2.1.2 that was 0 on 2.1.1 is a finding for the owner, and the budget is not widened to absorb it.
 - **Test-side state scripts** (in `tests/browser/fidelity/`, never shipped, never loaded by the app):
   - `seed-sample.js`, passed as `--candidate-init-script`. One statement, `localStorage.setItem("streaks.state", <text>)`, where `<text>` is exactly `{"version":1,"habits":<the habits of sample-history.json>}`. It runs before the app's scripts.
-  - `open-delete-dialog.js`, passed as `--candidate-after-load` (the harness runs it as the body of an `async` function after load). It clicks the button named "Delete Read 20 pages", throws unless `dialog.dialog` is open and matches `:modal` with the title `Delete "Read 20 pages"?`, then calls `document.activeElement.blur()`. The blur is required: the golden draws no focus (delete-dialog.md: "Not drawn in the golden, because a static page has no keyboard focus"), and focus moved by script without a prior pointer gesture matches `:focus-visible` in Chromium, so the Cancel ring would show. Measured with harness 2.1.1: 877 mismatched pixels at 390 and 977 at 1280 without the blur, all of them the Cancel ring, and 0 with it. Focus on Cancel is proven by `@R13`, not by this gate.
+  - `open-delete-dialog.js`, passed as `--candidate-after-load` (the harness runs it as the body of an `async` function after load). It clicks the button named "Delete Read 20 pages", throws unless `dialog.dialog` is open and matches `:modal` with the title `Delete "Read 20 pages"?`, then calls `document.activeElement.blur()`. The blur is required: the golden draws no focus (delete-dialog.md: "Not drawn in the golden, because a static page has no keyboard focus"), and focus moved by script without a prior pointer gesture matches `:focus-visible` in Chromium, so the Cancel ring would show. Measured with harness 2.1.1: 877 mismatched pixels at 390 and 977 at 1280 without the blur, all of them the Cancel ring, and 0 with it. Focus on Cancel is proven by `@R13`, not by this gate. Changed 2026-10-09 (security SEC-02, ORCH): the title the script checks is `Delete "`, U+2068, `Read 20 pages`, U+2069, `"?` (written as the JavaScript escapes `\u{2068}` and `\u{2069}` in the script). Measured 2026-10-09 with harness 2.1.3 and the unchanged flags: M1 at 390x844 and 1280x800 gives 0 mismatched pixels and `dimensions_match` true with the marks in place.
   - `tests/browser/test_fidelity_inputs.py` (part of the pytest suite, `@R28`) proves both scripts: the seed's text parses to `{"version":1,"habits":<sample habits>}` exactly, and running the after-load body on the seeded app leaves the dialog open with that title and `document.activeElement` as `body`.
 - **Golden / candidate / state:**
   | Screen | Golden | Candidate | State flags |
