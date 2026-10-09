@@ -1,0 +1,604 @@
+TAP version 13
+# Subtest: @R1 @R3 the zone switch is real, so the zone cases are not vacuous
+ok 1 - @R1 @R3 the zone switch is real, so the zone cases are not vacuous
+  ---
+  duration_ms: 1.346
+  type: 'test'
+  ...
+# Subtest: @R1 the local calendar day of an instant
+ok 2 - @R1 the local calendar day of an instant
+  ---
+  duration_ms: 0.4723
+  type: 'test'
+  ...
+# Subtest: @R1 the UTC date is not used: 00:30 local in Kuala Lumpur is still the day before in UTC
+ok 3 - @R1 the UTC date is not used: 00:30 local in Kuala Lumpur is still the day before in UTC
+  ---
+  duration_ms: 0.3754
+  type: 'test'
+  ...
+# Subtest: @R1 month and day are zero padded and the year has 4 digits
+ok 4 - @R1 month and day are zero padded and the year has 4 digits
+  ---
+  duration_ms: 0.2738
+  type: 'test'
+  ...
+# Subtest: @R2 valid and invalid date keys
+ok 5 - @R2 valid and invalid date keys
+  ---
+  duration_ms: 0.3648
+  type: 'test'
+  ...
+# Subtest: @R2 agrees with a calendar reference for every year-month-day combination 1900 to 2100
+ok 6 - @R2 agrees with a calendar reference for every year-month-day combination 1900 to 2100
+  ---
+  duration_ms: 49.684
+  type: 'test'
+  ...
+# Subtest: @R2 a long hostile string is rejected quickly
+ok 7 - @R2 a long hostile string is rejected quickly
+  ---
+  duration_ms: 1.3742
+  type: 'test'
+  ...
+# Subtest: @R3 calendar arithmetic that ignores the time zone
+ok 8 - @R3 calendar arithmetic that ignores the time zone
+  ---
+  duration_ms: 0.6723
+  type: 'test'
+  ...
+# Subtest: @R3 century and year edges
+ok 9 - @R3 century and year edges
+  ---
+  duration_ms: 0.2252
+  type: 'test'
+  ...
+# Subtest: @R3 agrees with UTC reference maths for every day 1900 to 2100 in both zones
+ok 10 - @R3 agrees with UTC reference maths for every day 1900 to 2100 in both zones
+  ---
+  duration_ms: 283.1415
+  type: 'test'
+  ...
+# Subtest: @R4 short weekday, day and month for every weekday
+ok 11 - @R4 short weekday, day and month for every weekday
+  ---
+  duration_ms: 0.7328
+  type: 'test'
+  ...
+# Subtest: @R4 short and long month names for every month
+ok 12 - @R4 short and long month names for every month
+  ---
+  duration_ms: 0.1351
+  type: 'test'
+  ...
+# Subtest: @R4 weekdayIndex counts Monday as 0 to Sunday as 6
+ok 13 - @R4 weekdayIndex counts Monday as 0 to Sunday as 6
+  ---
+  duration_ms: 0.0887
+  type: 'test'
+  ...
+# Subtest: @R4 weekday names and indexes agree with a UTC reference for every day 1900 to 2100
+ok 14 - @R4 weekday names and indexes agree with a UTC reference for every day 1900 to 2100
+  ---
+  duration_ms: 109.7284
+  type: 'test'
+  ...
+# Subtest: @R4 labels do not follow the runtime locale
+ok 15 - @R4 labels do not follow the runtime locale
+  ---
+  duration_ms: 53.6218
+  type: 'test'
+  ...
+# Subtest: @R13 @R14 the limits are exported
+ok 16 - @R13 @R14 the limits are exported
+  ---
+  duration_ms: 0.8068
+  type: 'test'
+  ...
+# Subtest: @R5 the seven days of the strip
+ok 17 - @R5 the seven days of the strip
+  ---
+  duration_ms: 0.7249
+  type: 'test'
+  ...
+# Subtest: @R5 the strip has 7 keys, the last is today, and every call returns a new array
+ok 18 - @R5 the strip has 7 keys, the last is today, and every call returns a new array
+  ---
+  duration_ms: 0.1207
+  type: 'test'
+  ...
+# Subtest: @R6 a streak does not break until today is over
+ok 19 - @R6 a streak does not break until today is over
+  ---
+  duration_ms: 0.2495
+  type: 'test'
+  ...
+# Subtest: @R6 a streak runs across a month, a year and a leap day
+ok 20 - @R6 a streak runs across a month, a year and a leap day
+  ---
+  duration_ms: 0.1382
+  type: 'test'
+  ...
+# Subtest: @R6 a streak that crosses a DST change
+ok 21 - @R6 a streak that crosses a DST change
+  ---
+  duration_ms: 0.5297
+  type: 'test'
+  ...
+# Subtest: @R7 the longest run in the whole history
+ok 22 - @R7 the longest run in the whole history
+  ---
+  duration_ms: 0.2146
+  type: 'test'
+  ...
+# Subtest: @R7 the best run may be old, and a later shorter run does not replace it
+ok 23 - @R7 the best run may be old, and a later shorter run does not replace it
+  ---
+  duration_ms: 0.0881
+  type: 'test'
+  ...
+# Subtest: @R7 the best-run walk ends on keys outside the valid range, where the next day repeats itself
+ok 24 - @R7 the best-run walk ends on keys outside the valid range, where the next day repeats itself
+  ---
+  duration_ms: 56.412
+  type: 'test'
+  ...
+# Subtest: @R6 the current-run walk ends on the cycle below year 0001
+ok 25 - @R6 the current-run walk ends on the cycle below year 0001
+  ---
+  duration_ms: 50.5223
+  type: 'test'
+  ...
+# Subtest: @R7 many spellings of one far-out date that all run into the stuck key cost one pass, not one walk each
+ok 26 - @R7 many spellings of one far-out date that all run into the stuck key cost one pass, not one walk each
+  ---
+  duration_ms: 90.7428
+  type: 'test'
+  ...
+# Subtest: @R6 @R7 keys that fail isDateKey do not count, so a streak counts only valid days
+ok 27 - @R6 @R7 keys that fail isDateKey do not count, so a streak counts only valid days
+  ---
+  duration_ms: 142.5806
+  type: 'test'
+  ...
+# Subtest: @R8 the run flag needs the first strip day and the day before it
+ok 28 - @R8 the run flag needs the first strip day and the day before it
+  ---
+  duration_ms: 0.2184
+  type: 'test'
+  ...
+# Subtest: @R9 ticking a day inside the window
+ok 29 - @R9 ticking a day inside the window
+  ---
+  duration_ms: 0.9
+  type: 'test'
+  ...
+# Subtest: @R9 days outside the window and bad indexes change nothing
+ok 30 - @R9 days outside the window and bad indexes change nothing
+  ---
+  duration_ms: 0.4299
+  type: 'test'
+  ...
+# Subtest: @R9 both ends of the window are editable and ticking twice restores the habit
+ok 31 - @R9 both ends of the window are editable and ticking twice restores the habit
+  ---
+  duration_ms: 0.1857
+  type: 'test'
+  ...
+# Subtest: @R9 an unsorted or duplicated done array comes back ascending without duplicates
+ok 32 - @R9 an unsorted or duplicated done array comes back ascending without duplicates
+  ---
+  duration_ms: 0.0603
+  type: 'test'
+  ...
+# Subtest: @R9 an empty habit list stays empty
+ok 33 - @R9 an empty habit list stays empty
+  ---
+  duration_ms: 0.0409
+  type: 'test'
+  ...
+# Subtest: @R10 the 12-week grid around today
+ok 34 - @R10 the 12-week grid around today
+  ---
+  duration_ms: 1.5895
+  type: 'test'
+  ...
+# Subtest: @R10 a cell carries exactly the contract fields, and a habit counts once per day
+ok 35 - @R10 a cell carries exactly the contract fields, and a habit counts once per day
+  ---
+  duration_ms: 0.1521
+  type: 'test'
+  ...
+# Subtest: @R10 @R11 a fourth habit makes level 3 appear
+ok 36 - @R10 @R11 a fourth habit makes level 3 appear
+  ---
+  duration_ms: 0.2301
+  type: 'test'
+  ...
+# Subtest: @R10 the arguments are not changed and the cells are new objects
+ok 37 - @R10 the arguments are not changed and the cells are new objects
+  ---
+  duration_ms: 0.2329
+  type: 'test'
+  ...
+# Subtest: @R11 levels from the share of habits done
+ok 38 - @R11 levels from the share of habits done
+  ---
+  duration_ms: 0.1392
+  type: 'test'
+  ...
+# Subtest: @R11 no habits means level 0
+ok 39 - @R11 no habits means level 0
+  ---
+  duration_ms: 0.0339
+  type: 'test'
+  ...
+# Subtest: @R12 month labels over the first column whose Monday is in the month
+ok 40 - @R12 month labels over the first column whose Monday is in the month
+  ---
+  duration_ms: 0.2005
+  type: 'test'
+  ...
+# Subtest: @R12 each label sits on the first column whose Monday is in its month, for more start days
+ok 41 - @R12 each label sits on the first column whose Monday is in its month, for more start days
+  ---
+  duration_ms: 0.9589
+  type: 'test'
+  ...
+# Subtest: @R13 name checks in the order empty, too long, duplicate
+ok 42 - @R13 name checks in the order empty, too long, duplicate
+  ---
+  duration_ms: 0.2981
+  type: 'test'
+  ...
+# Subtest: @R13 the length rule counts the trimmed name, so padding never makes a 40 character name too long
+ok 43 - @R13 the length rule counts the trimmed name, so padding never makes a 40 character name too long
+  ---
+  duration_ms: 0.0622
+  type: 'test'
+  ...
+# Subtest: @R13 too long is checked before duplicate
+ok 44 - @R13 too long is checked before duplicate
+  ---
+  duration_ms: 0.0483
+  type: 'test'
+  ...
+# Subtest: @R13 length counts code points, not UTF-16 units
+ok 45 - @R13 length counts code points, not UTF-16 units
+  ---
+  duration_ms: 0.065
+  type: 'test'
+  ...
+# Subtest: @R13 trim removes no-break space, em space and BOM as well as plain spaces, and the duplicate check lower-cases both sides
+ok 46 - @R13 trim removes no-break space, em space and BOM as well as plain spaces, and the duplicate check lower-cases both sides
+  ---
+  duration_ms: 0.0407
+  type: 'test'
+  ...
+# Subtest: @R13 a very long name is rejected without hanging
+ok 47 - @R13 a very long name is rejected without hanging
+  ---
+  duration_ms: 0.9068
+  type: 'test'
+  ...
+# Subtest: @R13 the length check reads at most 41 code points, so a huge stored name costs no more than a short one
+ok 48 - @R13 the length check reads at most 41 code points, so a huge stored name costs no more than a short one
+  ---
+  duration_ms: 4.1787
+  type: 'test'
+  ...
+# Subtest: @R14 a new habit goes to the bottom
+ok 49 - @R14 a new habit goes to the bottom
+  ---
+  duration_ms: 0.2836
+  type: 'test'
+  ...
+# Subtest: @R14 a rejected name returns its error
+ok 50 - @R14 a rejected name returns its error
+  ---
+  duration_ms: 0.1258
+  type: 'test'
+  ...
+# Subtest: @R14 the limit of 12 habits is checked before the name
+ok 51 - @R14 the limit of 12 habits is checked before the name
+  ---
+  duration_ms: 0.1576
+  type: 'test'
+  ...
+# Subtest: @R14 adding to an empty list works
+ok 52 - @R14 adding to an empty list works
+  ---
+  duration_ms: 0.0608
+  type: 'test'
+  ...
+# Subtest: @R15 deleting a habit
+ok 53 - @R15 deleting a habit
+  ---
+  duration_ms: 1.8267
+  type: 'test'
+  ...
+# Subtest: @R15 deleting from an empty list returns an empty list
+ok 54 - @R15 deleting from an empty list returns an empty list
+  ---
+  duration_ms: 0.0714
+  type: 'test'
+  ...
+# Subtest: @R16 the source has no clock or random read, even in a comment
+ok 55 - @R16 the source has no clock or random read, even in a comment
+  ---
+  duration_ms: 0.8578
+  type: 'test'
+  ...
+# Subtest: @R16 the code has no DOM, storage, network, timer, global or locale access and builds no code from strings
+ok 56 - @R16 the code has no DOM, storage, network, timer, global or locale access and builds no code from strings
+  ---
+  duration_ms: 0.3313
+  type: 'test'
+  ...
+# Subtest: @R16 habits.js imports only ./dates.js and dates.js imports nothing
+ok 57 - @R16 habits.js imports only ./dates.js and dates.js imports nothing
+  ---
+  duration_ms: 0.6668
+  type: 'test'
+  ...
+# Subtest: @R16 only the contracted names are exported
+ok 58 - @R16 only the contracted names are exported
+  ---
+  duration_ms: 0.1267
+  type: 'test'
+  ...
+# Subtest: @R16 no exported function writes to its arguments or returns one of them
+ok 59 - @R16 no exported function writes to its arguments or returns one of them
+  ---
+  duration_ms: 4.7835
+  type: 'test'
+  ...
+# Subtest: @R5 @R6 @R7 @R8 @R9 @R10 @R11 @R12 fixture check: the sample is today 2026-10-08 with three habits whose days are valid, ascending and unique
+ok 60 - @R5 @R6 @R7 @R8 @R9 @R10 @R11 @R12 fixture check: the sample is today 2026-10-08 with three habits whose days are valid, ascending and unique
+  ---
+  duration_ms: 1.3773
+  type: 'test'
+  ...
+# Subtest: @R5 @R6 @R7 @R8 the sample's strips and streaks on the key screen
+ok 61 - @R5 @R6 @R7 @R8 the sample's strips and streaks on the key screen
+  ---
+  duration_ms: 1.5486
+  type: 'test'
+  ...
+# Subtest: @R5 the strip runs from Fri 2 Oct to Thu 8 Oct
+ok 62 - @R5 the strip runs from Fri 2 Oct to Thu 8 Oct
+  ---
+  duration_ms: 0.1982
+  type: 'test'
+  ...
+# Subtest: @R6 @R8 the same sample one day later
+ok 63 - @R6 @R8 the same sample one day later
+  ---
+  duration_ms: 0.2572
+  type: 'test'
+  ...
+# Subtest: @R7 the best runs sit in the older history
+ok 64 - @R7 the best runs sit in the older history
+  ---
+  duration_ms: 0.3929
+  type: 'test'
+  ...
+# Subtest: @R10 @R11 the sample's heatmap equals the golden
+ok 65 - @R10 @R11 the sample's heatmap equals the golden
+  ---
+  duration_ms: 0.727
+  type: 'test'
+  ...
+# Subtest: @R12 the sample's month axis equals the golden: Jul 1, Aug 3, Sep 8, Oct 12
+ok 66 - @R12 the sample's month axis equals the golden: Jul 1, Aug 3, Sep 8, Oct 12
+  ---
+  duration_ms: 0.1971
+  type: 'test'
+  ...
+# Subtest: @R16 the storage key is streaks.state
+ok 67 - @R16 the storage key is streaks.state
+  ---
+  duration_ms: 0.7244
+  type: 'test'
+  ...
+# Subtest: @R17 nothing saved is absent, not unreadable
+ok 68 - @R17 nothing saved is absent, not unreadable
+  ---
+  duration_ms: 0.5193
+  type: 'test'
+  ...
+# Subtest: @R17 unreadable: the empty string
+ok 69 - @R17 unreadable: the empty string
+  ---
+  duration_ms: 0.1223
+  type: 'test'
+  ...
+# Subtest: @R17 unreadable: not JSON
+ok 70 - @R17 unreadable: not JSON
+  ---
+  duration_ms: 0.1024
+  type: 'test'
+  ...
+# Subtest: @R17 unreadable: JSON null
+ok 71 - @R17 unreadable: JSON null
+  ---
+  duration_ms: 0.1405
+  type: 'test'
+  ...
+# Subtest: @R17 unreadable: an array
+ok 72 - @R17 unreadable: an array
+  ---
+  duration_ms: 0.0859
+  type: 'test'
+  ...
+# Subtest: @R17 unreadable: a number
+ok 73 - @R17 unreadable: a number
+  ---
+  duration_ms: 0.118
+  type: 'test'
+  ...
+# Subtest: @R17 unreadable: wrong version
+ok 74 - @R17 unreadable: wrong version
+  ---
+  duration_ms: 0.1023
+  type: 'test'
+  ...
+# Subtest: @R17 unreadable: version as text
+ok 75 - @R17 unreadable: version as text
+  ---
+  duration_ms: 0.1891
+  type: 'test'
+  ...
+# Subtest: @R17 unreadable: no version
+ok 76 - @R17 unreadable: no version
+  ---
+  duration_ms: 0.1808
+  type: 'test'
+  ...
+# Subtest: @R17 unreadable: habits is not an array
+ok 77 - @R17 unreadable: habits is not an array
+  ---
+  duration_ms: 0.1854
+  type: 'test'
+  ...
+# Subtest: @R17 unreadable: 13 habits
+ok 78 - @R17 unreadable: 13 habits
+  ---
+  duration_ms: 0.052
+  type: 'test'
+  ...
+# Subtest: @R17 unreadable: a habit that is null
+ok 79 - @R17 unreadable: a habit that is null
+  ---
+  duration_ms: 0.0932
+  type: 'test'
+  ...
+# Subtest: @R17 unreadable: a habit that is an array
+ok 80 - @R17 unreadable: a habit that is an array
+  ---
+  duration_ms: 0.035
+  type: 'test'
+  ...
+# Subtest: @R17 unreadable: an empty name
+ok 81 - @R17 unreadable: an empty name
+  ---
+  duration_ms: 0.0856
+  type: 'test'
+  ...
+# Subtest: @R17 unreadable: an untrimmed name
+ok 82 - @R17 unreadable: an untrimmed name
+  ---
+  duration_ms: 0.0924
+  type: 'test'
+  ...
+# Subtest: @R17 unreadable: 41 characters
+ok 83 - @R17 unreadable: 41 characters
+  ---
+  duration_ms: 0.0333
+  type: 'test'
+  ...
+# Subtest: @R17 unreadable: a name that is not text
+ok 84 - @R17 unreadable: a name that is not text
+  ---
+  duration_ms: 0.0222
+  type: 'test'
+  ...
+# Subtest: @R17 unreadable: no done list
+ok 85 - @R17 unreadable: no done list
+  ---
+  duration_ms: 0.0196
+  type: 'test'
+  ...
+# Subtest: @R17 unreadable: done is not a list
+ok 86 - @R17 unreadable: done is not a list
+  ---
+  duration_ms: 0.0191
+  type: 'test'
+  ...
+# Subtest: @R17 unreadable: an impossible date
+ok 87 - @R17 unreadable: an impossible date
+  ---
+  duration_ms: 0.1872
+  type: 'test'
+  ...
+# Subtest: @R17 unreadable: a date with a time
+ok 88 - @R17 unreadable: a date with a time
+  ---
+  duration_ms: 0.0974
+  type: 'test'
+  ...
+# Subtest: @R17 unreadable: a number among the dates
+ok 89 - @R17 unreadable: a number among the dates
+  ---
+  duration_ms: 0.0366
+  type: 'test'
+  ...
+# Subtest: @R17 unreadable: a good date, then another good one, then an impossible one
+ok 90 - @R17 unreadable: a good date, then another good one, then an impossible one
+  ---
+  duration_ms: 0.0376
+  type: 'test'
+  ...
+# Subtest: @R17 unreadable: an impossible date in the second habit
+ok 91 - @R17 unreadable: an impossible date in the second habit
+  ---
+  duration_ms: 0.0756
+  type: 'test'
+  ...
+# Subtest: @R17 unreadable: a duplicate name that is not next to its twin
+ok 92 - @R17 unreadable: a duplicate name that is not next to its twin
+  ---
+  duration_ms: 0.0445
+  type: 'test'
+  ...
+# Subtest: @R17 an empty list and exactly 12 habits are readable
+ok 93 - @R17 an empty list and exactly 12 habits are readable
+  ---
+  duration_ms: 0.1014
+  type: 'test'
+  ...
+# Subtest: @R17 days come back sorted ascending and without duplicates, whatever order they were saved in
+ok 94 - @R17 days come back sorted ascending and without duplicates, whatever order they were saved in
+  ---
+  duration_ms: 0.0852
+  type: 'test'
+  ...
+# Subtest: @R17 a day far after today is kept (a clock or time zone change can create one)
+ok 95 - @R17 a day far after today is kept (a clock or time zone change can create one)
+  ---
+  duration_ms: 0.0568
+  type: 'test'
+  ...
+# Subtest: @R17 @T2 habits are rebuilt as { name, done }: extra properties and a __proto__ key go nowhere
+ok 96 - @R17 @T2 habits are rebuilt as { name, done }: extra properties and a __proto__ key go nowhere
+  ---
+  duration_ms: 0.0645
+  type: 'test'
+  ...
+# Subtest: @R17 @T2 the result is made of new objects, never the parsed ones
+ok 97 - @R17 @T2 the result is made of new objects, never the parsed ones
+  ---
+  duration_ms: 0.191
+  type: 'test'
+  ...
+# Subtest: @R16 encodeState writes compact JSON with version 1 and only name and done
+ok 98 - @R16 encodeState writes compact JSON with version 1 and only name and done
+  ---
+  duration_ms: 0.0901
+  type: 'test'
+  ...
+# Subtest: @R16 @R17 what encodeState writes decodeState reads back unchanged
+ok 99 - @R16 @R17 what encodeState writes decodeState reads back unchanged
+  ---
+  duration_ms: 0.1294
+  type: 'test'
+  ...
+1..99
+# tests 99
+# suites 0
+# pass 99
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 571.273

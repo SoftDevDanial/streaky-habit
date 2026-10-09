@@ -4,7 +4,7 @@
 - **design-phase:** sdlc:design
 - **version:** 1.0.0
 - **mode:** greenfield
-- **phase:** regression (QA finder)
+- **phase:** regression (QA PASS; cold boot and report next)
 - **next:** regression
 
 ## Modules
@@ -17,7 +17,7 @@
 none
 
 ## Next action
-QA finder (haiku) on both modules, final code. Then cold boot into docs/regression/<ts>/, REGRESSION.md, process ledger, credential gate. Then review, UAT pre-run.
+Cold boot into docs/regression/<ts>/ (serve_and_run.py + live_e2e.py --out), docs/regression/REGRESSION.md, process ledger (proc_ledger.py), ledger re-verified rows, full credential gate, STATE last-regression. Then logos and README design, review, UAT pre-run.
 
 ## Notes
 Goldens (immutable): docs/design/today.html (key), today-empty.html, delete-dialog.html, states.html (specimen sheet), system.md, system.css, sample-history.json, RULINGS.md.

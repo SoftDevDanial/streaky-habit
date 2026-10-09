@@ -1,0 +1,34 @@
+{
+  "bead_wed7_right_after_tick": {
+    "pressed": "true",
+    "background": "rgb(242, 245, 243)",
+    "transitionDuration": "0.18s, 0.18s, 0.12s"
+  },
+  "bead_thu8_ticked_earlier": {
+    "pressed": "true",
+    "background": "rgb(216, 225, 222)",
+    "transitionDuration": "0.18s, 0.18s, 0.12s"
+  },
+  "bead_wed7_after_800ms_real_wait": {
+    "pressed": "true",
+    "background": "rgb(46, 90, 80)",
+    "transitionDuration": "0.18s, 0.18s, 0.12s"
+  },
+  "bead_wed7_after_clock_run_600ms": {
+    "pressed": "true",
+    "background": "rgb(46, 90, 80)",
+    "transitionDuration": "0.18s, 0.18s, 0.12s"
+  },
+  "dialog_open_viewport": {
+    "w": 390,
+    "h": 844,
+    "scrollH": 844,
+    "htmlOverflow": "hidden"
+  },
+  "after_mouse_delete_focus": {
+    "id": "new-habit",
+    "focusVisible": true,
+    "outlineStyle": "solid",
+    "outlineWidth": "2px"
+  }
+}

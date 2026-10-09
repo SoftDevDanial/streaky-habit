@@ -144,3 +144,6 @@ Append-only history. STATE.md holds the situation, this file holds what happened
 
 ## 2026-10-09 23:34 regression code review closed
 - Re-check PASS after the RG-CR-07 spec wording fix. Code review ends for v1.0.0 (stop rule).
+
+## 2026-10-10 00:01 regression QA PASS
+- QA finder PASS 120 of 120 scenarios on the final code, suites 99 and 179.

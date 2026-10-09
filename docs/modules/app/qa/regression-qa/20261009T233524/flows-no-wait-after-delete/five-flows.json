@@ -1,0 +1,565 @@
+{
+  "base_url": "http://127.0.0.1:53410/",
+  "viewport": "390x844",
+  "clock": {
+    "installed": "2026-10-08T12:00:00+08:00",
+    "paused_at": "2026-10-08T12:00:20+08:00"
+  },
+  "wait_after_delete": false,
+  "browser": "Chromium 149.0.7827.55",
+  "seconds": 1.6,
+  "checks": [
+    {
+      "check": "1.1 empty first screen, nothing stored",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "1.2 one row, no streak yet, field cleared",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "1.3 second habit at the bottom, field cleared, focus stays in the field",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "2.1 Read shows 1 day and Best 1, today saved",
+      "pass": true,
+      "detail": "before the tick: No streak yet / None"
+    },
+    {
+      "check": "2.2 Read shows 2 days and Best 2, yesterday saved too",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "3.1 after reload the rows, beads, streak lines and stored text are unchanged",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "4.1 dialog asks about Stretch, Cancel has focus",
+      "pass": true,
+      "detail": "title read 'Delete \"\\u2068Stretch 10 minutes\\u2069\"?', focus 'Cancel'"
+    },
+    {
+      "check": "4.2 Stretch gone, Read kept, focus on the field, stored text holds Read only",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "5.1 error shows, text stays, input marked invalid, nothing saved",
+      "pass": false,
+      "detail": "message read ''"
+    }
+  ],
+  "flow_errors": [],
+  "observations": [
+    {
+      "step": "1.1 first visit, no storage",
+      "screenshot": "f1-01-first-visit.png",
+      "observed": {
+        "date": [
+          "2026-10-08",
+          "Thursday 8 October"
+        ],
+        "empty": "No habits yet. Add one you want to do every day.",
+        "rows": [],
+        "field": "",
+        "fieldAriaInvalid": null,
+        "message": "",
+        "dialogOpen": false,
+        "dialogTitle": "",
+        "focus": "Streaks\n    Thursday 8 October\n  \n\n  \n    \n      \n        Habits\n      No habits yet. Add one you want to do every day.\n\n      \n        New habit\n        \n          \n          Add\n        \n        \n      \n    \n\n    \n      Last 12 weeks\n      \n        JulAugSepOct\n        \n          MonWedFriSun\n        \n        \n      \n      \n        None\n        \n        All\n      \n    \n  \n\n\n\n  \n  Its history is deleted too.\n  \n    Cancel\n    Delete habit",
+        "stored": null,
+        "todayCell": [
+          "Thu 8 Oct, 0 of 0 habits",
+          "hc l0 today"
+        ],
+        "yesterdayCell": [
+          "Wed 7 Oct, 0 of 0 habits",
+          "hc l0"
+        ]
+      }
+    },
+    {
+      "step": "1.2 typed Read 20 pages and clicked Add",
+      "screenshot": "f1-02-added-read.png",
+      "observed": {
+        "date": [
+          "2026-10-08",
+          "Thursday 8 October"
+        ],
+        "empty": null,
+        "rows": [
+          {
+            "name": "Read 20 pages",
+            "cur": "No streak yet",
+            "best": null,
+            "strip": ". . . . . . ."
+          }
+        ],
+        "field": "",
+        "fieldAriaInvalid": null,
+        "message": "",
+        "dialogOpen": false,
+        "dialogTitle": "",
+        "focus": "Add",
+        "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read 20 pages\",\"done\":[]}]}",
+        "todayCell": [
+          "Thu 8 Oct, 0 of 1 habits",
+          "hc l0 today"
+        ],
+        "yesterdayCell": [
+          "Wed 7 Oct, 0 of 1 habits",
+          "hc l0"
+        ]
+      }
+    },
+    {
+      "step": "1.3 typed Stretch 10 minutes and pressed Enter",
+      "screenshot": "f1-03-added-stretch.png",
+      "observed": {
+        "date": [
+          "2026-10-08",
+          "Thursday 8 October"
+        ],
+        "empty": null,
+        "rows": [
+          {
+            "name": "Read 20 pages",
+            "cur": "No streak yet",
+            "best": null,
+            "strip": ". . . . . . ."
+          },
+          {
+            "name": "Stretch 10 minutes",
+            "cur": "No streak yet",
+            "best": null,
+            "strip": ". . . . . . ."
+          }
+        ],
+        "field": "",
+        "fieldAriaInvalid": null,
+        "message": "",
+        "dialogOpen": false,
+        "dialogTitle": "",
+        "focus": "#new-habit",
+        "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read 20 pages\",\"done\":[]},{\"name\":\"Stretch 10 minutes\",\"done\":[]}]}",
+        "todayCell": [
+          "Thu 8 Oct, 0 of 2 habits",
+          "hc l0 today"
+        ],
+        "yesterdayCell": [
+          "Wed 7 Oct, 0 of 2 habits",
+          "hc l0"
+        ]
+      }
+    },
+    {
+      "step": "2.0 before ticks",
+      "screenshot": null,
+      "observed": {
+        "date": [
+          "2026-10-08",
+          "Thursday 8 October"
+        ],
+        "empty": null,
+        "rows": [
+          {
+            "name": "Read 20 pages",
+            "cur": "No streak yet",
+            "best": null,
+            "strip": ". . . . . . ."
+          },
+          {
+            "name": "Stretch 10 minutes",
+            "cur": "No streak yet",
+            "best": null,
+            "strip": ". . . . . . ."
+          }
+        ],
+        "field": "",
+        "fieldAriaInvalid": null,
+        "message": "",
+        "dialogOpen": false,
+        "dialogTitle": "",
+        "focus": "#new-habit",
+        "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read 20 pages\",\"done\":[]},{\"name\":\"Stretch 10 minutes\",\"done\":[]}]}",
+        "todayCell": [
+          "Thu 8 Oct, 0 of 2 habits",
+          "hc l0 today"
+        ],
+        "yesterdayCell": [
+          "Wed 7 Oct, 0 of 2 habits",
+          "hc l0"
+        ]
+      }
+    },
+    {
+      "step": "2.1 clicked today's bead (Thu 8 Oct) on Read",
+      "screenshot": "f2-01-ticked-today.png",
+      "observed": {
+        "date": [
+          "2026-10-08",
+          "Thursday 8 October"
+        ],
+        "empty": null,
+        "rows": [
+          {
+            "name": "Read 20 pages",
+            "cur": "1 day",
+            "best": "Best 1",
+            "strip": ". . . . . . D"
+          },
+          {
+            "name": "Stretch 10 minutes",
+            "cur": "No streak yet",
+            "best": null,
+            "strip": ". . . . . . ."
+          }
+        ],
+        "field": "",
+        "fieldAriaInvalid": null,
+        "message": "",
+        "dialogOpen": false,
+        "dialogTitle": "",
+        "focus": "Mark Thu 8 Oct as done",
+        "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read 20 pages\",\"done\":[\"2026-10-08\"]},{\"name\":\"Stretch 10 minutes\",\"done\":[]}]}",
+        "todayCell": [
+          "Thu 8 Oct, 1 of 2 habits",
+          "hc l2 today"
+        ],
+        "yesterdayCell": [
+          "Wed 7 Oct, 0 of 2 habits",
+          "hc l0"
+        ]
+      }
+    },
+    {
+      "step": "2.2 clicked yesterday's bead (Wed 7 Oct) on Read",
+      "screenshot": "f2-02-ticked-yesterday.png",
+      "observed": {
+        "date": [
+          "2026-10-08",
+          "Thursday 8 October"
+        ],
+        "empty": null,
+        "rows": [
+          {
+            "name": "Read 20 pages",
+            "cur": "2 days",
+            "best": "Best 2",
+            "strip": ". . . . . D D"
+          },
+          {
+            "name": "Stretch 10 minutes",
+            "cur": "No streak yet",
+            "best": null,
+            "strip": ". . . . . . ."
+          }
+        ],
+        "field": "",
+        "fieldAriaInvalid": null,
+        "message": "",
+        "dialogOpen": false,
+        "dialogTitle": "",
+        "focus": "Mark Wed 7 Oct as done",
+        "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read 20 pages\",\"done\":[\"2026-10-07\",\"2026-10-08\"]},{\"name\":\"Stretch 10 minutes\",\"done\":[]}]}",
+        "todayCell": [
+          "Thu 8 Oct, 1 of 2 habits",
+          "hc l2 today"
+        ],
+        "yesterdayCell": [
+          "Wed 7 Oct, 1 of 2 habits",
+          "hc l2"
+        ]
+      }
+    },
+    {
+      "step": "3.0 before reload",
+      "screenshot": null,
+      "observed": {
+        "date": [
+          "2026-10-08",
+          "Thursday 8 October"
+        ],
+        "empty": null,
+        "rows": [
+          {
+            "name": "Read 20 pages",
+            "cur": "2 days",
+            "best": "Best 2",
+            "strip": ". . . . . D D"
+          },
+          {
+            "name": "Stretch 10 minutes",
+            "cur": "No streak yet",
+            "best": null,
+            "strip": ". . . . . . ."
+          }
+        ],
+        "field": "",
+        "fieldAriaInvalid": null,
+        "message": "",
+        "dialogOpen": false,
+        "dialogTitle": "",
+        "focus": "Mark Wed 7 Oct as done",
+        "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read 20 pages\",\"done\":[\"2026-10-07\",\"2026-10-08\"]},{\"name\":\"Stretch 10 minutes\",\"done\":[]}]}",
+        "todayCell": [
+          "Thu 8 Oct, 1 of 2 habits",
+          "hc l2 today"
+        ],
+        "yesterdayCell": [
+          "Wed 7 Oct, 1 of 2 habits",
+          "hc l2"
+        ]
+      }
+    },
+    {
+      "step": "3.1 after reload",
+      "screenshot": "f3-01-reloaded.png",
+      "observed": {
+        "date": [
+          "2026-10-08",
+          "Thursday 8 October"
+        ],
+        "empty": null,
+        "rows": [
+          {
+            "name": "Read 20 pages",
+            "cur": "2 days",
+            "best": "Best 2",
+            "strip": ". . . . . D D"
+          },
+          {
+            "name": "Stretch 10 minutes",
+            "cur": "No streak yet",
+            "best": null,
+            "strip": ". . . . . . ."
+          }
+        ],
+        "field": "",
+        "fieldAriaInvalid": null,
+        "message": "",
+        "dialogOpen": false,
+        "dialogTitle": "",
+        "focus": "Streaks\n    Thursday 8 October\n  \n\n  \n    \n      \n        Habits\n      Read 20 pages2 daysBest 2Fri2Sat3Sun4Mon5Tue6Wed7Thu8Stretch 10 minutesNo streak yetFri2Sat3Sun4Mon5Tue6Wed7Thu8\n\n      \n        New habit\n        \n          \n          Add\n        \n        \n      \n    \n\n    \n      Last 12 weeks\n      \n        JulAugSepOct\n        \n          MonWedFriSun\n        \n        \n      \n      \n        None\n        \n        All\n      \n    \n  \n\n\n\n  \n  Its history is deleted too.\n  \n    Cancel\n    Delete habit",
+        "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read 20 pages\",\"done\":[\"2026-10-07\",\"2026-10-08\"]},{\"name\":\"Stretch 10 minutes\",\"done\":[]}]}",
+        "todayCell": [
+          "Thu 8 Oct, 1 of 2 habits",
+          "hc l2 today"
+        ],
+        "yesterdayCell": [
+          "Wed 7 Oct, 1 of 2 habits",
+          "hc l2"
+        ]
+      }
+    },
+    {
+      "step": "4.1 clicked Delete Stretch 10 minutes, dialog open",
+      "screenshot": "f4-01-dialog.png",
+      "observed": {
+        "date": [
+          "2026-10-08",
+          "Thursday 8 October"
+        ],
+        "empty": null,
+        "rows": [
+          {
+            "name": "Read 20 pages",
+            "cur": "2 days",
+            "best": "Best 2",
+            "strip": ". . . . . D D"
+          },
+          {
+            "name": "Stretch 10 minutes",
+            "cur": "No streak yet",
+            "best": null,
+            "strip": ". . . . . . ."
+          }
+        ],
+        "field": "",
+        "fieldAriaInvalid": null,
+        "message": "",
+        "dialogOpen": true,
+        "dialogTitle": "Delete \"⁨Stretch 10 minutes⁩\"?",
+        "focus": "Cancel",
+        "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read 20 pages\",\"done\":[\"2026-10-07\",\"2026-10-08\"]},{\"name\":\"Stretch 10 minutes\",\"done\":[]}]}",
+        "todayCell": [
+          "Thu 8 Oct, 1 of 2 habits",
+          "hc l2 today"
+        ],
+        "yesterdayCell": [
+          "Wed 7 Oct, 1 of 2 habits",
+          "hc l2"
+        ]
+      }
+    },
+    {
+      "step": "4.2 clicked Delete habit after the guard",
+      "screenshot": "f4-02-deleted.png",
+      "observed": {
+        "date": [
+          "2026-10-08",
+          "Thursday 8 October"
+        ],
+        "empty": null,
+        "rows": [
+          {
+            "name": "Read 20 pages",
+            "cur": "2 days",
+            "best": "Best 2",
+            "strip": ". . . . . D D"
+          }
+        ],
+        "field": "",
+        "fieldAriaInvalid": null,
+        "message": "",
+        "dialogOpen": false,
+        "dialogTitle": "Delete \"⁨Stretch 10 minutes⁩\"?",
+        "focus": "#new-habit",
+        "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read 20 pages\",\"done\":[\"2026-10-07\",\"2026-10-08\"]}]}",
+        "todayCell": [
+          "Thu 8 Oct, 1 of 1 habits",
+          "hc l4 today"
+        ],
+        "yesterdayCell": [
+          "Wed 7 Oct, 1 of 1 habits",
+          "hc l4"
+        ]
+      }
+    },
+    {
+      "step": "5.0 before the duplicate",
+      "screenshot": null,
+      "observed": {
+        "date": [
+          "2026-10-08",
+          "Thursday 8 October"
+        ],
+        "empty": null,
+        "rows": [
+          {
+            "name": "Read 20 pages",
+            "cur": "2 days",
+            "best": "Best 2",
+            "strip": ". . . . . D D"
+          }
+        ],
+        "field": "",
+        "fieldAriaInvalid": null,
+        "message": "",
+        "dialogOpen": false,
+        "dialogTitle": "Delete \"⁨Stretch 10 minutes⁩\"?",
+        "focus": "#new-habit",
+        "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read 20 pages\",\"done\":[\"2026-10-07\",\"2026-10-08\"]}]}",
+        "todayCell": [
+          "Thu 8 Oct, 1 of 1 habits",
+          "hc l4 today"
+        ],
+        "yesterdayCell": [
+          "Wed 7 Oct, 1 of 1 habits",
+          "hc l4"
+        ]
+      }
+    },
+    {
+      "step": "5.1 typed read 20 pages and clicked Add",
+      "screenshot": "f5-01-duplicate.png",
+      "observed": {
+        "date": [
+          "2026-10-08",
+          "Thursday 8 October"
+        ],
+        "empty": null,
+        "rows": [
+          {
+            "name": "Read 20 pages",
+            "cur": "2 days",
+            "best": "Best 2",
+            "strip": ". . . . . D D"
+          }
+        ],
+        "field": "read 20 pages",
+        "fieldAriaInvalid": null,
+        "message": "",
+        "dialogOpen": false,
+        "dialogTitle": "Delete \"⁨Stretch 10 minutes⁩\"?",
+        "focus": "Add",
+        "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read 20 pages\",\"done\":[\"2026-10-07\",\"2026-10-08\"]}]}",
+        "todayCell": [
+          "Thu 8 Oct, 1 of 1 habits",
+          "hc l4 today"
+        ],
+        "yesterdayCell": [
+          "Wed 7 Oct, 1 of 1 habits",
+          "hc l4"
+        ]
+      }
+    }
+  ],
+  "page_errors": [],
+  "console": [],
+  "requests": [
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:53410/"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:53410/src/styles.css"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:53410/src/app.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:53410/src/dates.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:53410/src/habits.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:53410/src/storage.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:53410/src/view.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:53410/"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:53410/src/styles.css"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:53410/src/app.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:53410/src/dates.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:53410/src/habits.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:53410/src/storage.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:53410/src/view.js"
+    }
+  ],
+  "pass": false
+}

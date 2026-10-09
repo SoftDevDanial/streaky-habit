@@ -1,0 +1,13 @@
+{
+  "live": {
+    "gap": 32,
+    "noteMarginBottom": "32px",
+    "emptyMarginTop": "0px"
+  },
+  "sheet": {
+    "gap": 32,
+    "noteMarginBottom": "32px",
+    "emptyMarginTop": "0px"
+  },
+  "pass": true
+}

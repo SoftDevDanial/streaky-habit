@@ -1,0 +1,613 @@
+{
+  "summary": {
+    "checks": 86,
+    "failed": 1,
+    "browser": "Chromium 149.0.7827.55",
+    "seconds": 2.7,
+    "pass": false
+  },
+  "checks": [
+    {
+      "row": "S1-09 390x844",
+      "check": "row 1 top",
+      "value": 77,
+      "expected": 77,
+      "pass": true
+    },
+    {
+      "row": "S1-09 390x844",
+      "check": "row 2 top",
+      "value": 273,
+      "expected": 273,
+      "pass": true
+    },
+    {
+      "row": "S1-09 390x844",
+      "check": "row 3 top",
+      "value": 469,
+      "expected": 469,
+      "pass": true
+    },
+    {
+      "row": "S1-23 390x844",
+      "check": "add form top",
+      "value": 673,
+      "expected": 673,
+      "pass": true
+    },
+    {
+      "row": "S1-28 390x844",
+      "check": "heat panel top",
+      "value": 793,
+      "expected": 793,
+      "pass": true
+    },
+    {
+      "row": "S1-28 390x844",
+      "check": "heat panel width",
+      "value": 350,
+      "expected": 350,
+      "pass": true
+    },
+    {
+      "row": "S1-20 390x844",
+      "check": "day cell width",
+      "value": 50,
+      "expected": 50,
+      "pass": true
+    },
+    {
+      "row": "S1-20 390x844",
+      "check": "day cell height",
+      "value": 92,
+      "expected": 92,
+      "pass": true
+    },
+    {
+      "row": "S1-21 390x844",
+      "check": "bead width",
+      "value": 36,
+      "expected": 36,
+      "pass": true
+    },
+    {
+      "row": "S1-21 390x844",
+      "check": "bead height",
+      "value": 36,
+      "expected": 36,
+      "pass": true
+    },
+    {
+      "row": "S1-32 390x844",
+      "check": "heat cell width",
+      "value": 23.796875,
+      "expected": 23.8,
+      "pass": true
+    },
+    {
+      "row": "S1-19 390x844",
+      "check": "trash width",
+      "value": 44,
+      "expected": 44,
+      "pass": true
+    },
+    {
+      "row": "S1-19 390x844",
+      "check": "trash height",
+      "value": 44,
+      "expected": 44,
+      "pass": true
+    },
+    {
+      "row": "S1-25 390x844",
+      "check": "input width",
+      "value": 255.96875,
+      "expected": 256,
+      "pass": true
+    },
+    {
+      "row": "S1-25 390x844",
+      "check": "input height",
+      "value": 48,
+      "expected": 48,
+      "pass": true
+    },
+    {
+      "row": "S1-26 390x844",
+      "check": "Add height",
+      "value": 48,
+      "expected": 48,
+      "pass": true
+    },
+    {
+      "row": "S1-26 390x844",
+      "check": "Add width",
+      "value": 82.03125,
+      "expected": 82,
+      "pass": true
+    },
+    {
+      "row": "S1-26 390x844",
+      "check": "Add 12 px right of the input",
+      "value": 12.0,
+      "expected": 12,
+      "pass": true
+    },
+    {
+      "row": "S1-27 390x844",
+      "check": "message line hidden while empty (height)",
+      "value": 0,
+      "expected": 0,
+      "pass": true
+    },
+    {
+      "row": "S1-08 390x844",
+      "check": "hidden list heading width",
+      "value": 1,
+      "expected": 1,
+      "pass": true
+    },
+    {
+      "row": "S1-08 390x844",
+      "check": "hidden list heading height",
+      "value": 1,
+      "expected": 1,
+      "pass": true
+    },
+    {
+      "row": "S1-33 390x844",
+      "check": "level 0 dot width (2026-08-12)",
+      "value": 6,
+      "expected": 6,
+      "pass": true
+    },
+    {
+      "row": "S1-33 390x844",
+      "check": "level 1 dot width (2026-07-21)",
+      "value": 7,
+      "expected": 7,
+      "pass": true
+    },
+    {
+      "row": "S1-33 390x844",
+      "check": "level 2 dot width (2026-07-24)",
+      "value": 11,
+      "expected": 11,
+      "pass": true
+    },
+    {
+      "row": "S1-33 390x844",
+      "check": "level 4 dot width (2026-07-20)",
+      "value": 17,
+      "expected": 17,
+      "pass": true
+    },
+    {
+      "row": "S1-09 1280x800",
+      "check": "row 1 top",
+      "value": 101,
+      "expected": 101,
+      "pass": true
+    },
+    {
+      "row": "S1-09 1280x800",
+      "check": "row 2 top",
+      "value": 301,
+      "expected": 301,
+      "pass": true
+    },
+    {
+      "row": "S1-09 1280x800",
+      "check": "row 3 top",
+      "value": 501,
+      "expected": 501,
+      "pass": true
+    },
+    {
+      "row": "S1-23 1280x800",
+      "check": "add form top",
+      "value": 709,
+      "expected": 709,
+      "pass": true
+    },
+    {
+      "row": "S1-28 1280x800",
+      "check": "heat panel top (level with the first habit)",
+      "value": 101,
+      "expected": 101,
+      "pass": true
+    },
+    {
+      "row": "S1-28 1280x800",
+      "check": "heat panel width",
+      "value": 380,
+      "expected": 380,
+      "pass": true
+    },
+    {
+      "row": "S1-07 1280x800",
+      "check": "heat panel x",
+      "value": 732,
+      "expected": 732,
+      "pass": true
+    },
+    {
+      "row": "S1-07 1280x800",
+      "check": "main column x",
+      "value": 168,
+      "expected": 168,
+      "pass": true
+    },
+    {
+      "row": "S1-07 1280x800",
+      "check": "main column width",
+      "value": 500,
+      "expected": 500,
+      "pass": true
+    },
+    {
+      "row": "S1-21 1280x800",
+      "check": "bead width",
+      "value": 40,
+      "expected": 40,
+      "pass": true
+    },
+    {
+      "row": "S1-20 1280x800",
+      "check": "day cell width",
+      "value": 71.421875,
+      "expected": 71.4,
+      "pass": true
+    },
+    {
+      "row": "S1-20 1280x800",
+      "check": "day cell height",
+      "value": 96,
+      "expected": 96,
+      "pass": true
+    },
+    {
+      "row": "S1-32 1280x800",
+      "check": "heat cell width",
+      "value": 24.953125,
+      "expected": 24.9,
+      "pass": true
+    },
+    {
+      "row": "S1-25 1280x800",
+      "check": "input width",
+      "value": 405.96875,
+      "expected": 406,
+      "pass": true
+    },
+    {
+      "row": "S1-25 1280x800",
+      "check": "input height",
+      "value": 48,
+      "expected": 48,
+      "pass": true
+    },
+    {
+      "row": "S1-26 1280x800",
+      "check": "Add height",
+      "value": 48,
+      "expected": 48,
+      "pass": true
+    },
+    {
+      "row": "S1-26 1280x800",
+      "check": "Add width",
+      "value": 82.03125,
+      "expected": 82,
+      "pass": true
+    },
+    {
+      "row": "S1-26 1280x800",
+      "check": "Add 12 px right of the input",
+      "value": 12.0,
+      "expected": 12,
+      "pass": true
+    },
+    {
+      "row": "S1-27 1280x800",
+      "check": "message line hidden while empty (height)",
+      "value": 0,
+      "expected": 0,
+      "pass": true
+    },
+    {
+      "row": "S1-08 1280x800",
+      "check": "hidden list heading width",
+      "value": 1,
+      "expected": 1,
+      "pass": true
+    },
+    {
+      "row": "S1-08 1280x800",
+      "check": "hidden list heading height",
+      "value": 1,
+      "expected": 1,
+      "pass": true
+    },
+    {
+      "row": "S1-33 1280x800",
+      "check": "level 0 dot width (2026-08-12)",
+      "value": 6,
+      "expected": 6,
+      "pass": true
+    },
+    {
+      "row": "S1-33 1280x800",
+      "check": "level 1 dot width (2026-07-21)",
+      "value": 7,
+      "expected": 7,
+      "pass": true
+    },
+    {
+      "row": "S1-33 1280x800",
+      "check": "level 2 dot width (2026-07-24)",
+      "value": 11,
+      "expected": 11,
+      "pass": true
+    },
+    {
+      "row": "S1-33 1280x800",
+      "check": "level 4 dot width (2026-07-20)",
+      "value": 17,
+      "expected": 17,
+      "pass": true
+    },
+    {
+      "row": "S2-02 390x844",
+      "check": "empty message top",
+      "value": 77,
+      "expected": 77,
+      "pass": true
+    },
+    {
+      "row": "S2-02 390x844",
+      "check": "empty message height",
+      "value": 56,
+      "expected": 56,
+      "pass": true
+    },
+    {
+      "row": "S2-03 390x844",
+      "check": "add form top",
+      "value": 173,
+      "expected": 173,
+      "pass": true
+    },
+    {
+      "row": "S2-04 390x844",
+      "check": "heat panel top",
+      "value": 293,
+      "expected": 293,
+      "pass": true
+    },
+    {
+      "row": "S2-04 390x844",
+      "check": "heat panel ends at 588",
+      "value": 587.58,
+      "expected": 588,
+      "pass": true
+    },
+    {
+      "row": "S2-02 1280x800",
+      "check": "empty message top",
+      "value": 101,
+      "expected": 101,
+      "pass": true
+    },
+    {
+      "row": "S2-02 1280x800",
+      "check": "empty message height",
+      "value": 56,
+      "expected": 56,
+      "pass": true
+    },
+    {
+      "row": "S2-03 1280x800",
+      "check": "add form top",
+      "value": 197,
+      "expected": 197,
+      "pass": true
+    },
+    {
+      "row": "S2-04 1280x800",
+      "check": "heat panel top",
+      "value": 101,
+      "expected": 101,
+      "pass": true
+    },
+    {
+      "row": "M1-03 390x844",
+      "check": "dialog x",
+      "value": 20,
+      "expected": 20,
+      "pass": true
+    },
+    {
+      "row": "M1-03 390x844",
+      "check": "dialog y",
+      "value": 332,
+      "expected": 332,
+      "pass": true
+    },
+    {
+      "row": "M1-03 390x844",
+      "check": "dialog width",
+      "value": 350,
+      "expected": 350,
+      "pass": true
+    },
+    {
+      "row": "M1-03 390x844",
+      "check": "dialog height",
+      "value": 180,
+      "expected": 180,
+      "pass": true
+    },
+    {
+      "row": "M1-06 390x844",
+      "check": "Cancel width",
+      "value": 145,
+      "expected": 145,
+      "pass": true
+    },
+    {
+      "row": "M1-06 390x844",
+      "check": "Delete habit width",
+      "value": 145,
+      "expected": 145,
+      "pass": true
+    },
+    {
+      "row": "M1-06 390x844",
+      "check": "Cancel 48 tall",
+      "value": 48,
+      "expected": 48,
+      "pass": true
+    },
+    {
+      "row": "M1-06 390x844",
+      "check": "Delete habit 48 tall",
+      "value": 48,
+      "expected": 48,
+      "pass": true
+    },
+    {
+      "row": "M1-03 1280x800",
+      "check": "dialog x",
+      "value": 440,
+      "expected": 440,
+      "pass": true
+    },
+    {
+      "row": "M1-03 1280x800",
+      "check": "dialog y",
+      "value": 310,
+      "expected": 310,
+      "pass": true
+    },
+    {
+      "row": "M1-03 1280x800",
+      "check": "dialog width",
+      "value": 400,
+      "expected": 400,
+      "pass": true
+    },
+    {
+      "row": "M1-03 1280x800",
+      "check": "dialog height",
+      "value": 180,
+      "expected": 180,
+      "pass": true
+    },
+    {
+      "row": "M1-06 1280x800",
+      "check": "Cancel width",
+      "value": 170,
+      "expected": 170,
+      "pass": true
+    },
+    {
+      "row": "M1-06 1280x800",
+      "check": "Delete habit width",
+      "value": 170,
+      "expected": 170,
+      "pass": true
+    },
+    {
+      "row": "M1-06 1280x800",
+      "check": "Cancel 48 tall",
+      "value": 48,
+      "expected": 48,
+      "pass": true
+    },
+    {
+      "row": "M1-06 1280x800",
+      "check": "Delete habit 48 tall",
+      "value": 48,
+      "expected": 48,
+      "pass": true
+    },
+    {
+      "row": "ST-01 360x780",
+      "check": "form grows by 28 px when the error shows",
+      "value": 28,
+      "expected": 28,
+      "pass": true
+    },
+    {
+      "row": "ST-01 360x780",
+      "check": "message 8 px below the row",
+      "value": 8,
+      "expected": 8,
+      "pass": true
+    },
+    {
+      "row": "ST-04 360x780",
+      "check": "twelve-habit note is 40 px tall (two lines)",
+      "value": 40,
+      "expected": 40,
+      "pass": true
+    },
+    {
+      "row": "ST-06 360x780",
+      "check": "note padding 8 8 8 20",
+      "value": "8px 8px 8px 20px",
+      "expected": "8px 8px 8px 20px",
+      "pass": true
+    },
+    {
+      "row": "ST-06 360x780",
+      "check": "dismiss button width",
+      "value": 44,
+      "expected": 44,
+      "pass": true
+    },
+    {
+      "row": "ST-06 360x780",
+      "check": "dismiss button height",
+      "value": 44,
+      "expected": 44,
+      "pass": true
+    },
+    {
+      "row": "ST-06 360x780",
+      "check": "dismiss 8 px from the top edge",
+      "value": 8,
+      "expected": 8,
+      "pass": true
+    },
+    {
+      "row": "ST-06 360x780",
+      "check": "dismiss 8 px from the right edge",
+      "value": 8,
+      "expected": 8,
+      "pass": true
+    },
+    {
+      "row": "ST-06 360x780",
+      "check": "empty message 32 px below the note (margin-top)",
+      "value": "0px",
+      "expected": "32px",
+      "pass": false
+    },
+    {
+      "row": "ST-05 360x780",
+      "check": "bead width at 360",
+      "value": 32,
+      "expected": 32,
+      "pass": true
+    },
+    {
+      "row": "ST-05 360x780",
+      "check": "bead height at 360",
+      "value": 32,
+      "expected": 32,
+      "pass": true
+    }
+  ]
+}
