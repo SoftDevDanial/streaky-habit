@@ -103,3 +103,19 @@ None. Checked for BLOCKER class: every function of `app.js`, `view.js`, `storage
 - **Killed, good:** C1 (interval 300 s), C2 (a hook on `window`), A8 (close on release alone), E4 (the add form's `preventDefault()` dropped, so the CSP is not the only guard), E5 (rollover rebuilds rows, loses focus).
 - **Not covered by this review:** the fidelity pixel diff and the states.html specimens, the security audit, and the official R27 run (QA N6). WR-01 means a pixel regression would currently be caught by fidelity only.
 - **Hygiene:** no em or en dash in any changed file, no file:line citation in any comment, no unused import in `src/`, `node --check` passes, and `node --test` is 66 of 66.
+
+## Solver (2026-10-09)
+
+Written by the dev solver (patch and diagnose in one context). Base commit `01a262a`. Rulings applied: ORCH 2026-10-09 (reversible), one per warning as routed. Evidence: `docs/modules/app/qa/solver/20261009-160156/`. Proof method for the test-strength warnings: the reviewer's own runner `mut.py` and mutants (`../qa/code-review/20261009-154715/`), served from the working tree with the patch applied in memory (so no project file is written), plus `mutants_solver.py` for the solver's own controls. "Red" means the named mutant makes the new test fail; "green" means the suite passes on the unpatched tree. Progress is appended as the batch goes; this section is final only when it says so below.
+
+| WR | Status | Commit | Red (before the fix, or the mutant) | Green |
+|---|---|---|---|---|
+| WR-10 | RESOLVED | `3109813` | the old conftest with nothing set: `Failed: STREAKS_BASE_URL must be set and end with '/'` on the first test. A port taken by a foreign listener: `start` gives up in 3.8 s, no process left, `stop` does not raise | `python -m pytest tests/browser -q` with no environment: 115 passed (sub-path test ran), both ports re-checked and refusing |
+| WR-07 | RESOLVED | `da1e228` | a planted `src/planted.css` holding the three sample names and a sink: R24 sinks and R26 sample-data tests fail (the old scan passed 4 of 4) | 116 passed with the file removed |
+| WR-01 | RESOLVED | `e8bd2c9` | V1 fails 3 tests, H4 1, H5 1, H8 1 (`test_R28_...markup_of_the_goldens`, `test_R28_the_open_dialog_...`, `test_R5_every_svg_and_use_...`) | 119 passed |
+| WR-02 | RESOLVED | `ceba174` | A1 fails 3 (cancel, escape, backdrop), A2 6, A3 2, A4 1. Controls that rewrite the identical text (`A1b`, `A3b`) fail by the counter alone | 119 passed |
+| WR-03 | RESOLVED | `7f71cc8` | S1, S2, S3 fail the repair test, S5 and S6 fail their new unreadable rows, S4 fails 2 tests in `tests/storage.test.js` (patched in the tree, then restored, `git diff` empty) | 122 browser, 99 unit |
+| WR-04 | RESOLVED | `e5fff49` | A6-60s and A6-85s each fail the new test, and only it (C1 still fails 7) | 123 passed |
+| WR-05 | RESOLVED | `e419be2` | V3 fails 1, V4 3, V5 3, E6 10 | 123 passed |
+| WR-06 | RESOLVED | `cae046d` | V2, V7, A5, A7, V6 each fail their own new test and nothing else | 127 passed |
+| WR-08, WR-09, WR-11, WR-12, WR-13 | NEXT | | | |
