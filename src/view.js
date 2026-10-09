@@ -175,6 +175,11 @@ export function syncHabit(index, habit, todayKey) {
   syncProgress($$(".habits > .habit")[index], habit, todayKey);
 }
 
+/** After a new day: updates every existing row in place. */
+export function syncHabits(habits, todayKey) {
+  habits.forEach((habit, index) => syncHabit(index, habit, todayKey));
+}
+
 /** A habit's index is its row's place in the list: rows carry no index attribute (spec Events and focus). */
 export function habitIndexOf(node) {
   return $$(".habits > .habit").indexOf(node.closest(".habit"));

@@ -15,6 +15,9 @@ function readToday() {
   return localDateKey(new Date());
 }
 
+/** Half the 60 second promise ("within a minute"), so one late timer still keeps it. */
+const ROLLOVER_CHECK_MS = 30000;
+
 const state = { habits: [], todayKey: "" };
 
 // The delete dialog is one element reused for every habit, so what it is about lives here while it is open.
@@ -115,6 +118,20 @@ function submitName(event) {
   renderHabits();
 }
 
+/**
+ * Moves the page to a new local day once the device clock says so, never before. Rows, buttons and
+ * heat cells are updated in place, so focus stays on the same button position and the add form
+ * (text, message, invalid state) is not touched.
+ */
+function checkDay() {
+  const today = readToday();
+  if (today === state.todayKey) return;
+  state.todayKey = today;
+  view.renderHeader(today);
+  view.syncHabits(state.habits, today);
+  view.renderHeatmap(state.habits, today);
+}
+
 /** The note's button disappears with the note, so focus goes to the field (it has no effect while the field is disabled). */
 function onMainColumnClick(event) {
   if (!event.target.closest(".note .icon-btn")) return;
@@ -136,6 +153,10 @@ function boot() {
   dialog.addEventListener("close", onDialogClose);
   dialog.addEventListener("pointerdown", onDialogPointerDown);
   dialog.addEventListener("click", onDialogClick);
+  setInterval(checkDay, ROLLOVER_CHECK_MS);
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") checkDay();
+  });
 }
 
 boot();
