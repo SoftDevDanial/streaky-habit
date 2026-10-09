@@ -98,3 +98,11 @@ Append-only history. STATE.md holds the situation, this file holds what happened
 ## 2026-10-09 15:14 app QA PASS
 - QA finder (sonnet): PASS, 68 of 70 scenarios (2 belong to fidelity), R1 to R28 covered, 118 independent probe checks pass, 20 of 24 mutants caught. Test-strength notes N1 to N5, low. Commit 0590636
 - Code-review finder (sonnet) started; security and fidelity next
+
+## 2026-10-09 15:55 app code review
+- Code review (sonnet): 0 blocker, 13 warnings, mostly test holes (24 of 34 mutants survive). Commit 01a262a
+- Routed to a sonnet dev solver with rulings incl. self-starting test servers and the JC4 deletion. Stop rule set
+
+## 2026-10-09 16:46 app review warnings solved
+- Solver (sonnet): 13 of 13 WR resolved, 127 browser and 99 unit tests, HEAD 2390771. Live gate step labels fixed
+- Security finder (sonnet) started; fidelity next, then the official live gate
