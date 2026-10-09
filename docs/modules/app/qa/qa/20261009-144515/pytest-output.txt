@@ -1,0 +1,240 @@
+============================= test session starts =============================
+platform win32 -- Python 3.14.0, pytest-9.1.0, pluggy-1.6.0 -- C:\Python314\python.exe
+rootdir: {workspace}\examples\streaks
+collecting ... collected 115 items
+
+tests/browser/test_add.py::test_R10_the_first_habit_on_a_fresh_day PASSED [  0%]
+tests/browser/test_add.py::test_R10_enter_adds_at_the_bottom_trimmed_and_the_heatmap_recounts PASSED [  1%]
+tests/browser/test_add.py::test_R6_a_habit_just_added_has_no_streak_and_no_best PASSED [  2%]
+tests/browser/test_add.py::test_R11_rejected_names_keep_the_text_and_show_one_message[-Name the habit first.] PASSED [  3%]
+tests/browser/test_add.py::test_R11_rejected_names_keep_the_text_and_show_one_message[   -Name the habit first.] PASSED [  4%]
+tests/browser/test_add.py::test_R11_rejected_names_keep_the_text_and_show_one_message[Walk to the end of the street and back after dinner-Keep it to 40 characters or fewer.] PASSED [  5%]
+tests/browser/test_add.py::test_R11_rejected_names_keep_the_text_and_show_one_message[Read twenty pages before bed every night.-Keep it to 40 characters or fewer.] PASSED [  6%]
+tests/browser/test_add.py::test_R11_rejected_names_keep_the_text_and_show_one_message[read 20 pages-You already track this habit.] PASSED [  6%]
+tests/browser/test_add.py::test_R11_rejected_names_keep_the_text_and_show_one_message[ STRETCH 10 MINUTES -You already track this habit.] PASSED [  7%]
+tests/browser/test_add.py::test_R11_exactly_40_characters_is_accepted PASSED [  8%]
+tests/browser/test_add.py::test_R11_length_counts_code_points_not_utf16_units PASSED [  9%]
+tests/browser/test_add.py::test_R11_no_message_while_typing PASSED       [ 10%]
+tests/browser/test_add.py::test_R11_one_message_at_a_time_replaced_then_cleared_on_success PASSED [ 11%]
+tests/browser/test_add.py::test_R12_the_twelfth_habit_disables_the_form PASSED [ 12%]
+tests/browser/test_delete.py::test_R13_the_confirmation_opens_as_a_modal_with_focus_on_cancel PASSED [ 13%]
+tests/browser/test_delete.py::test_R13_tab_never_leaves_the_dialog_for_the_page PASSED [ 13%]
+tests/browser/test_delete.py::test_R13_a_long_name_wraps_in_the_title_and_the_box_keeps_its_width PASSED [ 14%]
+tests/browser/test_delete.py::test_R14_cancel_esc_and_a_backdrop_click_keep_the_habit[cancel] PASSED [ 15%]
+tests/browser/test_delete.py::test_R14_cancel_esc_and_a_backdrop_click_keep_the_habit[escape] PASSED [ 16%]
+tests/browser/test_delete.py::test_R14_cancel_esc_and_a_backdrop_click_keep_the_habit[backdrop] PASSED [ 17%]
+tests/browser/test_delete.py::test_R14_clicks_inside_the_box_and_drags_out_of_it_keep_the_dialog_open PASSED [ 18%]
+tests/browser/test_delete.py::test_R14_esc_after_an_earlier_delete_still_keeps_the_habit PASSED [ 19%]
+tests/browser/test_delete.py::test_R15_deleting_a_habit_moves_focus_to_the_next_one_and_recounts PASSED [ 20%]
+tests/browser/test_delete.py::test_R15_deleting_the_bottom_habit_moves_focus_to_the_field PASSED [ 20%]
+tests/browser/test_delete.py::test_R15_deleting_the_only_habit_shows_the_empty_message PASSED [ 21%]
+tests/browser/test_delete.py::test_R15_history_goes_with_the_habit PASSED [ 22%]
+tests/browser/test_delete.py::test_R12_deleting_one_of_twelve_enables_the_form_again PASSED [ 23%]
+tests/browser/test_entry.py::test_R1_head_csp_and_relative_urls PASSED   [ 24%]
+tests/browser/test_entry.py::test_R1_the_app_works_from_a_sub_path PASSED [ 25%]
+tests/browser/test_entry.py::test_R1_static_skeleton PASSED              [ 26%]
+tests/browser/test_entry.py::test_R2_golden_style_block_is_the_same_in_every_golden PASSED [ 26%]
+tests/browser/test_entry.py::test_R2_stylesheet_is_the_golden_css_with_the_listed_changes PASSED [ 27%]
+tests/browser/test_fidelity_inputs.py::test_R28_the_seed_script_writes_the_sample_and_nothing_else PASSED [ 28%]
+tests/browser/test_fidelity_inputs.py::test_R28_the_after_load_script_leaves_the_dialog_open_with_nothing_focused PASSED [ 29%]
+tests/browser/test_platform.py::test_R21_phone_width_360 PASSED          [ 30%]
+tests/browser/test_platform.py::test_R22_tab_order PASSED                [ 31%]
+tests/browser/test_platform.py::test_R22_tab_order_with_the_note PASSED  [ 32%]
+tests/browser/test_platform.py::test_R22_focus_rings_on_keyboard_focus[a day button] PASSED [ 33%]
+tests/browser/test_platform.py::test_R22_focus_rings_on_keyboard_focus[an icon button] PASSED [ 33%]
+tests/browser/test_platform.py::test_R22_focus_rings_on_keyboard_focus[the input] PASSED [ 34%]
+tests/browser/test_platform.py::test_R22_focus_rings_on_keyboard_focus[the Add button] PASSED [ 35%]
+tests/browser/test_platform.py::test_R22_a_mouse_click_draws_no_ring PASSED [ 36%]
+tests/browser/test_platform.py::test_R23_motion_without_reduced_motion PASSED [ 37%]
+tests/browser/test_platform.py::test_R23_everything_appears_at_once_under_reduced_motion PASSED [ 38%]
+tests/browser/test_platform.py::test_R24_markup_in_a_name_stays_text PASSED [ 39%]
+tests/browser/test_platform.py::test_R24_no_html_sinks_in_the_source PASSED [ 40%]
+tests/browser/test_platform.py::test_R25_every_request_stays_on_the_devices_own_files PASSED [ 40%]
+tests/browser/test_platform.py::test_R25_the_csp_is_in_force PASSED      [ 41%]
+tests/browser/test_platform.py::test_R26_no_sample_data_in_the_shipped_files PASSED [ 42%]
+tests/browser/test_platform.py::test_R26_query_strings_and_fragments_do_not_seed[?demo=1] PASSED [ 43%]
+tests/browser/test_platform.py::test_R26_query_strings_and_fragments_do_not_seed[?seed] PASSED [ 44%]
+tests/browser/test_platform.py::test_R26_query_strings_and_fragments_do_not_seed[#sample] PASSED [ 45%]
+tests/browser/test_platform.py::test_R26_no_globals_and_no_hooks PASSED  [ 46%]
+tests/browser/test_render.py::test_R3_the_empty_first_screen PASSED      [ 46%]
+tests/browser/test_render.py::test_R4_brand_and_date PASSED              [ 47%]
+tests/browser/test_render.py::test_R4_the_date_follows_the_device_clock[2026-10-05T09:00:00+08:00-2026-10-05-Monday 5 October] PASSED [ 48%]
+tests/browser/test_render.py::test_R4_the_date_follows_the_device_clock[2026-10-07T23:59:59+08:00-2026-10-07-Wednesday 7 October] PASSED [ 49%]
+tests/browser/test_render.py::test_R4_the_date_follows_the_device_clock[2027-01-01T00:00:30+08:00-2027-01-01-Friday 1 January] PASSED [ 50%]
+tests/browser/test_render.py::test_R4_english_under_a_german_browser_locale PASSED [ 51%]
+tests/browser/test_render.py::test_R5_rows_in_stored_order PASSED        [ 52%]
+tests/browser/test_render.py::test_R6_the_samples_streak_lines[Read 20 pages-6 days-Best 14] PASSED [ 53%]
+tests/browser/test_render.py::test_R6_the_samples_streak_lines[Stretch 10 minutes-3 days-Best 9] PASSED [ 53%]
+tests/browser/test_render.py::test_R6_the_samples_streak_lines[No phone after 11pm-1 day-Best 4] PASSED [ 54%]
+tests/browser/test_render.py::test_R6_no_streak_yet_with_a_best PASSED   [ 55%]
+tests/browser/test_render.py::test_R7_the_samples_week_strips[Read 20 pages-. D D D D D D-False] PASSED [ 56%]
+tests/browser/test_render.py::test_R7_the_samples_week_strips[Stretch 10 minutes-D D . D D D .-True] PASSED [ 57%]
+tests/browser/test_render.py::test_R7_the_samples_week_strips[No phone after 11pm-. D . . D . D-False] PASSED [ 58%]
+tests/browser/test_render.py::test_R7_day_names_today_and_nothing_outside_the_window PASSED [ 59%]
+tests/browser/test_render.py::test_R9_the_samples_heatmap PASSED         [ 60%]
+tests/browser/test_render.py::test_R9_a_monday_shows_six_future_cells_and_a_shifted_grid PASSED [ 60%]
+tests/browser/test_render.py::test_R12_twelve_habits_at_load PASSED      [ 61%]
+tests/browser/test_render.py::test_R16_loading_writes_nothing PASSED     [ 62%]
+tests/browser/test_render.py::test_R28_the_rendered_page_has_the_markup_of_the_goldens PASSED [ 63%]
+tests/browser/test_rollover.py::test_R19_the_view_moves_to_the_new_day_within_a_minute_while_visible PASSED [ 64%]
+tests/browser/test_rollover.py::test_R19_the_heatmap_shifts_when_a_new_week_starts PASSED [ 65%]
+tests/browser/test_rollover.py::test_R19_the_add_form_and_its_focus_survive_the_rollover PASSED [ 66%]
+tests/browser/test_rollover.py::test_R19_an_error_message_survives_the_rollover PASSED [ 66%]
+tests/browser/test_rollover.py::test_R19_focus_on_todays_bead_stays_on_todays_bead PASSED [ 67%]
+tests/browser/test_rollover.py::test_R19_a_habit_added_before_the_rollover_rolls_over_too PASSED [ 68%]
+tests/browser/test_rollover.py::test_R20_the_view_moves_at_once_when_the_tab_is_shown_again PASSED [ 69%]
+tests/browser/test_storage.py::test_R16_changes_survive_a_reload_and_a_closed_tab PASSED [ 70%]
+tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[not JSON] PASSED [ 71%]
+tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[JSON null] PASSED [ 72%]
+tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[an array] PASSED [ 73%]
+tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[wrong version] PASSED [ 73%]
+tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[version as text] PASSED [ 74%]
+tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[no habits array] PASSED [ 75%]
+tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[13 habits] PASSED [ 76%]
+tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[empty name] PASSED [ 77%]
+tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[untrimmed name] PASSED [ 78%]
+tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[41 characters] PASSED [ 79%]
+tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[duplicate ignoring case] PASSED [ 80%]
+tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[name not text] PASSED [ 80%]
+tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[done not a list] PASSED [ 81%]
+tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[impossible date] PASSED [ 82%]
+tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[date with a time] PASSED [ 83%]
+tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[habit is null] PASSED [ 84%]
+tests/browser/test_storage.py::test_R17_readable_edge_cases_load_without_a_note[empty list] PASSED [ 85%]
+tests/browser/test_storage.py::test_R17_readable_edge_cases_load_without_a_note[extra properties] PASSED [ 86%]
+tests/browser/test_storage.py::test_R17_readable_edge_cases_load_without_a_note[unsorted and duplicated days] PASSED [ 86%]
+tests/browser/test_storage.py::test_R17_readable_edge_cases_load_without_a_note[a day after today] PASSED [ 87%]
+tests/browser/test_storage.py::test_R17_readable_edge_cases_load_without_a_note[a __proto__ key] PASSED [ 88%]
+tests/browser/test_storage.py::test_R17_dismiss_removes_the_note_moves_focus_to_the_field_and_it_does_not_come_back PASSED [ 89%]
+tests/browser/test_storage.py::test_R17_on_desktop_the_note_sits_in_the_left_column PASSED [ 90%]
+tests/browser/test_storage.py::test_R18_storage_that_cannot_be_used_at_all PASSED [ 91%]
+tests/browser/test_storage.py::test_R18_a_save_that_fails PASSED         [ 92%]
+tests/browser/test_tick.py::test_R8_toggling_a_day_updates_the_bead_in_place[Stretch 10 minutes-2026-10-08-true-4 days-Best 9-True-4-Thu 8 Oct, 3 of 3 habits-True] PASSED [ 93%]
+tests/browser/test_tick.py::test_R8_toggling_a_day_updates_the_bead_in_place[Read 20 pages-2026-10-08-false-5 days-Best 14-False-1-Thu 8 Oct, 1 of 3 habits-False] PASSED [ 93%]
+tests/browser/test_tick.py::test_R8_toggling_a_day_updates_the_bead_in_place[No phone after 11pm-2026-10-07-true-3 days-Best 4-False-4-Wed 7 Oct, 3 of 3 habits-True] PASSED [ 94%]
+tests/browser/test_tick.py::test_R8_toggling_a_day_updates_the_bead_in_place[Stretch 10 minutes-2026-10-04-true-7 days-Best 9-True-2-Sun 4 Oct, 2 of 3 habits-True] PASSED [ 95%]
+tests/browser/test_tick.py::test_R8_toggling_a_day_updates_the_bead_in_place[Stretch 10 minutes-2026-10-02-false-3 days-Best 9-False-0-Fri 2 Oct, 0 of 3 habits-False] PASSED [ 96%]
+tests/browser/test_tick.py::test_R8_toggling_a_day_updates_the_bead_in_place[Read 20 pages-2026-10-02-true-10 days-Best 14-True-2-Fri 2 Oct, 2 of 3 habits-True] PASSED [ 97%]
+tests/browser/test_tick.py::test_R8_the_name_does_not_change_with_the_state PASSED [ 98%]
+tests/browser/test_tick.py::test_R8_keyboard_toggling_keeps_focus PASSED [ 99%]
+tests/browser/test_tick.py::test_R8_ticking_twice_restores_the_saved_value PASSED [100%]
+
+=================================== PASSES ====================================
+- generated xml file: {workspace}\examples\streaks\docs\modules\app\qa\qa\20261009-144515\pytest-junit.xml -
+=========================== short test summary info ===========================
+PASSED tests/browser/test_add.py::test_R10_the_first_habit_on_a_fresh_day
+PASSED tests/browser/test_add.py::test_R10_enter_adds_at_the_bottom_trimmed_and_the_heatmap_recounts
+PASSED tests/browser/test_add.py::test_R6_a_habit_just_added_has_no_streak_and_no_best
+PASSED tests/browser/test_add.py::test_R11_rejected_names_keep_the_text_and_show_one_message[-Name the habit first.]
+PASSED tests/browser/test_add.py::test_R11_rejected_names_keep_the_text_and_show_one_message[   -Name the habit first.]
+PASSED tests/browser/test_add.py::test_R11_rejected_names_keep_the_text_and_show_one_message[Walk to the end of the street and back after dinner-Keep it to 40 characters or fewer.]
+PASSED tests/browser/test_add.py::test_R11_rejected_names_keep_the_text_and_show_one_message[Read twenty pages before bed every night.-Keep it to 40 characters or fewer.]
+PASSED tests/browser/test_add.py::test_R11_rejected_names_keep_the_text_and_show_one_message[read 20 pages-You already track this habit.]
+PASSED tests/browser/test_add.py::test_R11_rejected_names_keep_the_text_and_show_one_message[ STRETCH 10 MINUTES -You already track this habit.]
+PASSED tests/browser/test_add.py::test_R11_exactly_40_characters_is_accepted
+PASSED tests/browser/test_add.py::test_R11_length_counts_code_points_not_utf16_units
+PASSED tests/browser/test_add.py::test_R11_no_message_while_typing
+PASSED tests/browser/test_add.py::test_R11_one_message_at_a_time_replaced_then_cleared_on_success
+PASSED tests/browser/test_add.py::test_R12_the_twelfth_habit_disables_the_form
+PASSED tests/browser/test_delete.py::test_R13_the_confirmation_opens_as_a_modal_with_focus_on_cancel
+PASSED tests/browser/test_delete.py::test_R13_tab_never_leaves_the_dialog_for_the_page
+PASSED tests/browser/test_delete.py::test_R13_a_long_name_wraps_in_the_title_and_the_box_keeps_its_width
+PASSED tests/browser/test_delete.py::test_R14_cancel_esc_and_a_backdrop_click_keep_the_habit[cancel]
+PASSED tests/browser/test_delete.py::test_R14_cancel_esc_and_a_backdrop_click_keep_the_habit[escape]
+PASSED tests/browser/test_delete.py::test_R14_cancel_esc_and_a_backdrop_click_keep_the_habit[backdrop]
+PASSED tests/browser/test_delete.py::test_R14_clicks_inside_the_box_and_drags_out_of_it_keep_the_dialog_open
+PASSED tests/browser/test_delete.py::test_R14_esc_after_an_earlier_delete_still_keeps_the_habit
+PASSED tests/browser/test_delete.py::test_R15_deleting_a_habit_moves_focus_to_the_next_one_and_recounts
+PASSED tests/browser/test_delete.py::test_R15_deleting_the_bottom_habit_moves_focus_to_the_field
+PASSED tests/browser/test_delete.py::test_R15_deleting_the_only_habit_shows_the_empty_message
+PASSED tests/browser/test_delete.py::test_R15_history_goes_with_the_habit
+PASSED tests/browser/test_delete.py::test_R12_deleting_one_of_twelve_enables_the_form_again
+PASSED tests/browser/test_entry.py::test_R1_head_csp_and_relative_urls
+PASSED tests/browser/test_entry.py::test_R1_the_app_works_from_a_sub_path
+PASSED tests/browser/test_entry.py::test_R1_static_skeleton
+PASSED tests/browser/test_entry.py::test_R2_golden_style_block_is_the_same_in_every_golden
+PASSED tests/browser/test_entry.py::test_R2_stylesheet_is_the_golden_css_with_the_listed_changes
+PASSED tests/browser/test_fidelity_inputs.py::test_R28_the_seed_script_writes_the_sample_and_nothing_else
+PASSED tests/browser/test_fidelity_inputs.py::test_R28_the_after_load_script_leaves_the_dialog_open_with_nothing_focused
+PASSED tests/browser/test_platform.py::test_R21_phone_width_360
+PASSED tests/browser/test_platform.py::test_R22_tab_order
+PASSED tests/browser/test_platform.py::test_R22_tab_order_with_the_note
+PASSED tests/browser/test_platform.py::test_R22_focus_rings_on_keyboard_focus[a day button]
+PASSED tests/browser/test_platform.py::test_R22_focus_rings_on_keyboard_focus[an icon button]
+PASSED tests/browser/test_platform.py::test_R22_focus_rings_on_keyboard_focus[the input]
+PASSED tests/browser/test_platform.py::test_R22_focus_rings_on_keyboard_focus[the Add button]
+PASSED tests/browser/test_platform.py::test_R22_a_mouse_click_draws_no_ring
+PASSED tests/browser/test_platform.py::test_R23_motion_without_reduced_motion
+PASSED tests/browser/test_platform.py::test_R23_everything_appears_at_once_under_reduced_motion
+PASSED tests/browser/test_platform.py::test_R24_markup_in_a_name_stays_text
+PASSED tests/browser/test_platform.py::test_R24_no_html_sinks_in_the_source
+PASSED tests/browser/test_platform.py::test_R25_every_request_stays_on_the_devices_own_files
+PASSED tests/browser/test_platform.py::test_R25_the_csp_is_in_force
+PASSED tests/browser/test_platform.py::test_R26_no_sample_data_in_the_shipped_files
+PASSED tests/browser/test_platform.py::test_R26_query_strings_and_fragments_do_not_seed[?demo=1]
+PASSED tests/browser/test_platform.py::test_R26_query_strings_and_fragments_do_not_seed[?seed]
+PASSED tests/browser/test_platform.py::test_R26_query_strings_and_fragments_do_not_seed[#sample]
+PASSED tests/browser/test_platform.py::test_R26_no_globals_and_no_hooks
+PASSED tests/browser/test_render.py::test_R3_the_empty_first_screen
+PASSED tests/browser/test_render.py::test_R4_brand_and_date
+PASSED tests/browser/test_render.py::test_R4_the_date_follows_the_device_clock[2026-10-05T09:00:00+08:00-2026-10-05-Monday 5 October]
+PASSED tests/browser/test_render.py::test_R4_the_date_follows_the_device_clock[2026-10-07T23:59:59+08:00-2026-10-07-Wednesday 7 October]
+PASSED tests/browser/test_render.py::test_R4_the_date_follows_the_device_clock[2027-01-01T00:00:30+08:00-2027-01-01-Friday 1 January]
+PASSED tests/browser/test_render.py::test_R4_english_under_a_german_browser_locale
+PASSED tests/browser/test_render.py::test_R5_rows_in_stored_order
+PASSED tests/browser/test_render.py::test_R6_the_samples_streak_lines[Read 20 pages-6 days-Best 14]
+PASSED tests/browser/test_render.py::test_R6_the_samples_streak_lines[Stretch 10 minutes-3 days-Best 9]
+PASSED tests/browser/test_render.py::test_R6_the_samples_streak_lines[No phone after 11pm-1 day-Best 4]
+PASSED tests/browser/test_render.py::test_R6_no_streak_yet_with_a_best
+PASSED tests/browser/test_render.py::test_R7_the_samples_week_strips[Read 20 pages-. D D D D D D-False]
+PASSED tests/browser/test_render.py::test_R7_the_samples_week_strips[Stretch 10 minutes-D D . D D D .-True]
+PASSED tests/browser/test_render.py::test_R7_the_samples_week_strips[No phone after 11pm-. D . . D . D-False]
+PASSED tests/browser/test_render.py::test_R7_day_names_today_and_nothing_outside_the_window
+PASSED tests/browser/test_render.py::test_R9_the_samples_heatmap
+PASSED tests/browser/test_render.py::test_R9_a_monday_shows_six_future_cells_and_a_shifted_grid
+PASSED tests/browser/test_render.py::test_R12_twelve_habits_at_load
+PASSED tests/browser/test_render.py::test_R16_loading_writes_nothing
+PASSED tests/browser/test_render.py::test_R28_the_rendered_page_has_the_markup_of_the_goldens
+PASSED tests/browser/test_rollover.py::test_R19_the_view_moves_to_the_new_day_within_a_minute_while_visible
+PASSED tests/browser/test_rollover.py::test_R19_the_heatmap_shifts_when_a_new_week_starts
+PASSED tests/browser/test_rollover.py::test_R19_the_add_form_and_its_focus_survive_the_rollover
+PASSED tests/browser/test_rollover.py::test_R19_an_error_message_survives_the_rollover
+PASSED tests/browser/test_rollover.py::test_R19_focus_on_todays_bead_stays_on_todays_bead
+PASSED tests/browser/test_rollover.py::test_R19_a_habit_added_before_the_rollover_rolls_over_too
+PASSED tests/browser/test_rollover.py::test_R20_the_view_moves_at_once_when_the_tab_is_shown_again
+PASSED tests/browser/test_storage.py::test_R16_changes_survive_a_reload_and_a_closed_tab
+PASSED tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[not JSON]
+PASSED tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[JSON null]
+PASSED tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[an array]
+PASSED tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[wrong version]
+PASSED tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[version as text]
+PASSED tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[no habits array]
+PASSED tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[13 habits]
+PASSED tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[empty name]
+PASSED tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[untrimmed name]
+PASSED tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[41 characters]
+PASSED tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[duplicate ignoring case]
+PASSED tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[name not text]
+PASSED tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[done not a list]
+PASSED tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[impossible date]
+PASSED tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[date with a time]
+PASSED tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[habit is null]
+PASSED tests/browser/test_storage.py::test_R17_readable_edge_cases_load_without_a_note[empty list]
+PASSED tests/browser/test_storage.py::test_R17_readable_edge_cases_load_without_a_note[extra properties]
+PASSED tests/browser/test_storage.py::test_R17_readable_edge_cases_load_without_a_note[unsorted and duplicated days]
+PASSED tests/browser/test_storage.py::test_R17_readable_edge_cases_load_without_a_note[a day after today]
+PASSED tests/browser/test_storage.py::test_R17_readable_edge_cases_load_without_a_note[a __proto__ key]
+PASSED tests/browser/test_storage.py::test_R17_dismiss_removes_the_note_moves_focus_to_the_field_and_it_does_not_come_back
+PASSED tests/browser/test_storage.py::test_R17_on_desktop_the_note_sits_in_the_left_column
+PASSED tests/browser/test_storage.py::test_R18_storage_that_cannot_be_used_at_all
+PASSED tests/browser/test_storage.py::test_R18_a_save_that_fails
+PASSED tests/browser/test_tick.py::test_R8_toggling_a_day_updates_the_bead_in_place[Stretch 10 minutes-2026-10-08-true-4 days-Best 9-True-4-Thu 8 Oct, 3 of 3 habits-True]
+PASSED tests/browser/test_tick.py::test_R8_toggling_a_day_updates_the_bead_in_place[Read 20 pages-2026-10-08-false-5 days-Best 14-False-1-Thu 8 Oct, 1 of 3 habits-False]
+PASSED tests/browser/test_tick.py::test_R8_toggling_a_day_updates_the_bead_in_place[No phone after 11pm-2026-10-07-true-3 days-Best 4-False-4-Wed 7 Oct, 3 of 3 habits-True]
+PASSED tests/browser/test_tick.py::test_R8_toggling_a_day_updates_the_bead_in_place[Stretch 10 minutes-2026-10-04-true-7 days-Best 9-True-2-Sun 4 Oct, 2 of 3 habits-True]
+PASSED tests/browser/test_tick.py::test_R8_toggling_a_day_updates_the_bead_in_place[Stretch 10 minutes-2026-10-02-false-3 days-Best 9-False-0-Fri 2 Oct, 0 of 3 habits-False]
+PASSED tests/browser/test_tick.py::test_R8_toggling_a_day_updates_the_bead_in_place[Read 20 pages-2026-10-02-true-10 days-Best 14-True-2-Fri 2 Oct, 2 of 3 habits-True]
+PASSED tests/browser/test_tick.py::test_R8_the_name_does_not_change_with_the_state
+PASSED tests/browser/test_tick.py::test_R8_keyboard_toggling_keeps_focus
+PASSED tests/browser/test_tick.py::test_R8_ticking_twice_restores_the_saved_value
+============================ 115 passed in 24.74s =============================

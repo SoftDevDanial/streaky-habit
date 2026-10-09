@@ -1,0 +1,828 @@
+[
+ {
+  "id": "F1.model",
+  "r": "R3",
+  "what": "first visit equals the empty model (date, empty message, 84 cells, months)",
+  "verdict": "PASS",
+  "observed": "[]"
+ },
+ {
+  "id": "F1.nowrite",
+  "r": "R3/R16",
+  "what": "no storage key and no write on first visit",
+  "verdict": "PASS",
+  "observed": "(None, [])"
+ },
+ {
+  "id": "F1.form",
+  "r": "R3",
+  "what": "input enabled, empty, no aria-invalid; message empty with field-msg field-error; no note",
+  "verdict": "PASS",
+  "observed": "{'disabled': False, 'value': '', 'invalid': None, 'describedby': 'new-habit-msg'}"
+ },
+ {
+  "id": "F1.clean",
+  "r": "R25",
+  "what": "no console error, no page error, requests same-origin GET only",
+  "verdict": "PASS",
+  "observed": "([], [], [('GET', 'http://127.0.0.1:52222/'), ('GET', 'http://127.0.0.1:52222/src/styles.css'), ('GET', 'http://127.0.0.1:52222/src/app.js'), ('GET', 'http://127.0.0.1:52222/src/dates.js'), ('GET', 'http://127.0.0.1:52222/src/habits.js'), ('GET', 'http://127.0.0.1:52222/src/storage.js'), ('GET', 'http://127.0.0.1:52222/src/view.js')])"
+ },
+ {
+  "id": "F1.tab",
+  "r": "R22",
+  "what": "fresh page: Tab visits input then Add",
+  "verdict": "PASS",
+  "observed": "('new-habit', 'Add')"
+ },
+ {
+  "id": "F2.add1",
+  "r": "R10",
+  "what": "add by clicking Add: model equal, field cleared, no message",
+  "verdict": "PASS",
+  "observed": "[]"
+ },
+ {
+  "id": "F2.add1.focus",
+  "r": "R10",
+  "what": "app does not move focus after a successful add by click (focus stays on Add button)",
+  "verdict": "PASS",
+  "observed": "Add"
+ },
+ {
+  "id": "F2.add1.write",
+  "r": "R16",
+  "what": "exactly one save, exact compact text",
+  "verdict": "PASS",
+  "observed": "['{\"version\":1,\"habits\":[{\"name\":\"Read 20 pages\",\"done\":[]}]}']"
+ },
+ {
+  "id": "F2.add2",
+  "r": "R10",
+  "what": "add by Enter: bottom, model equal, focus stays in the input",
+  "verdict": "PASS",
+  "observed": "([], 'new-habit')"
+ },
+ {
+  "id": "F2.cell-inplace",
+  "r": "R8",
+  "what": "the heatmap cell for the date is updated in place (same element, still connected)",
+  "verdict": "PASS",
+  "observed": ""
+ },
+ {
+  "id": "F2.tick",
+  "r": "R8",
+  "what": "tick today and yesterday: streaks, strips, heat cells equal the model",
+  "verdict": "PASS",
+  "observed": "[]"
+ },
+ {
+  "id": "F2.tick.vals",
+  "r": "R8",
+  "what": "Read shows '2 days'/'Best 2'; Stretch '1 day'/'Best 1'; today cell l4 '2 of 2'; yesterday cell l2 '1 of 2'",
+  "verdict": "PASS",
+  "observed": "('2 days', 'Best 2')"
+ },
+ {
+  "id": "F2.tick.focus",
+  "r": "R8",
+  "what": "focus stays on the ticked button",
+  "verdict": "PASS",
+  "observed": "Mark Wed 7 Oct as done"
+ },
+ {
+  "id": "F2.writes",
+  "r": "R16",
+  "what": "one save per change (2 adds + 3 ticks = 5 writes)",
+  "verdict": "PASS",
+  "observed": "5"
+ },
+ {
+  "id": "F2.reload",
+  "r": "R16",
+  "what": "reload shows the same state (model equal) and stored text unchanged",
+  "verdict": "PASS",
+  "observed": "[]"
+ },
+ {
+  "id": "F2.reload.nowrite",
+  "r": "R16",
+  "what": "reload performs no write",
+  "verdict": "PASS",
+  "observed": "0"
+ },
+ {
+  "id": "F2.newtab",
+  "r": "R16",
+  "what": "closing the tab and opening again shows the same state",
+  "verdict": "PASS",
+  "observed": "[]"
+ },
+ {
+  "id": "F3.boot",
+  "r": "R5-R9",
+  "what": "sample day equals the model",
+  "verdict": "PASS",
+  "observed": "[]"
+ },
+ {
+  "id": "F3.open",
+  "r": "R13",
+  "what": "dialog open, title/body, Cancel focused",
+  "verdict": "PASS",
+  "observed": "Cancel"
+ },
+ {
+  "id": "F3.cancel",
+  "r": "R14",
+  "what": "Cancel keeps all, focus on same trash, no save",
+  "verdict": "PASS",
+  "observed": "('Delete Stretch 10 minutes', 0)"
+ },
+ {
+  "id": "F3.esc",
+  "r": "R14",
+  "what": "Esc keeps all, focus on same trash, no save",
+  "verdict": "PASS",
+  "observed": "('Delete Stretch 10 minutes', 0)"
+ },
+ {
+  "id": "F3.backdrop",
+  "r": "R14",
+  "what": "backdrop click keeps all, focus on same trash, no save",
+  "verdict": "PASS",
+  "observed": "('Delete Stretch 10 minutes', 0)"
+ },
+ {
+  "id": "F3.backdrop2",
+  "r": "R14",
+  "what": "click 3px outside the box corner closes as Cancel",
+  "verdict": "PASS",
+  "observed": "Delete Read 20 pages"
+ },
+ {
+  "id": "F3.inside",
+  "r": "R14",
+  "what": "clicks on title and body keep the dialog open",
+  "verdict": "PASS",
+  "observed": ""
+ },
+ {
+  "id": "F3.confirm-middle",
+  "r": "R15",
+  "what": "open A, Cancel, open B, delete: B removed; model equal (ids renumbered, heatmap recounted), one save",
+  "verdict": "PASS",
+  "observed": "([], 1)"
+ },
+ {
+  "id": "F3.confirm-focus",
+  "r": "R15",
+  "what": "focus on the trash of the habit that was below ('Delete No phone after 11pm')",
+  "verdict": "PASS",
+  "observed": "Delete No phone after 11pm"
+ },
+ {
+  "id": "F3.confirm-last",
+  "r": "R15",
+  "what": "delete the bottom habit: focus on the New habit input",
+  "verdict": "PASS",
+  "observed": "([], 'new-habit')"
+ },
+ {
+  "id": "F3.confirm-only",
+  "r": "R15",
+  "what": "delete the only habit: empty message, stored empty state, focus on input",
+  "verdict": "PASS",
+  "observed": "([], '{\"version\":1,\"habits\":[]}', 'new-habit')"
+ },
+ {
+  "id": "F3.readd",
+  "r": "R15",
+  "what": "re-adding a deleted name starts with no history",
+  "verdict": "PASS",
+  "observed": "[]"
+ },
+ {
+  "id": "F3.clean",
+  "r": "R25",
+  "what": "no console error and no page error across the delete flows",
+  "verdict": "PASS",
+  "observed": "([], [])"
+ },
+ {
+  "id": "F4.add",
+  "r": "R10/R22",
+  "what": "keyboard-only add: Tab, type, Enter",
+  "verdict": "PASS",
+  "observed": "new-habit"
+ },
+ {
+  "id": "F4.back",
+  "r": "R22",
+  "what": "Shift+Tab from the input reaches today's bead",
+  "verdict": "PASS",
+  "observed": "Mark Thu 8 Oct as done"
+ },
+ {
+  "id": "F4.space",
+  "r": "R8",
+  "what": "Space ticks today, focus kept",
+  "verdict": "PASS",
+  "observed": "('1 day', 'Mark Thu 8 Oct as done')"
+ },
+ {
+  "id": "F4.enter",
+  "r": "R8",
+  "what": "Enter ticks yesterday, streak 2 days Best 2",
+  "verdict": "PASS",
+  "observed": "('2 days', 'Mark Wed 7 Oct as done')"
+ },
+ {
+  "id": "F4.trash",
+  "r": "R22",
+  "what": "six more Shift+Tab reach the trash button",
+  "verdict": "PASS",
+  "observed": "Delete Walk dog"
+ },
+ {
+  "id": "F4.dialog",
+  "r": "R13",
+  "what": "Enter on trash opens the dialog with Cancel focused",
+  "verdict": "PASS",
+  "observed": "Cancel"
+ },
+ {
+  "id": "F4.stray",
+  "r": "R14/T7",
+  "what": "a stray Enter on Cancel keeps the habit and returns focus to the trash",
+  "verdict": "PASS",
+  "observed": "(1, 'Delete Walk dog')"
+ },
+ {
+  "id": "F4.tab-dialog",
+  "r": "R13/R22",
+  "what": "Tab inside the dialog reaches 'Delete habit' and never lands on the page behind",
+  "verdict": "PASS",
+  "observed": "(True, [True])"
+ },
+ {
+  "id": "F4.tab-wrap",
+  "r": "R13",
+  "what": "further Tab presses still never reach the page behind",
+  "verdict": "PASS",
+  "observed": "Delete habit"
+ },
+ {
+  "id": "F4.delete",
+  "r": "R15",
+  "what": "keyboard delete: gone, focus on input, empty message, empty state saved",
+  "verdict": "PASS",
+  "observed": "('new-habit', '{\"version\":1,\"habits\":[]}')"
+ },
+ {
+  "id": "F4.clean",
+  "r": "R25",
+  "what": "no console or page errors",
+  "verdict": "PASS",
+  "observed": "([], [])"
+ },
+ {
+  "id": "F5.errors",
+  "r": "R11",
+  "what": "7 rejected names: one message, red classes, aria-invalid, text kept untrimmed, focus in the input, 3 rows",
+  "verdict": "PASS",
+  "observed": "[]"
+ },
+ {
+  "id": "F5.nowrite",
+  "r": "R11/R16",
+  "what": "rejected names write nothing",
+  "verdict": "PASS",
+  "observed": "0"
+ },
+ {
+  "id": "F5.enter-empty",
+  "r": "R11",
+  "what": "Enter in the empty field shows the empty message",
+  "verdict": "PASS",
+  "observed": "['Name the habit first.', 'field-msg field-error']"
+ },
+ {
+  "id": "F5.typing",
+  "r": "R11",
+  "what": "typing a valid name does not clear the message until submit",
+  "verdict": "PASS",
+  "observed": "['Name the habit first.', 'field-msg field-error']"
+ },
+ {
+  "id": "F5.success",
+  "r": "R11/R10",
+  "what": "success clears message and aria-invalid, adds row",
+  "verdict": "PASS",
+  "observed": "(['', 'field-msg field-error'], {'disabled': False, 'value': '', 'invalid': None, 'describedby': 'new-habit-msg'})"
+ },
+ {
+  "id": "F5.40",
+  "r": "R11",
+  "what": "40 characters accepted",
+  "verdict": "PASS",
+  "observed": "5"
+ },
+ {
+  "id": "F5.clean",
+  "r": "R25",
+  "what": "no console or page errors",
+  "verdict": "PASS",
+  "observed": "([], [])"
+ },
+ {
+  "id": "F6.variants",
+  "r": "R17",
+  "what": "15 unreadable variants (incl. empty string, NUL, bare true): note shown, empty state saved with exactly one write, no errors",
+  "verdict": "PASS",
+  "observed": "[]"
+ },
+ {
+  "id": "F6.dismiss",
+  "r": "R17",
+  "what": "Dismiss: note gone, empty message stays, focus on the input, no extra write",
+  "verdict": "PASS",
+  "observed": "('new-habit', 1)"
+ },
+ {
+  "id": "F6.reload",
+  "r": "R17",
+  "what": "after reload no note and no new write",
+  "verdict": "PASS",
+  "observed": "1"
+ },
+ {
+  "id": "F6.add-after",
+  "r": "R17",
+  "what": "adding after a reset works; note stays until dismissed",
+  "verdict": "PASS",
+  "observed": "(1, 'Your saved habits could not be read, so the list was reset.')"
+ },
+ {
+  "id": "F7.12 habits with 40-char unbroken names (12-note visible)",
+  "r": "R21",
+  "what": "360px wide: no horizontal scroll and nothing past the right edge: 12 habits with 40-char unbroken names (12-note visible)",
+  "verdict": "PASS",
+  "observed": "(360, [])"
+ },
+ {
+  "id": "F7.delete dialog with a 40-char unbroken name",
+  "r": "R21",
+  "what": "360px wide: no horizontal scroll and nothing past the right edge: delete dialog with a 40-char unbroken name",
+  "verdict": "PASS",
+  "observed": "(360, [])"
+ },
+ {
+  "id": "F7.dialog-box",
+  "r": "R13",
+  "what": "dialog box stays inside the viewport at 360",
+  "verdict": "PASS",
+  "observed": "{'x': 20, 'y': 259.39312744140625, 'width': 320, 'height': 264}"
+ },
+ {
+  "id": "F7.day-width",
+  "r": "R21",
+  "what": "every day button >= 44px wide at 360 with 12 habits",
+  "verdict": "PASS",
+  "observed": "45.7"
+ },
+ {
+  "id": "F7.note-wrap",
+  "r": "R12",
+  "what": "12-habit note wraps inside the form at 360",
+  "verdict": "PASS",
+  "observed": "{'x': 20, 'y': 2573, 'width': 320, 'height': 40}"
+ },
+ {
+  "id": "F7.unreadable-data note",
+  "r": "R21",
+  "what": "360px wide: no horizontal scroll and nothing past the right edge: unreadable-data note",
+  "verdict": "PASS",
+  "observed": "(360, [])"
+ },
+ {
+  "id": "F7.dismiss-44",
+  "r": "R21",
+  "what": "Dismiss button is 44x44",
+  "verdict": "PASS",
+  "observed": "{'x': 288, 'y': 85, 'width': 44, 'height': 44}"
+ },
+ {
+  "id": "F7.name error message",
+  "r": "R21",
+  "what": "360px wide: no horizontal scroll and nothing past the right edge: name error message",
+  "verdict": "PASS",
+  "observed": "(360, [])"
+ },
+ {
+  "id": "F7.h#new-habit",
+  "r": "R21",
+  "what": "#new-habit is 48px tall",
+  "verdict": "PASS",
+  "observed": "48"
+ },
+ {
+  "id": "F7.h.add .btn",
+  "r": "R21",
+  "what": ".add .btn is 48px tall",
+  "verdict": "PASS",
+  "observed": "48"
+ },
+ {
+  "id": "F7.sample day",
+  "r": "R21",
+  "what": "360px wide: no horizontal scroll and nothing past the right edge: sample day",
+  "verdict": "PASS",
+  "observed": "(360, [])"
+ },
+ {
+  "id": "F7.320",
+  "r": "R21",
+  "what": "(extra, below the 360 floor) 320x640 sample day scrollWidth <= 320",
+  "verdict": "PASS",
+  "observed": "320"
+ },
+ {
+  "id": "F8.layout",
+  "r": "R28/S1-07",
+  "what": "1280x800: main column x168 w500, heatmap x732 w380, no horizontal scroll",
+  "verdict": "PASS",
+  "observed": "({'x': 168, 'y': 101, 'width': 500, 'height': 688}, {'x': 732, 'y': 101, 'width': 380, 'height': 310.671875}, 1280)"
+ },
+ {
+  "id": "F8.dialog",
+  "r": "R28/M1-03",
+  "what": "1280x800 dialog 400 wide at x440",
+  "verdict": "PASS",
+  "observed": "{'x': 440, 'y': 318, 'width': 400, 'height': 180}"
+ },
+ {
+  "id": "F9.cancel.open",
+  "r": "R19",
+  "what": "dialog stays open across the rollover with the same title",
+  "verdict": "PASS",
+  "observed": "True"
+ },
+ {
+  "id": "F9.cancel.nowrite",
+  "r": "R16/R19",
+  "what": "rollover itself writes nothing",
+  "verdict": "PASS",
+  "observed": "0"
+ },
+ {
+  "id": "F9.cancel.focus",
+  "r": "R14",
+  "what": "after a rollover while open, focus returns to the same habit's trash and the Friday view equals the model",
+  "verdict": "PASS",
+  "observed": "('Delete Stretch 10 minutes', [])"
+ },
+ {
+  "id": "F9.delete.open",
+  "r": "R19",
+  "what": "dialog stays open across the rollover with the same title",
+  "verdict": "PASS",
+  "observed": "True"
+ },
+ {
+  "id": "F9.delete.nowrite",
+  "r": "R16/R19",
+  "what": "rollover itself writes nothing",
+  "verdict": "PASS",
+  "observed": "0"
+ },
+ {
+  "id": "F9.delete.focus",
+  "r": "R15",
+  "what": "delete after a rollover removes the right habit, focus on the next trash, Friday model equal",
+  "verdict": "PASS",
+  "observed": "('Delete No phone after 11pm', [])"
+ },
+ {
+  "id": "F9.escape.open",
+  "r": "R19",
+  "what": "dialog stays open across the rollover with the same title",
+  "verdict": "PASS",
+  "observed": "True"
+ },
+ {
+  "id": "F9.escape.nowrite",
+  "r": "R16/R19",
+  "what": "rollover itself writes nothing",
+  "verdict": "PASS",
+  "observed": "0"
+ },
+ {
+  "id": "F9.escape.focus",
+  "r": "R14",
+  "what": "after a rollover while open, focus returns to the same habit's trash and the Friday view equals the model",
+  "verdict": "PASS",
+  "observed": "('Delete Stretch 10 minutes', [])"
+ },
+ {
+  "id": "F9.early",
+  "r": "R19",
+  "what": "at 23:59:59.9 the view still shows Thursday",
+  "verdict": "PASS",
+  "observed": "['2026-10-08', 'Thursday 8 October']"
+ },
+ {
+  "id": "F9.late",
+  "r": "R19",
+  "what": "30 s after midnight the view shows Friday",
+  "verdict": "PASS",
+  "observed": "['2026-10-09', 'Friday 9 October']"
+ },
+ {
+  "id": "F9.vis-same",
+  "r": "R20",
+  "what": "visibilitychange on the same day changes nothing",
+  "verdict": "PASS",
+  "observed": ""
+ },
+ {
+  "id": "F9.after",
+  "r": "R19/R8",
+  "what": "tick and add after a rollover equal the Friday model; stored text equal",
+  "verdict": "PASS",
+  "observed": "[]"
+ },
+ {
+  "id": "F10.tz",
+  "r": "R4/R7/R9",
+  "what": "17 time zone / DST / leap / year-boundary days: header, strips, streaks, 84 cells, month labels (incl. habit-logic R12 worked examples 2027-01-07 and 2026-03-31) equal the oracle",
+  "verdict": "PASS",
+  "observed": "[]"
+ },
+ {
+  "id": "F11.literal",
+  "r": "R24",
+  "what": "10 hostile/odd names render literally and in order",
+  "verdict": "PASS",
+  "observed": "['__proto__', 'constructor', 'toString', 'hasOwnProperty', '<b>bold</b>', 'Say \"hi\"', 'a&amp;b', '<script>window.x=1</script>', \"' onmouseover='x\", 'emoji 😀 ok']"
+ },
+ {
+  "id": "F11.noelems",
+  "r": "R24",
+  "what": "no b/script/img element was created inside the list",
+  "verdict": "PASS",
+  "observed": ""
+ },
+ {
+  "id": "F11.labels",
+  "r": "R24",
+  "what": "trash names are 'Delete <name>'",
+  "verdict": "PASS",
+  "observed": "['Delete __proto__', 'Delete constructor', 'Delete toString', 'Delete hasOwnProperty', 'Delete <b>bold</b>', 'Delete Say \"hi\"', 'Delete a&amp;b', 'Delete <script>window.x=1</script>', \"Delete ' onmouseover='x\", 'Delete emoji 😀 ok']"
+ },
+ {
+  "id": "F11.noxss",
+  "r": "R24",
+  "what": "no JS dialog, no page error, window.x undefined",
+  "verdict": "PASS",
+  "observed": "([], [])"
+ },
+ {
+  "id": "F11.reload",
+  "r": "R24/R17",
+  "what": "hostile names survive a reload (readable) with no note",
+  "verdict": "PASS",
+  "observed": "(['__proto__', 'constructor', 'toString', 'hasOwnProperty', '<b>bold</b>', 'Say \"hi\"', 'a&amp;b', '<script>window.x=1</script>', \"' onmouseover='x\", 'emoji 😀 ok'], None)"
+ },
+ {
+  "id": "F11.proto",
+  "r": "T2",
+  "what": "Object.prototype has the same own properties after loading '__proto__' as a name",
+  "verdict": "PASS",
+  "observed": "True"
+ },
+ {
+  "id": "F11.title",
+  "r": "R13/R24",
+  "what": "dialog title shows quotes literally",
+  "verdict": "PASS",
+  "observed": "Delete \"Say \"hi\"\"?"
+ },
+ {
+  "id": "F11.title2",
+  "r": "R24",
+  "what": "dialog title with markup name is text",
+  "verdict": "PASS",
+  "observed": "Delete \"<b>bold</b>\"?"
+ },
+ {
+  "id": "F11.dup",
+  "r": "R11",
+  "what": "'TOSTRING' duplicates 'toString' ignoring case",
+  "verdict": "PASS",
+  "observed": "['You already track this habit.', 'field-msg field-error']"
+ },
+ {
+  "id": "F12.getitem",
+  "r": "R18",
+  "what": "getItem throws: starts empty with no note",
+  "verdict": "PASS",
+  "observed": ""
+ },
+ {
+  "id": "F12.getitem.keep",
+  "r": "R18",
+  "what": "app keeps working in memory ('1 day' 'Best 1')",
+  "verdict": "PASS",
+  "observed": "1 dayBest 1"
+ },
+ {
+  "id": "F12.getitem.clean",
+  "r": "R18",
+  "what": "no console error, no page error",
+  "verdict": "PASS",
+  "observed": "([], [])"
+ },
+ {
+  "id": "F12.reset-save-fails",
+  "r": "R17/R18",
+  "what": "unreadable data with a failing reset save: note shown, empty list, no errors",
+  "verdict": "PASS",
+  "observed": "([], [])"
+ },
+ {
+  "id": "F12.reset-save-fails2",
+  "r": "R18",
+  "what": "add still works after the failing reset",
+  "verdict": "PASS",
+  "observed": "[]"
+ },
+ {
+  "id": "F12.plain-error",
+  "r": "R18",
+  "what": "setItem throws a plain Error: tick still shown, no page error",
+  "verdict": "PASS",
+  "observed": "[]"
+ },
+ {
+  "id": "F13.12th",
+  "r": "R12",
+  "what": "12th add disables input and Add, shows the note with field-note",
+  "verdict": "PASS",
+  "observed": "['You track 12 habits, the most this app holds. Delete one to add another.', 'field-msg field-note']"
+ },
+ {
+  "id": "F13.skip-disabled",
+  "r": "R12/R22",
+  "what": "disabled input and Add are skipped by Tab across the whole page",
+  "verdict": "PASS",
+  "observed": ""
+ },
+ {
+  "id": "F13.delete12",
+  "r": "R12/R15",
+  "what": "deleting the last of 12: input enabled, message cleared (field-error), focus on the input",
+  "verdict": "PASS",
+  "observed": "(['', 'field-msg field-error'], 'new-habit')"
+ },
+ {
+  "id": "F13.readd",
+  "r": "R12",
+  "what": "adding back to 12 disables again",
+  "verdict": "PASS",
+  "observed": ""
+ },
+ {
+  "id": "F13.clean",
+  "r": "R25",
+  "what": "no console or page errors",
+  "verdict": "PASS",
+  "observed": "([], [])"
+ },
+ {
+  "id": "F15.backdrop-colour",
+  "r": "R2/R23",
+  "what": "native ::backdrop shows the scrim colour under reduced motion",
+  "verdict": "PASS",
+  "observed": "rgba(28, 37, 35, 0.5)"
+ },
+ {
+  "id": "F15.backdrop-colour2",
+  "r": "R2",
+  "what": "native ::backdrop colour without reduced motion",
+  "verdict": "PASS",
+  "observed": "rgba(28, 37, 35, 0.5)"
+ },
+ {
+  "id": "F15.inert",
+  "r": "R13",
+  "what": "a click on the backdrop over another habit's trash only closes the dialog (no second dialog, nothing deleted)",
+  "verdict": "PASS",
+  "observed": ""
+ },
+ {
+  "id": "F16.de",
+  "r": "R4",
+  "what": "de-DE browser: whole page equals the English oracle",
+  "verdict": "PASS",
+  "observed": "[]"
+ },
+ {
+  "id": "F14.model.seed20261009",
+  "r": "R5-R16",
+  "what": "model-based run of 90 operations {'tick': 30, 'add': 18, 'add-bad': 9, 'delete': 10, 'keep': 10, 'reload': 5, 'dbl': 3}: DOM, storage text and write count equal the oracle after every operation; focus rules hold",
+  "verdict": "PASS",
+  "observed": "[]"
+ },
+ {
+  "id": "F14.model.seed20261009.clean",
+  "r": "R25",
+  "what": "no console error or page error in the random run",
+  "verdict": "PASS",
+  "observed": "([], [])"
+ },
+ {
+  "id": "F14.model.seed7",
+  "r": "R5-R16",
+  "what": "model-based run of 90 operations {'tick': 27, 'add': 15, 'add-bad': 13, 'delete': 14, 'keep': 9, 'reload': 4, 'dbl': 4}: DOM, storage text and write count equal the oracle after every operation; focus rules hold",
+  "verdict": "PASS",
+  "observed": "[]"
+ },
+ {
+  "id": "F14.model.seed7.clean",
+  "r": "R25",
+  "what": "no console error or page error in the random run",
+  "verdict": "PASS",
+  "observed": "([], [])"
+ },
+ {
+  "id": "F14.model.seed1234",
+  "r": "R5-R16",
+  "what": "model-based run of 90 operations {'tick': 39, 'add': 17, 'add-bad': 2, 'delete': 12, 'keep': 7, 'reload': 8, 'dbl': 0}: DOM, storage text and write count equal the oracle after every operation; focus rules hold",
+  "verdict": "PASS",
+  "observed": "[]"
+ },
+ {
+  "id": "F14.model.seed1234.clean",
+  "r": "R25",
+  "what": "no console error or page error in the random run",
+  "verdict": "PASS",
+  "observed": "([], [])"
+ },
+ {
+  "id": "S1.sinks",
+  "r": "R24",
+  "what": "no HTML sink in any file under src/ (app.js, dates.js, habits.js, storage.js, styles.css, view.js), styles.css included",
+  "verdict": "PASS",
+  "observed": "[]"
+ },
+ {
+  "id": "S1.sample",
+  "r": "R26",
+  "what": "no sample name or sample-history reference in index.html or any file under src/ (styles.css included)",
+  "verdict": "PASS",
+  "observed": "[]"
+ },
+ {
+  "id": "S1.net",
+  "r": "R25",
+  "what": "no network API and no absolute URL anywhere in src/ (the SVG namespace string excepted)",
+  "verdict": "PASS",
+  "observed": "[]"
+ },
+ {
+  "id": "S1.sync",
+  "r": "Invariants",
+  "what": "no setTimeout/rAF/queueMicrotask/Promise/async in src/*.js (renders are synchronous)",
+  "verdict": "PASS",
+  "observed": "[]"
+ },
+ {
+  "id": "S1.clock",
+  "r": "Invariants",
+  "what": "the clock is read in one place: 'new Date(' / 'Date.now' occurs only in src/app.js",
+  "verdict": "PASS",
+  "observed": "[('app.js', 'new Date(')]"
+ },
+ {
+  "id": "S1.imports",
+  "r": "R1",
+  "what": "every import specifier starts with ./",
+  "verdict": "PASS",
+  "observed": "[('app.js', './dates.js'), ('app.js', './habits.js'), ('app.js', './storage.js'), ('app.js', './view.js'), ('habits.js', './dates.js'), ('habits.js', './dates.js'), ('storage.js', './dates.js'), ('storage.js', './habits.js'), ('storage.js', './habits.js'), ('view.js', './dates.js'), ('view.js', './habits.js')]"
+ },
+ {
+  "id": "S1.globals",
+  "r": "R26",
+  "what": "no assignment to window/globalThis/self in src/",
+  "verdict": "PASS",
+  "observed": "[]"
+ },
+ {
+  "id": "S1.template",
+  "r": "R1",
+  "what": "index.html has no <template>, no inline script, no inline event handler",
+  "verdict": "PASS",
+  "observed": ""
+ }
+]

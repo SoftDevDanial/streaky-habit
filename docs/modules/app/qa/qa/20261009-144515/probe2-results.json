@@ -1,0 +1,37 @@
+[
+ {
+  "id": "P2.sorted",
+  "r": "R16/R17",
+  "what": "after loading unsorted+duplicated days and ticking another day, the saved list is ascending and has no duplicates",
+  "verdict": "PASS",
+  "observed": "['2026-10-05', '2026-10-07', '2026-10-08']"
+ },
+ {
+  "id": "P2.dedupe-toggle",
+  "r": "R8/R17",
+  "what": "un-ticking a day that was saved twice removes it completely",
+  "verdict": "PASS",
+  "observed": "['2026-10-05', '2026-10-07']"
+ },
+ {
+  "id": "P2.future-kept",
+  "r": "R17",
+  "what": "a saved future day (2026-10-09) is kept by the next save and never shown",
+  "verdict": "PASS",
+  "observed": "['2026-10-07', '2026-10-08', '2026-10-09']"
+ },
+ {
+  "id": "P2.extras",
+  "r": "R17",
+  "what": "extra properties are dropped at the next save",
+  "verdict": "PASS",
+  "observed": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[\"2026-10-08\"]}]}"
+ },
+ {
+  "id": "P2.returnValue",
+  "r": "R14",
+  "what": "(info) plain dialog: returnValue after Esc following an earlier 'delete' submit",
+  "verdict": "PASS",
+  "observed": "after submit 'delete', after reopen+Esc ''"
+ }
+]

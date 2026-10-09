@@ -1,0 +1,360 @@
+[
+ {
+  "id": "M00",
+  "what": "unmutated copy (baseline)",
+  "failed": [],
+  "summary": [
+   "114 passed, 1 skipped in 23.98s"
+  ]
+ },
+ {
+  "id": "M01",
+  "what": "backdrop click no longer closes",
+  "failed": [
+   "tests/browser/test_delete.py::test_R13_the_confirmation_opens_as_a_modal_with_focus_on_cancel",
+   "tests/browser/test_delete.py::test_R14_cancel_esc_and_a_backdrop_click_keep_the_habit[backdrop]"
+  ],
+  "summary": [
+   "2 failed, 112 passed, 1 skipped in 33.94s"
+  ]
+ },
+ {
+  "id": "M02",
+  "what": "no focus return to trash after keep",
+  "failed": [],
+  "summary": [
+   "114 passed, 1 skipped in 24.65s"
+  ]
+ },
+ {
+  "id": "M03",
+  "what": "rollover leaves the heatmap alone",
+  "failed": [
+   "tests/browser/test_rollover.py::test_R19_the_view_moves_to_the_new_day_within_a_minute_while_visible",
+   "tests/browser/test_rollover.py::test_R19_the_heatmap_shifts_when_a_new_week_starts",
+   "tests/browser/test_rollover.py::test_R19_a_habit_added_before_the_rollover_rolls_over_too",
+   "tests/browser/test_rollover.py::test_R20_the_view_moves_at_once_when_the_tab_is_shown_again"
+  ],
+  "summary": [
+   "4 failed, 110 passed, 1 skipped in 24.11s"
+  ]
+ },
+ {
+  "id": "M04",
+  "what": "unreadable data is not reset in storage",
+  "failed": [
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[not JSON]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[JSON null]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[an array]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[wrong version]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[version as text]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[no habits array]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[13 habits]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[empty name]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[untrimmed name]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[41 characters]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[duplicate ignoring case]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[name not text]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[done not a list]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[impossible date]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[date with a time]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[habit is null]",
+   "tests/browser/test_storage.py::test_R17_dismiss_removes_the_note_moves_focus_to_the_field_and_it_does_not_come_back"
+  ],
+  "summary": [
+   "17 failed, 97 passed, 1 skipped in 24.35s"
+  ]
+ },
+ {
+  "id": "M05",
+  "what": "delete always focuses the input",
+  "failed": [
+   "tests/browser/test_delete.py::test_R15_deleting_a_habit_moves_focus_to_the_next_one_and_recounts"
+  ],
+  "summary": [
+   "1 failed, 113 passed, 1 skipped in 29.08s"
+  ]
+ },
+ {
+  "id": "M06",
+  "what": "no aria-invalid on error",
+  "failed": [
+   "tests/browser/test_add.py::test_R11_rejected_names_keep_the_text_and_show_one_message[-Name the habit first.]",
+   "tests/browser/test_add.py::test_R11_rejected_names_keep_the_text_and_show_one_message[   -Name the habit first.]",
+   "tests/browser/test_add.py::test_R11_rejected_names_keep_the_text_and_show_one_message[Walk to the end of the street and back after dinner-Keep it to 40 characters or fewer.]",
+   "tests/browser/test_add.py::test_R11_rejected_names_keep_the_text_and_show_one_message[Read twenty pages before bed every night.-Keep it to 40 characters or fewer.]",
+   "tests/browser/test_add.py::test_R11_rejected_names_keep_the_text_and_show_one_message[read 20 pages-You already track this habit.]",
+   "tests/browser/test_add.py::test_R11_rejected_names_keep_the_text_and_show_one_message[ STRETCH 10 MINUTES -You already track this habit.]",
+   "tests/browser/test_rollover.py::test_R19_an_error_message_survives_the_rollover"
+  ],
+  "summary": [
+   "7 failed, 107 passed, 1 skipped in 58.79s"
+  ]
+ },
+ {
+  "id": "M07",
+  "what": "tick is not saved",
+  "failed": [
+   "tests/browser/test_storage.py::test_R17_readable_edge_cases_load_without_a_note[extra properties]",
+   "tests/browser/test_tick.py::test_R8_toggling_a_day_updates_the_bead_in_place[Stretch 10 minutes-2026-10-08-true-4 days-Best 9-True-4-Thu 8 Oct, 3 of 3 habits-True]",
+   "tests/browser/test_tick.py::test_R8_toggling_a_day_updates_the_bead_in_place[Read 20 pages-2026-10-08-false-5 days-Best 14-False-1-Thu 8 Oct, 1 of 3 habits-False]",
+   "tests/browser/test_tick.py::test_R8_toggling_a_day_updates_the_bead_in_place[No phone after 11pm-2026-10-07-true-3 days-Best 4-False-4-Wed 7 Oct, 3 of 3 habits-True]",
+   "tests/browser/test_tick.py::test_R8_toggling_a_day_updates_the_bead_in_place[Stretch 10 minutes-2026-10-04-true-7 days-Best 9-True-2-Sun 4 Oct, 2 of 3 habits-True]",
+   "tests/browser/test_tick.py::test_R8_toggling_a_day_updates_the_bead_in_place[Stretch 10 minutes-2026-10-02-false-3 days-Best 9-False-0-Fri 2 Oct, 0 of 3 habits-False]",
+   "tests/browser/test_tick.py::test_R8_toggling_a_day_updates_the_bead_in_place[Read 20 pages-2026-10-02-true-10 days-Best 14-True-2-Fri 2 Oct, 2 of 3 habits-True]",
+   "tests/browser/test_tick.py::test_R8_ticking_twice_restores_the_saved_value"
+  ],
+  "summary": [
+   "8 failed, 106 passed, 1 skipped in 24.65s"
+  ]
+ },
+ {
+  "id": "M08",
+  "what": "today cell loses aria-current",
+  "failed": [
+   "tests/browser/test_render.py::test_R3_the_empty_first_screen",
+   "tests/browser/test_render.py::test_R9_the_samples_heatmap",
+   "tests/browser/test_render.py::test_R28_the_rendered_page_has_the_markup_of_the_goldens"
+  ],
+  "summary": [
+   "3 failed, 111 passed, 1 skipped in 28.63s"
+  ]
+ },
+ {
+  "id": "M09",
+  "what": "visibilitychange does not roll over",
+  "failed": [
+   "tests/browser/test_rollover.py::test_R20_the_view_moves_at_once_when_the_tab_is_shown_again"
+  ],
+  "summary": [
+   "1 failed, 113 passed, 1 skipped in 28.98s"
+  ]
+ },
+ {
+  "id": "M10",
+  "what": "saved days not sorted or de-duplicated",
+  "failed": [],
+  "summary": [
+   "114 passed, 1 skipped in 24.38s"
+  ]
+ },
+ {
+  "id": "M11",
+  "what": "dialog returnValue not reset",
+  "failed": [],
+  "summary": [
+   "114 passed, 1 skipped in 23.84s"
+  ]
+ },
+ {
+  "id": "M12",
+  "what": "CSP loses connect-src",
+  "failed": [
+   "tests/browser/test_entry.py::test_R1_head_csp_and_relative_urls"
+  ],
+  "summary": [
+   "1 failed, 113 passed, 1 skipped in 24.70s"
+  ]
+ },
+ {
+  "id": "M13",
+  "what": "no focus to the input after a rejected name",
+  "failed": [
+   "tests/browser/test_add.py::test_R11_rejected_names_keep_the_text_and_show_one_message[-Name the habit first.]",
+   "tests/browser/test_add.py::test_R11_rejected_names_keep_the_text_and_show_one_message[   -Name the habit first.]",
+   "tests/browser/test_add.py::test_R11_rejected_names_keep_the_text_and_show_one_message[Walk to the end of the street and back after dinner-Keep it to 40 characters or fewer.]",
+   "tests/browser/test_add.py::test_R11_rejected_names_keep_the_text_and_show_one_message[Read twenty pages before bed every night.-Keep it to 40 characters or fewer.]",
+   "tests/browser/test_add.py::test_R11_rejected_names_keep_the_text_and_show_one_message[read 20 pages-You already track this habit.]",
+   "tests/browser/test_add.py::test_R11_rejected_names_keep_the_text_and_show_one_message[ STRETCH 10 MINUTES -You already track this habit.]"
+  ],
+  "summary": [
+   "6 failed, 108 passed, 1 skipped in 24.71s"
+  ]
+ },
+ {
+  "id": "M14",
+  "what": "add/delete do not recount the heatmap",
+  "failed": [
+   "tests/browser/test_add.py::test_R10_the_first_habit_on_a_fresh_day",
+   "tests/browser/test_add.py::test_R10_enter_adds_at_the_bottom_trimmed_and_the_heatmap_recounts",
+   "tests/browser/test_delete.py::test_R15_deleting_a_habit_moves_focus_to_the_next_one_and_recounts",
+   "tests/browser/test_delete.py::test_R15_deleting_the_bottom_habit_moves_focus_to_the_field",
+   "tests/browser/test_delete.py::test_R15_deleting_the_only_habit_shows_the_empty_message",
+   "tests/browser/test_platform.py::test_R23_everything_appears_at_once_under_reduced_motion",
+   "tests/browser/test_render.py::test_R3_the_empty_first_screen",
+   "tests/browser/test_render.py::test_R4_english_under_a_german_browser_locale",
+   "tests/browser/test_render.py::test_R9_the_samples_heatmap",
+   "tests/browser/test_render.py::test_R9_a_monday_shows_six_future_cells_and_a_shifted_grid",
+   "tests/browser/test_render.py::test_R28_the_rendered_page_has_the_markup_of_the_goldens",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[not JSON]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[JSON null]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[an array]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[wrong version]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[version as text]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[no habits array]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[13 habits]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[empty name]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[untrimmed name]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[41 characters]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[duplicate ignoring case]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[name not text]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[done not a list]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[impossible date]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[date with a time]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[habit is null]"
+  ],
+  "summary": [
+   "27 failed, 87 passed, 1 skipped in 128.84s (0:02:08)"
+  ]
+ },
+ {
+  "id": "M15",
+  "what": "Add button not disabled at 12",
+  "failed": [
+   "tests/browser/test_add.py::test_R12_the_twelfth_habit_disables_the_form",
+   "tests/browser/test_render.py::test_R12_twelve_habits_at_load"
+  ],
+  "summary": [
+   "2 failed, 112 passed, 1 skipped in 34.65s"
+  ]
+ },
+ {
+  "id": "M16",
+  "what": "tick does not update the heat cell",
+  "failed": [
+   "tests/browser/test_tick.py::test_R8_toggling_a_day_updates_the_bead_in_place[Stretch 10 minutes-2026-10-08-true-4 days-Best 9-True-4-Thu 8 Oct, 3 of 3 habits-True]",
+   "tests/browser/test_tick.py::test_R8_toggling_a_day_updates_the_bead_in_place[Read 20 pages-2026-10-08-false-5 days-Best 14-False-1-Thu 8 Oct, 1 of 3 habits-False]",
+   "tests/browser/test_tick.py::test_R8_toggling_a_day_updates_the_bead_in_place[No phone after 11pm-2026-10-07-true-3 days-Best 4-False-4-Wed 7 Oct, 3 of 3 habits-True]",
+   "tests/browser/test_tick.py::test_R8_toggling_a_day_updates_the_bead_in_place[Stretch 10 minutes-2026-10-04-true-7 days-Best 9-True-2-Sun 4 Oct, 2 of 3 habits-True]",
+   "tests/browser/test_tick.py::test_R8_toggling_a_day_updates_the_bead_in_place[Stretch 10 minutes-2026-10-02-false-3 days-Best 9-False-0-Fri 2 Oct, 0 of 3 habits-False]",
+   "tests/browser/test_tick.py::test_R8_toggling_a_day_updates_the_bead_in_place[Read 20 pages-2026-10-02-true-10 days-Best 14-True-2-Fri 2 Oct, 2 of 3 habits-True]"
+  ],
+  "summary": [
+   "6 failed, 108 passed, 1 skipped in 24.10s"
+  ]
+ },
+ {
+  "id": "M17",
+  "what": "drag from inside to the backdrop closes the dialog",
+  "failed": [
+   "tests/browser/test_delete.py::test_R14_clicks_inside_the_box_and_drags_out_of_it_keep_the_dialog_open"
+  ],
+  "summary": [
+   "1 failed, 113 passed, 1 skipped in 29.02s"
+  ]
+ },
+ {
+  "id": "M18",
+  "what": "day button name changes with state",
+  "failed": [
+   "tests/browser/test_platform.py::test_R22_tab_order",
+   "tests/browser/test_render.py::test_R7_day_names_today_and_nothing_outside_the_window",
+   "tests/browser/test_render.py::test_R28_the_rendered_page_has_the_markup_of_the_goldens",
+   "tests/browser/test_tick.py::test_R8_the_name_does_not_change_with_the_state"
+  ],
+  "summary": [
+   "4 failed, 110 passed, 1 skipped in 29.93s"
+  ]
+ },
+ {
+  "id": "M19",
+  "what": "note is not the first child",
+  "failed": [
+   "tests/browser/test_platform.py::test_R22_tab_order_with_the_note",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[not JSON]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[JSON null]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[an array]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[wrong version]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[version as text]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[no habits array]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[13 habits]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[empty name]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[untrimmed name]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[41 characters]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[duplicate ignoring case]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[name not text]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[done not a list]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[impossible date]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[date with a time]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[habit is null]"
+  ],
+  "summary": [
+   "17 failed, 97 passed, 1 skipped in 23.80s"
+  ]
+ },
+ {
+  "id": "M20",
+  "what": "no 30 s rollover check",
+  "failed": [
+   "tests/browser/test_rollover.py::test_R19_the_view_moves_to_the_new_day_within_a_minute_while_visible",
+   "tests/browser/test_rollover.py::test_R19_the_heatmap_shifts_when_a_new_week_starts",
+   "tests/browser/test_rollover.py::test_R19_the_add_form_and_its_focus_survive_the_rollover",
+   "tests/browser/test_rollover.py::test_R19_an_error_message_survives_the_rollover",
+   "tests/browser/test_rollover.py::test_R19_focus_on_todays_bead_stays_on_todays_bead",
+   "tests/browser/test_rollover.py::test_R19_a_habit_added_before_the_rollover_rolls_over_too"
+  ],
+  "summary": [
+   "6 failed, 108 passed, 1 skipped in 49.24s"
+  ]
+ },
+ {
+  "id": "M21",
+  "what": "storage read failure is not caught",
+  "failed": [
+   "tests/browser/test_storage.py::test_R18_storage_that_cannot_be_used_at_all"
+  ],
+  "summary": [
+   "1 failed, 113 passed, 1 skipped in 24.10s"
+  ]
+ },
+ {
+  "id": "M22",
+  "what": "rollover writes storage",
+  "failed": [],
+  "summary": [
+   "114 passed, 1 skipped in 24.57s"
+  ]
+ },
+ {
+  "id": "M23",
+  "what": "empty list also renders an empty ul.habits",
+  "failed": [
+   "tests/browser/test_delete.py::test_R15_deleting_the_only_habit_shows_the_empty_message",
+   "tests/browser/test_render.py::test_R3_the_empty_first_screen",
+   "tests/browser/test_render.py::test_R28_the_rendered_page_has_the_markup_of_the_goldens",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[not JSON]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[JSON null]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[an array]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[wrong version]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[version as text]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[no habits array]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[13 habits]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[empty name]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[untrimmed name]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[41 characters]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[duplicate ignoring case]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[name not text]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[done not a list]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[impossible date]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[date with a time]",
+   "tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[habit is null]"
+  ],
+  "summary": [
+   "19 failed, 95 passed, 1 skipped in 24.07s"
+  ]
+ },
+ {
+  "id": "M24",
+  "what": "heat level 4 capped at 3",
+  "failed": [
+   "tests/browser/test_delete.py::test_R15_deleting_a_habit_moves_focus_to_the_next_one_and_recounts",
+   "tests/browser/test_render.py::test_R9_the_samples_heatmap",
+   "tests/browser/test_render.py::test_R28_the_rendered_page_has_the_markup_of_the_goldens",
+   "tests/browser/test_tick.py::test_R8_toggling_a_day_updates_the_bead_in_place[Stretch 10 minutes-2026-10-08-true-4 days-Best 9-True-4-Thu 8 Oct, 3 of 3 habits-True]",
+   "tests/browser/test_tick.py::test_R8_toggling_a_day_updates_the_bead_in_place[No phone after 11pm-2026-10-07-true-3 days-Best 4-False-4-Wed 7 Oct, 3 of 3 habits-True]"
+  ],
+  "summary": [
+   "5 failed, 109 passed, 1 skipped in 24.40s"
+  ]
+ }
+]
