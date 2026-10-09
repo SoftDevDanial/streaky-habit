@@ -40,7 +40,7 @@ function runLength(days, from, step) {
 }
 
 /**
- * The seven days of the strip, so the strip and the editable range are one definition.
+ * The seven days of the strip. Every rule tied to the strip's span reads it from here, so they move together.
  * @param {DateKey} todayKey
  * @returns {DateKey[]} oldest first, today last
  */
@@ -85,7 +85,7 @@ export function bestStreak(done) {
  */
 export function runContinues(done, todayKey) {
   const days = new Set(done);
-  const firstDay = addDays(todayKey, 1 - WEEK_LENGTH);
+  const firstDay = weekWindow(todayKey)[0];
   return days.has(firstDay) && days.has(addDays(firstDay, PREVIOUS_DAY));
 }
 
