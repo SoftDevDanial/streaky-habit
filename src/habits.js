@@ -4,15 +4,22 @@
  * proved without a browser or a clock. Input: valid habits and date keys. Output: new values only,
  * the arguments are never changed.
  */
-import { addDays } from "./dates.js";
+import { addDays, dayParts } from "./dates.js";
 
 /** @typedef {import("./dates.js").DateKey} DateKey */
 /** @typedef {{ name: string, done: DateKey[] }} Habit  done ascending, no duplicates */
+/**
+ * @typedef {{ key: DateKey, column: number, row: number, today: boolean, future: boolean,
+ *             count: number | null, total: number, level: 0 | 1 | 2 | 3 | 4 | null }} HeatCell
+ */
+/** @typedef {{ column: number, month: string }} MonthLabel */
 
 export const MAX_HABITS = 12;
 export const MAX_NAME_LENGTH = 40;
 
 const WEEK_LENGTH = 7;
+const HEATMAP_WEEKS = 12;
+const MONDAY = "Mon";
 const PREVIOUS_DAY = -1;
 const NEXT_DAY = 1;
 
@@ -99,5 +106,82 @@ export function toggleDay(habits, index, dateKey, todayKey) {
   const editable = weekWindow(todayKey).includes(dateKey);
   return habits.map((habit, position) =>
     editable && position === index ? toggledHabit(habit, dateKey) : copyHabit(habit),
+  );
+}
+
+/**
+ * Integer comparisons only, so a boundary such as 1 of 3 cannot flip on floating-point rounding.
+ * Both thirds are inclusive, as the goldens require.
+ * @param {number} count habits done that day
+ * @param {number} total habits in the list
+ * @returns {0 | 1 | 2 | 3 | 4}
+ */
+export function heatLevel(count, total) {
+  if (count === 0 || total === 0) return 0;
+  if (count === total) return 4;
+  if (3 * count <= total) return 1;
+  if (3 * count <= 2 * total) return 2;
+  return 3;
+}
+
+/**
+ * The Monday that starts each heatmap column, oldest first. dates.js offers weekday names and no
+ * index, so the Monday is found in the 7-day strip that ends on `todayKey`, which holds exactly one.
+ */
+function columnMondays(todayKey) {
+  const currentMonday = weekWindow(todayKey).find((key) => dayParts(key).weekday === MONDAY);
+  return Array.from({ length: HEATMAP_WEEKS }, (_, column) =>
+    addDays(currentMonday, (column + 1 - HEATMAP_WEEKS) * WEEK_LENGTH),
+  );
+}
+
+/** Habits done per day, built once so the 84 cells do not each scan every habit. */
+function doneCountsByDay(habits) {
+  const counts = new Map();
+  for (const habit of habits) {
+    for (const key of new Set(habit.done)) counts.set(key, (counts.get(key) ?? 0) + 1);
+  }
+  return counts;
+}
+
+/**
+ * The 12-week grid in the order the screen lays it out. Future days carry null so the screen can
+ * leave them blank instead of drawing a level 0 that never happened.
+ * @param {readonly Habit[]} habits
+ * @param {DateKey} todayKey
+ * @returns {HeatCell[]} 84 cells, column-major, row 1 is Monday
+ */
+export function heatmapCells(habits, todayKey) {
+  const counts = doneCountsByDay(habits);
+  const total = habits.length;
+  return columnMondays(todayKey).flatMap((monday, columnIndex) =>
+    Array.from({ length: WEEK_LENGTH }, (_, rowIndex) => {
+      const key = addDays(monday, rowIndex);
+      const future = key > todayKey; // date keys sort as text in calendar order
+      const count = future ? null : (counts.get(key) ?? 0);
+      return {
+        key,
+        column: columnIndex + 1,
+        row: rowIndex + 1,
+        today: key === todayKey,
+        future,
+        count,
+        total,
+        level: future ? null : heatLevel(count, total),
+      };
+    }),
+  );
+}
+
+/**
+ * Labels the first column of each month by its Monday, so a month that starts mid-column and has
+ * no Monday of its own in the grid gets no label.
+ * @param {DateKey} todayKey
+ * @returns {MonthLabel[]}
+ */
+export function monthLabels(todayKey) {
+  const months = columnMondays(todayKey).map((monday) => dayParts(monday).month);
+  return months.flatMap((month, columnIndex) =>
+    columnIndex === 0 || month !== months[columnIndex - 1] ? [{ column: columnIndex + 1, month }] : [],
   );
 }
