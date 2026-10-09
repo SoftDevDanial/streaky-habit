@@ -1,0 +1,3 @@
+spread: prototype is Object.prototype true own keys [ 'name', 'done', '__proto__', 'extra' ] polluted undefined
+assign: prototype is Object.prototype false own keys [ 'name', 'done', 'extra' ] polluted true
+literal: own keys [ 'name', 'done' ] polluted undefined

@@ -1,0 +1,9 @@
+== toggledHabit-no-sort: WR-09: toggledHabit without the sort, to confirm the sort (not the Set) gives the ascending order its comment claims
+   ✖ @R9 ticking a day inside the window
+   ✖ @R9 an unsorted or duplicated done array comes back ascending without duplicates
+   ✖ failing tests:
+   ✖ @R9 ticking a day inside the window
+   ✖ @R9 an unsorted or duplicated done array comes back ascending without duplicates
+   ℹ tests 34
+   ℹ pass 32
+   ℹ fail 2

@@ -1,0 +1,21 @@
+// Edge probes on toggleDay, deleteHabit, addHabit, validateName and addDays. Usage: node probe-edges.mjs <project root>
+import { pathToFileURL } from "node:url";
+import { resolve } from "node:path";
+const root = resolve(process.argv[2]);
+const H = await import(pathToFileURL(resolve(root, "src/habits.js")).href);
+const Dt = await import(pathToFileURL(resolve(root, "src/dates.js")).href);
+const habits = [{ name: "A", done: ["2026-10-07"] }, { name: "B", done: [] }];
+const show = (label, fn) => { try { console.log(label, JSON.stringify(fn())); } catch (e) { console.log(label, "THROWS", e.constructor.name, e.message); } };
+show("toggleDay index '0' (string):", () => H.toggleDay(habits, "0", "2026-10-08", "2026-10-08")[0].done);
+show("toggleDay index -0:", () => H.toggleDay(habits, -0, "2026-10-08", "2026-10-08")[0].done);
+show("toggleDay index true:", () => H.toggleDay(habits, true, "2026-10-08", "2026-10-08")[1].done);
+show("deleteHabit index '1' (string):", () => H.deleteHabit(habits, "1").map((h) => h.name));
+show("addDays non-integer 0.5:", () => Dt.addDays("2026-10-08", 0.5));
+show("addDays '1' string days:", () => Dt.addDays("2026-10-08", "1"));
+show("addDays 9999-12-31 +1:", () => Dt.addDays("9999-12-31", 1));
+show("addDays 0001-01-01 -1:", () => Dt.addDays("0001-01-01", -1));
+show("localDateKey Invalid Date:", () => Dt.localDateKey(new Date(NaN)));
+show("validateName non-string:", () => H.validateName(42, []));
+show("heatLevel count > total (5,3):", () => H.heatLevel(5, 3));
+show("heatmapCells todayKey not a key:", () => H.heatmapCells([], "garbage").length);
+show("toggleDay with a done entry that is a String object:", () => H.toggleDay([{ name: "A", done: [] }], 0, "2026-10-08", "2026-10-08"));

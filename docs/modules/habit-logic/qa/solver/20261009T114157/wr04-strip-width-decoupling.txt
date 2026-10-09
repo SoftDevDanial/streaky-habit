@@ -1,0 +1,97 @@
+== strip-5-days-before-WR-04: WR-04 control: the strip shrunk to 5 days in the code before the fix (one WEEK_LENGTH for strip and heatmap)
+   tests from 6275858, file habits.test.js, exit 1
+   ✔ @R13 @R14 the limits are exported
+   ✖ @R5 the seven days of the strip
+   ✖ @R5 the strip has 7 keys, the last is today, and every call returns a new array
+   ✔ @R6 a streak does not break until today is over
+   ✔ @R6 a streak runs across a month, a year and a leap day
+   ✔ @R6 a streak that crosses a DST change
+   ✔ @R7 the longest run in the whole history
+   ✔ @R7 the best run may be old, and a later shorter run does not replace it
+   ✖ @R8 the run flag needs the first strip day and the day before it
+   ✖ @R9 ticking a day inside the window
+   ✔ @R9 days outside the window and bad indexes change nothing
+   ✖ @R9 both ends of the window are editable and ticking twice restores the habit
+   ✖ @R9 an unsorted or duplicated done array comes back ascending without duplicates
+   ✔ @R9 an empty habit list stays empty
+   ✖ @R10 the 12-week grid around today
+   ✖ @R10 a cell carries exactly the contract fields, and a habit counts once per day
+   ✖ @R10 @R11 a fourth habit makes level 3 appear
+   ✔ @R10 the arguments are not changed and the cells are new objects
+   ✔ @R11 levels from the share of habits done
+   ✔ @R11 no habits means level 0
+   ✖ @R12 month labels over the first column whose Monday is in the month
+   ✖ @R12 each label sits on the first column whose Monday is in its month, for more start days
+   ✔ @R13 name checks in the order empty, too long, duplicate
+   ✔ @R13 the length rule counts the trimmed name, so padding never makes a 40 character name too long
+   ✔ @R13 too long is checked before duplicate
+   ✔ @R13 length counts code points, not UTF-16 units
+   ✔ @R13 trim removes all kinds of white space and the duplicate check lower-cases both sides
+   ✔ @R13 a very long name is rejected without hanging
+   ✔ @R14 a new habit goes to the bottom
+   ✔ @R14 a rejected name returns its error
+   ✔ @R14 the limit of 12 habits is checked before the name
+   ✔ @R14 adding to an empty list works
+   ✔ @R15 deleting a habit
+   ✔ @R15 deleting from an empty list returns an empty list
+   ✖ failing tests:
+   ✖ @R5 the seven days of the strip
+   ✖ @R5 the strip has 7 keys, the last is today, and every call returns a new array
+   ✖ @R8 the run flag needs the first strip day and the day before it
+   ✖ @R9 ticking a day inside the window
+   ✖ @R9 both ends of the window are editable and ticking twice restores the habit
+   ✖ @R9 an unsorted or duplicated done array comes back ascending without duplicates
+   ✖ @R10 the 12-week grid around today
+   ✖ @R10 a cell carries exactly the contract fields, and a habit counts once per day
+   ✖ @R10 @R11 a fourth habit makes level 3 appear
+   ✖ @R12 month labels over the first column whose Monday is in the month
+   ✖ @R12 each label sits on the first column whose Monday is in its month, for more start days
+   ℹ tests 34
+   ℹ pass 23
+   ℹ fail 11
+== strip-5-days-after-WR-04: WR-04: the strip shrunk to 5 days in the fixed code (STRIP_DAYS apart from DAYS_PER_WEEK)
+   tests from the working tree, file habits.test.js, exit 1
+   ✔ @R13 @R14 the limits are exported
+   ✖ @R5 the seven days of the strip
+   ✖ @R5 the strip has 7 keys, the last is today, and every call returns a new array
+   ✔ @R6 a streak does not break until today is over
+   ✔ @R6 a streak runs across a month, a year and a leap day
+   ✔ @R6 a streak that crosses a DST change
+   ✔ @R7 the longest run in the whole history
+   ✔ @R7 the best run may be old, and a later shorter run does not replace it
+   ✖ @R8 the run flag needs the first strip day and the day before it
+   ✖ @R9 ticking a day inside the window
+   ✔ @R9 days outside the window and bad indexes change nothing
+   ✖ @R9 both ends of the window are editable and ticking twice restores the habit
+   ✖ @R9 an unsorted or duplicated done array comes back ascending without duplicates
+   ✔ @R9 an empty habit list stays empty
+   ✔ @R10 the 12-week grid around today
+   ✔ @R10 a cell carries exactly the contract fields, and a habit counts once per day
+   ✔ @R10 @R11 a fourth habit makes level 3 appear
+   ✔ @R10 the arguments are not changed and the cells are new objects
+   ✔ @R11 levels from the share of habits done
+   ✔ @R11 no habits means level 0
+   ✔ @R12 month labels over the first column whose Monday is in the month
+   ✔ @R12 each label sits on the first column whose Monday is in its month, for more start days
+   ✔ @R13 name checks in the order empty, too long, duplicate
+   ✔ @R13 the length rule counts the trimmed name, so padding never makes a 40 character name too long
+   ✔ @R13 too long is checked before duplicate
+   ✔ @R13 length counts code points, not UTF-16 units
+   ✔ @R13 trim removes all kinds of white space and the duplicate check lower-cases both sides
+   ✔ @R13 a very long name is rejected without hanging
+   ✔ @R14 a new habit goes to the bottom
+   ✔ @R14 a rejected name returns its error
+   ✔ @R14 the limit of 12 habits is checked before the name
+   ✔ @R14 adding to an empty list works
+   ✔ @R15 deleting a habit
+   ✔ @R15 deleting from an empty list returns an empty list
+   ✖ failing tests:
+   ✖ @R5 the seven days of the strip
+   ✖ @R5 the strip has 7 keys, the last is today, and every call returns a new array
+   ✖ @R8 the run flag needs the first strip day and the day before it
+   ✖ @R9 ticking a day inside the window
+   ✖ @R9 both ends of the window are editable and ticking twice restores the habit
+   ✖ @R9 an unsorted or duplicated done array comes back ascending without duplicates
+   ℹ tests 34
+   ℹ pass 28
+   ℹ fail 6

@@ -1,0 +1,5 @@
+platform win32 node v24.11.1
+child default locale under LANG=de_DE.UTF-8: en-MY
+mutant longDate: "Thursday 8 October" mutant shortDate: "Tue 6 Oct"
+test assertion would PASS on the mutant: true
+what a German device gets from the same mutant code: Donnerstag

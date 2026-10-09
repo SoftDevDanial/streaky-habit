@@ -1,0 +1,21 @@
+== trim-plain-spaces-only: WR-10 (a): validateName strips plain spaces only, so the escaped no-break, em space and BOM test must go red
+   ✖ @R13 name checks in the order empty, too long, duplicate
+   ✖ @R13 trim removes no-break space, em space and BOM as well as plain spaces, and the duplicate check lower-cases both sides
+   ✖ failing tests:
+   ✖ @R13 name checks in the order empty, too long, duplicate
+   ✖ @R13 trim removes no-break space, em space and BOM as well as plain spaces, and the duplicate check lower-cases both sides
+   ℹ tests 34
+   ℹ pass 32
+   ℹ fail 2
+== strip-labels-wrong-weekday: WR-10 (c): shortDate shifts the weekday by one, so the strip title's Fri 2 Oct and Thu 8 Oct must be asserted
+   ✖ @R5 the strip runs from Fri 2 Oct to Thu 8 Oct
+   ✖ failing tests:
+   ✖ @R5 the strip runs from Fri 2 Oct to Thu 8 Oct
+   ℹ tests 7
+   ℹ pass 6
+   ℹ fail 1
+== strip-labels-wrong-weekday-old-test: WR-10 (c) control: the same mutant against the tests as they were at c0099bb
+   ✔ @R5 the strip runs from Fri 2 Oct to Thu 8 Oct
+   ℹ tests 7
+   ℹ pass 7
+   ℹ fail 0

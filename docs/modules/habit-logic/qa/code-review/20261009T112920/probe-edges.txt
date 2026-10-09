@@ -1,0 +1,13 @@
+toggleDay index '0' (string): ["2026-10-07"]
+toggleDay index -0: ["2026-10-07","2026-10-08"]
+toggleDay index true: []
+deleteHabit index '1' (string): ["A","B"]
+addDays non-integer 0.5: "2026-10-8.5"
+addDays '1' string days: "567682346-09-27"
+addDays 9999-12-31 +1: "10000-01-01"
+addDays 0001-01-01 -1: "0000-12-31"
+localDateKey Invalid Date: "0NaN-NaN-NaN"
+validateName non-string: THROWS TypeError raw.trim is not a function
+heatLevel count > total (5,3): 3
+heatmapCells todayKey not a key: THROWS TypeError Cannot read properties of undefined (reading 'slice')
+toggleDay with a done entry that is a String object: [{"name":"A","done":["2026-10-08"]}]

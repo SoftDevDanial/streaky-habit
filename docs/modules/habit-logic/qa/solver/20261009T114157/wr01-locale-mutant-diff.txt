@@ -1,0 +1,24 @@
+✖ @R4 labels do not follow the runtime locale (49.3143ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 13
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 467.0876
+
+✖ failing tests:
+
+test at docs\modules\habit-logic\qa\solver\20261009T114157\mirrors\locale-toLocaleDateString\tests\dates.test.js:212:1
+✖ @R4 labels do not follow the runtime locale (49.3143ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+  +   'Donnerstag 8 Oktober',
+  +   'Di 6 Okt'
+  -   'Thursday 8 October',
+  -   'Tue 6 Oct'
+    ]
+  

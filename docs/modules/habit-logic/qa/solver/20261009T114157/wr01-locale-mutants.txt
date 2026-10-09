@@ -1,0 +1,61 @@
+== locale-toLocaleDateString: WR-01: shortDate and longDate read the default locale through toLocaleDateString(undefined, ...)
+   tests from the working tree, file dates.test.js, exit 1
+   ✔ @R1 @R3 the zone switch is real, so the zone cases are not vacuous
+   ✔ @R1 the local calendar day of an instant
+   ✔ @R1 the UTC date is not used: 00:30 local in Kuala Lumpur is still the day before in UTC
+   ✔ @R1 month and day are zero padded and the year has 4 digits
+   ✔ @R2 valid and invalid date keys
+   ✔ @R2 agrees with a calendar reference for every year-month-day combination 1900 to 2100
+   ✔ @R2 a long hostile string is rejected quickly
+   ✔ @R3 calendar arithmetic that ignores the time zone
+   ✔ @R3 century and year edges
+   ✔ @R3 agrees with UTC reference maths for every day 1900 to 2100 in both zones
+   ✔ @R4 short weekday, day and month for every weekday
+   ✔ @R4 short and long month names for every month
+   ✔ @R4 weekday names agree with a UTC reference for every day 1900 to 2100
+   ✖ @R4 labels do not follow the runtime locale
+   ✖ failing tests:
+   ✖ @R4 labels do not follow the runtime locale
+   ℹ tests 14
+   ℹ pass 13
+   ℹ fail 1
+== locale-toLocaleDateString-old-test: WR-01 control: the same mutant against the tests as they were at 09c5047
+   tests from 09c5047, file dates.test.js, exit 0
+   ✔ @R1 @R3 the zone switch is real, so the zone cases are not vacuous
+   ✔ @R1 the local calendar day of an instant
+   ✔ @R1 the UTC date is not used: 00:30 local in Kuala Lumpur is still the day before in UTC
+   ✔ @R1 month and day are zero padded and the year has 4 digits
+   ✔ @R2 valid and invalid date keys
+   ✔ @R2 agrees with a calendar reference for every year-month-day combination 1900 to 2100
+   ✔ @R2 a long hostile string is rejected quickly
+   ✔ @R3 calendar arithmetic that ignores the time zone
+   ✔ @R3 century and year edges
+   ✔ @R3 agrees with UTC reference maths for every day 1900 to 2100 in both zones
+   ✔ @R4 short weekday, day and month for every weekday
+   ✔ @R4 short and long month names for every month
+   ✔ @R4 weekday names agree with a UTC reference for every day 1900 to 2100
+   ✔ @R4 labels do not follow the runtime locale
+   ℹ tests 14
+   ℹ pass 14
+   ℹ fail 0
+== locale-Intl-at-load: WR-01: longDate uses an Intl.DateTimeFormat built with the default locale when dates.js loads
+   tests from the working tree, file dates.test.js, exit 1
+   ✔ @R1 @R3 the zone switch is real, so the zone cases are not vacuous
+   ✔ @R1 the local calendar day of an instant
+   ✔ @R1 the UTC date is not used: 00:30 local in Kuala Lumpur is still the day before in UTC
+   ✔ @R1 month and day are zero padded and the year has 4 digits
+   ✔ @R2 valid and invalid date keys
+   ✔ @R2 agrees with a calendar reference for every year-month-day combination 1900 to 2100
+   ✔ @R2 a long hostile string is rejected quickly
+   ✔ @R3 calendar arithmetic that ignores the time zone
+   ✔ @R3 century and year edges
+   ✔ @R3 agrees with UTC reference maths for every day 1900 to 2100 in both zones
+   ✔ @R4 short weekday, day and month for every weekday
+   ✔ @R4 short and long month names for every month
+   ✔ @R4 weekday names agree with a UTC reference for every day 1900 to 2100
+   ✖ @R4 labels do not follow the runtime locale
+   ✖ failing tests:
+   ✖ @R4 labels do not follow the runtime locale
+   ℹ tests 14
+   ℹ pass 13
+   ℹ fail 1

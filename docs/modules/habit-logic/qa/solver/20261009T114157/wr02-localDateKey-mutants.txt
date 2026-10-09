@@ -1,0 +1,22 @@
+== localDateKey-mutates: WR-02: localDateKey sets the caller's Date to local midnight before reading it
+   tests from the working tree, file purity.test.js, exit 1
+   ✔ @R16 the source has no clock read, even in a comment
+   ✔ @R16 the code has no DOM, storage, global or locale access
+   ✔ @R16 habits.js imports only ./dates.js and dates.js imports nothing
+   ✔ @R16 only the contracted names are exported
+   ✖ @R16 no exported function writes to its arguments or returns one of them
+   ✖ failing tests:
+   ✖ @R16 no exported function writes to its arguments or returns one of them
+   ℹ tests 5
+   ℹ pass 4
+   ℹ fail 1
+== localDateKey-mutates-old-test: WR-02 control: the same mutant against the tests as they were at 73fb59b
+   tests from 73fb59b, file purity.test.js, exit 0
+   ✔ @R16 the source has no clock read, even in a comment
+   ✔ @R16 the code has no DOM, storage, global or locale access
+   ✔ @R16 habits.js imports only ./dates.js and dates.js imports nothing
+   ✔ @R16 only the contracted names are exported
+   ✔ @R16 no exported function writes to its arguments or returns one of them
+   ℹ tests 5
+   ℹ pass 5
+   ℹ fail 0

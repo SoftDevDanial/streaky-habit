@@ -51,3 +51,7 @@ Append-only history. STATE.md holds the situation, this file holds what happened
 ## 2026-10-08 23:02 plan gate cleared
 - PLAN-CHECK PASS (0 block). 7 flags fixed by a planner pass. Clarify gate clear. Favicon console rule ruled (ORCH, ledger Off-scope 7).
 - Plan phase done. Next: execute, build order habit-logic then app.
+
+## 2026-10-09 11:26 habit-logic built
+- sdlc-backend-dev (sonnet) built habit-logic: commits 6296a9d, d26cbcc, 56ab40e, a25431f, eaf8f9f, BUILD.md 09c5047. 60 node tests pass. Cut off once by the usage limit, resumed.
+- Spawned code-review finder (Opus).

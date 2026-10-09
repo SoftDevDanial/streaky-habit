@@ -1,0 +1,3 @@
+frozen Date: setDate threw = false | value changed = true
+spread: prototype is Object.prototype = true | own __proto__ key kept = true | ({}).polluted = undefined
+Object.assign: prototype is Object.prototype = false | assigned.polluted = true

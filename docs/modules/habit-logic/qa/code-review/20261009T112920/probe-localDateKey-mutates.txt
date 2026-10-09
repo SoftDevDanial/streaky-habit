@@ -1,0 +1,8 @@
+✔ @R16 the source has no clock read, even in a comment (0.5452ms)
+✔ @R16 the code has no DOM, storage, global or locale access (0.2025ms)
+✔ @R16 habits.js imports only ./dates.js and dates.js imports nothing (0.538ms)
+✔ @R16 only the contracted names are exported (0.0965ms)
+✔ @R16 no exported function writes to its arguments or returns one of them (2.6214ms)
+ℹ tests 5
+ℹ pass 5
+ℹ fail 0

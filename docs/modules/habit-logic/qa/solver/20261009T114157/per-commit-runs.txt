@@ -1,0 +1,9 @@
+73fb59b test(habit-logic): WR-01 locale test proves a German default before it :: ℹ tests 60 ℹ pass 60 ℹ fail 0 
+7257e40 test(habit-logic): WR-02 localDateKey must leave the caller's Date unc :: ℹ tests 60 ℹ pass 60 ℹ fail 0 
+61761c6 fix(habit-logic): WR-03 copyHabit comment and threat model give the tr :: ℹ tests 60 ℹ pass 60 ℹ fail 0 
+6275858 fix(habit-logic): WR-05 runContinues reads the strip's first day from  :: ℹ tests 60 ℹ pass 60 ℹ fail 0 
+bbd7666 fix(habit-logic): WR-04 heatmap finds Mondays through a weekdayIndex e :: ℹ tests 61 ℹ pass 61 ℹ fail 0 
+c621137 docs(habit-logic): WR-07 the app gate does not use every export :: ℹ tests 61 ℹ pass 61 ℹ fail 0 
+c81ac1b docs(habit-logic): WR-06 WR-08 BUILD.md points to symbols and drops th :: ℹ tests 61 ℹ pass 61 ℹ fail 0 
+c0099bb fix(habit-logic): WR-09 three comments now match the code :: ℹ tests 61 ℹ pass 61 ℹ fail 0 
+da6586f test(habit-logic): WR-10 test details say what they check :: ℹ tests 61 ℹ pass 61 ℹ fail 0 
