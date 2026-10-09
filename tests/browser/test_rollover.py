@@ -84,6 +84,22 @@ def test_R19_the_view_moves_to_the_new_day_within_a_minute_while_visible(app):
     assert_the_sample_on_friday(page)
 
 
+def test_R19_a_page_booted_ten_seconds_before_midnight_has_the_new_day_thirty_seconds_after_it(app):
+    """Pins the cadence. The other tests boot so that some check lands in their window whatever the
+    interval is. Here the page boots at about 23:59:50, so a check every 30 s runs at about 00:00:20, and a
+    check every 45, 60 or 85 s runs after 00:00:30, which breaks "at most 60 seconds after midnight" too."""
+    page = app(storage=pretty_sample_state(), install_time="2026-10-08T23:59:50+08:00", count_writes=True)
+    page.clock.pause_at("2026-10-08T23:59:59+08:00")
+
+    page.clock.run_for(900)  # 23:59:59.9, the new day must not show before midnight
+    expect(page.locator("p.date time")).to_have_text("Thursday 8 October")
+    for name in SAMPLE_NAMES:
+        assert week_dates(page, name)[-1] == "2026-10-08"
+
+    page.clock.run_for(30100)  # 00:00:30.0
+    assert_the_sample_on_friday(page)
+
+
 def test_R19_the_heatmap_shifts_when_a_new_week_starts(app):
     page = app(storage=sample_state(), install_time="2026-10-11T23:59:30+08:00")
     page.clock.run_for(90000)
