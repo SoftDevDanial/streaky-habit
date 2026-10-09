@@ -45,7 +45,8 @@ NOON = "2026-10-08T12:00:00+08:00"
 PAUSE_AT = "2026-10-08T12:00:20+08:00"
 # The second click of a double click or double tap is ignored for this long (spec R13, T7): on "Delete habit"
 # after the click that opened the dialog, and on the page after a mouse or touch click in the dialog.
-# Keep it equal to DIALOG_GUARD_MS in src/app.js.
+# The spec's number, written out and not read from src/ on purpose: the two edge tests of test_delete.py press at
+# this value minus 1 ms (ignored) and at this value (acts), so they fail for any other DIALOG_GUARD_MS in src/app.js.
 GUARD_WINDOW_MS = 500
 DEFAULT_TIMEOUT_MS = 5000
 

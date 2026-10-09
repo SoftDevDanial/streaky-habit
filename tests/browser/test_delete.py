@@ -289,11 +289,23 @@ BEAD_ON_THE_BACKDROP = """() => {
 BEAD_AT_POINT = "([x, y]) => document.elementFromPoint(x, y)?.closest('button.day') != null"
 
 
-def open_by_mouse(page, name):
-    page.mouse.click(*center(trash(page, name)))
+def press_once(page, point, touch):
+    """One mouse click, or one tap, at a point."""
+    if touch:
+        page.touchscreen.tap(*point)
+    else:
+        page.mouse.click(*point)
+
+
+def open_by_press(page, name, touch):
+    press_once(page, center(trash(page, name)), touch)
     expect(dialog(page)).to_have_attribute("open", "")
     # Its entrance moves the box by a few pixels, so wait for the rest position before measuring it.
     dialog(page).evaluate("(d) => Promise.all(d.getAnimations().map((a) => a.finished))")
+
+
+def open_by_mouse(page, name):
+    open_by_press(page, name, touch=False)
 
 
 def click_confirm(page):
@@ -381,21 +393,24 @@ def test_SEC01_R14_cancel_esc_and_a_backdrop_click_work_at_the_instant_of_openin
     assert stored(page) == before
 
 
-def test_SEC01_R13_a_click_inside_the_window_is_ignored_and_one_after_it_deletes(app):
+@pytest.mark.parametrize("touch", INPUTS, ids=INPUT_IDS)
+def test_SEC01_R13_a_click_inside_the_window_is_ignored_and_one_after_it_deletes(app, touch):
+    """The edge to the millisecond (spec R13: less than 500 ms is ignored, 500 ms acts), so no other window length passes."""
     before = pretty_sample_state()
-    page = app(storage=before, install_time=NOON, count_writes=True)
+    page = app(storage=before, touch=touch, install_time=NOON, count_writes=True)
     page.clock.pause_at(PAUSE_AT)
-    open_by_mouse(page, "Stretch 10 minutes")
+    open_by_press(page, "Stretch 10 minutes", touch)
+    point = center(confirm(page))
 
-    page.clock.run_for(GUARD_WINDOW_MS - 100)
-    click_confirm(page)
+    page.clock.run_for(GUARD_WINDOW_MS - 1)
+    press_once(page, point, touch)
     expect(dialog(page)).to_have_attribute("open", "")
     assert page.locator("li.habit").count() == 3
     assert write_count(page) == 0
     assert stored(page) == before
 
-    page.clock.run_for(200)  # 100 ms past the window, at the very point the last click was refused
-    click_confirm(page)
+    page.clock.run_for(1)  # exactly GUARD_WINDOW_MS after the opening click, at the point the last click was refused
+    press_once(page, point, touch)
     expect(dialog(page)).not_to_have_attribute("open", "")
     expect(page.locator("li.habit")).to_have_count(2)
     assert page.locator("h3.habit-name").all_inner_texts() == ["Read 20 pages", "No phone after 11pm"]
@@ -549,21 +564,28 @@ def test_SEC01_R14_closing_with_the_keyboard_does_not_hold_the_next_click(app, k
     expect(bead).to_have_attribute("aria-pressed", "true")
 
 
-def test_SEC01_R14_the_page_listens_again_once_the_window_has_passed(app):
-    page = app(storage=sample_state(), install_time=NOON)
+@pytest.mark.parametrize("touch", INPUTS, ids=INPUT_IDS)
+def test_SEC01_R14_the_page_listens_again_once_the_window_has_passed(app, touch):
+    """The edge to the millisecond (spec R13 note, guard 2: less than 500 ms is ignored, 500 ms acts)."""
+    before = pretty_sample_state()
+    page = app(storage=before, touch=touch, install_time=NOON, count_writes=True)
     page.clock.pause_at(PAUSE_AT)
-    open_by_mouse(page, "Read 20 pages")
-    page.mouse.click(5, 5)  # the backdrop
+    open_by_press(page, "Read 20 pages", touch)
+    press_once(page, (5, 5), touch)  # the backdrop
     expect(dialog(page)).not_to_have_attribute("open", "")
     bead = day(page, "Stretch 10 minutes", "2026-10-08")
+    point = center(bead)
 
-    page.clock.run_for(GUARD_WINDOW_MS - 100)
-    page.mouse.click(*center(bead))
+    page.clock.run_for(GUARD_WINDOW_MS - 1)
+    press_once(page, point, touch)
     expect(bead).to_have_attribute("aria-pressed", "false")  # still inside the window: ignored
+    assert write_count(page) == 0
+    assert stored(page) == before
 
-    page.clock.run_for(200)
-    page.mouse.click(*center(bead))
+    page.clock.run_for(1)  # exactly GUARD_WINDOW_MS after the click that closed the dialog
+    press_once(page, point, touch)
     expect(bead).to_have_attribute("aria-pressed", "true")
+    assert write_count(page) == 1
 
 
 def test_SEC01_R14_cancel_still_works_right_after_a_click_inside_the_box(app):
