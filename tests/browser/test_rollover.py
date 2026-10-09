@@ -11,12 +11,15 @@ from conftest import (
     hide_tab,
     is_focused,
     pattern,
+    pretty_sample_state,
     row,
     sample_state,
     show_tab,
+    stored,
     streak,
     tab_until,
     type_name,
+    write_count,
 )
 
 SAMPLE_NAMES = ["Read 20 pages", "Stretch 10 minutes", "No phone after 11pm"]
@@ -33,7 +36,13 @@ def has_run_continues(page, name):
 
 
 def assert_the_sample_on_friday(page):
-    """The state the first @R19 scenario and @R20 both end in: the sample, one day later."""
+    """The state the first @R19 scenario and @R20 both end in: the sample, one day later.
+
+    The page must have been opened with the indented sample and `count_writes=True`: a new day saves
+    nothing (R16: saves happen "at no other time" than add, tick and delete).
+    """
+    assert write_count(page) == 0
+    assert stored(page) == pretty_sample_state()
     expect(page.locator("p.date time")).to_have_text("Friday 9 October")
     expect(page.locator("p.date time")).to_have_attribute("datetime", "2026-10-09")
     for name in SAMPLE_NAMES:
@@ -63,7 +72,7 @@ def assert_the_sample_on_friday(page):
 
 
 def test_R19_the_view_moves_to_the_new_day_within_a_minute_while_visible(app):
-    page = app(storage=sample_state(), install_time="2026-10-08T23:59:00+08:00")
+    page = app(storage=pretty_sample_state(), install_time="2026-10-08T23:59:00+08:00", count_writes=True)
     page.clock.pause_at(BEFORE_MIDNIGHT)
 
     page.clock.run_for(29000)
@@ -141,7 +150,7 @@ def test_R19_a_habit_added_before_the_rollover_rolls_over_too(app):
 
 
 def test_R20_the_view_moves_at_once_when_the_tab_is_shown_again(app):
-    page = app(storage=sample_state(), install_time="2026-10-08T23:58:00+08:00")
+    page = app(storage=pretty_sample_state(), install_time="2026-10-08T23:58:00+08:00", count_writes=True)
     page.clock.pause_at("2026-10-08T23:59:00+08:00")
     hide_tab(page)
     page.clock.set_system_time("2026-10-09T07:30:00+08:00")

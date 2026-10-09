@@ -1,7 +1,6 @@
 """First screen, header, rows, streak lines, strips, heatmap, the 12-habit state at load, loading writes
 nothing (app qa.md: First visit and header, Habit rows streak lines and strips, 12-week heatmap).
 """
-import json
 import re
 
 import pytest
@@ -16,12 +15,14 @@ from conftest import (
     long_date,
     pattern,
     plain_state,
+    pretty_sample_state,
     row,
     sample_state,
     shot,
     short_date,
     streak,
     stored,
+    write_count,
 )
 
 SAMPLE_NAMES = ["Read 20 pages", "Stretch 10 minutes", "No phone after 11pm"]
@@ -238,10 +239,11 @@ def test_R12_twelve_habits_at_load(app):
 
 
 def test_R16_loading_writes_nothing(app):
-    pretty = json.dumps({"version": 1, "habits": SAMPLE_HABITS}, indent=2)
-    page = app(storage=pretty)
+    pretty = pretty_sample_state()
+    page = app(storage=pretty, count_writes=True)
     expect(row(page, "Read 20 pages")).to_be_visible()
     page.wait_for_timeout(2000)
+    assert write_count(page) == 0
     assert stored(page) == pretty
 
 

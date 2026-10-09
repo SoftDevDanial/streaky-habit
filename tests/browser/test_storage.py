@@ -16,6 +16,7 @@ from conftest import (
     shot,
     stored,
     streak,
+    write_count,
 )
 
 NOTE_TEXT = "Your saved habits could not be read, so the list was reset."
@@ -125,11 +126,13 @@ def test_R17_readable_edge_cases_load_without_a_note(app, case, raw):
 
 
 def test_R17_dismiss_removes_the_note_moves_focus_to_the_field_and_it_does_not_come_back(app):
-    page = app(storage="{")
+    page = app(storage="{", count_writes=True)
+    assert write_count(page) == 1  # the reset itself, the one save R16 allows besides add, tick and delete
     page.get_by_role("button", name="Dismiss note", exact=True).click()
     expect(page.locator("div.note")).to_have_count(0)
     assert page.locator("p.empty").count() == 1
     expect(page.locator("#new-habit")).to_be_focused()
+    assert write_count(page) == 1  # Dismiss changes nothing else (R17), so it saves nothing
 
     page.reload()
     assert page.locator("div.note").count() == 0

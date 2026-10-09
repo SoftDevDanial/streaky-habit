@@ -10,12 +10,14 @@ from conftest import (
     cell,
     is_focused,
     plain_state,
+    pretty_sample_state,
     row,
     sample_state,
     shot,
     stored,
     streak,
     type_name,
+    write_count,
 )
 
 EMOJI = chr(0x1F600)  # one code point, two UTF-16 units
@@ -88,8 +90,8 @@ REJECTED = [
 
 @pytest.mark.parametrize("typed, message", REJECTED)
 def test_R11_rejected_names_keep_the_text_and_show_one_message(app, typed, message):
-    before = sample_state()
-    page = app(storage=before)
+    before = pretty_sample_state()  # indented, so a save of the same habits would change the text
+    page = app(storage=before, count_writes=True)
     field = page.locator("#new-habit")
     field.fill(typed)
     add_button(page).click()
@@ -100,6 +102,7 @@ def test_R11_rejected_names_keep_the_text_and_show_one_message(app, typed, messa
     expect(field).to_have_value(typed)
     assert is_focused(field)
     assert page.locator("li.habit").count() == 3
+    assert write_count(page) == 0
     assert stored(page) == before
     if typed == "read 20 pages":
         shot(page, "05-error")

@@ -56,6 +56,15 @@ def sample_state():
     return state_text(SAMPLE_HABITS)
 
 
+def pretty_sample_state():
+    """The sample as indented JSON. The app writes compact JSON, so any save changes this text.
+
+    Seed with it wherever a test says "saves nothing": with `sample_state()` a re-save of the unchanged
+    habits would produce the very same text and the check could not fail.
+    """
+    return json.dumps({"version": 1, "habits": SAMPLE_HABITS}, indent=2)
+
+
 def plain_state(count):
     """N plain habits named "Habit 1" to "Habit N" with no done days."""
     return state_text([{"name": f"Habit {number}", "done": []} for number in range(1, count + 1)])
@@ -222,6 +231,19 @@ def _start_recording(page):
 record = _start_recording
 
 
+# Counts localStorage writes without adding a property to window (R26): each call logs a marker to the
+# console, which the page log records. It wraps the real setItem, so the app still saves.
+WRITE_MARK = "streaks-test: setItem"
+_WRITE_COUNTER_SCRIPT = """(() => {
+  const original = Storage.prototype.setItem;
+  Storage.prototype.setItem = function (...args) {
+    console.log('%s');
+    return original.apply(this, args);
+  };
+})();""" % WRITE_MARK
+_COUNTING = weakref.WeakSet()
+
+
 def open_app(
     browser,
     viewport=(390, 844),
@@ -234,6 +256,7 @@ def open_app(
     record=False,
     path="",
     base_url=None,
+    count_writes=False,
 ):
     """Open the running app in a new context and return (context, page).
 
@@ -241,7 +264,8 @@ def open_app(
     seed); then the init script, which therefore never runs on the seeding page; then recording, so the
     seeding request is not in the log; then the app URL. `install_time` wins over `fixed_time`: an
     installed clock lets a test advance time with `page.clock`, a fixed one only pins the date.
-    `base_url` replaces STREAKS_BASE_URL, for the sub-path scenario.
+    `base_url` replaces STREAKS_BASE_URL, for the sub-path scenario. `count_writes` makes
+    `write_count(page)` work: it adds the counter after seeding, so the seed is not counted, and records.
     """
     if base_url is None:
         _require_base_url()
@@ -266,7 +290,10 @@ def open_app(
         page.evaluate("(text) => localStorage.setItem('streaks.state', text)", storage)
     if init_script is not None:
         context.add_init_script(init_script)
-    if record:
+    if count_writes:
+        context.add_init_script(_WRITE_COUNTER_SCRIPT)
+        _COUNTING.add(page)
+    if record or count_writes:
         _start_recording(page)
     page.goto(base_url + path)
     return context, page
@@ -306,6 +333,17 @@ def show_tab(page):
 
 def stored(page):
     return page.evaluate("() => localStorage.getItem('streaks.state')")
+
+
+def write_count(page):
+    """How many times the page has called localStorage.setItem since it opened with `count_writes=True`.
+
+    Fails for a page that was not opened that way, because a count nobody takes would read as zero.
+    The evaluate is a round trip, so console messages sent before it are in the log when it is read.
+    """
+    assert page in _COUNTING, "open the page with open_app(count_writes=True)"
+    page.evaluate("() => 0")
+    return sum(message["text"] == WRITE_MARK for message in _LOGS[page].console)
 
 
 def row(page, name):

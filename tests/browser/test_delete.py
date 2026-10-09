@@ -14,11 +14,13 @@ from conftest import (
     open_delete_dialog,
     pattern,
     plain_state,
+    pretty_sample_state,
     sample_state,
     shot,
     stored,
     streak,
     trash,
+    write_count,
 )
 
 LONG_NAME = "Read twenty pages before bed every night"
@@ -90,8 +92,8 @@ def test_R13_a_long_name_wraps_in_the_title_and_the_box_keeps_its_width(app):
 
 @pytest.mark.parametrize("action", ["cancel", "escape", "backdrop"])
 def test_R14_cancel_esc_and_a_backdrop_click_keep_the_habit(app, action):
-    before = sample_state()
-    page = app(storage=before)
+    before = pretty_sample_state()  # indented, so a save of the same habits would change the text
+    page = app(storage=before, count_writes=True)
     open_delete_dialog(page, "Stretch 10 minutes")
     if action == "cancel":
         cancel(page).click()
@@ -105,8 +107,10 @@ def test_R14_cancel_esc_and_a_backdrop_click_keep_the_habit(app, action):
     line = streak(page, "Stretch 10 minutes")
     assert (line["cur"], line["best"]) == ("3 days", "Best 9")
     assert pattern(page, "Stretch 10 minutes") == "D D . D D D ."
-    assert stored(page) == before
     expect(trash(page, "Stretch 10 minutes")).to_be_focused()
+    page.wait_for_timeout(100)  # the dialog's close event is a queued task that can still be pending here
+    assert write_count(page) == 0
+    assert stored(page) == before
 
 
 def test_R14_clicks_inside_the_box_and_drags_out_of_it_keep_the_dialog_open(app):
