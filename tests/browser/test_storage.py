@@ -70,6 +70,9 @@ UNREADABLE = [
     ("impossible date", '{"version":1,"habits":[{"name":"Read","done":["2026-02-30"]}]}'),
     ("date with a time", '{"version":1,"habits":[{"name":"Read","done":["2026-10-08T00:00"]}]}'),
     ("habit is null", '{"version":1,"habits":[null]}'),
+    # Added for code-review WR-03: every row above has a one-element done list and adjacent duplicates.
+    ("good dates then an impossible one", '{"version":1,"habits":[{"name":"Read","done":["2026-10-08","2026-10-07","2026-02-30"]}]}'),
+    ("duplicate name that is not next to its twin", '{"version":1,"habits":[{"name":"A","done":[]},{"name":"B","done":[]},{"name":"a","done":[]}]}'),
 ]
 
 
@@ -123,6 +126,19 @@ def test_R17_readable_edge_cases_load_without_a_note(app, case, raw):
     else:
         assert page.locator("h3.habit-name").all_inner_texts() == ["Read"]
         assert page.evaluate("() => ({}).polluted") is None
+
+
+def test_R17_unsorted_and_duplicated_days_are_repaired_at_the_next_save(app):
+    """Contracts: on ok each done is sorted ascending and de-duplicated. The streak line ignores order and
+    repeats by design, so the only place to see the repair is the text written by a later save."""
+    messy = ["2026-10-08", "2026-10-05", "2026-10-08", "2026-10-07", "2026-10-05"]
+    raw = json.dumps({"version": 1, "habits": [{"name": "Read", "done": messy}, {"name": "Stretch", "done": []}]}, indent=2)
+    page = app(storage=raw)
+    assert stored(page) == raw  # loading writes nothing, so the repair waits for the next change
+    day(page, "Stretch", "2026-10-08").click()  # a tick on another habit saves every habit
+    saved = json.loads(stored(page))["habits"]
+    assert saved[0] == {"name": "Read", "done": ["2026-10-05", "2026-10-07", "2026-10-08"]}
+    assert saved[1] == {"name": "Stretch", "done": ["2026-10-08"]}
 
 
 def test_R17_dismiss_removes_the_note_moves_focus_to_the_field_and_it_does_not_come_back(app):

@@ -149,6 +149,9 @@ Phase skills: the plan phase has none assigned. This module is UI work, so its b
 | `src/view.js` | All DOM building and updating from state: header date, list or empty message, rows, strips, streak lines, heatmap, add-form message and disabled state, note. No storage, no clock, no event registration. |
 | `src/storage.js` | The storage contract below. |
 | `tests/browser/` | Browser tests (pytest with Playwright, run by the CLAUDE.md command `python -m pytest tests/browser -q`), their `conftest.py`, the two fidelity state scripts in `tests/browser/fidelity/` (fed to the plugin harness, CG-2) and the cold-boot gate script `live_e2e.py` (qa.md). Not shipped. |
+| `tests/storage.test.js` | Node unit tests (`node --test "tests/**/*.test.js"`) of the pure exports of `src/storage.js` (`decodeState`, `encodeState`, `STORAGE_KEY`): the readable rule of the Storage contract and the rebuild of every habit. Not shipped. |
+
+Changed 2026-10-09 (code-review WR-03, ORCH): the row for `tests/storage.test.js` is new. A browser test can see what `decodeState` keeps only through a later save, and cannot see whether it returned the parsed objects themselves (T2), so the pure exports get a unit test file. No other file or contract changes.
 
 The split follows cohesion lines (composition and events, DOM, persistence), not speculative seams. There is no storage or clock abstraction: `localStorage` and `Date` are the only implementations the brief allows.
 
