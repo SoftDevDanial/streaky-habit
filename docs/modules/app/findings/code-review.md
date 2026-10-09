@@ -106,7 +106,7 @@ None. Checked for BLOCKER class: every function of `app.js`, `view.js`, `storage
 
 ## Solver (2026-10-09)
 
-Written by the dev solver (patch and diagnose in one context). Base commit `01a262a`. Rulings applied: ORCH 2026-10-09 (reversible), one per warning as routed. Evidence: `docs/modules/app/qa/solver/20261009-160156/`. Proof method for the test-strength warnings: the reviewer's own runner `mut.py` and mutants (`../qa/code-review/20261009-154715/`), served from the working tree with the patch applied in memory (so no project file is written), plus `mutants_solver.py` for the solver's own controls. "Red" means the named mutant makes the new test fail; "green" means the suite passes on the unpatched tree. Progress is appended as the batch goes; this section is final only when it says so below.
+Written by the dev solver (patch and diagnose in one context). Base commit `01a262a`. Rulings applied: ORCH 2026-10-09 (reversible), one per warning as routed. Evidence: `docs/modules/app/qa/solver/20261009-160156/`. Proof method for the test-strength warnings: the reviewer's own runner `mut.py` and mutants (`../qa/code-review/20261009-154715/`), served from the working tree with the patch applied in memory (so no project file is written), plus `mutants_solver.py` for the solver's own controls. "Red" means the named mutant makes the new test fail; "green" means the suite passes on the unpatched tree. This section is final: all 13 warnings are RESOLVED, none is open, and the stop rule of the ruling applies (no further code-review round).
 
 | WR | Status | Commit | Red (before the fix, or the mutant) | Green |
 |---|---|---|---|---|
@@ -118,4 +118,26 @@ Written by the dev solver (patch and diagnose in one context). Base commit `01a2
 | WR-04 | RESOLVED | `e5fff49` | A6-60s and A6-85s each fail the new test, and only it (C1 still fails 7) | 123 passed |
 | WR-05 | RESOLVED | `e419be2` | V3 fails 1, V4 3, V5 3, E6 10 | 123 passed |
 | WR-06 | RESOLVED | `cae046d` | V2, V7, A5, A7, V6 each fail their own new test and nothing else | 127 passed |
-| WR-08, WR-09, WR-11, WR-12, WR-13 | NEXT | | | |
+| WR-08 | RESOLVED | `be0f461` | a comment, so no mutant. The import lines were read: `storage.js` and `view.js` import only `dates.js` and `habits.js` | 127 passed |
+| WR-11 | RESOLVED | `4a18bca` | no test could reach the deleted `"limit"` branch (that was the finding), and the deleted `else` of `syncDay` changed nothing (the reviewer's control C3 survived for that reason) | 127 browser, 99 unit |
+| WR-12 | RESOLVED | `a944ef5` | behaviour is unchanged by ruling. The one new fact, the month axis drawn only at boot and on a new day, is guarded: M-A (no `renderMonths` in `checkDay`) fails the week-shift test, M-B (none at boot) fails 3 month tests | 127 browser, 99 unit |
+| WR-09 | RESOLVED | `fa58481` | documentation. Judgment call 4 was handled by deleting the branch (WR-11), calls 2, 3 and 6 now point at `view.renderHeatmap`, `view.setText` and the comment above `pendingDelete` | 127 passed |
+| WR-13 | RESOLVED | `c8acaaa` | `live_e2e.py` run before and after the split against a served copy: 11 of 11 steps pass in both, `observed` identical for all 11 steps (`qa/solver/.../live-e2e-before` and `live-e2e-after`) | 127 passed |
+
+**Final check of every mutant on the final tree** (whole browser suite, `--maxfail 1`): all killed except E1, E2 and E3, which the review rated equivalent on Chromium (N4, and a harmless check while the tab is hidden) and which no ruling asked to kill. The table is in `qa/solver/20261009-160156/evidence.md`.
+
+**Counts at the end.** Browser: `python -m pytest tests/browser -q` with no environment variable gives 127 passed, 0 skipped (the sub-path test runs). Unit: `node --test "tests/**/*.test.js"` gives 99 pass, 0 fail (66 before, plus 33 in `tests/storage.test.js`). Credential gate: exit 0 before every commit.
+
+**Notes for the orchestrator**
+- **A defect found in the gate's evidence while splitting `drive` (WR-13).** The old call order passed the gesture text as `expected` and the expectation text as `gesture`, so every step of `steps.json` had the two labels exchanged. I fixed it in the same function (the checks, the 11 steps and the screenshots are untouched, and `observed` is identical before and after). The official `@R27` run will carry the corrected labels. Reversible: it is one argument order in `Scenario`.
+- **The cadence test (WR-04) follows the ruling: Friday by 00:00:30 from a boot at 23:59:50.** That kills 45, 60 and 85 s. An interval of 31 to about 39 s still passes, because a check at 00:00:20 + (interval - 30 s) is still before 00:00:30. Tightening it means a window of about 4 s for the boot delay; I did not, because the ruling named 00:00:30.
+- **Stale numbers.** BUILD.md "Test counts" (66, 115, per-file counts) is the count at the build and now carries a dated note. qa.md and spec.md carry dated notes for the new conftest behaviour and the new unit file.
+- **Left for the orchestrator, not mine:** the project README (reconcile list below), the official `@R27` run into `qa/live-e2e/<datetimestamp>/`, the CHANGE LEDGER entries for this round, and the security and fidelity finders.
+
+**What changed, for the README reconcile** (symbols, not lines)
+- `src/app.js`: header says `storage.js` and `view.js` never import each other (WR-08). `rejectName` takes only the three name errors, with a comment why `"limit"` is absent (WR-11). `onListClick` and `onMainColumnClick` ask `view.dayButtonOf`, `view.deleteButtonOf`, `view.dismissButtonOf` and hold no selector; `submitName` calls `view.resetMessage`; `boot` and `checkDay` call `view.renderMonths` (WR-12).
+- `src/view.js`: new `renderMonths` (exported), `dayButtonOf`, `deleteButtonOf`, `dismissButtonOf`; `resetMessage` is exported and `clearNameError` is gone; `rows()` and `LIST_SECTION` replace the repeated selectors; `renderHeatmap` no longer builds the month axis; `syncDay` has no `else` (WR-11, WR-12); the `renderHeatmap` comment also says a first render does not animate (WR-09).
+- `src/storage.js`: `loadHabits` guards only `getItem`, `decodeState` runs outside the `try` (WR-12).
+- `tests/browser/conftest.py`: `pytest_configure` serves the app when `STREAKS_BASE_URL` is absent (two `http.server` children, bounded readiness poll, teardown re-checks the ports; `STREAKS_SUBPATH_URL` still wins for the second); `open_app(count_writes=True)` and `write_count`; `pretty_sample_state`; `heat_cells`, `level_classes`, `SAMPLE_NAMES`; `canonical_pair(..., ignore=...)` compares namespaces (WR-10, WR-02, WR-05, WR-13, WR-01).
+- `tests/storage.test.js` (new, in the spec Files table) and the browser tests named in the table above. `tests/browser/live_e2e.py`: the `Scenario` class (WR-13).
+- `CLAUDE.md` Commands names both environment variables. `BUILD.md` "How to run" no longer needs `harness/_scratch/`.
