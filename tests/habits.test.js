@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { execFileSync } from "node:child_process";
 import sample from "../docs/design/sample-history.json" with { type: "json" };
 import {
   MAX_HABITS,
@@ -104,6 +105,56 @@ test("@R7 the longest run in the whole history", () => {
 test("@R7 the best run may be old, and a later shorter run does not replace it", () => {
   const done = ["2025-01-01", "2025-01-02", "2025-01-03", "2025-01-04", "2026-10-07", "2026-10-08"];
   assert.equal(bestStreak(done), 4);
+});
+
+// A walk that never ends would block this file's process for good, so the call runs in a child that is
+// killed at the cap. A regression then fails the test instead of hanging the suite.
+const WALK_CAP_MS = 5_000;
+function streakInChild(name, ...args) {
+  const habitsUrl = new URL("../src/habits.js", import.meta.url).href;
+  const program = `
+    const { ${name} } = await import(${JSON.stringify(habitsUrl)});
+    process.stdout.write(JSON.stringify(${name}(...${JSON.stringify(args)})));
+  `;
+  try {
+    return JSON.parse(
+      execFileSync(process.execPath, ["--input-type=module", "--eval", program], {
+        encoding: "utf8",
+        timeout: WALK_CAP_MS,
+        killSignal: "SIGKILL",
+      }),
+    );
+  } catch (error) {
+    if (error.code === "ETIMEDOUT") assert.fail(`${name} gave no result within ${WALK_CAP_MS} ms, child pid ${error.pid} killed`);
+    throw error;
+  }
+}
+
+test("@R7 the best-run walk ends on keys outside the valid range, where the next day repeats itself", () => {
+  // Past 2^53 days, adding one day rounds back to the same count. The app's decoder drops such keys,
+  // because they fail isDateKey, but the walk must still end if one gets through.
+  const runStart = "24660873954866-12-02";
+  const stuck = "24660873954866-12-04";
+  assert.equal(addDays(runStart, 1), stuck, "precondition: the run start's next day is the stuck key");
+  assert.equal(addDays(stuck, 1), stuck, "precondition: the stuck key's next day is itself");
+  assert.ok(![runStart, stuck].includes(addDays(runStart, -1)), "precondition: the run start begins a run");
+
+  const best = streakInChild("bestStreak", [runStart, stuck]);
+  assert.ok(Number.isInteger(best) && best >= 0 && best <= 2, `bestStreak gave ${best}, more than the 2 distinct days`);
+});
+
+test("@R6 the current-run walk ends on the cycle below year 0001", () => {
+  // Year -1 is written "00-1", which reads back as year 0, so going back from 0000-01-03 returns to it.
+  const cycle = ["0000-01-03"];
+  while (cycle.length < 12) cycle.push(addDays(cycle.at(-1), -1));
+  assert.equal(new Set(cycle).size, 12, "precondition: 12 distinct keys");
+  assert.equal(addDays(cycle.at(-1), -1), cycle[0], "precondition: the 12 keys form a cycle");
+
+  const current = streakInChild("currentStreak", cycle, cycle[0]);
+  assert.ok(
+    Number.isInteger(current) && current >= 0 && current <= 12,
+    `currentStreak gave ${current}, more than the 12 distinct days`,
+  );
 });
 
 test("@R8 the run flag needs the first strip day and the day before it", () => {

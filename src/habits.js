@@ -33,10 +33,14 @@ function copyHabit(habit) {
   return { name: habit.name, done: [...habit.done] };
 }
 
-/** One run counter for both streaks, so current and best count a run the same way. `step` is 1 or -1. */
+/**
+ * One run counter for both streaks, so current and best count a run the same way. `step` is 1 or -1.
+ * A run never holds more days than the set, so the walk stops there. Outside the valid date range
+ * `addDays` can return a key it already returned, and an unbounded walk would never end.
+ */
 function runLength(days, from, step) {
   let length = 0;
-  for (let key = from; days.has(key); key = addDays(key, step)) length++;
+  for (let key = from; length < days.size && days.has(key); key = addDays(key, step)) length++;
   return length;
 }
 
