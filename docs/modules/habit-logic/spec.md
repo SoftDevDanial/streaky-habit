@@ -217,4 +217,5 @@ None. The module holds no state between calls.
 - **Build order:** 1 of 2. No dependencies, so it is built first.
 - **Nature:** logic (no FE, no BE).
 - **Done when:** functional QA green (`node --test "tests/**/*.test.js"`, every `@R` scenario passing), code review pass, security pass. No fidelity gate (it renders nothing). Its live behaviour is proven by `app`'s cold-boot live-e2e gate, which uses every export.
+  Changed 2026-10-09 (code review WR-07, ORCH): the gate does not use every export. It uses the exports `app` consumes, listed in `../app/spec.md`, "Uses from habit-logic". `addDays`, `weekdayIndex`, `heatLevel` and `MAX_NAME_LENGTH` are not among them. The gate reaches them only inside `toggleDay`, `heatmapCells`, `monthLabels` and `validateName`, so their direct proof is the unit suite.
 - **Unblocks:** `app`.
