@@ -90,3 +90,7 @@ Append-only history. STATE.md holds the situation, this file holds what happened
 - QA finder PASS: 32 scenarios, R1 to R16 covered. Commit de0156a
 - Module close: credential gate CLEAN (583 files), 66 of 66. Last green de0156a. README deferred to the app close
 - Version relabelled 0.1.0 to 1.0.0 on the owner's word: docs/v0.1.0 moved to docs/v1.0.0, ledger header carries the dated relabel
+
+## 2026-10-09 14:45 app module built
+- Builder (sonnet): 10 tasks b6e5069..ed9ff9d, BUILD.md f4563ab. 115 browser, 66 unit tests pass. Self-check fidelity 0 px on 6 captures, live e2e 11/11 (scratch)
+- QA finder (sonnet) started
