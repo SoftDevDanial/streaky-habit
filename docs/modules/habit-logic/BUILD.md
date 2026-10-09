@@ -16,9 +16,10 @@
 
 ## Final test run
 
-`node --test "tests/**/*.test.js"` gives 60 tests, 60 pass, 0 fail, exit 0 (about 0.5 s).
-Per file: `dates.test.js` 14, `habits.test.js` 34, `sample-history.test.js` 7, `purity.test.js` 5.
+~~`node --test "tests/**/*.test.js"` gives 60 tests, 60 pass, 0 fail, exit 0 (about 0.5 s).~~
+~~Per file: `dates.test.js` 14, `habits.test.js` 34, `sample-history.test.js` 7, `purity.test.js` 5.~~
 After the code-review fixes of 2026-10-09: 61 tests, 61 pass, 0 fail. The one added test is the `weekdayIndex` scenario in `dates.test.js` (WR-04).
+Changed 2026-10-09 (security SEC-01 to SEC-03, ORCH): the two struck lines were the first build's counts and no longer hold. `node --test "tests/**/*.test.js"` now gives 64 tests, 64 pass, 0 fail, exit 0 (about 0.6 s, `eb2003b`). Per file: `dates.test.js` 15, `habits.test.js` 37, `sample-history.test.js` 7, `purity.test.js` 5. The three added tests are in `habits.test.js`: two streak-walk tests (SEC-01) and the name-length read count (SEC-02). SEC-03 widened two `purity.test.js` tests in place.
 Every `test()` title starts with its `@R#` tag.
 
 ## Deviations
@@ -34,7 +35,7 @@ None from the spec's Requirements or Contracts. Decisions inside the spec's room
 
 Unspecified edges, noted and not built (outside every R#):
 
-- `addDays` past year 9999 or before year 0001 returns a key that `isDateKey` rejects. The app never goes near these.
+- `addDays` past year 9999 or before year 0001 returns a key that `isDateKey` rejects. The app never goes near these. Changed 2026-10-09 (security SEC-01, ORCH): such keys, if they ever reached `currentStreak` or `bestStreak`, could make a streak walk loop forever, because `addDays` can return a key it already returned there. `runLength` now stops after as many days as the set holds, see its comment.
 - `validateName` expects a string. A non-string `raw` throws a `TypeError`. The storage decoder in `app` must type-check before calling it.
 
 ## Non-goals honoured

@@ -413,6 +413,7 @@ Feature: Purity
   @R16
   Scenario: No clock, DOM, storage or locale access in the source
     # Changed 2026-10-08 (plan-check flag, ORCH): the word scan first ran over the whole file text, comments included, so a function comment such as "the week window" or "outside the window" failed it. The old Then line read: neither contains "Date.now(", a match of /new\s+Date\s*\(\s*\)/, or any of "document", "window", "localStorage", "globalThis", "Intl", "toLocale". The word scan now runs on code only.
+    # Changed 2026-10-09 (security SEC-03, ORCH): the test checks more than the Then lines below, which still hold. Its clock check is the table CLOCK_AND_RANDOM_READS (Date.now with or without a call, new Date with no argument with or without parentheses, Date called as a function, performance.now, Math.random), matched on the file text as it is and again with comments removed. Its word check is the table BANNED_IN_CODE (DOM and global objects, storage, network, dynamic import(, timers, crypto, Intl and toLocale*), matched on code only, as whole words. The full lists are in spec.md R16, dated 2026-10-09. new Date with an argument and Date.UTC stay allowed.
     Given the text of src/dates.js and src/habits.js
     Then neither contains "Date.now(" or a match of /new\s+Date\s*\(\s*\)/, checked on the file text as it is, comments included
     And, with every /* ... */ block and every // comment up to the end of its line removed first, neither contains a match of /\b(document|window|localStorage|globalThis|Intl)\b/ or of /\btoLocale\w*/
