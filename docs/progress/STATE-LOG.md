@@ -122,3 +122,7 @@ Append-only history. STATE.md holds the situation, this file holds what happened
 - Re-check: SEC-01 closed, SEC-02 holds, new LOW SEC-06 (unmatched isolate initiator after a right-to-left letter).
 - ORCH ruled fix (b), view-only strip of bidi format characters from the title's copy of the name. Stop rule: no further security finder round.
 - Slow double click past 500 ms kept as the T7 residual.
+
+## 2026-10-09 21:30 app SEC-06 solver collected, security clean
+- SEC-06 fixed in `e42eb2f` (title strip of bidi format characters), 176 browser, 99 unit, M1 0 px, live gate 11 of 11. Security findings clean.
+- Stop rule: no further security round. Fidelity finder launched.
