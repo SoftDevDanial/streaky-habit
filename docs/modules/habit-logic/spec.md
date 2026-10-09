@@ -44,6 +44,7 @@ Phase skills: the registry assigns none to plan, and this module has no UI work,
   - `shortDate(key)` returns `"<weekday> <day> <month>"` with no zero padding, for example `"Tue 6 Oct"`, `"Mon 20 Jul"`, `"Sat 1 Aug"`.
   - `longDate(key)` returns `"<weekday> <day> <month>"` with the full names `Monday` to `Sunday` and `January` to `December`, for example `"2026-10-08"` gives `"Thursday 8 October"` and `"2027-01-01"` gives `"Friday 1 January"`.
   The week 2026-10-05 (Monday) to 2026-10-11 (Sunday) covers every weekday name. The 15th of each month of 2026 covers every month name.
+  Changed 2026-10-09 (code review WR-04, ORCH): `weekdayIndex(key)` is added. It returns the day's place in a Monday-first week, 0 for Monday to 6 for Sunday, from the same calendar count as the weekday names. The heatmap (R10, R12) finds each column's Monday through it, instead of matching the label "Mon" inside the 7-day strip, so the strip's width and a display label no longer decide the heatmap's weeks. Examples: `"2026-10-05"` gives 0, `"2026-10-08"` gives 3, `"2026-10-11"` gives 6, `"2026-07-20"` gives 0, `"2026-08-01"` gives 5. R4 first covered the three label functions only.
 
 ### Week strip and streaks
 
@@ -142,6 +143,9 @@ The `Habit` shape is the same as a habit in `sample-history.json` and in the app
 | `dayParts` | `(key: DateKey) => { weekday: string, day: number, month: string }` | R4 |
 | `shortDate` | `(key: DateKey) => string` | R4 |
 | `longDate` | `(key: DateKey) => string` | R4 |
+| `weekdayIndex` | `(key: DateKey) => 0 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6` (Monday 0 to Sunday 6) | R4 |
+
+Changed 2026-10-09 (code review WR-04, ORCH): `weekdayIndex` added. The table first listed six exports.
 
 ### `src/habits.js` exports
 | Export | Signature | Requirement |

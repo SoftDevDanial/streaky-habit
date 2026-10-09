@@ -123,6 +123,24 @@ Feature: Local date keys and English labels
       | 2027-01-01 | Jan   | Friday 1 January     |
 
   @R4
+  Scenario Outline: The weekday index, Monday first
+    # Changed 2026-10-09 (code review WR-04, ORCH): scenario added with the weekdayIndex export.
+    When weekdayIndex is called with "<key>"
+    Then the result is <index>
+
+    Examples:
+      | key        | index |
+      | 2026-10-05 | 0     |
+      | 2026-10-06 | 1     |
+      | 2026-10-07 | 2     |
+      | 2026-10-08 | 3     |
+      | 2026-10-09 | 4     |
+      | 2026-10-10 | 5     |
+      | 2026-10-11 | 6     |
+      | 2026-07-20 | 0     |
+      | 2026-08-01 | 5     |
+
+  @R4
   Scenario: Labels do not follow the runtime locale
     # Changed 2026-10-09 (code review WR-01, ORCH): on Windows, Node's ICU ignores LANG and LC_ALL, so the old Given was set but never took effect and the scenario passed without having run. The old Given read: the process environment has LANG "de_DE.UTF-8" and LC_ALL "de_DE.UTF-8". German is now also made the default of the date locale APIs, and the second line proves it before the labels are read.
     Given a child process with LANG "de_DE.UTF-8" and LC_ALL "de_DE.UTF-8", in which Intl.DateTimeFormat and Date's toLocaleString, toLocaleDateString and toLocaleTimeString use "de-DE" when given no locale, set up before src/dates.js is imported

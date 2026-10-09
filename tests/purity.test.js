@@ -49,7 +49,15 @@ test("@R16 habits.js imports only ./dates.js and dates.js imports nothing", () =
 });
 
 test("@R16 only the contracted names are exported", () => {
-  assert.deepEqual(Object.keys(dates).sort(), ["addDays", "dayParts", "isDateKey", "localDateKey", "longDate", "shortDate"]);
+  assert.deepEqual(Object.keys(dates).sort(), [
+    "addDays",
+    "dayParts",
+    "isDateKey",
+    "localDateKey",
+    "longDate",
+    "shortDate",
+    "weekdayIndex",
+  ]);
   assert.deepEqual(Object.keys(habits).sort(), [
     "MAX_HABITS",
     "MAX_NAME_LENGTH",
@@ -87,6 +95,7 @@ function callsWith(frozenHabits) {
     dayParts: () => dates.dayParts(TODAY),
     shortDate: () => dates.shortDate(TODAY),
     longDate: () => dates.longDate(TODAY),
+    weekdayIndex: () => dates.weekdayIndex(TODAY),
     weekWindow: () => habits.weekWindow(TODAY),
     currentStreak: () => habits.currentStreak(frozenDone, TODAY),
     bestStreak: () => habits.bestStreak(frozenDone),

@@ -101,11 +101,21 @@ export function addDays(key, days) {
   return formatKey(next.year, next.month, next.day);
 }
 
-/** Full English names for a key. 1970-01-01 was a Thursday, which anchors the Monday-first index. */
-function namesOf(key) {
+/**
+ * The day's place in a Monday-first week, so callers find week starts by number and not by label.
+ * 1970-01-01 was a Thursday, which anchors the count.
+ * @param {DateKey} key
+ * @returns {0 | 1 | 2 | 3 | 4 | 5 | 6} 0 is Monday, 6 is Sunday
+ */
+export function weekdayIndex(key) {
   const { year, month, day } = parseKey(key);
-  const weekdayIndex = (((daysFromCivil(year, month, day) + THURSDAY_INDEX) % 7) + 7) % 7;
-  return { weekday: WEEKDAYS[weekdayIndex], day, month: MONTHS[month - 1] };
+  return (((daysFromCivil(year, month, day) + THURSDAY_INDEX) % 7) + 7) % 7;
+}
+
+/** Full English names for a key. */
+function namesOf(key) {
+  const { day, month } = parseKey(key);
+  return { weekday: WEEKDAYS[weekdayIndex(key)], day, month: MONTHS[month - 1] };
 }
 
 function joinLabel({ weekday, day, month }) {

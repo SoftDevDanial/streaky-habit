@@ -4,7 +4,7 @@
  * proved without a browser or a clock. Input: valid habits and date keys. Output: new values only,
  * the arguments are never changed.
  */
-import { addDays, dayParts } from "./dates.js";
+import { addDays, dayParts, weekdayIndex } from "./dates.js";
 
 /** @typedef {import("./dates.js").DateKey} DateKey */
 /** @typedef {{ name: string, done: DateKey[] }} Habit  done ascending, no duplicates */
@@ -21,9 +21,10 @@ import { addDays, dayParts } from "./dates.js";
 export const MAX_HABITS = 12;
 export const MAX_NAME_LENGTH = 40;
 
-const WEEK_LENGTH = 7;
+// Both 7, kept apart: the strip's width is a design choice, the week's length is a calendar fact.
+const STRIP_DAYS = 7;
+const DAYS_PER_WEEK = 7;
 const HEATMAP_WEEKS = 12;
-const MONDAY = "Mon";
 const PREVIOUS_DAY = -1;
 const NEXT_DAY = 1;
 
@@ -45,7 +46,7 @@ function runLength(days, from, step) {
  * @returns {DateKey[]} oldest first, today last
  */
 export function weekWindow(todayKey) {
-  return Array.from({ length: WEEK_LENGTH }, (_, position) => addDays(todayKey, position + 1 - WEEK_LENGTH));
+  return Array.from({ length: STRIP_DAYS }, (_, position) => addDays(todayKey, position + 1 - STRIP_DAYS));
 }
 
 /**
@@ -129,14 +130,19 @@ export function heatLevel(count, total) {
 }
 
 /**
- * The Monday that starts each heatmap column, oldest first. dates.js offers weekday names and no
- * index, so the Monday is found in the 7-day strip that ends on `todayKey`, which holds exactly one.
+ * The Monday that starts each heatmap column, oldest first. Monday is weekday 0, so going back by
+ * the index lands on it.
  */
 function columnMondays(todayKey) {
-  const currentMonday = weekWindow(todayKey).find((key) => dayParts(key).weekday === MONDAY);
+  const currentMonday = addDays(todayKey, -weekdayIndex(todayKey));
   return Array.from({ length: HEATMAP_WEEKS }, (_, column) =>
-    addDays(currentMonday, (column + 1 - HEATMAP_WEEKS) * WEEK_LENGTH),
+    addDays(currentMonday, (column + 1 - HEATMAP_WEEKS) * DAYS_PER_WEEK),
   );
+}
+
+/** Date keys are fixed width, so the "YYYY-MM" prefix names the calendar month. */
+function calendarMonth(key) {
+  return key.slice(0, "YYYY-MM".length);
 }
 
 /** Habits done per day, built once so the 84 cells do not each scan every habit. */
@@ -159,7 +165,7 @@ export function heatmapCells(habits, todayKey) {
   const counts = doneCountsByDay(habits);
   const total = habits.length;
   return columnMondays(todayKey).flatMap((monday, columnIndex) =>
-    Array.from({ length: WEEK_LENGTH }, (_, rowIndex) => {
+    Array.from({ length: DAYS_PER_WEEK }, (_, rowIndex) => {
       const key = addDays(monday, rowIndex);
       const future = key > todayKey; // date keys sort as text in calendar order
       const count = future ? null : (counts.get(key) ?? 0);
@@ -184,9 +190,11 @@ export function heatmapCells(habits, todayKey) {
  * @returns {MonthLabel[]}
  */
 export function monthLabels(todayKey) {
-  const months = columnMondays(todayKey).map((monday) => dayParts(monday).month);
-  return months.flatMap((month, columnIndex) =>
-    columnIndex === 0 || month !== months[columnIndex - 1] ? [{ column: columnIndex + 1, month }] : [],
+  const mondays = columnMondays(todayKey);
+  return mondays.flatMap((monday, columnIndex) =>
+    columnIndex === 0 || calendarMonth(monday) !== calendarMonth(mondays[columnIndex - 1])
+      ? [{ column: columnIndex + 1, month: dayParts(monday).month }]
+      : [],
   );
 }
 

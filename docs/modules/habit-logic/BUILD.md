@@ -18,13 +18,14 @@
 
 `node --test "tests/**/*.test.js"` gives 60 tests, 60 pass, 0 fail, exit 0 (about 0.5 s).
 Per file: `dates.test.js` 14, `habits.test.js` 34, `sample-history.test.js` 7, `purity.test.js` 5.
+After the code-review fixes of 2026-10-09: 61 tests, 61 pass, 0 fail. The one added test is the `weekdayIndex` scenario in `dates.test.js` (WR-04).
 Every `test()` title starts with its `@R#` tag.
 
 ## Deviations
 
 None from the spec's Requirements or Contracts. Decisions inside the spec's room, for the reviewer:
 
-- **No seventh export in `dates.js`.** The heatmap needs the Monday of the current week and the contract lists no weekday index. `columnMondays` in `habits.js` finds it as the one day in `weekWindow(todayKey)` whose `dayParts(...).weekday` is `"Mon"`. A `weekdayIndex` export would have changed the Contracts, so it was not added.
+- **`weekdayIndex` is a seventh export of `dates.js`**, added by ORCH ruling on 2026-10-09 (code review WR-04). The first build had no weekday index in the Contracts, so it found the current Monday by its `"Mon"` label inside the 7-day strip, which tied the heatmap's weeks to the strip's width and to a display label. How the Monday is found now, see the comment on `columnMondays`.
 - **Day arithmetic uses integer day counts** (`daysFromCivil`, `civilFromDays` in `dates.js`), the second option R3 and the Invariants allow. `Date.UTC` maps years 0 to 99 into the 1900s, which would break `0001-01-01`, a key `isDateKey` accepts. The result is checked against UTC reference maths for every day from 1900 to 2100 in both zones (`tests/dates.test.js`).
 - **`dayParts` abbreviates by slicing the first three letters** of the full-name tables (every English weekday and month here abbreviates that way), so there is one table per kind, not two.
 - **Tests beyond the qa.md rows** (each tagged to its R#): zone-switch proof, exhaustive `isDateKey` and `addDays` and weekday agreement with a UTC reference, hostile long strings, R8 rows built from synthetic data (qa.md has only the sample rows for R8), unsorted or duplicated `done` input to `toggleDay`, copy-not-alias checks, code-point and white-space edge cases for `validateName`, and an exact export list in `purity.test.js` that doubles as the guard that the frozen-input test calls every export.
@@ -42,7 +43,7 @@ No DOM, rendering, storage or decoding. No clock read and no timer (`todayKey` i
 
 ## Exports (for the README reconcile)
 
-`src/dates.js`: `localDateKey`, `isDateKey`, `addDays`, `dayParts`, `shortDate`, `longDate`. Imports nothing.
+`src/dates.js`: `localDateKey`, `isDateKey`, `addDays`, `dayParts`, `shortDate`, `longDate`, `weekdayIndex`. Imports nothing.
 `src/habits.js`: `MAX_HABITS` (12), `MAX_NAME_LENGTH` (40), `weekWindow`, `currentStreak`, `bestStreak`, `runContinues`, `toggleDay`, `heatmapCells`, `heatLevel`, `monthLabels`, `validateName`, `addHabit`, `deleteHabit`. Imports only `./dates.js`.
 Internal (not exported): `copyHabit`, `runLength`, `toggledHabit`, `columnMondays`, `doneCountsByDay` in `habits.js`; `formatKey`, `parseKey`, `daysFromCivil`, `civilFromDays`, `namesOf` and the label tables in `dates.js`.
 

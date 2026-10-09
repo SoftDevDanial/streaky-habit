@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
-import { localDateKey, isDateKey, addDays, dayParts, shortDate, longDate } from "../src/dates.js";
+import { localDateKey, isDateKey, addDays, dayParts, shortDate, longDate, weekdayIndex } from "../src/dates.js";
 
 const KUALA_LUMPUR = "Asia/Kuala_Lumpur";
 const NEW_YORK = "America/New_York";
@@ -202,10 +202,29 @@ test("@R4 short and long month names for every month", () => {
   }
 });
 
-test("@R4 weekday names agree with a UTC reference for every day 1900 to 2100", () => {
+test("@R4 weekdayIndex counts Monday as 0 to Sunday as 6", () => {
+  const rows = [
+    ["2026-10-05", 0],
+    ["2026-10-06", 1],
+    ["2026-10-07", 2],
+    ["2026-10-08", 3],
+    ["2026-10-09", 4],
+    ["2026-10-10", 5],
+    ["2026-10-11", 6],
+    ["2026-07-20", 0],
+    ["2026-08-01", 5],
+  ];
+  for (const [key, index] of rows) {
+    assert.equal(weekdayIndex(key), index, key);
+  }
+});
+
+test("@R4 weekday names and indexes agree with a UTC reference for every day 1900 to 2100", () => {
   const names = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   for (let ms = Date.UTC(1900, 0, 1); ms <= Date.UTC(2100, 11, 31); ms += DAY_MS) {
-    assert.equal(dayParts(utcKey(ms)).weekday, names[new Date(ms).getUTCDay()], utcKey(ms));
+    const sundayFirst = new Date(ms).getUTCDay();
+    assert.equal(dayParts(utcKey(ms)).weekday, names[sundayFirst], utcKey(ms));
+    assert.equal(weekdayIndex(utcKey(ms)), (sundayFirst + 6) % 7, utcKey(ms));
   }
 });
 
