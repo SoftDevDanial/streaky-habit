@@ -137,3 +137,7 @@ Append-only history. STATE.md holds the situation, this file holds what happened
 
 ## 2026-10-09 22:35 regression code review collected
 - 0 blockers. Two test-strength warnings (guard edge, keyboard half) routed to the dev solver with the doc gaps.
+
+## 2026-10-09 23:19 regression solver collected, README reconciled
+- RG-CR-01, RG-CR-02 (Delete habit half), RG-CR-04, RG-CR-05 fixed, tests and docs only. 179 browser, 99 unit.
+- README reconciled (RG-CR-03).

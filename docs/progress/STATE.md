@@ -4,7 +4,7 @@
 - **design-phase:** sdlc:design
 - **version:** 1.0.0
 - **mode:** greenfield
-- **phase:** regression (code-review delta: 2 warnings, dev solver)
+- **phase:** regression (scoped code-review re-check)
 - **next:** regression
 
 ## Modules
@@ -17,7 +17,7 @@
 none
 
 ## Next action
-Dev solver on RG-CR-01, RG-CR-02 (Delete habit keyboard half), RG-CR-04, RG-CR-05. Orchestrator reconciles README (RG-CR-03) after. One scoped code-review re-check (stop rule). Then QA finder (haiku) both modules, cold boot into docs/regression/<ts>/, REGRESSION.md, process ledger. Then review, UAT pre-run.
+Scoped code-review re-check of a3d3ed1..HEAD (stop rule). Then QA finder (haiku) both modules, cold boot into docs/regression/<ts>/, REGRESSION.md, process ledger. Then review, UAT pre-run.
 
 ## Notes
 Goldens (immutable): docs/design/today.html (key), today-empty.html, delete-dialog.html, states.html (specimen sheet), system.md, system.css, sample-history.json, RULINGS.md.

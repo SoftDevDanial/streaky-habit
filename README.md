@@ -12,9 +12,9 @@ finding and fix of this version is in `docs/v1.0.0/CHANGE-LEDGER.md`.
 | Module | What it is | State |
 |---|---|---|
 | `habit-logic` | dates, streaks, heatmap and name rules, pure functions, no DOM | closed 2026-10-09 |
-| `app` | the page, saving, the delete dialog, the day rollover | gates green, closing |
+| `app` | the page, saving, the delete dialog, the day rollover | closed 2026-10-09 |
 
-- 176 browser tests and 99 unit tests pass.
+- At v1.0.0, 179 browser tests and 99 unit tests pass.
 - The page matches its three approved design screens to the pixel at 390 x 844 and 1280 x 800 (6 of 6 captures, 0 mismatched pixels), and 71 of 71 element checks pass.
 - The cold-boot live gate passes 11 of 11 steps with real gestures on the shipped page.
 - QA, code review and security reviews are done, with their findings fixed or accepted below.
@@ -55,7 +55,7 @@ calendar dates written `YYYY-MM-DD`.
 
 **`app`** (`index.html`, `src/app.js`, `src/view.js`, `src/storage.js`) is the page.
 - `src/app.js` boots the page and handles every gesture. `readToday` is the only place the clock is read. `checkDay` rolls the page over to a new day every 30 seconds and when the tab is shown again.
-- `src/view.js` owns every DOM lookup and write. Rows are rebuilt on add and delete and updated in place on a tick, so focus and the bead animations survive.
+- `src/view.js` owns every selector and builds and updates the page's elements. Rows are rebuilt on add and delete and updated in place on a tick, so focus and the bead animations survive.
 - `src/storage.js` saves and loads the list (`STORAGE_KEY`, `encodeState`, `decodeState`, `loadHabits`, `saveHabits`).
 - The delete dialog is decided in its `close` event (`onDialogClose`). Two guards stop a double click or double tap from deleting through it. `guardDialogClick` keeps "Delete habit" inert for 500 ms after the dialog opens, and `swallowTapThrough` ignores page clicks for 500 ms after a press inside the dialog (`DIALOG_GUARD_MS`).
 - The dialog title wraps the name in an isolate and leaves the name's text-direction control characters out of that copy (`TITLE_STRIPPED`), so a crafted name cannot reorder the question. The saved name is unchanged.
@@ -90,14 +90,17 @@ saying so. If storage is blocked or full, the page keeps working in memory witho
 
 ## Known limits in v1.0.0
 
-Each was found during this version and accepted on purpose. The ledger has the reasoning.
+Each was found during this version and accepted on purpose. The reasoning is in the ledger,
+`docs/modules/app/spec.md` (threat model notes) and `docs/modules/app/findings/security.md`.
 
 | Limit | Planned |
 |---|---|
 | A slow double click (more than half a second between clicks) where the trash button and "Delete habit" overlap can still delete | fixed in v1.1.0 with a guard that does not depend on time |
 | Another page on the same `github.io` origin can read the saved names | kept, no way to isolate it on that host |
-| A name made of many combining marks draws over its neighbours | kept, cosmetic, only the user can type it |
-| A device clock set to the year 10000 or later saves a day the app cannot read back | kept |
+| Two open tabs do not see each other's changes, and the last save wins | kept, one tab at a time by design |
+| If storage is blocked or full, changes stay on screen but are not saved, with no message | kept |
+| A name made of many combining marks draws over its neighbours | kept, cosmetic, typed by the user or planted by another page on the same origin |
+| With the device clock set to the year 10000 or later, the app saves a day it cannot read back, and the next load resets every habit | kept |
 | Only Chromium is tested. Safari and Firefox are not verified | kept |
 
 ## Where the record lives
