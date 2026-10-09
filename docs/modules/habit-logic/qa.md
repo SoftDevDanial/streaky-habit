@@ -403,10 +403,12 @@ Feature: Purity
 
   @R16
   Scenario: No exported function writes to its arguments
+    # Changed 2026-10-09 (code review WR-02, ORCH): a freeze does not protect a Date's internal time value, so a write to the Date of localDateKey went unnoticed. The added last line checks that Date by value. The other lines are unchanged.
     Given the sample deep-frozen (every array and object frozen) and today "2026-10-08"
     When every exported function of src/dates.js and src/habits.js is called with frozen arguments
     Then no call throws
     And the frozen sample still equals the file's habits
+    And the Date passed to localDateKey has the same getTime() after the call as before it
 ```
 
 ## FE element checklist

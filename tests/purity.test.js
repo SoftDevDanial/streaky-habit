@@ -74,7 +74,14 @@ function callsWith(frozenHabits) {
   const frozenDone = frozenHabits[0].done;
   const frozenNames = deepFreeze(frozenHabits.map((habit) => habit.name));
   return {
-    localDateKey: () => dates.localDateKey(Object.freeze(new Date(2026, 9, 8, 12))),
+    // A freeze does not stop a Date's setters, so the Date's value is compared before and after.
+    localDateKey: () => {
+      const date = Object.freeze(new Date(2026, 9, 8, 12));
+      const before = date.getTime();
+      const key = dates.localDateKey(date);
+      assert.equal(date.getTime(), before, "localDateKey left its Date unchanged");
+      return key;
+    },
     isDateKey: () => [dates.isDateKey(TODAY), dates.isDateKey(deepFreeze({}))],
     addDays: () => dates.addDays(TODAY, -6),
     dayParts: () => dates.dayParts(TODAY),

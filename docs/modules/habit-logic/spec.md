@@ -114,6 +114,7 @@ Phase skills: the registry assigns none to plan, and this module has no UI work,
 
 - **R16.** The module is pure and deterministic. `src/dates.js` and `src/habits.js` contain no `Date.now(`, no `new Date()` without arguments, and none of `document`, `window`, `localStorage`, `globalThis`, `Intl` or `toLocale`. `habits.js` imports only `./dates.js` and `dates.js` imports nothing. No exported function changes its arguments (checked by calling every function with deep-frozen inputs, which throw on any write in strict-mode ES modules).
   Changed 2026-10-08 (plan-check flag, ORCH): the ban on `document`, `window`, `localStorage`, `globalThis`, `Intl` and `toLocale` applies to code, as whole words, with comments removed first, so a function comment may say "the week window". `Date.now(` and `new Date()` without arguments stay banned anywhere in the file text, comments included, so a comment must not spell them. The sentence above first applied the word ban to the whole file text.
+  Changed 2026-10-09 (code review WR-02, ORCH): the frozen-input check is true for arrays and objects only. `Object.freeze` does not protect a Date's internal time value, and `setHours` and the other setters still succeed on a frozen Date in strict mode. So arguments are checked by calling every function with deep-frozen arrays and objects, plus a before-and-after `getTime()` comparison for the Date passed to `localDateKey`. The first sentence of R16 said deep-frozen inputs "throw on any write in strict-mode ES modules", which is false for a Date.
 
 ## Contracts
 
