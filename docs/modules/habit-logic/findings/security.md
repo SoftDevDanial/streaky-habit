@@ -239,3 +239,62 @@ PROCESSES: none alive. Every command ran in the foreground under `timeout -s KIL
 **Sweep.** `tasklist /FI "IMAGENAME eq node.exe"` after each group and at the end listed no node process. A final `Get-CimInstance Win32_Process` sweep of `node`, `bash`, `sh` and `cmd` command lines, matching this folder's name, `probe-`, `capture.mjs` or `mirrors`, is reported in the return to the orchestrator.
 
 This session has no Edit tool. So this section and the front-matter update were applied by a Node script in the session scratchpad that requires every edit to match exactly once, and the result was checked with `git diff`. No shell redirect or heredoc was used.
+
+## Solver round 2 (2026-10-09)
+
+> Written by the security solver, 2026-10-09, on `main` from `3457432`, under the orchestrator's rulings of 2026-10-09 (ORCH) for SEC-01 and SEC-04. The text above, the front matter and the re-check's evidence folder are unchanged. Evidence is in `docs/modules/habit-logic/qa/security-solver/20261009T130102/`. It reuses `run-capped.mjs`, `scan-hook.mjs` and `old-src-loader.mjs` from `../20261009T123108/`. Phase skills: the registry assigns none to non-UI work, so none were loaded. The security finder should re-check.
+
+**Result: SEC-01 and SEC-04 RESOLVED, 0 STILL-OPEN.**
+
+- Final run, `node --test "tests/**/*.test.js"` from the project root, Node v24.11.1 on win32, at `a6e209d`. 66 tests, 66 pass, 0 fail, exit 0 (`final-runs.txt`). Per file: `dates.test.js` 15, `habits.test.js` 39, `sample-history.test.js` 7, `purity.test.js` 5. The two added tests are the SEC-01 tests. SEC-04 changed `purity.test.js` in place.
+- The final tests against the `eb2003b` `habits.js`, served in memory by `old-src-loader.mjs`, give 64 pass and 2 fail, exactly the two new SEC-01 tests (`final-runs.txt`).
+- Each commit's content ran green as a full suite before it was committed (66 of 66 before `b48d716` and before `a6e209d`). The credential gate (`--staged`) passed before each commit, exit 0, with both of its controls.
+- The orchestrator's uncommitted edits to `docs/progress/` and the change ledger were not staged and not touched.
+
+| Finding | Status | Commit | Fix | Red, then green |
+|---|---|---|---|---|
+| SEC-01 | RESOLVED | `b48d716` | As ruled, `currentStreak` and `bestStreak` build their day set through a new private `streakDays(done)`, which is `new Set(done.filter(isDateKey))`. Each valid day has one spelling, and inside the valid range `addDays` never repeats a key, so each run is walked once and the total work is linear. The `runLength` size bound stays as a second guard, and its comment now says so. `streakInChild` in the tests sends its arguments on stdin, because 20,000 keys do not fit on a Windows command line. In spec.md the threat-model row's false sentence "The bound holds if one gets through." is struck through, with a dated note. BUILD.md records 66 tests, and its `addDays` edge note names the fix. | Red on the `eb2003b` code. 20,000 spellings of the far-out date plus the stuck key, in a child under the 5 s cap, gave no result, and the child (pid 42452) was killed. Five preconditions held first: the keys are distinct, all fail `isDateKey`, all have the stuck key as next day, all share one previous day, and that day is absent. Three valid keys plus the two stuck keys gave 5, not 3. Green after the fix, in 82 and 115 ms. Valid input is unchanged. `differential.mjs` finds 0 mismatches on 81,706 cases against `eb2003b`, and again against `59c6ee5`. Its control finds 6,109. `sec01-attack.mjs` runs each input on all three versions. 20,000 spellings return 0 in 10 ms, where both earlier versions run past the 8 s cap. 90,000 spellings (about 3 MB stored) return 0 in 50 ms. The counts are now those of the valid days: three valid keys plus the stuck keys give 3 (`eb2003b` 5). 400 days back from 0001-01-10 give `currentStreak` 10 (`eb2003b` 377) and `bestStreak` 10 (`eb2003b` 0). The 800,000-day history gives 739,897 for both (`eb2003b` 740,264 and 0) (`sec01-runs.txt`). |
+| SEC-04 | RESOLVED | `a6e209d` | `CLOCK_AND_RANDOM_READS` gains `"Temporal.Now": /\bTemporal\s*\.\s*Now\b/`, matched on the whole text and on the code. `BANNED_IN_CODE` gains `"code built from a string": /\beval\b\|\bFunction\s*\(/`, which covers `eval`, `Function(` and `new Function(`. One test title now names the new ban. spec R16, spec's Deterministic row and the qa.md R16 scenario get dated notes. | `scan-mutants.mjs` runs the old scan (the `b48d716` test, byte-identical in the re-check mirrors once CR is removed) and the new one. Old scan: the `hunt-Temporal-Now` mirror and 7 mutants are all green. The mutants are `Temporal.Now.plainDateISO()`, `Temporal.Now.instant()`, a spaced `Temporal . Now`, `eval` building `new Date`, `eval` as a value, `new Function` and `Function`. New scan: all 8 red. The real source and 6 allowed lines stay green: three `Temporal.PlainDate` forms, a `typeof` function check, an identifier ending in `Function` and a comment naming `eval` and `Function(`. The round 1 harness against the new test still gives 26 mutants red, every allowed line and the real source green, and 0 BROKEN rows (`sec04-runs.txt`). |
+
+### Residuals, stated, not filed
+- **SEC-01 cost on valid input.** The filter makes `bestStreak` go from 411 to 676 ms and `currentStreak` from 215 to 371 ms on 400,000 consecutive valid days, measured in one child, median of 3. That is a quota-sized history of about 1,095 years of ticks. The re-check measured 421 to 511 ms for `bestStreak` on the same shape. It stays linear, and a real history is a few thousand days.
+- **SEC-01 second guard.** No invalid key reaches the size bound in `runLength` any more, because `streakDays` removes them first. No call through the exports can drive it, so it stays untested, as defence in depth.
+- **SEC-04 limits.** A text scan cannot see a clock read reached through an alias. `Reflect.construct(Date, [])`, `const Clock = Date; new Clock()` and `new (Date)()` pass both scans (`sec04-runs.txt`). These are deliberate evasions. The spec R16 note records them, and they are left to review.
+- **A round 1 overclaim.** The title of `3750d67` says the scan "catches every clock read form". It did not, because it missed `Temporal.Now`. The `a6e209d` message records the correction. Commit history is not rewritten.
+- **SEC-02.** The round 1 residual stands as the re-check describes it.
+
+### For the orchestrator (not in the brief, not done here)
+- spec R6 and R7 do not yet say that keys failing `isDateKey` are ignored. Only the SEC-01 threat-model row says it. A dated note on R6 and R7 would put it where the behaviour is specified.
+
+### What changed, by symbol (for the README reconcile)
+- `src/habits.js`:
+  - It also imports `isDateKey`, still only from `./dates.js`.
+  - It has a new private `streakDays`, used by `currentStreak` and `bestStreak`.
+  - Their `@param done` docs say keys that fail `isDateKey` are ignored, and `bestStreak`'s `@returns` says 0 when `done` holds no valid key.
+  - The `runLength` comment calls the bound a second guard.
+  - No export, signature or contract changed.
+- `tests/habits.test.js`:
+  - `streakInChild` sends its arguments on stdin.
+  - New constants `FAR_START`, `FAR_STUCK` and `WHITE_SPACE`, and a new helper `spellingsOfFarStart`.
+  - Two new tests: "@R7 many spellings of one far-out date that all run into the stuck key cost one pass, not one walk each" and "@R6 @R7 keys that fail isDateKey do not count, so a streak counts only valid days".
+- `tests/purity.test.js`:
+  - `CLOCK_AND_RANDOM_READS` gains `Temporal.Now`, and `BANNED_IN_CODE` gains "code built from a string".
+  - "@R16 the code has no DOM, storage, network, timer, global or locale access" is now "@R16 the code has no DOM, storage, network, timer, global or locale access and builds no code from strings".
+- Docs:
+  - spec.md: the SEC-01 threat-model row, the R16 note and the Deterministic row.
+  - qa.md: the R16 scenario.
+  - BUILD.md: the counts and the `addDays` edge note.
+
+### Processes
+PROCESSES: none alive. Every command ran in the foreground with a cap. No server, browser, watcher or background shell was started.
+- **Suite runs through `run-capped.mjs` (120 s cap).** The red run (child 3600), the green file run (23816), the full suites (45492, 41476 and 44660) and the final tests against `eb2003b` (20964). All exited by themselves.
+- **Children of the SEC-01 tests killed at their 5 s cap.** 42452 (the red run) and 12540 (the final tests against `eb2003b`).
+- **`differential.mjs`.** Three runs (15520, 44728 and 41964), one `git show` each. All exited.
+- **`sec01-attack.mjs`.** One run, with 21 children capped at 8 s and two `git show` calls. Five children were killed at the cap: 38420, 44656, 23792, 45904 and 29612. The rest exited by themselves.
+- **`scan-mutants.mjs` (this round).** One run, with 39 children capped at 60 s. All exited.
+- **The round 1 `scan-mutants.mjs`.** Three runs against the new test, 65 children each, all exited. One run was redundant, and its output was discarded.
+- **The credential gate.** Two runs, each exit 0.
+
+**Sweep at 13:11.** `Get-CimInstance Win32_Process` listed every `node`, `bash`, `sh`, `cmd`, `python`, `pwsh` and `powershell` process, with parent, start time and command line. A second pass matched command lines on both solver folder names, the script names, `credential_sweep`, `--test` and `--input-type=module`. `tasklist` checked `node.exe` and `python.exe`.
+
+Result: no `node` or `python` process is alive. The only matches were the sweep's own `bash` and `powershell`, started at 13:11:13. The three bare `powershell.exe` processes owned by `claude.exe` (41972), started at 11:22, 11:49 and 12:19, are not the solver's and were left alone.

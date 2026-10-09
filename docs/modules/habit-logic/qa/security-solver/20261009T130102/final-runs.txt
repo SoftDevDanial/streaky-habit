@@ -1,0 +1,60 @@
+Final runs, security solver round 2, 2026-10-09, at a6e209d, project root as cwd, pasted from
+../20261009T123108/run-capped.mjs. Passing test lines (✔), stack traces and assertion property lines are
+left out. The kept lines are unchanged.
+
+=== 1. The final suite on the fixed code ===
+command: node --test tests/**/*.test.js
+runner: node v24.11.1 on win32, runner pid 39728
+child pid: 44660 exit: 0 signal: null error: none
+elapsed_ms: 591
+ℹ tests 66
+ℹ suites 0
+ℹ pass 66
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 524.0187
+Per file: dates.test.js 15, habits.test.js 39, sample-history.test.js 7, purity.test.js 5.
+
+=== 2. The final tests against the eb2003b habits.js (size bound only) ===
+../20261009T123108/old-src-loader.mjs serves the eb2003b src/habits.js to every process in memory, the
+SEC-01 tests' own children included. src/ is not touched.
+Command: OLD_SRC_REV=eb2003b NODE_OPTIONS="--import=file:///{workspace}/examples/streaks/docs/modules/habit-logic/qa/security-solver/20261009T123108/old-src-loader.mjs" node run-capped.mjs . node --test "tests/**/*.test.js"
+
+command: node --test tests/**/*.test.js
+runner: node v24.11.1 on win32, runner pid 32836
+child pid: 20964 exit: 1 signal: null error: none
+elapsed_ms: 5437
+--- stdout
+old-src-loader: src/habits.js served from eb2003b in pid 35004
+old-src-loader: src/habits.js served from eb2003b in pid 42040
+old-src-loader: src/habits.js served from eb2003b in pid 40812
+old-src-loader: src/habits.js served from eb2003b in pid 12540
+old-src-loader: src/habits.js served from eb2003b in pid 20848
+✖ @R7 many spellings of one far-out date that all run into the stuck key cost one pass, not one walk each (5060.9159ms)
+✖ @R6 @R7 keys that fail isDateKey do not count, so a streak counts only valid days (68.4873ms)
+old-src-loader: src/habits.js served from eb2003b in pid 42824
+old-src-loader: src/habits.js served from eb2003b in pid 28376
+ℹ tests 66
+ℹ suites 0
+ℹ pass 64
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5398.2626
+
+✖ failing tests:
+
+test at tests\habits.test.js:182:1
+✖ @R7 many spellings of one far-out date that all run into the stuck key cost one pass, not one walk each (5060.9159ms)
+  AssertionError [ERR_ASSERTION]: bestStreak gave no result within 5000 ms, child pid 12540 killed
+
+test at tests\habits.test.js:194:1
+✖ @R6 @R7 keys that fail isDateKey do not count, so a streak counts only valid days (68.4873ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+  5 !== 3
+
+--- stderr

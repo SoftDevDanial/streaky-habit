@@ -65,3 +65,11 @@ Append-only history. STATE.md holds the situation, this file holds what happened
 ## 2026-10-09 12:46 habit-logic security solver round closed
 - Security solver: SEC-01 `add5043`, SEC-02 `e83acb4`, SEC-03 `3750d67`, comment corrections `eb2003b`. 64 of 64 tests pass. Each fix red then green, differential checks against the old code show no change on valid input
 - Findings Solver section and both evidence folders committed by the orchestrator
+
+## 2026-10-09 13:01 habit-logic security re-check
+- Re-check: SEC-02, SEC-03 closed. SEC-01 reopened (quadratic walk via white-space spellings), SEC-04 new (Temporal.Now). Commit 3457432
+- Ruled ORCH: filter done through isDateKey before walking, keep the bound; ban eval and Function( too. Solver round 2 running
+
+## 2026-10-09 13:12 habit-logic security solver round 2
+- Solver round 2: SEC-01 b48d716 (streak day set filtered through isDateKey, linear), SEC-04 a6e209d (Temporal.Now, eval, Function). 66 of 66 tests pass
+- Open doc gap for module close: spec R6 and R7 do not yet say keys failing isDateKey are ignored

@@ -1,0 +1,109 @@
+SEC-04 runs, security solver, 2026-10-09. Output of scan-mutants.mjs (this folder), project root as cwd,
+pasted verbatim. NEW is tests/purity.test.js as committed in a6e209d. OLD is tests/purity.test.js as of
+b48d716: the re-check mirrors' copies (baseline-unchanged, hunt-Temporal-Now, hunt-Reflect-construct-Date)
+have the same sha256 as `git show HEAD:tests/purity.test.js` at b48d716 once CR is removed
+(1001a822102b8b53bed1106efc9f7816091225dacff55e8fdd31255f7e5f6938). Mutants reach the scan through
+../20261009T123108/scan-hook.mjs, in memory. "hook served N reads" proves the hook took effect.
+
+=== scan-mutants.mjs ===
+command: node docs/modules/habit-logic/qa/security-solver/20261009T130102/scan-mutants.mjs
+runner: node v24.11.1 on win32, runner pid 18028
+child pid: 45392 exit: 0 signal: null error: none
+elapsed_ms: 2232
+--- stdout
+node v24.11.1 win32, typeof Temporal = undefined
+
+## The re-check's mirrors (src/ read from the mirror)
+baseline-unchanged
+  OLD: GREEN 5 pass 0 fail (child pid 38284, exit 0, hook served 0 reads)
+  NEW: GREEN 5 pass 0 fail (child pid 1444, exit 0, hook served 2 reads)
+hunt-Temporal-Now
+  OLD: GREEN 5 pass 0 fail (child pid 45176, exit 0, hook served 0 reads)
+  NEW: RED 4 pass 1 fail (child pid 40320, exit 1, hook served 2 reads) | failed: ✖ @R16 the source has no clock or random read, even in a comment [habits.js text: Temporal.Now]
+hunt-Reflect-construct-Date
+  OLD: GREEN 5 pass 0 fail (child pid 11748, exit 0, hook served 0 reads)
+  NEW: GREEN 5 pass 0 fail (child pid 44356, exit 0, hook served 2 reads)
+
+## Mutants, one line added to habits.js after the NEXT_DAY constant (must be RED under NEW)
+Temporal.Now.plainDateISO(): const today = Temporal.Now.plainDateISO().toString();
+  OLD: GREEN 5 pass 0 fail (child pid 26872, exit 0, hook served 1 reads)
+  NEW: RED 4 pass 1 fail (child pid 32864, exit 1, hook served 1 reads) | failed: ✖ @R16 the source has no clock or random read, even in a comment [habits.js text: Temporal.Now]
+Temporal.Now.instant(): const now = Temporal.Now.instant();
+  OLD: GREEN 5 pass 0 fail (child pid 8424, exit 0, hook served 1 reads)
+  NEW: RED 4 pass 1 fail (child pid 43032, exit 1, hook served 1 reads) | failed: ✖ @R16 the source has no clock or random read, even in a comment [habits.js text: Temporal.Now]
+Temporal . Now with spaces: const zone = Temporal . Now . timeZoneId();
+  OLD: GREEN 5 pass 0 fail (child pid 20568, exit 0, hook served 1 reads)
+  NEW: RED 4 pass 1 fail (child pid 24608, exit 1, hook served 1 reads) | failed: ✖ @R16 the source has no clock or random read, even in a comment [habits.js text: Temporal.Now]
+eval building new Date: const now = eval("new " + "Da" + "te");
+  OLD: GREEN 5 pass 0 fail (child pid 25300, exit 0, hook served 1 reads)
+  NEW: RED 4 pass 1 fail (child pid 43492, exit 1, hook served 1 reads) | failed: ✖ @R16 the code has no DOM, storage, network, timer, global or locale access and builds no code from strings [habits.js: code built from a string]
+eval passed as a value: const run = eval;
+  OLD: GREEN 5 pass 0 fail (child pid 44040, exit 0, hook served 1 reads)
+  NEW: RED 4 pass 1 fail (child pid 8096, exit 1, hook served 1 reads) | failed: ✖ @R16 the code has no DOM, storage, network, timer, global or locale access and builds no code from strings [habits.js: code built from a string]
+new Function building Date.now(): const read = new Function("return Da" + "te.now()");
+  OLD: GREEN 5 pass 0 fail (child pid 38940, exit 0, hook served 1 reads)
+  NEW: RED 4 pass 1 fail (child pid 42648, exit 1, hook served 1 reads) | failed: ✖ @R16 the code has no DOM, storage, network, timer, global or locale access and builds no code from strings [habits.js: code built from a string]
+Function() building Date.now(): const read = Function("return Da" + "te.now()");
+  OLD: GREEN 5 pass 0 fail (child pid 39800, exit 0, hook served 1 reads)
+  NEW: RED 4 pass 1 fail (child pid 42668, exit 1, hook served 1 reads) | failed: ✖ @R16 the code has no DOM, storage, network, timer, global or locale access and builds no code from strings [habits.js: code built from a string]
+
+## Allowed lines, added the same way (must stay GREEN)
+Temporal.PlainDate arithmetic: const next = Temporal.PlainDate.from(key).add({ days: 1 });
+  OLD: GREEN 5 pass 0 fail (child pid 42744, exit 0, hook served 1 reads)
+  NEW: GREEN 5 pass 0 fail (child pid 37256, exit 0, hook served 1 reads)
+Temporal.PlainDate weekday: const weekday = Temporal.PlainDate.from("2026-10-08").dayOfWeek;
+  OLD: GREEN 5 pass 0 fail (child pid 41820, exit 0, hook served 1 reads)
+  NEW: GREEN 5 pass 0 fail (child pid 44248, exit 0, hook served 1 reads)
+Temporal.PlainDate difference: const span = Temporal.PlainDate.from("2026-10-01").until("2026-10-08").days;
+  OLD: GREEN 5 pass 0 fail (child pid 44124, exit 0, hook served 1 reads)
+  NEW: GREEN 5 pass 0 fail (child pid 30208, exit 0, hook served 1 reads)
+a typeof check for functions: const callable = (value) => typeof value === "function";
+  OLD: GREEN 5 pass 0 fail (child pid 44160, exit 0, hook served 1 reads)
+  NEW: GREEN 5 pass 0 fail (child pid 41772, exit 0, hook served 1 reads)
+an identifier that ends in Function: const result = toggleFunction(1);
+  OLD: GREEN 5 pass 0 fail (child pid 44512, exit 0, hook served 1 reads)
+  NEW: GREEN 5 pass 0 fail (child pid 41304, exit 0, hook served 1 reads)
+a comment that names eval and Function(: // eval and Function( are words a comment may use
+  OLD: GREEN 5 pass 0 fail (child pid 38960, exit 0, hook served 1 reads)
+  NEW: GREEN 5 pass 0 fail (child pid 37736, exit 0, hook served 1 reads)
+
+## Deliberate evasions outside this fix (recorded, not claimed)
+Reflect.construct(Date, []): const now = Reflect.construct(Date, []);
+  OLD: GREEN 5 pass 0 fail (child pid 6008, exit 0, hook served 1 reads)
+  NEW: GREEN 5 pass 0 fail (child pid 41096, exit 0, hook served 1 reads)
+an aliased constructor: const Clock = Date; const now = new Clock();
+  OLD: GREEN 5 pass 0 fail (child pid 5560, exit 0, hook served 1 reads)
+  NEW: GREEN 5 pass 0 fail (child pid 6552, exit 0, hook served 1 reads)
+new (Date)(): const now = new (Date)();
+  OLD: GREEN 5 pass 0 fail (child pid 17484, exit 0, hook served 1 reads)
+  NEW: GREEN 5 pass 0 fail (child pid 44420, exit 0, hook served 1 reads)
+
+## The real source, no hook edit
+  NEW: GREEN 5 pass 0 fail (child pid 43912, exit 0, hook served 0 reads)
+
+--- stderr
+
+=== The round 1 harness (../20261009T123108/scan-mutants.mjs) against the new test, NEW column tallied ===
+command: node docs/modules/habit-logic/qa/security-solver/20261009T123108/scan-mutants.mjs, piped through
+awk to count the NEW verdict per section, and a second run counting BROKEN rows
+      5 ## Allowed lines, added the same way (must stay GREEN) | GREEN
+     22 ## Further mutants, one line added to habits.js after the NEXT_DAY constant (must be RED) | RED
+      1 ## The auditor's mirrors (src/ read from the mirror) | GREEN
+      4 ## The auditor's mirrors (src/ read from the mirror) | RED
+      1 ## The real source, no hook edit | GREEN
+BROKEN rows: 0
+
+=== Full suite with the new scan, before commit a6e209d ===
+command: node --test tests/**/*.test.js
+child pid: 41476 exit: 0 signal: null error: none
+elapsed_ms: 565
+✔ @R16 the source has no clock or random read, even in a comment (0.8005ms)
+✔ @R16 the code has no DOM, storage, network, timer, global or locale access and builds no code from strings (0.3153ms)
+ℹ tests 66
+ℹ pass 66
+ℹ fail 0
+
+Reading: under the old scan the Temporal.Now mirror and all seven new mutants are green, which reproduces
+SEC-04 and the re-check's eval and new Function observation. Under the new scan all eight are red. The
+real source and every allowed line, including three Temporal.PlainDate forms, stay green. The round 1
+proof still holds under the new test. The three deliberate evasions stay green under both scans.

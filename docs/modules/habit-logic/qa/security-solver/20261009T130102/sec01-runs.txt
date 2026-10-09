@@ -1,0 +1,136 @@
+SEC-01 round 2 runs, security solver, 2026-10-09. Output pasted from ../20261009T123108/run-capped.mjs,
+differential.mjs and sec01-attack.mjs (this folder), project root as cwd. Left out of the suite outputs:
+passing test lines (✔) of other tests, stack traces and assertion property lines. The kept lines are
+unchanged.
+
+=== RED: the two new tests against the eb2003b code (size bound only) ===
+command: node --test tests/habits.test.js
+runner: node v24.11.1 on win32, runner pid 1804
+child pid: 3600 exit: 1 signal: null error: none
+elapsed_ms: 5290
+--- stdout
+✖ @R7 many spellings of one far-out date that all run into the stuck key cost one pass, not one walk each (5055.04ms)
+✖ @R6 @R7 keys that fail isDateKey do not count, so a streak counts only valid days (39.4639ms)
+ℹ tests 39
+ℹ suites 0
+ℹ pass 37
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5250.3924
+
+✖ failing tests:
+
+test at tests\habits.test.js:182:1
+✖ @R7 many spellings of one far-out date that all run into the stuck key cost one pass, not one walk each (5055.04ms)
+  AssertionError [ERR_ASSERTION]: bestStreak gave no result within 5000 ms, child pid 42452 killed
+
+test at tests\habits.test.js:194:1
+✖ @R6 @R7 keys that fail isDateKey do not count, so a streak counts only valid days (39.4639ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+  5 !== 3
+
+(The first test's five preconditions ran before the child and held: 20,000 distinct spellings, all fail
+isDateKey, all have the stuck key as next day, all share one previous day, and that day is absent.
+The two round 1 walk tests passed in the same run with streakInChild now sending its arguments on stdin.)
+
+=== GREEN: the same file after the fix (streakDays) ===
+command: node --test tests/habits.test.js
+child pid: 23816 exit: 0 signal: null error: none
+elapsed_ms: 394
+✔ @R7 the best-run walk ends on keys outside the valid range, where the next day repeats itself (39.777ms)
+✔ @R6 the current-run walk ends on the cycle below year 0001 (38.3982ms)
+✔ @R7 many spellings of one far-out date that all run into the stuck key cost one pass, not one walk each (81.8027ms)
+✔ @R6 @R7 keys that fail isDateKey do not count, so a streak counts only valid days (115.2741ms)
+ℹ tests 39
+ℹ pass 39
+ℹ fail 0
+
+=== GREEN: full suite before commit b48d716 ===
+command: node --test tests/**/*.test.js
+child pid: 45492 exit: 0 signal: null error: none
+elapsed_ms: 565
+✔ @R7 many spellings of one far-out date that all run into the stuck key cost one pass, not one walk each (138.816ms)
+✔ @R6 @R7 keys that fail isDateKey do not count, so a streak counts only valid days (118.3702ms)
+ℹ tests 66
+ℹ suites 0
+ℹ pass 66
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 525.8176
+
+=== Valid input unchanged: differential.mjs eb2003b ===
+command: node docs/modules/habit-logic/qa/security-solver/20261009T130102/differential.mjs eb2003b
+runner: node v24.11.1 on win32, runner pid 27248
+child pid: 15520 exit: 0 signal: null error: none
+elapsed_ms: 5852
+node v24.11.1 win32, habits.js from git eb2003b against src/
+input keys that fail isDateKey: 0
+81706 cases compared, 0 mismatches
+
+=== Valid input unchanged: differential.mjs 59c6ee5 ===
+command: node docs/modules/habit-logic/qa/security-solver/20261009T130102/differential.mjs 59c6ee5
+runner: node v24.11.1 on win32, runner pid 30012
+child pid: 44728 exit: 0 signal: null error: none
+elapsed_ms: 5834
+node v24.11.1 win32, habits.js from git 59c6ee5 against src/
+input keys that fail isDateKey: 0
+81706 cases compared, 0 mismatches
+
+=== Positive control: differential.mjs eb2003b control (the bound planted one short) ===
+command: node docs/modules/habit-logic/qa/security-solver/20261009T130102/differential.mjs eb2003b control
+runner: node v24.11.1 on win32, runner pid 29144
+child pid: 41964 exit: 0 signal: null error: none
+elapsed_ms: 5847
+node v24.11.1 win32, habits.js from git eb2003b against src/ with the planted control edit ["length < days.size &&","length < days.size - 1 &&"]
+input keys that fail isDateKey: 0
+81706 cases compared, 6109 mismatches, the first 10: [{"label":"currentStreak #4 today 9999-12-31","before":4,"after":3},{"label":"currentStreak #4 today 9999-12-31","before":4,"after":3},{"label":"bestStreak #4","before":4,"after":3},{"label":"bestStreak #9","before":13,"after":12},{"label":"currentStreak #10 today 2595-09-16","before":25,"after":24},{"label":"bestStreak #10","before":25,"after":24},{"label":"currentStreak #16 today 7728-10-07","before":3,"after":2},{"label":"bestStreak #16","before":3,"after":2},{"label":"currentStreak #19 today 7546-01-30","before":6,"after":5},{"label":"currentStreak #19 today 7546-01-31","before":6,"after":5}]
+
+=== The re-check's inputs against three versions: sec01-attack.mjs ===
+command: node docs/modules/habit-logic/qa/security-solver/20261009T130102/sec01-attack.mjs
+runner: node v24.11.1 on win32, runner pid 44256
+child pid: 6908 exit: 0 signal: null error: none
+elapsed_ms: 51437
+--- stdout
+node v24.11.1 win32
+bestStreak(20,000 spellings + FAR_STUCK)
+  59c6ee5 bestStreak(20,000 spellings + FAR_STUCK): HUNG: no result within 8 s, child pid 38420 killed (signal SIGKILL), wall 8011 ms
+  eb2003b bestStreak(20,000 spellings + FAR_STUCK): HUNG: no result within 8 s, child pid 44656 killed (signal SIGKILL), wall 8021 ms
+  src     bestStreak(20,000 spellings + FAR_STUCK): returned {"value":0,"ms":10} (child pid 28744, exit 0), wall 52 ms
+bestStreak(three valid keys + FAR_START + FAR_STUCK)
+  59c6ee5 bestStreak(three valid keys + FAR_START + FAR_STUCK): HUNG: no result within 8 s, child pid 23792 killed (signal SIGKILL), wall 8014 ms
+  eb2003b bestStreak(three valid keys + FAR_START + FAR_STUCK): returned {"value":5,"ms":0} (child pid 43980, exit 0), wall 39 ms
+  src     bestStreak(three valid keys + FAR_START + FAR_STUCK): returned {"value":3,"ms":0} (child pid 15664, exit 0), wall 38 ms
+currentStreak(400 days back from 0001-01-10, "0001-01-10")
+  59c6ee5 currentStreak(400 days back from 0001-01-10, "0001-01-10"): HUNG: no result within 8 s, child pid 45904 killed (signal SIGKILL), wall 8012 ms
+  eb2003b currentStreak(400 days back from 0001-01-10, "0001-01-10"): returned {"value":377,"ms":1} (child pid 22036, exit 0), wall 40 ms
+  src     currentStreak(400 days back from 0001-01-10, "0001-01-10"): returned {"value":10,"ms":1} (child pid 10136, exit 0), wall 39 ms
+bestStreak(400 days back from 0001-01-10)
+  59c6ee5 bestStreak(400 days back from 0001-01-10): returned {"value":0,"ms":1} (child pid 27608, exit 0), wall 42 ms
+  eb2003b bestStreak(400 days back from 0001-01-10): returned {"value":0,"ms":1} (child pid 43424, exit 0), wall 39 ms
+  src     bestStreak(400 days back from 0001-01-10): returned {"value":10,"ms":1} (child pid 40316, exit 0), wall 39 ms
+currentStreak(800,000 days back from 2026-10-08, "2026-10-08")
+  59c6ee5 currentStreak(800,000 days back from 2026-10-08, "2026-10-08"): HUNG: no result within 8 s, child pid 29612 killed (signal SIGKILL), wall 8027 ms
+  eb2003b currentStreak(800,000 days back from 2026-10-08, "2026-10-08"): returned {"value":740264,"ms":837} (child pid 29012, exit 0), wall 885 ms
+  src     currentStreak(800,000 days back from 2026-10-08, "2026-10-08"): returned {"value":739897,"ms":1057} (child pid 32700, exit 0), wall 1106 ms
+bestStreak(the same 800,000 keys)
+  59c6ee5 bestStreak(the same 800,000 keys): returned {"value":0,"ms":836} (child pid 26384, exit 0), wall 889 ms
+  eb2003b bestStreak(the same 800,000 keys): returned {"value":0,"ms":844} (child pid 44064, exit 0), wall 908 ms
+  src     bestStreak(the same 800,000 keys): returned {"value":739897,"ms":1443} (child pid 2032, exit 0), wall 1493 ms
+bestStreak(90,000 spellings + FAR_STUCK), about 3 MB stored, the quota-sized attack
+  src     bestStreak(90,000 spellings + FAR_STUCK): returned {"value":0,"ms":50} (child pid 37256, exit 0), wall 98 ms
+Cost of the filter on valid input: 400,000 consecutive valid days, median of 3 runs in one child
+  eb2003b 400,000 valid days: returned {"value":{"bestStreak":"400000 in 411 ms","currentStreak":"400000 in 215 ms"},"ms":2076} (child pid 45956, exit 0), wall 2154 ms
+  src     400,000 valid days: returned {"value":{"bestStreak":"400000 in 676 ms","currentStreak":"400000 in 371 ms"},"ms":3343} (child pid 41640, exit 0), wall 3392 ms
+
+--- stderr
+
+Reading: every input now returns in milliseconds, and the counts are those of the valid days alone
+(3, 10, 10 and 739,897, the number of valid days from 0001-01-01 to 2026-10-08). The filter costs time
+on a quota-sized valid history: bestStreak 411 to 676 ms and currentStreak 215 to 371 ms on 400,000
+consecutive days (the re-check measured 421 to 511 ms for bestStreak). It is still linear. A real user's
+history is a few thousand days at most.
