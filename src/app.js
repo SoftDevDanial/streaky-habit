@@ -93,13 +93,8 @@ function onListClick(event) {
   if (deleteButton) askToDelete(deleteButton);
 }
 
+/** `error` is never "limit": at 12 habits the field and Add are disabled (`setAddLimit`), so no submit reaches addHabit. */
 function rejectName(error) {
-  // "limit" cannot come from a real submit (the field and Add are disabled at 12), but addHabit can
-  // return it, and there is no name message for it.
-  if (error === "limit") {
-    view.setAddLimit(true);
-    return;
-  }
   view.showNameError(error);
   view.focusNameField();
 }

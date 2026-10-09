@@ -117,7 +117,8 @@ function syncStreak(streak, done, todayKey) {
 
 /**
  * Sets the button for `key` in place, so the same element (and its focus and transitions) lives on
- * when a tick or a new day changes what it shows.
+ * when a tick or a new day changes what it shows. The window always ends today, so only the last
+ * button is ever today and aria-current is set here and never has to be removed.
  */
 function syncDay(button, key, isDone, isToday) {
   const { weekday, day } = dayParts(key);
@@ -125,7 +126,6 @@ function syncDay(button, key, isDone, isToday) {
   button.setAttribute("aria-pressed", String(isDone));
   button.setAttribute("aria-label", `Mark ${shortDate(key)} as done`);
   if (isToday) button.setAttribute("aria-current", "date");
-  else button.removeAttribute("aria-current");
   setText(button.querySelector(".wd"), weekday);
   setText(button.querySelector(".dm"), String(day));
 }
