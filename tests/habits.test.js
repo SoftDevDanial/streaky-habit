@@ -131,8 +131,9 @@ function streakInChild(name, ...args) {
 }
 
 test("@R7 the best-run walk ends on keys outside the valid range, where the next day repeats itself", () => {
-  // Past 2^53 days, adding one day rounds back to the same count. The app's decoder drops such keys,
-  // because they fail isDateKey, but the walk must still end if one gets through.
+  // Near 2^53 days, floating-point rounding makes adding one day return the same key. The app's decoder
+  // treats saved data holding such a key as unreadable, because it fails isDateKey, but the walk must
+  // still end if one gets through.
   const runStart = "24660873954866-12-02";
   const stuck = "24660873954866-12-04";
   assert.equal(addDays(runStart, 1), stuck, "precondition: the run start's next day is the stuck key");
@@ -144,7 +145,8 @@ test("@R7 the best-run walk ends on keys outside the valid range, where the next
 });
 
 test("@R6 the current-run walk ends on the cycle below year 0001", () => {
-  // Year -1 is written "00-1", which reads back as year 0, so going back from 0000-01-03 returns to it.
+  // Year -1 is written "00-1", so the day before 0000-01-01 reads back as 0000-01-12, and going back
+  // from 0000-01-03 returns to it after 12 days.
   const cycle = ["0000-01-03"];
   while (cycle.length < 12) cycle.push(addDays(cycle.at(-1), -1));
   assert.equal(new Set(cycle).size, 12, "precondition: 12 distinct keys");
@@ -435,38 +437,39 @@ test("@R13 a very long name is rejected without hanging", () => {
   assert.ok(performance.now() - started < 1000);
 });
 
-// Counts the code points a call reads through the string iterator, which Array.from and for...of both
-// use, so the count shows whether the length check stops early or walks the whole name.
-function codePointsRead(run) {
+// Counts the steps a call takes through string iterators, which Array.from and for...of both use. Each
+// step reads one code point, and a walk to the end takes one more step to find the end, so the count
+// shows whether the length check stops early or walks the whole name.
+function iteratorSteps(run) {
   const native = String.prototype[Symbol.iterator];
-  let reads = 0;
+  let steps = 0;
   String.prototype[Symbol.iterator] = function () {
     const iterator = native.call(this);
     return {
       next: () => {
-        reads++;
+        steps++;
         return iterator.next();
       },
     };
   };
   try {
-    return { result: run(), reads };
+    return { result: run(), steps };
   } finally {
     String.prototype[Symbol.iterator] = native;
   }
 }
 
 test("@R13 the length check reads at most 41 code points, so a huge stored name costs no more than a short one", () => {
-  assert.equal(codePointsRead(() => Array.from("abc")).reads, 4, "precondition: the counter sees the string iterator");
+  assert.equal(iteratorSteps(() => Array.from("abc")).steps, 4, "precondition: the counter sees 3 code points and the end");
   const huge = {
     "5,000,000 CJK units": "一".repeat(5_000_000),
     "5,000,000 emoji units": "\u{1F4DA}".repeat(2_500_000),
     "41 lone surrogates": "\uD800".repeat(41),
   };
   for (const [label, name] of Object.entries(huge)) {
-    const { result, reads } = codePointsRead(() => validateName(name, EXISTING_NAMES));
+    const { result, steps } = iteratorSteps(() => validateName(name, EXISTING_NAMES));
     assert.deepEqual(result, { ok: false, error: "too-long" }, label);
-    assert.ok(reads <= MAX_NAME_LENGTH + 1, `${label}: ${reads} code points read`);
+    assert.ok(steps <= MAX_NAME_LENGTH + 1, `${label}: ${steps} iterator steps`);
   }
   assert.deepEqual(validateName("\uD800".repeat(40), []), { ok: true, name: "\uD800".repeat(40) }, "40 lone surrogates");
 });
