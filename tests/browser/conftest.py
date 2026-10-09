@@ -14,7 +14,7 @@ import weakref
 from urllib.parse import urlsplit
 
 import pytest
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import expect, sync_playwright
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 DESIGN_DIR = ROOT / "docs" / "design"
@@ -229,6 +229,21 @@ def add_habit(page, text, enter=False):
 
 def is_focused(locator):
     return locator.evaluate("(element) => element === document.activeElement")
+
+
+def trash(page, name):
+    """The delete button of the habit called `name`."""
+    return page.get_by_role("button", name=f"Delete {name}", exact=True)
+
+
+def open_delete_dialog(page, name):
+    trash(page, name).click()
+    expect(page.locator("dialog.dialog")).to_have_attribute("open", "")
+
+
+def center(locator):
+    box = locator.bounding_box()
+    return box["x"] + box["width"] / 2, box["y"] + box["height"] / 2
 
 
 def tab_until(page, locator, limit=60):

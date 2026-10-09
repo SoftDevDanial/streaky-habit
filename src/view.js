@@ -268,9 +268,25 @@ export function setAddLimit(full) {
 }
 
 // ---------------------------------------------------------------------------------------------
+// Delete dialog
+
+/** `returnValue` is reset because it persists between openings: a later Esc would repeat the last "delete". */
+export function openDeleteDialog(habitName) {
+  const dialog = $(".dialog");
+  dialog.returnValue = "";
+  $("#del-title").textContent = `Delete "${habitName}"?`;
+  dialog.showModal();
+}
+
+export function focusDeleteButton(index) {
+  $$(".habits > .habit")[index].querySelector(".icon-btn").focus();
+}
+
+// ---------------------------------------------------------------------------------------------
 // Where app.js listens
 
 export const containers = () => ({
   list: $('section[aria-labelledby="habits-title"]'),
   addForm: $(".add"),
+  dialog: $(".dialog"),
 });

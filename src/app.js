@@ -6,7 +6,7 @@
  * function, then a save, then a synchronous render inside the handler that caused it.
  */
 import { localDateKey } from "./dates.js";
-import { MAX_HABITS, addHabit, toggleDay } from "./habits.js";
+import { MAX_HABITS, addHabit, deleteHabit, toggleDay } from "./habits.js";
 import { loadHabits, saveHabits } from "./storage.js";
 import * as view from "./view.js";
 
@@ -16,6 +16,10 @@ function readToday() {
 }
 
 const state = { habits: [], todayKey: "" };
+
+// The delete dialog is one element reused for every habit, so what it is about lives here while it is open.
+let pendingDelete = null; // index of the habit the open dialog asks about
+let pressedOutside = false; // whether the current mouse press began on the backdrop
 
 /** Everything that depends on the habit list: the rows, the heatmap counts and the add form's limit. */
 function renderHabits() {
@@ -33,9 +37,57 @@ function tick(dayButton) {
   view.renderHeatmap(state.habits, state.todayKey);
 }
 
+function askToDelete(deleteButton) {
+  pendingDelete = view.habitIndexOf(deleteButton);
+  view.openDeleteDialog(state.habits[pendingDelete].name);
+}
+
+function removeHabit(index) {
+  state.habits = deleteHabit(state.habits, index);
+  saveHabits(state.habits);
+  renderHabits();
+  if (index < state.habits.length) view.focusDeleteButton(index);
+  else view.focusNameField();
+}
+
+/**
+ * Runs once for Cancel, Esc, a backdrop click and Delete habit alike; only the dialog's returnValue tells
+ * them apart. Focus is put back by hand: some browsers do not focus a button on click, so the native
+ * return to "the element that opened the dialog" cannot be relied on.
+ */
+function onDialogClose(event) {
+  if (pendingDelete === null) return;
+  const index = pendingDelete;
+  pendingDelete = null;
+  if (event.currentTarget.returnValue === "delete") removeHabit(index);
+  else view.focusDeleteButton(index);
+}
+
+const isOutside = (event, box) =>
+  event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom;
+
+/**
+ * A click on ::backdrop is dispatched to the dialog element, and so is a click on the dialog's own
+ * padding, so the target alone cannot tell them apart: the point must lie outside the box. The press is
+ * checked as well, so a text selection that starts in the box and ends on the backdrop keeps it open (CG-6).
+ */
+function onDialogPointerDown(event) {
+  const dialog = event.currentTarget;
+  pressedOutside = event.target === dialog && isOutside(event, dialog.getBoundingClientRect());
+}
+
+function onDialogClick(event) {
+  const dialog = event.currentTarget;
+  const releasedOutside = event.target === dialog && isOutside(event, dialog.getBoundingClientRect());
+  if (pressedOutside && releasedOutside) dialog.close("cancel");
+  pressedOutside = false;
+}
+
 function onListClick(event) {
   const dayButton = event.target.closest("button.day");
   if (dayButton) tick(dayButton);
+  const deleteButton = event.target.closest(".habit-head .icon-btn");
+  if (deleteButton) askToDelete(deleteButton);
 }
 
 function rejectName(error) {
@@ -68,9 +120,12 @@ function boot() {
   state.todayKey = readToday();
   view.renderHeader(state.todayKey);
   renderHabits();
-  const { list, addForm } = view.containers();
+  const { list, addForm, dialog } = view.containers();
   list.addEventListener("click", onListClick);
   addForm.addEventListener("submit", submitName);
+  dialog.addEventListener("close", onDialogClose);
+  dialog.addEventListener("pointerdown", onDialogPointerDown);
+  dialog.addEventListener("click", onDialogClick);
 }
 
 boot();

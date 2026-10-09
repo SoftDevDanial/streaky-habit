@@ -291,7 +291,7 @@ No other user-facing string exists.
 2. [x] `src/storage.js`, `src/view.js` and `src/app.js` boot path: load, `readToday()`, render header, empty message or list, rows, streak lines, strips, heatmap, and the add form's 12-habit state at load; plus `tests/browser/test_render.py`. → R3, R4, R5, R6, R7, R9, R12, R16
 3. [x] Tick in place with focus kept, streak line and heat cell update, save; plus `tests/browser/test_tick.py`. → R8, R16
 4. [x] Add form: submit, `addHabit`, errors, message states, focus, 12-habit limit; plus `tests/browser/test_add.py`. → R10, R11, R12
-5. [ ] Delete dialog: open, Cancel, Esc and a backdrop click as Cancel, Delete habit, focus targets; plus `tests/browser/test_delete.py`. → R13, R14, R15
+5. [x] Delete dialog: open, Cancel, Esc and a backdrop click as Cancel, Delete habit, focus targets; plus `tests/browser/test_delete.py`. → R13, R14, R15
 6. [ ] Unreadable data note and dismiss, storage failures, reload persistence; plus `tests/browser/test_storage.py`. → R16, R17, R18
 7. [ ] Rollover: 30 second check and `visibilitychange`, full re-render with form and focus kept; plus `tests/browser/test_rollover.py`. → R19, R20
 8. [ ] Platform checks and anything they expose: `tests/browser/test_platform.py`. → R21, R22, R23, R24, R25, R26
