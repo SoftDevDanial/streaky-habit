@@ -22,22 +22,25 @@ function deepFreeze(value) {
 const SOURCES = { "dates.js": readSource("dates.js"), "habits.js": readSource("habits.js") };
 
 // Matched on the whole text, so a comment must not spell one either, and on the code alone, which also
-// finds a read that a comment splits, such as `new Date(/* today */)`. `new Date` with an argument and
-// `Date.UTC` stay allowed, because they read no clock.
+// finds a read that a comment splits, such as `new Date(/* today */)`. `new Date` with an argument,
+// `Date.UTC` and `Temporal.PlainDate` arithmetic stay allowed, because they read no clock.
 const CLOCK_AND_RANDOM_READS = {
   "Date.now": /Date\s*\.\s*now\b/,
   "new Date without an argument": /new\s+Date\b(?!\s*\(\s*[^\s)])/,
   "Date called as a function": /(?<![.\w$]|\bnew\s+)Date\s*\(/,
+  "Temporal.Now": /\bTemporal\s*\.\s*Now\b/,
   "performance.now": /\bperformance\s*\.\s*now\b/,
   "Math.random": /\bMath\s*\.\s*random\b/,
 };
 
-// Matched on the code only, as whole words, so a comment may still say "the week window".
+// Matched on the code only, as whole words, so a comment may still say "the week window". Code built
+// from a string at run time is banned too: a clock read spelled inside the string passes every pattern.
 const BANNED_IN_CODE = {
   "DOM or global object": /\b(document|window|self|globalThis|navigator|process)\b/,
   storage: /\b(localStorage|sessionStorage|indexedDB|caches)\b/,
   network: /\b(fetch|XMLHttpRequest|WebSocket|EventSource|sendBeacon)\b/,
   "dynamic import": /\bimport\s*\(/,
+  "code built from a string": /\beval\b|\bFunction\s*\(/,
   timer: /\b(setTimeout|setInterval|setImmediate|queueMicrotask|requestAnimationFrame)\b/,
   "random source": /\bcrypto\b/,
   locale: /\bIntl\b|\btoLocale\w*/,
@@ -53,7 +56,7 @@ test("@R16 the source has no clock or random read, even in a comment", () => {
   }
 });
 
-test("@R16 the code has no DOM, storage, network, timer, global or locale access", () => {
+test("@R16 the code has no DOM, storage, network, timer, global or locale access and builds no code from strings", () => {
   for (const [name, text] of Object.entries(SOURCES)) {
     const code = withoutComments(text);
     for (const [access, pattern] of Object.entries(BANNED_IN_CODE)) {
