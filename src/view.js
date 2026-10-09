@@ -10,6 +10,11 @@ import { bestStreak, currentStreak, heatmapCells, monthLabels, runContinues, wee
 
 const SVG_NAMESPACE = "http://www.w3.org/2000/svg";
 
+const NAME_ERRORS = {
+  empty: "Name the habit first.",
+  "too-long": "Keep it to 40 characters or fewer.",
+  duplicate: "You already track this habit.",
+};
 const LIMIT_NOTE = "You track 12 habits, the most this app holds. Delete one to add another.";
 
 const $ = (selector) => document.querySelector(selector);
@@ -226,6 +231,28 @@ function resetMessage() {
   $("#new-habit").removeAttribute("aria-invalid");
 }
 
+/** @param {"empty" | "too-long" | "duplicate"} error */
+export function showNameError(error) {
+  resetMessage();
+  $("#new-habit-msg").textContent = NAME_ERRORS[error];
+  $("#new-habit").setAttribute("aria-invalid", "true");
+}
+
+export function clearNameError() {
+  resetMessage();
+}
+
+export const nameFieldValue = () => $("#new-habit").value;
+
+export function clearNameField() {
+  $("#new-habit").value = "";
+}
+
+/** Has no effect while the field is disabled. */
+export function focusNameField() {
+  $("#new-habit").focus();
+}
+
 /** At the limit the field and Add are disabled and the message line holds the note; below it the note goes. */
 export function setAddLimit(full) {
   $("#new-habit").disabled = full;
@@ -245,4 +272,5 @@ export function setAddLimit(full) {
 
 export const containers = () => ({
   list: $('section[aria-labelledby="habits-title"]'),
+  addForm: $(".add"),
 });

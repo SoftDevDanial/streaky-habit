@@ -2,7 +2,9 @@
 import re
 from html.parser import HTMLParser
 
-from conftest import DESIGN_DIR, ROOT
+import pytest
+
+from conftest import DESIGN_DIR, ROOT, SUBPATH_URL, add_habit, open_app
 
 INDEX_HTML = (ROOT / "index.html").read_text(encoding="utf-8")
 SRC_DIR = ROOT / "src"
@@ -94,6 +96,19 @@ def golden_icon_paths():
             assert found, f"{symbol} in {screen}"
             paths[symbol] = found.group(1)
     return paths
+
+
+def test_R1_the_app_works_from_a_sub_path(browser):
+    if not SUBPATH_URL:
+        pytest.skip("BLOCKED: STREAKS_SUBPATH_URL is not set (serve the project's parent folder)")
+    context, page = open_app(browser, base_url=SUBPATH_URL)
+    try:
+        assert page.locator("p.empty").text_content().startswith("No habits yet.")
+        assert page.locator("div.cells > *").count() == 84
+        add_habit(page, "Read 20 pages")
+        assert page.locator("li.habit").count() == 1
+    finally:
+        context.close()
 
 
 def test_R1_static_skeleton(app):

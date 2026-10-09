@@ -121,6 +121,7 @@ def open_app(
     init_script=None,
     record=False,
     path="",
+    base_url=None,
 ):
     """Open the running app in a new context and return (context, page).
 
@@ -128,8 +129,11 @@ def open_app(
     seed); then the init script, which therefore never runs on the seeding page; then recording, so the
     seeding request is not in the log; then the app URL. `install_time` wins over `fixed_time`: an
     installed clock lets a test advance time with `page.clock`, a fixed one only pins the date.
+    `base_url` replaces STREAKS_BASE_URL, for the sub-path scenario.
     """
-    _require_base_url()
+    if base_url is None:
+        _require_base_url()
+        base_url = BASE_URL
     context = browser.new_context(
         viewport={"width": viewport[0], "height": viewport[1]},
         device_scale_factor=1,
@@ -146,13 +150,13 @@ def open_app(
         context.clock.set_fixed_time(fixed_time)
     page = context.new_page()
     if storage is not None:
-        page.goto(BASE_URL + "__seed__")
+        page.goto(base_url + "__seed__")
         page.evaluate("(text) => localStorage.setItem('streaks.state', text)", storage)
     if init_script is not None:
         context.add_init_script(init_script)
     if record:
         _start_recording(page)
-    page.goto(BASE_URL + path)
+    page.goto(base_url + path)
     return context, page
 
 
@@ -202,6 +206,25 @@ def day(page, name, date):
 
 def cell(page, date):
     return page.locator(f'.cells .hc[data-date="{date}"]')
+
+
+def add_button(page):
+    return page.get_by_role("button", name="Add", exact=True)
+
+
+def type_name(page, text):
+    """Click the 'New habit' field and type into it, without submitting."""
+    page.locator("#new-habit").click()
+    page.keyboard.type(text)
+
+
+def add_habit(page, text, enter=False):
+    """Add a habit with real gestures: type the name, then click Add or press Enter."""
+    type_name(page, text)
+    if enter:
+        page.keyboard.press("Enter")
+    else:
+        add_button(page).click()
 
 
 def is_focused(locator):

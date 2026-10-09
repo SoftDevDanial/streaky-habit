@@ -6,7 +6,7 @@
  * function, then a save, then a synchronous render inside the handler that caused it.
  */
 import { localDateKey } from "./dates.js";
-import { MAX_HABITS, toggleDay } from "./habits.js";
+import { MAX_HABITS, addHabit, toggleDay } from "./habits.js";
 import { loadHabits, saveHabits } from "./storage.js";
 import * as view from "./view.js";
 
@@ -38,12 +38,39 @@ function onListClick(event) {
   if (dayButton) tick(dayButton);
 }
 
+function rejectName(error) {
+  // "limit" cannot come from a real submit (the field and Add are disabled at 12), but addHabit can
+  // return it, and there is no name message for it.
+  if (error === "limit") {
+    view.setAddLimit(true);
+    return;
+  }
+  view.showNameError(error);
+  view.focusNameField();
+}
+
+function submitName(event) {
+  event.preventDefault();
+  const result = addHabit(state.habits, view.nameFieldValue());
+  if (!result.ok) {
+    rejectName(result.error);
+    return;
+  }
+  state.habits = result.habits;
+  saveHabits(state.habits);
+  view.clearNameError();
+  view.clearNameField();
+  renderHabits();
+}
+
 function boot() {
   state.habits = loadHabits().habits;
   state.todayKey = readToday();
   view.renderHeader(state.todayKey);
   renderHabits();
-  view.containers().list.addEventListener("click", onListClick);
+  const { list, addForm } = view.containers();
+  list.addEventListener("click", onListClick);
+  addForm.addEventListener("submit", submitName);
 }
 
 boot();
