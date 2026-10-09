@@ -186,11 +186,12 @@ None. The module holds no state between calls.
 
 ## Tasks
 > Atomic, ordered, one commit each. Each commit carries the code and the tests that prove it.
-1. [ ] `src/dates.js` with `localDateKey`, `isDateKey`, `addDays`, `dayParts`, `shortDate`, `longDate`, and `tests/dates.test.js` with every R1 to R4 scenario in qa.md. → R1, R2, R3, R4
-2. [ ] `src/habits.js`, part 1: the constants, `weekWindow`, `currentStreak`, `bestStreak`, `runContinues`, `toggleDay`, and their scenarios in `tests/habits.test.js`. → R5, R6, R7, R8, R9
-3. [ ] `src/habits.js`, part 2: `heatLevel`, `heatmapCells`, `monthLabels`, and their scenarios. → R10, R11, R12
-4. [ ] `src/habits.js`, part 3: `validateName`, `addHabit`, `deleteHabit`, and their scenarios. → R13, R14, R15
-5. [ ] `tests/sample-history.test.js` (every golden value from the sample) and `tests/purity.test.js` (source scan and deep-frozen inputs). → R5, R6, R7, R8, R10, R11, R12, R16
+> Changed 2026-10-09 (module close housekeeping, ORCH): the five boxes below are ticked. All five tasks are done, one commit each, see `BUILD.md`, "Tasks to commits". The boxes were never ticked when the tasks were built.
+1. [x] `src/dates.js` with `localDateKey`, `isDateKey`, `addDays`, `dayParts`, `shortDate`, `longDate`, and `tests/dates.test.js` with every R1 to R4 scenario in qa.md. → R1, R2, R3, R4
+2. [x] `src/habits.js`, part 1: the constants, `weekWindow`, `currentStreak`, `bestStreak`, `runContinues`, `toggleDay`, and their scenarios in `tests/habits.test.js`. → R5, R6, R7, R8, R9
+3. [x] `src/habits.js`, part 2: `heatLevel`, `heatmapCells`, `monthLabels`, and their scenarios. → R10, R11, R12
+4. [x] `src/habits.js`, part 3: `validateName`, `addHabit`, `deleteHabit`, and their scenarios. → R13, R14, R15
+5. [x] `tests/sample-history.test.js` (every golden value from the sample) and `tests/purity.test.js` (source scan and deep-frozen inputs). → R5, R6, R7, R8, R10, R11, R12, R16
 
 ## Threat model
 > Feeds the security gate. This module has no I/O. Its risks are wrong values and broken invariants.
