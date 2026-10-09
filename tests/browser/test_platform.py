@@ -10,6 +10,7 @@ from playwright.sync_api import expect
 from conftest import (
     BASE_URL,
     ROOT,
+    SAMPLE_NAMES,
     add_button,
     add_habit,
     day,
@@ -21,7 +22,6 @@ from conftest import (
 )
 
 SRC_DIR = ROOT / "src"
-SAMPLE_NAMES = ["Read 20 pages", "Stretch 10 minutes", "No phone after 11pm"]
 FOCUSED_NAME = "() => document.activeElement.getAttribute('aria-label') || document.activeElement.id || document.activeElement.textContent.trim()"
 MARKUP_NAME = "<img src=x onerror=alert(1)>"
 

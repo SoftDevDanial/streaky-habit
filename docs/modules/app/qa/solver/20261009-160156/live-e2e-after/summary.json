@@ -1,0 +1,14 @@
+{
+  "base_url": "http://127.0.0.1:23544/",
+  "start_date": "2026-10-09",
+  "end_date": "2026-10-09",
+  "browser": "Chromium 149.0.7827.55",
+  "steps": 11,
+  "steps_passed": 11,
+  "requests": 21,
+  "requests_outside_the_rule": 0,
+  "console_errors": 0,
+  "page_errors": 0,
+  "pass": true,
+  "void_if_the_date_changed": false
+}

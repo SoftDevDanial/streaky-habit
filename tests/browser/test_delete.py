@@ -11,6 +11,7 @@ from conftest import (
     cell,
     center,
     day,
+    level_classes,
     open_delete_dialog,
     pattern,
     plain_state,
@@ -36,10 +37,6 @@ def cancel(page):
 
 def confirm(page):
     return dialog(page).get_by_role("button", name="Delete habit", exact=True)
-
-
-def level_classes(locator):
-    return [c for c in locator.get_attribute("class").split() if c[0] == "l" and c[1:].isdigit()]
 
 
 def test_R13_the_confirmation_opens_as_a_modal_with_focus_on_cancel(app):

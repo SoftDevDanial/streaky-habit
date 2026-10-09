@@ -45,6 +45,8 @@ DEFAULT_TIMEOUT_MS = 5000
 SAMPLE = json.loads((DESIGN_DIR / "sample-history.json").read_text(encoding="utf-8"))
 SAMPLE_HABITS = SAMPLE["habits"]
 SAMPLE_LEVELS = SAMPLE["heatmapLevels"]
+# Written out, not read from the sample, so a test that compares the page with them is not comparing a file with itself.
+SAMPLE_NAMES = ["Read 20 pages", "Stretch 10 minutes", "No phone after 11pm"]
 
 
 def state_text(habits):
@@ -356,6 +358,11 @@ def day(page, name, date):
 
 def cell(page, date):
     return page.locator(f'.cells .hc[data-date="{date}"]')
+
+
+def level_classes(locator):
+    """The heat level classes of one cell ('l0' to 'l4'), for example ['l2']."""
+    return [c for c in locator.get_attribute("class").split() if c[0] == "l" and c[1:].isdigit()]
 
 
 _HEAT_CELL_FIELDS = (

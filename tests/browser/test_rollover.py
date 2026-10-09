@@ -4,6 +4,7 @@
 from playwright.sync_api import expect
 
 from conftest import (
+    SAMPLE_NAMES,
     add_button,
     add_habit,
     cell,
@@ -23,7 +24,6 @@ from conftest import (
     write_count,
 )
 
-SAMPLE_NAMES = ["Read 20 pages", "Stretch 10 minutes", "No phone after 11pm"]
 BEFORE_MIDNIGHT = "2026-10-08T23:59:30+08:00"
 
 

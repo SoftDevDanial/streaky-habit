@@ -9,6 +9,7 @@ from conftest import (
     add_habit,
     cell,
     is_focused,
+    level_classes,
     plain_state,
     pretty_sample_state,
     row,
@@ -25,10 +26,6 @@ EMOJI = chr(0x1F600)  # one code point, two UTF-16 units
 
 def names(page):
     return page.locator("h3.habit-name").all_inner_texts()
-
-
-def level_classes(locator):
-    return [c for c in locator.get_attribute("class").split() if c[0] == "l" and c[1:].isdigit()]
 
 
 def test_R10_the_first_habit_on_a_fresh_day(app):

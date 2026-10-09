@@ -91,89 +91,168 @@ def request_is_allowed(request, origin, allowed_paths):
     )
 
 
-def drive(page, gate, base_url, t_key, y_key):
-    """The @R27 scenario, step by step."""
-    t_short, y_short = short_date(t_key), short_date(y_key)
-    field = page.locator("#new-habit")
-    add = page.get_by_role("button", name="Add", exact=True)
+def row_of(snapshot, name):
+    return next((r for r in snapshot["rows"] if r["name"] == name), None)
 
-    def bead(name, key):
-        return page.locator("li.habit").filter(has=page.get_by_text(name, exact=True)).locator(f'button.day[data-date="{key}"]')
 
-    def trash(name):
-        return page.get_by_role("button", name=f"Delete {name}", exact=True)
+def streak_of(snapshot, name):
+    row = row_of(snapshot, name)
+    return row["cur"], row["best"]
 
-    def type_name_and_press_enter(text):
-        field.click()
-        page.keyboard.type(text)
-        page.keyboard.press("Enter")
 
-    def row(snapshot, name):
-        return next((r for r in snapshot["rows"] if r["name"] == name), None)
+def cell_of(snapshot, key):
+    found = next(c for c in snapshot["cells"] if c["date"] == key)
+    return found["label"], found["cls"].split()
 
-    def cell(snapshot, key):
-        found = next(c for c in snapshot["cells"] if c["date"] == key)
-        return found["label"], found["cls"].split()
 
-    def first_visit(s):
-        past = [c for c in s["cells"] if c["date"] <= t_key]
-        return (
-            s["empty"] == "No habits yet. Add one you want to do every day." and not s["rows"] and s["stored"] is None
-            and all(c["cls"].split()[:2] == ["hc", "l0"] and c["label"].endswith(", 0 of 0 habits") for c in past)
-            and cell(s, t_key)[1] == ["hc", "l0", "today"]
+class Scenario:
+    """The @R27 scenario as 11 named steps over one page; `run` does them in order.
+
+    T is the browser's local date when the run started and Y the day before. Each step makes its
+    gestures through `Gate.step`, which polls the step's check and saves the evidence.
+    """
+
+    def __init__(self, page, gate, base_url, t_key, y_key):
+        self.page, self.gate, self.base_url = page, gate, base_url
+        self.t_key, self.y_key = t_key, y_key
+        self.t_short, self.y_short = short_date(t_key), short_date(y_key)
+        self.field = page.locator("#new-habit")
+        self.add = page.get_by_role("button", name="Add", exact=True)
+
+    def run(self):
+        for step in (
+            self.open_the_app, self.add_the_first_habit, self.add_a_second_habit, self.tick_today,
+            self.tick_yesterday, self.reload_keeps_everything, self.ask_to_delete, self.cancel_the_delete,
+            self.delete_a_habit, self.add_a_duplicate, self.reload_keeps_one_habit,
+        ):
+            step()
+
+    # -- the page, by real gestures
+    def bead(self, name, key):
+        row = self.page.locator("li.habit").filter(has=self.page.get_by_text(name, exact=True))
+        return row.locator(f'button.day[data-date="{key}"]')
+
+    def trash(self, name):
+        return self.page.get_by_role("button", name=f"Delete {name}", exact=True)
+
+    def type_name_and_press_enter(self, text):
+        self.field.click()
+        self.page.keyboard.type(text)
+        self.page.keyboard.press("Enter")
+
+    # -- the steps
+    def open_the_app(self):
+        def first_visit(s):
+            past = [c for c in s["cells"] if c["date"] <= self.t_key]
+            return (
+                s["empty"] == "No habits yet. Add one you want to do every day." and not s["rows"] and s["stored"] is None
+                and all(c["cls"].split()[:2] == ["hc", "l0"] and c["label"].endswith(", 0 of 0 habits") for c in past)
+                and cell_of(s, self.t_key)[1] == ["hc", "l0", "today"]
+            )
+
+        self.gate.step(
+            "01-first-visit", "open the app", gesture="page.goto(base_url)",
+            expected="the empty first screen, T ringed, nothing stored",
+            do=lambda: self.page.goto(self.base_url), check=first_visit,
         )
 
-    def first_row_added(s):
-        r = row(s, READ)
-        return (
-            len(s["rows"]) == 1 and r["pressed"] == [False] * 7 and r["dates"][-1] == t_key
-            and (r["cur"], r["best"]) == ("No streak yet", None) and s["field"] == ""
+    def add_the_first_habit(self):
+        def first_row_added(s):
+            row = row_of(s, READ)
+            return (
+                len(s["rows"]) == 1 and row["pressed"] == [False] * 7 and row["dates"][-1] == self.t_key
+                and streak_of(s, READ) == ("No streak yet", None) and s["field"] == ""
+            )
+
+        self.gate.step(
+            "02-added", "click the field, type a name, click Add", gesture="click #new-habit; keyboard.type; click Add",
+            expected="one row with 7 open beads ending with T",
+            do=lambda: (self.field.click(), self.page.keyboard.type(READ), self.add.click()), check=first_row_added,
         )
 
-    def both_ticked_today(s):
-        return (
-            all((row(s, n)["cur"], row(s, n)["best"]) == ("1 day", "Best 1") for n in (READ, STRETCH))
-            and cell(s, t_key) == (f"{t_short}, 2 of 2 habits", ["hc", "l4", "today"])
+    def add_a_second_habit(self):
+        self.gate.step(
+            "03-second-habit", "type a name, press Enter", gesture="click #new-habit; keyboard.type; Enter",
+            expected="a second row under the first",
+            do=lambda: self.type_name_and_press_enter(STRETCH),
+            check=lambda s: [r["name"] for r in s["rows"]] == [READ, STRETCH],
         )
 
-    def yesterday_ticked(s):
-        return (
-            (row(s, READ)["cur"], row(s, READ)["best"]) == ("2 days", "Best 2")
-            and cell(s, y_key) == (f"{y_short}, 1 of 2 habits", ["hc", "l2"])
+    def tick_today(self):
+        def both_ticked_today(s):
+            return (
+                all(streak_of(s, name) == ("1 day", "Best 1") for name in (READ, STRETCH))
+                and cell_of(s, self.t_key) == (f"{self.t_short}, 2 of 2 habits", ["hc", "l4", "today"])
+            )
+
+        self.gate.step(
+            "04-ticked-today", "click T's bead of both rows", gesture="click T bead twice",
+            expected="1 day and Best 1 on both rows, T's cell at level 4",
+            do=lambda: (self.bead(READ, self.t_key).click(), self.bead(STRETCH, self.t_key).click()),
+            check=both_ticked_today,
         )
 
-    gate.step("01-first-visit", "open the app", "the empty first screen, T ringed, nothing stored",
-              "page.goto(base_url)", lambda: page.goto(base_url), first_visit)
-    gate.step("02-added", "click the field, type a name, click Add", "one row with 7 open beads ending with T",
-              "click #new-habit; keyboard.type; click Add", lambda: (field.click(), page.keyboard.type(READ), add.click()), first_row_added)
-    gate.step("03-second-habit", "type a name, press Enter", "a second row under the first",
-              "click #new-habit; keyboard.type; Enter", lambda: type_name_and_press_enter(STRETCH),
-              lambda s: [r["name"] for r in s["rows"]] == [READ, STRETCH])
-    gate.step("04-ticked-today", "click T's bead of both rows", "1 day and Best 1 on both rows, T's cell at level 4",
-              "click T bead twice", lambda: (bead(READ, t_key).click(), bead(STRETCH, t_key).click()), both_ticked_today)
-    gate.step("05-ticked-yesterday", "click Y's bead of Read", "2 days and Best 2, Y's cell at level 2",
-              "click Y bead", lambda: bead(READ, y_key).click(), yesterday_ticked)
+    def tick_yesterday(self):
+        def yesterday_ticked(s):
+            return (
+                streak_of(s, READ) == ("2 days", "Best 2")
+                and cell_of(s, self.y_key) == (f"{self.y_short}, 1 of 2 habits", ["hc", "l2"])
+            )
 
-    rows_before_reload = page.evaluate(SNAPSHOT_JS)["rows"]
-    gate.step("06-reloaded", "reload", "both rows, their beads and streak lines unchanged",
-              "page.reload()", page.reload, lambda s: s["rows"] == rows_before_reload)
-    gate.step("07-dialog", "click Delete Stretch 10 minutes", "the dialog asks, Cancel has focus",
-              "click the trash button", trash(STRETCH).click,
-              lambda s: s["dialogOpen"] and s["dialogTitle"] == f'Delete "{STRETCH}"?' and s["active"]["text"] == "Cancel")
-    gate.step("08-cancelled", "click Cancel", "2 rows remain, focus on the trash button",
-              "click Cancel", page.get_by_role("button", name="Cancel", exact=True).click,
-              lambda s: not s["dialogOpen"] and len(s["rows"]) == 2 and s["active"]["label"] == f"Delete {STRETCH}")
-    gate.step("09-deleted", "click the trash button, then Delete habit", "1 row, focus on the field, T's cell counts 1 habit",
-              "click the trash button; click Delete habit",
-              lambda: (trash(STRETCH).click(), page.get_by_role("button", name="Delete habit", exact=True).click()),
-              lambda s: len(s["rows"]) == 1 and s["active"]["id"] == "new-habit"
-              and cell(s, t_key) == (f"{t_short}, 1 of 1 habits", ["hc", "l4", "today"]))
-    gate.step("10-duplicate", "type a duplicate name, press Enter", "the duplicate message shows and the text stays",
-              "click #new-habit; keyboard.type; Enter", lambda: type_name_and_press_enter("read 20 pages"),
-              lambda s: s["message"] == "You already track this habit." and s["field"] == "read 20 pages")
-    gate.step("11-reloaded-again", "reload", "exactly one row, 2 days and Best 2",
-              "page.reload()", page.reload,
-              lambda s: len(s["rows"]) == 1 and (row(s, READ)["cur"], row(s, READ)["best"]) == ("2 days", "Best 2"))
+        self.gate.step(
+            "05-ticked-yesterday", "click Y's bead of Read", gesture="click Y bead",
+            expected="2 days and Best 2, Y's cell at level 2",
+            do=lambda: self.bead(READ, self.y_key).click(), check=yesterday_ticked,
+        )
+
+    def reload_keeps_everything(self):
+        rows_before_reload = self.page.evaluate(SNAPSHOT_JS)["rows"]
+        self.gate.step(
+            "06-reloaded", "reload", gesture="page.reload()",
+            expected="both rows, their beads and streak lines unchanged",
+            do=self.page.reload, check=lambda s: s["rows"] == rows_before_reload,
+        )
+
+    def ask_to_delete(self):
+        self.gate.step(
+            "07-dialog", "click Delete Stretch 10 minutes", gesture="click the trash button",
+            expected="the dialog asks, Cancel has focus",
+            do=self.trash(STRETCH).click,
+            check=lambda s: s["dialogOpen"] and s["dialogTitle"] == f'Delete "{STRETCH}"?' and s["active"]["text"] == "Cancel",
+        )
+
+    def cancel_the_delete(self):
+        self.gate.step(
+            "08-cancelled", "click Cancel", gesture="click Cancel",
+            expected="2 rows remain, focus on the trash button",
+            do=self.page.get_by_role("button", name="Cancel", exact=True).click,
+            check=lambda s: not s["dialogOpen"] and len(s["rows"]) == 2 and s["active"]["label"] == f"Delete {STRETCH}",
+        )
+
+    def delete_a_habit(self):
+        self.gate.step(
+            "09-deleted", "click the trash button, then Delete habit", gesture="click the trash button; click Delete habit",
+            expected="1 row, focus on the field, T's cell counts 1 habit",
+            do=lambda: (self.trash(STRETCH).click(), self.page.get_by_role("button", name="Delete habit", exact=True).click()),
+            check=lambda s: (
+                len(s["rows"]) == 1 and s["active"]["id"] == "new-habit"
+                and cell_of(s, self.t_key) == (f"{self.t_short}, 1 of 1 habits", ["hc", "l4", "today"])
+            ),
+        )
+
+    def add_a_duplicate(self):
+        self.gate.step(
+            "10-duplicate", "type a duplicate name, press Enter", gesture="click #new-habit; keyboard.type; Enter",
+            expected="the duplicate message shows and the text stays",
+            do=lambda: self.type_name_and_press_enter("read 20 pages"),
+            check=lambda s: s["message"] == "You already track this habit." and s["field"] == "read 20 pages",
+        )
+
+    def reload_keeps_one_habit(self):
+        self.gate.step(
+            "11-reloaded-again", "reload", gesture="page.reload()", expected="exactly one row, 2 days and Best 2",
+            do=self.page.reload, check=lambda s: len(s["rows"]) == 1 and streak_of(s, READ) == ("2 days", "Best 2"),
+        )
 
 
 def run(base_url, out):
@@ -191,7 +270,7 @@ def run(base_url, out):
         page.on("pageerror", lambda e: errors.append(str(e)))
 
         gate = Gate(page, out)
-        drive(page, gate, base_url, start.isoformat(), (start - datetime.timedelta(days=1)).isoformat())
+        Scenario(page, gate, base_url, start.isoformat(), (start - datetime.timedelta(days=1)).isoformat()).run()
 
         end = datetime.date(*page.evaluate(LOCAL_DATE_JS))
         browser_version = browser.version

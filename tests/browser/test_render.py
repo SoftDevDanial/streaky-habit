@@ -9,6 +9,7 @@ from playwright.sync_api import expect
 from conftest import (
     SAMPLE_HABITS,
     SAMPLE_LEVELS,
+    SAMPLE_NAMES,
     add_days,
     canonical_pair,
     cell,
@@ -26,7 +27,6 @@ from conftest import (
     write_count,
 )
 
-SAMPLE_NAMES = ["Read 20 pages", "Stretch 10 minutes", "No phone after 11pm"]
 WEEK = ["2026-10-02", "2026-10-03", "2026-10-04", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08"]
 
 
