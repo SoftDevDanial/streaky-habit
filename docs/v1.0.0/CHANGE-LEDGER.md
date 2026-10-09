@@ -1,4 +1,4 @@
-# CHANGE LEDGER - v0.1.0
+# CHANGE LEDGER - v1.0.0
 
 > The version's ONE attribution record and the human's only complete view of what happened.
 > `STATE.md` is *situation*, handoffs are *resume points*, `findings/` are *evidence*. **None of them is
@@ -10,7 +10,9 @@
 > rewrite · **staleness check** at every phase boundary: newest dated entry here vs newest file in
 > `./docs/progress/handoff/`. Handoff newer means this file is stale.
 
-**Version:** v0.1.0 · **Opened:** 2026-10-08 by `sdlc:plan` · **Sealed:** not yet (see `SEAL.md` once sealed)
+**Version:** v1.0.0 · **Opened:** 2026-10-08 by `sdlc:plan` as ~~v0.1.0~~ · **Relabelled:** 2026-10-09 to
+v1.0.0 on the owner's word (see Off-scope, the USER row of that date). Same version, same scope. Plan-phase
+documents written before that date still say v0.1.0. · **Sealed:** not yet (see `SEAL.md` once sealed)
 
 > **This run was delegated.** The owner asked for the whole lifecycle to be created ("Auto create with
 > lifecycles for 2 projects", 2026-10-08). Every decision an agent or the orchestrator took in his place is
@@ -151,6 +153,9 @@ Habits and history survive reloads on the same browser, and the day turns over a
 | 18 | habit-logic code-review re-check: PASS, 0 blocker, 6 warning (WR-11 comment stripper hides code after `//` or `/*` inside strings; WR-12 R6 and R7 silent on the isDateKey filter; WR-13 raw invisible characters in a test constant; WR-14 Date check misses a partial mutation; WR-15 runLength size bound unreachable; WR-16 BUILD.md restates a derivation). 346,950 valid-input differential cases, 0 mismatches | 2026-10-09 execute | Re-check section in findings/code-review.md, evidence `qa/code-review/20261009-131935/`, commit `fa7838d` | LANE (sdlc-code-reviewer, sonnet) | Routed to sdlc-dev-solver (sonnet) |
 | 19 | Rulings on the re-check warnings | 2026-10-09 execute | All six fixed as the reviewer suggests. WR-15 reverses the earlier ruling to keep the size bound: unreachable, untestable code is deleted. Extra scan evasions (`Date["now"]`, `Date?.now()`) accepted as residual, the R16 note already leaves alias forms to review. Stop rule: no further code-review round, the QA finder runs next | ORCH | Ruled, reversible |
 | 20 | The code-review finder has no Edit tool, so appending to its verdict meant rewriting the file, and Write could not carry two raw characters from round 1; it restored them with `git apply` | 2026-10-09 execute | Disclosed in the findings file. The brief asked for an additive append, which the finder's tools do not support well. Later briefs may let finders overwrite their own verdict (latest wins, as the constitution allows) | LANE (sdlc-code-reviewer) | No damage. Recorded |
+| 21 | habit-logic QA finder: PASS. 32 scenarios (149 rows) pass, 0 fail, 0 untested; every R1 to R16 covered; 176 independent probe rows agree | 2026-10-09 execute | findings/qa.md, evidence `qa/qa/20261009-140635/`, commit `de0156a` | LANE (sdlc-qa-tester, haiku) | Solved |
+| 22 | habit-logic module close: code review PASS (two rounds, stop rule), security PASS 0 findings (three rounds), QA PASS. Credential gate CLEAN over 583 files (controls pass). Suite 66 of 66. Last green `de0156a` | 2026-10-09 execute | README reconcile deferred to the app module close, where the project README is written (the logic module has no user-facing surface of its own) | ORCH | Module closed |
+| 23 | Version label for this run | 2026-10-09 execute | Relabelled v0.1.0 to v1.0.0. Owner's words: "Make sure both app reach a stable 1.0 version. Then i will test it out." Folder moved to `docs/v1.0.0/`, STATE `version: 1.0.0`, plan documents keep their historical label | USER | Done |
 
 ---
 

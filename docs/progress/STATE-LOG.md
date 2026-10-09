@@ -85,3 +85,8 @@ Append-only history. STATE.md holds the situation, this file holds what happened
 ## 2026-10-09 14:06 habit-logic re-check warnings solved
 - Solver (sonnet): WR-11 adb1a99, WR-12+16 160ba9c, WR-13 ae52deb, WR-14 32edd0f, WR-15 7ea311d (unreachable bound deleted), task boxes 6088b1d, findings 94d8e6f. 66 of 66, differential 0 mismatches on 346,950 cases
 - Per the stop rule: QA finder next, then module close
+
+## 2026-10-09 14:14 habit-logic closed, version relabelled 1.0.0
+- QA finder PASS: 32 scenarios, R1 to R16 covered. Commit de0156a
+- Module close: credential gate CLEAN (583 files), 66 of 66. Last green de0156a. README deferred to the app close
+- Version relabelled 0.1.0 to 1.0.0 on the owner's word: docs/v0.1.0 moved to docs/v1.0.0, ledger header carries the dated relabel
