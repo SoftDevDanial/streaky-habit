@@ -13,6 +13,10 @@ import { addDays, dayParts } from "./dates.js";
  *             count: number | null, total: number, level: 0 | 1 | 2 | 3 | 4 | null }} HeatCell
  */
 /** @typedef {{ column: number, month: string }} MonthLabel */
+/** @typedef {{ ok: true, name: string } | { ok: false, error: "empty" | "too-long" | "duplicate" }} NameCheck */
+/**
+ * @typedef {{ ok: true, habits: Habit[] } | { ok: false, error: "limit" | "empty" | "too-long" | "duplicate" }} AddResult
+ */
 
 export const MAX_HABITS = 12;
 export const MAX_NAME_LENGTH = 40;
@@ -174,8 +178,8 @@ export function heatmapCells(habits, todayKey) {
 }
 
 /**
- * Labels the first column of each month by its Monday, so a month that starts mid-column and has
- * no Monday of its own in the grid gets no label.
+ * A month is labelled on the first column whose Monday is in it, so a month whose days all fall
+ * after the last Monday of the grid gets no label.
  * @param {DateKey} todayKey
  * @returns {MonthLabel[]}
  */
@@ -184,4 +188,47 @@ export function monthLabels(todayKey) {
   return months.flatMap((month, columnIndex) =>
     columnIndex === 0 || month !== months[columnIndex - 1] ? [{ column: columnIndex + 1, month }] : [],
   );
+}
+
+/**
+ * Trim first, then empty, too long, duplicate, so a name that is only spaces is "empty" and an
+ * over-long copy of an existing name is "too-long". Length counts code points (CG-8): UTF-16
+ * units would count one emoji as two, and grapheme counting needs Intl.
+ * @param {string} raw text as typed
+ * @param {readonly string[]} existingNames
+ * @returns {NameCheck}
+ */
+export function validateName(raw, existingNames) {
+  const name = raw.trim();
+  if (name === "") return { ok: false, error: "empty" };
+  if (Array.from(name).length > MAX_NAME_LENGTH) return { ok: false, error: "too-long" };
+  const lowered = name.toLowerCase();
+  if (existingNames.some((existing) => existing.toLowerCase() === lowered)) {
+    return { ok: false, error: "duplicate" };
+  }
+  return { ok: true, name };
+}
+
+/**
+ * The limit is checked before the name, so a full list never reports a name problem.
+ * New habits go to the bottom.
+ * @param {readonly Habit[]} habits
+ * @param {string} raw text as typed
+ * @returns {AddResult}
+ */
+export function addHabit(habits, raw) {
+  if (habits.length >= MAX_HABITS) return { ok: false, error: "limit" };
+  const check = validateName(raw, habits.map((habit) => habit.name));
+  if (!check.ok) return check;
+  return { ok: true, habits: [...habits.map(copyHabit), { name: check.name, done: [] }] };
+}
+
+/**
+ * An index that is no habit removes nothing, because no position equals it.
+ * @param {readonly Habit[]} habits
+ * @param {number} index
+ * @returns {Habit[]}
+ */
+export function deleteHabit(habits, index) {
+  return habits.filter((_, position) => position !== index).map(copyHabit);
 }

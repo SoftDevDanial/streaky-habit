@@ -12,6 +12,9 @@ import {
   heatLevel,
   heatmapCells,
   monthLabels,
+  validateName,
+  addHabit,
+  deleteHabit,
 } from "../src/habits.js";
 import { addDays, dayParts } from "../src/dates.js";
 
@@ -314,7 +317,7 @@ test("@R12 month labels over the first column whose Monday is in the month", () 
   }
 });
 
-test("@R12 every label sits on a column whose Monday starts that month's first label", () => {
+test("@R12 each label sits on the first column whose Monday is in its month, for more start days", () => {
   const mondays = (today) => {
     const cells = heatmapCells([], today);
     return Array.from({ length: 12 }, (_, column) => cells[column * 7].key);
@@ -330,4 +333,125 @@ test("@R12 every label sits on a column whose Monday starts that month's first l
     const monthsInGrid = columns.map((key) => dayParts(key).month);
     assert.equal(labels.length, new Set(monthsInGrid).size, today);
   }
+});
+
+const EXISTING_NAMES = ["Read 20 pages", "Stretch 10 minutes", "No phone after 11pm"];
+const FORTY_EMOJI = "\u{1F4DA}".repeat(40);
+
+test("@R13 name checks in the order empty, too long, duplicate", () => {
+  const rows = [
+    ["", { ok: false, error: "empty" }],
+    ["   ", { ok: false, error: "empty" }],
+    ["\t \n", { ok: false, error: "empty" }],
+    ["Walk to the end of the street and back after dinner", { ok: false, error: "too-long" }],
+    ["Read twenty pages before bed every night", { ok: true, name: "Read twenty pages before bed every night" }],
+    ["Read twenty pages before bed every night.", { ok: false, error: "too-long" }],
+    ["  Drink water  ", { ok: true, name: "Drink water" }],
+    ["read 20 pages", { ok: false, error: "duplicate" }],
+    [" STRETCH 10 MINUTES ", { ok: false, error: "duplicate" }],
+    ["Read 20 pages", { ok: false, error: "duplicate" }],
+  ];
+  for (const [raw, result] of rows) {
+    assert.deepEqual(validateName(raw, EXISTING_NAMES), result, JSON.stringify(raw));
+  }
+});
+
+test("@R13 the length rule counts the trimmed name, so padding never makes a 40 character name too long", () => {
+  const forty = "Read twenty pages before bed every night";
+  assert.equal(Array.from(forty).length, 40);
+  assert.deepEqual(validateName(`   ${forty}   `, []), { ok: true, name: forty });
+});
+
+test("@R13 too long is checked before duplicate", () => {
+  const long = "Read twenty pages before bed every night.";
+  assert.deepEqual(validateName(long, [long]), { ok: false, error: "too-long" });
+});
+
+test("@R13 length counts code points, not UTF-16 units", () => {
+  assert.equal(FORTY_EMOJI.length, 80);
+  assert.deepEqual(validateName(FORTY_EMOJI, []), { ok: true, name: FORTY_EMOJI });
+  assert.deepEqual(validateName(`${FORTY_EMOJI}\u{1F4DA}`, []), { ok: false, error: "too-long" });
+});
+
+test("@R13 trim removes all kinds of white space and the duplicate check lower-cases both sides", () => {
+  assert.deepEqual(validateName("  Drink water﻿ ", []), { ok: true, name: "Drink water" });
+  assert.deepEqual(validateName("Étude", ["éTUDE"]), { ok: false, error: "duplicate" });
+});
+
+test("@R13 a very long name is rejected without hanging", () => {
+  const started = performance.now();
+  assert.deepEqual(validateName("x".repeat(1_000_000), EXISTING_NAMES), { ok: false, error: "too-long" });
+  assert.ok(performance.now() - started < 1000);
+});
+
+test("@R14 a new habit goes to the bottom", () => {
+  const input = sampleHabits();
+  const result = addHabit(input, "  Drink water  ");
+  assert.equal(result.ok, true);
+  assert.deepEqual(
+    result.habits.map((habit) => habit.name),
+    [...EXISTING_NAMES, "Drink water"],
+  );
+  assert.deepEqual(result.habits[3], { name: "Drink water", done: [] });
+  assert.deepEqual(result.habits.slice(0, 3), sample.habits);
+  assert.notEqual(result.habits, input);
+  result.habits.forEach((habit, position) => {
+    if (position < 3) assert.notEqual(habit, input[position], `habit ${position} is a new object`);
+  });
+  assert.deepEqual(input, sample.habits);
+});
+
+test("@R14 a rejected name returns its error", () => {
+  assert.deepEqual(addHabit(sampleHabits(), "read 20 pages"), { ok: false, error: "duplicate" });
+  assert.deepEqual(addHabit(sampleHabits(), "   "), { ok: false, error: "empty" });
+  assert.deepEqual(addHabit(sampleHabits(), "x".repeat(41)), { ok: false, error: "too-long" });
+});
+
+test("@R14 the limit of 12 habits is checked before the name", () => {
+  const listOf = (count) => Array.from({ length: count }, (_, i) => ({ name: `Habit ${i + 1}`, done: [] }));
+
+  const eleven = addHabit(listOf(11), "Habit 12");
+  assert.equal(eleven.ok, true);
+  assert.equal(eleven.habits.length, 12);
+  assert.equal(eleven.habits.at(-1).name, "Habit 12");
+
+  assert.deepEqual(addHabit(listOf(12), "Habit 13"), { ok: false, error: "limit" });
+  assert.deepEqual(addHabit(listOf(12), ""), { ok: false, error: "limit" });
+  assert.deepEqual(addHabit(listOf(12), "Habit 1"), { ok: false, error: "limit" });
+  assert.deepEqual(addHabit(listOf(13), "Habit 14"), { ok: false, error: "limit" });
+  assert.deepEqual(addHabit(listOf(11), ""), { ok: false, error: "empty" });
+});
+
+test("@R14 adding to an empty list works", () => {
+  assert.deepEqual(addHabit([], " Run "), { ok: true, habits: [{ name: "Run", done: [] }] });
+});
+
+test("@R15 deleting a habit", () => {
+  const rows = [
+    [0, ["Stretch 10 minutes", "No phone after 11pm"]],
+    [2, ["Read 20 pages", "Stretch 10 minutes"]],
+    [1, ["Read 20 pages", "No phone after 11pm"]],
+    [3, EXISTING_NAMES],
+    [-1, EXISTING_NAMES],
+    [0.5, EXISTING_NAMES],
+    [Number.NaN, EXISTING_NAMES],
+    [undefined, EXISTING_NAMES],
+  ];
+  for (const [index, names] of rows) {
+    const input = sampleHabits();
+    const result = deleteHabit(input, index);
+    const label = `index ${index}`;
+    assert.deepEqual(result.map((habit) => habit.name), names, label);
+    result.forEach((habit) => {
+      const original = input.find((candidate) => candidate.name === habit.name);
+      assert.deepEqual(habit, original, `${label} ${habit.name} keeps its done days`);
+      assert.notEqual(habit, original, `${label} ${habit.name} is a new object`);
+    });
+    assert.notEqual(result, input, label);
+    assert.deepEqual(input, sample.habits, `${label} input unchanged`);
+  }
+});
+
+test("@R15 deleting from an empty list returns an empty list", () => {
+  assert.deepEqual(deleteHabit([], 0), []);
 });
