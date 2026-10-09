@@ -17,7 +17,7 @@ import {
   addHabit,
   deleteHabit,
 } from "../src/habits.js";
-import { addDays, dayParts } from "../src/dates.js";
+import { addDays, dayParts, isDateKey } from "../src/dates.js";
 
 const TODAY = "2026-10-08";
 const WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -108,17 +108,21 @@ test("@R7 the best run may be old, and a later shorter run does not replace it",
 });
 
 // A walk that never ends would block this file's process for good, so the call runs in a child that is
-// killed at the cap. A regression then fails the test instead of hanging the suite.
+// killed at the cap. A regression then fails the test instead of hanging the suite. The arguments go in
+// on stdin, because a long input does not fit on a command line.
 const WALK_CAP_MS = 5_000;
 function streakInChild(name, ...args) {
   const habitsUrl = new URL("../src/habits.js", import.meta.url).href;
   const program = `
     const { ${name} } = await import(${JSON.stringify(habitsUrl)});
-    process.stdout.write(JSON.stringify(${name}(...${JSON.stringify(args)})));
+    const chunks = [];
+    for await (const chunk of process.stdin) chunks.push(chunk);
+    process.stdout.write(JSON.stringify(${name}(...JSON.parse(Buffer.concat(chunks).toString("utf8")))));
   `;
   try {
     return JSON.parse(
       execFileSync(process.execPath, ["--input-type=module", "--eval", program], {
+        input: JSON.stringify(args),
         encoding: "utf8",
         timeout: WALK_CAP_MS,
         killSignal: "SIGKILL",
@@ -130,17 +134,19 @@ function streakInChild(name, ...args) {
   }
 }
 
-test("@R7 the best-run walk ends on keys outside the valid range, where the next day repeats itself", () => {
-  // Near 2^53 days, floating-point rounding makes adding one day return the same key. The app's decoder
-  // treats saved data holding such a key as unreadable, because it fails isDateKey, but the walk must
-  // still end if one gets through.
-  const runStart = "24660873954866-12-02";
-  const stuck = "24660873954866-12-04";
-  assert.equal(addDays(runStart, 1), stuck, "precondition: the run start's next day is the stuck key");
-  assert.equal(addDays(stuck, 1), stuck, "precondition: the stuck key's next day is itself");
-  assert.ok(![runStart, stuck].includes(addDays(runStart, -1)), "precondition: the run start begins a run");
+// Near 2^53 days, floating-point rounding makes adding one day return the same key, so the day after
+// FAR_START is FAR_STUCK and the day after FAR_STUCK is itself. The app's decoder treats saved data
+// holding such a key as unreadable, because it fails isDateKey, but the streaks must still end, and
+// count only valid days, if one gets through.
+const FAR_START = "24660873954866-12-02";
+const FAR_STUCK = "24660873954866-12-04";
 
-  const best = streakInChild("bestStreak", [runStart, stuck]);
+test("@R7 the best-run walk ends on keys outside the valid range, where the next day repeats itself", () => {
+  assert.equal(addDays(FAR_START, 1), FAR_STUCK, "precondition: the run start's next day is the stuck key");
+  assert.equal(addDays(FAR_STUCK, 1), FAR_STUCK, "precondition: the stuck key's next day is itself");
+  assert.ok(![FAR_START, FAR_STUCK].includes(addDays(FAR_START, -1)), "precondition: the run start begins a run");
+
+  const best = streakInChild("bestStreak", [FAR_START, FAR_STUCK]);
   assert.ok(Number.isInteger(best) && best >= 0 && best <= 2, `bestStreak gave ${best}, more than the 2 distinct days`);
 });
 
@@ -157,6 +163,43 @@ test("@R6 the current-run walk ends on the cycle below year 0001", () => {
     Number.isInteger(current) && current >= 0 && current <= 12,
     `currentStreak gave ${current}, more than the 12 distinct days`,
   );
+});
+
+// parseKey reads each part with Number(), which ignores white space, so FAR_START has thousands of
+// spellings. Each is a separate key whose previous day is absent, so each starts its own run.
+const WHITE_SPACE = ["", " ", "\t", " ", " ", "　", "﻿"];
+function spellingsOfFarStart(count) {
+  const [year, month, day] = FAR_START.split("-");
+  const keys = [];
+  for (let i = 0; keys.length < count; i++) {
+    const space = (place) => WHITE_SPACE[Math.floor(i / WHITE_SPACE.length ** place) % WHITE_SPACE.length];
+    const key = `${space(5)}${year}${space(4)}-${space(3)}${month}${space(2)}-${space(1)}${day}${space(0)}`;
+    if (key !== FAR_START) keys.push(key);
+  }
+  return keys;
+}
+
+test("@R7 many spellings of one far-out date that all run into the stuck key cost one pass, not one walk each", () => {
+  const spellings = spellingsOfFarStart(20_000);
+  const before = addDays(FAR_START, -1);
+  assert.equal(new Set(spellings).size, 20_000, "precondition: 20,000 distinct keys");
+  assert.ok(spellings.every((key) => !isDateKey(key)), "precondition: every spelling fails isDateKey");
+  assert.ok(spellings.every((key) => addDays(key, 1) === FAR_STUCK), "precondition: every spelling's next day is the stuck key");
+  assert.ok(spellings.every((key) => addDays(key, -1) === before), "precondition: every spelling has the same previous day");
+  assert.ok(!spellings.includes(before), "precondition: that previous day is absent, so every spelling starts a run");
+
+  assert.equal(streakInChild("bestStreak", [...spellings, FAR_STUCK]), 0);
+});
+
+test("@R6 @R7 keys that fail isDateKey do not count, so a streak counts only valid days", () => {
+  assert.equal(streakInChild("bestStreak", ["2026-10-06", "2026-10-07", "2026-10-08", FAR_START, FAR_STUCK]), 3);
+
+  // Going back from 0001-01-10 leaves the valid range after 10 days and then reaches the cycle below year 0001.
+  const history = [];
+  for (let key = "0001-01-10"; history.length < 400; key = addDays(key, -1)) history.push(key);
+  assert.equal(history.filter(isDateKey).length, 10, "precondition: 10 valid days");
+  assert.equal(streakInChild("currentStreak", history, "0001-01-10"), 10, "currentStreak");
+  assert.equal(streakInChild("bestStreak", history), 10, "bestStreak");
 });
 
 test("@R8 the run flag needs the first strip day and the day before it", () => {

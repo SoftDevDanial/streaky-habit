@@ -4,7 +4,7 @@
  * proved without a browser or a clock. Input: valid habits and date keys. Output: new values only,
  * the arguments are never changed.
  */
-import { addDays, dayParts, weekdayIndex } from "./dates.js";
+import { addDays, dayParts, isDateKey, weekdayIndex } from "./dates.js";
 
 /** @typedef {import("./dates.js").DateKey} DateKey */
 /** @typedef {{ name: string, done: DateKey[] }} Habit  done ascending, no duplicates */
@@ -34,9 +34,18 @@ function copyHabit(habit) {
 }
 
 /**
+ * The days a streak may count: only keys that pass `isDateKey`. Each valid day has one spelling, and
+ * inside the valid range `addDays` never repeats a key, so every run is walked once and the total work
+ * stays linear. Without the filter, many spellings of one far-out date could each start a long walk.
+ */
+function streakDays(done) {
+  return new Set(done.filter(isDateKey));
+}
+
+/**
  * One run counter for both streaks, so current and best count a run the same way. `step` is 1 or -1.
- * A run never holds more days than the set, so the walk stops there. Outside the valid date range
- * `addDays` can return a key it already returned, and an unbounded walk would never end.
+ * The size bound is a second guard behind `streakDays`: a run never holds more days than the set, and
+ * outside the valid range `addDays` can return a key it already returned.
  */
 function runLength(days, from, step) {
   let length = 0;
@@ -56,12 +65,12 @@ export function weekWindow(todayKey) {
 /**
  * Counting starts at yesterday while today is open, so a streak does not break until today is over.
  * Days after `todayKey` are never reached because the count only moves backwards.
- * @param {readonly DateKey[]} done any order, duplicates allowed
+ * @param {readonly DateKey[]} done any order, duplicates allowed, keys that fail `isDateKey` ignored
  * @param {DateKey} todayKey
  * @returns {number}
  */
 export function currentStreak(done, todayKey) {
-  const days = new Set(done);
+  const days = streakDays(done);
   const start = days.has(todayKey) ? todayKey : addDays(todayKey, PREVIOUS_DAY);
   return runLength(days, start, PREVIOUS_DAY);
 }
@@ -69,11 +78,11 @@ export function currentStreak(done, todayKey) {
 /**
  * Longest run over the whole history, entries after today included. Each run is measured once,
  * from its first day, so the cost stays linear.
- * @param {readonly DateKey[]} done any order, duplicates allowed
- * @returns {number} 0 when `done` is empty
+ * @param {readonly DateKey[]} done any order, duplicates allowed, keys that fail `isDateKey` ignored
+ * @returns {number} 0 when `done` holds no valid key
  */
 export function bestStreak(done) {
-  const days = new Set(done);
+  const days = streakDays(done);
   let best = 0;
   for (const key of days) {
     if (!days.has(addDays(key, PREVIOUS_DAY))) best = Math.max(best, runLength(days, key, NEXT_DAY));
