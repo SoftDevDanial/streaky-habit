@@ -1,7 +1,7 @@
 /**
  * The composition root: boots the page from the saved habits and today's date, and wires the events.
- * Why: the one place that joins habit-logic (rules), storage.js (persistence) and view.js (DOM), so none
- * of those three knows about the others. Index.html loads this module and nothing else; it exports nothing.
+ * Why: the one place that joins habit-logic (rules), storage.js (persistence) and view.js (DOM), so
+ * storage.js and view.js never import each other. Index.html loads this module and nothing else; it exports nothing.
  * State is the habits array plus the day the page shows. Every change goes through a habit-logic
  * function, then a save, then a synchronous render inside the handler that caused it.
  */
