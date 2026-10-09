@@ -4,7 +4,7 @@
 - **design-phase:** sdlc:design
 - **version:** 1.0.0
 - **mode:** greenfield
-- **phase:** execute (app: finders)
+- **phase:** execute (app: code review)
 - **next:** execute
 
 ## Modules

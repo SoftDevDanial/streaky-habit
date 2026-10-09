@@ -94,3 +94,7 @@ Append-only history. STATE.md holds the situation, this file holds what happened
 ## 2026-10-09 14:45 app module built
 - Builder (sonnet): 10 tasks b6e5069..ed9ff9d, BUILD.md f4563ab. 115 browser, 66 unit tests pass. Self-check fidelity 0 px on 6 captures, live e2e 11/11 (scratch)
 - QA finder (sonnet) started
+
+## 2026-10-09 15:14 app QA PASS
+- QA finder (sonnet): PASS, 68 of 70 scenarios (2 belong to fidelity), R1 to R28 covered, 118 independent probe checks pass, 20 of 24 mutants caught. Test-strength notes N1 to N5, low. Commit 0590636
+- Code-review finder (sonnet) started; security and fidelity next
