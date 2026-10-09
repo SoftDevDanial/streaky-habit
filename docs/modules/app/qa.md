@@ -585,21 +585,59 @@ Feature: Delete a habit
   # (@R13, @R14, @R24, @R27, M1-04, the fidelity state script), the text is 'Delete "', U+2068, the name, U+2069, '"?'
   # (spec R13 note). The two marks are invisible, so the picture is the same. Tests build the text with
   # `dialog_title(name)` in conftest.py.
+  # Changed 2026-10-09 (security SEC-06, ORCH): for a name that holds a bidi format character (U+202A to U+202E,
+  # U+2066 to U+2069, U+0085, U+001C to U+001E, U+2029) the title shows the name without it (spec R13 note of SEC-06),
+  # so `dialog_title` takes the name as shown and a test of such a name writes the shown name out. The stored name,
+  # the list row and the trash button's label keep the name as typed. Every name in the examples below that holds none
+  # of these characters is shown exactly as stored.
 
   @R13
-  Scenario Outline: An unterminated bidirectional override in a name cannot move the title's quotes
-    Given a fresh day and storage holding one habit named <name>
+  Scenario Outline: The title shows the name without bidi format characters, and its quotes stay in place
+    Given a fresh day and storage holding one habit named <stored>
     When the user clicks its trash button
-    Then #del-title has one text node, no child element, and the text 'Delete "', U+2068, <name>, U+2069, '"?'
+    Then #del-title has one text node, no child element, and the text 'Delete "', U+2068, <shown>, U+2069, '"?'
     And, measured by the position of each character, the opening quote lies left of every visible character of the name, the closing quote lies right of all of them, and the question mark lies right of the closing quote
 
     Examples:
-      | name                                      |
-      | U+202E then "Reversed text here"          |
-      | "Read 20 pages", U+202E, " dleiys .gnp"   |
-      | "a", U+202E, "b", U+202E, "c", U+202E     |
-      | U+202B then "abc def"                     |
-      | U+2067 then "abc def"                     |
+      | stored                                          | shown                                |
+      | U+202E then "Reversed text here"                | "Reversed text here"                 |
+      | "Read 20 pages", U+202E, " dleiys .gnp"         | "Read 20 pages dleiys .gnp"          |
+      | "a", U+202E, "b", U+202E, "c", U+202E           | "abc"                                |
+      | U+202B then "abc def"                           | "abc def"                            |
+      | U+2067 then "abc def"                           | "abc def"                            |
+      | U+05D0, U+2066, "abc" (SEC-06)                  | U+05D0, "abc"                        |
+      | U+05D0, U+2068, "abc" (SEC-06)                  | U+05D0, "abc"                        |
+      | a Hebrew word, U+2066 (SEC-06)                  | the Hebrew word                      |
+      | a Hebrew word, " abc", U+2066 (SEC-06)          | the Hebrew word, " abc"              |
+      | U+0645, U+2066, "x" (SEC-06)                    | U+0645, "x"                          |
+      | "x", U+2069, U+202E, "y z" (residual (b))       | "xy z"                               |
+      | "x", U+2029, U+202E, "y z" (residual (b))       | "xy z"                               |
+      | U+05D0, U+2066, "abc", U+2069 (a matched pair)  | U+05D0, "abc"                        |
+      | "Read 20 pages"                                 | "Read 20 pages"                      |
+      | a Hebrew word, " ", another Hebrew word         | the same                             |
+      | U+05D0                                          | U+05D0                               |
+
+  @R13
+  Scenario: Every character of the stripped set is left out of the title
+    Given storage holding one habit named "x", then each of U+202A to U+202E, U+2066 to U+2069, U+0085, U+001C to U+001E and U+2029 (14 characters) with an "x" after each
+    When the user clicks its trash button
+    Then the text of #del-title is 'Delete "', U+2068, fifteen times "x", U+2069, '"?'
+
+  @R13
+  Scenario: The neighbours of the stripped ranges and other invisible characters stay in the title
+    Given storage holding one habit named "x", then each of U+0084, U+0086, U+001B, U+001F, U+2028, U+202F, U+2065, U+206A, U+200E, U+200F, U+061C, U+200B, U+200C, U+200D, U+2060 and U+FEFF with an "x" after each
+    When the user clicks its trash button
+    Then the text of #del-title is 'Delete "', U+2068, the stored name unchanged, U+2069, '"?'
+
+  @R13
+  Scenario: Only the title's copy loses the characters, and the habit named in it is the one deleted
+    Given the clock installed, and storage holding two habits, U+05D0 U+2066 "abc" and "Other habit"
+    When the user clicks the first trash button
+    Then the text of #del-title is 'Delete "', U+2068, U+05D0, "abc", U+2069, '"?'
+    And the h3 texts are the stored name and "Other habit", and the first trash button's aria-label is "Delete " followed by the stored name
+    And storage is byte for byte what was seeded, and no write was made
+    When the user confirms the delete
+    Then one habit remains, "Other habit", in the list and in storage
 
 Feature: Kept on the device
 
@@ -982,7 +1020,7 @@ Feature: Looks right
 | M1-01 | Page behind | S1 unchanged underneath; it cannot be clicked or focused |
 | M1-02 | Backdrop | `--scrim` rgb(28 37 35 / 0.5) over the whole viewport (native `::backdrop`) |
 | M1-03 | Dialog box | `dialog.dialog` opened with `showModal()`, role alertdialog, `aria-modal="true"`, labelled by `#del-title`, described by `#del-body`; `--surface`, radius 20, padding 24, the dialog shadow; width `min(400px, 100% - 40px)`; 350 x 180 at x 20, y 332 on 390 x 844 and 400 x 180 at x 440, y 310 on 1280 x 800; centred both ways |
-| M1-04 | Title | `h2#del-title` `Delete "Read 20 pages"?` with straight quotes, 18/28 600 `--ink`, one line, 24 from the top; long names wrap and the box grows in height only. Changed 2026-10-09 (security SEC-02, ORCH): the text also holds the invisible U+2068 before the name and U+2069 after it (spec R13 note); they draw nothing, and the pixel diff stays at 0. |
+| M1-04 | Title | `h2#del-title` `Delete "Read 20 pages"?` with straight quotes, 18/28 600 `--ink`, one line, 24 from the top; long names wrap and the box grows in height only. Changed 2026-10-09 (security SEC-02, ORCH): the text also holds the invisible U+2068 before the name and U+2069 after it (spec R13 note); they draw nothing, and the pixel diff stays at 0. Changed 2026-10-09 (security SEC-06, ORCH): the title shows the name without the bidi format characters of the R13 note; the sample name "Read 20 pages" holds none, so this row and the pixel diff are unchanged (measured 2026-10-09 with harness 2.1.3, M1 at 390x844 and 1280x800, 0 mismatched pixels, `dimensions_match` true). |
 | M1-05 | Body | `p#del-body` "Its history is deleted too.", 16/24 `--ink-soft`, 8 below the title |
 | M1-06 | Buttons row | `form.dialog-actions[method=dialog]`, two equal columns 12 apart, 24 below the body; each 145 wide at 390 and 170 at 1280, 48 tall |
 | M1-07 | Cancel | left; `.btn.btn-secondary[type=submit][value=cancel]` "Cancel"; transparent, 2px `--ring` border, `--ink` 16 600 |
