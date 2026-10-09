@@ -288,7 +288,7 @@ No other user-facing string exists.
 ## Tasks
 > Atomic, ordered, one commit each. Each commit carries the code and the browser tests that prove it (qa.md). Browser tests use pytest (the CLAUDE.md command) with Playwright's sync API and the fixtures in `tests/browser/conftest.py`. pytest-playwright is not installed and is not needed.
 1. [x] `index.html` (head, CSP, icon credit comment, sprite, static skeleton, dialog) and `src/styles.css` (R2), plus `tests/browser/conftest.py` (fixtures and helpers listed in qa.md) and the static checks of `tests/browser/test_entry.py`. → R1, R2
-2. [ ] `src/storage.js`, `src/view.js` and `src/app.js` boot path: load, `readToday()`, render header, empty message or list, rows, streak lines, strips, heatmap, and the add form's 12-habit state at load; plus `tests/browser/test_render.py`. → R3, R4, R5, R6, R7, R9, R12, R16
+2. [x] `src/storage.js`, `src/view.js` and `src/app.js` boot path: load, `readToday()`, render header, empty message or list, rows, streak lines, strips, heatmap, and the add form's 12-habit state at load; plus `tests/browser/test_render.py`. → R3, R4, R5, R6, R7, R9, R12, R16
 3. [ ] Tick in place with focus kept, streak line and heat cell update, save; plus `tests/browser/test_tick.py`. → R8, R16
 4. [ ] Add form: submit, `addHabit`, errors, message states, focus, 12-habit limit; plus `tests/browser/test_add.py`. → R10, R11, R12
 5. [ ] Delete dialog: open, Cancel, Esc and a backdrop click as Cancel, Delete habit, focus targets; plus `tests/browser/test_delete.py`. → R13, R14, R15

@@ -6,6 +6,7 @@ Input: STREAKS_BASE_URL (required for tests that open the app, ends with "/"), S
 STREAKS_EVIDENCE_DIR (both optional). Output: fixtures and helpers; nothing here touches the app's code,
 and tests only ever reach the app through real gestures and by seeding localStorage before it loads.
 """
+import datetime
 import json
 import os
 import pathlib
@@ -28,7 +29,9 @@ TZ = "Asia/Kuala_Lumpur"
 NOON = "2026-10-08T12:00:00+08:00"
 DEFAULT_TIMEOUT_MS = 5000
 
-SAMPLE_HABITS = json.loads((DESIGN_DIR / "sample-history.json").read_text(encoding="utf-8"))["habits"]
+SAMPLE = json.loads((DESIGN_DIR / "sample-history.json").read_text(encoding="utf-8"))
+SAMPLE_HABITS = SAMPLE["habits"]
+SAMPLE_LEVELS = SAMPLE["heatmapLevels"]
 
 
 def state_text(habits):
@@ -199,6 +202,75 @@ def day(page, name, date):
 
 def cell(page, date):
     return page.locator(f'.cells .hc[data-date="{date}"]')
+
+
+def pattern(page, name):
+    """The row's strip as 'D' (done) and '.' (not done), oldest day first, for example '. D D D D D D'."""
+    return row(page, name).locator("button.day").evaluate_all(
+        "(buttons) => buttons.map((b) => (b.getAttribute('aria-pressed') === 'true' ? 'D' : '.')).join(' ')"
+    )
+
+
+def streak(page, name):
+    """The row's streak line as {'cur', 'cur_class', 'best', 'children'}; 'best' is None without a span.best."""
+    return row(page, name).locator("p.streak").evaluate(
+        """(line) => {
+          const best = line.querySelector('.best');
+          return {
+            cur: line.querySelector('.cur').textContent,
+            cur_class: line.querySelector('.cur').className,
+            best: best ? best.textContent : null,
+            children: line.children.length,
+          };
+        }"""
+    )
+
+
+_WEEKDAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+_MONTHS = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December",
+]
+
+
+def short_date(key):
+    """'Tue 6 Oct' for '2026-10-06', worked out here from the calendar so tests do not reuse the app's code."""
+    moment = datetime.date.fromisoformat(key)
+    return f"{_WEEKDAYS[moment.weekday()][:3]} {moment.day} {_MONTHS[moment.month - 1][:3]}"
+
+
+def long_date(key):
+    """'Tuesday 6 October' for '2026-10-06'."""
+    moment = datetime.date.fromisoformat(key)
+    return f"{_WEEKDAYS[moment.weekday()]} {moment.day} {_MONTHS[moment.month - 1]}"
+
+
+def add_days(key, days):
+    return (datetime.date.fromisoformat(key) + datetime.timedelta(days=days)).isoformat()
+
+
+# Both sides are reduced to the same text: element names, attributes sorted by name, the style attribute
+# as the browser normalises it, and text with the whitespace-only nodes between tags dropped.
+_CANONICAL_PAIR_JS = """([goldenHtml, selector]) => {
+  const canon = (node) => {
+    if (node.nodeType === Node.TEXT_NODE) return node.textContent.trim() === '' ? '' : node.textContent;
+    if (node.nodeType !== Node.ELEMENT_NODE) return '';
+    const attributes = Array.from(node.attributes)
+      .map((a) => a.name + '="' + (a.name === 'style' ? node.style.cssText : a.value) + '"')
+      .sort()
+      .join(' ');
+    const inner = Array.from(node.childNodes).map(canon).join('');
+    return '<' + node.localName + ' ' + attributes + '>' + inner + '</' + node.localName + '>';
+  };
+  const golden = new DOMParser().parseFromString(goldenHtml, 'text/html');
+  return [canon(document.querySelector(selector)), canon(golden.querySelector(selector))];
+}"""
+
+
+def canonical_pair(page, screen, selector):
+    """(live, golden) canonical text of the element `selector` in the running page and in docs/design/<screen>."""
+    golden = (DESIGN_DIR / screen).read_text(encoding="utf-8")
+    return page.evaluate(_CANONICAL_PAIR_JS, [golden, selector])
 
 
 def shot(page, name):
