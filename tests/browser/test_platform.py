@@ -1,6 +1,7 @@
 """R21 to R26: phone width, keyboard, motion, names as text, requests, no seed and no hooks
 (app qa.md: Platform, and the R26 scenarios of Shipped entry point).
 """
+import os
 from urllib.parse import urlsplit
 
 import pytest
@@ -26,7 +27,15 @@ MARKUP_NAME = "<img src=x onerror=alert(1)>"
 
 
 def src_text():
-    return {path.name: path.read_text(encoding="utf-8") for path in sorted(SRC_DIR.glob("*.js"))}
+    """Every regular file under src/ (JavaScript, CSS or anything else) by path, because R24 and R26 say "every file".
+
+    Decoded leniently so that a file that is not UTF-8 text is still scanned and cannot hide a sink.
+    """
+    return {
+        path.relative_to(SRC_DIR).as_posix(): path.read_bytes().decode("utf-8", errors="replace")
+        for path in sorted(SRC_DIR.rglob("*"))
+        if path.is_file()
+    }
 
 
 # ---------------------------------------------------------------------------- R21
@@ -146,6 +155,17 @@ def test_R24_markup_in_a_name_stays_text(app):
     assert record(page).errors == []
 
 
+def test_R24_R26_the_source_scan_reads_every_file_under_src():
+    """Guards the scans themselves: a scan that skips the stylesheet or a nested file proves nothing about it."""
+    on_disk = {
+        os.path.relpath(os.path.join(folder, name), SRC_DIR).replace(os.sep, "/")
+        for folder, _, names in os.walk(SRC_DIR)
+        for name in names
+    }
+    assert set(src_text()) == on_disk
+    assert {"app.js", "styles.css"} <= on_disk
+
+
 def test_R24_no_html_sinks_in_the_source():
     for name, text in src_text().items():
         for sink in ("innerHTML", "outerHTML", "insertAdjacentHTML", "document.write", "eval(", "new Function"):
@@ -167,7 +187,7 @@ def test_R25_every_request_stays_on_the_devices_own_files(app):
 
     log = record(page)
     origin = "{0.scheme}://{0.netloc}".format(urlsplit(BASE_URL))
-    allowed = {"/", "/index.html", "/favicon.ico", "/src/styles.css"} | {f"/src/{name}" for name in src_text()}
+    allowed = {"/", "/index.html", "/favicon.ico", "/src/styles.css"} | {f"/src/{name}" for name in src_text() if name.endswith(".js")}
     assert log.requests, "the page made requests"
     for request in log.requests:
         assert request["method"] == "GET", request
