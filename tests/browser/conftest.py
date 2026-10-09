@@ -40,6 +40,13 @@ STORAGE_KEY = "streaks.state"
 # UTC+8 all year, no DST, so a result never depends on the machine's own zone (ROADMAP D5).
 TZ = "Asia/Kuala_Lumpur"
 NOON = "2026-10-08T12:00:00+08:00"
+# A test that freezes an installed clock pauses here, 20 seconds after NOON: later than a page needs to
+# load, earlier than the app's first 30 second rollover check.
+PAUSE_AT = "2026-10-08T12:00:20+08:00"
+# The second click of a double click or double tap is ignored for this long (spec R13, T7): on "Delete habit"
+# after the click that opened the dialog, and on the page after a mouse or touch click in the dialog.
+# Keep it equal to DIALOG_GUARD_MS in src/app.js.
+GUARD_WINDOW_MS = 500
 DEFAULT_TIMEOUT_MS = 5000
 
 SAMPLE = json.loads((DESIGN_DIR / "sample-history.json").read_text(encoding="utf-8"))
@@ -244,6 +251,7 @@ _WRITE_COUNTER_SCRIPT = """(() => {
   };
 })();""" % WRITE_MARK
 _COUNTING = weakref.WeakSet()
+_CLOCK_INSTALLED = weakref.WeakSet()
 
 
 def open_app(
@@ -259,6 +267,7 @@ def open_app(
     path="",
     base_url=None,
     count_writes=False,
+    touch=False,
 ):
     """Open the running app in a new context and return (context, page).
 
@@ -268,6 +277,7 @@ def open_app(
     installed clock lets a test advance time with `page.clock`, a fixed one only pins the date.
     `base_url` replaces STREAKS_BASE_URL, for the sub-path scenario. `count_writes` makes
     `write_count(page)` work: it adds the counter after seeding, so the seed is not counted, and records.
+    `touch` gives the context a touch screen, so `page.touchscreen.tap` works.
     """
     if base_url is None:
         _require_base_url()
@@ -279,6 +289,7 @@ def open_app(
         timezone_id=TZ,
         locale=locale,
         reduced_motion=reduced_motion,
+        has_touch=touch,
     )
     context.set_default_timeout(DEFAULT_TIMEOUT_MS)
     context.set_default_navigation_timeout(2 * DEFAULT_TIMEOUT_MS)
@@ -287,6 +298,8 @@ def open_app(
     elif fixed_time is not None:
         context.clock.set_fixed_time(fixed_time)
     page = context.new_page()
+    if install_time is not None:
+        _CLOCK_INSTALLED.add(page)
     if storage is not None:
         page.goto(base_url + "__seed__")
         page.evaluate("(text) => localStorage.setItem('streaks.state', text)", storage)
@@ -407,6 +420,27 @@ def trash(page, name):
 def open_delete_dialog(page, name):
     trash(page, name).click()
     expect(page.locator("dialog.dialog")).to_have_attribute("open", "")
+
+
+def let_guard_pass(page):
+    """Let the dialog's guard window (GUARD_WINDOW_MS) pass, as the time between two deliberate clicks does.
+
+    Needs a page opened with `install_time`. Event timestamps follow Playwright's installed clock
+    (a fixed one does not move them), so `run_for` passes the window at once and without a sleep.
+    """
+    assert page in _CLOCK_INSTALLED, "open the page with open_app(install_time=...)"
+    page.clock.run_for(GUARD_WINDOW_MS + 100)
+
+
+def confirm_delete(page):
+    """Click 'Delete habit' the way a person who means it does, then let the page listen again.
+
+    'Delete habit' ignores a click that comes too soon after the one that opened the dialog, and the page
+    ignores clicks that come too soon after a click in the dialog, so the window passes before and after.
+    """
+    let_guard_pass(page)
+    page.get_by_role("button", name="Delete habit", exact=True).click()
+    let_guard_pass(page)
 
 
 def center(locator):

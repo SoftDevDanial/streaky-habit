@@ -6,9 +6,11 @@ from playwright.sync_api import expect
 
 from conftest import (
     BASE_URL,
+    NOON,
     SAMPLE_HABITS,
     add_habit,
     cell,
+    confirm_delete,
     day,
     open_delete_dialog,
     record,
@@ -24,11 +26,11 @@ EMPTY_STATE = '{"version":1,"habits":[]}'
 
 
 def test_R16_changes_survive_a_reload_and_a_closed_tab(app):
-    page = app(storage=sample_state())
+    page = app(storage=sample_state(), install_time=NOON)
     day(page, "Stretch 10 minutes", "2026-10-08").click()
     add_habit(page, "Drink water")
     open_delete_dialog(page, "No phone after 11pm")
-    page.get_by_role("button", name="Delete habit", exact=True).click()
+    confirm_delete(page)
     expect(page.locator("li.habit")).to_have_count(3)
 
     def check_screen(screen):

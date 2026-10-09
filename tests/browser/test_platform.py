@@ -9,10 +9,12 @@ from playwright.sync_api import expect
 
 from conftest import (
     BASE_URL,
+    NOON,
     ROOT,
     SAMPLE_NAMES,
     add_button,
     add_habit,
+    confirm_delete,
     day,
     open_delete_dialog,
     record,
@@ -176,11 +178,11 @@ def test_R24_no_html_sinks_in_the_source():
 
 
 def test_R25_every_request_stays_on_the_devices_own_files(app):
-    page = app(storage=sample_state(), record=True)
+    page = app(storage=sample_state(), record=True, install_time=NOON)
     day(page, "Stretch 10 minutes", "2026-10-08").click()
     add_habit(page, "Drink water")
     open_delete_dialog(page, "Read 20 pages")
-    page.get_by_role("button", name="Delete habit", exact=True).click()
+    confirm_delete(page)
     expect(page.locator("li.habit")).to_have_count(3)
     page.reload()
     expect(page.locator("li.habit")).to_have_count(3)

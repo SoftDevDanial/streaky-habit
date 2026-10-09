@@ -310,6 +310,7 @@ export function focusDeleteButton(index) {
 // Where app.js listens and what it asks about a click: its selectors live in this file only (JC5)
 
 export const containers = () => ({
+  page: $(".page"),
   list: $(LIST_SECTION),
   mainColumn: $(".col-main"),
   addForm: $(".add"),
@@ -318,4 +319,5 @@ export const containers = () => ({
 
 export const dayButtonOf = (node) => node.closest("button.day");
 export const deleteButtonOf = (node) => node.closest(".habit-head .icon-btn");
+export const confirmButtonOf = (node) => node.closest(".dialog .btn-danger");
 export const dismissButtonOf = (node) => node.closest(".note .icon-btn");

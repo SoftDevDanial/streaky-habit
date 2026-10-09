@@ -43,6 +43,8 @@
 | `stored(page)` | `localStorage.getItem("streaks.state")` |
 | `row(page, name)`, `day(page, name, date)`, `cell(page, date)` | locators by habit name, `data-date` and heat cell |
 
+Changed 2026-10-09 (security SEC-01, ORCH): `open_app` also takes `touch=True` (a context with a touch screen, for `page.touchscreen.tap`). `conftest.py` gained `GUARD_WINDOW_MS` (500, equal to `DIALOG_GUARD_MS` in `src/app.js`), `PAUSE_AT` (12:00:20 on the sample day, where a test freezes an installed clock), `let_guard_pass(page)` (`page.clock.run_for(600)`) and `confirm_delete(page)` (let the window pass, click "Delete habit", let it pass again). Both helpers need a page opened with `install_time`, and fail at once on any other.
+
 ### Named starting states
 - **the sample day**: `open_app` with the clock fixed at `2026-10-08T12:00:00+08:00` and storage seeded with `sample_state()`. Today is Thursday 8 October 2026. Habits in order: "Read 20 pages", "Stretch 10 minutes", "No phone after 11pm".
 - **a fresh day**: `open_app` with the clock fixed at `2026-10-08T12:00:00+08:00` and no storage at all.
@@ -433,6 +435,152 @@ Feature: Delete a habit
     When the user deletes "Stretch 10 minutes" and then adds "Stretch 10 minutes"
     Then the new last row's 7 day buttons are all aria-pressed "false" and its streak line is "No streak yet" with no best
 
+  # Added 2026-10-09 (security SEC-01, ORCH). Two guards of 500 ms (spec R13 note): "Delete habit" ignores an activation
+  # less than 500 ms after the click that opened the dialog, and the page ignores clicks for 500 ms after a mouse or touch
+  # click in the dialog. Every scenario above that says 'and then "Delete habit"' means: after the first window, and a
+  # step that clicks the page right after a click in the dialog waits out the second. In the pytest suite the page is
+  # opened with `install_time`, and `confirm_delete` runs `page.clock.run_for(600)` before and after its click, because
+  # Event.timeStamp follows Playwright's installed clock (a fixed clock does not move it). The @R27 gate installs no clock
+  # and waits 600 ms for real. The scenarios below freeze the clock (page.clock.pause_at 12:00:20), so two presses are at
+  # the same instant on any machine. The press points are found by measuring, and each scenario checks that a control
+  # really lies under the second press, so a layout change cannot make it pass because nothing is there.
+
+  @R13
+  Scenario Outline: A double click or double tap on an overlapping trash button cannot delete
+    Given the sample day at <size> with <input> input, the clock installed and paused, and the point where the button "Delete No phone after 11pm" and the dialog's "Delete habit" overlap (found by opening the dialog once and closing it, and checked to hit each button)
+    When the user presses that point twice at the same instant (a mouse double click, or two taps)
+    Then the dialog is still open for "No phone after 11pm", there are 3 li.habit, nothing was saved and stored(page) equals the text before
+    When the user presses Escape
+    Then the dialog is closed, focus is on "Delete No phone after 11pm" and stored(page) still equals the text before
+
+    Examples:
+      | size     | input |
+      | 1440x900 | mouse |
+      | 1440x900 | touch |
+      | 412x915  | mouse |
+      | 412x915  | touch |
+
+  @R14
+  Scenario Outline: Cancel, Esc and a backdrop click work at the instant of opening
+    Given the sample day, the clock installed and paused
+    When the user clicks "Delete Stretch 10 minutes" and at the same instant <action>
+    Then the dialog is closed, there are 3 li.habit, focus is on "Delete Stretch 10 minutes", nothing was saved and stored(page) equals the text before
+
+    Examples:
+      | action                                  |
+      | clicks "Cancel"                         |
+      | presses Escape                          |
+      | clicks the viewport point (5, 5)        |
+
+  @R13 @R15
+  Scenario: A click inside the window is ignored and one after it deletes
+    Given the sample day, the clock installed and paused, and the dialog opened by a click for "Stretch 10 minutes"
+    When 400 ms pass and the user clicks "Delete habit"
+    Then the dialog is still open, there are 3 li.habit and nothing was saved
+    When 200 ms more pass and the user clicks "Delete habit" at the same point
+    Then the dialog is closed, "Stretch 10 minutes" is gone and one save was made
+
+  @R13
+  Scenario: Every opening starts the window again
+    Given the sample day, the clock installed and paused, and the dialog opened for "Stretch 10 minutes", 600 ms passed, and Escape pressed
+    When the user opens the dialog again and at once clicks "Delete habit"
+    Then the dialog is still open and there are 3 li.habit
+    When 600 ms pass and the user clicks "Delete habit"
+    Then "Stretch 10 minutes" is gone
+
+  @R15
+  Scenario: A deliberate click after the window deletes
+    Given the sample day with the clock installed and the dialog open for "Stretch 10 minutes"
+    When 600 ms pass and the user clicks "Delete habit"
+    Then the dialog is closed and the rows are "Read 20 pages" and "No phone after 11pm"
+
+  @R15
+  Scenario: Enter on "Delete habit" after the window deletes
+    Given the sample day with the clock installed and the dialog open for "Stretch 10 minutes"
+    When 600 ms pass, the user presses Tab (focus moves from Cancel to "Delete habit") and presses Enter
+    Then the rows are "Read 20 pages" and "No phone after 11pm"
+
+  @R14
+  Scenario Outline: A double click or double tap on the backdrop does not tick the bead behind
+    Given the sample day at <size> with <input> input, the clock installed and paused, and the dialog open for "Read 20 pages"
+    And a day bead whose centre lies on the backdrop (outside the dialog box)
+    When the user presses that point twice at the same instant
+    Then the dialog is closed and a day bead lies under that point
+    And nothing was saved and stored(page) equals the text before
+
+    Examples:
+      | size     | input |
+      | 390x844  | mouse |
+      | 390x844  | touch |
+      | 412x915  | mouse |
+      | 412x915  | touch |
+      | 1440x900 | mouse |
+      | 1440x900 | touch |
+
+  @R14
+  Scenario Outline: A double click or double tap on Cancel does not tick the bead behind it
+    Given the sample day at <size> with <input> input, the clock installed and paused, and the dialog open for "Read 20 pages"
+    When the user presses the centre of "Cancel" twice at the same instant
+    Then the dialog is closed and a day bead lies under that point (Cancel lies over the second habit's beads on small phones)
+    And nothing was saved and stored(page) equals the text before
+
+    Examples:
+      | size    | input |
+      | 375x667 | mouse |
+      | 375x667 | touch |
+      | 360x640 | mouse |
+      | 360x640 | touch |
+
+  @R14
+  Scenario Outline: A double click or double tap on the backdrop over Add does not add a typed name
+    Given the sample day at 390x844 with <input> input, the clock installed and paused, "Drink water" typed in the field, and the dialog open for "Read 20 pages"
+    When the user presses the centre of "Add" (on the backdrop) twice at the same instant
+    Then the dialog is closed, the field still holds "Drink water", there are 3 li.habit and nothing was saved
+
+    Examples:
+      | input |
+      | mouse |
+      | touch |
+
+  @R15
+  Scenario Outline: A double click or double tap on "Delete habit" deletes once and ticks nothing
+    Given the sample day at 375x667 with <input> input, the clock installed and paused, and the dialog open for "Read 20 pages" for 600 ms
+    When the user presses the centre of "Delete habit" twice at the same instant
+    Then the rows are "Stretch 10 minutes" and "No phone after 11pm", a day bead lies under that point, and stored(page) holds the two remaining sample habits unchanged, saved once
+
+    Examples:
+      | input |
+      | mouse |
+      | touch |
+
+  @R14
+  Scenario Outline: Closing the dialog with the keyboard does not hold the next click
+    Given the sample day, the clock installed and paused, and the dialog open for "Read 20 pages"
+    When the user presses <key> (Enter and Space act on Cancel, which has focus)
+    Then the dialog is closed and focus is on "Delete Read 20 pages"
+    When the user clicks Stretch's day 2026-10-08 at the same instant
+    Then its aria-pressed is "true"
+
+    Examples:
+      | key    |
+      | Enter  |
+      | Space  |
+      | Escape |
+
+  @R14
+  Scenario: The page listens again once the window has passed
+    Given the sample day, the clock installed and paused, and the dialog closed by a click on the backdrop
+    When 400 ms pass and the user clicks Stretch's day 2026-10-08
+    Then its aria-pressed is still "false"
+    When 200 ms more pass and the user clicks it again
+    Then its aria-pressed is "true"
+
+  @R14
+  Scenario: Cancel still works right after a click inside the box
+    Given the sample day, the clock installed and paused, and the dialog open for "Read 20 pages"
+    When the user clicks inside the dialog box 6 pixels right of and below its top-left corner (the dialog stays open) and at the same instant clicks "Cancel"
+    Then the dialog is closed
+
 Feature: Kept on the device
 
   @R16
@@ -717,7 +865,7 @@ Feature: Cold boot, real gestures, evidence
     # Changed 2026-10-08 (plan-check flag, ORCH): the last step first read "every request was a same-origin GET for index.html or a file under src/", which is narrower than @R25 (it left out "/" and "/favicon.ico", which the browser may ask for). @R27 now reuses the @R25 path list.
     And no console error and no page error was recorded, and every request meets the @R25 request rule: a GET to the BASE_URL origin with no query string, for the path "/", "/index.html", "/favicon.ico", "/src/styles.css" or "/src/<name>.js" for a file that exists in src/
 ```
-- **Gestures:** only `click`, `keyboard.type`, `keyboard.press` and `reload`. No `evaluate` that writes anything; reading DOM, `localStorage` and the date is allowed.
+- **Gestures:** only `click`, `keyboard.type`, `keyboard.press` and `reload`. No `evaluate` that writes anything; reading DOM, `localStorage` and the date is allowed. Changed 2026-10-09 (security SEC-01, ORCH): the delete step also pauses 600 ms before the trash click, between it and "Delete habit", and after "Delete habit", with `page.wait_for_timeout` (a real pause, the gate installs no clock), because the dialog's two guards ignore a click that comes too soon after a click in the dialog (spec R13 note). A pause is not a gesture and changes nothing on the page.
 - **Evidence** in `docs/modules/app/qa/live-e2e/<datetimestamp>/`: one full-page screenshot after each `Then` (`01-first-visit.png`, `02-added.png`, and so on), `steps.json` (each step: name, gesture, expected, observed, pass, time), `console.json`, `network.json`, and `summary.json` (start and end date T, browser version, base URL, overall pass). No artifact means the gate is not met.
 - The script starts nothing itself. The agent that runs it starts and stops the server and declares it in `PROCESSES`.
 

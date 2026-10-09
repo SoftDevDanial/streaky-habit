@@ -18,10 +18,22 @@ function readToday() {
 /** Half the 60 second promise ("within a minute"), so one late timer still keeps it. */
 const ROLLOVER_CHECK_MS = 30000;
 
+/**
+ * The second click of a double click or double tap lands where the first one left the screen (spec T7): on
+ * "Delete habit" when the first click opened the dialog under the pointer, and on the page behind the dialog
+ * when the first click closed it. For this long, measured in browser event time (no timer, no clock read of
+ * our own), "Delete habit" ignores clicks after the one that opened the dialog, and the page ignores clicks
+ * after a mouse or touch click in the dialog. The CSS cannot do it: R2 locks it to the golden.
+ */
+const DIALOG_GUARD_MS = 500;
+const withinGuard = (event, since) => event.timeStamp - since < DIALOG_GUARD_MS;
+
 const state = { habits: [], todayKey: "" };
 
 // The delete dialog is one element reused for every habit, so what it is about lives here while it is open.
 let pendingDelete = null; // index of the habit the open dialog asks about
+let dialogOpenedAt = -Infinity; // event time of the click that opened the dialog
+let dialogPressedAt = -Infinity; // event time of the latest mouse or touch click inside the dialog
 let pressedOutside = false; // whether the current mouse press began on the backdrop
 
 /** Everything that depends on the habit list: the rows, the heatmap counts and the add form's limit. */
@@ -40,8 +52,9 @@ function tick(dayButton) {
   view.renderHeatmap(state.habits, state.todayKey);
 }
 
-function askToDelete(deleteButton) {
+function askToDelete(deleteButton, openingClick) {
   pendingDelete = view.habitIndexOf(deleteButton);
+  dialogOpenedAt = openingClick.timeStamp;
   view.openDeleteDialog(state.habits[pendingDelete].name);
 }
 
@@ -86,11 +99,32 @@ function onDialogClick(event) {
   pressedOutside = false;
 }
 
+/**
+ * Cancelling the click of a submit button cancels the submit, so the dialog stays open. Registered for the
+ * capture phase so that a later listener on the button or the form cannot stop the event before this runs.
+ * `detail` is 0 for a click made with the keyboard and above 0 for mouse and touch, so closing the dialog
+ * with the keyboard never holds the page.
+ */
+function guardDialogClick(event) {
+  if (event.detail > 0) dialogPressedAt = event.timeStamp;
+  if (view.confirmButtonOf(event.target) && withinGuard(event, dialogOpenedAt)) event.preventDefault();
+}
+
+/**
+ * Registered on the page, not the document, so a press in the dialog is never held by it. The page is inert
+ * while the dialog is open, so a page click this soon after a press in the dialog is that gesture's second click.
+ */
+function swallowTapThrough(event) {
+  if (!withinGuard(event, dialogPressedAt)) return;
+  event.preventDefault();
+  event.stopPropagation();
+}
+
 function onListClick(event) {
   const dayButton = view.dayButtonOf(event.target);
   if (dayButton) tick(dayButton);
   const deleteButton = view.deleteButtonOf(event.target);
-  if (deleteButton) askToDelete(deleteButton);
+  if (deleteButton) askToDelete(deleteButton, event);
 }
 
 /** `error` is never "limit": at 12 habits the field and Add are disabled (`setAddLimit`), so no submit reaches addHabit. */
@@ -143,13 +177,15 @@ function boot() {
   view.renderMonths(state.todayKey);
   renderHabits();
   if (reset) view.showNote();
-  const { list, mainColumn, addForm, dialog } = view.containers();
+  const { page, list, mainColumn, addForm, dialog } = view.containers();
+  page.addEventListener("click", swallowTapThrough, true);
   mainColumn.addEventListener("click", onMainColumnClick);
   list.addEventListener("click", onListClick);
   addForm.addEventListener("submit", submitName);
   dialog.addEventListener("close", onDialogClose);
   dialog.addEventListener("pointerdown", onDialogPointerDown);
   dialog.addEventListener("click", onDialogClick);
+  dialog.addEventListener("click", guardDialogClick, true);
   setInterval(checkDay, ROLLOVER_CHECK_MS);
   document.addEventListener("visibilitychange", () => {
     if (document.visibilityState === "visible") checkDay();

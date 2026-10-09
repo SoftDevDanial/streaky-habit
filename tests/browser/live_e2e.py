@@ -16,7 +16,7 @@ from urllib.parse import urlsplit
 
 from playwright.sync_api import sync_playwright
 
-from conftest import short_date  # the same calendar-table helper the pytest suite uses
+from conftest import GUARD_WINDOW_MS, short_date  # the same calendar table and guard window the pytest suite uses
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 READ, STRETCH = "Read 20 pages", "Stretch 10 minutes"
@@ -229,11 +229,24 @@ class Scenario:
             check=lambda s: not s["dialogOpen"] and len(s["rows"]) == 2 and s["active"]["label"] == f"Delete {STRETCH}",
         )
 
+    def confirm_the_delete(self):
+        """The real clock runs here (the gate installs none), so the dialog's guard window is waited out for real.
+
+        The page ignores clicks for a moment after a click in the dialog (Cancel in the step before), and
+        "Delete habit" ignores a click for a moment after the dialog opens.
+        """
+        self.page.wait_for_timeout(GUARD_WINDOW_MS + 100)
+        self.trash(STRETCH).click()
+        self.page.wait_for_timeout(GUARD_WINDOW_MS + 100)
+        self.page.get_by_role("button", name="Delete habit", exact=True).click()
+        self.page.wait_for_timeout(GUARD_WINDOW_MS + 100)
+
     def delete_a_habit(self):
         self.gate.step(
-            "09-deleted", "click the trash button, then Delete habit", gesture="click the trash button; click Delete habit",
+            "09-deleted", "wait, click the trash button, wait, click Delete habit, wait",
+            gesture="pause 600 ms; click the trash button; pause 600 ms; click Delete habit; pause 600 ms",
             expected="1 row, focus on the field, T's cell counts 1 habit",
-            do=lambda: (self.trash(STRETCH).click(), self.page.get_by_role("button", name="Delete habit", exact=True).click()),
+            do=self.confirm_the_delete,
             check=lambda s: (
                 len(s["rows"]) == 1 and s["active"]["id"] == "new-habit"
                 and cell_of(s, self.t_key) == (f"{self.t_short}, 1 of 1 habits", ["hc", "l4", "today"])
