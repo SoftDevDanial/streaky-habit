@@ -435,6 +435,42 @@ test("@R13 a very long name is rejected without hanging", () => {
   assert.ok(performance.now() - started < 1000);
 });
 
+// Counts the code points a call reads through the string iterator, which Array.from and for...of both
+// use, so the count shows whether the length check stops early or walks the whole name.
+function codePointsRead(run) {
+  const native = String.prototype[Symbol.iterator];
+  let reads = 0;
+  String.prototype[Symbol.iterator] = function () {
+    const iterator = native.call(this);
+    return {
+      next: () => {
+        reads++;
+        return iterator.next();
+      },
+    };
+  };
+  try {
+    return { result: run(), reads };
+  } finally {
+    String.prototype[Symbol.iterator] = native;
+  }
+}
+
+test("@R13 the length check reads at most 41 code points, so a huge stored name costs no more than a short one", () => {
+  assert.equal(codePointsRead(() => Array.from("abc")).reads, 4, "precondition: the counter sees the string iterator");
+  const huge = {
+    "5,000,000 CJK units": "一".repeat(5_000_000),
+    "5,000,000 emoji units": "\u{1F4DA}".repeat(2_500_000),
+    "41 lone surrogates": "\uD800".repeat(41),
+  };
+  for (const [label, name] of Object.entries(huge)) {
+    const { result, reads } = codePointsRead(() => validateName(name, EXISTING_NAMES));
+    assert.deepEqual(result, { ok: false, error: "too-long" }, label);
+    assert.ok(reads <= MAX_NAME_LENGTH + 1, `${label}: ${reads} code points read`);
+  }
+  assert.deepEqual(validateName("\uD800".repeat(40), []), { ok: true, name: "\uD800".repeat(40) }, "40 lone surrogates");
+});
+
 test("@R14 a new habit goes to the bottom", () => {
   const input = sampleHabits();
   const result = addHabit(input, "  Drink water  ");

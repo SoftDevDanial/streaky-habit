@@ -206,6 +206,17 @@ export function monthLabels(todayKey) {
 }
 
 /**
+ * True when `text` has more than `limit` code points. It stops reading at `limit + 1`, so a name planted
+ * in storage at quota size costs no more than a short one. The string iterator yields the same code
+ * points as `Array.from`, a lone surrogate counting as one.
+ */
+function longerThan(text, limit) {
+  let count = 0;
+  for (const _ of text) if (++count > limit) return true;
+  return false;
+}
+
+/**
  * Trim first, then empty, too long, duplicate, so a name that is only spaces is "empty" and an
  * over-long copy of an existing name is "too-long". Length counts code points (CG-8): UTF-16
  * units would count one emoji as two, and grapheme counting needs Intl.
@@ -216,7 +227,7 @@ export function monthLabels(todayKey) {
 export function validateName(raw, existingNames) {
   const name = raw.trim();
   if (name === "") return { ok: false, error: "empty" };
-  if (Array.from(name).length > MAX_NAME_LENGTH) return { ok: false, error: "too-long" };
+  if (longerThan(name, MAX_NAME_LENGTH)) return { ok: false, error: "too-long" };
   const lowered = name.toLowerCase();
   if (existingNames.some((existing) => existing.toLowerCase() === lowered)) {
     return { ok: false, error: "duplicate" };
