@@ -1,0 +1,31 @@
+Output of probe_edge.py (run 2026-10-09, headless Chromium 149.0.7827.55, paused Playwright clock, mutants served from memory by page.route, no project file written).
+Command: PYTHONIOENCODING=utf-8 PYTHONDONTWRITEBYTECODE=1 python -B docs/modules/app/qa/regression-code-review/20261009T221155/probe_edge.py
+
+[server] started http.server pid 48208 on 127.0.0.1:30881
+[browser] headless chromium 149.0.7827.55
+cell = 'through' when the second click or press got past the guard, 'held' when it was ignored.
+
+mutant           trial                   400      499      500      501      600
+baseline         delete-guard           held     held  through  through  through
+baseline         page-guard             held     held  through  through  through
+baseline         kbd-delete-guard       held     held  through  through  through
+guard-450        delete-guard           held  through  through  through  through
+guard-450        page-guard             held  through  through  through  through
+guard-450        kbd-delete-guard       held  through  through  through  through
+guard-600        delete-guard           held     held     held     held  through
+guard-600        page-guard             held     held     held     held  through
+guard-600        kbd-delete-guard       held     held     held     held  through
+guard-le         delete-guard           held     held     held  through  through
+guard-le         page-guard             held     held     held  through  through
+guard-le         kbd-delete-guard       held     held     held  through  through
+guard-mouse-only delete-guard           held     held  through  through  through
+guard-mouse-only page-guard             held     held  through  through  through
+guard-mouse-only kbd-delete-guard    through  through  through  through  through
+
+expected for the 500 ms spec (R13): held at 400 and 499, through at 500, 501 and 600.
+[server] stopped pid 48208; 127.0.0.1:30881 accepts connections: False
+
+Reading it:
+- baseline is exactly the spec: held up to 499 ms, through from 500 ms, for the Delete habit guard, the page guard and the keyboard path. The edge is measurable to the millisecond under the paused clock.
+- The suite's two edge tests click at 400 and 600 ms only. In those two columns guard-450, guard-600 and guard-le read exactly like baseline. They differ only at 499 (guard-450), at 499 to 501 (guard-600) and at 500 (guard-le), which is why those mutants survive.
+- guard-mouse-only (Delete habit held only for a mouse or touch click) differs from baseline only in the kbd-delete-guard row, which no committed test drives inside the window.

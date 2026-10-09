@@ -1,0 +1,19 @@
+Run 2: the six survivors of run 1 against the WHOLE browser suite (all test files), --maxfail 1.
+Command: PYTHONDONTWRITEBYTECODE=1 python -B docs/modules/app/qa/regression-code-review/20261009T221155/run_mutants.py . G-450,G-600,G-le,G-kbd-delete-open,G-bubble,P-kbd-click-passes 1
+The runner serves the project from memory with one patch applied and runs the suite against it with STREAKS_BASE_URL set and STREAKS_SUBPATH_URL unset, so the
+one sub-path test is skipped (that is the "1 skipped"). A pristine run with the conftest's own servers is 176 passed, 0 skipped.
+
+RESULT G-450: SURVIVED in 45s | DIALOG_GUARD_MS 500 -> 450
+   summary: 175 passed, 1 skipped in 43.79s
+RESULT G-600: SURVIVED in 45s | DIALOG_GUARD_MS 500 -> 600
+   summary: 175 passed, 1 skipped in 43.77s
+RESULT G-le: SURVIVED in 44s | withinGuard uses <= instead of <
+   summary: 175 passed, 1 skipped in 43.55s
+RESULT G-kbd-delete-open: SURVIVED in 44s | Delete habit is held only for a mouse or touch click (detail > 0), a keyboard activation inside the window deletes
+   summary: 175 passed, 1 skipped in 43.55s
+RESULT G-bubble: SURVIVED in 44s | guardDialogClick registered for the bubble phase
+   summary: 175 passed, 1 skipped in 43.62s
+RESULT P-kbd-click-passes: SURVIVED in 44s | the page swallows only mouse or touch clicks (detail > 0), a keyboard click inside the window passes
+   summary: 175 passed, 1 skipped in 43.64s
+
+All six survive the whole suite, so no test outside test_delete.py kills them either.

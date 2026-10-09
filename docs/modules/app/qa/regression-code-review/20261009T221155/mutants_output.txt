@@ -1,0 +1,53 @@
+Mutant runs of the regression code review (app delta fa58481..9ebc54e). 21 mutants of src/app.js and src/view.js, served from memory by the
+earlier reviewer's runner (mut.py, through run_mutants.py and mutants_regression.py in this folder). No project file was written.
+
+Run 1: the browser tests of test_delete.py (the file that carries the SEC-01, SEC-02 and SEC-06 tests), --maxfail 1000.
+Command: PYTHONDONTWRITEBYTECODE=1 python -B docs/modules/app/qa/regression-code-review/20261009T221155/run_mutants.py . all 1000 test_delete
+Baseline (pristine copy, same command with "baseline"): 65 passed, 111 deselected in 22.51s.
+
+RESULT G-450: SURVIVED in 24s | DIALOG_GUARD_MS 500 -> 450
+   summary: 65 passed, 111 deselected in 22.62s
+RESULT G-600: SURVIVED in 23s | DIALOG_GUARD_MS 500 -> 600
+   summary: 65 passed, 111 deselected in 22.40s
+RESULT G-700: KILLED in 59s | DIALOG_GUARD_MS 500 -> 700
+   summary: 7 failed, 58 passed, 111 deselected in 57.64s   (the tests that wait 600 ms and expect the click to act)
+RESULT G-300: KILLED in 34s | DIALOG_GUARD_MS 500 -> 300
+   summary: 2 failed, 63 passed, 111 deselected in 32.65s   (only the two 400 ms edge tests)
+RESULT G-le: SURVIVED in 24s | withinGuard uses <= instead of <
+   summary: 65 passed, 111 deselected in 22.78s
+RESULT G-kbd-delete-open: SURVIVED in 24s | Delete habit is held only for a mouse or touch click (detail > 0), a keyboard activation inside the window deletes
+   summary: 65 passed, 111 deselected in 22.80s
+RESULT G-no-open-stamp: KILLED in 53s | the opening click's time is never recorded
+   summary: 6 failed, 59 passed, 111 deselected in 52.32s
+RESULT G-open-stamp-once: KILLED in 48s | the window runs only from the first opening
+   summary: 5 failed, 60 passed, 111 deselected in 47.31s
+RESULT G-bubble: SURVIVED in 24s | guardDialogClick registered for the bubble phase
+   summary: 65 passed, 111 deselected in 22.60s   (equivalent today: nothing stops the click before the bubble phase)
+RESULT P-kbd-click-passes: SURVIVED in 24s | the page swallows only mouse or touch clicks (detail > 0), a keyboard click inside the window passes
+   summary: 65 passed, 111 deselected in 22.51s
+RESULT P-no-stop: KILLED in 28s | swallowTapThrough does not stopPropagation
+   summary: 13 failed, 52 passed, 111 deselected in 27.30s
+RESULT P-no-prevent: KILLED in 23s | swallowTapThrough does not preventDefault
+   summary: 2 failed, 63 passed, 111 deselected in 22.42s   (the two "backdrop over Add does not add a typed name" tests)
+RESULT P-bubble: KILLED in 28s | page listener registered for the bubble phase
+   summary: 13 failed, 52 passed, 111 deselected in 27.32s
+RESULT P-on-document: KILLED in 34s | swallowTapThrough sits on the document, so it holds the dialog's own clicks too
+   summary: 2 failed, 63 passed, 111 deselected in 32.67s
+RESULT P-stamp-always: KILLED in 34s | every click in the dialog starts the page window, keyboard ones too
+   summary: 2 failed, 63 passed, 111 deselected in 32.54s   (closing_with_the_keyboard [Enter] and [Space])
+RESULT P-stamp-never-on-delete: KILLED in 23s | a click on Delete habit does not start the page window
+   summary: 2 failed, 63 passed, 111 deselected in 22.39s
+RESULT P-stamp-only-backdrop: KILLED in 24s | only a click on the dialog element itself (padding or backdrop) starts the page window
+   summary: 6 failed, 59 passed, 111 deselected in 22.67s
+RESULT T-strip-whole: KILLED in 58s | the strip runs over the finished title, so it also removes the isolate marks
+   summary: 26 failed, 39 passed, 111 deselected in 56.82s
+RESULT T-open-lri: KILLED in 57s | the opening mark is LEFT-TO-RIGHT ISOLATE instead of FIRST STRONG ISOLATE
+   summary: 27 failed, 38 passed, 111 deselected in 56.47s
+RESULT T-close-missing: KILLED in 58s | no closing mark
+   summary: 26 failed, 39 passed, 111 deselected in 56.85s
+RESULT T-name-lowercased: KILLED in 58s | the title's name is lowercased
+   summary: 11 failed, 54 passed, 111 deselected in 57.20s
+
+Totals: 21 mutants, 15 killed, 6 survived (G-450, G-600, G-le, G-kbd-delete-open, G-bubble, P-kbd-click-passes).
+G-bubble is equivalent today. The other five are real gaps in what the tests pin (RG-CR-01 and RG-CR-02).
+Another agent's pytest run (a different process tree, not started by this review) was running at the same time, so the wall times are longer than the baseline's.

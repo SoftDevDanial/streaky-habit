@@ -134,3 +134,6 @@ Append-only history. STATE.md holds the situation, this file holds what happened
 
 ## 2026-10-09 22:05 regression started
 - ORCH economy ruling recorded: fidelity verdict stands on identical code; code-review delta (with a security eye on SEC-06) and QA re-run; cold boot by the orchestrator.
+
+## 2026-10-09 22:35 regression code review collected
+- 0 blockers. Two test-strength warnings (guard edge, keyboard half) routed to the dev solver with the doc gaps.

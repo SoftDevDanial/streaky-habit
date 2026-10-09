@@ -1,0 +1,633 @@
+[
+  {
+    "name": "open the app",
+    "gesture": "page.goto(base_url)",
+    "expected": "the empty first screen, T ringed, nothing stored",
+    "observed": {
+      "rows": [],
+      "empty": "No habits yet. Add one you want to do every day.",
+      "field": "",
+      "message": "",
+      "stored": null,
+      "active": {
+        "label": null,
+        "id": "",
+        "text": "Streaks\n    Friday 9 October\n  \n\n  \n    \n      \n        Habits\n      No habits yet. Add one you want to do every day.\n\n      \n        New habit\n        \n          \n          Add\n        \n        \n      \n    \n\n    \n      Last 12 weeks\n      \n        JulAugSepOct\n        \n          MonWedFriSun\n        \n        \n      \n      \n        None\n        \n        All\n      \n    \n  \n\n\n\n  \n  Its history is deleted too.\n  \n    Cancel\n    Delete habit"
+      },
+      "dialogOpen": false,
+      "dialogTitle": ""
+    },
+    "pass": true,
+    "error": null,
+    "seconds": 0.14,
+    "screenshot": "01-first-visit.png"
+  },
+  {
+    "name": "click the field, type a name, click Add",
+    "gesture": "click #new-habit; keyboard.type; click Add",
+    "expected": "one row with 7 open beads ending with T",
+    "observed": {
+      "rows": [
+        {
+          "name": "Read 20 pages",
+          "cur": "No streak yet",
+          "best": null,
+          "dates": [
+            "2026-10-03",
+            "2026-10-04",
+            "2026-10-05",
+            "2026-10-06",
+            "2026-10-07",
+            "2026-10-08",
+            "2026-10-09"
+          ],
+          "pressed": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        }
+      ],
+      "empty": null,
+      "field": "",
+      "message": "",
+      "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read 20 pages\",\"done\":[]}]}",
+      "active": {
+        "label": null,
+        "id": "",
+        "text": "Add"
+      },
+      "dialogOpen": false,
+      "dialogTitle": ""
+    },
+    "pass": true,
+    "error": null,
+    "seconds": 0.13,
+    "screenshot": "02-added.png"
+  },
+  {
+    "name": "type a name, press Enter",
+    "gesture": "click #new-habit; keyboard.type; Enter",
+    "expected": "a second row under the first",
+    "observed": {
+      "rows": [
+        {
+          "name": "Read 20 pages",
+          "cur": "No streak yet",
+          "best": null,
+          "dates": [
+            "2026-10-03",
+            "2026-10-04",
+            "2026-10-05",
+            "2026-10-06",
+            "2026-10-07",
+            "2026-10-08",
+            "2026-10-09"
+          ],
+          "pressed": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "name": "Stretch 10 minutes",
+          "cur": "No streak yet",
+          "best": null,
+          "dates": [
+            "2026-10-03",
+            "2026-10-04",
+            "2026-10-05",
+            "2026-10-06",
+            "2026-10-07",
+            "2026-10-08",
+            "2026-10-09"
+          ],
+          "pressed": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        }
+      ],
+      "empty": null,
+      "field": "",
+      "message": "",
+      "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read 20 pages\",\"done\":[]},{\"name\":\"Stretch 10 minutes\",\"done\":[]}]}",
+      "active": {
+        "label": null,
+        "id": "new-habit",
+        "text": ""
+      },
+      "dialogOpen": false,
+      "dialogTitle": ""
+    },
+    "pass": true,
+    "error": null,
+    "seconds": 0.08,
+    "screenshot": "03-second-habit.png"
+  },
+  {
+    "name": "click T's bead of both rows",
+    "gesture": "click T bead twice",
+    "expected": "1 day and Best 1 on both rows, T's cell at level 4",
+    "observed": {
+      "rows": [
+        {
+          "name": "Read 20 pages",
+          "cur": "1 day",
+          "best": "Best 1",
+          "dates": [
+            "2026-10-03",
+            "2026-10-04",
+            "2026-10-05",
+            "2026-10-06",
+            "2026-10-07",
+            "2026-10-08",
+            "2026-10-09"
+          ],
+          "pressed": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            true
+          ]
+        },
+        {
+          "name": "Stretch 10 minutes",
+          "cur": "1 day",
+          "best": "Best 1",
+          "dates": [
+            "2026-10-03",
+            "2026-10-04",
+            "2026-10-05",
+            "2026-10-06",
+            "2026-10-07",
+            "2026-10-08",
+            "2026-10-09"
+          ],
+          "pressed": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            true
+          ]
+        }
+      ],
+      "empty": null,
+      "field": "",
+      "message": "",
+      "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read 20 pages\",\"done\":[\"2026-10-09\"]},{\"name\":\"Stretch 10 minutes\",\"done\":[\"2026-10-09\"]}]}",
+      "active": {
+        "label": "Mark Fri 9 Oct as done",
+        "id": "",
+        "text": "Fri9"
+      },
+      "dialogOpen": false,
+      "dialogTitle": ""
+    },
+    "pass": true,
+    "error": null,
+    "seconds": 0.12,
+    "screenshot": "04-ticked-today.png"
+  },
+  {
+    "name": "click Y's bead of Read",
+    "gesture": "click Y bead",
+    "expected": "2 days and Best 2, Y's cell at level 2",
+    "observed": {
+      "rows": [
+        {
+          "name": "Read 20 pages",
+          "cur": "2 days",
+          "best": "Best 2",
+          "dates": [
+            "2026-10-03",
+            "2026-10-04",
+            "2026-10-05",
+            "2026-10-06",
+            "2026-10-07",
+            "2026-10-08",
+            "2026-10-09"
+          ],
+          "pressed": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            true
+          ]
+        },
+        {
+          "name": "Stretch 10 minutes",
+          "cur": "1 day",
+          "best": "Best 1",
+          "dates": [
+            "2026-10-03",
+            "2026-10-04",
+            "2026-10-05",
+            "2026-10-06",
+            "2026-10-07",
+            "2026-10-08",
+            "2026-10-09"
+          ],
+          "pressed": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            true
+          ]
+        }
+      ],
+      "empty": null,
+      "field": "",
+      "message": "",
+      "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read 20 pages\",\"done\":[\"2026-10-08\",\"2026-10-09\"]},{\"name\":\"Stretch 10 minutes\",\"done\":[\"2026-10-09\"]}]}",
+      "active": {
+        "label": "Mark Thu 8 Oct as done",
+        "id": "",
+        "text": "Thu8"
+      },
+      "dialogOpen": false,
+      "dialogTitle": ""
+    },
+    "pass": true,
+    "error": null,
+    "seconds": 0.08,
+    "screenshot": "05-ticked-yesterday.png"
+  },
+  {
+    "name": "reload",
+    "gesture": "page.reload()",
+    "expected": "both rows, their beads and streak lines unchanged",
+    "observed": {
+      "rows": [
+        {
+          "name": "Read 20 pages",
+          "cur": "2 days",
+          "best": "Best 2",
+          "dates": [
+            "2026-10-03",
+            "2026-10-04",
+            "2026-10-05",
+            "2026-10-06",
+            "2026-10-07",
+            "2026-10-08",
+            "2026-10-09"
+          ],
+          "pressed": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            true
+          ]
+        },
+        {
+          "name": "Stretch 10 minutes",
+          "cur": "1 day",
+          "best": "Best 1",
+          "dates": [
+            "2026-10-03",
+            "2026-10-04",
+            "2026-10-05",
+            "2026-10-06",
+            "2026-10-07",
+            "2026-10-08",
+            "2026-10-09"
+          ],
+          "pressed": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            true
+          ]
+        }
+      ],
+      "empty": null,
+      "field": "",
+      "message": "",
+      "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read 20 pages\",\"done\":[\"2026-10-08\",\"2026-10-09\"]},{\"name\":\"Stretch 10 minutes\",\"done\":[\"2026-10-09\"]}]}",
+      "active": {
+        "label": null,
+        "id": "",
+        "text": "Streaks\n    Friday 9 October\n  \n\n  \n    \n      \n        Habits\n      Read 20 pages2 daysBest 2Sat3Sun4Mon5Tue6Wed7Thu8Fri9Stretch 10 minutes1 dayBest 1Sat3Sun4Mon5Tue6Wed7Thu8Fri9\n\n      \n        New habit\n        \n          \n          Add\n        \n        \n      \n    \n\n    \n      Last 12 weeks\n      \n        JulAugSepOct\n        \n          MonWedFriSun\n        \n        \n      \n      \n        None\n        \n        All\n      \n    \n  \n\n\n\n  \n  Its history is deleted too.\n  \n    Cancel\n    Delete habit"
+      },
+      "dialogOpen": false,
+      "dialogTitle": ""
+    },
+    "pass": true,
+    "error": null,
+    "seconds": 0.06,
+    "screenshot": "06-reloaded.png"
+  },
+  {
+    "name": "click Delete Stretch 10 minutes",
+    "gesture": "click the trash button",
+    "expected": "the dialog asks, Cancel has focus",
+    "observed": {
+      "rows": [
+        {
+          "name": "Read 20 pages",
+          "cur": "2 days",
+          "best": "Best 2",
+          "dates": [
+            "2026-10-03",
+            "2026-10-04",
+            "2026-10-05",
+            "2026-10-06",
+            "2026-10-07",
+            "2026-10-08",
+            "2026-10-09"
+          ],
+          "pressed": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            true
+          ]
+        },
+        {
+          "name": "Stretch 10 minutes",
+          "cur": "1 day",
+          "best": "Best 1",
+          "dates": [
+            "2026-10-03",
+            "2026-10-04",
+            "2026-10-05",
+            "2026-10-06",
+            "2026-10-07",
+            "2026-10-08",
+            "2026-10-09"
+          ],
+          "pressed": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            true
+          ]
+        }
+      ],
+      "empty": null,
+      "field": "",
+      "message": "",
+      "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read 20 pages\",\"done\":[\"2026-10-08\",\"2026-10-09\"]},{\"name\":\"Stretch 10 minutes\",\"done\":[\"2026-10-09\"]}]}",
+      "active": {
+        "label": null,
+        "id": "",
+        "text": "Cancel"
+      },
+      "dialogOpen": true,
+      "dialogTitle": "Delete \"\u2068Stretch 10 minutes\u2069\"?"
+    },
+    "pass": true,
+    "error": null,
+    "seconds": 0.1,
+    "screenshot": "07-dialog.png"
+  },
+  {
+    "name": "click Cancel",
+    "gesture": "click Cancel",
+    "expected": "2 rows remain, focus on the trash button",
+    "observed": {
+      "rows": [
+        {
+          "name": "Read 20 pages",
+          "cur": "2 days",
+          "best": "Best 2",
+          "dates": [
+            "2026-10-03",
+            "2026-10-04",
+            "2026-10-05",
+            "2026-10-06",
+            "2026-10-07",
+            "2026-10-08",
+            "2026-10-09"
+          ],
+          "pressed": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            true
+          ]
+        },
+        {
+          "name": "Stretch 10 minutes",
+          "cur": "1 day",
+          "best": "Best 1",
+          "dates": [
+            "2026-10-03",
+            "2026-10-04",
+            "2026-10-05",
+            "2026-10-06",
+            "2026-10-07",
+            "2026-10-08",
+            "2026-10-09"
+          ],
+          "pressed": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            true
+          ]
+        }
+      ],
+      "empty": null,
+      "field": "",
+      "message": "",
+      "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read 20 pages\",\"done\":[\"2026-10-08\",\"2026-10-09\"]},{\"name\":\"Stretch 10 minutes\",\"done\":[\"2026-10-09\"]}]}",
+      "active": {
+        "label": "Delete Stretch 10 minutes",
+        "id": "",
+        "text": ""
+      },
+      "dialogOpen": false,
+      "dialogTitle": "Delete \"\u2068Stretch 10 minutes\u2069\"?"
+    },
+    "pass": true,
+    "error": null,
+    "seconds": 0.3,
+    "screenshot": "08-cancelled.png"
+  },
+  {
+    "name": "wait, click the trash button, wait, click Delete habit, wait",
+    "gesture": "pause 600 ms; click the trash button; pause 600 ms; click Delete habit; pause 600 ms",
+    "expected": "1 row, focus on the field, T's cell counts 1 habit",
+    "observed": {
+      "rows": [
+        {
+          "name": "Read 20 pages",
+          "cur": "2 days",
+          "best": "Best 2",
+          "dates": [
+            "2026-10-03",
+            "2026-10-04",
+            "2026-10-05",
+            "2026-10-06",
+            "2026-10-07",
+            "2026-10-08",
+            "2026-10-09"
+          ],
+          "pressed": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            true
+          ]
+        }
+      ],
+      "empty": null,
+      "field": "",
+      "message": "",
+      "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read 20 pages\",\"done\":[\"2026-10-08\",\"2026-10-09\"]}]}",
+      "active": {
+        "label": null,
+        "id": "new-habit",
+        "text": ""
+      },
+      "dialogOpen": false,
+      "dialogTitle": "Delete \"\u2068Stretch 10 minutes\u2069\"?"
+    },
+    "pass": true,
+    "error": null,
+    "seconds": 1.9,
+    "screenshot": "09-deleted.png"
+  },
+  {
+    "name": "type a duplicate name, press Enter",
+    "gesture": "click #new-habit; keyboard.type; Enter",
+    "expected": "the duplicate message shows and the text stays",
+    "observed": {
+      "rows": [
+        {
+          "name": "Read 20 pages",
+          "cur": "2 days",
+          "best": "Best 2",
+          "dates": [
+            "2026-10-03",
+            "2026-10-04",
+            "2026-10-05",
+            "2026-10-06",
+            "2026-10-07",
+            "2026-10-08",
+            "2026-10-09"
+          ],
+          "pressed": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            true
+          ]
+        }
+      ],
+      "empty": null,
+      "field": "read 20 pages",
+      "message": "You already track this habit.",
+      "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read 20 pages\",\"done\":[\"2026-10-08\",\"2026-10-09\"]}]}",
+      "active": {
+        "label": null,
+        "id": "new-habit",
+        "text": ""
+      },
+      "dialogOpen": false,
+      "dialogTitle": "Delete \"\u2068Stretch 10 minutes\u2069\"?"
+    },
+    "pass": true,
+    "error": null,
+    "seconds": 0.07,
+    "screenshot": "10-duplicate.png"
+  },
+  {
+    "name": "reload",
+    "gesture": "page.reload()",
+    "expected": "exactly one row, 2 days and Best 2",
+    "observed": {
+      "rows": [
+        {
+          "name": "Read 20 pages",
+          "cur": "2 days",
+          "best": "Best 2",
+          "dates": [
+            "2026-10-03",
+            "2026-10-04",
+            "2026-10-05",
+            "2026-10-06",
+            "2026-10-07",
+            "2026-10-08",
+            "2026-10-09"
+          ],
+          "pressed": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            true
+          ]
+        }
+      ],
+      "empty": null,
+      "field": "",
+      "message": "",
+      "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read 20 pages\",\"done\":[\"2026-10-08\",\"2026-10-09\"]}]}",
+      "active": {
+        "label": null,
+        "id": "",
+        "text": "Streaks\n    Friday 9 October\n  \n\n  \n    \n      \n        Habits\n      Read 20 pages2 daysBest 2Sat3Sun4Mon5Tue6Wed7Thu8Fri9\n\n      \n        New habit\n        \n          \n          Add\n        \n        \n      \n    \n\n    \n      Last 12 weeks\n      \n        JulAugSepOct\n        \n          MonWedFriSun\n        \n        \n      \n      \n        None\n        \n        All\n      \n    \n  \n\n\n\n  \n  Its history is deleted too.\n  \n    Cancel\n    Delete habit"
+      },
+      "dialogOpen": false,
+      "dialogTitle": ""
+    },
+    "pass": true,
+    "error": null,
+    "seconds": 0.05,
+    "screenshot": "11-reloaded-again.png"
+  }
+]
