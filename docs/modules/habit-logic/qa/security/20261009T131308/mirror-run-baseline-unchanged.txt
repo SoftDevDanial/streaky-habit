@@ -1,0 +1,82 @@
+command: node --test tests/**/*.test.js
+cwd: {workspace}/examples/streaks/docs/modules/habit-logic/qa/security/20261009T131308/mirrors/baseline-unchanged
+runner: node v24.11.1 on win32
+child pid: 39208 exit: 0 signal: null error: none
+elapsed_ms: 592
+--- stdout
+✔ @R1 @R3 the zone switch is real, so the zone cases are not vacuous (1.2305ms)
+✔ @R1 the local calendar day of an instant (0.4615ms)
+✔ @R1 the UTC date is not used: 00:30 local in Kuala Lumpur is still the day before in UTC (0.3292ms)
+✔ @R1 month and day are zero padded and the year has 4 digits (0.1561ms)
+✔ @R2 valid and invalid date keys (0.3645ms)
+✔ @R2 agrees with a calendar reference for every year-month-day combination 1900 to 2100 (39.8038ms)
+✔ @R2 a long hostile string is rejected quickly (1.2541ms)
+✔ @R3 calendar arithmetic that ignores the time zone (0.5941ms)
+✔ @R3 century and year edges (0.1074ms)
+✔ @R3 agrees with UTC reference maths for every day 1900 to 2100 in both zones (268.5894ms)
+✔ @R4 short weekday, day and month for every weekday (0.6554ms)
+✔ @R4 short and long month names for every month (0.1685ms)
+✔ @R4 weekdayIndex counts Monday as 0 to Sunday as 6 (0.1117ms)
+✔ @R4 weekday names and indexes agree with a UTC reference for every day 1900 to 2100 (105.734ms)
+✔ @R4 labels do not follow the runtime locale (49.1822ms)
+✔ @R13 @R14 the limits are exported (0.6731ms)
+✔ @R5 the seven days of the strip (0.697ms)
+✔ @R5 the strip has 7 keys, the last is today, and every call returns a new array (0.1168ms)
+✔ @R6 a streak does not break until today is over (0.2679ms)
+✔ @R6 a streak runs across a month, a year and a leap day (0.1374ms)
+✔ @R6 a streak that crosses a DST change (0.5354ms)
+✔ @R7 the longest run in the whole history (0.1961ms)
+✔ @R7 the best run may be old, and a later shorter run does not replace it (0.0829ms)
+✔ @R7 the best-run walk ends on keys outside the valid range, where the next day repeats itself (44.5906ms)
+✔ @R6 the current-run walk ends on the cycle below year 0001 (41.1968ms)
+✔ @R7 many spellings of one far-out date that all run into the stuck key cost one pass, not one walk each (83.7638ms)
+✔ @R6 @R7 keys that fail isDateKey do not count, so a streak counts only valid days (119.853ms)
+✔ @R8 the run flag needs the first strip day and the day before it (0.1929ms)
+✔ @R9 ticking a day inside the window (0.7989ms)
+✔ @R9 days outside the window and bad indexes change nothing (0.3936ms)
+✔ @R9 both ends of the window are editable and ticking twice restores the habit (0.1779ms)
+✔ @R9 an unsorted or duplicated done array comes back ascending without duplicates (0.0555ms)
+✔ @R9 an empty habit list stays empty (0.0384ms)
+✔ @R10 the 12-week grid around today (1.5356ms)
+✔ @R10 a cell carries exactly the contract fields, and a habit counts once per day (0.1401ms)
+✔ @R10 @R11 a fourth habit makes level 3 appear (0.2219ms)
+✔ @R10 the arguments are not changed and the cells are new objects (0.2287ms)
+✔ @R11 levels from the share of habits done (0.1598ms)
+✔ @R11 no habits means level 0 (0.0342ms)
+✔ @R12 month labels over the first column whose Monday is in the month (0.2035ms)
+✔ @R12 each label sits on the first column whose Monday is in its month, for more start days (0.8688ms)
+✔ @R13 name checks in the order empty, too long, duplicate (0.2001ms)
+✔ @R13 the length rule counts the trimmed name, so padding never makes a 40 character name too long (0.0538ms)
+✔ @R13 too long is checked before duplicate (0.0451ms)
+✔ @R13 length counts code points, not UTF-16 units (0.0584ms)
+✔ @R13 trim removes no-break space, em space and BOM as well as plain spaces, and the duplicate check lower-cases both sides (0.0411ms)
+✔ @R13 a very long name is rejected without hanging (0.6811ms)
+✔ @R13 the length check reads at most 41 code points, so a huge stored name costs no more than a short one (3.8658ms)
+✔ @R14 a new habit goes to the bottom (0.2765ms)
+✔ @R14 a rejected name returns its error (0.122ms)
+✔ @R14 the limit of 12 habits is checked before the name (0.1542ms)
+✔ @R14 adding to an empty list works (0.0924ms)
+✔ @R15 deleting a habit (1.6588ms)
+✔ @R15 deleting from an empty list returns an empty list (0.0591ms)
+✔ @R16 the source has no clock or random read, even in a comment (0.8262ms)
+✔ @R16 the code has no DOM, storage, network, timer, global or locale access and builds no code from strings (0.3212ms)
+✔ @R16 habits.js imports only ./dates.js and dates.js imports nothing (0.5908ms)
+✔ @R16 only the contracted names are exported (0.1069ms)
+✔ @R16 no exported function writes to its arguments or returns one of them (2.9661ms)
+✔ @R5 @R6 @R7 @R8 @R9 @R10 @R11 @R12 fixture check: the sample is today 2026-10-08 with three habits whose days are valid, ascending and unique (1.2064ms)
+✔ @R5 @R6 @R7 @R8 the sample's strips and streaks on the key screen (1.4951ms)
+✔ @R5 the strip runs from Fri 2 Oct to Thu 8 Oct (0.2275ms)
+✔ @R6 @R8 the same sample one day later (0.2316ms)
+✔ @R7 the best runs sit in the older history (0.3998ms)
+✔ @R10 @R11 the sample's heatmap equals the golden (0.6367ms)
+✔ @R12 the sample's month axis equals the golden: Jul 1, Aug 3, Sep 8, Oct 12 (0.1762ms)
+ℹ tests 66
+ℹ suites 0
+ℹ pass 66
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 553.5364
+
+--- stderr

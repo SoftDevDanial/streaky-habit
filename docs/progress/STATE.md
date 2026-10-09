@@ -4,7 +4,7 @@
 - **design-phase:** sdlc:design
 - **version:** 0.1.0
 - **mode:** greenfield
-- **phase:** execute (habit-logic: security re-check 2)
+- **phase:** execute (habit-logic: code-review re-check)
 - **next:** execute
 
 ## Modules

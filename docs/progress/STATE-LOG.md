@@ -73,3 +73,7 @@ Append-only history. STATE.md holds the situation, this file holds what happened
 ## 2026-10-09 13:12 habit-logic security solver round 2
 - Solver round 2: SEC-01 b48d716 (streak day set filtered through isDateKey, linear), SEC-04 a6e209d (Temporal.Now, eval, Function). 66 of 66 tests pass
 - Open doc gap for module close: spec R6 and R7 do not yet say keys failing isDateKey are ignored
+
+## 2026-10-09 13:18 habit-logic security PASS
+- Security re-check 2: PASS, 0 findings. SEC-01 to SEC-04 closed. 66 of 66 tests. Evidence qa/security/20261009T131308/
+- Observations for code review: comment stripper in purity test strips // and /* inside strings; spec R6 R7 silent on isDateKey filter; raw invisible characters in WHITE_SPACE test constant

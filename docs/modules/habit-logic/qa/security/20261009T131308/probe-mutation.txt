@@ -1,0 +1,97 @@
+PASS control: an in-place sort is recorded (4 writes)
+PASS weekWindow: no write to any argument
+PASS weekWindow: result holds no argument object
+PASS weekWindow: imported sample unchanged
+PASS currentStreak: no write to any argument
+PASS currentStreak: result holds no argument object
+PASS currentStreak: imported sample unchanged
+PASS bestStreak: no write to any argument
+PASS bestStreak: result holds no argument object
+PASS bestStreak: imported sample unchanged
+PASS bestStreak unsorted dupes: no write to any argument
+PASS bestStreak unsorted dupes: result holds no argument object
+PASS bestStreak unsorted dupes: imported sample unchanged
+PASS runContinues: no write to any argument
+PASS runContinues: result holds no argument object
+PASS runContinues: imported sample unchanged
+PASS toggleDay add: no write to any argument
+PASS toggleDay add: result holds no argument object
+PASS toggleDay add: imported sample unchanged
+PASS toggleDay remove: no write to any argument
+PASS toggleDay remove: result holds no argument object
+PASS toggleDay remove: imported sample unchanged
+PASS toggleDay unsorted input: no write to any argument
+PASS toggleDay unsorted input: result holds no argument object
+PASS toggleDay unsorted input: imported sample unchanged
+PASS toggleDay outside window: no write to any argument
+PASS toggleDay outside window: result holds no argument object
+PASS toggleDay outside window: imported sample unchanged
+PASS toggleDay bad index 99: no write to any argument
+PASS toggleDay bad index 99: result holds no argument object
+PASS toggleDay bad index 99: imported sample unchanged
+PASS toggleDay string index: no write to any argument
+PASS toggleDay string index: result holds no argument object
+PASS toggleDay string index: imported sample unchanged
+PASS heatmapCells: no write to any argument
+PASS heatmapCells: result holds no argument object
+PASS heatmapCells: imported sample unchanged
+PASS heatLevel: no write to any argument
+PASS heatLevel: result holds no argument object
+PASS heatLevel: imported sample unchanged
+PASS monthLabels: no write to any argument
+PASS monthLabels: result holds no argument object
+PASS monthLabels: imported sample unchanged
+PASS validateName ok: no write to any argument
+PASS validateName ok: result holds no argument object
+PASS validateName ok: imported sample unchanged
+PASS validateName duplicate: no write to any argument
+PASS validateName duplicate: result holds no argument object
+PASS validateName duplicate: imported sample unchanged
+PASS addHabit ok: no write to any argument
+PASS addHabit ok: result holds no argument object
+PASS addHabit ok: imported sample unchanged
+PASS addHabit duplicate: no write to any argument
+PASS addHabit duplicate: result holds no argument object
+PASS addHabit duplicate: imported sample unchanged
+PASS addHabit limit: no write to any argument
+PASS addHabit limit: result holds no argument object
+PASS addHabit limit: imported sample unchanged
+PASS deleteHabit 0: no write to any argument
+PASS deleteHabit 0: result holds no argument object
+PASS deleteHabit 0: imported sample unchanged
+PASS deleteHabit -1: no write to any argument
+PASS deleteHabit -1: result holds no argument object
+PASS deleteHabit -1: imported sample unchanged
+PASS isDateKey object: no write to any argument
+PASS isDateKey object: result holds no argument object
+PASS isDateKey object: imported sample unchanged
+PASS isDateKey array: no write to any argument
+PASS isDateKey array: result holds no argument object
+PASS isDateKey array: imported sample unchanged
+PASS addDays: no write to any argument
+PASS addDays: result holds no argument object
+PASS addDays: imported sample unchanged
+PASS dayParts: no write to any argument
+PASS dayParts: result holds no argument object
+PASS dayParts: imported sample unchanged
+PASS shortDate: no write to any argument
+PASS shortDate: result holds no argument object
+PASS shortDate: imported sample unchanged
+PASS longDate: no write to any argument
+PASS longDate: result holds no argument object
+PASS longDate: imported sample unchanged
+PASS weekdayIndex: no write to any argument
+PASS weekdayIndex: result holds no argument object
+PASS weekdayIndex: imported sample unchanged
+PASS localDateKey leaves the Date's time value unchanged (2026-10-08)
+PASS localDateKey adds no own property to the Date
+PASS weekWindow result is not shared between calls
+PASS dayParts result is not shared
+PASS validateName failure object is not shared
+PASS addHabit limit object is not shared
+PASS monthLabels result is not shared
+PASS heatmapCells result is not shared
+PASS assigning habits.MAX_HABITS throws and the value stays 12
+PASS deleting an export throws and the export stays
+
+failures: 0

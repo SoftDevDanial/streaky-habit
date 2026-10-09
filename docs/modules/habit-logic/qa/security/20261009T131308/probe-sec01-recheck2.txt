@@ -1,0 +1,39 @@
+node v24.11.1 win32
+
+## A. The first audit's hanging inputs
+bestStreak(["24660873954866-12-02", "24660873954866-12-04"]): returned {"value":0,"ms":2} (child pid 26108, exit 0), wall 38 ms
+bestStreak(three valid keys plus the two stuck keys): returned {"value":3,"ms":2} (child pid 44496, exit 0), wall 37 ms
+currentStreak(year-0 chain of 30 steps back from 0000-01-03, "0000-01-03"): returned {"value":0,"ms":2} (child pid 17444, exit 0), wall 39 ms
+currentStreak and bestStreak over every day back from 2026-10-08 for 800,000 days: returned {"value":[739897,739897],"ms":2095} (child pid 35040, exit 0), wall 2146 ms
+
+## B. Many spellings of one far-out date that run into the stuck key (the re-check's input)
+precondition on 90,000 spellings: distinct true, all fail isDateKey true, all have next day STUCK true, all share one absent previous day true
+stored value with 90,000 spellings plus STUCK: 2,407,811 UTF-16 code units
+bestStreak(4000 spellings + STUCK): returned {"value":0,"ms":5} (child pid 25920, exit 0), wall 79 ms
+currentStreak(4000 spellings + STUCK, "2026-10-08"): returned {"value":0,"ms":5} (child pid 10516, exit 0), wall 43 ms
+bestStreak(20000 spellings + STUCK): returned {"value":0,"ms":12} (child pid 38160, exit 0), wall 49 ms
+currentStreak(20000 spellings + STUCK, "2026-10-08"): returned {"value":0,"ms":12} (child pid 35400, exit 0), wall 51 ms
+bestStreak(90000 spellings + STUCK): returned {"value":0,"ms":40} (child pid 41424, exit 0), wall 83 ms
+currentStreak(90000 spellings + STUCK, "2026-10-08"): returned {"value":0,"ms":39} (child pid 41940, exit 0), wall 84 ms
+12 habits of 7,500 spellings each (90,000 keys) plus STUCK: one render (12 x currentStreak, bestStreak, runContinues, plus heatmapCells): returned {"value":84,"ms":64} (child pid 44356, exit 0), wall 107 ms
+
+## C. isDateKey on quota-sized inputs (about 2.4 million UTF-16 code units each), median of 3
+90,000 spellings of the far-out date: 90,000 keys, 2,137,742 units; filter(isDateKey) 2.1 ms (0 pass, 23 ns per key); bestStreak 2.1 ms = 0
+valid keys, consecutive days: 184,616 keys, 1,846,160 units; filter(isDateKey) 55.4 ms (184616 pass, 300 ns per key); bestStreak 220.9 ms = 184616
+pattern-shaped but invalid days (2026-02-30): 184,615 keys, 1,846,150 units; filter(isDateKey) 26.0 ms (0 pass, 141 ns per key); bestStreak 25.7 ms = 0
+keys of 100 units (valid prefix, then x): 24,000 keys, 2,400,000 units; filter(isDateKey) 0.6 ms (0 pass, 26 ns per key); bestStreak 0.7 ms = 0
+keys of 10,000 units: 240 keys, 2,400,000 units; filter(isDateKey) 0.0 ms (0 pass, 26 ns per key); bestStreak 0.0 ms = 0
+one key of 2,400,000 units: 1 keys, 2,400,000 units; filter(isDateKey) 0.0 ms (0 pass, 700 ns per key); bestStreak 0.0 ms = 0
+keys of 100 digits: 24,000 keys, 2,400,000 units; filter(isDateKey) 0.6 ms (0 pass, 26 ns per key); bestStreak 0.6 ms = 0
+scaling of filter(isDateKey) on valid consecutive keys:
+  100,000 keys: 28.3 ms
+  200,000 keys: 57.9 ms
+  400,000 keys: 110.8 ms
+  800,000 keys: 221.3 ms
+
+## D. Valid input, HEAD against eb2003b and 59c6ee5
+HEAD against eb2003b: 22,190 cases (currentStreak and bestStreak each), 0 mismatches
+HEAD against 59c6ee5: 22,190 cases (currentStreak and bestStreak each), 0 mismatches
+control: dropping the first key changes bestStreak in 7,884 cases, so the comparison can see a difference
+
+child pids: 26108, 44496, 17444, 35040, 25920, 10516, 38160, 35400, 41424, 41940, 44356, 40748 (git show eb2003b), 43536 (git show 59c6ee5)

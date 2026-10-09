@@ -1,8 +1,9 @@
 ---
 module: habit-logic
 kind: security
-status: issues_found
-counts: { critical: 0, high: 0, medium: 2 }
+status: pass
+counts: { critical: 0, high: 0, medium: 0 }
+# Re-check 2, 2026-10-09 at 4e803c5: SEC-01 and SEC-04 closed, no new finding. Re-check 1 at a35e8aa read status issues_found, counts { critical: 0, high: 0, medium: 2 }.
 # Re-check 2026-10-09 at a35e8aa: SEC-01 reopened, SEC-02 and SEC-03 closed, SEC-04 new. The first audit at 59c6ee5 read counts { critical: 0, high: 0, medium: 3 }.
 ---
 # Security audit, habit-logic
@@ -298,3 +299,105 @@ PROCESSES: none alive. Every command ran in the foreground with a cap. No server
 **Sweep at 13:11.** `Get-CimInstance Win32_Process` listed every `node`, `bash`, `sh`, `cmd`, `python`, `pwsh` and `powershell` process, with parent, start time and command line. A second pass matched command lines on both solver folder names, the script names, `credential_sweep`, `--test` and `--input-type=module`. `tasklist` checked `node.exe` and `python.exe`.
 
 Result: no `node` or `python` process is alive. The only matches were the sweep's own `bash` and `powershell`, started at 13:11:13. The three bare `powershell.exe` processes owned by `claude.exe` (41972), started at 11:22, 11:49 and 12:19, are not the solver's and were left alone.
+
+## Re-check 2 (2026-10-09)
+
+> Written by the security finder (read-only), 2026-10-09, against `4e803c5` on `main`. The commits since the re-check (`3457432`) are `b48d716` (SEC-01, `streakDays`), `a6e209d` (SEC-04, the scan tables) and `4e803c5` (the findings and evidence of solver round 2). Evidence is in `docs/modules/habit-logic/qa/security/20261009T131308/`. All text above is unchanged. The front matter was updated in place, and a dated YAML comment there keeps the previous values. Line numbers are as of `4e803c5`.
+
+### Verdict
+
+**PASS. 0 CRITICAL, 0 HIGH, 0 MEDIUM.**
+
+- **SEC-01 and SEC-04 are CLOSED.**
+- **SEC-02 and SEC-03 stay CLOSED.** Their probes and mirrors still pass at `4e803c5`.
+- **No new finding.** Four observations for the orchestrator follow, none filed.
+
+The full suite at `4e803c5` passes 66 of 66, exit 0 (`baseline-full-suite-HEAD.txt`). The first audit's prototype, mutation and global/egress probes report 0 failures.
+
+### Per finding
+
+| Finding | Status | Evidence |
+|---|---|---|
+| SEC-01 | **CLOSED** | `streakDays` (`src/habits.js:41-43`) builds the day set from `done.filter(isDateKey)`. `currentStreak` (`:73`) and `bestStreak` (`:85`) both use it, and the `runLength` bound stays (`:50-54`). Detail below. |
+| SEC-02 | CLOSED (unchanged) | `validateName` and `longerThan` did not change in this round. |
+| SEC-03 | CLOSED (unchanged) | The mirrors for the original forms are still red at `4e803c5` (`mirror-run-*.txt`): control `new Date()`, `new Date`, `new Date(Date())`, and `fetch` plus `sessionStorage`. The unchanged baseline is 66 of 66 green. |
+| SEC-04 | **CLOSED** | Detail below. |
+
+**SEC-01 in detail** (`probe-sec01-recheck2.txt`):
+- **The re-check's n squared input.** `bestStreak` on 4,000, 20,000 and 90,000 spellings plus the stuck key returns 0 in 5, 12 and 40 ms. At `a35e8aa` the same inputs took 8.07 s, then over 60 s (killed), then an extrapolated 68 minutes. `currentStreak` takes 5, 12 and 39 ms. A 12-habit render over the 90,000 spellings, 2,407,811 UTF-16 code units and so quota-sized, takes 64 ms.
+- **The first audit's hanging inputs.**
+  - The two-key `bestStreak` gives 0.
+  - Three valid keys plus the two stuck keys give 3, where `a35e8aa` gave 5.
+  - The year-0 chain gives `currentStreak` 0, where `a35e8aa` gave 12.
+  - 800,000 days back from 2026-10-08 give 739,897 for both functions, which is the number of valid days.
+- **Valid input is unchanged.** I checked 22,190 cases, each through `currentStreak` and `bestStreak`: 20,000 seeded random histories over the whole valid range, with gaps, duplicates and shuffled order, plus the sample on every day of 2026 and 2027. There are 0 mismatches against `eb2003b` and 0 against `59c6ee5`, both loaded from git into memory. Control: dropping one key changes `bestStreak` in 7,884 cases.
+- **`isDateKey` stays linear on every load (the coordinator's question).** I measured seven shapes of about 2.4 million UTF-16 code units each. Long keys cost the same per key at every length, because the anchored pattern fails within the first 11 characters:
+
+  | Shape | Cost per key |
+  |---|---|
+  | Keys of 100 or 10,000 units, and keys of 100 digits | 26 ns |
+  | The 90,000 spellings | 23 ns |
+  | One key of 2,400,000 units | 0.7 µs |
+  | Pattern-shaped invalid days (`2026-02-30`) | 141 ns |
+  | Valid keys | 300 ns |
+
+  On valid keys the filter takes 28, 58, 111 and 221 ms for 100,000, 200,000, 400,000 and 800,000 keys, which is linear.
+
+**SEC-04 in detail.** `CLOCK_AND_RANDOM_READS` holds `"Temporal.Now": /\bTemporal\s*\.\s*Now\b/` (`tests/purity.test.js:31`). `BANNED_IN_CODE` holds `"code built from a string": /\beval\b|\bFunction\s*\(/` (`:43`). Mirrors rebuilt from `4e803c5`:
+- `hunt-Temporal-Now` is red ("habits.js text: Temporal.Now").
+- `hunt-eval-string` (`eval("new " + "Da" + "te")`) is red ("habits.js: code built from a string").
+- `hunt-Reflect-construct-Date` stays 66 of 66 green. The R16 note dated 2026-10-09 says alias forms pass the scan and are left to review, which matches.
+
+### Threat-model rows and notes changed in this round, checked against the code
+
+| Row or note | Matches the code |
+|---|---|
+| SEC-01 row (the false sentence struck through, with a dated note) | **Yes.** Each claim was measured above: the `isDateKey` filter in `streakDays`, the bound kept as a second guard, linear total work, and 3 rather than 5 on three valid keys plus the stuck keys. |
+| R16 note and Deterministic row (SEC-04) | **Yes.** `Temporal.Now` and `eval` / `Function(` are in the tables. The stated limit for alias forms is accurate (see SEC-04 above). |
+| qa.md R16 note | **Yes.** |
+| BUILD.md: 66 tests (15, 39, 7, 5) | **Yes.** The total matches the run at `4e803c5`. |
+
+### Observations (not filed)
+
+1. **The comment stripper can blind the code-only scan.**
+   - **What happens:** `withoutComments` (`tests/purity.test.js:12`) removes everything from `//` to the end of the line, and everything from `/*` to the next `*/`, even inside string literals. The comment at `:10-11` says the source has no such literal, but no test enforces it.
+   - **Measured:** two mirrors pass 66 of 66. In one, a `fetch` follows the string `"https://collector.invalid/streaks"` on the same line. In the other, a `sessionStorage` call follows the string `"*/*"`. A `/*` inside a string hides every line down to the next `*/`, which in the mirror was 3 lines (`probe-stripper-guard.txt`). Only `BANNED_IN_CODE` is affected, because the clock table is also matched on the full text.
+   - **Why not filed:** it needs a banned call that sits after such a string with no other banned word before it. The module holds no string of that kind today, and code review would see a network call.
+   - **Cheap guard:** assert the stated assumption. I checked `/(["'`])[^"'`\n]*?(?:\/\/|\/\*)[^"'`\n]*?\1/` on the text: no hit on `src/dates.js` or `src/habits.js`, and a hit on both mirrors.
+2. **The filter's cost on valid input.**
+   - A quota-sized 12-habit render went from 585 to 810 ms on this desktop. At 400,000 days, `bestStreak` went from 410 to 529 ms and `currentStreak` from 224 to 343 ms.
+   - 1,000,000 duplicates of one key now take 151 ms, where they took 4 ms, because the filter runs before the Set. The app's decoder removes duplicates first.
+   - All of it is linear. The Solver round 2 section states the same residual.
+3. **Spec text.**
+   - R6 and R7 still do not say that keys failing `isDateKey` are ignored, as the Solver round 2 section notes. The behaviour differs only for input outside the contract. A dated note belongs to the orchestrator.
+   - `streakDays` calls `done.filter`, so `done` must now be an array, where any iterable used to work. That matches the contract (`readonly DateKey[]`), and the decoder builds arrays.
+4. **Test readability (code review, not security).** `WHITE_SPACE` in `tests/habits.test.js` writes U+00A0, U+2003, U+3000 and U+FEFF as raw invisible characters, the pattern WR-10 corrected elsewhere. Escapes would let a reader check the set by eye.
+
+### Evidence (`docs/modules/habit-logic/qa/security/20261009T131308/`)
+
+- `baseline-full-suite-HEAD.txt`: the full suite at `4e803c5`, 66 of 66.
+- `probe-sec01-recheck2.mjs` / `.txt`, in four parts:
+  - A: the first audit's hanging inputs.
+  - B: the n squared input at 4,000, 20,000 and 90,000 spellings, and a 12-habit render.
+  - C: `isDateKey` on quota-sized inputs.
+  - D: the valid-input differential.
+- `make-mirrors.mjs` / `.txt`, `mirrors/<name>/` and `mirror-run-<name>.txt`: the first audit's mirrors, the re-check's two hunts, and this round's `hunt-eval-string`, `hunt-banned-after-url-string` and `hunt-banned-after-mime-string`.
+- `probe-stripper-guard.mjs` / `.txt`: observation 1 and the `WHITE_SPACE` code points.
+- `copy-probes.mjs`, plus copies of `capture.mjs`, `probe-proto-and-keys`, `probe-mutation`, `probe-global-and-egress` and `probe-history`, with their `.txt` outputs from this run.
+
+The mirrors hold deliberate mutants that use `Temporal.Now`, `Reflect.construct(Date, [])`, `eval`, `fetch`, `sessionStorage` and `new Date`. They sit outside `src/` and the test glob, and nothing imports them.
+
+### Processes (re-check 2)
+
+PROCESSES: none alive. Every command ran in the foreground under `timeout -s KILL` or a SIGKILL child cap of 10 or 30 s.
+
+Child processes started, all STOPPED at return:
+- **Suite runs through `capture.mjs` (120 s cap).** pid 44712 at `4e803c5`, then the mirrors 39208, 18176, 44832, 45256, 26628, 37148, 29964, 24164, 38160 and 26872. All exited by themselves, and so did the SEC-01 test children each run started.
+- **`probe-sec01-recheck2`.** Children 26108, 44496, 17444, 35040, 25920, 10516, 38160, 35400, 41424, 41940 and 44356, and the `git show` calls 40748 and 43536. All exited by themselves, and none reached its cap.
+- **Other foreground scripts.** `copy-probes`, `make-mirrors`, `probe-proto-and-keys`, `probe-mutation`, `probe-global-and-egress`, `probe-history` and `probe-stripper-guard` all exited by themselves.
+
+**Sweep.** `tasklist /FI "IMAGENAME eq node.exe"` after each group listed no node process. The final command-line sweep is reported in the return to the orchestrator.
+
+**How files were written.**
+- In the mirror loop, each suite run's console copy went to `/dev/null`. That is a discard, not a file write, and the run itself was saved by `capture.mjs`. It is the one redirect in this round, and I disclose it under the no-redirect rule.
+- This section and the front-matter update were applied by a Node script in the session scratchpad that requires each edit to match exactly once, and the result was checked with `git diff`. No heredoc was used.
