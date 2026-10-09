@@ -439,6 +439,33 @@ def test_SEC01_R13_every_opening_starts_the_window_again(app):
     expect(page.locator("li.habit")).to_have_count(2)
 
 
+def test_SEC01_R13_enter_on_delete_habit_inside_the_window_is_ignored_and_one_after_it_deletes(app):
+    """Spec R13 guard 1 holds for any activation, the keyboard too (a click made with Enter has `detail` 0)."""
+    before = pretty_sample_state()
+    page = app(storage=before, install_time=NOON, count_writes=True)
+    trash(page, "Stretch 10 minutes").focus()
+    page.clock.pause_at(PAUSE_AT)
+    page.keyboard.press("Enter")  # the click that opens the dialog
+    expect(dialog(page)).to_have_attribute("open", "")
+    expect(cancel(page)).to_be_focused()
+
+    page.keyboard.press("Tab")
+    expect(confirm(page)).to_be_focused()
+    page.keyboard.press("Enter")  # at the very instant of the opening
+    expect(dialog(page)).to_have_attribute("open", "")
+    expect(confirm(page)).to_be_focused()  # the next Enter acts on the same button
+    assert page.locator("li.habit").count() == 3
+    assert write_count(page) == 0
+    assert stored(page) == before
+
+    page.clock.run_for(GUARD_WINDOW_MS)
+    page.keyboard.press("Enter")
+    expect(dialog(page)).not_to_have_attribute("open", "")
+    expect(page.locator("li.habit")).to_have_count(2)
+    assert page.locator("h3.habit-name").all_inner_texts() == ["Read 20 pages", "No phone after 11pm"]
+    assert write_count(page) == 1
+
+
 def test_SEC01_R15_a_deliberate_click_after_the_window_deletes(app):
     page = app(storage=sample_state(), install_time=NOON)
     open_delete_dialog(page, "Stretch 10 minutes")
