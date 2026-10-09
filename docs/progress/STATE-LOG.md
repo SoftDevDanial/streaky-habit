@@ -117,3 +117,8 @@ Append-only history. STATE.md holds the situation, this file holds what happened
 
 ## 2026-10-09 20:11 app security re-check launched
 - Scoped security re-check of `12445c9` and `442ca9a` launched (sonnet). Stop rule after it: no further security round.
+
+## 2026-10-09 20:46 app security re-check collected
+- Re-check: SEC-01 closed, SEC-02 holds, new LOW SEC-06 (unmatched isolate initiator after a right-to-left letter).
+- ORCH ruled fix (b), view-only strip of bidi format characters from the title's copy of the name. Stop rule: no further security finder round.
+- Slow double click past 500 ms kept as the T7 residual.

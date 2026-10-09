@@ -1,0 +1,18 @@
+{
+ "probe": "probe_08",
+ "lines": [
+  "== unmatched isolate initiators in the name, 390x844 ==",
+  "  alef + LRI + abc                                 unfixed: in place     | fixed: QUOTES MOVED fixed positions open 102, name [154]..[146], close 118, ? 110; name stored unchanged: True; page errors: []",
+  "  alef + RLI + abc                                 unfixed: QUOTES MOVED | fixed: QUOTES MOVED fixed positions open 102, name [154]..[146], close 118, ? 110; name stored unchanged: True; page errors: []",
+  "  alef + FSI + abc                                 unfixed: in place     | fixed: QUOTES MOVED fixed positions open 102, name [154]..[146], close 118, ? 110; name stored unchanged: True; page errors: []",
+  "  shalom + LRI (initiator last)                    unfixed: in place     | fixed: QUOTES MOVED fixed positions open 102, name [153]..[125], close 118, ? 110; name stored unchanged: True; page errors: []",
+  "  shalom + space + abc + LRI                       unfixed: in place     | fixed: QUOTES MOVED fixed positions open 102, name [187]..[146], close 118, ? 110; name stored unchanged: True; page errors: []",
+  "  meem + LRI + x                                   unfixed: in place     | fixed: QUOTES MOVED fixed positions open 102, name [134]..[125], close 118, ? 110; name stored unchanged: True; page errors: []",
+  "  alef + LRI + abc + RLO (override too)            unfixed: QUOTES MOVED | fixed: QUOTES MOVED fixed positions open 102, name [154]..[146], close 118, ? 110; name stored unchanged: True; page errors: []",
+  "  CONTROL latin + LRI + alef                       unfixed: in place     | fixed: in place     fixed positions open 102, name [110]..[119], close 130, ? 138; name stored unchanged: True; page errors: []",
+  "  CONTROL alef + LRI + abc + PDI (balanced pair)   unfixed: in place     | fixed: in place     fixed positions open 102, name [138]..[130], close 150, ? 158; name stored unchanged: True; page errors: []",
+  "  CONTROL alef only                                unfixed: in place     | fixed: in place     fixed positions open 102, name [110]..[110], close 121, ? 129; name stored unchanged: True; page errors: []",
+  "  CONTROL shalom + space + abc                     unfixed: in place     | fixed: in place     fixed positions open 102, name [171]..[130], close 185, ? 193; name stored unchanged: True; page errors: []",
+  "  KNOWN RESIDUAL x + PDI + RLO + y z               unfixed: QUOTES MOVED | fixed: QUOTES MOVED fixed positions open 102, name [110]..[134], close 127, ? 119; name stored unchanged: True; page errors: []"
+ ]
+}

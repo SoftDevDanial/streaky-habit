@@ -1,0 +1,8 @@
+{
+ "probe": "probe_09",
+ "lines": [
+  "  unfixed: title text as stored in the node (repr): 'Delete \"\u05d0\\u2066abc\"?'; screenshot shots/sec06-unfixed.png",
+  "  fixed: title text as stored in the node (repr): 'Delete \"\\u2068\u05d0\\u2066abc\\u2069\"?'; screenshot shots/sec06-fixed.png",
+  "  fixed: Delete habit on this dialog removes: ['\u05d0\\u2066abc'] (the habit named in the title); left: ['Other habit']"
+ ]
+}
