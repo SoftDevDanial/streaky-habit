@@ -77,3 +77,11 @@ Append-only history. STATE.md holds the situation, this file holds what happened
 ## 2026-10-09 13:18 habit-logic security PASS
 - Security re-check 2: PASS, 0 findings. SEC-01 to SEC-04 closed. 66 of 66 tests. Evidence qa/security/20261009T131308/
 - Observations for code review: comment stripper in purity test strips // and /* inside strings; spec R6 R7 silent on isDateKey filter; raw invisible characters in WHITE_SPACE test constant
+
+## 2026-10-09 13:49 habit-logic code-review re-check
+- Code-review re-check: PASS, 6 low warnings WR-11 to WR-16. Commit fa7838d
+- Routed to a sonnet dev solver with rulings; WR-15 deletes the unreachable size bound. Stop rule: QA finder next, then module close
+
+## 2026-10-09 14:06 habit-logic re-check warnings solved
+- Solver (sonnet): WR-11 adb1a99, WR-12+16 160ba9c, WR-13 ae52deb, WR-14 32edd0f, WR-15 7ea311d (unreachable bound deleted), task boxes 6088b1d, findings 94d8e6f. 66 of 66, differential 0 mismatches on 346,950 cases
+- Per the stop rule: QA finder next, then module close
