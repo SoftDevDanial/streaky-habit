@@ -21,18 +21,44 @@ function deepFreeze(value) {
 
 const SOURCES = { "dates.js": readSource("dates.js"), "habits.js": readSource("habits.js") };
 
-test("@R16 the source has no clock read, even in a comment", () => {
+// Matched on the whole text, so a comment must not spell one either, and on the code alone, which also
+// finds a read that a comment splits, such as `new Date(/* today */)`. `new Date` with an argument and
+// `Date.UTC` stay allowed, because they read no clock.
+const CLOCK_AND_RANDOM_READS = {
+  "Date.now": /Date\s*\.\s*now\b/,
+  "new Date without an argument": /new\s+Date\b(?!\s*\(\s*[^\s)])/,
+  "Date called as a function": /(?<![.\w$]|\bnew\s+)Date\s*\(/,
+  "performance.now": /\bperformance\s*\.\s*now\b/,
+  "Math.random": /\bMath\s*\.\s*random\b/,
+};
+
+// Matched on the code only, as whole words, so a comment may still say "the week window".
+const BANNED_IN_CODE = {
+  "DOM or global object": /\b(document|window|self|globalThis|navigator|process)\b/,
+  storage: /\b(localStorage|sessionStorage|indexedDB|caches)\b/,
+  network: /\b(fetch|XMLHttpRequest|WebSocket|EventSource|sendBeacon)\b/,
+  "dynamic import": /\bimport\s*\(/,
+  timer: /\b(setTimeout|setInterval|setImmediate|queueMicrotask|requestAnimationFrame)\b/,
+  "random source": /\bcrypto\b/,
+  locale: /\bIntl\b|\btoLocale\w*/,
+};
+
+test("@R16 the source has no clock or random read, even in a comment", () => {
   for (const [name, text] of Object.entries(SOURCES)) {
-    assert.ok(!text.includes("Date.now("), `${name} Date.now(`);
-    assert.doesNotMatch(text, /new\s+Date\s*\(\s*\)/, `${name} new Date()`);
+    for (const [form, source] of [["text", text], ["code", withoutComments(text)]]) {
+      for (const [read, pattern] of Object.entries(CLOCK_AND_RANDOM_READS)) {
+        assert.doesNotMatch(source, pattern, `${name} ${form}: ${read}`);
+      }
+    }
   }
 });
 
-test("@R16 the code has no DOM, storage, global or locale access", () => {
+test("@R16 the code has no DOM, storage, network, timer, global or locale access", () => {
   for (const [name, text] of Object.entries(SOURCES)) {
     const code = withoutComments(text);
-    assert.doesNotMatch(code, /\b(document|window|localStorage|globalThis|Intl)\b/, name);
-    assert.doesNotMatch(code, /\btoLocale\w*/, name);
+    for (const [access, pattern] of Object.entries(BANNED_IN_CODE)) {
+      assert.doesNotMatch(code, pattern, `${name}: ${access}`);
+    }
   }
 });
 
