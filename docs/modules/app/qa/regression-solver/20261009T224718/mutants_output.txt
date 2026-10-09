@@ -1,0 +1,283 @@
+Mutant runs of the regression solver round (app, RG-CR-01 and RG-CR-02). The finder's runner and mutants, unchanged:
+docs/modules/app/qa/regression-code-review/20261009T221155/run_mutants.py (it feeds mutants_regression.py to the earlier
+reviewer's mut.py). Two extra mutants (G-499, G-501) come from mutants_solver.py and run_mutants_solver.py in this folder.
+Every run serves the project from memory with one patch applied, runs `pytest tests/browser -k test_delete` against it with
+--maxfail 1000, and writes no project file. src/ was never touched (git status shows no change under src/).
+
+The lines below are the runner's own output, copied as printed ("[id] server port ..." lines carry the PIDs of the
+pytest child and of the runner; the in-process server is a thread of the runner).
+
+======================================================================================================================
+BEFORE: the tests of HEAD a3d3ed1 (the finder's tests), served from a scratch copy made with
+`git archive HEAD index.html src tests docs/design | tar -x -C <scratch>/before`.
+src/ of the copy equals the working tree (diff --strip-trailing-cr: same for app.js, view.js, storage.js, styles.css;
+the copy has CRLF line ends from the git autocrlf setting, the runner reads text and patches by content).
+Command: python -B docs/modules/app/qa/regression-code-review/20261009T221155/run_mutants.py <scratch>/before <ids> 1000 test_delete
+======================================================================================================================
+[baseline] server port 8699, pytest pid 13380, runner pid 49296
+RESULT baseline: SURVIVED in 24s | pristine copy, no patch
+   summary: 65 passed, 111 deselected in 22.76s
+
+[G-450] server port 19273, pytest pid 50960, runner pid 42040
+RESULT G-450: SURVIVED in 24s | DIALOG_GUARD_MS 500 -> 450
+   summary: 65 passed, 111 deselected in 22.71s
+[G-600] server port 1703, pytest pid 48460, runner pid 42040
+RESULT G-600: SURVIVED in 23s | DIALOG_GUARD_MS 500 -> 600
+   summary: 65 passed, 111 deselected in 22.45s
+[G-le] server port 16470, pytest pid 20172, runner pid 42040
+RESULT G-le: SURVIVED in 24s | withinGuard uses <= instead of <
+   summary: 65 passed, 111 deselected in 22.58s
+[G-kbd-delete-open] server port 37243, pytest pid 45652, runner pid 42040
+RESULT G-kbd-delete-open: SURVIVED in 24s | Delete habit is held only for a mouse or touch click (detail > 0), a keyboard activation inside the window deletes
+   summary: 65 passed, 111 deselected in 22.66s
+[G-bubble] server port 16713, pytest pid 43196, runner pid 42040
+RESULT G-bubble: SURVIVED in 23s | guardDialogClick registered for the bubble phase
+   summary: 65 passed, 111 deselected in 22.19s
+[P-kbd-click-passes] server port 10236, pytest pid 51132, runner pid 42040
+RESULT P-kbd-click-passes: SURVIVED in 24s | the page swallows only mouse or touch clicks (detail > 0), a keyboard click inside the window passes
+   summary: 65 passed, 111 deselected in 22.48s
+
+(run_mutants_solver.py, the two extra mutants, same scratch copy)
+[G-499] server port 12774, pytest pid 51908, runner pid 30872
+RESULT G-499: SURVIVED in 24s | DIALOG_GUARD_MS 500 -> 499
+   summary: 65 passed, 111 deselected in 22.50s
+[G-501] server port 14058, pytest pid 47560, runner pid 30872
+RESULT G-501: SURVIVED in 23s | DIALOG_GUARD_MS 500 -> 501
+   summary: 65 passed, 111 deselected in 22.43s
+
+======================================================================================================================
+RED, RG-CR-01: the working tree at 3c9afdf (edge tests only; the keyboard test was added in the next commit).
+Command: python -B docs/modules/app/qa/regression-code-review/20261009T221155/run_mutants.py . G-450,G-600,G-le 1000 test_delete
+======================================================================================================================
+[G-450] server port 49656, pytest pid 31392, runner pid 42312
+RESULT G-450: KILLED in 45s | DIALOG_GUARD_MS 500 -> 450
+   summary: 4 failed, 63 passed, 111 deselected in 43.45s
+   failed: test_delete.py::test_SEC01_R13_a_click_inside_the_window_is_ignored_and_one_after_it_deletes[mouse]
+   failed: test_delete.py::test_SEC01_R13_a_click_inside_the_window_is_ignored_and_one_after_it_deletes[touch]
+   failed: test_delete.py::test_SEC01_R14_the_page_listens_again_once_the_window_has_passed[mouse]
+   failed: test_delete.py::test_SEC01_R14_the_page_listens_again_once_the_window_has_passed[touch]
+[G-600] server port 17352, pytest pid 49300, runner pid 42312
+RESULT G-600: KILLED in 44s | DIALOG_GUARD_MS 500 -> 600
+   summary: 4 failed, 63 passed, 111 deselected in 43.42s
+   failed: test_delete.py::test_SEC01_R13_a_click_inside_the_window_is_ignored_and_one_after_it_deletes[mouse]
+   failed: test_delete.py::test_SEC01_R13_a_click_inside_the_window_is_ignored_and_one_after_it_deletes[touch]
+   failed: test_delete.py::test_SEC01_R14_the_page_listens_again_once_the_window_has_passed[mouse]
+   failed: test_delete.py::test_SEC01_R14_the_page_listens_again_once_the_window_has_passed[touch]
+[G-le] server port 13681, pytest pid 53696, runner pid 42312
+RESULT G-le: KILLED in 44s | withinGuard uses <= instead of <
+   summary: 4 failed, 63 passed, 111 deselected in 43.26s
+   failed: test_delete.py::test_SEC01_R13_a_click_inside_the_window_is_ignored_and_one_after_it_deletes[mouse]
+   failed: test_delete.py::test_SEC01_R13_a_click_inside_the_window_is_ignored_and_one_after_it_deletes[touch]
+   failed: test_delete.py::test_SEC01_R14_the_page_listens_again_once_the_window_has_passed[mouse]
+   failed: test_delete.py::test_SEC01_R14_the_page_listens_again_once_the_window_has_passed[touch]
+
+(run_mutants_solver.py, same tree)
+[G-499] server port 60133, pytest pid 48828, runner pid 45036
+RESULT G-499: KILLED in 44s | DIALOG_GUARD_MS 500 -> 499
+   summary: 4 failed, 63 passed, 111 deselected in 43.19s
+   failed: test_delete.py::test_SEC01_R13_a_click_inside_the_window_is_ignored_and_one_after_it_deletes[mouse]
+   failed: test_delete.py::test_SEC01_R13_a_click_inside_the_window_is_ignored_and_one_after_it_deletes[touch]
+   failed: test_delete.py::test_SEC01_R14_the_page_listens_again_once_the_window_has_passed[mouse]
+   failed: test_delete.py::test_SEC01_R14_the_page_listens_again_once_the_window_has_passed[touch]
+[G-501] server port 5034, pytest pid 42548, runner pid 45036
+RESULT G-501: KILLED in 44s | DIALOG_GUARD_MS 500 -> 501
+   summary: 4 failed, 63 passed, 111 deselected in 43.29s
+   failed: test_delete.py::test_SEC01_R13_a_click_inside_the_window_is_ignored_and_one_after_it_deletes[mouse]
+   failed: test_delete.py::test_SEC01_R13_a_click_inside_the_window_is_ignored_and_one_after_it_deletes[touch]
+   failed: test_delete.py::test_SEC01_R14_the_page_listens_again_once_the_window_has_passed[mouse]
+   failed: test_delete.py::test_SEC01_R14_the_page_listens_again_once_the_window_has_passed[touch]
+
+======================================================================================================================
+RED, RG-CR-02: the working tree with the keyboard test added (committed as dd86356).
+Command: python -B docs/modules/app/qa/regression-code-review/20261009T221155/run_mutants.py . G-kbd-delete-open,P-kbd-click-passes,G-bubble 1000 test_delete
+======================================================================================================================
+[G-kbd-delete-open] server port 21680, pytest pid 41968, runner pid 42388
+RESULT G-kbd-delete-open: KILLED in 30s | Delete habit is held only for a mouse or touch click (detail > 0), a keyboard activation inside the window deletes
+   summary: 1 failed, 67 passed, 111 deselected in 29.08s
+   failed: test_delete.py::test_SEC01_R13_enter_on_delete_habit_inside_the_window_is_ignored_and_one_after_it_deletes
+[G-bubble] server port 20000, pytest pid 18380, runner pid 42388
+RESULT G-bubble: SURVIVED in 25s | guardDialogClick registered for the bubble phase
+   summary: 68 passed, 111 deselected in 23.71s
+[P-kbd-click-passes] server port 25659, pytest pid 36928, runner pid 42388
+RESULT P-kbd-click-passes: SURVIVED in 24s | the page swallows only mouse or touch clicks (detail > 0), a keyboard click inside the window passes
+   summary: 68 passed, 111 deselected in 23.43s
+
+======================================================================================================================
+AFTER: all 21 mutants of the finder against the final tests (working tree at 1ed506c, the last commit before the
+evidence), the whole of test_delete.py (68 tests; the shipped code passes all of them in the full-suite runs, see
+evidence.md).
+Command: python -B docs/modules/app/qa/regression-code-review/20261009T221155/run_mutants.py . all 1000 test_delete
+======================================================================================================================
+[G-450] server port 21708, pytest pid 48240, runner pid 36756
+RESULT G-450: KILLED in 45s | DIALOG_GUARD_MS 500 -> 450
+   summary: 4 failed, 64 passed, 111 deselected in 43.65s
+   failed: test_delete.py::test_SEC01_R13_a_click_inside_the_window_is_ignored_and_one_after_it_deletes[mouse]
+   failed: test_delete.py::test_SEC01_R13_a_click_inside_the_window_is_ignored_and_one_after_it_deletes[touch]
+   failed: test_delete.py::test_SEC01_R14_the_page_listens_again_once_the_window_has_passed[mouse]
+   failed: test_delete.py::test_SEC01_R14_the_page_listens_again_once_the_window_has_passed[touch]
+[G-600] server port 62247, pytest pid 40212, runner pid 36756
+RESULT G-600: KILLED in 50s | DIALOG_GUARD_MS 500 -> 600
+   summary: 5 failed, 63 passed, 111 deselected in 48.46s
+   failed: test_delete.py::test_SEC01_R13_a_click_inside_the_window_is_ignored_and_one_after_it_deletes[mouse]
+   failed: test_delete.py::test_SEC01_R13_a_click_inside_the_window_is_ignored_and_one_after_it_deletes[touch]
+   failed: test_delete.py::test_SEC01_R13_enter_on_delete_habit_inside_the_window_is_ignored_and_one_after_it_deletes
+   failed: test_delete.py::test_SEC01_R14_the_page_listens_again_once_the_window_has_passed[mouse]
+   failed: test_delete.py::test_SEC01_R14_the_page_listens_again_once_the_window_has_passed[touch]
+[G-700] server port 32552, pytest pid 47896, runner pid 36756
+RESULT G-700: KILLED in 74s | DIALOG_GUARD_MS 500 -> 700
+   summary: 10 failed, 58 passed, 111 deselected in 72.89s (0:01:12)
+   failed: test_delete.py::test_R14_esc_after_an_earlier_delete_still_keeps_the_habit
+   failed: test_delete.py::test_SEC01_R13_a_click_inside_the_window_is_ignored_and_one_after_it_deletes[mouse]
+   failed: test_delete.py::test_SEC01_R13_a_click_inside_the_window_is_ignored_and_one_after_it_deletes[touch]
+   failed: test_delete.py::test_SEC01_R13_every_opening_starts_the_window_again
+   failed: test_delete.py::test_SEC01_R13_enter_on_delete_habit_inside_the_window_is_ignored_and_one_after_it_deletes
+   failed: test_delete.py::test_SEC01_R15_enter_on_delete_habit_after_the_window_deletes
+   failed: test_delete.py::test_SEC01_R15_a_double_click_or_tap_on_delete_habit_deletes_once_and_ticks_nothing[mouse]
+   failed: test_delete.py::test_SEC01_R15_a_double_click_or_tap_on_delete_habit_deletes_once_and_ticks_nothing[touch]
+   ... and 2 more
+[G-300] server port 4710, pytest pid 48268, runner pid 36756
+RESULT G-300: KILLED in 44s | DIALOG_GUARD_MS 500 -> 300
+   summary: 4 failed, 64 passed, 111 deselected in 43.43s
+   failed: test_delete.py::test_SEC01_R13_a_click_inside_the_window_is_ignored_and_one_after_it_deletes[mouse]
+   failed: test_delete.py::test_SEC01_R13_a_click_inside_the_window_is_ignored_and_one_after_it_deletes[touch]
+   failed: test_delete.py::test_SEC01_R14_the_page_listens_again_once_the_window_has_passed[mouse]
+   failed: test_delete.py::test_SEC01_R14_the_page_listens_again_once_the_window_has_passed[touch]
+[G-le] server port 7606, pytest pid 39764, runner pid 36756
+RESULT G-le: KILLED in 49s | withinGuard uses <= instead of <
+   summary: 5 failed, 63 passed, 111 deselected in 48.40s
+   failed: test_delete.py::test_SEC01_R13_a_click_inside_the_window_is_ignored_and_one_after_it_deletes[mouse]
+   failed: test_delete.py::test_SEC01_R13_a_click_inside_the_window_is_ignored_and_one_after_it_deletes[touch]
+   failed: test_delete.py::test_SEC01_R13_enter_on_delete_habit_inside_the_window_is_ignored_and_one_after_it_deletes
+   failed: test_delete.py::test_SEC01_R14_the_page_listens_again_once_the_window_has_passed[mouse]
+   failed: test_delete.py::test_SEC01_R14_the_page_listens_again_once_the_window_has_passed[touch]
+[G-kbd-delete-open] server port 16881, pytest pid 46584, runner pid 36756
+RESULT G-kbd-delete-open: KILLED in 29s | Delete habit is held only for a mouse or touch click (detail > 0), a keyboard activation inside the window deletes
+   summary: 1 failed, 67 passed, 111 deselected in 28.51s
+   failed: test_delete.py::test_SEC01_R13_enter_on_delete_habit_inside_the_window_is_ignored_and_one_after_it_deletes
+[G-no-open-stamp] server port 43527, pytest pid 5680, runner pid 36756
+RESULT G-no-open-stamp: KILLED in 64s | the opening click's time is never recorded
+   summary: 8 failed, 60 passed, 111 deselected in 63.38s (0:01:03)
+   failed: test_delete.py::test_SEC01_R13_a_double_click_or_tap_on_the_trash_button_cannot_delete[mouse-1440x900]
+   failed: test_delete.py::test_SEC01_R13_a_double_click_or_tap_on_the_trash_button_cannot_delete[mouse-412x915]
+   failed: test_delete.py::test_SEC01_R13_a_double_click_or_tap_on_the_trash_button_cannot_delete[touch-1440x900]
+   failed: test_delete.py::test_SEC01_R13_a_double_click_or_tap_on_the_trash_button_cannot_delete[touch-412x915]
+   failed: test_delete.py::test_SEC01_R13_a_click_inside_the_window_is_ignored_and_one_after_it_deletes[mouse]
+   failed: test_delete.py::test_SEC01_R13_a_click_inside_the_window_is_ignored_and_one_after_it_deletes[touch]
+   failed: test_delete.py::test_SEC01_R13_every_opening_starts_the_window_again
+   failed: test_delete.py::test_SEC01_R13_enter_on_delete_habit_inside_the_window_is_ignored_and_one_after_it_deletes
+[G-open-stamp-once] server port 29628, pytest pid 51176, runner pid 36756
+RESULT G-open-stamp-once: KILLED in 50s | the window runs only from the first opening
+   summary: 5 failed, 63 passed, 111 deselected in 48.59s
+   failed: test_delete.py::test_SEC01_R13_a_double_click_or_tap_on_the_trash_button_cannot_delete[mouse-1440x900]
+   failed: test_delete.py::test_SEC01_R13_a_double_click_or_tap_on_the_trash_button_cannot_delete[mouse-412x915]
+   failed: test_delete.py::test_SEC01_R13_a_double_click_or_tap_on_the_trash_button_cannot_delete[touch-1440x900]
+   failed: test_delete.py::test_SEC01_R13_a_double_click_or_tap_on_the_trash_button_cannot_delete[touch-412x915]
+   failed: test_delete.py::test_SEC01_R13_every_opening_starts_the_window_again
+[G-bubble] server port 61593, pytest pid 52924, runner pid 36756
+RESULT G-bubble: SURVIVED in 25s | guardDialogClick registered for the bubble phase
+   summary: 68 passed, 111 deselected in 23.80s
+[P-kbd-click-passes] server port 20067, pytest pid 24380, runner pid 36756
+RESULT P-kbd-click-passes: SURVIVED in 24s | the page swallows only mouse or touch clicks (detail > 0), a keyboard click inside the window passes
+   summary: 68 passed, 111 deselected in 23.47s
+[P-no-stop] server port 31438, pytest pid 22748, runner pid 36756
+RESULT P-no-stop: KILLED in 35s | swallowTapThrough does not stopPropagation
+   summary: 14 failed, 54 passed, 111 deselected in 33.48s
+   failed: test_delete.py::test_SEC01_R14_a_double_click_or_tap_on_the_backdrop_does_not_tick_the_bead_behind[390x844-mouse]
+   failed: test_delete.py::test_SEC01_R14_a_double_click_or_tap_on_the_backdrop_does_not_tick_the_bead_behind[390x844-touch]
+   failed: test_delete.py::test_SEC01_R14_a_double_click_or_tap_on_the_backdrop_does_not_tick_the_bead_behind[412x915-mouse]
+   failed: test_delete.py::test_SEC01_R14_a_double_click_or_tap_on_the_backdrop_does_not_tick_the_bead_behind[412x915-touch]
+   failed: test_delete.py::test_SEC01_R14_a_double_click_or_tap_on_the_backdrop_does_not_tick_the_bead_behind[1440x900-mouse]
+   failed: test_delete.py::test_SEC01_R14_a_double_click_or_tap_on_the_backdrop_does_not_tick_the_bead_behind[1440x900-touch]
+   failed: test_delete.py::test_SEC01_R14_a_double_click_or_tap_on_cancel_does_not_tick_the_bead_behind[375x667-mouse]
+   failed: test_delete.py::test_SEC01_R14_a_double_click_or_tap_on_cancel_does_not_tick_the_bead_behind[375x667-touch]
+   ... and 6 more
+[P-no-prevent] server port 63834, pytest pid 21040, runner pid 36756
+RESULT P-no-prevent: KILLED in 25s | swallowTapThrough does not preventDefault
+   summary: 2 failed, 66 passed, 111 deselected in 23.71s
+   failed: test_delete.py::test_SEC01_R14_a_double_click_or_tap_on_the_backdrop_does_not_press_add[mouse]
+   failed: test_delete.py::test_SEC01_R14_a_double_click_or_tap_on_the_backdrop_does_not_press_add[touch]
+[P-bubble] server port 44457, pytest pid 21932, runner pid 36756
+RESULT P-bubble: KILLED in 34s | page listener registered for the bubble phase
+   summary: 14 failed, 54 passed, 111 deselected in 33.46s
+   failed: test_delete.py::test_SEC01_R14_a_double_click_or_tap_on_the_backdrop_does_not_tick_the_bead_behind[390x844-mouse]
+   failed: test_delete.py::test_SEC01_R14_a_double_click_or_tap_on_the_backdrop_does_not_tick_the_bead_behind[390x844-touch]
+   failed: test_delete.py::test_SEC01_R14_a_double_click_or_tap_on_the_backdrop_does_not_tick_the_bead_behind[412x915-mouse]
+   failed: test_delete.py::test_SEC01_R14_a_double_click_or_tap_on_the_backdrop_does_not_tick_the_bead_behind[412x915-touch]
+   failed: test_delete.py::test_SEC01_R14_a_double_click_or_tap_on_the_backdrop_does_not_tick_the_bead_behind[1440x900-mouse]
+   failed: test_delete.py::test_SEC01_R14_a_double_click_or_tap_on_the_backdrop_does_not_tick_the_bead_behind[1440x900-touch]
+   failed: test_delete.py::test_SEC01_R14_a_double_click_or_tap_on_cancel_does_not_tick_the_bead_behind[375x667-mouse]
+   failed: test_delete.py::test_SEC01_R14_a_double_click_or_tap_on_cancel_does_not_tick_the_bead_behind[375x667-touch]
+   ... and 6 more
+[P-on-document] server port 50547, pytest pid 50612, runner pid 36756
+RESULT P-on-document: KILLED in 40s | swallowTapThrough sits on the document, so it holds the dialog's own clicks too
+   summary: 3 failed, 65 passed, 111 deselected in 38.56s
+   failed: test_delete.py::test_SEC01_R13_a_click_inside_the_window_is_ignored_and_one_after_it_deletes[mouse]
+   failed: test_delete.py::test_SEC01_R13_a_click_inside_the_window_is_ignored_and_one_after_it_deletes[touch]
+   failed: test_delete.py::test_SEC01_R14_cancel_still_works_right_after_a_click_inside_the_box
+[P-stamp-always] server port 19011, pytest pid 13724, runner pid 36756
+RESULT P-stamp-always: KILLED in 35s | every click in the dialog starts the page window, keyboard ones too
+   summary: 2 failed, 66 passed, 111 deselected in 33.50s
+   failed: test_delete.py::test_SEC01_R14_closing_with_the_keyboard_does_not_hold_the_next_click[Enter]
+   failed: test_delete.py::test_SEC01_R14_closing_with_the_keyboard_does_not_hold_the_next_click[Space]
+[P-stamp-never-on-delete] server port 1148, pytest pid 49472, runner pid 36756
+RESULT P-stamp-never-on-delete: KILLED in 25s | a click on Delete habit does not start the page window
+   summary: 2 failed, 66 passed, 111 deselected in 23.97s
+   failed: test_delete.py::test_SEC01_R15_a_double_click_or_tap_on_delete_habit_deletes_once_and_ticks_nothing[mouse]
+   failed: test_delete.py::test_SEC01_R15_a_double_click_or_tap_on_delete_habit_deletes_once_and_ticks_nothing[touch]
+[P-stamp-only-backdrop] server port 28370, pytest pid 49584, runner pid 36756
+RESULT P-stamp-only-backdrop: KILLED in 25s | only a click on the dialog element itself (padding or backdrop) starts the page window
+   summary: 6 failed, 62 passed, 111 deselected in 23.85s
+   failed: test_delete.py::test_SEC01_R14_a_double_click_or_tap_on_cancel_does_not_tick_the_bead_behind[375x667-mouse]
+   failed: test_delete.py::test_SEC01_R14_a_double_click_or_tap_on_cancel_does_not_tick_the_bead_behind[375x667-touch]
+   failed: test_delete.py::test_SEC01_R14_a_double_click_or_tap_on_cancel_does_not_tick_the_bead_behind[360x640-mouse]
+   failed: test_delete.py::test_SEC01_R14_a_double_click_or_tap_on_cancel_does_not_tick_the_bead_behind[360x640-touch]
+   failed: test_delete.py::test_SEC01_R15_a_double_click_or_tap_on_delete_habit_deletes_once_and_ticks_nothing[mouse]
+   failed: test_delete.py::test_SEC01_R15_a_double_click_or_tap_on_delete_habit_deletes_once_and_ticks_nothing[touch]
+[T-strip-whole] server port 32215, pytest pid 11788, runner pid 36756
+RESULT T-strip-whole: KILLED in 59s | the strip runs over the finished title, so it also removes the isolate marks
+   summary: 26 failed, 42 passed, 111 deselected in 58.23s
+   failed: test_delete.py::test_R13_the_confirmation_opens_as_a_modal_with_focus_on_cancel
+   failed: test_delete.py::test_R14_clicks_inside_the_box_and_drags_out_of_it_keep_the_dialog_open
+   failed: test_delete.py::test_R14_a_drag_that_starts_on_the_backdrop_and_ends_in_the_box_keeps_the_dialog_open
+   failed: test_delete.py::test_SEC01_R13_a_double_click_or_tap_on_the_trash_button_cannot_delete[mouse-1440x900]
+   failed: test_delete.py::test_SEC01_R13_a_double_click_or_tap_on_the_trash_button_cannot_delete[mouse-412x915]
+   failed: test_delete.py::test_SEC01_R13_a_double_click_or_tap_on_the_trash_button_cannot_delete[touch-1440x900]
+   failed: test_delete.py::test_SEC01_R13_a_double_click_or_tap_on_the_trash_button_cannot_delete[touch-412x915]
+   failed: test_delete.py::test_SEC02_SEC06_R13_the_title_shows_the_name_without_format_characters_and_its_quotes_stay_in_place[rlo first]
+   ... and 18 more
+[T-open-lri] server port 60167, pytest pid 23080, runner pid 36756
+RESULT T-open-lri: KILLED in 59s | the opening mark is LEFT-TO-RIGHT ISOLATE instead of FIRST STRONG ISOLATE
+   summary: 27 failed, 41 passed, 111 deselected in 57.79s
+   failed: test_delete.py::test_R13_the_confirmation_opens_as_a_modal_with_focus_on_cancel
+   failed: test_delete.py::test_R28_the_open_dialog_has_the_markup_of_the_golden
+   failed: test_delete.py::test_R14_clicks_inside_the_box_and_drags_out_of_it_keep_the_dialog_open
+   failed: test_delete.py::test_R14_a_drag_that_starts_on_the_backdrop_and_ends_in_the_box_keeps_the_dialog_open
+   failed: test_delete.py::test_SEC01_R13_a_double_click_or_tap_on_the_trash_button_cannot_delete[mouse-1440x900]
+   failed: test_delete.py::test_SEC01_R13_a_double_click_or_tap_on_the_trash_button_cannot_delete[mouse-412x915]
+   failed: test_delete.py::test_SEC01_R13_a_double_click_or_tap_on_the_trash_button_cannot_delete[touch-1440x900]
+   failed: test_delete.py::test_SEC01_R13_a_double_click_or_tap_on_the_trash_button_cannot_delete[touch-412x915]
+   ... and 19 more
+[T-close-missing] server port 54057, pytest pid 38088, runner pid 36756
+RESULT T-close-missing: KILLED in 58s | no closing mark
+   summary: 26 failed, 42 passed, 111 deselected in 57.58s
+   failed: test_delete.py::test_R13_the_confirmation_opens_as_a_modal_with_focus_on_cancel
+   failed: test_delete.py::test_R14_clicks_inside_the_box_and_drags_out_of_it_keep_the_dialog_open
+   failed: test_delete.py::test_R14_a_drag_that_starts_on_the_backdrop_and_ends_in_the_box_keeps_the_dialog_open
+   failed: test_delete.py::test_SEC01_R13_a_double_click_or_tap_on_the_trash_button_cannot_delete[mouse-1440x900]
+   failed: test_delete.py::test_SEC01_R13_a_double_click_or_tap_on_the_trash_button_cannot_delete[mouse-412x915]
+   failed: test_delete.py::test_SEC01_R13_a_double_click_or_tap_on_the_trash_button_cannot_delete[touch-1440x900]
+   failed: test_delete.py::test_SEC01_R13_a_double_click_or_tap_on_the_trash_button_cannot_delete[touch-412x915]
+   failed: test_delete.py::test_SEC02_SEC06_R13_the_title_shows_the_name_without_format_characters_and_its_quotes_stay_in_place[rlo first]
+   ... and 18 more
+[T-name-lowercased] server port 35771, pytest pid 44872, runner pid 36756
+RESULT T-name-lowercased: KILLED in 59s | the title's name is lowercased
+   summary: 11 failed, 57 passed, 111 deselected in 58.17s
+   failed: test_delete.py::test_R13_the_confirmation_opens_as_a_modal_with_focus_on_cancel
+   failed: test_delete.py::test_R28_the_open_dialog_has_the_markup_of_the_golden
+   failed: test_delete.py::test_R14_clicks_inside_the_box_and_drags_out_of_it_keep_the_dialog_open
+   failed: test_delete.py::test_R14_a_drag_that_starts_on_the_backdrop_and_ends_in_the_box_keeps_the_dialog_open
+   failed: test_delete.py::test_SEC01_R13_a_double_click_or_tap_on_the_trash_button_cannot_delete[mouse-1440x900]
+   failed: test_delete.py::test_SEC01_R13_a_double_click_or_tap_on_the_trash_button_cannot_delete[mouse-412x915]
+   failed: test_delete.py::test_SEC01_R13_a_double_click_or_tap_on_the_trash_button_cannot_delete[touch-1440x900]
+   failed: test_delete.py::test_SEC01_R13_a_double_click_or_tap_on_the_trash_button_cannot_delete[touch-412x915]
+   ... and 3 more

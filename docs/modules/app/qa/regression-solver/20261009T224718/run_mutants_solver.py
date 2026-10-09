@@ -1,0 +1,24 @@
+"""Runs the earlier code-review finder's mutant runner `mut.py` with this round's extra mutants (mutants_solver.py, next to this file).
+
+usage: python -B run_mutants_solver.py <project root> <baseline | all | id,id,...> <maxfail> [<pytest -k expression>]
+
+The same runner and the same way of working as the regression finder's run_mutants.py: mut.py serves the project root from
+memory-patched responses on a free 127.0.0.1 port, runs the browser suite against it as a child process and stops the
+server. It writes no file and kills a hung child by the PID it started. src/ is never touched.
+"""
+import pathlib
+import runpy
+import sys
+
+HERE = pathlib.Path(__file__).resolve().parent
+REVIEW = HERE.parent.parent / "code-review" / "20261009-154715"
+sys.dont_write_bytecode = True
+sys.path.insert(0, str(HERE))
+sys.path.insert(0, str(REVIEW))
+
+import mutants  # noqa: E402  (the earlier reviewer's module: mut.py does `from mutants import MUTANTS`)
+import mutants_solver  # noqa: E402
+
+mutants.MUTANTS[:] = mutants_solver.MUTANTS
+sys.argv = [str(REVIEW / "mut.py"), *sys.argv[1:]]
+runpy.run_path(str(REVIEW / "mut.py"), run_name="__main__")

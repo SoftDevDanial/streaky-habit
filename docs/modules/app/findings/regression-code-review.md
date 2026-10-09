@@ -120,3 +120,54 @@ PROCESSES: started, all stopped.
 - Final sweep by command line (`Get-CimInstance Win32_Process`, matching python, node, `http.server`, pytest, headless, chrome, and my script and folder names): no python, node, `http.server`, pytest or Chromium process left. The only matches were the sweep's own shell chain and conhost helpers of the desktop app.
 - Seen and not mine, not touched: another agent's `python -m pytest tests/browser` (pid 43160) with an `http.server` on port 3182 (pid 48068), present while the mutants ran (so wall times in `mutants_output.txt` are longer than the baseline's) and gone by the final sweep.
 - Writes: only through the Write tool, into the evidence folder and this file. Scripts print to stdout, and `live_e2e.py` wrote its own output into `live-e2e-check/`. No heredoc, no redirection. `src/` was never touched (mutants are served from memory; `git status` shows only the untracked evidence folder). The clipboard was never touched.
+
+## Solver (2026-10-09)
+
+Written by the dev solver, ORCH rulings of 2026-10-09 (reversible). Test and doc work only: `src/`, `index.html`, `docs/design/` and `README.md` untouched, so the fidelity and live-gate verdicts stand. The finder's sections above are unchanged. Evidence: `docs/modules/app/qa/regression-solver/20261009T224718/` (`evidence.md`, `mutants_output.txt`, the two extra mutants and their runner).
+
+### Status
+
+| Finding | Status | Commits | Red | Green |
+|---|---|---|---|---|
+| RG-CR-01 (WARNING) | **RESOLVED** | `3c9afdf` tests, `e26edaa` qa.md | G-450, G-600, G-le (and my G-499, G-501) lived the old tests and each fails 4 of the new edge cases | the shipped code passes all four edge cases; full suite green |
+| RG-CR-02 (WARNING) | **RESOLVED** for "Delete habit". The page guard's keyboard half is left unspecified by ruling | `dd86356` test, `b30c6c8` qa.md and spec.md | G-kbd-delete-open lived the old suite and fails the new test | the new test passes on the shipped code; full suite green |
+| RG-CR-03 (INFO) | not mine: the orchestrator reconciles the README after the solver | none | n/a | n/a |
+| RG-CR-04 (INFO) | **RESOLVED** | `137e90c` | `grep -n "^export" src/view.js` lists 22 names and the old bullet had 21; the old `app.js` bullet lacked four guard symbols | the bullets now hold all of them (checked by reading the list against the grep) |
+| RG-CR-05 (INFO) | **RESOLVED** | `1ed506c` | qa.md said `run_for(600)` (also in the SEC-01 comment on `confirm_delete`) and the `open_app` row lacked `base_url` and `count_writes` | the text says `GUARD_WINDOW_MS + 100` and the row lists the signature of `conftest.py::open_app` as it is |
+| RG-CR-06 (INFO) | accepted by ruling, not touched; G-bubble still lives and is still equivalent | none | n/a | n/a |
+
+### What changed (for the README reconcile)
+
+- `tests/browser/test_delete.py`: the two window-edge tests press at `GUARD_WINDOW_MS - 1` (ignored, `write_count` 0, `stored` unchanged) and then 1 ms later (acts), and now run for a mouse and a touch, because the ruling named both. New helpers `press_once` and `open_by_press` (`open_by_mouse` calls the second). New test `test_SEC01_R13_enter_on_delete_habit_inside_the_window_is_ignored_and_one_after_it_deletes`. The file has 68 tests (65 before).
+- `tests/browser/conftest.py`: the comment on `GUARD_WINDOW_MS` says why the number is written out and not read from `src/` ("Keep it equal" is gone, the edge tests enforce it).
+- `qa.md`: two scenarios became outlines at 499 ms and 1 ms more; a new Enter scenario; `let_guard_pass` described by `GUARD_WINDOW_MS + 100`; the `open_app` row complete; dated paragraphs for RG-CR-01 and RG-CR-05.
+- `spec.md`, R13 note: one dated sentence that the page guard's keyboard half is unspecified and unpinned (v1.1.0 replaces the time window with a time-free guard).
+- `BUILD.md`, "For the README reconcile": `guardDialogClick`, `swallowTapThrough`, `withinGuard`, `DIALOG_GUARD_MS` and `confirmButtonOf` listed.
+- README lines this touches (RG-CR-03, the orchestrator's): "176 browser tests" is 179 now (the finder's point 4 already suggests dropping the absolute count). No other README line cites a changed name or number.
+
+### Mutants (finder's runner, `-k test_delete`)
+
+"Before" is the tests of `a3d3ed1`: the finder's own run for the killed ones, and my re-run of the six survivors (same verdicts, baseline 65 passed). "After" is my run against the final tests (HEAD `1ed506c`).
+
+| Mutant | Before | After |
+|---|---|---|
+| G-450 | lived | KILLED, 4 failed |
+| G-600 | lived | KILLED, 5 failed |
+| G-le | lived | KILLED, 5 failed |
+| G-kbd-delete-open | lived | KILLED, 1 failed |
+| P-kbd-click-passes | lived | lives, unspecified by ruling |
+| G-bubble | lived, equivalent | lives, equivalent (RG-CR-06) |
+| G-499, G-501 (extra) | lived | KILLED, 4 failed each |
+| the other 15 | killed (2 to 27 failed) | killed (2 to 27 failed) |
+
+Of the finder's 21: 15 killed before, 19 now. The full per-mutant table with failure counts is in `evidence.md`; the runner's raw output is `mutants_output.txt`.
+
+### Suites
+
+`python -m pytest tests/browser -q -p no:cacheprovider`: 179 passed, 0 skipped (176 before: +2 for the touch variants of the two edge tests, +1 for the keyboard test). `node --test "tests/**/*.test.js"`: 99 pass, 0 fail (unchanged). Both run before every commit and at the end; the credential gate exited 0 before every commit. Fidelity and the live gate were not re-run: there is no `src/` change.
+
+### Observations (not findings)
+
+1. The old touch tests of SEC-01 press twice at one frozen instant, so they never showed that a touch tap's `event.timeStamp` follows Playwright's installed clock. The touch edge cases now do (the same mutants die for a touch as for a mouse).
+2. `qa.md` still says "600 ms" in a few places that describe real waits or scenario steps (the Gherkin steps "600 ms pass", the @R27 gate "waits 600 ms for real", the gate's gesture note). They are values of a real pause, not a description of `let_guard_pass`, and `live_e2e.py` derives them the same way (`GUARD_WINDOW_MS + 100`); I left them as RG-CR-05 names the helper only.
+3. P-kbd-click-passes (RG-CR-02, page-guard half) and G-bubble (RG-CR-06) still live. That is the ruled state; v1.1.0 replaces the time window, and its tests are the place to pin the new guard's keyboard behaviour.
