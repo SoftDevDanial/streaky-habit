@@ -131,3 +131,6 @@ Append-only history. STATE.md holds the situation, this file holds what happened
 - Fidelity clean (`5066b82`). Official live gate 11 of 11 (`353a5af`).
 - README written from BUILD.md, verified by symbol (`9ebc54e`). Full credential gate CLEAN (1,065 files).
 - app CLOSED, last green `9ebc54e`. Scopes C1 to C7 SHIPPED pending regression.
+
+## 2026-10-09 22:05 regression started
+- ORCH economy ruling recorded: fidelity verdict stands on identical code; code-review delta (with a security eye on SEC-06) and QA re-run; cold boot by the orchestrator.
