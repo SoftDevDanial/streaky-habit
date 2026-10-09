@@ -1,0 +1,1029 @@
+{
+  "cases": [
+    {
+      "row": "ST-01",
+      "case": "S3 empty: input (error border)",
+      "compared": 35,
+      "diffs": [],
+      "note": "input width differs: .frame-body is 280 wide and the live form 320, so width is not compared",
+      "sheet_text": "",
+      "live_text": ""
+    },
+    {
+      "row": "ST-01",
+      "case": "S3 empty: message line",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "Name the habit first.",
+      "live_text": "Name the habit first."
+    },
+    {
+      "row": "ST-01",
+      "case": "S3 empty: label",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "New habit",
+      "live_text": "New habit"
+    },
+    {
+      "row": "ST-01",
+      "case": "S3 empty: Add button",
+      "compared": 34,
+      "diffs": [
+        [
+          "background-color",
+          "rgb(59, 107, 96)",
+          "rgb(46, 90, 80)"
+        ]
+      ],
+      "note": "",
+      "sheet_text": "Add",
+      "live_text": "Add"
+    },
+    {
+      "row": "ST-02",
+      "case": "S3 too long: input",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "",
+      "live_text": ""
+    },
+    {
+      "row": "ST-02",
+      "case": "S3 too long: message",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "Keep it to 40 characters or fewer.",
+      "live_text": "Keep it to 40 characters or fewer."
+    },
+    {
+      "row": "ST-03",
+      "case": "S3 duplicate: input",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "",
+      "live_text": ""
+    },
+    {
+      "row": "ST-03",
+      "case": "S3 duplicate: message",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "You already track this habit.",
+      "live_text": "You already track this habit."
+    },
+    {
+      "row": "ST-04",
+      "case": "S4 disabled input",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "",
+      "live_text": ""
+    },
+    {
+      "row": "ST-04",
+      "case": "S4 disabled Add button",
+      "compared": 36,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "Add",
+      "live_text": "Add"
+    },
+    {
+      "row": "ST-04",
+      "case": "S4 label",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "New habit",
+      "live_text": "New habit"
+    },
+    {
+      "row": "ST-04",
+      "case": "S4 note line",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "You track 12 habits, the most this app holds. Delete one to add another.",
+      "live_text": "You track 12 habits, the most this app holds. Delete one to add another."
+    },
+    {
+      "row": "ST-05",
+      "case": "A habit just added: the whole row, every element",
+      "compared": 2210,
+      "diffs": [
+        [
+          "30:span.bead border-top-color",
+          "rgb(126, 142, 136)",
+          "rgb(59, 107, 96)"
+        ],
+        [
+          "30:span.bead border-right-color",
+          "rgb(126, 142, 136)",
+          "rgb(59, 107, 96)"
+        ],
+        [
+          "30:span.bead border-bottom-color",
+          "rgb(126, 142, 136)",
+          "rgb(59, 107, 96)"
+        ],
+        [
+          "30:span.bead border-left-color",
+          "rgb(126, 142, 136)",
+          "rgb(59, 107, 96)"
+        ]
+      ]
+    },
+    {
+      "row": "ST-06",
+      "case": "S5 note: banner, text, Dismiss button and glyph",
+      "compared": 170,
+      "diffs": []
+    },
+    {
+      "row": "ST-06",
+      "case": "S5: empty message",
+      "compared": 33,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "No habits yet. Add one you want to do every day.",
+      "live_text": "No habits yet. Add one you want to do every day."
+    },
+    {
+      "row": "ST-06",
+      "case": "S5: empty lead",
+      "compared": 33,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "No habits yet.",
+      "live_text": "No habits yet."
+    },
+    {
+      "row": "ST-06",
+      "case": "S5: brand (sheet p.brand vs app h1.brand)",
+      "compared": 33,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "Streaks",
+      "live_text": "Streaks"
+    },
+    {
+      "row": "ST-06",
+      "case": "S5: date",
+      "compared": 33,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "Thursday 8 October",
+      "live_text": "Thursday 8 October"
+    },
+    {
+      "row": "ST-06",
+      "case": "S5: add form label",
+      "compared": 33,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "New habit",
+      "live_text": "New habit"
+    },
+    {
+      "row": "ST-06",
+      "case": "S5: add input",
+      "compared": 33,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "",
+      "live_text": ""
+    },
+    {
+      "row": "ST-07",
+      "case": "Primary: default",
+      "compared": 36,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "Add",
+      "live_text": "Add"
+    },
+    {
+      "row": "ST-10",
+      "case": "Input: default",
+      "compared": 34,
+      "diffs": [],
+      "note": "width differs by specimen-only .spec-input rule",
+      "sheet_text": "",
+      "live_text": ""
+    },
+    {
+      "row": "ST-07",
+      "case": "Primary: hover",
+      "compared": 36,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "Add",
+      "live_text": "Add"
+    },
+    {
+      "row": "ST-10",
+      "case": "Input: keyboard focus",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "",
+      "live_text": ""
+    },
+    {
+      "row": "ST-07",
+      "case": "Primary: keyboard focus",
+      "compared": 36,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "Add",
+      "live_text": "Add"
+    },
+    {
+      "row": "ST-07",
+      "case": "Primary: disabled",
+      "compared": 36,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "Add",
+      "live_text": "Add"
+    },
+    {
+      "row": "ST-10",
+      "case": "Input: disabled",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "",
+      "live_text": ""
+    },
+    {
+      "row": "ST-10",
+      "case": "Input: error",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "",
+      "live_text": ""
+    },
+    {
+      "row": "ST-08",
+      "case": "Secondary (Cancel): default",
+      "compared": 30,
+      "diffs": [],
+      "note": "Cancel has script focus on open, no ring after a mouse open (M1-09); outline props excluded because the live button holds focus",
+      "sheet_text": "Cancel",
+      "live_text": "Cancel"
+    },
+    {
+      "row": "ST-09",
+      "case": "Danger (Delete habit): default",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "Delete habit",
+      "live_text": "Delete habit"
+    },
+    {
+      "row": "ST-08",
+      "case": "Secondary (Cancel): hover",
+      "compared": 30,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "Cancel",
+      "live_text": "Cancel"
+    },
+    {
+      "row": "ST-09",
+      "case": "Danger (Delete habit): hover",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "Delete habit",
+      "live_text": "Delete habit"
+    },
+    {
+      "row": "ST-11",
+      "case": "Bead 'Not done' (aria-pressed false): the bead",
+      "compared": 36,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "",
+      "live_text": ""
+    },
+    {
+      "row": "ST-11",
+      "case": "Bead 'Not done': the check glyph",
+      "compared": 36,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "",
+      "live_text": ""
+    },
+    {
+      "row": "ST-11",
+      "case": "Bead 'Not done': the day cell",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "Wed7",
+      "live_text": "Fri2"
+    },
+    {
+      "row": "ST-11",
+      "case": "Bead 'Not done': weekday and number",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "Wed",
+      "live_text": "Fri"
+    },
+    {
+      "row": "ST-11",
+      "case": "Bead 'Not done': number",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "7",
+      "live_text": "2"
+    },
+    {
+      "row": "ST-11",
+      "case": "Bead 'Done' (aria-pressed true): the bead",
+      "compared": 36,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "",
+      "live_text": ""
+    },
+    {
+      "row": "ST-11",
+      "case": "Bead 'Done': the check glyph",
+      "compared": 36,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "",
+      "live_text": ""
+    },
+    {
+      "row": "ST-11",
+      "case": "Bead 'Done': the day cell",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "Wed7",
+      "live_text": "Sat3"
+    },
+    {
+      "row": "ST-11",
+      "case": "Bead 'Done': weekday and number",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "Wed",
+      "live_text": "Sat"
+    },
+    {
+      "row": "ST-11",
+      "case": "Bead 'Done': number",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "7",
+      "live_text": "3"
+    },
+    {
+      "row": "ST-11",
+      "case": "Bead 'Today' (today, not done): the bead",
+      "compared": 36,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "",
+      "live_text": ""
+    },
+    {
+      "row": "ST-11",
+      "case": "Bead 'Today': the check glyph",
+      "compared": 36,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "",
+      "live_text": ""
+    },
+    {
+      "row": "ST-11",
+      "case": "Bead 'Today': the day cell",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "Thu8",
+      "live_text": "Thu8"
+    },
+    {
+      "row": "ST-11",
+      "case": "Bead 'Today': weekday and number",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "Thu",
+      "live_text": "Thu"
+    },
+    {
+      "row": "ST-11",
+      "case": "Bead 'Today': number",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "8",
+      "live_text": "8"
+    },
+    {
+      "row": "ST-11",
+      "case": "Bead 'Today done' (today, done): the bead",
+      "compared": 36,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "",
+      "live_text": ""
+    },
+    {
+      "row": "ST-11",
+      "case": "Bead 'Today done': the check glyph",
+      "compared": 36,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "",
+      "live_text": ""
+    },
+    {
+      "row": "ST-11",
+      "case": "Bead 'Today done': the day cell",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "Thu8",
+      "live_text": "Thu8"
+    },
+    {
+      "row": "ST-11",
+      "case": "Bead 'Today done': weekday and number",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "Thu",
+      "live_text": "Thu"
+    },
+    {
+      "row": "ST-11",
+      "case": "Bead 'Today done': number",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "8",
+      "live_text": "8"
+    },
+    {
+      "row": "ST-12",
+      "case": "Bead 'Hover' (real hover)",
+      "compared": 36,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "",
+      "live_text": ""
+    },
+    {
+      "row": "ST-12",
+      "case": "Bead 'Hover': the day cell",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "Wed7",
+      "live_text": "Fri2"
+    },
+    {
+      "row": "ST-12",
+      "case": "Bead 'Done hover' (real hover)",
+      "compared": 36,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "",
+      "live_text": ""
+    },
+    {
+      "row": "ST-12",
+      "case": "Bead 'Done hover': the day cell",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "Wed7",
+      "live_text": "Sat3"
+    },
+    {
+      "row": "ST-15",
+      "case": "Icon button: rest",
+      "compared": 36,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "",
+      "live_text": ""
+    },
+    {
+      "row": "ST-15",
+      "case": "Icon button: rest, glyph",
+      "compared": 36,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "",
+      "live_text": ""
+    },
+    {
+      "row": "ST-15",
+      "case": "Icon button: hover",
+      "compared": 36,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "",
+      "live_text": ""
+    },
+    {
+      "row": "ST-15",
+      "case": "Icon button: hover, glyph",
+      "compared": 36,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "",
+      "live_text": ""
+    },
+    {
+      "row": "ST-15",
+      "case": "Icon button: keyboard focus",
+      "compared": 36,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "",
+      "live_text": ""
+    },
+    {
+      "row": "ST-13",
+      "case": "Bead focus: the day cell's ring",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "Thu8",
+      "live_text": "Thu8"
+    },
+    {
+      "row": "ST-13",
+      "case": "Bead focus: the bead keeps the today ring and no outline",
+      "compared": 36,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "",
+      "live_text": ""
+    },
+    {
+      "row": "ST-16",
+      "case": "Heat cell '0 None' (2026-08-12) dot",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "",
+      "live_text": ""
+    },
+    {
+      "row": "ST-16",
+      "case": "Heat cell '0 None' (2026-08-12) cell",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "",
+      "live_text": ""
+    },
+    {
+      "row": "ST-16",
+      "case": "Heat cell '1 Up to a third' (2026-07-21) dot",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "",
+      "live_text": ""
+    },
+    {
+      "row": "ST-16",
+      "case": "Heat cell '1 Up to a third' (2026-07-21) cell",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "",
+      "live_text": ""
+    },
+    {
+      "row": "ST-16",
+      "case": "Heat cell '2 Up to two thirds' (2026-07-24) dot",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "",
+      "live_text": ""
+    },
+    {
+      "row": "ST-16",
+      "case": "Heat cell '2 Up to two thirds' (2026-07-24) cell",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "",
+      "live_text": ""
+    },
+    {
+      "row": "ST-16",
+      "case": "Heat cell '4 All' (2026-07-20) dot",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "",
+      "live_text": ""
+    },
+    {
+      "row": "ST-16",
+      "case": "Heat cell '4 All' (2026-07-20) cell",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "",
+      "live_text": ""
+    },
+    {
+      "row": "ST-16",
+      "case": "Today ring (::after) on the live today cell vs the sheet's 'Today'",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "",
+      "live_text": ""
+    },
+    {
+      "row": "ST-16",
+      "case": "Future cell dot",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "",
+      "live_text": ""
+    },
+    {
+      "row": "ST-16",
+      "case": "Future cell ring",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "",
+      "live_text": ""
+    },
+    {
+      "row": "ST-16",
+      "case": "Level 3 live (Mon 20 Jul, 3 of 4 habits) dot",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "",
+      "live_text": ""
+    }
+  ],
+  "facts": {
+    "ST-01": {
+      "form_height_before": 80,
+      "form_height_after": 108,
+      "grew_by": 28,
+      "input_x_before_after": [
+        20,
+        20
+      ],
+      "input_w_before_after": [
+        225.96875,
+        225.96875
+      ],
+      "button_x_before_after": [
+        257.96875,
+        257.96875
+      ],
+      "aria_invalid": "true",
+      "message": "Name the habit first.",
+      "message_classes": "field-msg field-error",
+      "focus_after_submit": {
+        "outline-color": "rgb(28, 37, 35)",
+        "outline-style": "solid",
+        "outline-width": "2px",
+        "outline-offset": "2px",
+        "border-top-color": "rgb(162, 59, 50)",
+        "__w": 225.97,
+        "__h": 48,
+        "__text": "",
+        "__attrs": {
+          "class": "input",
+          "id": "new-habit",
+          "name": "name",
+          "type": "text",
+          "autocomplete": "off",
+          "aria-describedby": "new-habit-msg",
+          "aria-invalid": "true"
+        }
+      },
+      "sheet_message": "Name the habit first.",
+      "sheet_message_classes": "field-msg field-error",
+      "sheet_aria_invalid": "true"
+    },
+    "ST-02": {
+      "message": "Keep it to 40 characters or fewer.",
+      "text_stays": true,
+      "sheet_message": "Keep it to 40 characters or fewer."
+    },
+    "ST-03": {
+      "message": "You already track this habit.",
+      "text_stays": true,
+      "sheet_message": "You already track this habit."
+    },
+    "ST-04": {
+      "note_text": "You track 12 habits, the most this app holds. Delete one to add another.",
+      "note_classes": "field-msg field-note",
+      "note_height_live": 40,
+      "note_height_sheet": 40,
+      "input_disabled": true,
+      "add_disabled": true,
+      "describedby": "new-habit-msg",
+      "disabled_add_hover": {
+        "background-color": "rgb(198, 208, 204)",
+        "transform": "none",
+        "cursor": "not-allowed",
+        "__w": 82.03,
+        "__h": 48,
+        "__text": "Add",
+        "__attrs": {
+          "class": "btn btn-primary",
+          "type": "submit",
+          "disabled": ""
+        }
+      },
+      "disabled_add_pressed": {
+        "background-color": "rgb(198, 208, 204)",
+        "transform": "none",
+        "__w": 82.03,
+        "__h": 48,
+        "__text": "Add",
+        "__attrs": {
+          "class": "btn btn-primary",
+          "type": "submit",
+          "disabled": ""
+        }
+      },
+      "cursor_input": "not-allowed",
+      "sheet_note_text": "You track 12 habits, the most this app holds. Delete one to add another."
+    },
+    "ST-05": {
+      "elements_compared": 65,
+      "streak_line": "No streak yet",
+      "best_elements": 0,
+      "name": "Read 20 pages",
+      "beads": 7,
+      "pressed_beads": 0,
+      "thread_halves": [
+        {
+          "::before": {
+            "display": "block",
+            "height": "2px",
+            "marginTop": "-1px",
+            "bg": "rgba(0, 0, 0, 0)",
+            "img": "linear-gradient(to right, rgba(0, 0, 0, 0), rgb(198, 208, 204))"
+          },
+          "::after": {
+            "display": "block",
+            "height": "2px",
+            "marginTop": "-1px",
+            "bg": "rgb(198, 208, 204)",
+            "img": "none"
+          }
+        },
+        {
+          "::before": {
+            "display": "block",
+            "height": "2px",
+            "marginTop": "-1px",
+            "bg": "rgb(198, 208, 204)",
+            "img": "none"
+          },
+          "::after": {
+            "display": "block",
+            "height": "2px",
+            "marginTop": "-1px",
+            "bg": "rgb(198, 208, 204)",
+            "img": "none"
+          }
+        }
+      ]
+    },
+    "ST-06": {
+      "gap_note_to_empty_live": 32,
+      "gap_note_to_empty_sheet": 32,
+      "x_path_equal": true,
+      "dismiss_live": {
+        "label": "Dismiss note",
+        "top_gap": 8,
+        "right_gap": 8,
+        "w": 44,
+        "h": 44,
+        "href": "#i-x",
+        "role": "status",
+        "noteText": "Your saved habits could not be read, so the list was reset."
+      },
+      "dismiss_sheet": {
+        "label": "Dismiss note",
+        "top_gap": 8,
+        "right_gap": 8,
+        "w": 44,
+        "h": 44,
+        "href": "#i-x",
+        "role": "status",
+        "noteText": "Your saved habits could not be read, so the list was reset."
+      },
+      "brand_tag_live": "H1",
+      "brand_tag_sheet": "P",
+      "note_is_first_child_of_col_main": "note",
+      "empty_message_shows": true
+    },
+    "ST-07": {
+      "press_normal_motion_after_350ms": {
+        "transform": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+        "background-color": "rgb(46, 90, 80)",
+        "__w": 80.39,
+        "__h": 47.04,
+        "__text": "Add",
+        "__attrs": {
+          "class": "btn btn-primary",
+          "type": "submit"
+        }
+      },
+      "press_reduced_motion": {
+        "transform": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+        "__w": 80.39,
+        "__h": 47.04,
+        "__text": "Add",
+        "__attrs": {
+          "class": "btn btn-primary",
+          "type": "submit"
+        }
+      }
+    },
+    "ST-09": {
+      "danger_hover_bg": "rgb(132, 48, 42)"
+    },
+    "ST-13": {
+      "focused": {
+        "cls": "day",
+        "date": "2026-10-08",
+        "pressed": "false",
+        "current": "date",
+        "row": 2
+      },
+      "cell_outline": {
+        "outline-style": "solid",
+        "outline-width": "2px",
+        "outline-offset": "0px",
+        "outline-color": "rgb(28, 37, 35)",
+        "border-radius": "999px",
+        "__w": 45.72,
+        "__h": 88,
+        "__text": "Thu8",
+        "__attrs": {
+          "class": "day",
+          "type": "button",
+          "data-date": "2026-10-08",
+          "aria-pressed": "false",
+          "aria-label": "Mark Thu 8 Oct as done",
+          "aria-current": "date"
+        }
+      },
+      "bead_outline": {
+        "outline-style": "none",
+        "box-shadow": "rgb(242, 245, 243) 0px 0px 0px 3px, rgb(126, 142, 136) 0px 0px 0px 4.5px",
+        "__w": 32,
+        "__h": 32,
+        "__text": "",
+        "__attrs": {
+          "class": "bead"
+        }
+      },
+      "cell_rect": [
+        45.71875,
+        88
+      ]
+    },
+    "ST-14": {
+      "pressed_bead_transform": "matrix(0.94, 0, 0, 0.94, 0, 0)",
+      "unchanged_after_release_outside": "false"
+    },
+    "ST-16": {
+      "level3_cell_class": "hc l3",
+      "level3_cell_label": "Mon 20 Jul, 3 of 4 habits",
+      "worked_example_cells": {
+        "2026-10-06": "hc l3 | Tue 6 Oct, 3 of 4 habits",
+        "2026-10-08": "hc l2 today | Thu 8 Oct, 2 of 4 habits",
+        "2026-07-21": "hc l1 | Tue 21 Jul, 1 of 4 habits",
+        "2026-08-12": "hc l0 | Wed 12 Aug, 0 of 4 habits"
+      },
+      "dots_live": {
+        "2026-08-12": [
+          "6px",
+          "6px"
+        ],
+        "2026-07-21": [
+          "7px",
+          "7px"
+        ],
+        "2026-07-24": [
+          "11px",
+          "11px"
+        ],
+        "2026-07-20": [
+          "17px",
+          "17px"
+        ]
+      },
+      "dots_sheet": [
+        [
+          "0 None",
+          "6px",
+          "6px",
+          "0px",
+          "0px",
+          "0px"
+        ],
+        [
+          "1 Up to a third",
+          "7px",
+          "7px",
+          "0px",
+          "0px",
+          "0px"
+        ],
+        [
+          "2 Up to two thirds",
+          "11px",
+          "11px",
+          "0px",
+          "0px",
+          "0px"
+        ],
+        [
+          "3 More than two thirds",
+          "14px",
+          "14px",
+          "0px",
+          "0px",
+          "0px"
+        ],
+        [
+          "4 All",
+          "17px",
+          "17px",
+          "0px",
+          "0px",
+          "0px"
+        ],
+        [
+          "Today",
+          "17px",
+          "17px",
+          "22px",
+          "22px",
+          "1px"
+        ],
+        [
+          "Future, blank",
+          "0px",
+          "0px",
+          "0px",
+          "0px",
+          "0px"
+        ]
+      ]
+    },
+    "ST-17": {
+      "states_scanned": [
+        "S1 sample",
+        "S2 fresh",
+        "S4 twelve habits",
+        "S5 unreadable",
+        "sample + added habit"
+      ],
+      "sheet_strings_or_classes_found_in_live_dom": {},
+      "sheet_only_rules_found_in_src_styles_css": []
+    }
+  }
+}

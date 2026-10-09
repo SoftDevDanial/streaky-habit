@@ -1,0 +1,114 @@
+[
+  {
+    "id": "S2-GOLDEN-EQ@390",
+    "result": "PASS",
+    "measured": "0 differences",
+    "expected": "0 differences between the golden's and the app's measurement (the sprite and the closed dialog aside)",
+    "note": "[]"
+  },
+  {
+    "id": "S2-01@390",
+    "result": "PASS",
+    "measured": "16 shared rows re-measured on S2, failing: none; S1-28's top is 293 here (S2-04), not 793",
+    "expected": "S1-01, 03 to 08, 24 to 31, 36 hold unchanged on S2 (S1-28's top excepted)",
+    "note": ""
+  },
+  {
+    "id": "S2-02@390",
+    "result": "PASS",
+    "measured": "p.empty top 77 x 20 h 56; strong 'No habits yet.' block 18px/28px w600 rgb(28, 37, 35) mb 4px; text 16px/24px rgb(82, 96, 91); ul.habits present: False",
+    "expected": "top 77, 56 tall, strong block 18/28 600 ink, then 16/24 ink-soft 4 below, no ul.habits",
+    "note": ""
+  },
+  {
+    "id": "S2-03@390",
+    "result": "PASS",
+    "measured": "form top 173, 40 below the message; input disabled False, Add disabled False, value '', message '' (none)",
+    "expected": "top 173, 40 below the message, enabled, empty, no message",
+    "note": ""
+  },
+  {
+    "id": "S2-04@390",
+    "result": "PASS",
+    "measured": "panel top 293, bottom 587.58, page scroll size 390x844",
+    "expected": "top 293, ends at 588, whole first screen fits 390x844 (no scroll)",
+    "note": ""
+  },
+  {
+    "id": "S2-05@390",
+    "result": "PASS",
+    "measured": "81 hollow l0 rings (6px, ring rgb(126, 142, 136)), names 'Mon 20 Jul, 0 of 0 habits' to 'Thu 8 Oct, 0 of 0 habits'; Thu 8 Oct class 'hc l0 today' ring 22px; Fri 9 to Sun 11: ['hc future', 'hc future', 'hc future']; failing []",
+    "expected": "81 hollow l0 rings named '<Ddd D Mon>, 0 of 0 habits', Thu 8 Oct l0 with the today ring, Fri 9 to Sun 11 blank",
+    "note": ""
+  },
+  {
+    "id": "S2-06@390",
+    "result": "PASS",
+    "measured": "visible svgs 0; sprite present True at 0x0",
+    "expected": "no icon visible (sprite present with zero size)",
+    "note": ""
+  },
+  {
+    "id": "S2-R3@390",
+    "result": "PASS",
+    "measured": "localStorage 'streaks.state' after load = None",
+    "expected": "nothing written to storage until the first change (spec R3)",
+    "note": ""
+  },
+  {
+    "id": "S2-GOLDEN-EQ@1280",
+    "result": "PASS",
+    "measured": "0 differences",
+    "expected": "0 differences between the golden's and the app's measurement (the sprite and the closed dialog aside)",
+    "note": "[]"
+  },
+  {
+    "id": "S2-01@1280",
+    "result": "PASS",
+    "measured": "16 shared rows re-measured on S2, failing: none; S1-28's top is 101 here (S2-04), not 793",
+    "expected": "S1-01, 03 to 08, 24 to 31, 36 hold unchanged on S2 (S1-28's top excepted)",
+    "note": ""
+  },
+  {
+    "id": "S2-02@1280",
+    "result": "PASS",
+    "measured": "p.empty top 101 x 168 h 56; strong 'No habits yet.' block 18px/28px w600 rgb(28, 37, 35) mb 4px; text 16px/24px rgb(82, 96, 91); ul.habits present: False",
+    "expected": "top 101, 56 tall, strong block 18/28 600 ink, then 16/24 ink-soft 4 below, no ul.habits",
+    "note": ""
+  },
+  {
+    "id": "S2-03@1280",
+    "result": "PASS",
+    "measured": "form top 197, 40 below the message; input disabled False, Add disabled False, value '', message '' (none)",
+    "expected": "top 197, 40 below the message, enabled, empty, no message",
+    "note": ""
+  },
+  {
+    "id": "S2-04@1280",
+    "result": "PASS",
+    "measured": "panel top 101 at x 732; left column 176 tall = message 56 + 40 + form 80 (filler 0)",
+    "expected": "top 101 in the right column, no filler added to the short left column",
+    "note": ""
+  },
+  {
+    "id": "S2-05@1280",
+    "result": "PASS",
+    "measured": "81 hollow l0 rings (6px, ring rgb(126, 142, 136)), names 'Mon 20 Jul, 0 of 0 habits' to 'Thu 8 Oct, 0 of 0 habits'; Thu 8 Oct class 'hc l0 today' ring 22px; Fri 9 to Sun 11: ['hc future', 'hc future', 'hc future']; failing []",
+    "expected": "81 hollow l0 rings named '<Ddd D Mon>, 0 of 0 habits', Thu 8 Oct l0 with the today ring, Fri 9 to Sun 11 blank",
+    "note": ""
+  },
+  {
+    "id": "S2-06@1280",
+    "result": "PASS",
+    "measured": "visible svgs 0; sprite present True at 0x0",
+    "expected": "no icon visible (sprite present with zero size)",
+    "note": ""
+  },
+  {
+    "id": "S2-R3@1280",
+    "result": "PASS",
+    "measured": "localStorage 'streaks.state' after load = None",
+    "expected": "nothing written to storage until the first change (spec R3)",
+    "note": ""
+  }
+]

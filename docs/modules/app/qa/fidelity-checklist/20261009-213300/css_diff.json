@@ -1,0 +1,141 @@
+{
+  "goldens": {
+    "today": {
+      "golden_rules": 105,
+      "app_rules": 104,
+      "identical_to_app": false,
+      "changes": [
+        {
+          "op": "delete",
+          "golden": [
+            ".scrim { position: fixed; inset: 0; z-index: var(--z-scrim); background: var(--scrim); }"
+          ],
+          "app": []
+        },
+        {
+          "op": "replace",
+          "golden": [
+            ".dialog::backdrop { background: var(--scrim); }"
+          ],
+          "app": [
+            ".dialog::backdrop { background: var(--scrim, rgb(28 37 35 / 0.5)); }"
+          ]
+        },
+        {
+          "op": "replace",
+          "golden": [
+            ".scrim, .dialog::backdrop { animation: scrim-in var(--dur) var(--ease); }"
+          ],
+          "app": [
+            ".dialog::backdrop { animation: scrim-in var(--dur) var(--ease); }"
+          ]
+        },
+        {
+          "op": "replace",
+          "golden": [
+            "@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }"
+          ],
+          "app": [
+            "@media (prefers-reduced-motion: reduce) { *, *::before, *::after, ::backdrop { transition: none !important; animation: none !important; } }"
+          ]
+        }
+      ]
+    },
+    "today-empty": {
+      "golden_rules": 105,
+      "app_rules": 104,
+      "identical_to_app": false,
+      "changes": [
+        {
+          "op": "delete",
+          "golden_rule_count": 1,
+          "app_rule_count": 0
+        },
+        {
+          "op": "replace",
+          "golden_rule_count": 1,
+          "app_rule_count": 1
+        },
+        {
+          "op": "replace",
+          "golden_rule_count": 1,
+          "app_rule_count": 1
+        },
+        {
+          "op": "replace",
+          "golden_rule_count": 1,
+          "app_rule_count": 1
+        }
+      ]
+    },
+    "delete-dialog": {
+      "golden_rules": 105,
+      "app_rules": 104,
+      "identical_to_app": false,
+      "changes": [
+        {
+          "op": "delete",
+          "golden": [
+            ".scrim { position: fixed; inset: 0; z-index: var(--z-scrim); background: var(--scrim); }"
+          ],
+          "app": []
+        },
+        {
+          "op": "replace",
+          "golden": [
+            ".dialog::backdrop { background: var(--scrim); }"
+          ],
+          "app": [
+            ".dialog::backdrop { background: var(--scrim, rgb(28 37 35 / 0.5)); }"
+          ]
+        },
+        {
+          "op": "replace",
+          "golden": [
+            ".scrim, .dialog::backdrop { animation: scrim-in var(--dur) var(--ease); }"
+          ],
+          "app": [
+            ".dialog::backdrop { animation: scrim-in var(--dur) var(--ease); }"
+          ]
+        },
+        {
+          "op": "replace",
+          "golden": [
+            "@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }"
+          ],
+          "app": [
+            "@media (prefers-reduced-motion: reduce) { *, *::before, *::after, ::backdrop { transition: none !important; animation: none !important; } }"
+          ]
+        }
+      ]
+    },
+    "states": {
+      "golden_rules": 105,
+      "app_rules": 104,
+      "identical_to_app": false,
+      "changes": [
+        {
+          "op": "delete",
+          "golden_rule_count": 1,
+          "app_rule_count": 0
+        },
+        {
+          "op": "replace",
+          "golden_rule_count": 1,
+          "app_rule_count": 1
+        },
+        {
+          "op": "replace",
+          "golden_rule_count": 1,
+          "app_rule_count": 1
+        },
+        {
+          "op": "replace",
+          "golden_rule_count": 1,
+          "app_rule_count": 1
+        }
+      ]
+    }
+  },
+  "four_goldens_have_the_same_block": true
+}

@@ -1,0 +1,218 @@
+{
+  "without_blur_390x844": {
+    "mismatch_pixels": 877,
+    "dimensions_match": true,
+    "golden_size": [
+      390,
+      1136
+    ],
+    "candidate_size": [
+      390,
+      1136
+    ],
+    "exact_vs_golden": {
+      "differing_pixels": 1074,
+      "max_channel_delta": 222,
+      "box": [
+        39,
+        435,
+        193,
+        492
+      ],
+      "over_gate_threshold": null
+    },
+    "mismatch_box": [
+      39,
+      435,
+      193,
+      492
+    ]
+  },
+  "with_blur_repeat_390x844": {
+    "mismatch_pixels": 0,
+    "dimensions_match": true,
+    "golden_size": [
+      390,
+      1136
+    ],
+    "candidate_size": [
+      390,
+      1136
+    ],
+    "exact_vs_golden": {
+      "differing_pixels": 149,
+      "max_channel_delta": 4,
+      "box": [
+        44,
+        444,
+        188,
+        484
+      ],
+      "over_gate_threshold": null
+    }
+  },
+  "without_blur_1280x800": {
+    "mismatch_pixels": 977,
+    "dimensions_match": true,
+    "golden_size": [
+      1280,
+      837
+    ],
+    "candidate_size": [
+      1280,
+      837
+    ],
+    "exact_vs_golden": {
+      "differing_pixels": 1113,
+      "max_channel_delta": 222,
+      "box": [
+        459,
+        413,
+        638,
+        470
+      ],
+      "over_gate_threshold": null
+    },
+    "mismatch_box": [
+      459,
+      413,
+      638,
+      470
+    ]
+  },
+  "with_blur_repeat_1280x800": {
+    "mismatch_pixels": 0,
+    "dimensions_match": true,
+    "golden_size": [
+      1280,
+      837
+    ],
+    "candidate_size": [
+      1280,
+      837
+    ],
+    "exact_vs_golden": {
+      "differing_pixels": 88,
+      "max_channel_delta": 4,
+      "box": [
+        464,
+        424,
+        633,
+        462
+      ],
+      "over_gate_threshold": null
+    }
+  },
+  "focus_when_the_script_reaches_the_blur": {
+    "tag": "BUTTON",
+    "text": "Cancel",
+    "focusVisible": true,
+    "outline": "2px solid rgb(28, 37, 35)",
+    "offset": "3px"
+  },
+  "state_after_the_blur": {
+    "tag": "BODY",
+    "inDialog": false,
+    "dialogOpen": true,
+    "modal": true
+  },
+  "title_check": {
+    "shipped_title_in_script": "accepted (no throw)",
+    "shipped_title_in_script__title_in_page": "\"Delete \\\"\\u2068Read 20 pages\\u2069\\\"?\"",
+    "pre_SEC02_title_in_script": "rejected: Page.evaluate: Error: unexpected dialog title",
+    "pre_SEC02_title_in_script__title_in_page": "\"Delete \\\"\\u2068Read 20 pages\\u2069\\\"?\"",
+    "marks_swapped_in_script": "rejected: Page.evaluate: Error: unexpected dialog title",
+    "marks_swapped_in_script__title_in_page": "\"Delete \\\"\\u2068Read 20 pages\\u2069\\\"?\"",
+    "no_closing_mark_in_script": "rejected: Page.evaluate: Error: unexpected dialog title",
+    "no_closing_mark_in_script__title_in_page": "\"Delete \\\"\\u2068Read 20 pages\\u2069\\\"?\""
+  },
+  "script_title_line": [
+    "if (document.querySelector(\"#del-title\").textContent !== 'Delete \"\\u{2068}Read 20 pages\\u{2069}\"?') throw new Error(\"unexpected dialog title\");"
+  ],
+  "control_native_golden_390x844": {
+    "native_golden_vs_static_golden": {
+      "mismatch_pixels": 0,
+      "dimensions_match": true,
+      "golden_size": [
+        390,
+        1136
+      ],
+      "candidate_size": [
+        390,
+        1136
+      ],
+      "exact": {
+        "differing_pixels": 149,
+        "max_channel_delta": 4,
+        "box": [
+          44,
+          444,
+          188,
+          484
+        ],
+        "over_gate_threshold": null
+      }
+    },
+    "native_golden_vs_app_candidate": {
+      "mismatch_pixels": 0,
+      "dimensions_match": true,
+      "golden_size": [
+        390,
+        1136
+      ],
+      "candidate_size": [
+        390,
+        1136
+      ],
+      "exact": {
+        "differing_pixels": 0,
+        "max_channel_delta": 0,
+        "box": null,
+        "over_gate_threshold": null
+      }
+    }
+  },
+  "control_native_golden_1280x800": {
+    "native_golden_vs_static_golden": {
+      "mismatch_pixels": 0,
+      "dimensions_match": true,
+      "golden_size": [
+        1280,
+        837
+      ],
+      "candidate_size": [
+        1280,
+        837
+      ],
+      "exact": {
+        "differing_pixels": 88,
+        "max_channel_delta": 4,
+        "box": [
+          464,
+          424,
+          633,
+          462
+        ],
+        "over_gate_threshold": null
+      }
+    },
+    "native_golden_vs_app_candidate": {
+      "mismatch_pixels": 0,
+      "dimensions_match": true,
+      "golden_size": [
+        1280,
+        837
+      ],
+      "candidate_size": [
+        1280,
+        837
+      ],
+      "exact": {
+        "differing_pixels": 0,
+        "max_channel_delta": 0,
+        "box": null,
+        "over_gate_threshold": null
+      }
+    }
+  }
+}

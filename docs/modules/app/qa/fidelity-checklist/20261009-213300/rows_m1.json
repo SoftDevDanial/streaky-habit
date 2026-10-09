@@ -1,0 +1,184 @@
+[
+  {
+    "id": "M1-01@390",
+    "result": "PASS",
+    "measured": "page measurement with the dialog open vs closed: 0 differences; hit test on 6 page targets reaches the page: [False, False, False, False, False, False]; focus() on them moves focus: [False, False, False, False, False, False]; 10 Tab presses never land on a page control: True (trail ['Delete habit', '(document, focus left the page)', 'Cancel', 'Delete habit', '(document, focus left the page)'])",
+    "expected": "S1 unchanged underneath, not clickable (hit test lands on the dialog layer), not focusable, Tab never reaches a control behind the dialog",
+    "note": "[]"
+  },
+  {
+    "id": "M1-02@390",
+    "result": "PASS",
+    "measured": "::backdrop rgba(28, 37, 35, 0.5) fixed inset 0px; harness candidate.png corner pixels [(135, 141, 139), (135, 141, 139), (135, 141, 139), (135, 141, 139)] (page bg rgb(242, 245, 243) under --scrim blends to (135, 141, 139))",
+    "expected": "--scrim rgb(28 37 35 / 0.5) over the whole viewport, native ::backdrop",
+    "note": ""
+  },
+  {
+    "id": "M1-03@390",
+    "result": "PASS",
+    "measured": "open True, :modal True, role alertdialog, aria-modal true, labelledby del-title, describedby del-body; 350x180 at x 20, y 332; bg rgb(250, 252, 251), radius 20px, padding 24px, shadow rgba(28, 37, 35, 0.18) 0px 16px 48px 0px, rgba(28, 37, 35, 0.08) 0px 2px 6px 0px",
+    "expected": "350x180 at x 20, y 332, centred both ways, surface fill, radius 20, padding 24, dialog shadow, alertdialog/aria-modal/labelledby/describedby",
+    "note": ""
+  },
+  {
+    "id": "M1-04@390",
+    "result": "PASS",
+    "measured": "text \"Delete \\\"\\u2068Read 20 pages\\u2069\\\"?\" (visible: Delete \"Read 20 pages\"?), 18px/28px w600 rgb(28, 37, 35), height 28, 24 from the top",
+    "expected": "Delete \"Read 20 pages\"? with straight quotes (plus the invisible U+2068 and U+2069 of SEC-02), 18/28 600 ink, one line, 24 from the top",
+    "note": ""
+  },
+  {
+    "id": "M1-05@390",
+    "result": "PASS",
+    "measured": "'Its history is deleted too.' 16px/24px rgb(82, 96, 91), 8 below the title",
+    "expected": "'Its history is deleted too.' 16/24 ink-soft, 8 below the title",
+    "note": ""
+  },
+  {
+    "id": "M1-06@390",
+    "result": "PASS",
+    "measured": "form[method=dialog].dialog-actions, 24 below the body; columns 145px 145px, gap 12px; buttons 145 and 145 wide, 48 and 48 tall, 12 apart",
+    "expected": "two equal columns 12 apart, 24 below the body, each 145 wide and 48 tall",
+    "note": ""
+  },
+  {
+    "id": "M1-07@390",
+    "result": "PASS",
+    "measured": ".btn.btn-secondary[type=submit][value=cancel] 'Cancel' bg rgba(0, 0, 0, 0), border 2px solid rgb(126, 142, 136), rgb(28, 37, 35) 16px w600, left (x 44)",
+    "expected": ".btn.btn-secondary[type=submit][value=cancel] 'Cancel', transparent, 2px rgb(126, 142, 136) border, rgb(28, 37, 35) 16 600, left",
+    "note": ""
+  },
+  {
+    "id": "M1-08@390",
+    "result": "PASS",
+    "measured": ".btn.btn-danger[type=submit][value=delete] 'Delete habit' bg rgb(162, 59, 50), text rgb(247, 250, 249), right (x 201); Cancel bg rgba(0, 0, 0, 0)",
+    "expected": ".btn.btn-danger[type=submit][value=delete] 'Delete habit', rgb(162, 59, 50) fill, rgb(247, 250, 249) text, the only filled button",
+    "note": ""
+  },
+  {
+    "id": "M1-10@390",
+    "result": "PASS",
+    "measured": "open: html height 844px overflow hidden, body height 844px overflow hidden",
+    "expected": "html and body height 100% (844px) and overflow hidden while open",
+    "note": ""
+  },
+  {
+    "id": "M1-10b@390",
+    "result": "PASS",
+    "measured": "after Esc: open False, html overflow visible, body overflow visible",
+    "expected": "page scrolls again once closed",
+    "note": ""
+  },
+  {
+    "id": "M1-09@390",
+    "result": "PASS",
+    "measured": "mouse open: focus on 'Cancel', :focus-visible False, outline 3px none rgb(28, 37, 35); keyboard open (Tab to 'Delete Read 20 pages', Enter): focus on 'Cancel', :focus-visible True, outline 2px solid rgb(28, 37, 35), offset 3px",
+    "expected": "Cancel is focused on open; no ring after a mouse open, the 2px --focus ring with a 3px offset after a keyboard open",
+    "note": ""
+  },
+  {
+    "id": "M1-11@390",
+    "result": "PASS",
+    "measured": "normal motion: backdrop scrim-in 180ms [{'opacity': '0', 'transform': None, 'offset': 0}, {'opacity': '1', 'transform': None, 'offset': 1}]; dialog dialog-in 200ms first keyframe {'opacity': '0', 'transform': 'translateY(8px)', 'offset': 0}; reduced motion: 0 running animations, dialog animation-name none, ::backdrop none",
+    "expected": "backdrop fades in over 180ms, dialog fades and rises 8px over 200ms; both instant under reduced motion",
+    "note": ""
+  },
+  {
+    "id": "M1-04b@390",
+    "result": "PASS",
+    "measured": "40-character name: title 4 lines (112px), box 350x264 (width unchanged 350), still centred at y 290",
+    "expected": "long names wrap and the box grows in height only",
+    "note": ""
+  },
+  {
+    "id": "M1-01@1280",
+    "result": "PASS",
+    "measured": "page measurement with the dialog open vs closed: 0 differences; hit test on 6 page targets reaches the page: [False, False, False, False, False, False]; focus() on them moves focus: [False, False, False, False, False, False]; 10 Tab presses never land on a page control: True (trail ['Delete habit', '(document, focus left the page)', 'Cancel', 'Delete habit', '(document, focus left the page)'])",
+    "expected": "S1 unchanged underneath, not clickable (hit test lands on the dialog layer), not focusable, Tab never reaches a control behind the dialog",
+    "note": "[]"
+  },
+  {
+    "id": "M1-02@1280",
+    "result": "PASS",
+    "measured": "::backdrop rgba(28, 37, 35, 0.5) fixed inset 0px; harness candidate.png corner pixels [(135, 141, 139), (135, 141, 139), (135, 141, 139), (135, 141, 139)] (page bg rgb(242, 245, 243) under --scrim blends to (135, 141, 139))",
+    "expected": "--scrim rgb(28 37 35 / 0.5) over the whole viewport, native ::backdrop",
+    "note": ""
+  },
+  {
+    "id": "M1-03@1280",
+    "result": "PASS",
+    "measured": "open True, :modal True, role alertdialog, aria-modal true, labelledby del-title, describedby del-body; 400x180 at x 440, y 310; bg rgb(250, 252, 251), radius 20px, padding 24px, shadow rgba(28, 37, 35, 0.18) 0px 16px 48px 0px, rgba(28, 37, 35, 0.08) 0px 2px 6px 0px",
+    "expected": "400x180 at x 440, y 310, centred both ways, surface fill, radius 20, padding 24, dialog shadow, alertdialog/aria-modal/labelledby/describedby",
+    "note": ""
+  },
+  {
+    "id": "M1-04@1280",
+    "result": "PASS",
+    "measured": "text \"Delete \\\"\\u2068Read 20 pages\\u2069\\\"?\" (visible: Delete \"Read 20 pages\"?), 18px/28px w600 rgb(28, 37, 35), height 28, 24 from the top",
+    "expected": "Delete \"Read 20 pages\"? with straight quotes (plus the invisible U+2068 and U+2069 of SEC-02), 18/28 600 ink, one line, 24 from the top",
+    "note": ""
+  },
+  {
+    "id": "M1-05@1280",
+    "result": "PASS",
+    "measured": "'Its history is deleted too.' 16px/24px rgb(82, 96, 91), 8 below the title",
+    "expected": "'Its history is deleted too.' 16/24 ink-soft, 8 below the title",
+    "note": ""
+  },
+  {
+    "id": "M1-06@1280",
+    "result": "PASS",
+    "measured": "form[method=dialog].dialog-actions, 24 below the body; columns 170px 170px, gap 12px; buttons 170 and 170 wide, 48 and 48 tall, 12 apart",
+    "expected": "two equal columns 12 apart, 24 below the body, each 170 wide and 48 tall",
+    "note": ""
+  },
+  {
+    "id": "M1-07@1280",
+    "result": "PASS",
+    "measured": ".btn.btn-secondary[type=submit][value=cancel] 'Cancel' bg rgba(0, 0, 0, 0), border 2px solid rgb(126, 142, 136), rgb(28, 37, 35) 16px w600, left (x 464)",
+    "expected": ".btn.btn-secondary[type=submit][value=cancel] 'Cancel', transparent, 2px rgb(126, 142, 136) border, rgb(28, 37, 35) 16 600, left",
+    "note": ""
+  },
+  {
+    "id": "M1-08@1280",
+    "result": "PASS",
+    "measured": ".btn.btn-danger[type=submit][value=delete] 'Delete habit' bg rgb(162, 59, 50), text rgb(247, 250, 249), right (x 646); Cancel bg rgba(0, 0, 0, 0)",
+    "expected": ".btn.btn-danger[type=submit][value=delete] 'Delete habit', rgb(162, 59, 50) fill, rgb(247, 250, 249) text, the only filled button",
+    "note": ""
+  },
+  {
+    "id": "M1-10@1280",
+    "result": "PASS",
+    "measured": "open: html height 800px overflow hidden, body height 800px overflow hidden",
+    "expected": "html and body height 100% (800px) and overflow hidden while open",
+    "note": ""
+  },
+  {
+    "id": "M1-10b@1280",
+    "result": "PASS",
+    "measured": "after Esc: open False, html overflow visible, body overflow visible",
+    "expected": "page scrolls again once closed",
+    "note": ""
+  },
+  {
+    "id": "M1-09@1280",
+    "result": "PASS",
+    "measured": "mouse open: focus on 'Cancel', :focus-visible False, outline 3px none rgb(28, 37, 35); keyboard open (Tab to 'Delete Read 20 pages', Enter): focus on 'Cancel', :focus-visible True, outline 2px solid rgb(28, 37, 35), offset 3px",
+    "expected": "Cancel is focused on open; no ring after a mouse open, the 2px --focus ring with a 3px offset after a keyboard open",
+    "note": ""
+  },
+  {
+    "id": "M1-11@1280",
+    "result": "PASS",
+    "measured": "normal motion: backdrop scrim-in 180ms [{'opacity': '0', 'transform': None, 'offset': 0}, {'opacity': '1', 'transform': None, 'offset': 1}]; dialog dialog-in 200ms first keyframe {'opacity': '0', 'transform': 'translateY(8px)', 'offset': 0}; reduced motion: 0 running animations, dialog animation-name none, ::backdrop none",
+    "expected": "backdrop fades in over 180ms, dialog fades and rises 8px over 200ms; both instant under reduced motion",
+    "note": ""
+  },
+  {
+    "id": "M1-04b@1280",
+    "result": "PASS",
+    "measured": "40-character name: title 4 lines (112px), box 400x264 (width unchanged 400), still centred at y 268",
+    "expected": "long names wrap and the box grows in height only",
+    "note": ""
+  }
+]

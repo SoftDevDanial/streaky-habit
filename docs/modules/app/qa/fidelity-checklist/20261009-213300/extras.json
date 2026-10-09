@@ -1,0 +1,104 @@
+{
+  "chromium_version": "149.0.7827.55",
+  "page_timezone": "Asia/Kuala_Lumpur offset 8",
+  "page_now_with_fixed_clock": "Thu Oct 08 2026 09:00:00 GMT+0800 (Malaysia Time)",
+  "page_font_used": "ui-rounded, \"SF Pro Rounded\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+  "S5_note_at_1280": {
+    "note": {
+      "x": 168,
+      "y": 101,
+      "w": 500,
+      "h": 60,
+      "r": 668,
+      "b": 161
+    },
+    "colMain": {
+      "x": 168,
+      "y": 101,
+      "w": 500,
+      "h": 268,
+      "r": 668,
+      "b": 369
+    },
+    "heat": {
+      "x": 732,
+      "y": 101,
+      "w": 380,
+      "h": 310.671875,
+      "r": 1112,
+      "b": 411.671875
+    },
+    "dismiss": {
+      "x": 616,
+      "y": 109,
+      "w": 44,
+      "h": 44,
+      "r": 660,
+      "b": 153
+    },
+    "first_child_of_col_main": true,
+    "note_to_empty": 32,
+    "note_width_equals_column": true,
+    "dismiss_inset_top_right": [
+      8,
+      8
+    ]
+  },
+  "sticky_heat_top_after_scroll": {
+    "golden": [
+      [
+        0,
+        101,
+        837
+      ],
+      [
+        40,
+        61,
+        837
+      ],
+      [
+        100,
+        32,
+        837
+      ],
+      [
+        200,
+        32,
+        837
+      ],
+      [
+        337,
+        32,
+        837
+      ]
+    ],
+    "app": [
+      [
+        0,
+        101,
+        837
+      ],
+      [
+        40,
+        61,
+        837
+      ],
+      [
+        100,
+        32,
+        837
+      ],
+      [
+        200,
+        32,
+        837
+      ],
+      [
+        337,
+        32,
+        837
+      ]
+    ]
+  },
+  "sticky_equal": true
+}

@@ -1,0 +1,576 @@
+[
+  {
+    "id": "S1-GOLDEN-EQ@390",
+    "result": "PASS",
+    "measured": "0 differences",
+    "expected": "0 differences between the golden's and the app's measurement",
+    "note": "[]"
+  },
+  {
+    "id": "S1-01@390",
+    "result": "PASS",
+    "measured": "bg rgb(242, 245, 243), ink rgb(28, 37, 35), 16px/24px w400, family ui-rounded, \"SF Pro Rounded\", system-ui,...",
+    "expected": "rgb(242, 245, 243), rgb(28, 37, 35), 16px/24px, system rounded stack",
+    "note": ""
+  },
+  {
+    "id": "S1-02@390",
+    "result": "PASS",
+    "measured": "svg 0x0 absolute aria-hidden=true; symbols ['i-check', 'i-trash', 'i-x']; check/trash paths equal golden: True/True",
+    "expected": "0x0 absolute aria-hidden sprite, check and trash paths equal the golden, plus the invisible i-x",
+    "note": ""
+  },
+  {
+    "id": "S1-03@390",
+    "result": "PASS",
+    "measured": "page x 0 w 390, max-width 600px, padding 24px 20px 48px",
+    "expected": "x 0 w 390, max-width 600px, padding 24px 20px 48px",
+    "note": ""
+  },
+  {
+    "id": "S1-04@390",
+    "result": "PASS",
+    "measured": "flex, align baseline, justify space-between, gap 12px, padding-bottom 24px",
+    "expected": "flex, baseline, space-between, 12px, padding-bottom 24px",
+    "note": ""
+  },
+  {
+    "id": "S1-05@390",
+    "result": "PASS",
+    "measured": "H1 'Streaks' 22px/28px w700 ls -0.22px rgb(46, 90, 80) align start x 20",
+    "expected": "H1 'Streaks' 22px/28px 700 -0.22px rgb(46, 90, 80) left x 20",
+    "note": ""
+  },
+  {
+    "id": "S1-06@390",
+    "result": "PASS",
+    "measured": "time[datetime=2026-10-08] 'Thursday 8 October' 16px/24px rgb(82, 96, 91) align right right edge 370",
+    "expected": "time[datetime=2026-10-08] 'Thursday 8 October' 16px/24px rgb(82, 96, 91) right, right edge 370",
+    "note": ""
+  },
+  {
+    "id": "S1-06b@390",
+    "result": "PASS",
+    "measured": "baseline brand 47, date 47.5",
+    "expected": "same baseline (within half a pixel)",
+    "note": "baseline computed from the used font's ascent and descent and the line box"
+  },
+  {
+    "id": "S1-07@390",
+    "result": "PASS",
+    "measured": "phone: layout display block, one column: main w 350, heat below main (y 793 > 753)",
+    "expected": "single column on the phone (the two-column grid applies from 900px)",
+    "note": "the row's grid values are desktop values"
+  },
+  {
+    "id": "S1-08@390",
+    "result": "PASS",
+    "measured": "H2#habits-title.sr-only 'Habits' 1x1 absolute; section labelledby habits-title",
+    "expected": "h2.sr-only 'Habits' clipped to 1x1, section labelled by it",
+    "note": ""
+  },
+  {
+    "id": "S1-09@390",
+    "result": "PASS",
+    "measured": "list-style none, padding 0px, row tops [77, 273, 469], gaps [32, 32]",
+    "expected": "none, 0, row tops [77, 273, 469], 32 apart",
+    "note": ""
+  },
+  {
+    "id": "S1-10@390",
+    "result": "PASS",
+    "measured": "H3#h1-name 'Read 20 pages' 18px/28px w600 rgb(28, 37, 35) pt 8px wrap anywhere; trash 'Delete Read 20 pages'",
+    "expected": "H3#h1-name 'Read 20 pages' 18px/28px 600 rgb(28, 37, 35) pt 8px anywhere; trash 'Delete Read 20 pages'",
+    "note": ""
+  },
+  {
+    "id": "S1-11@390",
+    "result": "PASS",
+    "measured": "cur '6 days' 14px/20px w600 rgb(46, 90, 80); best 'Best 14' 14px/20px w400 rgb(82, 96, 91); gap 12.0; tabular-nums; strip 8 below",
+    "expected": "'6 days' 14/20 600 rgb(46, 90, 80); 'Best 14' 14/20 400 rgb(82, 96, 91); 12 apart; tabular-nums; 8 above the strip",
+    "note": ""
+  },
+  {
+    "id": "S1-12@390",
+    "result": "PASS",
+    "measured": "pattern '. D D D D D D', data-run-continues False, halves [('fade-thin', 'thin'), ('thin', 'run'), ('run', 'run'), ('run', 'run'), ('run', 'run'), ('run', 'run'), ('run', 'none')], geometry ok True []",
+    "expected": "pattern '. D D D D D D', data-run-continues False, halves [('fade-thin', 'thin'), ('thin', 'run'), ('run', 'run'), ('run', 'run'), ('run', 'run'), ('run', 'run'), ('run', 'none')], every half centred on the bead",
+    "note": ""
+  },
+  {
+    "id": "S1-13@390",
+    "result": "PASS",
+    "measured": "H3#h2-name 'Stretch 10 minutes' 18px/28px w600 rgb(28, 37, 35) pt 8px wrap anywhere; trash 'Delete Stretch 10 minutes'",
+    "expected": "H3#h2-name 'Stretch 10 minutes' 18px/28px 600 rgb(28, 37, 35) pt 8px anywhere; trash 'Delete Stretch 10 minutes'",
+    "note": ""
+  },
+  {
+    "id": "S1-14@390",
+    "result": "PASS",
+    "measured": "cur '3 days' 14px/20px w600 rgb(46, 90, 80); best 'Best 9' 14px/20px w400 rgb(82, 96, 91); gap 12.0; tabular-nums; strip 8 below",
+    "expected": "'3 days' 14/20 600 rgb(46, 90, 80); 'Best 9' 14/20 400 rgb(82, 96, 91); 12 apart; tabular-nums; 8 above the strip",
+    "note": ""
+  },
+  {
+    "id": "S1-15@390",
+    "result": "PASS",
+    "measured": "pattern 'D D . D D D .', data-run-continues True, halves [('fade-run', 'run'), ('run', 'thin'), ('thin', 'thin'), ('thin', 'run'), ('run', 'run'), ('run', 'dashed-right'), ('dashed-left', 'none')], geometry ok True []",
+    "expected": "pattern 'D D . D D D .', data-run-continues True, halves [('fade-run', 'run'), ('run', 'thin'), ('thin', 'thin'), ('thin', 'run'), ('run', 'run'), ('run', 'dashed-right'), ('dashed-left', 'none')], every half centred on the bead",
+    "note": ""
+  },
+  {
+    "id": "S1-16@390",
+    "result": "PASS",
+    "measured": "H3#h3-name 'No phone after 11pm' 18px/28px w600 rgb(28, 37, 35) pt 8px wrap anywhere; trash 'Delete No phone after 11pm'",
+    "expected": "H3#h3-name 'No phone after 11pm' 18px/28px 600 rgb(28, 37, 35) pt 8px anywhere; trash 'Delete No phone after 11pm'",
+    "note": ""
+  },
+  {
+    "id": "S1-17@390",
+    "result": "PASS",
+    "measured": "cur '1 day' 14px/20px w600 rgb(46, 90, 80); best 'Best 4' 14px/20px w400 rgb(82, 96, 91); gap 12.0; tabular-nums; strip 8 below",
+    "expected": "'1 day' 14/20 600 rgb(46, 90, 80); 'Best 4' 14/20 400 rgb(82, 96, 91); 12 apart; tabular-nums; 8 above the strip",
+    "note": ""
+  },
+  {
+    "id": "S1-18@390",
+    "result": "PASS",
+    "measured": "pattern '. D . . D . D', data-run-continues False, halves [('fade-thin', 'thin'), ('thin', 'thin'), ('thin', 'thin'), ('thin', 'thin'), ('thin', 'thin'), ('thin', 'thin'), ('thin', 'none')], geometry ok True []",
+    "expected": "pattern '. D . . D . D', data-run-continues False, halves [('fade-thin', 'thin'), ('thin', 'thin'), ('thin', 'thin'), ('thin', 'thin'), ('thin', 'thin'), ('thin', 'thin'), ('thin', 'none')], every half centred on the bead",
+    "note": ""
+  },
+  {
+    "id": "S1-15b@390",
+    "result": "PASS",
+    "measured": "Wed 7 after: size 7px 100% pos 100% 50%; Thu 8 before: size 7px 100% pos 0% 50%; image linear-gradient(to right, rgb(59, 107, 96) 0px, rgb(59, 107, 96) 4px, rgba(0, 0, 0, 0) 4px)",
+    "expected": "4px dash + 3px gap tile (7px), anchored right on Wed 7's right half and left on Thu 8's left half (a dash starts at the boundary)",
+    "note": ""
+  },
+  {
+    "id": "S1-19@390",
+    "result": "PASS",
+    "measured": "row1: 44x44 50% rgb(82, 96, 91), glyph 20px right edge 370 vs content edge 370, name line centre 99 vs button centre 99; row2: 44x44 50% rgb(82, 96, 91), glyph 20px right edge 370 vs content edge 370, name line centre 295 vs button centre 295; row3: 44x44 50% rgb(82, 96, 91), glyph 20px right edge 370 vs content edge 370, name line centre 491 vs button centre 491",
+    "expected": "44x44 circle, transparent, 20px trash glyph in ink-soft, glyph right edge on the content edge, name's first line centred on the button",
+    "note": ""
+  },
+  {
+    "id": "S1-20@390",
+    "result": "PASS",
+    "measured": "all 21 cells 50 x 92, padding 4px 0px 8px, gap 8px, radius 999px; weekday 12px/16px rgb(82, 96, 91); number 16px/20px w500 tabular-nums; today wd/num rgb(28, 37, 35) w700 / rgb(28, 37, 35) w700",
+    "expected": "50.0 x 92, padding 4px 0 8px, gap 8, pill, weekday 12/16 ink-soft, number 16/20 500 tabular, today's weekday and number ink 700",
+    "note": ""
+  },
+  {
+    "id": "S1-21@390",
+    "result": "PASS",
+    "measured": "36px beads; not done: 2px solid rgb(126, 142, 136), fill rgb(242, 245, 243), check opacity 0; done: 2px solid rgb(59, 107, 96), fill rgb(59, 107, 96), check rgb(247, 250, 249) opacity 1 17.91px; today shadow rgb(242, 245, 243) 0px 0px 0px 3px, rgb(126, 142, 136) 0px 0px 0px 4.5px",
+    "expected": "36px; not done 2px rgb(126, 142, 136) stroke, rgb(242, 245, 243) fill, no check; done rgb(59, 107, 96) fill and stroke, check rgb(247, 250, 249) at 56%; today 0 0 0 3px rgb(242, 245, 243), 0 0 0 4.5px rgb(126, 142, 136)",
+    "note": ""
+  },
+  {
+    "id": "S1-22@390",
+    "result": "PASS",
+    "measured": "20 thin halves, all height 2px, margin-top -1px, colour rgb(198, 208, 204), top 50%; last cell right half display ['none', 'none', 'none']",
+    "expected": "2px --thread through the bead centres, each cell draws its own halves, the last cell has no right half",
+    "note": ""
+  },
+  {
+    "id": "S1-23@390",
+    "result": "PASS",
+    "measured": "form[novalidate] top 673, 40 below the list",
+    "expected": "top 673, 40 below the list",
+    "note": ""
+  },
+  {
+    "id": "S1-24@390",
+    "result": "PASS",
+    "measured": "label[for=new-habit] 'New habit' 16px/24px w600 rgb(28, 37, 35), 8 above the input",
+    "expected": "label[for=new-habit] 'New habit' 16/24 600 ink, 8 above the input",
+    "note": ""
+  },
+  {
+    "id": "S1-25@390",
+    "result": "PASS",
+    "measured": "#new-habit 255.97x48 radius 999px border 2px solid rgb(126, 142, 136) bg rgb(253, 254, 254) padding 0px 20px; attrs ['aria-describedby', 'autocomplete', 'class', 'id', 'name', 'type']",
+    "expected": "256x48 pill, 2px rgb(126, 142, 136) border, rgb(253, 254, 254) fill, 0 20 padding, no placeholder, no maxlength, autocomplete=off, aria-describedby=new-habit-msg",
+    "note": ""
+  },
+  {
+    "id": "S1-26@390",
+    "result": "PASS",
+    "measured": "'Add' 82.03x48 rgb(59, 107, 96) rgb(247, 250, 249) 16px w600, 12.0 right of the input",
+    "expected": "'Add' 82x48 pill, rgb(59, 107, 96) fill, rgb(247, 250, 249) 16px 600 text, 12 right of the input",
+    "note": ""
+  },
+  {
+    "id": "S1-27@390",
+    "result": "PASS",
+    "measured": "P#new-habit-msg.field-msg.field-error[aria-live=polite] text '' display none",
+    "expected": "p#new-habit-msg.field-msg.field-error[aria-live=polite], empty, display none",
+    "note": ""
+  },
+  {
+    "id": "S1-28@390",
+    "result": "PASS",
+    "measured": "top 793, 40 below the form, w 350, padding 20px 16px, bg rgb(250, 252, 251), radius 20px",
+    "expected": "top 793, 40 below the form, 350 wide, padding 20px 16px, bg rgb(250, 252, 251), radius 20px",
+    "note": ""
+  },
+  {
+    "id": "S1-29@390",
+    "result": "PASS",
+    "measured": "H2#heat-title 'Last 12 weeks' 16px/24px w600, 12 above the grid",
+    "expected": "h2.heat-title 'Last 12 weeks' 16/24 600, 12 above the grid",
+    "note": ""
+  },
+  {
+    "id": "S1-30@390",
+    "result": "PASS",
+    "measured": "aria-hidden=true; Jul col 1 x 68.61, Aug col 3 x 116.17, Sep col 8 x 235.08, Oct col 12 x 330.2; 12px/16px rgb(82, 96, 91)",
+    "expected": "Jul over column 1, Aug 3, Sep 8, Oct 12; 12/16 ink-soft; aria-hidden; each label starts on its column",
+    "note": ""
+  },
+  {
+    "id": "S1-31@390",
+    "result": "PASS",
+    "measured": "labels ['Mon', '', 'Wed', '', 'Fri', '', 'Sun'], 8.0 from the cells, 12px rgb(82, 96, 91), each centred on its row (max offset 0.01)",
+    "expected": "Mon, blank, Wed, blank, Fri, blank, Sun against rows 1 to 7; 12px ink-soft; 8 from the cells; aria-hidden",
+    "note": ""
+  },
+  {
+    "id": "S1-32@390",
+    "result": "PASS",
+    "measured": "84 cells, 81 with levels equal to sample-history heatmapLevels and names from 'Mon 20 Jul, 3 of 3 habits' to 'Thu 8 Oct, 2 of 3 habits', square 23.78, column-major; mismatches []",
+    "expected": "84 squares column-major, 23.8 wide, the 81 levels of heatmapLevels, names 'Mon 20 Jul, 3 of 3 habits' to 'Thu 8 Oct, 2 of 3 habits', role img",
+    "note": ""
+  },
+  {
+    "id": "S1-32b@390",
+    "result": "PASS",
+    "measured": "cell width 23.78",
+    "expected": "23.8 (qa.md rounds to one decimal)",
+    "note": ""
+  },
+  {
+    "id": "S1-33@390",
+    "result": "PASS",
+    "measured": "l0 6px rgba(0, 0, 0, 0) ring rgb(126, 142, 136) 0px 0px 0px 1.5px inset; l1 7px rgb(120, 150, 139); l2 11px rgb(79, 124, 112); l3 14px rgb(59, 107, 96); l4 17px rgb(46, 90, 80)",
+    "expected": "l0 6px hollow ring 1.5px --ring; l1 7px rgb(120, 150, 139); l2 11px rgb(79, 124, 112); l3 14px --bead; l4 17px --bead-deep; all round",
+    "note": ""
+  },
+  {
+    "id": "S1-34@390",
+    "result": "PASS",
+    "measured": "class 'hc l2 today', aria-current=date, ring 22px x 22px border 1px solid rgb(126, 142, 136) (token --today-ring 1.5px; Chrome draws a 1.5px border as 1px at 1x), dot 11px",
+    "expected": "l2 dot (11px) inside a 22px ring, 1.5px rgb(126, 142, 136); class today; aria-current=date",
+    "note": ""
+  },
+  {
+    "id": "S1-35@390",
+    "result": "PASS",
+    "measured": "2026-10-09 class 'hc future' aria-hidden=true role=None dot bg rgba(0, 0, 0, 0) shadow none ring border 0px none rgb(28, 37, 35); 2026-10-10 class 'hc future' aria-hidden=true role=None dot bg rgba(0, 0, 0, 0) shadow none ring border 0px none rgb(28, 37, 35); 2026-10-11 class 'hc future' aria-hidden=true role=None dot bg rgba(0, 0, 0, 0) shadow none ring border 0px none rgb(28, 37, 35)",
+    "expected": "Fri 9, Sat 10, Sun 11 Oct: nothing drawn, aria-hidden, no role",
+    "note": ""
+  },
+  {
+    "id": "S1-36@390",
+    "result": "PASS",
+    "measured": "aria-hidden=true flex-end, 12.0 below the grid, labels ['None', 'All'], 5 dots in 20x20 cells, 12px/16px rgb(82, 96, 91), gap 4px",
+    "expected": "right aligned, 12 below the grid, None + five dots in 20px cells + All, 12/16 ink-soft, aria-hidden",
+    "note": ""
+  },
+  {
+    "id": "S1-37@390",
+    "result": "PASS",
+    "measured": "visible controls {'button.icon-btn': 3, 'button.day': 21, 'input.input': 1, 'button.btn btn-primary': 1}; note shown: False; dialog {'open': False, 'display': 'none'}; images/canvas/iframe: 0; visible text equals the golden's (True); visible svgs 24 (3 trash + 21 check glyphs, golden 24)",
+    "expected": "3 trash + 21 day buttons + input + Add, no note, dialog closed and not displayed, no other control or text",
+    "note": ""
+  },
+  {
+    "id": "S1-GOLDEN-EQ@1280",
+    "result": "PASS",
+    "measured": "0 differences",
+    "expected": "0 differences between the golden's and the app's measurement",
+    "note": "[]"
+  },
+  {
+    "id": "S1-01@1280",
+    "result": "PASS",
+    "measured": "bg rgb(242, 245, 243), ink rgb(28, 37, 35), 16px/24px w400, family ui-rounded, \"SF Pro Rounded\", system-ui,...",
+    "expected": "rgb(242, 245, 243), rgb(28, 37, 35), 16px/24px, system rounded stack",
+    "note": ""
+  },
+  {
+    "id": "S1-02@1280",
+    "result": "PASS",
+    "measured": "svg 0x0 absolute aria-hidden=true; symbols ['i-check', 'i-trash', 'i-x']; check/trash paths equal golden: True/True",
+    "expected": "0x0 absolute aria-hidden sprite, check and trash paths equal the golden, plus the invisible i-x",
+    "note": ""
+  },
+  {
+    "id": "S1-03@1280",
+    "result": "PASS",
+    "measured": "page x 120 w 1040, max-width 1040px, padding 40px 48px 48px",
+    "expected": "x 120 w 1040, max-width 1040px, padding 40px 48px 48px",
+    "note": ""
+  },
+  {
+    "id": "S1-04@1280",
+    "result": "PASS",
+    "measured": "flex, align baseline, justify space-between, gap 12px, padding-bottom 32px",
+    "expected": "flex, baseline, space-between, 12px, padding-bottom 32px",
+    "note": ""
+  },
+  {
+    "id": "S1-05@1280",
+    "result": "PASS",
+    "measured": "H1 'Streaks' 22px/28px w700 ls -0.22px rgb(46, 90, 80) align start x 168",
+    "expected": "H1 'Streaks' 22px/28px 700 -0.22px rgb(46, 90, 80) left x 168",
+    "note": ""
+  },
+  {
+    "id": "S1-06@1280",
+    "result": "PASS",
+    "measured": "time[datetime=2026-10-08] 'Thursday 8 October' 16px/24px rgb(82, 96, 91) align right right edge 1112",
+    "expected": "time[datetime=2026-10-08] 'Thursday 8 October' 16px/24px rgb(82, 96, 91) right, right edge 1112",
+    "note": ""
+  },
+  {
+    "id": "S1-06b@1280",
+    "result": "PASS",
+    "measured": "baseline brand 63, date 63.5",
+    "expected": "same baseline (within half a pixel)",
+    "note": "baseline computed from the used font's ascent and descent and the line box"
+  },
+  {
+    "id": "S1-07@1280",
+    "result": "PASS",
+    "measured": "grid cols 500px 380px gap 64px; main x 168 w 500; heat x 732 w 380; tops 101/101",
+    "expected": "grid 500px 380px, gap 64px, main 500 at x168, heat 380 at x732, top aligned",
+    "note": ""
+  },
+  {
+    "id": "S1-08@1280",
+    "result": "PASS",
+    "measured": "H2#habits-title.sr-only 'Habits' 1x1 absolute; section labelledby habits-title",
+    "expected": "h2.sr-only 'Habits' clipped to 1x1, section labelled by it",
+    "note": ""
+  },
+  {
+    "id": "S1-09@1280",
+    "result": "PASS",
+    "measured": "list-style none, padding 0px, row tops [101, 301, 501], gaps [32, 32]",
+    "expected": "none, 0, row tops [101, 301, 501], 32 apart",
+    "note": ""
+  },
+  {
+    "id": "S1-10@1280",
+    "result": "PASS",
+    "measured": "H3#h1-name 'Read 20 pages' 18px/28px w600 rgb(28, 37, 35) pt 8px wrap anywhere; trash 'Delete Read 20 pages'",
+    "expected": "H3#h1-name 'Read 20 pages' 18px/28px 600 rgb(28, 37, 35) pt 8px anywhere; trash 'Delete Read 20 pages'",
+    "note": ""
+  },
+  {
+    "id": "S1-11@1280",
+    "result": "PASS",
+    "measured": "cur '6 days' 14px/20px w600 rgb(46, 90, 80); best 'Best 14' 14px/20px w400 rgb(82, 96, 91); gap 12.0; tabular-nums; strip 8 below",
+    "expected": "'6 days' 14/20 600 rgb(46, 90, 80); 'Best 14' 14/20 400 rgb(82, 96, 91); 12 apart; tabular-nums; 8 above the strip",
+    "note": ""
+  },
+  {
+    "id": "S1-12@1280",
+    "result": "PASS",
+    "measured": "pattern '. D D D D D D', data-run-continues False, halves [('fade-thin', 'thin'), ('thin', 'run'), ('run', 'run'), ('run', 'run'), ('run', 'run'), ('run', 'run'), ('run', 'none')], geometry ok True []",
+    "expected": "pattern '. D D D D D D', data-run-continues False, halves [('fade-thin', 'thin'), ('thin', 'run'), ('run', 'run'), ('run', 'run'), ('run', 'run'), ('run', 'run'), ('run', 'none')], every half centred on the bead",
+    "note": ""
+  },
+  {
+    "id": "S1-13@1280",
+    "result": "PASS",
+    "measured": "H3#h2-name 'Stretch 10 minutes' 18px/28px w600 rgb(28, 37, 35) pt 8px wrap anywhere; trash 'Delete Stretch 10 minutes'",
+    "expected": "H3#h2-name 'Stretch 10 minutes' 18px/28px 600 rgb(28, 37, 35) pt 8px anywhere; trash 'Delete Stretch 10 minutes'",
+    "note": ""
+  },
+  {
+    "id": "S1-14@1280",
+    "result": "PASS",
+    "measured": "cur '3 days' 14px/20px w600 rgb(46, 90, 80); best 'Best 9' 14px/20px w400 rgb(82, 96, 91); gap 12.0; tabular-nums; strip 8 below",
+    "expected": "'3 days' 14/20 600 rgb(46, 90, 80); 'Best 9' 14/20 400 rgb(82, 96, 91); 12 apart; tabular-nums; 8 above the strip",
+    "note": ""
+  },
+  {
+    "id": "S1-15@1280",
+    "result": "PASS",
+    "measured": "pattern 'D D . D D D .', data-run-continues True, halves [('fade-run', 'run'), ('run', 'thin'), ('thin', 'thin'), ('thin', 'run'), ('run', 'run'), ('run', 'dashed-right'), ('dashed-left', 'none')], geometry ok True []",
+    "expected": "pattern 'D D . D D D .', data-run-continues True, halves [('fade-run', 'run'), ('run', 'thin'), ('thin', 'thin'), ('thin', 'run'), ('run', 'run'), ('run', 'dashed-right'), ('dashed-left', 'none')], every half centred on the bead",
+    "note": ""
+  },
+  {
+    "id": "S1-16@1280",
+    "result": "PASS",
+    "measured": "H3#h3-name 'No phone after 11pm' 18px/28px w600 rgb(28, 37, 35) pt 8px wrap anywhere; trash 'Delete No phone after 11pm'",
+    "expected": "H3#h3-name 'No phone after 11pm' 18px/28px 600 rgb(28, 37, 35) pt 8px anywhere; trash 'Delete No phone after 11pm'",
+    "note": ""
+  },
+  {
+    "id": "S1-17@1280",
+    "result": "PASS",
+    "measured": "cur '1 day' 14px/20px w600 rgb(46, 90, 80); best 'Best 4' 14px/20px w400 rgb(82, 96, 91); gap 12.0; tabular-nums; strip 8 below",
+    "expected": "'1 day' 14/20 600 rgb(46, 90, 80); 'Best 4' 14/20 400 rgb(82, 96, 91); 12 apart; tabular-nums; 8 above the strip",
+    "note": ""
+  },
+  {
+    "id": "S1-18@1280",
+    "result": "PASS",
+    "measured": "pattern '. D . . D . D', data-run-continues False, halves [('fade-thin', 'thin'), ('thin', 'thin'), ('thin', 'thin'), ('thin', 'thin'), ('thin', 'thin'), ('thin', 'thin'), ('thin', 'none')], geometry ok True []",
+    "expected": "pattern '. D . . D . D', data-run-continues False, halves [('fade-thin', 'thin'), ('thin', 'thin'), ('thin', 'thin'), ('thin', 'thin'), ('thin', 'thin'), ('thin', 'thin'), ('thin', 'none')], every half centred on the bead",
+    "note": ""
+  },
+  {
+    "id": "S1-15b@1280",
+    "result": "PASS",
+    "measured": "Wed 7 after: size 7px 100% pos 100% 50%; Thu 8 before: size 7px 100% pos 0% 50%; image linear-gradient(to right, rgb(59, 107, 96) 0px, rgb(59, 107, 96) 4px, rgba(0, 0, 0, 0) 4px)",
+    "expected": "4px dash + 3px gap tile (7px), anchored right on Wed 7's right half and left on Thu 8's left half (a dash starts at the boundary)",
+    "note": ""
+  },
+  {
+    "id": "S1-19@1280",
+    "result": "PASS",
+    "measured": "row1: 44x44 50% rgb(82, 96, 91), glyph 20px right edge 668 vs content edge 668, name line centre 123 vs button centre 123; row2: 44x44 50% rgb(82, 96, 91), glyph 20px right edge 668 vs content edge 668, name line centre 323 vs button centre 323; row3: 44x44 50% rgb(82, 96, 91), glyph 20px right edge 668 vs content edge 668, name line centre 523 vs button centre 523",
+    "expected": "44x44 circle, transparent, 20px trash glyph in ink-soft, glyph right edge on the content edge, name's first line centred on the button",
+    "note": ""
+  },
+  {
+    "id": "S1-20@1280",
+    "result": "PASS",
+    "measured": "all 21 cells 71.42 x 96, padding 4px 0px 8px, gap 8px, radius 999px; weekday 12px/16px rgb(82, 96, 91); number 16px/20px w500 tabular-nums; today wd/num rgb(28, 37, 35) w700 / rgb(28, 37, 35) w700",
+    "expected": "71.43 x 96, padding 4px 0 8px, gap 8, pill, weekday 12/16 ink-soft, number 16/20 500 tabular, today's weekday and number ink 700",
+    "note": ""
+  },
+  {
+    "id": "S1-21@1280",
+    "result": "PASS",
+    "measured": "40px beads; not done: 2px solid rgb(126, 142, 136), fill rgb(242, 245, 243), check opacity 0; done: 2px solid rgb(59, 107, 96), fill rgb(59, 107, 96), check rgb(247, 250, 249) opacity 1 20.16px; today shadow rgb(242, 245, 243) 0px 0px 0px 3px, rgb(126, 142, 136) 0px 0px 0px 4.5px",
+    "expected": "40px; not done 2px rgb(126, 142, 136) stroke, rgb(242, 245, 243) fill, no check; done rgb(59, 107, 96) fill and stroke, check rgb(247, 250, 249) at 56%; today 0 0 0 3px rgb(242, 245, 243), 0 0 0 4.5px rgb(126, 142, 136)",
+    "note": ""
+  },
+  {
+    "id": "S1-22@1280",
+    "result": "PASS",
+    "measured": "20 thin halves, all height 2px, margin-top -1px, colour rgb(198, 208, 204), top 50%; last cell right half display ['none', 'none', 'none']",
+    "expected": "2px --thread through the bead centres, each cell draws its own halves, the last cell has no right half",
+    "note": ""
+  },
+  {
+    "id": "S1-23@1280",
+    "result": "PASS",
+    "measured": "form[novalidate] top 709, 40 below the list",
+    "expected": "top 709, 40 below the list",
+    "note": ""
+  },
+  {
+    "id": "S1-24@1280",
+    "result": "PASS",
+    "measured": "label[for=new-habit] 'New habit' 16px/24px w600 rgb(28, 37, 35), 8 above the input",
+    "expected": "label[for=new-habit] 'New habit' 16/24 600 ink, 8 above the input",
+    "note": ""
+  },
+  {
+    "id": "S1-25@1280",
+    "result": "PASS",
+    "measured": "#new-habit 405.97x48 radius 999px border 2px solid rgb(126, 142, 136) bg rgb(253, 254, 254) padding 0px 20px; attrs ['aria-describedby', 'autocomplete', 'class', 'id', 'name', 'type']",
+    "expected": "406x48 pill, 2px rgb(126, 142, 136) border, rgb(253, 254, 254) fill, 0 20 padding, no placeholder, no maxlength, autocomplete=off, aria-describedby=new-habit-msg",
+    "note": ""
+  },
+  {
+    "id": "S1-26@1280",
+    "result": "PASS",
+    "measured": "'Add' 82.03x48 rgb(59, 107, 96) rgb(247, 250, 249) 16px w600, 12.0 right of the input",
+    "expected": "'Add' 82x48 pill, rgb(59, 107, 96) fill, rgb(247, 250, 249) 16px 600 text, 12 right of the input",
+    "note": ""
+  },
+  {
+    "id": "S1-27@1280",
+    "result": "PASS",
+    "measured": "P#new-habit-msg.field-msg.field-error[aria-live=polite] text '' display none",
+    "expected": "p#new-habit-msg.field-msg.field-error[aria-live=polite], empty, display none",
+    "note": ""
+  },
+  {
+    "id": "S1-28@1280",
+    "result": "PASS",
+    "measured": "top 101 (first habit top 101), w 380, padding 24px, sticky top 32px, bg rgb(250, 252, 251), radius 20px",
+    "expected": "top 101 level with the first habit, 380 wide, padding 24px, sticky 32px from the top, bg rgb(250, 252, 251), radius 20px",
+    "note": ""
+  },
+  {
+    "id": "S1-29@1280",
+    "result": "PASS",
+    "measured": "H2#heat-title 'Last 12 weeks' 16px/24px w600, 12 above the grid",
+    "expected": "h2.heat-title 'Last 12 weeks' 16/24 600, 12 above the grid",
+    "note": ""
+  },
+  {
+    "id": "S1-30@1280",
+    "result": "PASS",
+    "measured": "aria-hidden=true; Jul col 1 x 788.61, Aug col 3 x 838.5, Sep col 8 x 963.25, Oct col 12 x 1063.05; 12px/16px rgb(82, 96, 91)",
+    "expected": "Jul over column 1, Aug 3, Sep 8, Oct 12; 12/16 ink-soft; aria-hidden; each label starts on its column",
+    "note": ""
+  },
+  {
+    "id": "S1-31@1280",
+    "result": "PASS",
+    "measured": "labels ['Mon', '', 'Wed', '', 'Fri', '', 'Sun'], 8.0 from the cells, 12px rgb(82, 96, 91), each centred on its row (max offset 0.01)",
+    "expected": "Mon, blank, Wed, blank, Fri, blank, Sun against rows 1 to 7; 12px ink-soft; 8 from the cells; aria-hidden",
+    "note": ""
+  },
+  {
+    "id": "S1-32@1280",
+    "result": "PASS",
+    "measured": "84 cells, 81 with levels equal to sample-history heatmapLevels and names from 'Mon 20 Jul, 3 of 3 habits' to 'Thu 8 Oct, 2 of 3 habits', square 24.94, column-major; mismatches []",
+    "expected": "84 squares column-major, 24.9 wide, the 81 levels of heatmapLevels, names 'Mon 20 Jul, 3 of 3 habits' to 'Thu 8 Oct, 2 of 3 habits', role img",
+    "note": ""
+  },
+  {
+    "id": "S1-32b@1280",
+    "result": "PASS",
+    "measured": "cell width 24.94",
+    "expected": "24.9 (qa.md rounds to one decimal)",
+    "note": ""
+  },
+  {
+    "id": "S1-33@1280",
+    "result": "PASS",
+    "measured": "l0 6px rgba(0, 0, 0, 0) ring rgb(126, 142, 136) 0px 0px 0px 1.5px inset; l1 7px rgb(120, 150, 139); l2 11px rgb(79, 124, 112); l3 14px rgb(59, 107, 96); l4 17px rgb(46, 90, 80)",
+    "expected": "l0 6px hollow ring 1.5px --ring; l1 7px rgb(120, 150, 139); l2 11px rgb(79, 124, 112); l3 14px --bead; l4 17px --bead-deep; all round",
+    "note": ""
+  },
+  {
+    "id": "S1-34@1280",
+    "result": "PASS",
+    "measured": "class 'hc l2 today', aria-current=date, ring 22px x 22px border 1px solid rgb(126, 142, 136) (token --today-ring 1.5px; Chrome draws a 1.5px border as 1px at 1x), dot 11px",
+    "expected": "l2 dot (11px) inside a 22px ring, 1.5px rgb(126, 142, 136); class today; aria-current=date",
+    "note": ""
+  },
+  {
+    "id": "S1-35@1280",
+    "result": "PASS",
+    "measured": "2026-10-09 class 'hc future' aria-hidden=true role=None dot bg rgba(0, 0, 0, 0) shadow none ring border 0px none rgb(28, 37, 35); 2026-10-10 class 'hc future' aria-hidden=true role=None dot bg rgba(0, 0, 0, 0) shadow none ring border 0px none rgb(28, 37, 35); 2026-10-11 class 'hc future' aria-hidden=true role=None dot bg rgba(0, 0, 0, 0) shadow none ring border 0px none rgb(28, 37, 35)",
+    "expected": "Fri 9, Sat 10, Sun 11 Oct: nothing drawn, aria-hidden, no role",
+    "note": ""
+  },
+  {
+    "id": "S1-36@1280",
+    "result": "PASS",
+    "measured": "aria-hidden=true flex-end, 12.0 below the grid, labels ['None', 'All'], 5 dots in 20x20 cells, 12px/16px rgb(82, 96, 91), gap 4px",
+    "expected": "right aligned, 12 below the grid, None + five dots in 20px cells + All, 12/16 ink-soft, aria-hidden",
+    "note": ""
+  },
+  {
+    "id": "S1-37@1280",
+    "result": "PASS",
+    "measured": "visible controls {'button.icon-btn': 3, 'button.day': 21, 'input.input': 1, 'button.btn btn-primary': 1}; note shown: False; dialog {'open': False, 'display': 'none'}; images/canvas/iframe: 0; visible text equals the golden's (True); visible svgs 24 (3 trash + 21 check glyphs, golden 24)",
+    "expected": "3 trash + 21 day buttons + input + Add, no note, dialog closed and not displayed, no other control or text",
+    "note": ""
+  }
+]

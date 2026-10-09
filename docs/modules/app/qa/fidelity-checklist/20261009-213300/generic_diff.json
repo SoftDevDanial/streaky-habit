@@ -1,0 +1,728 @@
+{
+  "S1-390": {
+    "scroll_golden": [
+      390,
+      1136
+    ],
+    "scroll_candidate": [
+      390,
+      1136
+    ],
+    "html_style_diffs": [],
+    "attr_diffs": [
+      {
+        "path": "body > div.page[1] > main.layout[1] > section.heat[1] > div.heat-grid[1] > div.months[0] > span[0]",
+        "attr": "style",
+        "golden": "grid-column:1",
+        "candidate": "grid-column:1;"
+      },
+      {
+        "path": "body > div.page[1] > main.layout[1] > section.heat[1] > div.heat-grid[1] > div.months[0] > span[1]",
+        "attr": "style",
+        "golden": "grid-column:3",
+        "candidate": "grid-column:3;"
+      },
+      {
+        "path": "body > div.page[1] > main.layout[1] > section.heat[1] > div.heat-grid[1] > div.months[0] > span[2]",
+        "attr": "style",
+        "golden": "grid-column:8",
+        "candidate": "grid-column:8;"
+      },
+      {
+        "path": "body > div.page[1] > main.layout[1] > section.heat[1] > div.heat-grid[1] > div.months[0] > span[3]",
+        "attr": "style",
+        "golden": "grid-column:12",
+        "candidate": "grid-column:12;"
+      }
+    ],
+    "text_diffs": [],
+    "rect_diffs": [],
+    "only_golden": [],
+    "only_candidate": [
+      {
+        "path": "body > svg[0] > symbol#i-x[2]",
+        "text": "",
+        "rect": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "path": "body > dialog.dialog[2]",
+        "text": "",
+        "rect": [
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "style_diffs_grouped": [],
+    "pseudo_presence_diffs": [],
+    "pseudo_style_diffs_grouped": [],
+    "counts": {
+      "only_candidate": 2,
+      "attr": 4,
+      "text": 0,
+      "rect": 0,
+      "only_golden": 0,
+      "style": 0,
+      "pseudo_presence": 0,
+      "pseudo_style": 0
+    },
+    "element_count_golden": 329,
+    "element_count_candidate": 337,
+    "backdrop": null
+  },
+  "S1-1280": {
+    "scroll_golden": [
+      1280,
+      837
+    ],
+    "scroll_candidate": [
+      1280,
+      837
+    ],
+    "html_style_diffs": [],
+    "attr_diffs": [
+      {
+        "path": "body > div.page[1] > main.layout[1] > section.heat[1] > div.heat-grid[1] > div.months[0] > span[0]",
+        "attr": "style",
+        "golden": "grid-column:1",
+        "candidate": "grid-column:1;"
+      },
+      {
+        "path": "body > div.page[1] > main.layout[1] > section.heat[1] > div.heat-grid[1] > div.months[0] > span[1]",
+        "attr": "style",
+        "golden": "grid-column:3",
+        "candidate": "grid-column:3;"
+      },
+      {
+        "path": "body > div.page[1] > main.layout[1] > section.heat[1] > div.heat-grid[1] > div.months[0] > span[2]",
+        "attr": "style",
+        "golden": "grid-column:8",
+        "candidate": "grid-column:8;"
+      },
+      {
+        "path": "body > div.page[1] > main.layout[1] > section.heat[1] > div.heat-grid[1] > div.months[0] > span[3]",
+        "attr": "style",
+        "golden": "grid-column:12",
+        "candidate": "grid-column:12;"
+      }
+    ],
+    "text_diffs": [],
+    "rect_diffs": [],
+    "only_golden": [],
+    "only_candidate": [
+      {
+        "path": "body > svg[0] > symbol#i-x[2]",
+        "text": "",
+        "rect": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "path": "body > dialog.dialog[2]",
+        "text": "",
+        "rect": [
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "style_diffs_grouped": [],
+    "pseudo_presence_diffs": [],
+    "pseudo_style_diffs_grouped": [],
+    "counts": {
+      "only_candidate": 2,
+      "attr": 4,
+      "text": 0,
+      "rect": 0,
+      "only_golden": 0,
+      "style": 0,
+      "pseudo_presence": 0,
+      "pseudo_style": 0
+    },
+    "element_count_golden": 329,
+    "element_count_candidate": 337,
+    "backdrop": null
+  },
+  "S2-390": {
+    "scroll_golden": [
+      390,
+      844
+    ],
+    "scroll_candidate": [
+      390,
+      844
+    ],
+    "html_style_diffs": [],
+    "attr_diffs": [
+      {
+        "path": "body > div.page[0] > main.layout[1] > section.heat[1] > div.heat-grid[1] > div.months[0] > span[0]",
+        "attr": "style",
+        "golden": "grid-column:1",
+        "candidate": "grid-column:1;"
+      },
+      {
+        "path": "body > div.page[0] > main.layout[1] > section.heat[1] > div.heat-grid[1] > div.months[0] > span[1]",
+        "attr": "style",
+        "golden": "grid-column:3",
+        "candidate": "grid-column:3;"
+      },
+      {
+        "path": "body > div.page[0] > main.layout[1] > section.heat[1] > div.heat-grid[1] > div.months[0] > span[2]",
+        "attr": "style",
+        "golden": "grid-column:8",
+        "candidate": "grid-column:8;"
+      },
+      {
+        "path": "body > div.page[0] > main.layout[1] > section.heat[1] > div.heat-grid[1] > div.months[0] > span[3]",
+        "attr": "style",
+        "golden": "grid-column:12",
+        "candidate": "grid-column:12;"
+      }
+    ],
+    "text_diffs": [],
+    "rect_diffs": [],
+    "only_golden": [],
+    "only_candidate": [
+      {
+        "path": "body > svg[0]",
+        "text": "",
+        "rect": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "path": "body > dialog.dialog[2]",
+        "text": "",
+        "rect": [
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "style_diffs_grouped": [],
+    "pseudo_presence_diffs": [],
+    "pseudo_style_diffs_grouped": [],
+    "counts": {
+      "only_candidate": 2,
+      "attr": 4,
+      "text": 0,
+      "rect": 0,
+      "only_golden": 0,
+      "style": 0,
+      "pseudo_presence": 0,
+      "pseudo_style": 0
+    },
+    "element_count_golden": 127,
+    "element_count_candidate": 140,
+    "backdrop": null
+  },
+  "S2-1280": {
+    "scroll_golden": [
+      1280,
+      800
+    ],
+    "scroll_candidate": [
+      1280,
+      800
+    ],
+    "html_style_diffs": [],
+    "attr_diffs": [
+      {
+        "path": "body > div.page[0] > main.layout[1] > section.heat[1] > div.heat-grid[1] > div.months[0] > span[0]",
+        "attr": "style",
+        "golden": "grid-column:1",
+        "candidate": "grid-column:1;"
+      },
+      {
+        "path": "body > div.page[0] > main.layout[1] > section.heat[1] > div.heat-grid[1] > div.months[0] > span[1]",
+        "attr": "style",
+        "golden": "grid-column:3",
+        "candidate": "grid-column:3;"
+      },
+      {
+        "path": "body > div.page[0] > main.layout[1] > section.heat[1] > div.heat-grid[1] > div.months[0] > span[2]",
+        "attr": "style",
+        "golden": "grid-column:8",
+        "candidate": "grid-column:8;"
+      },
+      {
+        "path": "body > div.page[0] > main.layout[1] > section.heat[1] > div.heat-grid[1] > div.months[0] > span[3]",
+        "attr": "style",
+        "golden": "grid-column:12",
+        "candidate": "grid-column:12;"
+      }
+    ],
+    "text_diffs": [],
+    "rect_diffs": [],
+    "only_golden": [],
+    "only_candidate": [
+      {
+        "path": "body > svg[0]",
+        "text": "",
+        "rect": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "path": "body > dialog.dialog[2]",
+        "text": "",
+        "rect": [
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "style_diffs_grouped": [],
+    "pseudo_presence_diffs": [],
+    "pseudo_style_diffs_grouped": [],
+    "counts": {
+      "only_candidate": 2,
+      "attr": 4,
+      "text": 0,
+      "rect": 0,
+      "only_golden": 0,
+      "style": 0,
+      "pseudo_presence": 0,
+      "pseudo_style": 0
+    },
+    "element_count_golden": 127,
+    "element_count_candidate": 140,
+    "backdrop": null
+  },
+  "M1-390": {
+    "scroll_golden": [
+      390,
+      844
+    ],
+    "scroll_candidate": [
+      390,
+      844
+    ],
+    "html_style_diffs": [],
+    "attr_diffs": [
+      {
+        "path": "body > div.page[1]",
+        "attr": "inert",
+        "golden": "",
+        "candidate": null
+      },
+      {
+        "path": "body > div.page[1] > main.layout[1] > section.heat[1] > div.heat-grid[1] > div.months[0] > span[0]",
+        "attr": "style",
+        "golden": "grid-column:1",
+        "candidate": "grid-column:1;"
+      },
+      {
+        "path": "body > div.page[1] > main.layout[1] > section.heat[1] > div.heat-grid[1] > div.months[0] > span[1]",
+        "attr": "style",
+        "golden": "grid-column:3",
+        "candidate": "grid-column:3;"
+      },
+      {
+        "path": "body > div.page[1] > main.layout[1] > section.heat[1] > div.heat-grid[1] > div.months[0] > span[2]",
+        "attr": "style",
+        "golden": "grid-column:8",
+        "candidate": "grid-column:8;"
+      },
+      {
+        "path": "body > div.page[1] > main.layout[1] > section.heat[1] > div.heat-grid[1] > div.months[0] > span[3]",
+        "attr": "style",
+        "golden": "grid-column:12",
+        "candidate": "grid-column:12;"
+      }
+    ],
+    "text_diffs": [
+      {
+        "path": "body > dialog.dialog[3] > h2#del-title.dialog-title[0]",
+        "golden": "Delete \"Read 20 pages\"?",
+        "candidate": "Delete \"⁨Read 20 pages⁩\"?"
+      }
+    ],
+    "rect_diffs": [],
+    "only_golden": [
+      {
+        "path": "body > div.scrim[2]",
+        "text": "",
+        "rect": [
+          0,
+          0,
+          390,
+          844
+        ]
+      }
+    ],
+    "only_candidate": [
+      {
+        "path": "body > svg[0] > symbol#i-x[2]",
+        "text": "",
+        "rect": [
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "style_diffs_grouped": [
+      {
+        "prop": "interactivity",
+        "golden": "inert",
+        "candidate": "auto",
+        "count": 323,
+        "examples": [
+          "body > div.page[1]",
+          "body > div.page[1] > header.top[0]",
+          "body > div.page[1] > header.top[0] > h1.brand[0]"
+        ]
+      },
+      {
+        "prop": "user-select",
+        "golden": "auto",
+        "candidate": "text",
+        "count": 6,
+        "examples": [
+          "body > dialog.dialog[3]",
+          "body > dialog.dialog[3] > h2#del-title.dialog-title[0]",
+          "body > dialog.dialog[3] > p#del-body.dialog-body[1]"
+        ]
+      },
+      {
+        "prop": "max-block-size",
+        "golden": "none",
+        "candidate": "calc(100% - 38px)",
+        "count": 1,
+        "examples": [
+          "body > dialog.dialog[3]"
+        ]
+      },
+      {
+        "prop": "max-height",
+        "golden": "none",
+        "candidate": "calc(100% - 38px)",
+        "count": 1,
+        "examples": [
+          "body > dialog.dialog[3]"
+        ]
+      },
+      {
+        "prop": "overflow-block",
+        "golden": "visible",
+        "candidate": "auto",
+        "count": 1,
+        "examples": [
+          "body > dialog.dialog[3]"
+        ]
+      },
+      {
+        "prop": "overflow-inline",
+        "golden": "visible",
+        "candidate": "auto",
+        "count": 1,
+        "examples": [
+          "body > dialog.dialog[3]"
+        ]
+      },
+      {
+        "prop": "overflow-x",
+        "golden": "visible",
+        "candidate": "auto",
+        "count": 1,
+        "examples": [
+          "body > dialog.dialog[3]"
+        ]
+      },
+      {
+        "prop": "overflow-y",
+        "golden": "visible",
+        "candidate": "auto",
+        "count": 1,
+        "examples": [
+          "body > dialog.dialog[3]"
+        ]
+      },
+      {
+        "prop": "overlay",
+        "golden": "none",
+        "candidate": "auto",
+        "count": 1,
+        "examples": [
+          "body > dialog.dialog[3]"
+        ]
+      }
+    ],
+    "pseudo_presence_diffs": [],
+    "pseudo_style_diffs_grouped": [
+      {
+        "pseudo": "pseudo::before",
+        "prop": "interactivity",
+        "golden": "inert",
+        "candidate": "auto",
+        "count": 110,
+        "examples": [
+          "body > div.page[1] > main.layout[1] > div.col-main[0] > section[0] > ul.habits[1] > li.habit[0] > div.strip[2] > button.day[0] > span.slot[1]",
+          "body > div.page[1] > main.layout[1] > div.col-main[0] > section[0] > ul.habits[1] > li.habit[0] > div.strip[2] > button.day[1] > span.slot[1]",
+          "body > div.page[1] > main.layout[1] > div.col-main[0] > section[0] > ul.habits[1] > li.habit[0] > div.strip[2] > button.day[2] > span.slot[1]"
+        ]
+      },
+      {
+        "pseudo": "pseudo::after",
+        "prop": "interactivity",
+        "golden": "inert",
+        "candidate": "auto",
+        "count": 110,
+        "examples": [
+          "body > div.page[1] > main.layout[1] > div.col-main[0] > section[0] > ul.habits[1] > li.habit[0] > div.strip[2] > button.day[0] > span.slot[1]",
+          "body > div.page[1] > main.layout[1] > div.col-main[0] > section[0] > ul.habits[1] > li.habit[0] > div.strip[2] > button.day[1] > span.slot[1]",
+          "body > div.page[1] > main.layout[1] > div.col-main[0] > section[0] > ul.habits[1] > li.habit[0] > div.strip[2] > button.day[2] > span.slot[1]"
+        ]
+      }
+    ],
+    "counts": {
+      "only_candidate": 1,
+      "attr": 5,
+      "style": 336,
+      "pseudo_style": 220,
+      "only_golden": 1,
+      "text": 1,
+      "rect": 0,
+      "pseudo_presence": 0
+    },
+    "element_count_golden": 336,
+    "element_count_candidate": 337,
+    "backdrop": {
+      "background": "rgba(28, 37, 35, 0.5)",
+      "position": "fixed",
+      "inset": "0px",
+      "display": "block"
+    }
+  },
+  "M1-1280": {
+    "scroll_golden": [
+      1280,
+      800
+    ],
+    "scroll_candidate": [
+      1280,
+      800
+    ],
+    "html_style_diffs": [],
+    "attr_diffs": [
+      {
+        "path": "body > div.page[1]",
+        "attr": "inert",
+        "golden": "",
+        "candidate": null
+      },
+      {
+        "path": "body > div.page[1] > main.layout[1] > section.heat[1] > div.heat-grid[1] > div.months[0] > span[0]",
+        "attr": "style",
+        "golden": "grid-column:1",
+        "candidate": "grid-column:1;"
+      },
+      {
+        "path": "body > div.page[1] > main.layout[1] > section.heat[1] > div.heat-grid[1] > div.months[0] > span[1]",
+        "attr": "style",
+        "golden": "grid-column:3",
+        "candidate": "grid-column:3;"
+      },
+      {
+        "path": "body > div.page[1] > main.layout[1] > section.heat[1] > div.heat-grid[1] > div.months[0] > span[2]",
+        "attr": "style",
+        "golden": "grid-column:8",
+        "candidate": "grid-column:8;"
+      },
+      {
+        "path": "body > div.page[1] > main.layout[1] > section.heat[1] > div.heat-grid[1] > div.months[0] > span[3]",
+        "attr": "style",
+        "golden": "grid-column:12",
+        "candidate": "grid-column:12;"
+      }
+    ],
+    "text_diffs": [
+      {
+        "path": "body > dialog.dialog[3] > h2#del-title.dialog-title[0]",
+        "golden": "Delete \"Read 20 pages\"?",
+        "candidate": "Delete \"⁨Read 20 pages⁩\"?"
+      }
+    ],
+    "rect_diffs": [],
+    "only_golden": [
+      {
+        "path": "body > div.scrim[2]",
+        "text": "",
+        "rect": [
+          0,
+          0,
+          1280,
+          800
+        ]
+      }
+    ],
+    "only_candidate": [
+      {
+        "path": "body > svg[0] > symbol#i-x[2]",
+        "text": "",
+        "rect": [
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "style_diffs_grouped": [
+      {
+        "prop": "interactivity",
+        "golden": "inert",
+        "candidate": "auto",
+        "count": 323,
+        "examples": [
+          "body > div.page[1]",
+          "body > div.page[1] > header.top[0]",
+          "body > div.page[1] > header.top[0] > h1.brand[0]"
+        ]
+      },
+      {
+        "prop": "user-select",
+        "golden": "auto",
+        "candidate": "text",
+        "count": 6,
+        "examples": [
+          "body > dialog.dialog[3]",
+          "body > dialog.dialog[3] > h2#del-title.dialog-title[0]",
+          "body > dialog.dialog[3] > p#del-body.dialog-body[1]"
+        ]
+      },
+      {
+        "prop": "max-block-size",
+        "golden": "none",
+        "candidate": "calc(100% - 38px)",
+        "count": 1,
+        "examples": [
+          "body > dialog.dialog[3]"
+        ]
+      },
+      {
+        "prop": "max-height",
+        "golden": "none",
+        "candidate": "calc(100% - 38px)",
+        "count": 1,
+        "examples": [
+          "body > dialog.dialog[3]"
+        ]
+      },
+      {
+        "prop": "overflow-block",
+        "golden": "visible",
+        "candidate": "auto",
+        "count": 1,
+        "examples": [
+          "body > dialog.dialog[3]"
+        ]
+      },
+      {
+        "prop": "overflow-inline",
+        "golden": "visible",
+        "candidate": "auto",
+        "count": 1,
+        "examples": [
+          "body > dialog.dialog[3]"
+        ]
+      },
+      {
+        "prop": "overflow-x",
+        "golden": "visible",
+        "candidate": "auto",
+        "count": 1,
+        "examples": [
+          "body > dialog.dialog[3]"
+        ]
+      },
+      {
+        "prop": "overflow-y",
+        "golden": "visible",
+        "candidate": "auto",
+        "count": 1,
+        "examples": [
+          "body > dialog.dialog[3]"
+        ]
+      },
+      {
+        "prop": "overlay",
+        "golden": "none",
+        "candidate": "auto",
+        "count": 1,
+        "examples": [
+          "body > dialog.dialog[3]"
+        ]
+      }
+    ],
+    "pseudo_presence_diffs": [],
+    "pseudo_style_diffs_grouped": [
+      {
+        "pseudo": "pseudo::before",
+        "prop": "interactivity",
+        "golden": "inert",
+        "candidate": "auto",
+        "count": 110,
+        "examples": [
+          "body > div.page[1] > main.layout[1] > div.col-main[0] > section[0] > ul.habits[1] > li.habit[0] > div.strip[2] > button.day[0] > span.slot[1]",
+          "body > div.page[1] > main.layout[1] > div.col-main[0] > section[0] > ul.habits[1] > li.habit[0] > div.strip[2] > button.day[1] > span.slot[1]",
+          "body > div.page[1] > main.layout[1] > div.col-main[0] > section[0] > ul.habits[1] > li.habit[0] > div.strip[2] > button.day[2] > span.slot[1]"
+        ]
+      },
+      {
+        "pseudo": "pseudo::after",
+        "prop": "interactivity",
+        "golden": "inert",
+        "candidate": "auto",
+        "count": 110,
+        "examples": [
+          "body > div.page[1] > main.layout[1] > div.col-main[0] > section[0] > ul.habits[1] > li.habit[0] > div.strip[2] > button.day[0] > span.slot[1]",
+          "body > div.page[1] > main.layout[1] > div.col-main[0] > section[0] > ul.habits[1] > li.habit[0] > div.strip[2] > button.day[1] > span.slot[1]",
+          "body > div.page[1] > main.layout[1] > div.col-main[0] > section[0] > ul.habits[1] > li.habit[0] > div.strip[2] > button.day[2] > span.slot[1]"
+        ]
+      }
+    ],
+    "counts": {
+      "only_candidate": 1,
+      "attr": 5,
+      "style": 336,
+      "pseudo_style": 220,
+      "only_golden": 1,
+      "text": 1,
+      "rect": 0,
+      "pseudo_presence": 0
+    },
+    "element_count_golden": 336,
+    "element_count_candidate": 337,
+    "backdrop": {
+      "background": "rgba(28, 37, 35, 0.5)",
+      "position": "fixed",
+      "inset": "0px",
+      "display": "block"
+    }
+  }
+}

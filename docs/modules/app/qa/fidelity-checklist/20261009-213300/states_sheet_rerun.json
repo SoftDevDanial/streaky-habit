@@ -1,0 +1,96 @@
+{
+  "cases": [
+    {
+      "row": "ST-01",
+      "case": "S3 empty (rerun, pointer parked): Add button",
+      "compared": 36,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "Add",
+      "live_text": "Add"
+    },
+    {
+      "row": "ST-01",
+      "case": "S3 empty (rerun, pointer parked): input",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "",
+      "live_text": ""
+    },
+    {
+      "row": "ST-01",
+      "case": "S3 empty (rerun, pointer parked): message",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "Name the habit first.",
+      "live_text": "Name the habit first."
+    },
+    {
+      "row": "ST-01",
+      "case": "S3 empty (rerun, pointer parked): label",
+      "compared": 34,
+      "diffs": [],
+      "note": "",
+      "sheet_text": "New habit",
+      "live_text": "New habit"
+    },
+    {
+      "row": "ST-05",
+      "case": "A habit just added (rerun, pointer parked): the whole row, every element",
+      "compared": 2210,
+      "diffs": []
+    }
+  ],
+  "facts": {
+    "ST-01": {
+      "form_height_before": 80,
+      "form_height_after": 108,
+      "grew_by": 28
+    },
+    "ST-05": {
+      "elements_compared": 65,
+      "streak_line": "No streak yet",
+      "best_elements": 0,
+      "name": "Read 20 pages",
+      "beads": 7,
+      "pressed_beads": 0,
+      "today_bead_shadow": "rgb(242, 245, 243) 0px 0px 0px 3px, rgb(126, 142, 136) 0px 0px 0px 4.5px",
+      "thread_halves_first_two_slots": [
+        {
+          "::before": {
+            "display": "block",
+            "height": "2px",
+            "marginTop": "-1px",
+            "bg": "rgba(0, 0, 0, 0)",
+            "img": "linear-gradient(to right, rgba(0, 0, 0, 0), rgb(198, 208, 204))"
+          },
+          "::after": {
+            "display": "block",
+            "height": "2px",
+            "marginTop": "-1px",
+            "bg": "rgb(198, 208, 204)",
+            "img": "none"
+          }
+        },
+        {
+          "::before": {
+            "display": "block",
+            "height": "2px",
+            "marginTop": "-1px",
+            "bg": "rgb(198, 208, 204)",
+            "img": "none"
+          },
+          "::after": {
+            "display": "block",
+            "height": "2px",
+            "marginTop": "-1px",
+            "bg": "rgb(198, 208, 204)",
+            "img": "none"
+          }
+        }
+      ]
+    }
+  }
+}

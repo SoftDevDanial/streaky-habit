@@ -1,0 +1,126 @@
+{
+  "fidelity-today-390x844": {
+    "folder": "fidelity-today-390x844/20261009-213131",
+    "golden_shape": [
+      1136,
+      390,
+      4
+    ],
+    "candidate_shape": [
+      1136,
+      390,
+      4
+    ],
+    "golden_sha256": "4ccb70ac9a40bfae",
+    "candidate_sha256": "4ccb70ac9a40bfae",
+    "pixels_differing_at_any_level": 0,
+    "max_channel_delta": 0,
+    "differing_box": null,
+    "distinct_colours_in_candidate": 836
+  },
+  "fidelity-today-1280x800": {
+    "folder": "fidelity-today-1280x800/20261009-213136",
+    "golden_shape": [
+      837,
+      1280,
+      4
+    ],
+    "candidate_shape": [
+      837,
+      1280,
+      4
+    ],
+    "golden_sha256": "77f223d738aa7a87",
+    "candidate_sha256": "77f223d738aa7a87",
+    "pixels_differing_at_any_level": 0,
+    "max_channel_delta": 0,
+    "differing_box": null,
+    "distinct_colours_in_candidate": 895
+  },
+  "fidelity-today-empty-390x844": {
+    "folder": "fidelity-today-empty-390x844/20261009-213140",
+    "golden_shape": [
+      844,
+      390,
+      4
+    ],
+    "candidate_shape": [
+      844,
+      390,
+      4
+    ],
+    "golden_sha256": "3a878d1eca893a79",
+    "candidate_sha256": "3a878d1eca893a79",
+    "pixels_differing_at_any_level": 0,
+    "max_channel_delta": 0,
+    "differing_box": null,
+    "distinct_colours_in_candidate": 401
+  },
+  "fidelity-today-empty-1280x800": {
+    "folder": "fidelity-today-empty-1280x800/20261009-213144",
+    "golden_shape": [
+      800,
+      1280,
+      4
+    ],
+    "candidate_shape": [
+      800,
+      1280,
+      4
+    ],
+    "golden_sha256": "52dc5bcb2842fcd6",
+    "candidate_sha256": "52dc5bcb2842fcd6",
+    "pixels_differing_at_any_level": 0,
+    "max_channel_delta": 0,
+    "differing_box": null,
+    "distinct_colours_in_candidate": 386
+  },
+  "fidelity-delete-dialog-390x844": {
+    "folder": "fidelity-delete-dialog-390x844/20261009-213148",
+    "golden_shape": [
+      1136,
+      390,
+      4
+    ],
+    "candidate_shape": [
+      1136,
+      390,
+      4
+    ],
+    "golden_sha256": "6d14132269ca767f",
+    "candidate_sha256": "4ca687f379a32950",
+    "pixels_differing_at_any_level": 149,
+    "max_channel_delta": 4,
+    "differing_box": [
+      44,
+      444,
+      188,
+      484
+    ],
+    "distinct_colours_in_candidate": 1009
+  },
+  "fidelity-delete-dialog-1280x800": {
+    "folder": "fidelity-delete-dialog-1280x800/20261009-213152",
+    "golden_shape": [
+      837,
+      1280,
+      4
+    ],
+    "candidate_shape": [
+      837,
+      1280,
+      4
+    ],
+    "golden_sha256": "d41319926a5685a1",
+    "candidate_sha256": "de80e4ba587873e0",
+    "pixels_differing_at_any_level": 88,
+    "max_channel_delta": 4,
+    "differing_box": [
+      464,
+      424,
+      633,
+      462
+    ],
+    "distinct_colours_in_candidate": 1112
+  }
+}
