@@ -27,7 +27,7 @@ const MONDAY = "Mon";
 const PREVIOUS_DAY = -1;
 const NEXT_DAY = 1;
 
-/** Habits are rebuilt as literals, never spread, so a key from stored data cannot reach the prototype. */
+/** Rebuilt from the two known fields, so no extra key from stored data is carried into new state. */
 function copyHabit(habit) {
   return { name: habit.name, done: [...habit.done] };
 }
