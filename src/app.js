@@ -87,9 +87,9 @@ function onDialogClick(event) {
 }
 
 function onListClick(event) {
-  const dayButton = event.target.closest("button.day");
+  const dayButton = view.dayButtonOf(event.target);
   if (dayButton) tick(dayButton);
-  const deleteButton = event.target.closest(".habit-head .icon-btn");
+  const deleteButton = view.deleteButtonOf(event.target);
   if (deleteButton) askToDelete(deleteButton);
 }
 
@@ -108,7 +108,7 @@ function submitName(event) {
   }
   state.habits = result.habits;
   saveHabits(state.habits);
-  view.clearNameError();
+  view.resetMessage();
   view.clearNameField();
   renderHabits();
 }
@@ -123,13 +123,14 @@ function checkDay() {
   if (today === state.todayKey) return;
   state.todayKey = today;
   view.renderHeader(today);
+  view.renderMonths(today);
   view.syncHabits(state.habits, today);
   view.renderHeatmap(state.habits, today);
 }
 
 /** The note's button disappears with the note, so focus goes to the field (it has no effect while the field is disabled). */
 function onMainColumnClick(event) {
-  if (!event.target.closest(".note .icon-btn")) return;
+  if (!view.dismissButtonOf(event.target)) return;
   view.removeNote();
   view.focusNameField();
 }
@@ -139,6 +140,7 @@ function boot() {
   state.habits = habits;
   state.todayKey = readToday();
   view.renderHeader(state.todayKey);
+  view.renderMonths(state.todayKey);
   renderHabits();
   if (reset) view.showNote();
   const { list, mainColumn, addForm, dialog } = view.containers();

@@ -21,6 +21,9 @@ const RESET_NOTE = "Your saved habits could not be read, so the list was reset."
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => Array.from(document.querySelectorAll(selector));
 
+const LIST_SECTION = 'section[aria-labelledby="habits-title"]';
+const rows = () => $$(".habits > .habit");
+
 function element(tag, className, attributes = {}) {
   const node = document.createElement(tag);
   if (className) node.className = className;
@@ -154,7 +157,7 @@ function emptyMessage() {
 
 /** Replaces the list (or the empty message) with fresh rows, for a first load, an add or a delete. */
 export function renderList(habits, todayKey) {
-  const section = $('section[aria-labelledby="habits-title"]');
+  const section = $(LIST_SECTION);
   section.querySelectorAll(":scope > .empty, :scope > .habits").forEach((node) => node.remove());
   if (habits.length === 0) {
     section.append(emptyMessage());
@@ -172,7 +175,7 @@ export function renderList(habits, todayKey) {
 
 /** After a tick: updates one existing row in place. */
 export function syncHabit(index, habit, todayKey) {
-  syncProgress($$(".habits > .habit")[index], habit, todayKey);
+  syncProgress(rows()[index], habit, todayKey);
 }
 
 /** After a new day: updates every existing row in place. */
@@ -180,15 +183,16 @@ export function syncHabits(habits, todayKey) {
   habits.forEach((habit, index) => syncHabit(index, habit, todayKey));
 }
 
-/** A habit's index is its row's place in the list: rows carry no index attribute (spec Events and focus). */
+/** Rows carry no index attribute (spec Events and focus), so the index is the row's place in the list. */
 export function habitIndexOf(node) {
-  return $$(".habits > .habit").indexOf(node.closest(".habit"));
+  return rows().indexOf(node.closest(".habit"));
 }
 
 // ---------------------------------------------------------------------------------------------
 // Heatmap
 
-function renderMonths(todayKey) {
+/** The month labels depend on the day alone, so app.js draws them at boot and on a new day, not on every change. */
+export function renderMonths(todayKey) {
   $(".months").replaceChildren(
     ...monthLabels(todayKey).map(({ column, month }) => {
       const label = element("span");
@@ -220,7 +224,6 @@ function fillCell(node, cell) {
  * transition and an unchanged cell is left alone.
  */
 export function renderHeatmap(habits, todayKey) {
-  renderMonths(todayKey);
   const grid = $(".cells");
   const cells = heatmapCells(habits, todayKey);
   while (grid.children.length < cells.length) grid.append(element("span"));
@@ -230,7 +233,8 @@ export function renderHeatmap(habits, todayKey) {
 // ---------------------------------------------------------------------------------------------
 // Add form
 
-function resetMessage() {
+/** Back to the empty error line the goldens start with: no text, no note class, no aria-invalid. */
+export function resetMessage() {
   const message = $("#new-habit-msg");
   message.className = "field-msg field-error";
   message.textContent = "";
@@ -242,10 +246,6 @@ export function showNameError(error) {
   resetMessage();
   $("#new-habit-msg").textContent = NAME_ERRORS[error];
   $("#new-habit").setAttribute("aria-invalid", "true");
-}
-
-export function clearNameError() {
-  resetMessage();
 }
 
 export const nameFieldValue = () => $("#new-habit").value;
@@ -302,15 +302,19 @@ export function openDeleteDialog(habitName) {
 }
 
 export function focusDeleteButton(index) {
-  $$(".habits > .habit")[index].querySelector(".icon-btn").focus();
+  rows()[index].querySelector(".icon-btn").focus();
 }
 
 // ---------------------------------------------------------------------------------------------
-// Where app.js listens
+// Where app.js listens and what it asks about a click: its selectors live in this file only (JC5)
 
 export const containers = () => ({
-  list: $('section[aria-labelledby="habits-title"]'),
+  list: $(LIST_SECTION),
   mainColumn: $(".col-main"),
   addForm: $(".add"),
   dialog: $(".dialog"),
 });
+
+export const dayButtonOf = (node) => node.closest("button.day");
+export const deleteButtonOf = (node) => node.closest(".habit-head .icon-btn");
+export const dismissButtonOf = (node) => node.closest(".note .icon-btn");

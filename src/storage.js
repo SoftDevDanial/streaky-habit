@@ -70,12 +70,15 @@ export function encodeState(habits) {
  * @returns {{ habits: Habit[], reset: boolean }}
  */
 export function loadHabits() {
-  let decoded;
+  // Only the storage access is guarded: a throw from decodeState is a bug and must not read as "storage
+  // unusable", which would start empty without the note and let the next save overwrite the saved data.
+  let raw;
   try {
-    decoded = decodeState(localStorage.getItem(STORAGE_KEY));
+    raw = localStorage.getItem(STORAGE_KEY);
   } catch {
     return { habits: [], reset: false };
   }
+  const decoded = decodeState(raw);
   if (decoded.status === "ok") return { habits: decoded.habits, reset: false };
   if (decoded.status === "absent") return { habits: [], reset: false };
   saveHabits([]);
