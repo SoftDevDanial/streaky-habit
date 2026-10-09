@@ -13,6 +13,7 @@ const SVG_NAMESPACE = "http://www.w3.org/2000/svg";
 const LIMIT_NOTE = "You track 12 habits, the most this app holds. Delete one to add another.";
 
 const $ = (selector) => document.querySelector(selector);
+const $$ = (selector) => Array.from(document.querySelectorAll(selector));
 
 function element(tag, className, attributes = {}) {
   const node = document.createElement(tag);
@@ -163,6 +164,16 @@ export function renderList(habits, todayKey) {
   section.append(list);
 }
 
+/** After a tick: updates one existing row in place. */
+export function syncHabit(index, habit, todayKey) {
+  syncProgress($$(".habits > .habit")[index], habit, todayKey);
+}
+
+/** A habit's index is its row's place in the list: rows carry no index attribute (spec Events and focus). */
+export function habitIndexOf(node) {
+  return $$(".habits > .habit").indexOf(node.closest(".habit"));
+}
+
 // ---------------------------------------------------------------------------------------------
 // Heatmap
 
@@ -228,3 +239,10 @@ export function setAddLimit(full) {
     resetMessage();
   }
 }
+
+// ---------------------------------------------------------------------------------------------
+// Where app.js listens
+
+export const containers = () => ({
+  list: $('section[aria-labelledby="habits-title"]'),
+});

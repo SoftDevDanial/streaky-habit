@@ -204,6 +204,19 @@ def cell(page, date):
     return page.locator(f'.cells .hc[data-date="{date}"]')
 
 
+def is_focused(locator):
+    return locator.evaluate("(element) => element === document.activeElement")
+
+
+def tab_until(page, locator, limit=60):
+    """Press Tab (at most `limit` times) until `locator` has focus, as a keyboard user would."""
+    for _ in range(limit):
+        page.keyboard.press("Tab")
+        if is_focused(locator):
+            return
+    pytest.fail(f"focus did not reach the target within {limit} Tab presses")
+
+
 def pattern(page, name):
     """The row's strip as 'D' (done) and '.' (not done), oldest day first, for example '. D D D D D D'."""
     return row(page, name).locator("button.day").evaluate_all(

@@ -6,8 +6,8 @@
  * function, then a save, then a synchronous render inside the handler that caused it.
  */
 import { localDateKey } from "./dates.js";
-import { MAX_HABITS } from "./habits.js";
-import { loadHabits } from "./storage.js";
+import { MAX_HABITS, toggleDay } from "./habits.js";
+import { loadHabits, saveHabits } from "./storage.js";
 import * as view from "./view.js";
 
 /** The only clock read in the app, so tests move time with Playwright's clock alone (spec Invariants). */
@@ -24,11 +24,26 @@ function renderHabits() {
   view.setAddLimit(state.habits.length >= MAX_HABITS);
 }
 
+/** Updates the button that was pressed instead of replacing it, so its transition runs and it keeps focus. */
+function tick(dayButton) {
+  const index = view.habitIndexOf(dayButton);
+  state.habits = toggleDay(state.habits, index, dayButton.getAttribute("data-date"), state.todayKey);
+  saveHabits(state.habits);
+  view.syncHabit(index, state.habits[index], state.todayKey);
+  view.renderHeatmap(state.habits, state.todayKey);
+}
+
+function onListClick(event) {
+  const dayButton = event.target.closest("button.day");
+  if (dayButton) tick(dayButton);
+}
+
 function boot() {
   state.habits = loadHabits().habits;
   state.todayKey = readToday();
   view.renderHeader(state.todayKey);
   renderHabits();
+  view.containers().list.addEventListener("click", onListClick);
 }
 
 boot();
