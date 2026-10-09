@@ -1,0 +1,24 @@
+node v24.11.1 win32
+
+## 1a. Two-way fixed point at 2^53 days (bestStreak skips it, because its predecessor is itself)
+K = addDays("1970-01-01", 2 ** 53) = "24660873954867-01-09"; addDays(K, 1) === K: true; addDays(K, -1) === K: true; isDateKey(K): false
+control: bestStreak(["2026-10-08"]): returned {"value":1,"ms":2} (child pid 39908, exit 0), wall 39 ms
+bestStreak(["24660873954867-01-09"]): returned {"value":0,"ms":2} (child pid 25076, exit 0), wall 37 ms
+
+## 1b. A start key whose next day is a forward fixed point (search near 2^53 days)
+S = "24660873954866-12-02", addDays(S, -1) = "24660873954866-11-30" (not in the set, so S starts a run)
+addDays(S, 1) = T = "24660873954866-12-04", addDays(T, 1) === T: true; isDateKey(S): false, isDateKey(T): false
+bestStreak(["24660873954866-12-02", "24660873954866-12-04"]): HUNG: no result within 5 s, child pid 40896 killed (signal SIGKILL), wall 5007 ms
+bestStreak(sample-like valid keys plus S and T): HUNG: no result within 5 s, child pid 19148 killed (signal SIGKILL), wall 5012 ms
+currentStreak, runContinues, heatmapCells, toggleDay with S and T in done (no walk reaches them): returned {"value":[1,false,84,4],"ms":2} (child pid 36416, exit 0), wall 38 ms
+
+## 2. Backward cycle below year 0001
+backward from 0000-01-03: 0000-01-03 0000-01-02 0000-01-01 00-1-12-31 0000-01-11 0000-01-10 0000-01-09 0000-01-08 0000-01-07 0000-01-06 0000-01-05 0000-01-04 0000-01-03 0000-01-02 0000-01-01 00-1-12-31 0000-01-11 0000-01-10 ...
+isDateKey of each chain key: 0000-01-03=false 0000-01-02=false 0000-01-01=false 00-1-12-31=false 0000-01-11=false 0000-01-10=false 0000-01-09=false 0000-01-08=false 0000-01-07=false 0000-01-06=false 0000-01-05=false 0000-01-04=false
+currentStreak(chain keys, "0000-01-03"): HUNG: no result within 5 s, child pid 45976 killed (signal SIGKILL), wall 5019 ms
+currentStreak(every day back from 2026-10-08 for 800,000 days, "2026-10-08") (how the first history probe hung): HUNG: no result within 5 s, child pid 13404 killed (signal SIGKILL), wall 5027 ms
+same 800,000 keys filtered by isDateKey first (what the decoder would keep): returned {"value":[739897,739897],"ms":1311} (child pid 36064, exit 0), wall 1358 ms
+
+## 3. A bounded walk (length < days.size) terminates on the same inputs
+boundedBest(["24660873954866-12-02", "24660873954866-12-04"]) = 2
+bounded current walk over the year-0 chain = 12 (set size 12)

@@ -1,0 +1,30 @@
+node v24.11.1 win32, gc exposed: true
+
+## isDateKey on hostile strings (median of 3, ms)
+valid prefix then 8s: n=1e+4 0.001ms false | n=1e+6 0.002ms false | n=1e+7 0.002ms false | n=5e+7 0.001ms false
+digits only: n=1e+4 0.002ms false | n=1e+6 0.001ms false | n=1e+7 0.001ms false | n=5e+7 0.001ms false
+valid key then newlines: n=1e+4 0.000ms false | n=1e+6 0.004ms false | n=1e+7 0.000ms false | n=5e+7 0.001ms false
+valid key repeated: n=1e+4 0.000ms false | n=1e+6 0.001ms false | n=1e+7 0.001ms false | n=5e+7 0.001ms false
+hyphens only: n=1e+4 0.000ms false | n=1e+6 0.001ms false | n=1e+7 0.001ms false | n=5e+7 0.001ms false
+digits then hyphen at the end: n=1e+4 0.000ms false | n=1e+6 0.001ms false | n=1e+7 0.001ms false | n=5e+7 0.001ms false
+fullwidth digits: n=1e+4 0.000ms false | n=1e+6 0.001ms false | n=1e+7 0.001ms false | n=5e+7 0.001ms false
+
+RegExp.input after isDateKey("2026-10-08") = "2026-10-08"
+RegExp.input length after isDateKey(5,000,010 char failing string) = 10 (the failing string is not retained)
+
+## validateName on oversized names (median of 3, ms). Storage quota is about 5 million UTF-16 code units.
+ASCII x: units=1.0e+5 0.5ms too-long | units=1.0e+6 5.7ms too-long | units=2.5e+6 13.5ms too-long | units=5.0e+6 27.3ms too-long
+CJK (BMP, two-byte): units=1.0e+5 0.7ms too-long | units=1.0e+6 15.2ms too-long | units=2.5e+6 61.5ms too-long | units=5.0e+6 183.8ms too-long
+astral emoji (surrogate pairs): units=1.0e+5 0.4ms too-long | units=1.0e+6 3.6ms too-long | units=2.5e+6 26.3ms too-long | units=5.0e+6 77.8ms too-long
+only white space: units=1.0e+5 0.0ms empty | units=1.0e+6 0.3ms empty | units=2.5e+6 0.8ms empty | units=5.0e+6 1.6ms empty
+white space around 41 letters: units=1.0e+5 0.0ms too-long | units=1.0e+6 0.3ms too-long | units=2.5e+6 0.8ms too-long | units=5.0e+6 1.5ms too-long
+
+## Heap allocated by Array.from(name), the length count in validateName, for 5,000,000 UTF-16 units
+ASCII x: 5000000 code points, heap +42.9 MiB (string itself is 4.8 MiB)
+CJK (BMP, two-byte): 5000000 code points, heap +161.4 MiB (string itself is 9.5 MiB)
+astral emoji (surrogate pairs): 2500000 code points, heap +104.9 MiB (string itself is 9.5 MiB)
+
+## Comparison: a bounded code-point count that stops at 41 (median of 3, ms)
+ASCII x: 0.0034ms too-long=true, heap +0.00 MiB
+CJK (BMP, two-byte): 0.0015ms too-long=true, heap +0.01 MiB
+astral emoji (surrogate pairs): 0.0033ms too-long=true, heap +0.01 MiB

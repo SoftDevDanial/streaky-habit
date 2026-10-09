@@ -1,0 +1,12 @@
+synthetic `new Date(2026, 9, 8)` (allowed, must not hit): no hit
+synthetic `new Date(key)` (allowed, must not hit): no hit
+synthetic `Date.UTC(2026, 0, 1)` (allowed, must not hit): no hit
+synthetic `new Date;` (must hit): proposed: argument-less new Date, with or without ()
+synthetic `new Date( )` (must hit): proposed: argument-less new Date, with or without ()
+synthetic `Date()` (must hit): proposed: Date called as a function
+real src: no hit
+mirror baseline-unchanged: no hit
+mirror control-clock-new-Date-with-parens: habits.js current: new Date(); habits.js proposed: argument-less new Date, with or without ()
+mirror clock-new-Date-without-parens: habits.js proposed: argument-less new Date, with or without ()
+mirror clock-Date-called-as-function: habits.js proposed: Date called as a function
+mirror egress-fetch-and-sessionStorage: habits.js proposed code word "fetch"

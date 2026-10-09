@@ -1,0 +1,22 @@
+node v24.11.1 win32
+
+## One habit, one unbroken run ending today (the worst case for both streak walks), median of 3, ms
+n | JSON size | all valid | currentStreak | bestStreak | bestStreak shuffled | runContinues | toggleDay | heatmapCells
+50000 | 0.7 MB | true | 24 | 45 | 47 | 2 | 3 | 5
+100000 | 1.3 MB | true | 50 | 89 | 96 | 4 | 5 | 10
+200000 | 2.6 MB | true | 106 | 187 | 222 | 9 | 12 | 26
+400000 | 5.2 MB | true | 230 | 398 | 462 | 23 | 28 | 69
+700000 | 9.1 MB | true | 411 | 799 | 966 | 56 | 68 | 172
+
+## Results stay correct at quota size (400,000 days)
+currentStreak = 400000, bestStreak = 400000, first key 0931-08-11
+
+## Quota-sized state over 12 habits: one render (12 x currentStreak, bestStreak, runContinues, plus heatmapCells) and one tick (toggleDay plus a render), median of 3
+render: 579 ms
+tick: 576 ms
+
+## Duplicates (the decoder de-duplicates, this is the module alone): 1,000,000 copies of one key
+bestStreak 4 ms, currentStreak 4 ms, toggleDay 4 ms, toggled done has 2 keys
+
+## Heap held by the Set one streak call builds, 400,000 keys
+new Set(done): +20.0 MiB for 400000 keys

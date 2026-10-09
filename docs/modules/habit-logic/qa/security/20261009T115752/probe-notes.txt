@@ -1,0 +1,21 @@
+## Names the rule accepts (trim, 1 to 40 code points, unique by toLowerCase)
+zero-width space only: validateName("\u200b") = {"ok":true,"name":"\u200b"}
+word joiner and ZWNJ only: validateName("\u2060\u200c") = {"ok":true,"name":"\u2060\u200c"}
+existing name plus a zero-width space: validateName("Read 20 pages\u200b") = {"ok":true,"name":"Read 20 pages\u200b"}
+existing name with Cyrillic e (homoglyph): validateName("R\u0435ad 20 pages") = {"ok":true,"name":"R\u0435ad 20 pages"}
+NFD form of an existing NFC name: validateName("E\u0301tude") = {"ok":true,"name":"E\u0301tude"}
+right-to-left override: validateName("\u202eegap 02 daeR") = {"ok":true,"name":"\u202eegap 02 daeR"}
+C0 control characters: validateName("a\u0000b\u0007c") = {"ok":true,"name":"a\u0000b\u0007c"}
+line break inside: validateName("Read\n20 pages") = {"ok":true,"name":"Read\n20 pages"}
+lone surrogate: validateName("\ud800") = {"ok":true,"name":"\ud800"}
+
+## Key format: localDateKey can produce a key isDateKey rejects (device clock at year 10000 or later)
+localDateKey(new Date(10000, 0, 1)) = "10000-01-01", isDateKey = false
+localDateKey(new Date(9999, 11, 31)) = "9999-12-31", isDateKey = true
+
+## Non-string input (the decoder type-checks first, the add form passes input.value)
+validateName(null) throws TypeError
+validateName(undefined) throws TypeError
+validateName(42) throws TypeError
+validateName({}) = {"ok":true,"name":"x"}
+addHabit with a non-string stored name throws TypeError

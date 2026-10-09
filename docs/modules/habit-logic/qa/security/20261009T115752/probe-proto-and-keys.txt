@@ -1,0 +1,136 @@
+input: parsed[0] own keys = ["name","done","__proto__","constructor","prototype","extra"]
+input: parsed[0] prototype is Object.prototype = true
+control: spread own keys = ["name","done","__proto__","constructor","prototype","extra"] (carries __proto__, constructor, prototype, extra)
+control: Object.assign swaps prototype = true and assigned.polluted = yes assigned.isAdmin = true
+PASS toggleDay in window [0]: own keys exactly done,name (got ["done","name"])
+PASS toggleDay in window [0]: prototype is Object.prototype
+PASS toggleDay in window [0]: no inherited polluted/isAdmin
+PASS toggleDay in window [0]: done is a plain array
+PASS toggleDay in window [1]: own keys exactly done,name (got ["done","name"])
+PASS toggleDay in window [1]: prototype is Object.prototype
+PASS toggleDay in window [1]: no inherited polluted/isAdmin
+PASS toggleDay in window [1]: done is a plain array
+PASS toggleDay in window [2]: own keys exactly done,name (got ["done","name"])
+PASS toggleDay in window [2]: prototype is Object.prototype
+PASS toggleDay in window [2]: no inherited polluted/isAdmin
+PASS toggleDay in window [2]: done is a plain array
+PASS toggleDay in window [3]: own keys exactly done,name (got ["done","name"])
+PASS toggleDay in window [3]: prototype is Object.prototype
+PASS toggleDay in window [3]: no inherited polluted/isAdmin
+PASS toggleDay in window [3]: done is a plain array
+PASS toggleDay outside window [0]: own keys exactly done,name (got ["done","name"])
+PASS toggleDay outside window [0]: prototype is Object.prototype
+PASS toggleDay outside window [0]: no inherited polluted/isAdmin
+PASS toggleDay outside window [0]: done is a plain array
+PASS toggleDay outside window [1]: own keys exactly done,name (got ["done","name"])
+PASS toggleDay outside window [1]: prototype is Object.prototype
+PASS toggleDay outside window [1]: no inherited polluted/isAdmin
+PASS toggleDay outside window [1]: done is a plain array
+PASS toggleDay outside window [2]: own keys exactly done,name (got ["done","name"])
+PASS toggleDay outside window [2]: prototype is Object.prototype
+PASS toggleDay outside window [2]: no inherited polluted/isAdmin
+PASS toggleDay outside window [2]: done is a plain array
+PASS toggleDay outside window [3]: own keys exactly done,name (got ["done","name"])
+PASS toggleDay outside window [3]: prototype is Object.prototype
+PASS toggleDay outside window [3]: no inherited polluted/isAdmin
+PASS toggleDay outside window [3]: done is a plain array
+PASS toggleDay index 3 [0]: own keys exactly done,name (got ["done","name"])
+PASS toggleDay index 3 [0]: prototype is Object.prototype
+PASS toggleDay index 3 [0]: no inherited polluted/isAdmin
+PASS toggleDay index 3 [0]: done is a plain array
+PASS toggleDay index 3 [1]: own keys exactly done,name (got ["done","name"])
+PASS toggleDay index 3 [1]: prototype is Object.prototype
+PASS toggleDay index 3 [1]: no inherited polluted/isAdmin
+PASS toggleDay index 3 [1]: done is a plain array
+PASS toggleDay index 3 [2]: own keys exactly done,name (got ["done","name"])
+PASS toggleDay index 3 [2]: prototype is Object.prototype
+PASS toggleDay index 3 [2]: no inherited polluted/isAdmin
+PASS toggleDay index 3 [2]: done is a plain array
+PASS toggleDay index 3 [3]: own keys exactly done,name (got ["done","name"])
+PASS toggleDay index 3 [3]: prototype is Object.prototype
+PASS toggleDay index 3 [3]: no inherited polluted/isAdmin
+PASS toggleDay index 3 [3]: done is a plain array
+PASS deleteHabit 3 [0]: own keys exactly done,name (got ["done","name"])
+PASS deleteHabit 3 [0]: prototype is Object.prototype
+PASS deleteHabit 3 [0]: no inherited polluted/isAdmin
+PASS deleteHabit 3 [0]: done is a plain array
+PASS deleteHabit 3 [1]: own keys exactly done,name (got ["done","name"])
+PASS deleteHabit 3 [1]: prototype is Object.prototype
+PASS deleteHabit 3 [1]: no inherited polluted/isAdmin
+PASS deleteHabit 3 [1]: done is a plain array
+PASS deleteHabit 3 [2]: own keys exactly done,name (got ["done","name"])
+PASS deleteHabit 3 [2]: prototype is Object.prototype
+PASS deleteHabit 3 [2]: no inherited polluted/isAdmin
+PASS deleteHabit 3 [2]: done is a plain array
+PASS deleteHabit none [0]: own keys exactly done,name (got ["done","name"])
+PASS deleteHabit none [0]: prototype is Object.prototype
+PASS deleteHabit none [0]: no inherited polluted/isAdmin
+PASS deleteHabit none [0]: done is a plain array
+PASS deleteHabit none [1]: own keys exactly done,name (got ["done","name"])
+PASS deleteHabit none [1]: prototype is Object.prototype
+PASS deleteHabit none [1]: no inherited polluted/isAdmin
+PASS deleteHabit none [1]: done is a plain array
+PASS deleteHabit none [2]: own keys exactly done,name (got ["done","name"])
+PASS deleteHabit none [2]: prototype is Object.prototype
+PASS deleteHabit none [2]: no inherited polluted/isAdmin
+PASS deleteHabit none [2]: done is a plain array
+PASS deleteHabit none [3]: own keys exactly done,name (got ["done","name"])
+PASS deleteHabit none [3]: prototype is Object.prototype
+PASS deleteHabit none [3]: no inherited polluted/isAdmin
+PASS deleteHabit none [3]: done is a plain array
+PASS addHabit ok
+PASS addHabit [0]: own keys exactly done,name (got ["done","name"])
+PASS addHabit [0]: prototype is Object.prototype
+PASS addHabit [0]: no inherited polluted/isAdmin
+PASS addHabit [0]: done is a plain array
+PASS addHabit [1]: own keys exactly done,name (got ["done","name"])
+PASS addHabit [1]: prototype is Object.prototype
+PASS addHabit [1]: no inherited polluted/isAdmin
+PASS addHabit [1]: done is a plain array
+PASS addHabit [2]: own keys exactly done,name (got ["done","name"])
+PASS addHabit [2]: prototype is Object.prototype
+PASS addHabit [2]: no inherited polluted/isAdmin
+PASS addHabit [2]: done is a plain array
+PASS addHabit [3]: own keys exactly done,name (got ["done","name"])
+PASS addHabit [3]: prototype is Object.prototype
+PASS addHabit [3]: no inherited polluted/isAdmin
+PASS addHabit [3]: done is a plain array
+PASS addHabit [4]: own keys exactly done,name (got ["done","name"])
+PASS addHabit [4]: prototype is Object.prototype
+PASS addHabit [4]: no inherited polluted/isAdmin
+PASS addHabit [4]: done is a plain array
+PASS validateName("__proto__") is ok with the same name
+PASS validateName duplicate of "__proto__" is caught
+PASS addHabit("__proto__") gives a plain { name, done }
+PASS validateName("constructor") is ok with the same name
+PASS validateName duplicate of "constructor" is caught
+PASS addHabit("constructor") gives a plain { name, done }
+PASS validateName("prototype") is ok with the same name
+PASS validateName duplicate of "prototype" is caught
+PASS addHabit("prototype") gives a plain { name, done }
+PASS validateName("hasOwnProperty") is ok with the same name
+PASS validateName duplicate of "hasOwnProperty" is caught
+PASS addHabit("hasOwnProperty") gives a plain { name, done }
+PASS validateName("toString") is ok with the same name
+PASS validateName duplicate of "toString" is caught
+PASS addHabit("toString") gives a plain { name, done }
+PASS validateName("valueOf") is ok with the same name
+PASS validateName duplicate of "valueOf" is caught
+PASS addHabit("valueOf") gives a plain { name, done }
+PASS heatmapCells returns 84 cells
+PASS every cell has exactly the contract keys and Object.prototype
+PASS today cell counts 2 (Read and prototype habit both have 2026-10-08)
+bestStreak(prototype-word done) = 1 currentStreak = 1 runContinues = false
+PASS toggleDay of a null-prototype habit: own keys exactly done,name (got ["done","name"])
+PASS toggleDay of a null-prototype habit: prototype is Object.prototype
+PASS toggleDay of a null-prototype habit: no inherited polluted/isAdmin
+PASS toggleDay of a null-prototype habit: done is a plain array
+PASS isDateKey(object with toString) is false
+PASS isDateKey never coerced the object
+PASS isDateKey(proxy) is false and never touched it
+PASS Object.prototype own names unchanged
+PASS Array.prototype own names unchanged
+PASS Function.prototype own names unchanged
+PASS ({}).polluted, isAdmin, polluted2, polluted3 all undefined
+
+failures: 0

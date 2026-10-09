@@ -1,0 +1,94 @@
+SEC-01 runs, security solver, 2026-10-09. Output pasted verbatim from run-capped.mjs, differential.mjs and
+bounded-walks.mjs (all in this folder), project root as cwd. Left out of the suite outputs: passing
+test lines (✔) of other tests, the stack traces under each failure, and the green file run's runner
+line. The kept lines are unchanged.
+
+=== RED: the two new tests against the unfixed runLength (59c6ee5 code, new tests) ===
+command: node --test tests/habits.test.js
+runner: node v24.11.1 on win32, runner pid 39856
+child pid: 41608 exit: 1 signal: null error: none
+elapsed_ms: 10141
+--- stdout
+✖ @R7 the best-run walk ends on keys outside the valid range, where the next day repeats itself (5016.2374ms)
+✖ @R6 the current-run walk ends on the cycle below year 0001 (5006.0317ms)
+ℹ tests 36
+ℹ suites 0
+ℹ pass 34
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 10101.8375
+
+✖ failing tests:
+
+test at tests\habits.test.js:133:1
+✖ @R7 the best-run walk ends on keys outside the valid range, where the next day repeats itself (5016.2374ms)
+  AssertionError [ERR_ASSERTION]: bestStreak gave no result within 5000 ms, child pid 31656 killed
+
+test at tests\habits.test.js:146:1
+✖ @R6 the current-run walk ends on the cycle below year 0001 (5006.0317ms)
+  AssertionError [ERR_ASSERTION]: currentStreak gave no result within 5000 ms, child pid 22148 killed
+
+(The preconditions ran first and held: the stuck key's next day is itself, and the 12 keys form a cycle.
+tasklist for pids 31656 and 22148 afterwards: "No tasks are running which match the specified criteria.")
+
+=== GREEN: the same file after the fix (length < days.size in runLength) ===
+command: node --test tests/habits.test.js
+child pid: 32764 exit: 0 signal: null error: none
+elapsed_ms: 191
+✔ @R7 the best-run walk ends on keys outside the valid range, where the next day repeats itself (38.054ms)
+✔ @R6 the current-run walk ends on the cycle below year 0001 (37.7636ms)
+ℹ tests 36
+ℹ pass 36
+ℹ fail 0
+
+=== GREEN: full suite after the fix, before commit add5043 ===
+command: node --test tests/**/*.test.js
+runner: node v24.11.1 on win32, runner pid 43872
+child pid: 44656 exit: 0 signal: null error: none
+elapsed_ms: 563
+✔ @R7 the best-run walk ends on keys outside the valid range, where the next day repeats itself (45.888ms)
+✔ @R6 the current-run walk ends on the cycle below year 0001 (46.0302ms)
+ℹ tests 63
+ℹ suites 0
+ℹ pass 63
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 523.7987
+
+=== Valid input unchanged: differential.mjs streaks (59c6ee5 from git vs src/) ===
+command: node docs/modules/habit-logic/qa/security-solver/20261009T123108/differential.mjs streaks
+runner: node v24.11.1 on win32, runner pid 45980
+child pid: 43152 exit: 0 signal: null error: none
+elapsed_ms: 3548
+node v24.11.1 win32, section streaks, old habits.js from git 59c6ee5, new habits.js from src/
+generated history keys that fail isDateKey: 0
+81706 cases compared, 0 mismatches
+
+=== Positive control: differential.mjs streaks control (the bound planted one short) ===
+command: node docs/modules/habit-logic/qa/security-solver/20261009T123108/differential.mjs streaks control
+node v24.11.1 win32, section streaks, old habits.js from git 59c6ee5, new habits.js from src/ with the planted control edit ["length < days.size &&","length < days.size - 1 &&"]
+generated history keys that fail isDateKey: 0
+81706 cases compared, 6109 mismatches, the first 10: [{"label":"currentStreak #4 today 9999-12-31","before":4,"after":3},{"label":"currentStreak #4 today 9999-12-31","before":4,"after":3},{"label":"bestStreak #4","before":4,"after":3},{"label":"bestStreak #9","before":13,"after":12},{"label":"currentStreak #10 today 2595-09-16","before":25,"after":24},{"label":"bestStreak #10","before":25,"after":24},{"label":"currentStreak #16 today 7728-10-07","before":3,"after":2},{"label":"bestStreak #16","before":3,"after":2},{"label":"currentStreak #19 today 7546-01-30","before":6,"after":5},{"label":"currentStreak #19 today 7546-01-31","before":6,"after":5}]
+
+=== The audit's hanging inputs against the fixed code: bounded-walks.mjs ===
+command: node docs/modules/habit-logic/qa/security-solver/20261009T123108/bounded-walks.mjs
+runner: node v24.11.1 on win32, runner pid 40600
+child pid: 34720 exit: 0 signal: null error: none
+elapsed_ms: 4112
+node v24.11.1 win32, habits.js from src/
+control: bestStreak(["2026-10-08"]): returned {"value":1,"ms":2} (child pid 39140, exit 0), wall 37 ms
+bestStreak(["24660873954866-12-02", "24660873954866-12-04"]): returned {"value":2,"ms":2} (child pid 25900, exit 0), wall 37 ms
+bestStreak(three valid keys plus "24660873954866-12-02" and "24660873954866-12-04"): returned {"value":5,"ms":2} (child pid 42432, exit 0), wall 39 ms
+currentStreak(30 steps back from 0000-01-03, a 12-key cycle, "0000-01-03"): returned {"value":[12,12],"ms":2} (child pid 25112, exit 0), wall 41 ms
+bestStreak(the same 12-key cycle): returned {"value":0,"ms":2} (child pid 22464, exit 0), wall 43 ms
+currentStreak(every day back from 2026-10-08 for 800,000 days, "2026-10-08"): returned {"value":[740264,740264],"ms":907} (child pid 29116, exit 0), wall 963 ms
+bestStreak(the same 800,000 keys): returned {"value":0,"ms":858} (child pid 22800, exit 0), wall 902 ms
+same 800,000 keys filtered by isDateKey first (what the decoder would keep): returned {"value":[739897,739897,739897],"ms":1963} (child pid 45276, exit 0), wall 2009 ms
+
+Reading: every walk now ends. On keys outside the valid range the count is not meaningful (the stuck key
+is counted again until the set size is reached, so three valid keys plus S and T give 5, and the
+800,000-key history gives its set size). No valid input reaches that, as the differential shows.

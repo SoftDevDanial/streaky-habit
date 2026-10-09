@@ -55,3 +55,13 @@ Append-only history. STATE.md holds the situation, this file holds what happened
 ## 2026-10-09 11:26 habit-logic built
 - sdlc-backend-dev (sonnet) built habit-logic: commits 6296a9d, d26cbcc, 56ab40e, a25431f, eaf8f9f, BUILD.md 09c5047. 60 node tests pass. Cut off once by the usage limit, resumed.
 - Spawned code-review finder (Opus).
+
+## 2026-10-09 12:25 habit-logic security verdict, owner sets v1.0.0 target
+- Security auditor: FAIL issues_found, 0 CRITICAL, 0 HIGH, 3 MEDIUM. All 7 threat-model mitigations present and held under hostile input. Verdict `docs/modules/habit-logic/findings/security.md`, evidence `qa/security/20261009T115752/`
+- SEC-01 `runLength` can loop forever on keys outside the valid range (blocked today by the app decoder). SEC-02 `validateName` copies the whole name to count it. SEC-03 the R16 purity scan misses `new Date` without parentheses, `Date()` and network or storage calls
+- Routed to `sdlc-security-solver`, one commit per finding with red and green proof
+- Owner's words 2026-10-09: "Make sure both app reach a stable 1.0 version. Then i will test it out." The run's version label moves from 0.1.0 to 1.0.0
+
+## 2026-10-09 12:46 habit-logic security solver round closed
+- Security solver: SEC-01 `add5043`, SEC-02 `e83acb4`, SEC-03 `3750d67`, comment corrections `eb2003b`. 64 of 64 tests pass. Each fix red then green, differential checks against the old code show no change on valid input
+- Findings Solver section and both evidence folders committed by the orchestrator

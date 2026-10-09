@@ -1,0 +1,153 @@
+SEC-03 runs, security solver, 2026-10-09. Output of scan-mutants.mjs (this folder), project root as cwd,
+pasted verbatim. The new scan is tests/purity.test.js as committed in 3750d67. OLD is the 59c6ee5
+tests/purity.test.js: each auditor mirror's copy has the same sha256 as `git show 59c6ee5:tests/purity.test.js`
+(f774b856c8df53dcde56bd5ae74b8251408d663359db29ca64fc693513e3b6ec). The mirrors' src/ files equal the
+59c6ee5 blobs once CR is removed (the working tree uses CRLF, core.autocrlf=true).
+
+How a mutant reaches the scan: scan-hook.mjs is loaded with --import and changes only what the test's
+readFileSync returns for src/dates.js and src/habits.js, either a mirror's file or the real file with one
+line added in memory. No source file is copied or changed. "hook served N reads" proves it took effect
+(0 for an OLD run on an auditor mirror, which reads the mirror's src/ through its own relative path).
+
+A first run of scan-mutants.mjs is not kept as evidence: it passed the hook to --import as a bare D:\ path,
+which Node reads as a URL scheme, so every child exited 1 before any test ran, and the first version of
+the probe reported those runs as GREEN because it found no fail count. The probe now passes a file URL
+and reports BROKEN whenever it cannot read the counts. The run below has 0 BROKEN rows.
+
+=== scan-mutants.mjs ===
+command: node docs/modules/habit-logic/qa/security-solver/20261009T123108/scan-mutants.mjs
+runner: node v24.11.1 on win32, runner pid 13368
+child pid: 18536 exit: 0 signal: null error: none
+elapsed_ms: 3572
+--- stdout
+node v24.11.1 win32
+
+## The auditor's mirrors (src/ read from the mirror)
+baseline-unchanged
+  OLD: GREEN 5 pass 0 fail (child pid 31724, exit 0, hook served 0 reads)
+  NEW: GREEN 5 pass 0 fail (child pid 37456, exit 0, hook served 2 reads)
+control-clock-new-Date-with-parens
+  OLD: RED 4 pass 1 fail (child pid 45856, exit 1, hook served 0 reads) | failed: ✖ @R16 the source has no clock read, even in a comment [habits.js new Date()]
+  NEW: RED 4 pass 1 fail (child pid 44656, exit 1, hook served 2 reads) | failed: ✖ @R16 the source has no clock or random read, even in a comment [habits.js text: new Date without an argument]
+clock-new-Date-without-parens
+  OLD: GREEN 5 pass 0 fail (child pid 17536, exit 0, hook served 0 reads)
+  NEW: RED 4 pass 1 fail (child pid 44112, exit 1, hook served 2 reads) | failed: ✖ @R16 the source has no clock or random read, even in a comment [habits.js text: new Date without an argument]
+clock-Date-called-as-function
+  OLD: GREEN 5 pass 0 fail (child pid 20488, exit 0, hook served 0 reads)
+  NEW: RED 4 pass 1 fail (child pid 45408, exit 1, hook served 2 reads) | failed: ✖ @R16 the source has no clock or random read, even in a comment [habits.js text: Date called as a function]
+egress-fetch-and-sessionStorage
+  OLD: GREEN 5 pass 0 fail (child pid 5128, exit 0, hook served 0 reads)
+  NEW: RED 4 pass 1 fail (child pid 20568, exit 1, hook served 2 reads) | failed: ✖ @R16 the code has no DOM, storage, network, timer, global or locale access [habits.js: storage]
+
+## Further mutants, one line added to habits.js after the NEXT_DAY constant (must be RED)
+new Date; with no parentheses: const clockRead = new Date;
+  OLD: GREEN 5 pass 0 fail (child pid 45716, exit 0, hook served 1 reads)
+  NEW: RED 4 pass 1 fail (child pid 39884, exit 1, hook served 1 reads) | failed: ✖ @R16 the source has no clock or random read, even in a comment [habits.js text: new Date without an argument]
+Date() called as a function: const clockText = Date();
+  OLD: GREEN 5 pass 0 fail (child pid 45992, exit 0, hook served 1 reads)
+  NEW: RED 4 pass 1 fail (child pid 19068, exit 1, hook served 1 reads) | failed: ✖ @R16 the source has no clock or random read, even in a comment [habits.js text: Date called as a function]
+Date.now without a call: const clockRead = Date.now;
+  OLD: GREEN 5 pass 0 fail (child pid 27040, exit 0, hook served 1 reads)
+  NEW: RED 4 pass 1 fail (child pid 40812, exit 1, hook served 1 reads) | failed: ✖ @R16 the source has no clock or random read, even in a comment [habits.js text: Date.now]
+new Date with a comment inside the parentheses: const clockRead = new Date(/* today */);
+  OLD: GREEN 5 pass 0 fail (child pid 43816, exit 0, hook served 1 reads)
+  NEW: RED 4 pass 1 fail (child pid 15728, exit 1, hook served 1 reads) | failed: ✖ @R16 the source has no clock or random read, even in a comment [habits.js code: new Date without an argument]
+new Date( ) with a space (the old pattern catches this): const clockRead = new Date( );
+  OLD: RED 4 pass 1 fail (child pid 23608, exit 1, hook served 1 reads) | failed: ✖ @R16 the source has no clock read, even in a comment [habits.js new Date()]
+  NEW: RED 4 pass 1 fail (child pid 15768, exit 1, hook served 1 reads) | failed: ✖ @R16 the source has no clock or random read, even in a comment [habits.js text: new Date without an argument]
+performance.now(): const clockRead = performance.now();
+  OLD: GREEN 5 pass 0 fail (child pid 26600, exit 0, hook served 1 reads)
+  NEW: RED 4 pass 1 fail (child pid 25648, exit 1, hook served 1 reads) | failed: ✖ @R16 the source has no clock or random read, even in a comment [habits.js text: performance.now]
+Math.random(): const randomRead = Math.random();
+  OLD: GREEN 5 pass 0 fail (child pid 44688, exit 0, hook served 1 reads)
+  NEW: RED 4 pass 1 fail (child pid 10224, exit 1, hook served 1 reads) | failed: ✖ @R16 the source has no clock or random read, even in a comment [habits.js text: Math.random]
+crypto.randomUUID(): const randomRead = crypto.randomUUID();
+  OLD: GREEN 5 pass 0 fail (child pid 35336, exit 0, hook served 1 reads)
+  NEW: RED 4 pass 1 fail (child pid 29188, exit 1, hook served 1 reads) | failed: ✖ @R16 the code has no DOM, storage, network, timer, global or locale access [habits.js: random source]
+fetch alone: fetch("https://collector.invalid/streaks");
+  OLD: GREEN 5 pass 0 fail (child pid 32836, exit 0, hook served 1 reads)
+  NEW: RED 4 pass 1 fail (child pid 2992, exit 1, hook served 1 reads) | failed: ✖ @R16 the code has no DOM, storage, network, timer, global or locale access [habits.js: network]
+sessionStorage alone: sessionStorage.setItem("streaks.last", "x");
+  OLD: GREEN 5 pass 0 fail (child pid 25844, exit 0, hook served 1 reads)
+  NEW: RED 4 pass 1 fail (child pid 42696, exit 1, hook served 1 reads) | failed: ✖ @R16 the code has no DOM, storage, network, timer, global or locale access [habits.js: storage]
+localStorage (the old scan catches this): localStorage.setItem("streaks.last", "x");
+  OLD: RED 4 pass 1 fail (child pid 25072, exit 1, hook served 1 reads) | failed: ✖ @R16 the code has no DOM, storage, global or locale access [habits.js]
+  NEW: RED 4 pass 1 fail (child pid 9748, exit 1, hook served 1 reads) | failed: ✖ @R16 the code has no DOM, storage, network, timer, global or locale access [habits.js: storage]
+indexedDB: const store = indexedDB.open("streaks");
+  OLD: GREEN 5 pass 0 fail (child pid 45612, exit 0, hook served 1 reads)
+  NEW: RED 4 pass 1 fail (child pid 26012, exit 1, hook served 1 reads) | failed: ✖ @R16 the code has no DOM, storage, network, timer, global or locale access [habits.js: storage]
+caches: const store = caches.open("streaks");
+  OLD: GREEN 5 pass 0 fail (child pid 42432, exit 0, hook served 1 reads)
+  NEW: RED 4 pass 1 fail (child pid 44524, exit 1, hook served 1 reads) | failed: ✖ @R16 the code has no DOM, storage, network, timer, global or locale access [habits.js: storage]
+XMLHttpRequest: const request = new XMLHttpRequest();
+  OLD: GREEN 5 pass 0 fail (child pid 22252, exit 0, hook served 1 reads)
+  NEW: RED 4 pass 1 fail (child pid 42920, exit 1, hook served 1 reads) | failed: ✖ @R16 the code has no DOM, storage, network, timer, global or locale access [habits.js: network]
+WebSocket: const socket = new WebSocket("wss://collector.invalid");
+  OLD: GREEN 5 pass 0 fail (child pid 44536, exit 0, hook served 1 reads)
+  NEW: RED 4 pass 1 fail (child pid 43236, exit 1, hook served 1 reads) | failed: ✖ @R16 the code has no DOM, storage, network, timer, global or locale access [habits.js: network]
+EventSource: const events = new EventSource("https://collector.invalid");
+  OLD: GREEN 5 pass 0 fail (child pid 23112, exit 0, hook served 1 reads)
+  NEW: RED 4 pass 1 fail (child pid 8532, exit 1, hook served 1 reads) | failed: ✖ @R16 the code has no DOM, storage, network, timer, global or locale access [habits.js: network]
+navigator.sendBeacon: navigator.sendBeacon("https://collector.invalid", "x");
+  OLD: GREEN 5 pass 0 fail (child pid 43792, exit 0, hook served 1 reads)
+  NEW: RED 4 pass 1 fail (child pid 23280, exit 1, hook served 1 reads) | failed: ✖ @R16 the code has no DOM, storage, network, timer, global or locale access [habits.js: DOM or global object]
+dynamic import (the old import-count test catches this): const loaded = import("https://collector.invalid/x.js");
+  OLD: RED 4 pass 1 fail (child pid 27908, exit 1, hook served 1 reads) | failed: ✖ @R16 habits.js imports only ./dates.js and dates.js imports nothing [one import keyword in habits.js]
+  NEW: RED 3 pass 2 fail (child pid 24076, exit 1, hook served 1 reads) | failed: ✖ @R16 the code has no DOM, storage, network, timer, global or locale access [habits.js: dynamic import]; ✖ @R16 habits.js imports only ./dates.js and dates.js imports nothing [one import keyword in habits.js]
+setTimeout: setTimeout(() => {}, 0);
+  OLD: GREEN 5 pass 0 fail (child pid 44768, exit 0, hook served 1 reads)
+  NEW: RED 4 pass 1 fail (child pid 36432, exit 1, hook served 1 reads) | failed: ✖ @R16 the code has no DOM, storage, network, timer, global or locale access [habits.js: timer]
+queueMicrotask: queueMicrotask(() => {});
+  OLD: GREEN 5 pass 0 fail (child pid 45920, exit 0, hook served 1 reads)
+  NEW: RED 4 pass 1 fail (child pid 41424, exit 1, hook served 1 reads) | failed: ✖ @R16 the code has no DOM, storage, network, timer, global or locale access [habits.js: timer]
+process.env: const zone = process.env.TZ;
+  OLD: GREEN 5 pass 0 fail (child pid 39800, exit 0, hook served 1 reads)
+  NEW: RED 4 pass 1 fail (child pid 35576, exit 1, hook served 1 reads) | failed: ✖ @R16 the code has no DOM, storage, network, timer, global or locale access [habits.js: DOM or global object]
+self: const scope = self;
+  OLD: GREEN 5 pass 0 fail (child pid 40220, exit 0, hook served 1 reads)
+  NEW: RED 4 pass 1 fail (child pid 41844, exit 1, hook served 1 reads) | failed: ✖ @R16 the code has no DOM, storage, network, timer, global or locale access [habits.js: DOM or global object]
+
+## Allowed lines, added the same way (must stay GREEN)
+new Date(2026, 9, 8): const fixedDay = new Date(2026, 9, 8);
+  OLD: GREEN 5 pass 0 fail (child pid 42540, exit 0, hook served 1 reads)
+  NEW: GREEN 5 pass 0 fail (child pid 45400, exit 0, hook served 1 reads)
+new Date(key): const dayOf = (key) => new Date(key);
+  OLD: GREEN 5 pass 0 fail (child pid 45444, exit 0, hook served 1 reads)
+  NEW: GREEN 5 pass 0 fail (child pid 504, exit 0, hook served 1 reads)
+Date.UTC(2026, 0, 1): const fixedTime = Date.UTC(2026, 0, 1);
+  OLD: GREEN 5 pass 0 fail (child pid 22852, exit 0, hook served 1 reads)
+  NEW: GREEN 5 pass 0 fail (child pid 42716, exit 0, hook served 1 reads)
+all three allowed forms on one line: const allowed = [new Date(2026, 9, 8), new Date("2026-10-08"), Date.UTC(2026, 0, 1)];
+  OLD: GREEN 5 pass 0 fail (child pid 18652, exit 0, hook served 1 reads)
+  NEW: GREEN 5 pass 0 fail (child pid 40992, exit 0, hook served 1 reads)
+a comment that names banned words: // fetch, process, the window and a timer are words a comment may use
+  OLD: GREEN 5 pass 0 fail (child pid 35400, exit 0, hook served 1 reads)
+  NEW: GREEN 5 pass 0 fail (child pid 35120, exit 0, hook served 1 reads)
+
+## The real source, no hook edit
+  NEW: GREEN 5 pass 0 fail (child pid 39908, exit 0, hook served 0 reads)
+
+--- stderr
+
+=== Full suite with the new scan, before commit 3750d67 ===
+command: node --test tests/**/*.test.js
+child pid: 9056 exit: 0 signal: null error: none
+elapsed_ms: 556
+✔ @R16 the source has no clock or random read, even in a comment (0.7748ms)
+✔ @R16 the code has no DOM, storage, network, timer, global or locale access (0.294ms)
+✔ @R16 habits.js imports only ./dates.js and dates.js imports nothing (0.6075ms)
+✔ @R16 only the contracted names are exported (0.1139ms)
+✔ @R16 no exported function writes to its arguments or returns one of them (2.8804ms)
+ℹ tests 64
+ℹ suites 0
+ℹ pass 64
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 517.5723
+
+Reading: under the old scan, 3 of the 4 auditor mutants and 19 of the 22 further mutants stay green,
+which reproduces the finding. Under the new scan all 26 are red, the unchanged baseline and the real
+source are green, and none of the allowed lines (new Date(2026, 9, 8), new Date(key), new Date("..."),
+Date.UTC(...), a comment naming banned words) is a false hit.

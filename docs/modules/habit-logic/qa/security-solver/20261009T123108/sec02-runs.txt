@@ -1,0 +1,88 @@
+SEC-02 runs, security solver, 2026-10-09. Output pasted from run-capped.mjs and differential.mjs (both in
+this folder), project root as cwd. Left out of the suite outputs: passing test lines (✔) of other tests
+and the stack trace under the failure. The control's mismatch list is cut after its first entry, because
+its names hold invisible characters (BOM, zero-width space). The kept lines are unchanged.
+
+=== RED: the new test against the unfixed validateName (Array.from count, new test) ===
+command: node --test tests/habits.test.js
+runner: node v24.11.1 on win32, runner pid 37980
+child pid: 38688 exit: 1 signal: null error: none
+elapsed_ms: 511
+--- stdout
+✖ @R13 the length check reads at most 41 code points, so a huge stored name costs no more than a short one (300.7061ms)
+ℹ tests 37
+ℹ suites 0
+ℹ pass 36
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 471.2882
+
+✖ failing tests:
+
+test at tests\habits.test.js:459:1
+✖ @R13 the length check reads at most 41 code points, so a huge stored name costs no more than a short one (300.7061ms)
+  AssertionError [ERR_ASSERTION]: 5,000,000 CJK units: 5000001 code points read
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+(The precondition ran first and held: the counter saw 4 reads for Array.from("abc").)
+
+=== GREEN: the same file after the fix (longerThan) ===
+command: node --test tests/habits.test.js
+child pid: 45932 exit: 0 signal: null error: none
+elapsed_ms: 222
+✔ @R13 @R14 the limits are exported (1.2198ms)
+✔ @R13 name checks in the order empty, too long, duplicate (0.1812ms)
+✔ @R13 the length rule counts the trimmed name, so padding never makes a 40 character name too long (0.0496ms)
+✔ @R13 too long is checked before duplicate (0.0409ms)
+✔ @R13 length counts code points, not UTF-16 units (0.0565ms)
+✔ @R13 trim removes no-break space, em space and BOM as well as plain spaces, and the duplicate check lower-cases both sides (0.0352ms)
+✔ @R13 a very long name is rejected without hanging (0.7013ms)
+✔ @R13 the length check reads at most 41 code points, so a huge stored name costs no more than a short one (3.4374ms)
+ℹ tests 37
+ℹ pass 37
+ℹ fail 0
+
+=== GREEN: full suite after the fix, before commit e83acb4 ===
+command: node --test tests/**/*.test.js
+child pid: 40304 exit: 0 signal: null error: none
+elapsed_ms: 564
+✔ @R13 the length check reads at most 41 code points, so a huge stored name costs no more than a short one (3.511ms)
+ℹ tests 64
+ℹ suites 0
+ℹ pass 64
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 525.094
+
+=== Error results unchanged, with time and heap: differential.mjs names (59c6ee5 from git vs src/) ===
+command: node --expose-gc docs/modules/habit-logic/qa/security-solver/20261009T123108/differential.mjs names
+runner: node v24.11.1 on win32, runner pid 33840
+child pid: 45656 exit: 0 signal: null error: none
+elapsed_ms: 1099
+node v24.11.1 win32, section names, old habits.js from git 59c6ee5, new habits.js from src/
+ASCII x: before too-long in 25.634 ms, heap +38.25 MiB | after too-long in 0.004 ms, heap +0.00 MiB
+CJK: before too-long in 108.697 ms, heap +152.59 MiB | after too-long in 0.002 ms, heap +0.00 MiB
+astral emoji: before too-long in 19.628 ms, heap +95.37 MiB | after too-long in 0.002 ms, heap +0.00 MiB
+lone high surrogates: before too-long in 117.169 ms, heap +152.59 MiB | after too-long in 0.002 ms, heap +0.00 MiB
+51202 cases compared, 0 mismatches
+
+=== Positive control: differential.mjs names control (>= planted for > in longerThan) ===
+command: node --expose-gc docs/modules/habit-logic/qa/security-solver/20261009T123108/differential.mjs names control
+lone high surrogates: before too-long in 120.604 ms, heap +152.59 MiB | after too-long in 0.002 ms, heap +0.00 MiB
+51202 cases compared, 841 mismatches, the first 10: [{"label":"random #39","before":{"ok":true,"name":"(a 40 code point name, cut here)"},"after":{"ok":false,"error":"too-long"}}, ...
+
+Reading: the 51,202 cases cover 50,000 seeded random names built from ASCII, white space that trim
+removes, CJK, a combining mark, astral emoji, lone high and low surrogates (adjacent ones pair up),
+a zero-width space and a capital whose lower case changes length, plus every piece repeated 35 to 45
+times bare, padded, prefixed and as an existing name, plus lone-surrogate names at the 40 and 41 edge
+and four 5,000,000 unit names. The control shows the comparison sees an off-by-one at the edge.

