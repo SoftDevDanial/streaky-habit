@@ -419,7 +419,7 @@ Feature: Purity
     Then neither contains "Date.now(" or a match of /new\s+Date\s*\(\s*\)/, checked on the file text as it is, comments included
     And, with every /* ... */ block and every // comment up to the end of its line removed first, neither contains a match of /\b(document|window|localStorage|globalThis|Intl)\b/ or of /\btoLocale\w*/
     And the only import in src/habits.js is from "./dates.js" and src/dates.js has no import
-    # The comment strip is two plain regular expressions. These two files hold only English label tables and date logic, with no string or regular expression literal that contains // or /*. A test author who meets one tokenises the source instead of guessing.
+    # Changed 2026-10-09 (code review WR-11, ORCH): the comment strip is one pass that reads string literals and comments in source order. A // or /* inside a string is not a comment, and a quote inside a comment does not open a string. The strip it replaces was two plain regular expressions that knew nothing about strings: a // inside a string removed the rest of its line, and a /* inside a string or inside a // comment opened a block that ran to the next */, so the code after it vanished from the word scan and from the import count. The old note read: "The comment strip is two plain regular expressions. These two files hold only English label tables and date logic, with no string or regular expression literal that contains // or /*. A test author who meets one tokenises the source instead of guessing." One limit remains: a quote inside a regular expression literal is read as the start of a string.
 
   @R16
   Scenario: No exported function writes to its arguments

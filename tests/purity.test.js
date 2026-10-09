@@ -7,9 +7,11 @@ import * as habits from "../src/habits.js";
 
 const readSource = (name) => readFileSync(new URL(`../src/${name}`, import.meta.url), "utf8");
 
-// Two plain regular expressions are enough here: these files hold only label tables and date logic,
-// with no string or regular expression literal that contains // or /*.
-const withoutComments = (text) => text.replace(/\/\*[\s\S]*?\*\//g, "").replace(/\/\/.*$/gm, "");
+// One pass in source order, so a // or /* inside a string is not read as a comment, which would hide the
+// code after it, and a quote inside a comment is not read as a string. Limit: a quote inside a regular
+// expression literal is read as the start of a string.
+const STRING_OR_COMMENT = /("(?:\\.|[^"\\\n])*"|'(?:\\.|[^'\\\n])*'|`(?:\\.|[^`\\])*`)|\/\*[\s\S]*?\*\/|\/\/.*$/gm;
+const withoutComments = (text) => text.replace(STRING_OR_COMMENT, (match, quoted) => quoted ?? "");
 
 function deepFreeze(value) {
   if (value !== null && typeof value === "object" && !Object.isFrozen(value)) {
