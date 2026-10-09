@@ -167,7 +167,9 @@ test("@R6 the current-run walk ends on the cycle below year 0001", () => {
 
 // parseKey reads each part with Number(), which ignores white space, so FAR_START has thousands of
 // spellings. Each is a separate key whose previous day is absent, so each starts its own run.
-const WHITE_SPACE = ["", " ", "\t", " ", " ", "　", "﻿"];
+// After the empty string, a space and a tab come the no-break space, the em space, the ideographic
+// space and the byte order mark. They are escapes because written raw they read as a plain space.
+const WHITE_SPACE = ["", " ", "\t", "\u{A0}", "\u{2003}", "\u{3000}", "\u{FEFF}"];
 function spellingsOfFarStart(count) {
   const [year, month, day] = FAR_START.split("-");
   const keys = [];
