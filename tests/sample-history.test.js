@@ -11,7 +11,7 @@ import {
   monthLabels,
 } from "../src/habits.js";
 
-// The sample is read-only golden data. Tests clone it so nothing here can alter what other files import.
+// The sample is read-only golden data. Tests pass a clone, so no call can change the imported sample a later test reads.
 const habits = structuredClone(sample.habits);
 const TODAY = "2026-10-08";
 const NEXT_DAY = "2026-10-09";

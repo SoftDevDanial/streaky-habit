@@ -1,5 +1,5 @@
 /**
- * Week strip, streak and habit-list rules.
+ * Week strip, streaks, heatmap and habit-list rules.
  * Why: the app needs these as pure functions of habit data and a passed-in day, so they can be
  * proved without a browser or a clock. Input: valid habits and date keys. Output: new values only,
  * the arguments are never changed.
@@ -90,7 +90,10 @@ export function runContinues(done, todayKey) {
   return days.has(firstDay) && days.has(addDays(firstDay, PREVIOUS_DAY));
 }
 
-/** Toggle through a Set so the stored array comes out ascending and without duplicates. */
+/**
+ * The Set drops duplicates and the sort restores ascending order, so the stored array keeps the
+ * Habit invariant.
+ */
 function toggledHabit(habit, dateKey) {
   const days = new Set(habit.done);
   if (days.has(dateKey)) days.delete(dateKey);
