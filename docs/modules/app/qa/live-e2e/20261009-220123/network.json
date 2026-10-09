@@ -1,0 +1,89 @@
+{
+  "requests": [
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:27158/"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:27158/src/styles.css"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:27158/src/app.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:27158/src/dates.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:27158/src/habits.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:27158/src/storage.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:27158/src/view.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:27158/"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:27158/src/styles.css"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:27158/src/app.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:27158/src/dates.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:27158/src/habits.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:27158/src/storage.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:27158/src/view.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:27158/"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:27158/src/styles.css"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:27158/src/app.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:27158/src/dates.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:27158/src/habits.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:27158/src/storage.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:27158/src/view.js"
+    }
+  ],
+  "outside_the_rule": []
+}
