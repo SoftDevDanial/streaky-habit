@@ -106,3 +106,11 @@ Append-only history. STATE.md holds the situation, this file holds what happened
 ## 2026-10-09 16:46 app review warnings solved
 - Solver (sonnet): 13 of 13 WR resolved, 127 browser and 99 unit tests, HEAD 2390771. Live gate step labels fixed
 - Security finder (sonnet) started; fidelity next, then the official live gate
+
+## 2026-10-09 17:29 app security audit
+- Security (sonnet): FAIL, 1 HIGH (double click on trash deletes through the dialog), 4 LOW. Commit 495937c
+- Routed to a sonnet security solver with rulings. Fidelity finder and the official live gate after it
+
+## 2026-10-09 19:28 app security fixes
+- Security solver (sonnet): SEC-01 12445c9 (dialog guards incl. tap-through), SEC-02 442ca9a, docs 1477ecf, section ae6a26d. 162 browser, 99 unit
+- New LOW (isolate closed by a U+2069 in the name) accepted as a v1.0 residual

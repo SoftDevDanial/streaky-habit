@@ -4,7 +4,7 @@
 - **design-phase:** sdlc:design
 - **version:** 1.0.0
 - **mode:** greenfield
-- **phase:** execute (app: security finder)
+- **phase:** execute (app: security re-check and fidelity next)
 - **next:** execute
 
 ## Modules
@@ -17,7 +17,7 @@
 none
 
 ## Next action
-Collect the solver (WR-01 to WR-13). Then security and fidelity finders, the official cold-boot live gate into docs/modules/app/qa/live-e2e/<ts>/, README, module close.
+Security re-check (scoped, then stop rule), fidelity finder, official live gate into docs/modules/app/qa/live-e2e/<ts>/, README, module close.
 
 ## Notes
 Goldens (immutable): docs/design/today.html (key), today-empty.html, delete-dialog.html, states.html (specimen sheet), system.md, system.css, sample-history.json, RULINGS.md.
