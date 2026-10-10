@@ -204,3 +204,7 @@ Append-only history. STATE.md holds the situation, this file holds what happened
 - Designer agent: round-2/f2.html, f2.md, checks/f2 (66 screenshots). f.html untouched. Verified on disk: 252 of 252 designer asserts, orchestrator's own spot check 60 of 60 at 1280, 390 and 360 (no page scroll with P4 open, 366 P4 days, P4 day opens P1, Esc order, row bin opens M1 with the habit's name, focus after a row delete, add field unmoved, 0 console errors, 0 network). Committed `4701776`.
 - Designer self-report: two runs of its own check script only, no rule broken. The app's Browser pane opened f2.html on its own after the write, not used by the agent.
 - round-2/compare.html written (D, F, F2 at 390 and 1280, his points table, readings table with ORCH and DESIGNER tags). Rendered at 1280 and 390, 0 console errors, no sideways scroll, no broken images, the desktop switch works, no long dashes.
+
+## 2026-10-11 01:00 owner accepted F2, ring numbers centred, compose brief for steps 5 to 8
+- Owner: "For Streaky, everything looks good. Only thing is the numbers surrounded by the yellow lines should be centered." Measured 1.38 units low (desktop) and 1.55 (phone) of a 40 unit ring. Orchestrator fix in f2.html: alphabetic baseline, dy .367em, proportional figures. After 0.12 and 0.36, horizontal within 0.6. Committed `7b79e25` with ledger S7 row 6 and the H-02 final ruling.
+- Owner: "Both looks good. We can procceed as usual". F2 accepted. sdlc:design steps 5 to 8 next, staged in design-explore/v1.1.0/final/. v1.1.0/COMPOSE-BRIEF.md written.

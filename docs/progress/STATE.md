@@ -4,8 +4,8 @@
 - **design-phase:** sdlc:design
 - **version:** 1.1.0 (1.0.0 sealed 2026-10-10, tag v1.0.0)
 - **mode:** greenfield
-- **phase:** v1.1.0 design, round 2 (sdlc:design step 4): F2 built and verified, compare page written, waiting for the owner
-- **next:** owner reviews round-2/compare.html (pick F2 or more notes), then lock, compose, wire, goldens
+- **phase:** v1.1.0 design, steps 5 to 8 (lock, compose, wire, self-critique) from the accepted F2
+- **next:** composer builds docs/design-explore/v1.1.0/final/ (system, goldens, manifest, links, self-critique), orchestrator wires and drives the flow (step 7), owner approves the set and the replacement of 1.0's goldens, logo redraw swapped in, finalize, then plan
 - **last-regression:** PASS @ 2026-10-10 12:25 (docs/regression/REGRESSION.md)
 
 ## Modules
@@ -18,7 +18,7 @@
 none
 
 ## Next action
-Waiting for the owner's review of `docs/design-explore/v1.1.0/round-2/compare.html` (round 1 D, F, F2 with every reading flagged, orchestrator's pick F2, ledger S7 row 5, H-02 round 2 recommendation). If he accepts F2, run sdlc:design steps 5 to 9 (lock the system with AA ratios, decide the 2.97 pair, compose every screen and state, wire and verify, self-critique, finalize goldens), then the logo with the name "Streaky Habit", then plan on sdlc 2.4.0.
+One composer agent builds `docs/design-explore/v1.1.0/final/` from `v1.1.0/COMPOSE-BRIEF.md` (F2 accepted, ledger S7 row 6, H-02 final ruling). Rulings for the step: the 2.97 pair lifted, every number centred by its ink (rings done in f2, P2 beads still about 0.7 px low on a phone), the header mark kept swappable for the logo redraw. Then the orchestrator wires `final/` into `v1.1.0/prototype/` and drives `final/LINKS.json` (flowcheck adapted to v1.1.0 paths), writes `v1.1.0/FLOW-CHECK.md`, and puts the set to the owner. **Finalize writes `docs/design/`, which holds 1.0's immutable goldens. Replacing them needs the owner's explicit word** (1.0's stay in tag v1.0.0). Logo redraw with "Streaky Habit" before finalize so the goldens carry the new mark.
 
 ## Notes
 Goldens (immutable): docs/design/today.html (key), today-empty.html, delete-dialog.html, states.html (specimen sheet), system.md, system.css, sample-history.json, RULINGS.md.
