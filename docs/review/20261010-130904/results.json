@@ -1,0 +1,239 @@
+{
+ "base": "http://127.0.0.1:7219/",
+ "checks": [
+  {
+   "group": "flow 1 first visit",
+   "check": "empty list says how to start",
+   "result": "PASS",
+   "seen": "Habits\n\nNo habits yet.\nAdd one you want to do every day.\n\nNew habit\nAdd\nLast 12 weeks\nJul\nAug\nSep\nOct\nMon\nWed\nFri\nSun\nNo"
+  },
+  {
+   "group": "flow 1 first visit",
+   "check": "nothing stored before the first change",
+   "result": "PASS",
+   "seen": 0
+  },
+  {
+   "group": "flow 1 first visit",
+   "check": "habit appears with 7 empty days",
+   "result": "PASS",
+   "seen": [
+    "Mark Sun 4 Oct as done",
+    "Mark Mon 5 Oct as done",
+    "Mark Tue 6 Oct as done",
+    "Mark Wed 7 Oct as done",
+    "Mark Thu 8 Oct as done",
+    "Mark Fri 9 Oct as done",
+    "Mark Sat 10 Oct as done"
+   ]
+  },
+  {
+   "group": "flow 1 first visit",
+   "check": "streak line says No streak yet",
+   "result": "PASS",
+   "seen": "Read 20 pages\n\nNo streak yet\n\nSun\n4\nMon\n5\nTue\n6\nWed\n7\nThu\n8\nFri\n9\nSat\n10"
+  },
+  {
+   "group": "rules",
+   "check": "week strip oldest left, today right, names like Mark Tue 6 Oct as done",
+   "result": "PASS",
+   "seen": [
+    "Mark Sun 4 Oct as done",
+    "Mark Sat 10 Oct as done"
+   ]
+  },
+  {
+   "group": "rules",
+   "check": "new habits go to the bottom",
+   "result": "PASS",
+   "seen": [
+    "Read 20 pages",
+    "Stretch 10 minutes"
+   ]
+  },
+  {
+   "group": "flow 2 daily tick",
+   "check": "each streak goes to 1 day, Best 1",
+   "result": "PASS",
+   "seen": [
+    "Read 20 pages\n\n1 day\nBest 1\n\nSun\n4\nMon\n5\nTue\n6\nWed\n7\nThu\n8\nF",
+    "Stretch 10 minutes\n\n1 day\nBest 1\n\nSun\n4\nMon\n5\nTue\n6\nWed\n7\nTh"
+   ]
+  },
+  {
+   "group": "flow 2 daily tick",
+   "check": "today's heatmap cell reads 2 of 2 habits",
+   "result": "PASS",
+   "seen": 1
+  },
+  {
+   "group": "flow 3 catch up",
+   "check": "yesterday counts, 2 days and Best 2",
+   "result": "PASS",
+   "seen": "Read 20 pages\n\n2 days\nBest 2\n\nSun\n4\nMon\n5\nTue\n6\nWed\n7\nThu\n8\n"
+  },
+  {
+   "group": "flow 3 catch up",
+   "check": "yesterday's heatmap cell reads 1 of 2 habits",
+   "result": "PASS",
+   "seen": null
+  },
+  {
+   "group": "rules",
+   "check": "untick the only done day: No streak yet and no Best (best is 0, so it is not shown)",
+   "result": "PASS",
+   "seen": "Stretch 10 minutes\n\nNo streak yet\n\nSun\n4\nMon\n5\nTue\n6\nWed\n7\nT"
+  },
+  {
+   "group": "flow 4 delete",
+   "check": "dialog asks the brainstorm's question",
+   "result": "PASS",
+   "seen": "Delete \"Stretch 10 minutes\"?\n\nIts history is deleted too.\n\nCancel\nDelete habit"
+  },
+  {
+   "group": "flow 4 delete",
+   "check": "Cancel keeps the habit",
+   "result": "PASS",
+   "seen": [
+    "Read 20 pages",
+    "Stretch 10 minutes"
+   ]
+  },
+  {
+   "group": "behaviour",
+   "check": "a page click right after Cancel is dropped (the documented guard)",
+   "result": "PASS",
+   "seen": 0
+  },
+  {
+   "group": "flow 4 delete",
+   "check": "Delete habit removes it and its history",
+   "result": "PASS",
+   "seen": [
+    "Read 20 pages"
+   ]
+  },
+  {
+   "group": "flow 4 delete",
+   "check": "heatmap counts the current habits only",
+   "result": "PASS",
+   "seen": null
+  },
+  {
+   "group": "C7 kept",
+   "check": "reload keeps the habit, its ticks and its streak",
+   "result": "PASS",
+   "seen": "Read 20 pages\n\n2 days\nBest 2\n\nSun\n4\nMon\n5\nTue\n6\nWed\n7\nThu\n8\n"
+  },
+  {
+   "group": "rules",
+   "check": "empty name error",
+   "result": "PASS",
+   "seen": "Name the habit first."
+  },
+  {
+   "group": "rules",
+   "check": "41 characters error",
+   "result": "PASS",
+   "seen": "Keep it to 40 characters or fewer."
+  },
+  {
+   "group": "rules",
+   "check": "duplicate ignoring case and spaces",
+   "result": "PASS",
+   "seen": "You already track this habit."
+  },
+  {
+   "group": "rules",
+   "check": "the typed text stays after an error",
+   "result": "PASS",
+   "seen": "  READ 20 PAGES "
+  },
+  {
+   "group": "rules",
+   "check": "exactly 40 characters is accepted",
+   "result": "PASS",
+   "seen": 2
+  },
+  {
+   "group": "rules",
+   "check": "at 12 the field and Add are disabled with the note",
+   "result": "PASS",
+   "seen": "You track 12 habits, the most this app holds. Delete one to add another."
+  },
+  {
+   "group": "non-goals",
+   "check": "a habit row holds 7 day buttons and 1 delete button, nothing else",
+   "result": "PASS",
+   "seen": 8
+  },
+  {
+   "group": "non-goals",
+   "check": "no rename, reorder, export, import, reminder or theme control",
+   "result": "PASS",
+   "seen": [
+    "Sun\n4",
+    "Mon\n5",
+    "Tue\n6",
+    "Wed\n7",
+    "Thu\n8",
+    "Fri\n9"
+   ]
+  },
+  {
+   "group": "rules",
+   "check": "unreadable saved data resets with the note",
+   "result": "PASS",
+   "seen": "Your saved habits could not be read, so the list was reset."
+  },
+  {
+   "group": "rules",
+   "check": "the note can be dismissed",
+   "result": "PASS",
+   "seen": null
+  },
+  {
+   "group": "rules",
+   "check": "left open over midnight, the strip moves to the new day within a minute",
+   "result": "PASS",
+   "seen": [
+    "Mark Sat 10 Oct as done",
+    "Mark Sun 11 Oct as done",
+    "Sunday 11 October"
+   ]
+  },
+  {
+   "group": "rules",
+   "check": "keyboard: Tab to the field, Enter adds, Tab to a day, Space ticks it",
+   "result": "PASS",
+   "seen": [
+    "new-habit",
+    "Mark Wed 7 Oct as done",
+    "true"
+   ]
+  },
+  {
+   "group": "rules",
+   "check": "360 px phone, no sideways scroll",
+   "result": "PASS",
+   "seen": [
+    360,
+    360
+   ]
+  },
+  {
+   "group": "rules",
+   "check": "reduced motion switches transitions off",
+   "result": "PASS",
+   "seen": "0s"
+  },
+  {
+   "group": "privacy",
+   "check": "every request went to the app's own address",
+   "result": "PASS",
+   "seen": []
+  }
+ ],
+ "requests": 49,
+ "fails": 0
+}

@@ -154,3 +154,9 @@ Append-only history. STATE.md holds the situation, this file holds what happened
 - docs/regression/REGRESSION.md written (mode full under the economy ruling, scope per module, finder verdicts, one solver round, cold boot table).
 - CHANGE-LEDGER: a re-verified row in C1 to C7 and row 53. Process ledger reconciled (31 rows, including the hung no-op heredoc of 2026-10-09 22:02 and the orchestrator's own runs).
 - last-regression = PASS @ 2026-10-10 12:25.
+
+## 2026-10-10 13:10 review done, shippable for UAT
+- Regression stands (no code change since 12:25).
+- Stakeholder drive on a cold boot, real gestures, no seed: 32 of 32 checks, evidence docs/review/20261010-130904/.
+- docs/lifecycle.md (per phase, verdict, deviations with cause) and docs/init/repo-summary.md written.
+- Ledger row for the review close. Staleness check: no handoff file in docs/progress/handoff, so the ledger is the newest record.
