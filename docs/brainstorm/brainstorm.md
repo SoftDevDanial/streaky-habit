@@ -107,3 +107,42 @@ reminders, accounts, schedules, renaming or export.
 
 **Approval:** given by the orchestrator under the owner's delegation on 2026-10-08, tagged ORCH. The
 owner may reopen any row above.
+
+---
+
+## v1.1.0 delta (2026-10-10, from the owner's UAT and his answers)
+
+> Not delegated. **USER** rows are the owner's words or choices. **ORCH** rows are details the orchestrator
+> settled so design can start. They are reversible and shown to him in the design round.
+
+### Name
+**Danial's Streaky Habit.** The logo and the header show "Streaky Habit" only ("Logo wise, dont need danial or
+even initial D. Danial is just to make it unique."). The page title and the READMEs use the full name. (USER)
+
+### Capabilities added or changed
+| ID | Capability | What the user gets | Tag |
+|---|---|---|---|
+| C2 | Tick the week, and any past day (changed) | Tap any day in the 12-week heatmap to open it and tick or untick each habit for that day. The 7-day strip stays | USER |
+| C3, C4 | Current and best streak (changed) | The streak line names both numbers, for example "Current 2 days" and "Best 3" | USER |
+| C6 | Delete a habit (changed) | A slow double click can never delete, and Delete habit no longer waits half a second | USER |
+| C8 | Save warning | If this browser cannot save the habits, a note says so | USER |
+| C0 | Look (changed) | A new look, futuristic but minimal, picked by the owner from five directions. The logo shows in the header and as the tab icon | USER |
+
+### Rules
+- **Past days:** any day inside the heatmap's 12 weeks, today included. Days after today stay closed. A day before
+  a habit was added can be ticked too, since 1.0 stores no start date. An edit updates the streaks, the strip and
+  the heatmap at once. (ORCH on the details, USER on the reach)
+- The non-goal "Editing days older than the last 7" is removed. (USER)
+- **Save warning copy:** "Your habits are not being saved on this device. Changes will be lost when you close
+  this tab." It shows while saving fails and goes away after the next save works. It cannot be dismissed. (ORCH)
+- **One theme**, which may now be dark. A theme switcher stays a non-goal. (ORCH)
+- **Still no web fonts and no network.** Designs use system font stacks. (ORCH, the stack lock)
+
+### Grill log (v1.1.0)
+| # | Question | Decision | Tag |
+|---|---|---|---|
+| 12 | Can older days be changed? | Yes. Tap a day in the heatmap to open it | USER |
+| 13 | Which number is which? | Label them Current and Best | USER |
+| 14 | How should it feel? | Futuristic but minimal, "like discord" | USER |
+| 15 | Feeling words | Owner: "Decide for me". Bright, rewarding, focused | ORCH |
+| 16 | Name | Danial's Streaky Habit, logo without his name or initial | USER |
