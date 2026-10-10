@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="112" height="112" viewBox="0 0 112 112" role="img" aria-labelledby="streaks-mark-title">
+  <title id="streaks-mark-title">Streaks</title>
+  <!-- The thread is the streak. Three done beads strung on one thick thread that turns a corner, and today's open bead
+       in the fourth corner, not yet strung. One module m = 8. Bead 5m, thread 3m, gaps 2m, ring stroke m,
+       hole 3m (the hole is the thread's gauge). The same geometry at m = 1 px is favicon.svg.
+       Set 2 units right and 1 unit down from the geometric centre because the strung run is heavier than the open bead. -->
+  <path fill="#3B6B60" d="M46 17H70A20 20 0 1 1 70 41H46A20 20 0 0 1 42 45V69A20 20 0 1 1 18 69V45A20 20 0 1 1 46 17ZM86 65A20 20 0 0 1 86 105A20 20 0 0 1 86 65ZM86 73A12 12 0 0 0 86 97A12 12 0 0 0 86 73Z"/>
+</svg>

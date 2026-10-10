@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="325" height="66" viewBox="0 0 325 66" role="img" aria-labelledby="streaks-lockup-dark-title">
+  <title id="streaks-lockup-dark-title">Streaks</title>
+  <!-- Streaks lockup for dark pages such as GitHub dark mode (page #0d1117).
+       Mark #78B5A7 is the bead token #3B6B60 (hsl 166 29% 33%) with lightness raised to 59%, hue and saturation kept.
+       Contrast of the mark on #0d1117 is 8.1:1 (target 3:1 or more).
+       Word #D7EAE6 is the bead-deep token #2E5A50 (hsl 166 32% 27%) with lightness raised to 88%.
+       Contrast of the word on #0d1117 is 15.1:1 (target 4.5:1 or more).
+       As on light pages the word is the stronger of the two, so the hierarchy holds in both modes.
+       The word is live text in the app font stack at weight 700, never outlined, so no font outlines ship in the repo. -->
+  <path fill="#78B5A7" d="M22.5 9H37.5A12.5 12.5 0 1 1 37.5 24H22.5A12.5 12.5 0 0 1 20 26.5V41.5A12.5 12.5 0 1 1 5 41.5V26.5A12.5 12.5 0 1 1 22.5 9ZM47.5 39A12.5 12.5 0 0 1 47.5 64A12.5 12.5 0 0 1 47.5 39ZM47.5 44A7.5 7.5 0 0 0 47.5 59A7.5 7.5 0 0 0 47.5 44Z"/>
+  <text x="95" y="55" fill="#D7EAE6" font-family="ui-rounded, 'SF Pro Rounded', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="66" font-weight="700" letter-spacing="-0.66" textLength="230" lengthAdjust="spacing">Streaks</text>
+</svg>

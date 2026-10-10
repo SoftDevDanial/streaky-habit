@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="112" height="112" viewBox="0 0 112 112" role="img" aria-labelledby="streaks-mark-white-title">
+  <title id="streaks-mark-white-title">Streaks</title>
+  <!-- One colour, on-bead #F7FAF9, for dark grounds. Same geometry as mark.svg. -->
+  <path fill="#F7FAF9" d="M46 17H70A20 20 0 1 1 70 41H46A20 20 0 0 1 42 45V69A20 20 0 1 1 18 69V45A20 20 0 1 1 46 17ZM86 65A20 20 0 0 1 86 105A20 20 0 0 1 86 65ZM86 73A12 12 0 0 0 86 97A12 12 0 0 0 86 73Z"/>
+</svg>
