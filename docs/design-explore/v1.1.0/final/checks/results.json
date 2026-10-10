@@ -1,0 +1,6401 @@
+{
+ "console_errors": {
+  "today 360": [],
+  "today 390": [],
+  "today 1280": [],
+  "day-editor 360": [],
+  "day-editor 390": [],
+  "day-editor 1280": [],
+  "year-view 360": [],
+  "year-view 390": [],
+  "year-view 1280": [],
+  "overview 360": [],
+  "overview 390": [],
+  "overview 1280": [],
+  "overview-year 360": [],
+  "overview-year 390": [],
+  "overview-year 1280": [],
+  "delete-dialog 360": [],
+  "delete-dialog 390": [],
+  "delete-dialog 1280": [],
+  "today-empty 360": [],
+  "today-empty 390": [],
+  "today-empty 1280": [],
+  "today-full 360": [],
+  "today-full 390": [],
+  "today-full 1280": [],
+  "states 360": [],
+  "states 390": [],
+  "states 1280": []
+ },
+ "requests": {
+  "today 360": [],
+  "today 390": [],
+  "today 1280": [],
+  "day-editor 360": [],
+  "day-editor 390": [],
+  "day-editor 1280": [],
+  "year-view 360": [],
+  "year-view 390": [],
+  "year-view 1280": [],
+  "overview 360": [],
+  "overview 390": [],
+  "overview 1280": [],
+  "overview-year 360": [],
+  "overview-year 390": [],
+  "overview-year 1280": [],
+  "delete-dialog 360": [],
+  "delete-dialog 390": [],
+  "delete-dialog 1280": [],
+  "today-empty 360": [],
+  "today-empty 390": [],
+  "today-empty 1280": [],
+  "today-full 360": [],
+  "today-full 390": [],
+  "today-full 1280": [],
+  "states 360": [],
+  "states 390": [],
+  "states 1280": []
+ },
+ "scroll": {
+  "today 360": {
+   "sw": 360,
+   "sh": 780,
+   "iw": 360,
+   "ih": 780
+  },
+  "today 390": {
+   "sw": 390,
+   "sh": 844,
+   "iw": 390,
+   "ih": 844
+  },
+  "today 1280": {
+   "sw": 1280,
+   "sh": 800,
+   "iw": 1280,
+   "ih": 800
+  },
+  "day-editor 360": {
+   "sw": 360,
+   "sh": 780,
+   "iw": 360,
+   "ih": 780
+  },
+  "day-editor 390": {
+   "sw": 390,
+   "sh": 844,
+   "iw": 390,
+   "ih": 844
+  },
+  "day-editor 1280": {
+   "sw": 1280,
+   "sh": 800,
+   "iw": 1280,
+   "ih": 800
+  },
+  "year-view 360": {
+   "sw": 360,
+   "sh": 780,
+   "iw": 360,
+   "ih": 780
+  },
+  "year-view 390": {
+   "sw": 390,
+   "sh": 844,
+   "iw": 390,
+   "ih": 844
+  },
+  "year-view 1280": {
+   "sw": 1280,
+   "sh": 800,
+   "iw": 1280,
+   "ih": 800
+  },
+  "overview 360": {
+   "sw": 360,
+   "sh": 780,
+   "iw": 360,
+   "ih": 780
+  },
+  "overview 390": {
+   "sw": 390,
+   "sh": 844,
+   "iw": 390,
+   "ih": 844
+  },
+  "overview 1280": {
+   "sw": 1280,
+   "sh": 800,
+   "iw": 1280,
+   "ih": 800
+  },
+  "overview-year 360": {
+   "sw": 360,
+   "sh": 780,
+   "iw": 360,
+   "ih": 780
+  },
+  "overview-year 390": {
+   "sw": 390,
+   "sh": 844,
+   "iw": 390,
+   "ih": 844
+  },
+  "overview-year 1280": {
+   "sw": 1280,
+   "sh": 800,
+   "iw": 1280,
+   "ih": 800
+  },
+  "delete-dialog 360": {
+   "sw": 360,
+   "sh": 780,
+   "iw": 360,
+   "ih": 780
+  },
+  "delete-dialog 390": {
+   "sw": 390,
+   "sh": 844,
+   "iw": 390,
+   "ih": 844
+  },
+  "delete-dialog 1280": {
+   "sw": 1280,
+   "sh": 800,
+   "iw": 1280,
+   "ih": 800
+  },
+  "today-empty 360": {
+   "sw": 360,
+   "sh": 780,
+   "iw": 360,
+   "ih": 780
+  },
+  "today-empty 390": {
+   "sw": 390,
+   "sh": 844,
+   "iw": 390,
+   "ih": 844
+  },
+  "today-empty 1280": {
+   "sw": 1280,
+   "sh": 800,
+   "iw": 1280,
+   "ih": 800
+  },
+  "today-full 360": {
+   "sw": 360,
+   "sh": 780,
+   "iw": 360,
+   "ih": 780
+  },
+  "today-full 390": {
+   "sw": 390,
+   "sh": 844,
+   "iw": 390,
+   "ih": 844
+  },
+  "today-full 1280": {
+   "sw": 1280,
+   "sh": 800,
+   "iw": 1280,
+   "ih": 800
+  },
+  "states 360": {
+   "sw": 360,
+   "sh": 1084,
+   "iw": 360,
+   "ih": 780
+  },
+  "states 390": {
+   "sw": 390,
+   "sh": 1062,
+   "iw": 390,
+   "ih": 844
+  },
+  "states 1280": {
+   "sw": 1280,
+   "sh": 924,
+   "iw": 1280,
+   "ih": 800
+  }
+ },
+ "targets_under_44": {
+  "today 360": [],
+  "today 390": [],
+  "today 1280": [],
+  "day-editor 360": [],
+  "day-editor 390": [],
+  "day-editor 1280": [],
+  "year-view 360": [],
+  "year-view 390": [],
+  "year-view 1280": [
+   {
+    "what": "Mark Thu 1 Oct 2026 as done",
+    "cls": "yc on r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Fri 2 Oct 2026 as done",
+    "cls": "yc on l",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sat 3 Oct 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sun 4 Oct 2026 as done",
+    "cls": "yc on r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Mon 5 Oct 2026 as done",
+    "cls": "yc on l",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Tue 6 Oct 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Wed 7 Oct 2026 as done",
+    "cls": "yc on r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Thu 8 Oct 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Fri 9 Oct 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sat 10 Oct 2026 as done",
+    "cls": "yc on l today",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Tue 1 Sep 2026 as done",
+    "cls": "yc on r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Wed 2 Sep 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Thu 3 Sep 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Fri 4 Sep 2026 as done",
+    "cls": "yc on l",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sat 5 Sep 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sun 6 Sep 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Mon 7 Sep 2026 as done",
+    "cls": "yc on r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Tue 8 Sep 2026 as done",
+    "cls": "yc on l",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Wed 9 Sep 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Thu 10 Sep 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Fri 11 Sep 2026 as done",
+    "cls": "yc on",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sat 12 Sep 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sun 13 Sep 2026 as done",
+    "cls": "yc on r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Mon 14 Sep 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Tue 15 Sep 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Wed 16 Sep 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Thu 17 Sep 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Fri 18 Sep 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sat 19 Sep 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sun 20 Sep 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Mon 21 Sep 2026 as done",
+    "cls": "yc on l",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Tue 22 Sep 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Wed 23 Sep 2026 as done",
+    "cls": "yc on r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Thu 24 Sep 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Fri 25 Sep 2026 as done",
+    "cls": "yc on l",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sat 26 Sep 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sun 27 Sep 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Mon 28 Sep 2026 as done",
+    "cls": "yc on r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Tue 29 Sep 2026 as done",
+    "cls": "yc on l",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Wed 30 Sep 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sat 1 Aug 2026 as done",
+    "cls": "yc on l",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sun 2 Aug 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Mon 3 Aug 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Tue 4 Aug 2026 as done",
+    "cls": "yc on r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Wed 5 Aug 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Thu 6 Aug 2026 as done",
+    "cls": "yc on l",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Fri 7 Aug 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sat 8 Aug 2026 as done",
+    "cls": "yc on r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sun 9 Aug 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Mon 10 Aug 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Tue 11 Aug 2026 as done",
+    "cls": "yc on l",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Wed 12 Aug 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Thu 13 Aug 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Fri 14 Aug 2026 as done",
+    "cls": "yc on r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sat 15 Aug 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sun 16 Aug 2026 as done",
+    "cls": "yc on l",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Mon 17 Aug 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Tue 18 Aug 2026 as done",
+    "cls": "yc on r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Wed 19 Aug 2026 as done",
+    "cls": "yc on l",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Thu 20 Aug 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Fri 21 Aug 2026 as done",
+    "cls": "yc on r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sat 22 Aug 2026 as done",
+    "cls": "yc on l",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sun 23 Aug 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Mon 24 Aug 2026 as done",
+    "cls": "yc on r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Tue 25 Aug 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Wed 26 Aug 2026 as done",
+    "cls": "yc on l",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Thu 27 Aug 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Fri 28 Aug 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sat 29 Aug 2026 as done",
+    "cls": "yc on r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sun 30 Aug 2026 as done",
+    "cls": "yc on l",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Mon 31 Aug 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Wed 1 Jul 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Thu 2 Jul 2026 as done",
+    "cls": "yc on l",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Fri 3 Jul 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sat 4 Jul 2026 as done",
+    "cls": "yc on r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sun 5 Jul 2026 as done",
+    "cls": "yc on l",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Mon 6 Jul 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Tue 7 Jul 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Wed 8 Jul 2026 as done",
+    "cls": "yc on",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Thu 9 Jul 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Fri 10 Jul 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sat 11 Jul 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sun 12 Jul 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Mon 13 Jul 2026 as done",
+    "cls": "yc on",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Tue 14 Jul 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Wed 15 Jul 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Thu 16 Jul 2026 as done",
+    "cls": "yc on r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Fri 17 Jul 2026 as done",
+    "cls": "yc on l",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sat 18 Jul 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sun 19 Jul 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Mon 20 Jul 2026 as done",
+    "cls": "yc on r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Tue 21 Jul 2026 as done",
+    "cls": "yc on l",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Wed 22 Jul 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Thu 23 Jul 2026 as done",
+    "cls": "yc on r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Fri 24 Jul 2026 as done",
+    "cls": "yc on l",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sat 25 Jul 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sun 26 Jul 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Mon 27 Jul 2026 as done",
+    "cls": "yc on r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Tue 28 Jul 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Wed 29 Jul 2026 as done",
+    "cls": "yc on l",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Thu 30 Jul 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Fri 31 Jul 2026 as done",
+    "cls": "yc on r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Mon 1 Jun 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Tue 2 Jun 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Wed 3 Jun 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Thu 4 Jun 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Fri 5 Jun 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sat 6 Jun 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sun 7 Jun 2026 as done",
+    "cls": "yc on l",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Mon 8 Jun 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Tue 9 Jun 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Wed 10 Jun 2026 as done",
+    "cls": "yc on r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Thu 11 Jun 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Fri 12 Jun 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sat 13 Jun 2026 as done",
+    "cls": "yc on l",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sun 14 Jun 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Mon 15 Jun 2026 as done",
+    "cls": "yc on r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Tue 16 Jun 2026 as done",
+    "cls": "yc on l",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Wed 17 Jun 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Thu 18 Jun 2026 as done",
+    "cls": "yc on",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Fri 19 Jun 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sat 20 Jun 2026 as done",
+    "cls": "yc on",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sun 21 Jun 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Mon 22 Jun 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Tue 23 Jun 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Wed 24 Jun 2026 as done",
+    "cls": "yc on r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Thu 25 Jun 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Fri 26 Jun 2026 as done",
+    "cls": "yc on l",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sat 27 Jun 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sun 28 Jun 2026 as done",
+    "cls": "yc on r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Mon 29 Jun 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Tue 30 Jun 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Fri 1 May 2026 as done",
+    "cls": "yc on l",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sat 2 May 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sun 3 May 2026 as done",
+    "cls": "yc on r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Mon 4 May 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Tue 5 May 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Wed 6 May 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Thu 7 May 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Fri 8 May 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sat 9 May 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sun 10 May 2026 as done",
+    "cls": "yc on l",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Mon 11 May 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Tue 12 May 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Wed 13 May 2026 as done",
+    "cls": "yc on r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Thu 14 May 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Fri 15 May 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sat 16 May 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sun 17 May 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Mon 18 May 2026 as done",
+    "cls": "yc on l",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Tue 19 May 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Wed 20 May 2026 as done",
+    "cls": "yc on r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Thu 21 May 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Fri 22 May 2026 as done",
+    "cls": "yc on l",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sat 23 May 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sun 24 May 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Mon 25 May 2026 as done",
+    "cls": "yc on r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Tue 26 May 2026 as done",
+    "cls": "yc on l r",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Wed 27 May 2026 as done",
+    "cls": "yc on l",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Thu 28 May 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Fri 29 May 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sat 30 May 2026 as done",
+    "cls": "yc",
+    "w": 40,
+    "h": 40
+   },
+   {
+    "what": "Mark Sun 31 May 2026 as done",
+    "cls": "yc on r",
+    "w": 40,
+    "h": 40
+   }
+  ],
+  "overview 360": [
+   {
+    "what": "Mon 5 Oct, 3 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Tue 6 Oct, 1 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Wed 7 Oct, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Thu 8 Oct, 3 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Fri 9 Oct, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Sat 10 Oct, 1 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Mon 28 Sep, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Tue 29 Sep, 3 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Wed 30 Sep, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Thu 1 Oct, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Fri 2 Oct, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Sat 3 Oct, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Sun 4 Oct, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Mon 21 Sep, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Tue 22 Sep, 1 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Wed 23 Sep, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Thu 24 Sep, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Fri 25 Sep, 3 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Sat 26 Sep, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Sun 27 Sep, 0 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Mon 14 Sep, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Tue 15 Sep, 3 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Wed 16 Sep, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Thu 17 Sep, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Fri 18 Sep, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Sat 19 Sep, 3 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Sun 20 Sep, 3 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Mon 7 Sep, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Tue 8 Sep, 3 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Wed 9 Sep, 1 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Thu 10 Sep, 1 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Fri 11 Sep, 3 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Sat 12 Sep, 1 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Sun 13 Sep, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Mon 31 Aug, 1 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Tue 1 Sep, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Wed 2 Sep, 3 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Thu 3 Sep, 3 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Fri 4 Sep, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Sat 5 Sep, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Sun 6 Sep, 1 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Mon 24 Aug, 3 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Tue 25 Aug, 3 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Wed 26 Aug, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Thu 27 Aug, 1 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Fri 28 Aug, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Sat 29 Aug, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Sun 30 Aug, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Mon 17 Aug, 1 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Tue 18 Aug, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Wed 19 Aug, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Thu 20 Aug, 1 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Fri 21 Aug, 3 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Sat 22 Aug, 3 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Sun 23 Aug, 0 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Mon 10 Aug, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Tue 11 Aug, 3 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Wed 12 Aug, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Thu 13 Aug, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Fri 14 Aug, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Sat 15 Aug, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Sun 16 Aug, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Mon 3 Aug, 1 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Tue 4 Aug, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Wed 5 Aug, 3 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Thu 6 Aug, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Fri 7 Aug, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Sat 8 Aug, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Sun 9 Aug, 1 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Mon 27 Jul, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Tue 28 Jul, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Wed 29 Jul, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Thu 30 Jul, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Fri 31 Jul, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Sat 1 Aug, 1 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Sun 2 Aug, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Mon 20 Jul, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Tue 21 Jul, 3 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Wed 22 Jul, 1 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Thu 23 Jul, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Fri 24 Jul, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Sat 25 Jul, 2 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   },
+   {
+    "what": "Sun 26 Jul, 1 of 3 habits",
+    "cls": "hc",
+    "w": 43.14,
+    "h": 46
+   }
+  ],
+  "overview 390": [],
+  "overview 1280": [],
+  "overview-year 360": [],
+  "overview-year 390": [],
+  "overview-year 1280": [
+   {
+    "what": "Thu 1 Oct 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Fri 2 Oct 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sat 3 Oct 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sun 4 Oct 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Mon 5 Oct 2026, 3 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Tue 6 Oct 2026, 1 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Wed 7 Oct 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Thu 8 Oct 2026, 3 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Fri 9 Oct 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sat 10 Oct 2026, 1 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Tue 1 Sep 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Wed 2 Sep 2026, 3 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Thu 3 Sep 2026, 3 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Fri 4 Sep 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sat 5 Sep 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sun 6 Sep 2026, 1 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Mon 7 Sep 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Tue 8 Sep 2026, 3 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Wed 9 Sep 2026, 1 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Thu 10 Sep 2026, 1 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Fri 11 Sep 2026, 3 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sat 12 Sep 2026, 1 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sun 13 Sep 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Mon 14 Sep 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Tue 15 Sep 2026, 3 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Wed 16 Sep 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Thu 17 Sep 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Fri 18 Sep 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sat 19 Sep 2026, 3 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sun 20 Sep 2026, 3 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Mon 21 Sep 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Tue 22 Sep 2026, 1 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Wed 23 Sep 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Thu 24 Sep 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Fri 25 Sep 2026, 3 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sat 26 Sep 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sun 27 Sep 2026, 0 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Mon 28 Sep 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Tue 29 Sep 2026, 3 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Wed 30 Sep 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sat 1 Aug 2026, 1 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sun 2 Aug 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Mon 3 Aug 2026, 1 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Tue 4 Aug 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Wed 5 Aug 2026, 3 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Thu 6 Aug 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Fri 7 Aug 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sat 8 Aug 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sun 9 Aug 2026, 1 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Mon 10 Aug 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Tue 11 Aug 2026, 3 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Wed 12 Aug 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Thu 13 Aug 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Fri 14 Aug 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sat 15 Aug 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sun 16 Aug 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Mon 17 Aug 2026, 1 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Tue 18 Aug 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Wed 19 Aug 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Thu 20 Aug 2026, 1 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Fri 21 Aug 2026, 3 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sat 22 Aug 2026, 3 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sun 23 Aug 2026, 0 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Mon 24 Aug 2026, 3 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Tue 25 Aug 2026, 3 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Wed 26 Aug 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Thu 27 Aug 2026, 1 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Fri 28 Aug 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sat 29 Aug 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sun 30 Aug 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Mon 31 Aug 2026, 1 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Wed 1 Jul 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Thu 2 Jul 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Fri 3 Jul 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sat 4 Jul 2026, 3 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sun 5 Jul 2026, 1 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Mon 6 Jul 2026, 0 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Tue 7 Jul 2026, 1 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Wed 8 Jul 2026, 1 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Thu 9 Jul 2026, 1 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Fri 10 Jul 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sat 11 Jul 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sun 12 Jul 2026, 1 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Mon 13 Jul 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Tue 14 Jul 2026, 1 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Wed 15 Jul 2026, 1 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Thu 16 Jul 2026, 3 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Fri 17 Jul 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sat 18 Jul 2026, 1 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sun 19 Jul 2026, 1 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Mon 20 Jul 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Tue 21 Jul 2026, 3 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Wed 22 Jul 2026, 1 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Thu 23 Jul 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Fri 24 Jul 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sat 25 Jul 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sun 26 Jul 2026, 1 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Mon 27 Jul 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Tue 28 Jul 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Wed 29 Jul 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Thu 30 Jul 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Fri 31 Jul 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Mon 1 Jun 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Tue 2 Jun 2026, 3 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Wed 3 Jun 2026, 3 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Thu 4 Jun 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Fri 5 Jun 2026, 3 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sat 6 Jun 2026, 3 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sun 7 Jun 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Mon 8 Jun 2026, 0 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Tue 9 Jun 2026, 1 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Wed 10 Jun 2026, 3 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Thu 11 Jun 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Fri 12 Jun 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sat 13 Jun 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sun 14 Jun 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Mon 15 Jun 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Tue 16 Jun 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Wed 17 Jun 2026, 0 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Thu 18 Jun 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Fri 19 Jun 2026, 1 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sat 20 Jun 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sun 21 Jun 2026, 0 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Mon 22 Jun 2026, 1 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Tue 23 Jun 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Wed 24 Jun 2026, 3 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Thu 25 Jun 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Fri 26 Jun 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sat 27 Jun 2026, 1 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sun 28 Jun 2026, 3 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Mon 29 Jun 2026, 3 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Tue 30 Jun 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Fri 1 May 2026, 3 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sat 2 May 2026, 1 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sun 3 May 2026, 3 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Mon 4 May 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Tue 5 May 2026, 3 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Wed 6 May 2026, 3 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Thu 7 May 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Fri 8 May 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sat 9 May 2026, 1 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sun 10 May 2026, 3 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Mon 11 May 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Tue 12 May 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Wed 13 May 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Thu 14 May 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Fri 15 May 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sat 16 May 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sun 17 May 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Mon 18 May 2026, 3 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Tue 19 May 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Wed 20 May 2026, 3 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Thu 21 May 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Fri 22 May 2026, 3 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sat 23 May 2026, 1 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sun 24 May 2026, 1 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Mon 25 May 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Tue 26 May 2026, 3 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Wed 27 May 2026, 3 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Thu 28 May 2026, 1 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Fri 29 May 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sat 30 May 2026, 2 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   },
+   {
+    "what": "Sun 31 May 2026, 3 of 3 habits",
+    "cls": "hc",
+    "w": 42,
+    "h": 44
+   }
+  ],
+  "delete-dialog 360": [],
+  "delete-dialog 390": [],
+  "delete-dialog 1280": [],
+  "today-empty 360": [],
+  "today-empty 390": [],
+  "today-empty 1280": [],
+  "today-full 360": [],
+  "today-full 390": [],
+  "today-full 1280": [],
+  "states 360": [],
+  "states 390": [],
+  "states 1280": []
+ },
+ "css_equal_system": {
+  "today": true,
+  "day-editor": true,
+  "year-view": true,
+  "overview": true,
+  "overview-year": true,
+  "delete-dialog": true,
+  "today-empty": true,
+  "today-full": true,
+  "states": true
+ },
+ "numbers": {
+  "today": {
+   "shown": 3,
+   "mismatches": []
+  },
+  "day-editor": {
+   "shown": 6,
+   "mismatches": []
+  },
+  "year-view": {
+   "shown": 4,
+   "mismatches": []
+  },
+  "overview": {
+   "shown": 3,
+   "mismatches": []
+  },
+  "overview-year": {
+   "shown": 3,
+   "mismatches": []
+  },
+  "delete-dialog": {
+   "shown": 3,
+   "mismatches": []
+  },
+  "today-empty": {
+   "shown": 0,
+   "mismatches": []
+  },
+  "today-full": {
+   "shown": 12,
+   "mismatches": []
+  },
+  "states": {
+   "shown": 0,
+   "mismatches": []
+  }
+ },
+ "rings_vs_history": {
+  "today": {
+   "rings": 83,
+   "mismatches": [],
+   "count": 0
+  },
+  "day-editor": {
+   "rings": 166,
+   "mismatches": [],
+   "count": 0
+  },
+  "year-view": {
+   "rings": 83,
+   "mismatches": [],
+   "count": 0
+  },
+  "overview": {
+   "rings": 83,
+   "mismatches": [],
+   "count": 0
+  },
+  "overview-year": {
+   "rings": 366,
+   "mismatches": [],
+   "count": 0
+  },
+  "delete-dialog": {
+   "rings": 83,
+   "mismatches": [],
+   "count": 0
+  },
+  "today-empty": {
+   "rings": 83,
+   "mismatches": [],
+   "count": 0
+  },
+  "today-full": {
+   "rings": 83,
+   "mismatches": [],
+   "count": 0
+  }
+ },
+ "beads_vs_history": {
+  "year-view": {
+   "beads": 366,
+   "mismatches": []
+  }
+ },
+ "centring": {
+  "today 390": {},
+  "today 1280": {
+   "band ring": {
+    "n": 83,
+    "max_abs_dy": 0.25,
+    "max_abs_dx": 0.828,
+    "mean_dy": 0.09,
+    "worst_dy": "5",
+    "worst_dx": "1"
+   }
+  },
+  "day-editor 390": {},
+  "day-editor 1280": {},
+  "year-view 390": {
+   "p2 bead": {
+    "n": 40,
+    "max_abs_dy": 0.125,
+    "max_abs_dx": 0.656,
+    "mean_dy": -0.031,
+    "worst_dy": "27",
+    "worst_dx": "13"
+   },
+   "p2 bead closed": {
+    "n": 21,
+    "max_abs_dy": 0.125,
+    "max_abs_dx": 0.781,
+    "mean_dy": -0.048,
+    "worst_dy": "27",
+    "worst_dx": "11"
+   }
+  },
+  "year-view 1280": {
+   "p2 bead": {
+    "n": 163,
+    "max_abs_dy": 0.25,
+    "max_abs_dx": 0.375,
+    "mean_dy": 0.09,
+    "worst_dy": "5",
+    "worst_dx": "21"
+   },
+   "p2 bead closed": {
+    "n": 21,
+    "max_abs_dy": 0.125,
+    "max_abs_dx": 0.375,
+    "mean_dy": 0.077,
+    "worst_dy": "31",
+    "worst_dx": "21"
+   }
+  },
+  "overview 390": {
+   "p3 ring": {
+    "n": 83,
+    "max_abs_dy": 0.25,
+    "max_abs_dx": 1.047,
+    "mean_dy": 0.09,
+    "worst_dy": "5",
+    "worst_dx": "1"
+   }
+  },
+  "overview 1280": {
+   "p3 ring": {
+    "n": 83,
+    "max_abs_dy": 0.25,
+    "max_abs_dx": 1.047,
+    "mean_dy": 0.09,
+    "worst_dy": "5",
+    "worst_dx": "1"
+   }
+  },
+  "overview-year 390": {
+   "p4 ring": {
+    "n": 42,
+    "max_abs_dy": 0.25,
+    "max_abs_dx": 0.891,
+    "mean_dy": 0.089,
+    "worst_dy": "5",
+    "worst_dx": "1"
+   },
+   "p4 ring closed": {
+    "n": 21,
+    "max_abs_dy": 0.125,
+    "max_abs_dx": 0.906,
+    "mean_dy": 0.077,
+    "worst_dy": "31",
+    "worst_dx": "11"
+   }
+  },
+  "overview-year 1280": {
+   "p4 ring": {
+    "n": 163,
+    "max_abs_dy": 0.25,
+    "max_abs_dx": 0.5,
+    "mean_dy": 0.09,
+    "worst_dy": "5",
+    "worst_dx": "11"
+   },
+   "p4 ring closed": {
+    "n": 21,
+    "max_abs_dy": 0.125,
+    "max_abs_dx": 0.5,
+    "mean_dy": 0.077,
+    "worst_dy": "31",
+    "worst_dx": "11"
+   }
+  },
+  "delete-dialog 390": {},
+  "delete-dialog 1280": {},
+  "today-empty 390": {},
+  "today-empty 1280": {
+   "band ring": {
+    "n": 83,
+    "max_abs_dy": 0.25,
+    "max_abs_dx": 0.828,
+    "mean_dy": 0.09,
+    "worst_dy": "5",
+    "worst_dx": "1"
+   }
+  },
+  "today-full 390": {},
+  "today-full 1280": {
+   "band ring": {
+    "n": 83,
+    "max_abs_dy": 0.25,
+    "max_abs_dx": 0.828,
+    "mean_dy": 0.09,
+    "worst_dy": "5",
+    "worst_dx": "1"
+   }
+  }
+ },
+ "lifted_pair": {
+  "stroke on the open day": "rgb(168, 171, 178)",
+  "ink-soft on raise": 5.17
+ },
+ "contrast": {
+  "wash": "#2D271C",
+  "scrim over bg": "#0E0F11",
+  "pairs": [
+   {
+    "fg": "--ink",
+    "bg": "--bg",
+    "ratio": 15.14,
+    "needs": 4.5,
+    "pass": true,
+    "where": "brand word, body text"
+   },
+   {
+    "fg": "--ink",
+    "bg": "--surface",
+    "ratio": 13.69,
+    "needs": 4.5,
+    "pass": true,
+    "where": "habit names, Year and Done today labels, band title, empty lead"
+   },
+   {
+    "fg": "--ink",
+    "bg": "--surface-2",
+    "ratio": 12.17,
+    "needs": 4.5,
+    "pass": true,
+    "where": "dialog and sheet titles, tick names, month names, S5 note"
+   },
+   {
+    "fg": "--ink",
+    "bg": "--raise",
+    "ratio": 10.25,
+    "needs": 4.5,
+    "pass": true,
+    "where": "a label on a hovered button or tick"
+   },
+   {
+    "fg": "--ink",
+    "bg": "--field",
+    "ratio": 16.0,
+    "needs": 4.5,
+    "pass": true,
+    "where": "typed text in the field"
+   },
+   {
+    "fg": "--ink",
+    "bg": "wash",
+    "ratio": 12.75,
+    "needs": 4.5,
+    "pass": true,
+    "where": "S4 warning text on the amber wash"
+   },
+   {
+    "fg": "--ink-soft",
+    "bg": "--bg",
+    "ratio": 7.64,
+    "needs": 4.5,
+    "pass": true,
+    "where": "the date"
+   },
+   {
+    "fg": "--ink-soft",
+    "bg": "--surface",
+    "ratio": 6.91,
+    "needs": 4.5,
+    "pass": true,
+    "where": "row labels and units, hint, band numbers, legend, field note"
+   },
+   {
+    "fg": "--ink-soft",
+    "bg": "--surface-2",
+    "ratio": 6.14,
+    "needs": 4.5,
+    "pass": true,
+    "where": "dialog subtitles, P3 and P4 numbers, Delete habit at rest, tick stats"
+   },
+   {
+    "fg": "--ink-soft",
+    "bg": "--raise",
+    "ratio": 5.17,
+    "needs": 4.5,
+    "pass": true,
+    "where": "a number on a hovered or open day"
+   },
+   {
+    "fg": "--amber",
+    "bg": "--surface",
+    "ratio": 8.69,
+    "needs": 4.5,
+    "pass": true,
+    "where": "Current on a row"
+   },
+   {
+    "fg": "--amber",
+    "bg": "--surface-2",
+    "ratio": 7.72,
+    "needs": 4.5,
+    "pass": true,
+    "where": "Current in P2, Current in P1"
+   },
+   {
+    "fg": "--on-amber",
+    "bg": "--amber",
+    "ratio": 9.61,
+    "needs": 4.5,
+    "pass": true,
+    "where": "Done today pressed, Add, a number on a full core or done bead"
+   },
+   {
+    "fg": "--on-amber",
+    "bg": "--amber-hover",
+    "ratio": 10.95,
+    "needs": 4.5,
+    "pass": true,
+    "where": "the same on hover"
+   },
+   {
+    "fg": "--on-amber",
+    "bg": "--danger",
+    "ratio": 6.32,
+    "needs": 4.5,
+    "pass": true,
+    "where": "Delete habit in M1"
+   },
+   {
+    "fg": "--on-amber",
+    "bg": "--danger-hover",
+    "ratio": 7.89,
+    "needs": 4.5,
+    "pass": true,
+    "where": "Delete habit in M1 on hover"
+   },
+   {
+    "fg": "--danger",
+    "bg": "--surface",
+    "ratio": 5.71,
+    "needs": 4.5,
+    "pass": true,
+    "where": "field error"
+   },
+   {
+    "fg": "--danger",
+    "bg": "--surface-2",
+    "ratio": 5.08,
+    "needs": 4.5,
+    "pass": true,
+    "where": "Delete habit in P2 on hover"
+   },
+   {
+    "fg": "--ink-soft",
+    "bg": "--surface-2",
+    "ratio": 6.14,
+    "needs": 4.5,
+    "pass": true,
+    "where": "disabled field text in S3 (exempt, still passes)"
+   },
+   {
+    "fg": "--ring",
+    "bg": "--surface",
+    "ratio": 3.97,
+    "needs": 3.0,
+    "pass": true,
+    "where": "not-done segment, Year and Done today edges, Done today dot"
+   },
+   {
+    "fg": "--ring",
+    "bg": "--surface-2",
+    "ratio": 3.53,
+    "needs": 3.0,
+    "pass": true,
+    "where": "not-done bead, P3 and P4 not-done segment, tick box, Cancel edge"
+   },
+   {
+    "fg": "--ring",
+    "bg": "--bg",
+    "ratio": 4.39,
+    "needs": 3.0,
+    "pass": true,
+    "where": "Overview button edge"
+   },
+   {
+    "fg": "--ring",
+    "bg": "--field",
+    "ratio": 4.64,
+    "needs": 3.0,
+    "pass": true,
+    "where": "field border"
+   },
+   {
+    "fg": "--ink-soft",
+    "bg": "--raise",
+    "ratio": 5.17,
+    "needs": 3.0,
+    "pass": true,
+    "where": "RULING 1 thin not-done segment on a hovered or open day"
+   },
+   {
+    "fg": "--amber",
+    "bg": "--surface",
+    "ratio": 8.69,
+    "needs": 3.0,
+    "pass": true,
+    "where": "done segment in the band, done bead thread"
+   },
+   {
+    "fg": "--amber",
+    "bg": "--surface-2",
+    "ratio": 7.72,
+    "needs": 3.0,
+    "pass": true,
+    "where": "done segment in P3 and P4, done bead"
+   },
+   {
+    "fg": "--amber",
+    "bg": "--raise",
+    "ratio": 6.51,
+    "needs": 3.0,
+    "pass": true,
+    "where": "open day outline"
+   },
+   {
+    "fg": "--amber",
+    "bg": "--bg",
+    "ratio": 9.61,
+    "needs": 3.0,
+    "pass": true,
+    "where": "S4 banner edge (on the page)"
+   },
+   {
+    "fg": "--ink",
+    "bg": "--surface",
+    "ratio": 13.69,
+    "needs": 3.0,
+    "pass": true,
+    "where": "today's ring circle in the band"
+   },
+   {
+    "fg": "--ink",
+    "bg": "--surface-2",
+    "ratio": 12.17,
+    "needs": 3.0,
+    "pass": true,
+    "where": "today's ring circle in P3 and P4, today's bead halo"
+   },
+   {
+    "fg": "--ink-soft",
+    "bg": "--surface",
+    "ratio": 6.91,
+    "needs": 3.0,
+    "pass": true,
+    "where": "bin icon at rest"
+   },
+   {
+    "fg": "--danger",
+    "bg": "--surface",
+    "ratio": 5.71,
+    "needs": 3.0,
+    "pass": true,
+    "where": "bin icon and edge on hover and focus"
+   },
+   {
+    "fg": "--danger",
+    "bg": "--field",
+    "ratio": 6.68,
+    "needs": 3.0,
+    "pass": true,
+    "where": "error field border"
+   },
+   {
+    "fg": "--focus",
+    "bg": "--bg",
+    "ratio": 15.14,
+    "needs": 3.0,
+    "pass": true,
+    "where": "focus ring on the page"
+   },
+   {
+    "fg": "--focus",
+    "bg": "--surface",
+    "ratio": 13.69,
+    "needs": 3.0,
+    "pass": true,
+    "where": "focus ring in the list and band"
+   },
+   {
+    "fg": "--focus",
+    "bg": "--surface-2",
+    "ratio": 12.17,
+    "needs": 3.0,
+    "pass": true,
+    "where": "focus ring in dialogs and sheets"
+   }
+  ],
+  "info": [
+   {
+    "fg": "--ring",
+    "bg": "--raise",
+    "ratio": 2.97,
+    "where": "RETIRED by ruling 1, f2's thin segment on a hovered or open day"
+   },
+   {
+    "fg": "--closed",
+    "bg": "--surface-2",
+    "ratio": 2.18,
+    "where": "days after today in P2 and P4 (inactive, exempt)"
+   },
+   {
+    "fg": "--closed",
+    "bg": "--surface",
+    "ratio": 2.46,
+    "where": "none, --closed is only used on --surface-2"
+   },
+   {
+    "fg": "--surface-2",
+    "bg": "scrimbg",
+    "ratio": 1.36,
+    "where": "dialog fill against the page under --scrim (the dialog edge, no ratio required)"
+   },
+   {
+    "fg": "--line",
+    "bg": "--surface",
+    "ratio": 1.3,
+    "where": "row dividers (decorative)"
+   },
+   {
+    "fg": "--track",
+    "bg": "--surface",
+    "ratio": 1.85,
+    "where": "the empty-state core circle (decorative)"
+   }
+  ]
+ },
+ "dashes": {},
+ "compare": {
+  "today 360": 0.0,
+  "today 390": 0.0,
+  "today 1280": 0.0,
+  "day-editor 360": 0.0,
+  "day-editor 390": 0.0,
+  "day-editor 1280": 0.0,
+  "year-view 360": 0.0134,
+  "year-view 390": 0.0121,
+  "year-view 1280": 0.0041,
+  "overview 360": 0.0,
+  "overview 390": 0.0,
+  "overview-year 360": 0.0,
+  "overview-year 390": 0.0,
+  "overview-year 1280": 0.0,
+  "delete-dialog 360": 0.0,
+  "delete-dialog 390": 0.0,
+  "delete-dialog 1280": 0.0,
+  "today-empty 360": 0.0,
+  "today-empty 390": 0.0,
+  "today-empty 1280": 0.0,
+  "today-full 360": 0.0,
+  "today-full 390": 0.0,
+  "today-full 1280": 0.0
+ },
+ "asserts": {
+  "history Read 20 pages current and best as stated": {
+   "pass": true,
+   "detail": [
+    4,
+    9,
+    [
+     4,
+     9
+    ]
+   ]
+  },
+  "history Stretch 10 minutes current and best as stated": {
+   "pass": true,
+   "detail": [
+    2,
+    5,
+    [
+     2,
+     5
+    ]
+   ]
+  },
+  "history No phone after 11pm current and best as stated": {
+   "pass": true,
+   "detail": [
+    0,
+    14,
+    [
+     0,
+     14
+    ]
+   ]
+  },
+  "history Drink 2 litres of water current and best as stated": {
+   "pass": true,
+   "detail": [
+    1,
+    11,
+    [
+     1,
+     11
+    ]
+   ]
+  },
+  "history Walk 8,000 steps current and best as stated": {
+   "pass": true,
+   "detail": [
+    1,
+    11,
+    [
+     1,
+     11
+    ]
+   ]
+  },
+  "history Journal one page current and best as stated": {
+   "pass": true,
+   "detail": [
+    8,
+    11,
+    [
+     8,
+     11
+    ]
+   ]
+  },
+  "history Practise guitar current and best as stated": {
+   "pass": true,
+   "detail": [
+    1,
+    11,
+    [
+     1,
+     11
+    ]
+   ]
+  },
+  "history Cook dinner at home current and best as stated": {
+   "pass": true,
+   "detail": [
+    5,
+    11,
+    [
+     5,
+     11
+    ]
+   ]
+  },
+  "history Lights out by midnight current and best as stated": {
+   "pass": true,
+   "detail": [
+    2,
+    11,
+    [
+     2,
+     11
+    ]
+   ]
+  },
+  "history Meditate 5 minutes current and best as stated": {
+   "pass": true,
+   "detail": [
+    2,
+    11,
+    [
+     2,
+     11
+    ]
+   ]
+  },
+  "history Floss current and best as stated": {
+   "pass": true,
+   "detail": [
+    1,
+    11,
+    [
+     1,
+     11
+    ]
+   ]
+  },
+  "history Learn 10 Malay words current and best as stated": {
+   "pass": true,
+   "detail": [
+    1,
+    11,
+    [
+     1,
+     11
+    ]
+   ]
+  },
+  "today style block is system.css": {
+   "pass": true,
+   "detail": null
+  },
+  "day-editor style block is system.css": {
+   "pass": true,
+   "detail": null
+  },
+  "year-view style block is system.css": {
+   "pass": true,
+   "detail": null
+  },
+  "overview style block is system.css": {
+   "pass": true,
+   "detail": null
+  },
+  "overview-year style block is system.css": {
+   "pass": true,
+   "detail": null
+  },
+  "delete-dialog style block is system.css": {
+   "pass": true,
+   "detail": null
+  },
+  "today-empty style block is system.css": {
+   "pass": true,
+   "detail": null
+  },
+  "today-full style block is system.css": {
+   "pass": true,
+   "detail": null
+  },
+  "states style block is system.css (states: :root block)": {
+   "pass": true,
+   "detail": null
+  },
+  "no em or en dashes in final/": {
+   "pass": true,
+   "detail": {}
+  },
+  "contrast pairs all pass": {
+   "pass": true,
+   "detail": []
+  },
+  "today 360 targets 44 px (day cells excepted, listed)": {
+   "pass": true,
+   "detail": []
+  },
+  "today 360 no sideways scroll": {
+   "pass": true,
+   "detail": {
+    "sw": 360,
+    "sh": 780,
+    "iw": 360,
+    "ih": 780
+   }
+  },
+  "today 390 targets 44 px (day cells excepted, listed)": {
+   "pass": true,
+   "detail": []
+  },
+  "today 1280 targets 44 px (day cells excepted, listed)": {
+   "pass": true,
+   "detail": []
+  },
+  "today 1280 page does not scroll": {
+   "pass": true,
+   "detail": {
+    "sw": 1280,
+    "sh": 800,
+    "iw": 1280,
+    "ih": 800
+   }
+  },
+  "today Current and Best equal the history": {
+   "pass": true,
+   "detail": []
+  },
+  "today every ring equals sample-history.json": {
+   "pass": true,
+   "detail": []
+  },
+  "today 1280 every ring and bead number's ink within 0.3 px of centre (vertical)": {
+   "pass": true,
+   "detail": {
+    "band ring": [
+     83,
+     0.25,
+     0.828
+    ]
+   }
+  },
+  "day-editor 360 targets 44 px (day cells excepted, listed)": {
+   "pass": true,
+   "detail": []
+  },
+  "day-editor 360 no sideways scroll": {
+   "pass": true,
+   "detail": {
+    "sw": 360,
+    "sh": 780,
+    "iw": 360,
+    "ih": 780
+   }
+  },
+  "day-editor 390 targets 44 px (day cells excepted, listed)": {
+   "pass": true,
+   "detail": []
+  },
+  "day-editor 1280 targets 44 px (day cells excepted, listed)": {
+   "pass": true,
+   "detail": []
+  },
+  "day-editor 1280 page does not scroll": {
+   "pass": true,
+   "detail": {
+    "sw": 1280,
+    "sh": 800,
+    "iw": 1280,
+    "ih": 800
+   }
+  },
+  "day-editor Current and Best equal the history": {
+   "pass": true,
+   "detail": []
+  },
+  "day-editor every ring equals sample-history.json": {
+   "pass": true,
+   "detail": []
+  },
+  "lifted pair, thin segment on the open day draws in --ink-soft at 3 to 1 or more": {
+   "pass": true,
+   "detail": {
+    "stroke on the open day": "rgb(168, 171, 178)",
+    "ink-soft on raise": 5.17
+   }
+  },
+  "year-view 360 targets 44 px (day cells excepted, listed)": {
+   "pass": true,
+   "detail": []
+  },
+  "year-view 360 no sideways scroll": {
+   "pass": true,
+   "detail": {
+    "sw": 360,
+    "sh": 780,
+    "iw": 360,
+    "ih": 780
+   }
+  },
+  "year-view 390 targets 44 px (day cells excepted, listed)": {
+   "pass": true,
+   "detail": []
+  },
+  "year-view 390 every ring and bead number's ink within 0.3 px of centre (vertical)": {
+   "pass": true,
+   "detail": {
+    "p2 bead": [
+     40,
+     0.125,
+     0.656
+    ],
+    "p2 bead closed": [
+     21,
+     0.125,
+     0.781
+    ]
+   }
+  },
+  "year-view 1280 targets 44 px (day cells excepted, listed)": {
+   "pass": true,
+   "detail": [
+    {
+     "what": "Mark Thu 1 Oct 2026 as done",
+     "cls": "yc on r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Fri 2 Oct 2026 as done",
+     "cls": "yc on l",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sat 3 Oct 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sun 4 Oct 2026 as done",
+     "cls": "yc on r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Mon 5 Oct 2026 as done",
+     "cls": "yc on l",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Tue 6 Oct 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Wed 7 Oct 2026 as done",
+     "cls": "yc on r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Thu 8 Oct 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Fri 9 Oct 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sat 10 Oct 2026 as done",
+     "cls": "yc on l today",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Tue 1 Sep 2026 as done",
+     "cls": "yc on r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Wed 2 Sep 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Thu 3 Sep 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Fri 4 Sep 2026 as done",
+     "cls": "yc on l",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sat 5 Sep 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sun 6 Sep 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Mon 7 Sep 2026 as done",
+     "cls": "yc on r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Tue 8 Sep 2026 as done",
+     "cls": "yc on l",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Wed 9 Sep 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Thu 10 Sep 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Fri 11 Sep 2026 as done",
+     "cls": "yc on",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sat 12 Sep 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sun 13 Sep 2026 as done",
+     "cls": "yc on r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Mon 14 Sep 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Tue 15 Sep 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Wed 16 Sep 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Thu 17 Sep 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Fri 18 Sep 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sat 19 Sep 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sun 20 Sep 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Mon 21 Sep 2026 as done",
+     "cls": "yc on l",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Tue 22 Sep 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Wed 23 Sep 2026 as done",
+     "cls": "yc on r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Thu 24 Sep 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Fri 25 Sep 2026 as done",
+     "cls": "yc on l",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sat 26 Sep 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sun 27 Sep 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Mon 28 Sep 2026 as done",
+     "cls": "yc on r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Tue 29 Sep 2026 as done",
+     "cls": "yc on l",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Wed 30 Sep 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sat 1 Aug 2026 as done",
+     "cls": "yc on l",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sun 2 Aug 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Mon 3 Aug 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Tue 4 Aug 2026 as done",
+     "cls": "yc on r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Wed 5 Aug 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Thu 6 Aug 2026 as done",
+     "cls": "yc on l",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Fri 7 Aug 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sat 8 Aug 2026 as done",
+     "cls": "yc on r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sun 9 Aug 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Mon 10 Aug 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Tue 11 Aug 2026 as done",
+     "cls": "yc on l",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Wed 12 Aug 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Thu 13 Aug 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Fri 14 Aug 2026 as done",
+     "cls": "yc on r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sat 15 Aug 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sun 16 Aug 2026 as done",
+     "cls": "yc on l",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Mon 17 Aug 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Tue 18 Aug 2026 as done",
+     "cls": "yc on r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Wed 19 Aug 2026 as done",
+     "cls": "yc on l",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Thu 20 Aug 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Fri 21 Aug 2026 as done",
+     "cls": "yc on r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sat 22 Aug 2026 as done",
+     "cls": "yc on l",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sun 23 Aug 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Mon 24 Aug 2026 as done",
+     "cls": "yc on r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Tue 25 Aug 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Wed 26 Aug 2026 as done",
+     "cls": "yc on l",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Thu 27 Aug 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Fri 28 Aug 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sat 29 Aug 2026 as done",
+     "cls": "yc on r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sun 30 Aug 2026 as done",
+     "cls": "yc on l",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Mon 31 Aug 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Wed 1 Jul 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Thu 2 Jul 2026 as done",
+     "cls": "yc on l",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Fri 3 Jul 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sat 4 Jul 2026 as done",
+     "cls": "yc on r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sun 5 Jul 2026 as done",
+     "cls": "yc on l",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Mon 6 Jul 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Tue 7 Jul 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Wed 8 Jul 2026 as done",
+     "cls": "yc on",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Thu 9 Jul 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Fri 10 Jul 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sat 11 Jul 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sun 12 Jul 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Mon 13 Jul 2026 as done",
+     "cls": "yc on",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Tue 14 Jul 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Wed 15 Jul 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Thu 16 Jul 2026 as done",
+     "cls": "yc on r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Fri 17 Jul 2026 as done",
+     "cls": "yc on l",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sat 18 Jul 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sun 19 Jul 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Mon 20 Jul 2026 as done",
+     "cls": "yc on r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Tue 21 Jul 2026 as done",
+     "cls": "yc on l",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Wed 22 Jul 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Thu 23 Jul 2026 as done",
+     "cls": "yc on r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Fri 24 Jul 2026 as done",
+     "cls": "yc on l",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sat 25 Jul 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sun 26 Jul 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Mon 27 Jul 2026 as done",
+     "cls": "yc on r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Tue 28 Jul 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Wed 29 Jul 2026 as done",
+     "cls": "yc on l",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Thu 30 Jul 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Fri 31 Jul 2026 as done",
+     "cls": "yc on r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Mon 1 Jun 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Tue 2 Jun 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Wed 3 Jun 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Thu 4 Jun 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Fri 5 Jun 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sat 6 Jun 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sun 7 Jun 2026 as done",
+     "cls": "yc on l",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Mon 8 Jun 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Tue 9 Jun 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Wed 10 Jun 2026 as done",
+     "cls": "yc on r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Thu 11 Jun 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Fri 12 Jun 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sat 13 Jun 2026 as done",
+     "cls": "yc on l",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sun 14 Jun 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Mon 15 Jun 2026 as done",
+     "cls": "yc on r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Tue 16 Jun 2026 as done",
+     "cls": "yc on l",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Wed 17 Jun 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Thu 18 Jun 2026 as done",
+     "cls": "yc on",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Fri 19 Jun 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sat 20 Jun 2026 as done",
+     "cls": "yc on",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sun 21 Jun 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Mon 22 Jun 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Tue 23 Jun 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Wed 24 Jun 2026 as done",
+     "cls": "yc on r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Thu 25 Jun 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Fri 26 Jun 2026 as done",
+     "cls": "yc on l",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sat 27 Jun 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sun 28 Jun 2026 as done",
+     "cls": "yc on r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Mon 29 Jun 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Tue 30 Jun 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Fri 1 May 2026 as done",
+     "cls": "yc on l",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sat 2 May 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sun 3 May 2026 as done",
+     "cls": "yc on r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Mon 4 May 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Tue 5 May 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Wed 6 May 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Thu 7 May 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Fri 8 May 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sat 9 May 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sun 10 May 2026 as done",
+     "cls": "yc on l",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Mon 11 May 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Tue 12 May 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Wed 13 May 2026 as done",
+     "cls": "yc on r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Thu 14 May 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Fri 15 May 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sat 16 May 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sun 17 May 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Mon 18 May 2026 as done",
+     "cls": "yc on l",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Tue 19 May 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Wed 20 May 2026 as done",
+     "cls": "yc on r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Thu 21 May 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Fri 22 May 2026 as done",
+     "cls": "yc on l",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sat 23 May 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sun 24 May 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Mon 25 May 2026 as done",
+     "cls": "yc on r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Tue 26 May 2026 as done",
+     "cls": "yc on l r",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Wed 27 May 2026 as done",
+     "cls": "yc on l",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Thu 28 May 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Fri 29 May 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sat 30 May 2026 as done",
+     "cls": "yc",
+     "w": 40,
+     "h": 40
+    },
+    {
+     "what": "Mark Sun 31 May 2026 as done",
+     "cls": "yc on r",
+     "w": 40,
+     "h": 40
+    }
+   ]
+  },
+  "year-view 1280 page does not scroll": {
+   "pass": true,
+   "detail": {
+    "sw": 1280,
+    "sh": 800,
+    "iw": 1280,
+    "ih": 800
+   }
+  },
+  "year-view Current and Best equal the history": {
+   "pass": true,
+   "detail": []
+  },
+  "year-view every ring equals sample-history.json": {
+   "pass": true,
+   "detail": []
+  },
+  "year-view every bead equals Read 20 pages in sample-history.json": {
+   "pass": true,
+   "detail": {
+    "beads": 366,
+    "bad": []
+   }
+  },
+  "year-view 1280 every ring and bead number's ink within 0.3 px of centre (vertical)": {
+   "pass": true,
+   "detail": {
+    "p2 bead": [
+     163,
+     0.25,
+     0.375
+    ],
+    "p2 bead closed": [
+     21,
+     0.125,
+     0.375
+    ]
+   }
+  },
+  "overview 360 targets 44 px (day cells excepted, listed)": {
+   "pass": true,
+   "detail": [
+    {
+     "what": "Mon 5 Oct, 3 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Tue 6 Oct, 1 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Wed 7 Oct, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Thu 8 Oct, 3 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Fri 9 Oct, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Sat 10 Oct, 1 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Mon 28 Sep, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Tue 29 Sep, 3 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Wed 30 Sep, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Thu 1 Oct, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Fri 2 Oct, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Sat 3 Oct, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Sun 4 Oct, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Mon 21 Sep, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Tue 22 Sep, 1 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Wed 23 Sep, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Thu 24 Sep, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Fri 25 Sep, 3 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Sat 26 Sep, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Sun 27 Sep, 0 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Mon 14 Sep, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Tue 15 Sep, 3 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Wed 16 Sep, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Thu 17 Sep, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Fri 18 Sep, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Sat 19 Sep, 3 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Sun 20 Sep, 3 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Mon 7 Sep, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Tue 8 Sep, 3 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Wed 9 Sep, 1 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Thu 10 Sep, 1 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Fri 11 Sep, 3 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Sat 12 Sep, 1 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Sun 13 Sep, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Mon 31 Aug, 1 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Tue 1 Sep, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Wed 2 Sep, 3 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Thu 3 Sep, 3 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Fri 4 Sep, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Sat 5 Sep, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Sun 6 Sep, 1 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Mon 24 Aug, 3 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Tue 25 Aug, 3 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Wed 26 Aug, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Thu 27 Aug, 1 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Fri 28 Aug, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Sat 29 Aug, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Sun 30 Aug, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Mon 17 Aug, 1 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Tue 18 Aug, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Wed 19 Aug, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Thu 20 Aug, 1 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Fri 21 Aug, 3 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Sat 22 Aug, 3 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Sun 23 Aug, 0 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Mon 10 Aug, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Tue 11 Aug, 3 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Wed 12 Aug, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Thu 13 Aug, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Fri 14 Aug, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Sat 15 Aug, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Sun 16 Aug, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Mon 3 Aug, 1 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Tue 4 Aug, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Wed 5 Aug, 3 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Thu 6 Aug, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Fri 7 Aug, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Sat 8 Aug, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Sun 9 Aug, 1 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Mon 27 Jul, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Tue 28 Jul, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Wed 29 Jul, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Thu 30 Jul, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Fri 31 Jul, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Sat 1 Aug, 1 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Sun 2 Aug, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Mon 20 Jul, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Tue 21 Jul, 3 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Wed 22 Jul, 1 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Thu 23 Jul, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Fri 24 Jul, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Sat 25 Jul, 2 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    },
+    {
+     "what": "Sun 26 Jul, 1 of 3 habits",
+     "cls": "hc",
+     "w": 43.14,
+     "h": 46
+    }
+   ]
+  },
+  "overview 360 no sideways scroll": {
+   "pass": true,
+   "detail": {
+    "sw": 360,
+    "sh": 780,
+    "iw": 360,
+    "ih": 780
+   }
+  },
+  "overview 390 targets 44 px (day cells excepted, listed)": {
+   "pass": true,
+   "detail": []
+  },
+  "overview 390 every ring and bead number's ink within 0.3 px of centre (vertical)": {
+   "pass": true,
+   "detail": {
+    "p3 ring": [
+     83,
+     0.25,
+     1.047
+    ]
+   }
+  },
+  "overview 1280 targets 44 px (day cells excepted, listed)": {
+   "pass": true,
+   "detail": []
+  },
+  "overview 1280 page does not scroll": {
+   "pass": true,
+   "detail": {
+    "sw": 1280,
+    "sh": 800,
+    "iw": 1280,
+    "ih": 800
+   }
+  },
+  "overview Current and Best equal the history": {
+   "pass": true,
+   "detail": []
+  },
+  "overview every ring equals sample-history.json": {
+   "pass": true,
+   "detail": []
+  },
+  "overview 1280 every ring and bead number's ink within 0.3 px of centre (vertical)": {
+   "pass": true,
+   "detail": {
+    "p3 ring": [
+     83,
+     0.25,
+     1.047
+    ]
+   }
+  },
+  "overview-year 360 targets 44 px (day cells excepted, listed)": {
+   "pass": true,
+   "detail": []
+  },
+  "overview-year 360 no sideways scroll": {
+   "pass": true,
+   "detail": {
+    "sw": 360,
+    "sh": 780,
+    "iw": 360,
+    "ih": 780
+   }
+  },
+  "overview-year 390 targets 44 px (day cells excepted, listed)": {
+   "pass": true,
+   "detail": []
+  },
+  "overview-year 390 every ring and bead number's ink within 0.3 px of centre (vertical)": {
+   "pass": true,
+   "detail": {
+    "p4 ring": [
+     42,
+     0.25,
+     0.891
+    ],
+    "p4 ring closed": [
+     21,
+     0.125,
+     0.906
+    ]
+   }
+  },
+  "overview-year 1280 targets 44 px (day cells excepted, listed)": {
+   "pass": true,
+   "detail": [
+    {
+     "what": "Thu 1 Oct 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Fri 2 Oct 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sat 3 Oct 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sun 4 Oct 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Mon 5 Oct 2026, 3 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Tue 6 Oct 2026, 1 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Wed 7 Oct 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Thu 8 Oct 2026, 3 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Fri 9 Oct 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sat 10 Oct 2026, 1 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Tue 1 Sep 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Wed 2 Sep 2026, 3 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Thu 3 Sep 2026, 3 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Fri 4 Sep 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sat 5 Sep 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sun 6 Sep 2026, 1 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Mon 7 Sep 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Tue 8 Sep 2026, 3 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Wed 9 Sep 2026, 1 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Thu 10 Sep 2026, 1 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Fri 11 Sep 2026, 3 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sat 12 Sep 2026, 1 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sun 13 Sep 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Mon 14 Sep 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Tue 15 Sep 2026, 3 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Wed 16 Sep 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Thu 17 Sep 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Fri 18 Sep 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sat 19 Sep 2026, 3 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sun 20 Sep 2026, 3 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Mon 21 Sep 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Tue 22 Sep 2026, 1 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Wed 23 Sep 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Thu 24 Sep 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Fri 25 Sep 2026, 3 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sat 26 Sep 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sun 27 Sep 2026, 0 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Mon 28 Sep 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Tue 29 Sep 2026, 3 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Wed 30 Sep 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sat 1 Aug 2026, 1 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sun 2 Aug 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Mon 3 Aug 2026, 1 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Tue 4 Aug 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Wed 5 Aug 2026, 3 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Thu 6 Aug 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Fri 7 Aug 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sat 8 Aug 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sun 9 Aug 2026, 1 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Mon 10 Aug 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Tue 11 Aug 2026, 3 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Wed 12 Aug 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Thu 13 Aug 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Fri 14 Aug 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sat 15 Aug 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sun 16 Aug 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Mon 17 Aug 2026, 1 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Tue 18 Aug 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Wed 19 Aug 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Thu 20 Aug 2026, 1 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Fri 21 Aug 2026, 3 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sat 22 Aug 2026, 3 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sun 23 Aug 2026, 0 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Mon 24 Aug 2026, 3 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Tue 25 Aug 2026, 3 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Wed 26 Aug 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Thu 27 Aug 2026, 1 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Fri 28 Aug 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sat 29 Aug 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sun 30 Aug 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Mon 31 Aug 2026, 1 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Wed 1 Jul 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Thu 2 Jul 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Fri 3 Jul 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sat 4 Jul 2026, 3 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sun 5 Jul 2026, 1 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Mon 6 Jul 2026, 0 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Tue 7 Jul 2026, 1 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Wed 8 Jul 2026, 1 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Thu 9 Jul 2026, 1 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Fri 10 Jul 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sat 11 Jul 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sun 12 Jul 2026, 1 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Mon 13 Jul 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Tue 14 Jul 2026, 1 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Wed 15 Jul 2026, 1 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Thu 16 Jul 2026, 3 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Fri 17 Jul 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sat 18 Jul 2026, 1 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sun 19 Jul 2026, 1 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Mon 20 Jul 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Tue 21 Jul 2026, 3 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Wed 22 Jul 2026, 1 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Thu 23 Jul 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Fri 24 Jul 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sat 25 Jul 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sun 26 Jul 2026, 1 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Mon 27 Jul 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Tue 28 Jul 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Wed 29 Jul 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Thu 30 Jul 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Fri 31 Jul 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Mon 1 Jun 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Tue 2 Jun 2026, 3 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Wed 3 Jun 2026, 3 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Thu 4 Jun 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Fri 5 Jun 2026, 3 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sat 6 Jun 2026, 3 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sun 7 Jun 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Mon 8 Jun 2026, 0 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Tue 9 Jun 2026, 1 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Wed 10 Jun 2026, 3 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Thu 11 Jun 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Fri 12 Jun 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sat 13 Jun 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sun 14 Jun 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Mon 15 Jun 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Tue 16 Jun 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Wed 17 Jun 2026, 0 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Thu 18 Jun 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Fri 19 Jun 2026, 1 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sat 20 Jun 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sun 21 Jun 2026, 0 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Mon 22 Jun 2026, 1 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Tue 23 Jun 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Wed 24 Jun 2026, 3 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Thu 25 Jun 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Fri 26 Jun 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sat 27 Jun 2026, 1 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sun 28 Jun 2026, 3 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Mon 29 Jun 2026, 3 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Tue 30 Jun 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Fri 1 May 2026, 3 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sat 2 May 2026, 1 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sun 3 May 2026, 3 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Mon 4 May 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Tue 5 May 2026, 3 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Wed 6 May 2026, 3 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Thu 7 May 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Fri 8 May 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sat 9 May 2026, 1 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sun 10 May 2026, 3 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Mon 11 May 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Tue 12 May 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Wed 13 May 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Thu 14 May 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Fri 15 May 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sat 16 May 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sun 17 May 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Mon 18 May 2026, 3 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Tue 19 May 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Wed 20 May 2026, 3 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Thu 21 May 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Fri 22 May 2026, 3 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sat 23 May 2026, 1 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sun 24 May 2026, 1 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Mon 25 May 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Tue 26 May 2026, 3 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Wed 27 May 2026, 3 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Thu 28 May 2026, 1 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Fri 29 May 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sat 30 May 2026, 2 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    },
+    {
+     "what": "Sun 31 May 2026, 3 of 3 habits",
+     "cls": "hc",
+     "w": 42,
+     "h": 44
+    }
+   ]
+  },
+  "overview-year 1280 page does not scroll": {
+   "pass": true,
+   "detail": {
+    "sw": 1280,
+    "sh": 800,
+    "iw": 1280,
+    "ih": 800
+   }
+  },
+  "overview-year Current and Best equal the history": {
+   "pass": true,
+   "detail": []
+  },
+  "overview-year every ring equals sample-history.json": {
+   "pass": true,
+   "detail": []
+  },
+  "overview-year 1280 every ring and bead number's ink within 0.3 px of centre (vertical)": {
+   "pass": true,
+   "detail": {
+    "p4 ring": [
+     163,
+     0.25,
+     0.5
+    ],
+    "p4 ring closed": [
+     21,
+     0.125,
+     0.5
+    ]
+   }
+  },
+  "delete-dialog 360 targets 44 px (day cells excepted, listed)": {
+   "pass": true,
+   "detail": []
+  },
+  "delete-dialog 360 no sideways scroll": {
+   "pass": true,
+   "detail": {
+    "sw": 360,
+    "sh": 780,
+    "iw": 360,
+    "ih": 780
+   }
+  },
+  "delete-dialog 390 targets 44 px (day cells excepted, listed)": {
+   "pass": true,
+   "detail": []
+  },
+  "delete-dialog 1280 targets 44 px (day cells excepted, listed)": {
+   "pass": true,
+   "detail": []
+  },
+  "delete-dialog 1280 page does not scroll": {
+   "pass": true,
+   "detail": {
+    "sw": 1280,
+    "sh": 800,
+    "iw": 1280,
+    "ih": 800
+   }
+  },
+  "delete-dialog Current and Best equal the history": {
+   "pass": true,
+   "detail": []
+  },
+  "delete-dialog every ring equals sample-history.json": {
+   "pass": true,
+   "detail": []
+  },
+  "today-empty 360 targets 44 px (day cells excepted, listed)": {
+   "pass": true,
+   "detail": []
+  },
+  "today-empty 360 no sideways scroll": {
+   "pass": true,
+   "detail": {
+    "sw": 360,
+    "sh": 780,
+    "iw": 360,
+    "ih": 780
+   }
+  },
+  "today-empty 390 targets 44 px (day cells excepted, listed)": {
+   "pass": true,
+   "detail": []
+  },
+  "today-empty 1280 targets 44 px (day cells excepted, listed)": {
+   "pass": true,
+   "detail": []
+  },
+  "today-empty 1280 page does not scroll": {
+   "pass": true,
+   "detail": {
+    "sw": 1280,
+    "sh": 800,
+    "iw": 1280,
+    "ih": 800
+   }
+  },
+  "today-empty Current and Best equal the history": {
+   "pass": true,
+   "detail": []
+  },
+  "today-empty every ring equals sample-history.json": {
+   "pass": true,
+   "detail": []
+  },
+  "today-empty 1280 every ring and bead number's ink within 0.3 px of centre (vertical)": {
+   "pass": true,
+   "detail": {
+    "band ring": [
+     83,
+     0.25,
+     0.828
+    ]
+   }
+  },
+  "today-full 360 targets 44 px (day cells excepted, listed)": {
+   "pass": true,
+   "detail": []
+  },
+  "today-full 360 no sideways scroll": {
+   "pass": true,
+   "detail": {
+    "sw": 360,
+    "sh": 780,
+    "iw": 360,
+    "ih": 780
+   }
+  },
+  "today-full 390 targets 44 px (day cells excepted, listed)": {
+   "pass": true,
+   "detail": []
+  },
+  "today-full 1280 targets 44 px (day cells excepted, listed)": {
+   "pass": true,
+   "detail": []
+  },
+  "today-full 1280 page does not scroll": {
+   "pass": true,
+   "detail": {
+    "sw": 1280,
+    "sh": 800,
+    "iw": 1280,
+    "ih": 800
+   }
+  },
+  "today-full Current and Best equal the history": {
+   "pass": true,
+   "detail": []
+  },
+  "today-full every ring equals sample-history.json": {
+   "pass": true,
+   "detail": []
+  },
+  "today-full 1280 every ring and bead number's ink within 0.3 px of centre (vertical)": {
+   "pass": true,
+   "detail": {
+    "band ring": [
+     83,
+     0.25,
+     0.828
+    ]
+   }
+  },
+  "states 360 targets 44 px (day cells excepted, listed)": {
+   "pass": true,
+   "detail": []
+  },
+  "states 360 no sideways scroll": {
+   "pass": true,
+   "detail": {
+    "sw": 360,
+    "sh": 1084,
+    "iw": 360,
+    "ih": 780
+   }
+  },
+  "states 390 targets 44 px (day cells excepted, listed)": {
+   "pass": true,
+   "detail": []
+  },
+  "states 1280 targets 44 px (day cells excepted, listed)": {
+   "pass": true,
+   "detail": []
+  },
+  "states Current and Best equal the history": {
+   "pass": true,
+   "detail": []
+  },
+  "console errors 0": {
+   "pass": true,
+   "detail": {}
+  },
+  "network requests 0": {
+   "pass": true,
+   "detail": {}
+  }
+ },
+ "summary": {
+  "asserts": 97,
+  "passed": 97,
+  "failed": []
+ }
+}

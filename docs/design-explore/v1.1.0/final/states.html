@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Danial's Streaky Habit</title>
+<!--
+  Specimen sheet (not a screen) for the states without their own golden: S2 (the three name errors), S4 (save
+  warning) and S5 (saved habits could not be read). Each frame uses the app's own classes at the viewport's width,
+  so a phone shows the phone composer and 1280 shows the desktop one. The first style block is the part of system.css
+  these frames use, rules copied unchanged (the :root block is complete). The second is sheet-only chrome. Icons: Phosphor Icons (MIT), x and plus (regular).
+-->
+<style>
+/* Danial's Streaky Habit v1.1.0, the locked design system (sdlc:design step 5).
+   Source: round-2/f2.html ("Orbit List, revised"), every value unchanged except where a compose ruling says so.
+   Every golden inlines this file byte for byte. Read system.md for the roles, the contrast table and the rules.
+   Changes from f2: (1) the Prototype states tab and its tokens are gone, so the header loses its "proto" area.
+   (2) Ruling 1, a thin not-done segment on a hovered or open day draws in --ink-soft (5.17 on --raise, was 2.97).
+   (3) Ruling 2, every ring and bead number is SVG text on the baseline at the shape's centre, dropped .352em, proportional figures.
+   (4) The last block stands in for showModal() in the static goldens and is not needed by the app. */
+:root{
+  /* colour */
+  --bg:#18191C;
+  --surface:#212226;
+  --surface-2:#2A2B30;
+  --raise:#35373D;
+  --field:#121316;
+  --line:#33353B;
+  --track:#4A4C53;
+  --ring:#7C7F88;
+  --ink:#EDEEF0;
+  --ink-soft:#A8ABB2;
+  --closed:#5C5E66;
+  --amber:#FFB020;
+  --amber-hover:#FFC24F;
+  --on-amber:#18191C;
+  --amber-wash:rgba(255,176,32,.09);
+  --danger:#FF6B66;
+  --danger-hover:#FF8D89;
+  --scrim:rgba(10,11,13,.74);
+  --scrim-soft:rgba(10,11,13,.52);
+  --focus:#EDEEF0;
+  --shadow-dlg:0 24px 64px rgba(6,7,9,.55), 0 2px 8px rgba(6,7,9,.4);
+  --fade-top:linear-gradient(#212226 20%, rgba(33,34,38,0));
+  --fade-bot:linear-gradient(rgba(33,34,38,0), #212226 80%);
+
+  /* type */
+  --font:ui-sans-serif, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --t-2xs:11px;
+  --t-xs:12px;
+  --t-sm:14px;
+  --t-btn:15px;
+  --t-md:16px;
+  --t-lg:17px;
+  --t-xl:19px;
+  --t-ov:16px;      /* overview day numbers */
+  --t-stat:22px;    /* Current and Best on a row */
+  --t-cur-lg:34px;  /* Current in the year view */
+  --t-best-lg:26px; /* Best in the year view */
+
+  /* space */
+  --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:20px; --s-6:24px; --s-7:32px; --s-8:40px;
+
+  /* shape: controls 10, containers 16, sheets 20, round things are circles */
+  --r-ctl:10px;
+  --r-card:16px;
+  --r-sheet:20px;
+  --r-round:50%;
+
+  /* size */
+  --hit:44px;
+  --ctl-h:48px;
+  --icon:20px;
+  --app-max:1040px;
+  --ov-ring:40px;
+  --ov-cell-h:44px;
+  --yc:44px;        /* year view day cell, phone */
+  --bead:36px;
+
+  /* motion */
+  --dur-press:120ms;
+  --dur:170ms;
+  --dur-enter:220ms;
+  --ease:cubic-bezier(.2,0,0,1);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+html{ background:var(--bg); -webkit-text-size-adjust:100%; }
+html:has(dialog[open]){ overflow:hidden; }
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font:400 var(--t-md)/24px var(--font);
+  -webkit-font-smoothing:antialiased;
+}
+button,input{ font:inherit; color:inherit; }
+button{ -webkit-tap-highlight-color:transparent; }
+:focus-visible{ outline:2px solid var(--focus); outline-offset:2px; }
+.sr{ position:absolute; width:1px; height:1px; margin:-1px; padding:0; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0; }
+svg.ph{ width:var(--icon); height:var(--icon); fill:currentColor; flex:none; }
+
+/* ---------- banners (S4, S5) ---------- */
+.banners{ flex:none; display:grid; gap:var(--s-2); }
+.banners:empty{ display:none; }
+.banner{ display:flex; align-items:flex-start; gap:var(--s-2); border-radius:var(--r-card); padding:var(--s-3) var(--s-4); margin:0; font-size:15px; line-height:22px; }
+.banner p{ margin:0; flex:1; padding:1px 0; }
+.banner.warn{ background:var(--amber-wash); border:1px solid var(--amber); color:var(--ink); }
+.banner.note{ background:var(--surface-2); border:1px solid var(--line); padding:var(--s-1) var(--s-1) var(--s-1) var(--s-4); }
+.banner.note p{ padding:10px 0; }
+
+.icon-btn{
+  width:var(--hit); height:var(--hit); flex:none; border:0; padding:0; border-radius:var(--r-round);
+  background:transparent; color:var(--ink-soft); display:grid; place-items:center; cursor:pointer;
+  transition:background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.icon-btn:focus-visible{ outline-offset:-2px; }
+@media (hover: hover){ .icon-btn:hover{ background:var(--raise); color:var(--ink); } }
+
+/* ---------- the list frame ---------- */
+.frame{
+  flex:0 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain;
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--r-card);
+  scrollbar-width:thin; scrollbar-color:var(--ring) transparent;
+}
+.rows{ list-style:none; margin:0; padding:0; }
+
+/* empty list (S1, S5) */
+.empty{ display:grid; grid-template-columns:96px minmax(0,1fr); gap:var(--s-4); align-items:center; padding:var(--s-4); }
+.empty svg{ width:96px; height:96px; display:block; }
+.empty .e-orbit{ fill:none; stroke:var(--ring); stroke-width:1.5; stroke-dasharray:2 6; stroke-linecap:round; }
+.empty .e-core{ fill:none; stroke:var(--track); stroke-width:2; }
+.empty .lead{ margin:0; font-size:var(--t-lg); line-height:24px; font-weight:600; }
+.empty .line{ margin:var(--s-1) 0 0; font-size:var(--t-sm); line-height:20px; color:var(--ink-soft); }
+
+/* ---------- composer: below the list, outside it, pinned to the bottom ---------- */
+.composer{
+  flex:none; margin-top:auto;
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--r-card);
+  padding:10px var(--s-3) var(--s-3);
+}
+/* the message sits above the field, so a message grows the bar upward and the field never moves */
+.field-msg{ margin:0 0 var(--s-2) 2px; font-size:var(--t-sm); line-height:20px; }
+.field-msg.err{ color:var(--danger); }
+.field-msg.note{ color:var(--ink-soft); }
+.add-label{ display:block; font-size:var(--t-sm); line-height:20px; font-weight:600; margin:0 0 6px 2px; }
+.composer.is-full .add-label{ color:var(--ink-soft); }
+.add-ctl{ display:flex; gap:var(--s-2); }
+.input{
+  flex:1; min-width:0; height:var(--ctl-h); padding:0 14px; border-radius:var(--r-ctl);
+  border:1.5px solid var(--ring); background:var(--field); color:var(--ink); font-size:var(--t-md);
+}
+.input[aria-invalid="true"]{ border-color:var(--danger); }
+.input:disabled{ background:var(--surface-2); border-color:var(--line); color:var(--ink-soft); }
+.btn{
+  height:var(--ctl-h); padding:0 18px; border-radius:var(--r-ctl); border:0;
+  display:inline-flex; align-items:center; justify-content:center; gap:var(--s-2);
+  font-size:var(--t-md); font-weight:600; white-space:nowrap; cursor:pointer;
+  transition:background-color var(--dur) var(--ease), transform var(--dur-press) var(--ease);
+}
+.btn:active:not(:disabled){ transform:scale(.98); }
+.btn:focus-visible{ outline-offset:3px; }
+.btn-primary{ background:var(--amber); color:var(--on-amber); }
+.btn-primary:hover:not(:disabled){ background:var(--amber-hover); }
+.btn-primary:disabled{ background:var(--surface-2); color:var(--ink-soft); cursor:not-allowed; }
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{ animation:none !important; transition:none !important; }
+}
+@media (min-width: 1024px){
+  /* label left, field right, a message sits above the field it is about */
+  .composer{ padding:var(--s-3); display:grid; grid-template-columns:auto minmax(0,1fr); column-gap:var(--s-4); }
+  .field-msg{ grid-column:2; grid-row:1; }
+  .add-row{ display:contents; }
+  .add-label{ grid-column:1; grid-row:2; align-self:center; margin:0 0 0 var(--s-2); white-space:nowrap; }
+  .add-ctl{ grid-column:2; grid-row:2; }
+}
+</style>
+<style>
+/* sheet only, not part of the app: page frame, group titles, captions */
+.sheet{ max-width:640px; margin:0 auto; padding:var(--s-4); display:grid; gap:var(--s-7); }
+@media (min-width: 1024px){ .sheet{ max-width:var(--app-max); padding:var(--s-6); } }
+.sheet > h1{ margin:0; font-size:var(--t-xl); line-height:24px; font-weight:700; }
+.spec{ display:grid; gap:var(--s-2); }
+.spec > h2{ margin:0; font-size:var(--t-sm); line-height:20px; font-weight:600; color:var(--ink-soft); }
+.stack{ display:grid; gap:var(--s-3); }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <!-- Phosphor Icons (MIT): x, plus (regular) -->
+  <symbol id="i-x" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/></symbol>
+</svg>
+
+<main class="sheet">
+  <h1>Streaky Habit states</h1>
+
+  <section class="spec" aria-labelledby="s2a">
+    <h2 id="s2a">S2, Add pressed with no name (K1's add field)</h2>
+    <form class="composer" novalidate>
+      <p id="m1" class="field-msg err" aria-live="polite">Name the habit first.</p>
+      <div class="add-row">
+        <label for="n1" class="add-label">New habit</label>
+        <div class="add-ctl">
+          <input id="n1" class="input" type="text" autocomplete="off" spellcheck="false" aria-describedby="m1" aria-invalid="true">
+          <button class="btn btn-primary" type="submit"><svg class="ph" aria-hidden="true"><use href="#i-plus"/></svg>Add</button>
+        </div>
+      </div>
+    </form>
+  </section>
+
+  <section class="spec" aria-labelledby="s2b">
+    <h2 id="s2b">S2, a name longer than 40 characters</h2>
+    <form class="composer" novalidate>
+      <p id="m2" class="field-msg err" aria-live="polite">Keep it to 40 characters or fewer.</p>
+      <div class="add-row">
+        <label for="n2" class="add-label">New habit</label>
+        <div class="add-ctl">
+          <input id="n2" class="input" type="text" autocomplete="off" spellcheck="false" aria-describedby="m2" aria-invalid="true" value="Read twenty pages of a novel before bed each night">
+          <button class="btn btn-primary" type="submit"><svg class="ph" aria-hidden="true"><use href="#i-plus"/></svg>Add</button>
+        </div>
+      </div>
+    </form>
+  </section>
+
+  <section class="spec" aria-labelledby="s2c">
+    <h2 id="s2c">S2, a name already tracked, ignoring case</h2>
+    <form class="composer" novalidate>
+      <p id="m3" class="field-msg err" aria-live="polite">You already track this habit.</p>
+      <div class="add-row">
+        <label for="n3" class="add-label">New habit</label>
+        <div class="add-ctl">
+          <input id="n3" class="input" type="text" autocomplete="off" spellcheck="false" aria-describedby="m3" aria-invalid="true" value="read 20 pages">
+          <button class="btn btn-primary" type="submit"><svg class="ph" aria-hidden="true"><use href="#i-plus"/></svg>Add</button>
+        </div>
+      </div>
+    </form>
+  </section>
+
+  <section class="spec" aria-labelledby="s4">
+    <h2 id="s4">S4, the save warning (K1, between the band or header and the list)</h2>
+    <div class="banners"><div class="banner warn" role="status"><p>Your habits are not being saved on this device. Changes will be lost when you close this tab.</p></div></div>
+  </section>
+
+  <section class="spec" aria-labelledby="s5">
+    <h2 id="s5">S5, saved habits could not be read (S1 with the note above the list)</h2>
+    <div class="stack">
+      <div class="banners"><div class="banner note" role="status"><p>Your saved habits could not be read, so the list was reset.</p><button type="button" class="icon-btn" aria-label="Dismiss note"><svg class="ph" aria-hidden="true"><use href="#i-x"/></svg></button></div></div>
+      <div class="frame"><ul class="rows"><li class="empty"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="e-orbit" cx="60" cy="60" r="50"/><circle class="e-core" cx="60" cy="60" r="18"/></svg><div><p class="lead">No habits yet.</p><p class="line">Add one you want to do every day.</p></div></li></ul></div>
+    </div>
+  </section>
+</main>
+
+</body>
+</html>

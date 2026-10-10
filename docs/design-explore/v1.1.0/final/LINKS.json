@@ -1,0 +1,40 @@
+{
+  "note": "Triggers and closes between the v1.1.0 goldens for sdlc:design step 7. Names are accessible names. 'width' limits a link to one layout: 390 stands for the phone layout (also true at 360), 1280 for the desktop layout. A popup golden's page underneath is inert, so a role and name always means the top layer.",
+  "links": [
+    {"from": "today.html", "role": "button", "name": "Overview, today 1 of 3 habits done", "to": "overview.html", "exact": true, "width": 390},
+    {"from": "today.html", "role": "button", "name": "Year view, all habits", "to": "overview-year.html", "exact": true, "width": 1280},
+    {"from": "today.html", "role": "button", "name": "Tue 22 Sep, 1 of 3 habits", "to": "day-editor.html", "exact": true, "width": 1280},
+    {"from": "today.html", "role": "button", "name": "Year view, Read 20 pages", "to": "year-view.html", "exact": true},
+    {"from": "today.html", "role": "button", "name": "Delete \"Stretch 10 minutes\"", "to": "delete-dialog.html", "exact": true},
+
+    {"from": "overview.html", "role": "button", "name": "Tue 22 Sep, 1 of 3 habits", "to": "day-editor.html", "exact": true, "width": 390},
+    {"from": "overview.html", "role": "button", "name": "Year view, all habits", "to": "overview-year.html", "exact": true, "width": 390},
+    {"from": "overview.html", "role": "button", "name": "Close", "to": "today.html", "exact": true, "width": 390},
+    {"from": "overview.html", "key": "Escape", "to": "today.html", "width": 390},
+
+    {"from": "overview-year.html", "role": "button", "name": "Tue 22 Sep 2026, 1 of 3 habits", "to": "day-editor.html", "exact": true, "why": "P1 opens over P4 in the app; the golden draws P1 over P3 (phone) and K1 (desktop)"},
+    {"from": "overview-year.html", "role": "button", "name": "Close", "to": "overview.html", "exact": true, "width": 390},
+    {"from": "overview-year.html", "key": "Escape", "to": "overview.html", "width": 390},
+    {"from": "overview-year.html", "role": "button", "name": "Close", "to": "today.html", "exact": true, "width": 1280},
+    {"from": "overview-year.html", "key": "Escape", "to": "today.html", "width": 1280},
+    {"from": "overview-year.html", "click": [10, 10], "to": "today.html", "why": "backdrop", "width": 1280},
+
+    {"from": "day-editor.html", "role": "button", "name": "Close", "to": "overview.html", "exact": true, "width": 390},
+    {"from": "day-editor.html", "key": "Escape", "to": "overview.html", "width": 390},
+    {"from": "day-editor.html", "click": [10, 10], "to": "overview.html", "why": "backdrop above the bottom sheet", "width": 390},
+    {"from": "day-editor.html", "role": "button", "name": "Close", "to": "today.html", "exact": true, "width": 1280},
+    {"from": "day-editor.html", "key": "Escape", "to": "today.html", "width": 1280},
+    {"from": "day-editor.html", "click": [10, 10], "to": "today.html", "why": "backdrop", "width": 1280},
+
+    {"from": "year-view.html", "role": "button", "name": "Close", "to": "today.html", "exact": true},
+    {"from": "year-view.html", "key": "Escape", "to": "today.html"},
+    {"from": "year-view.html", "click": [10, 10], "to": "today.html", "why": "backdrop", "width": 1280},
+    {"from": "year-view.html", "role": "button", "name": "Delete habit", "to": "delete-dialog.html", "exact": true, "why": "M1 is one dialog; the golden draws it for Stretch 10 minutes over K1, from P2 it would read Delete \"Read 20 pages\"? over P2"},
+
+    {"from": "delete-dialog.html", "role": "button", "name": "Cancel", "to": "today.html", "exact": true},
+    {"from": "delete-dialog.html", "key": "Escape", "to": "today.html"},
+    {"from": "delete-dialog.html", "click": [10, 10], "to": "today.html", "why": "backdrop"},
+
+    {"from": "states.html", "role": "button", "name": "Dismiss note", "to": "today-empty.html", "exact": true}
+  ]
+}

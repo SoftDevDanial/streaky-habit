@@ -4,7 +4,7 @@
 - **design-phase:** sdlc:design
 - **version:** 1.1.0 (1.0.0 sealed 2026-10-10, tag v1.0.0)
 - **mode:** greenfield
-- **phase:** v1.1.0 design, steps 5 to 8 (lock, compose, wire, self-critique) from the accepted F2
+- **phase:** v1.1.0 design, steps 5, 6 and 8 composed (final/ committed), step 7 wire and verify next
 - **next:** composer builds docs/design-explore/v1.1.0/final/ (system, goldens, manifest, links, self-critique), orchestrator wires and drives the flow (step 7), owner approves the set and the replacement of 1.0's goldens, logo redraw swapped in, finalize, then plan
 - **last-regression:** PASS @ 2026-10-10 12:25 (docs/regression/REGRESSION.md)
 
@@ -18,7 +18,7 @@
 none
 
 ## Next action
-One composer agent builds `docs/design-explore/v1.1.0/final/` from `v1.1.0/COMPOSE-BRIEF.md` (F2 accepted, ledger S7 row 6, H-02 final ruling). Rulings for the step: the 2.97 pair lifted, every number centred by its ink (rings done in f2, P2 beads still about 0.7 px low on a phone), the header mark kept swappable for the logo redraw. Then the orchestrator wires `final/` into `v1.1.0/prototype/` and drives `final/LINKS.json` (flowcheck adapted to v1.1.0 paths), writes `v1.1.0/FLOW-CHECK.md`, and puts the set to the owner. **Finalize writes `docs/design/`, which holds 1.0's immutable goldens. Replacing them needs the owner's explicit word** (1.0's stay in tag v1.0.0). Logo redraw with "Streaky Habit" before finalize so the goldens carry the new mark.
+Composer done: `docs/design-explore/v1.1.0/final/` (system.md, system.css, 9 goldens with .md: today, day-editor, year-view, overview, overview-year, delete-dialog, today-empty, today-full, states; sample-history.json, MANIFEST.md, LINKS.json, SELF-CRITIQUE.md, checks). **Before step 7, fix the composer's two shortcuts** (overview.html and overview-year.html draw K1 underneath without its band, 5 px slivers at 1280; states.html style block is a subset of system.css). Then run `flowcheck_v.py streaks v1.1.0`, put SELF-CRITIQUE's copy list and seven interaction rules to the owner, plus three for his ruling (horizontal ink of numbers with a "1" up to 1.05 px left, desktop day cells under 44 px inherited from f2, the phone header top at 8 px without the tab). Then logo redraw, then the finalize gate (his approval AND his word to replace 1.0's goldens).
 
 ## Notes
 Goldens (immutable): docs/design/today.html (key), today-empty.html, delete-dialog.html, states.html (specimen sheet), system.md, system.css, sample-history.json, RULINGS.md.
