@@ -195,3 +195,7 @@ Append-only history. STATE.md holds the situation, this file holds what happened
 - Designer agent: round-2/f.html, f.md, checks/f (43 screenshots). Verified on disk: 122 of 122 asserts, 0 console errors, 0 network requests, 0 clipboard writes, no page scroll at 1280, 390 and 360, add field fixed between K1, S2 and S3, Current and Best from the histories match rows and P2, overview day numbers 16 px (round 1 10.5 px), no browser left running.
 - Designer readings to flag on the compare page: weeks as columns in the desktop band (rows in the phone popup), the Year button is a word (no Phosphor calendar path on disk), P2 newest month first with the brand thread joining done days, Delete habit grey until hover.
 - Self-reported slip: one read-only Bash wc and ls early on. Nothing written.
+## 2026-10-10 23:01 owner's review of F recorded, brief for revision F2
+- Owner after seeing F: the overview stays the last 12 weeks with a button to a year popup for the overview, desktop and phone, and a button or icon to delete a habit on its row. His words in ledger H-02 (round 2 ruling), S7 row 4, S1 row 3. Brainstorm "Round 2 rulings" rows 20 and 21, C5 and C6 changed.
+- ORCH readings, flagged: (f) P4 shows every habit together in the overview's rings, last 12 months, newest month first, a day opens P1. (g) Its Year button sits in the band header on a desktop and in P3's header on a phone. (h) Delete habit stays in P2 too.
+- round-2/BRIEF-F2.md written. One designer builds f2.html from f.html next.

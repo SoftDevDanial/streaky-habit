@@ -165,3 +165,19 @@ The owner picked D Orbit Rings' look and gave the key screen a new layout. These
 | 17 | Which direction? | D Orbit Rings, colours and fonts, with his list layout | USER |
 | 18 | How far back does the year view go? | The last 12 months | USER |
 | 19 | Does tapping an overview day still open it? | Yes, the day editor | USER |
+
+### Round 2 rulings (2026-10-10 22:59, after round 2 direction F, ledger H-02)
+The owner reviewed F Orbit List. These change the rows above where they say so.
+
+| ID | Capability | What the user gets | Tag |
+|---|---|---|---|
+| C5 | Overview (changed again) | The overview stays the last 12 weeks. A Year button on it opens a year view of the last 12 months with every habit together, on a desktop and on a phone. Tapping a day there opens the day editor | USER |
+| C6 | Delete a habit (changed) | A delete button on every habit row, as well as Delete habit in the habit's year view. Both open the same confirm dialog, with the v1.1.0 guard above | USER |
+
+- **Overview year view:** D's small rings, one segment per habit, the same 366 days as a habit's year view, newest month first. Its button sits in the overview band's header on a desktop and in the overview popup's header on a phone. (ORCH, reversible)
+- **Delete habit** stays in the habit's year view too. (ORCH reading of "as well", reversible)
+
+| # | Question | Decision | Tag |
+|---|---|---|---|
+| 20 | Does the overview get a year view too? | Yes, the overview stays 12 weeks and a button opens the last 12 months, desktop and phone | USER |
+| 21 | Can a habit be deleted from its row? | Yes, a delete button on every row | USER |

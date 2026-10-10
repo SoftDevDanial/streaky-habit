@@ -4,8 +4,8 @@
 - **design-phase:** sdlc:design
 - **version:** 1.1.0 (1.0.0 sealed 2026-10-10, tag v1.0.0)
 - **mode:** greenfield
-- **phase:** v1.1.0 design, round 2 (sdlc:design step 4): one new direction F Orbit List from the owner's pick
-- **next:** designer builds round-2/f.html, orchestrator writes round-2/compare.html, owner reviews, then lock, compose, wire, goldens
+- **phase:** v1.1.0 design, round 2 (sdlc:design step 4): revision F2 Orbit List, revised, from the owner's review of F
+- **next:** designer builds round-2/f2.html, orchestrator writes round-2/compare.html, owner reviews, then lock, compose, wire, goldens
 - **last-regression:** PASS @ 2026-10-10 12:25 (docs/regression/REGRESSION.md)
 
 ## Modules
@@ -18,7 +18,7 @@
 none
 
 ## Next action
-Round 2 is running: one designer builds `docs/design-explore/v1.1.0/round-2/f.html` (F Orbit List) from `round-2/BRIEF.md`. The owner picked D Orbit Rings' look with his own list layout (ledger H-02 ruling, brainstorm "Round 1 rulings"). Then the orchestrator writes `round-2/compare.html` with the ORCH readings flagged, the owner reviews, then sdlc:design steps 5 to 9, the logo with the name "Streaky Habit", then plan. **Start a new Claude session before plan** so sdlc 2.4.0 is loaded (this session runs 2.2.0, the design steps are the same).
+Round 2 revision is running: one designer builds `docs/design-explore/v1.1.0/round-2/f2.html` (F2 Orbit List, revised) from `round-2/BRIEF-F2.md`. The owner reviewed F (ledger H-02 round 2 ruling, S7 row 4, S1 row 3, brainstorm "Round 2 rulings"): the overview stays 12 weeks with a Year button that opens P4, a year view of the last 12 months with every habit together (desktop and phone), and a delete button on every habit row. F `f.html` stays as the record. Then the orchestrator writes `round-2/compare.html` (round 1 D, F and F2, readings (a) to (h) flagged), the owner reviews, then sdlc:design steps 5 to 9, the logo with the name "Streaky Habit", then plan on sdlc 2.4.0.
 
 ## Notes
 Goldens (immutable): docs/design/today.html (key), today-empty.html, delete-dialog.html, states.html (specimen sheet), system.md, system.css, sample-history.json, RULINGS.md.
