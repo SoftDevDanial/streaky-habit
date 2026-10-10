@@ -1,0 +1,1290 @@
+{
+  "url": "http://127.0.0.1:8731/",
+  "viewport": {
+    "width": 1280,
+    "height": 800
+  },
+  "ran_at": "2026-10-10T13:27:30.291977+08:00",
+  "cases": [
+    {
+      "id": "UAT-01",
+      "title": "I can add a habit by name",
+      "auto_all_checks_ok": false,
+      "crashed": null,
+      "shots": [
+        "uat01-step3.png",
+        "uat01-step4-literal-typing-lost.png",
+        "uat01-step5.png",
+        "uat01-final.png"
+      ],
+      "notes": [
+        "gap profile after step 3: ['thin', 'thin', 'thin', 'thin', 'thin', 'thin']",
+        "after step 3 the field holds ''; keyboard focus is on BUTTON#.btn btn-primary",
+        "SCRIPT GAP: after step 3 focus is on BUTTON#.btn btn-primary, so step 4 did not land. Field now '10 minutes', message 'Name the habit first.', rows ['Read 20 pages']"
+      ],
+      "checks": [
+        {
+          "name": "precondition: empty first screen",
+          "ok": true,
+          "detail": "No habits yet. Add one you want to do every day."
+        },
+        {
+          "name": "precondition: nothing saved in this browser",
+          "ok": true,
+          "detail": {}
+        },
+        {
+          "name": "page title and header",
+          "ok": true,
+          "detail": "Streaks / Saturday 10 October / 2026-10-10"
+        },
+        {
+          "name": "step 1: the field sits under the 'New habit' label",
+          "ok": true,
+          "detail": "label y=197 h=24, field y=229"
+        },
+        {
+          "name": "hit-test step 1 text field",
+          "ok": true,
+          "detail": "elementFromPoint(371,253) -> INPUT.input"
+        },
+        {
+          "name": "step 1: field has focus",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "name": "step 2: typed text is in the field",
+          "ok": true,
+          "detail": "Read 20 pages"
+        },
+        {
+          "name": "step 3: Add is to the right of the field",
+          "ok": true,
+          "detail": "field right=574, Add x=586"
+        },
+        {
+          "name": "step 3: Add is green",
+          "ok": true,
+          "detail": "rgb(59, 107, 96)"
+        },
+        {
+          "name": "hit-test step 3 Add button",
+          "ok": true,
+          "detail": "elementFromPoint(627,253) -> BUTTON.btn btn-primary"
+        },
+        {
+          "name": "step 3: one habit 'Read 20 pages' appears",
+          "ok": true,
+          "detail": [
+            "Read 20 pages"
+          ]
+        },
+        {
+          "name": "step 3: 7 day circles, all hollow (aria-pressed false)",
+          "ok": true,
+          "detail": [
+            "false",
+            "false",
+            "false",
+            "false",
+            "false",
+            "false",
+            "false"
+          ]
+        },
+        {
+          "name": "step 3: last 7 days, today (Sat 10 Oct) last with aria-current",
+          "ok": true,
+          "detail": [
+            "Mark Sun 4 Oct as done",
+            "Mark Mon 5 Oct as done",
+            "Mark Tue 6 Oct as done",
+            "Mark Wed 7 Oct as done",
+            "Mark Thu 8 Oct as done",
+            "Mark Fri 9 Oct as done",
+            "Mark Sat 10 Oct as done"
+          ]
+        },
+        {
+          "name": "step 3: line reads 'No streak yet'",
+          "ok": true,
+          "detail": [
+            "No streak yet",
+            null
+          ]
+        },
+        {
+          "name": "step 3: today's circle has a thin ring (box-shadow)",
+          "ok": true,
+          "detail": "rgb(242, 245, 243) 0px 0px 0px 3px, rgb(126, 142, 136) 0px 0px 0px 4.5px"
+        },
+        {
+          "name": "step 3 PAINT: all 7 circles are hollow in the screenshot pixels",
+          "ok": true,
+          "detail": [
+            [
+              242,
+              245,
+              243
+            ],
+            [
+              242,
+              245,
+              243
+            ],
+            [
+              242,
+              245,
+              243
+            ],
+            [
+              242,
+              245,
+              243
+            ],
+            [
+              242,
+              245,
+              243
+            ],
+            [
+              242,
+              245,
+              243
+            ],
+            [
+              242,
+              245,
+              243
+            ]
+          ]
+        },
+        {
+          "name": "screenshot uat01-step3.png is not empty",
+          "ok": true,
+          "detail": "33017 bytes"
+        },
+        {
+          "name": "step 4 LITERAL: typing 'Stretch 10 minutes' without clicking the field lands in the field",
+          "ok": false,
+          "detail": "field value='10 minutes', msg='Name the habit first.', focus before typing was BUTTON#.btn btn-primary"
+        },
+        {
+          "name": "screenshot uat01-step4-literal-typing-lost.png is not empty",
+          "ok": true,
+          "detail": "36598 bytes"
+        },
+        {
+          "name": "hit-test recovery: click the field",
+          "ok": true,
+          "detail": "elementFromPoint(371,365) -> INPUT.input"
+        },
+        {
+          "name": "step 4 RECOVERED: text now in field",
+          "ok": true,
+          "detail": "Stretch 10 minutes"
+        },
+        {
+          "name": "step 5: 'Stretch 10 minutes' appears under 'Read 20 pages'",
+          "ok": true,
+          "detail": [
+            "Read 20 pages",
+            "Stretch 10 minutes"
+          ]
+        },
+        {
+          "name": "step 5: second habit is physically below the first",
+          "ok": true,
+          "detail": [
+            101,
+            301
+          ]
+        },
+        {
+          "name": "step 5: field cleared and no error shown after a good add",
+          "ok": true,
+          "detail": [
+            "",
+            ""
+          ]
+        },
+        {
+          "name": "screenshot uat01-step5.png is not empty",
+          "ok": true,
+          "detail": "43487 bytes"
+        },
+        {
+          "name": "step 6: lower-case text is in the field",
+          "ok": true,
+          "detail": "read 20 pages"
+        },
+        {
+          "name": "step 7: no third habit",
+          "ok": true,
+          "detail": [
+            "Read 20 pages",
+            "Stretch 10 minutes"
+          ]
+        },
+        {
+          "name": "step 7: red text reads 'You already track this habit.'",
+          "ok": true,
+          "detail": "You already track this habit."
+        },
+        {
+          "name": "step 7: the text is red (rgb(162, 59, 50))",
+          "ok": true,
+          "detail": "rgb(162, 59, 50)"
+        },
+        {
+          "name": "step 7: your typed text stays in the field",
+          "ok": true,
+          "detail": "read 20 pages"
+        },
+        {
+          "name": "step 7: the message is under the field",
+          "ok": true,
+          "detail": {
+            "x": 168,
+            "y": 597,
+            "width": 500,
+            "height": 20
+          }
+        },
+        {
+          "name": "screenshot uat01-final.png is not empty",
+          "ok": true,
+          "detail": "46163 bytes"
+        }
+      ]
+    },
+    {
+      "id": "UAT-02",
+      "title": "I can tick and untick the days of this week",
+      "auto_all_checks_ok": true,
+      "crashed": null,
+      "shots": [
+        "uat02-step1-row.png",
+        "uat02-step2-row.png",
+        "uat02-step3-row.png",
+        "uat02-final.png"
+      ],
+      "notes": [
+        "after clearing, the red message reads 'You already track this habit.' (it stays until the next add)",
+        "step 1 gap profile: ['thin', 'thin', 'thin', 'thin', 'thin', 'thin']; streak line: ('1 day', 'Best 1')",
+        "step 3 gap profile (what joins yesterday to the open circle): ['thin', 'thin', 'thin', 'thin', 'thin', 'dashed']"
+      ],
+      "checks": [
+        {
+          "name": "precondition: two habits, nothing ticked",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "name": "hit-test precondition: click the field",
+          "ok": true,
+          "detail": "elementFromPoint(371,565) -> INPUT.input"
+        },
+        {
+          "name": "precondition: field is empty after select-all + Delete",
+          "ok": true,
+          "detail": "''"
+        },
+        {
+          "name": "hit-test step 1 today's circle",
+          "ok": true,
+          "detail": "elementFromPoint(632,241) -> svg."
+        },
+        {
+          "name": "step 1: today's circle is ticked (aria-pressed true), nothing else",
+          "ok": true,
+          "detail": [
+            "false",
+            "false",
+            "false",
+            "false",
+            "false",
+            "false",
+            "true"
+          ]
+        },
+        {
+          "name": "step 1 PAINT: today's circle is filled green with a white check",
+          "ok": true,
+          "detail": {
+            "fill_px": [
+              46,
+              90,
+              80
+            ],
+            "filled": true,
+            "hollow": false,
+            "check_white_px": 15
+          }
+        },
+        {
+          "name": "hit-test step 2 yesterday's circle",
+          "ok": true,
+          "detail": "elementFromPoint(561,241) -> svg."
+        },
+        {
+          "name": "step 2: yesterday and today ticked",
+          "ok": true,
+          "detail": [
+            "false",
+            "false",
+            "false",
+            "false",
+            "false",
+            "true",
+            "true"
+          ]
+        },
+        {
+          "name": "step 2 PAINT: both circles filled green",
+          "ok": true,
+          "detail": [
+            [
+              46,
+              90,
+              80
+            ],
+            [
+              59,
+              107,
+              96
+            ]
+          ]
+        },
+        {
+          "name": "step 2 PAINT: a thick green line joins the two filled circles",
+          "ok": true,
+          "detail": {
+            "gap": "5-6",
+            "label": "thick",
+            "px": 21,
+            "green_frac": 1.0,
+            "green_runs": 1,
+            "max_green_rows": 4,
+            "max_thread_rows": 0
+          }
+        },
+        {
+          "name": "step 2 PAINT: no other gap is thick",
+          "ok": true,
+          "detail": [
+            "thin",
+            "thin",
+            "thin",
+            "thin",
+            "thin",
+            "thick"
+          ]
+        },
+        {
+          "name": "hit-test step 3 today's circle again",
+          "ok": true,
+          "detail": "elementFromPoint(632,241) -> svg."
+        },
+        {
+          "name": "step 3: today is unticked, yesterday still ticked",
+          "ok": true,
+          "detail": [
+            "false",
+            "false",
+            "false",
+            "false",
+            "false",
+            "true",
+            "false"
+          ]
+        },
+        {
+          "name": "step 3 PAINT: today is a hollow circle",
+          "ok": true,
+          "detail": {
+            "fill_px": [
+              242,
+              245,
+              243
+            ],
+            "filled": false,
+            "hollow": true,
+            "check_white_px": 0
+          }
+        },
+        {
+          "name": "hit-test step 4 today's circle once more",
+          "ok": true,
+          "detail": "elementFromPoint(632,241) -> svg."
+        },
+        {
+          "name": "step 4: today ticked again",
+          "ok": true,
+          "detail": [
+            "false",
+            "false",
+            "false",
+            "false",
+            "false",
+            "true",
+            "true"
+          ]
+        },
+        {
+          "name": "step 4 PAINT: today filled again",
+          "ok": true,
+          "detail": {
+            "fill_px": [
+              46,
+              90,
+              80
+            ],
+            "filled": true,
+            "hollow": false,
+            "check_white_px": 15
+          }
+        },
+        {
+          "name": "step 4 PAINT: joined to yesterday by a thick line",
+          "ok": true,
+          "detail": {
+            "gap": "5-6",
+            "label": "thick",
+            "px": 21,
+            "green_frac": 1.0,
+            "green_runs": 1,
+            "max_green_rows": 4,
+            "max_thread_rows": 0
+          }
+        },
+        {
+          "name": "screenshot uat02-final.png is not empty",
+          "ok": true,
+          "detail": "45883 bytes"
+        }
+      ]
+    },
+    {
+      "id": "UAT-03",
+      "title": "The streak counts days in a row and does not break before today is over",
+      "auto_all_checks_ok": true,
+      "crashed": null,
+      "shots": [
+        "uat03-step1-row.png",
+        "uat03-step3-row.png",
+        "uat03-final.png"
+      ],
+      "notes": [
+        "step 3 streak line: ('1 day', 'Best 1') (the script does not mention the Best figure here)"
+      ],
+      "checks": [
+        {
+          "name": "precondition: yesterday and today ticked",
+          "ok": true,
+          "detail": [
+            "false",
+            "false",
+            "false",
+            "false",
+            "false",
+            "true",
+            "true"
+          ]
+        },
+        {
+          "name": "step 1: line reads '2 days' then 'Best 2'",
+          "ok": true,
+          "detail": [
+            "2 days",
+            "Best 2"
+          ]
+        },
+        {
+          "name": "step 1: '2 days' is green",
+          "ok": true,
+          "detail": "rgb(46, 90, 80)"
+        },
+        {
+          "name": "step 1: 'Best 2' is grey",
+          "ok": true,
+          "detail": "rgb(82, 96, 91)"
+        },
+        {
+          "name": "step 1: 'Best 2' comes after '2 days' on the same line",
+          "ok": true,
+          "detail": [
+            {
+              "x": 168,
+              "y": 145,
+              "width": 40.53125,
+              "height": 20
+            },
+            {
+              "x": 220.53125,
+              "y": 145,
+              "width": 37.421875,
+              "height": 20
+            }
+          ]
+        },
+        {
+          "name": "hit-test step 2 today's circle",
+          "ok": true,
+          "detail": "elementFromPoint(632,241) -> svg."
+        },
+        {
+          "name": "step 3: line reads '1 day'",
+          "ok": true,
+          "detail": [
+            "1 day",
+            "Best 1"
+          ]
+        },
+        {
+          "name": "step 3: today's circle is open (hollow), yesterday still ticked",
+          "ok": true,
+          "detail": [
+            [
+              "false",
+              "false",
+              "false",
+              "false",
+              "false",
+              "true",
+              "false"
+            ],
+            [
+              242,
+              245,
+              243
+            ]
+          ]
+        },
+        {
+          "name": "step 3 PAINT: a dashed green line runs from yesterday into today's open circle",
+          "ok": true,
+          "detail": {
+            "gap": "5-6",
+            "label": "dashed",
+            "px": 21,
+            "green_frac": 0.48,
+            "green_runs": 3,
+            "max_green_rows": 4,
+            "max_thread_rows": 4
+          }
+        },
+        {
+          "name": "hit-test step 4 today's circle",
+          "ok": true,
+          "detail": "elementFromPoint(632,241) -> svg."
+        },
+        {
+          "name": "step 4: line reads '2 days' again",
+          "ok": true,
+          "detail": [
+            "2 days",
+            "Best 2"
+          ]
+        },
+        {
+          "name": "step 4 PAINT: solid (thick, not dashed) line",
+          "ok": true,
+          "detail": {
+            "gap": "5-6",
+            "label": "thick",
+            "px": 21,
+            "green_frac": 1.0,
+            "green_runs": 1,
+            "max_green_rows": 4,
+            "max_thread_rows": 0
+          }
+        },
+        {
+          "name": "screenshot uat03-final.png is not empty",
+          "ok": true,
+          "detail": "45901 bytes"
+        }
+      ]
+    },
+    {
+      "id": "UAT-04",
+      "title": "The best streak remembers the longest run",
+      "auto_all_checks_ok": true,
+      "crashed": null,
+      "shots": [
+        "uat04-row.png",
+        "uat04-final.png"
+      ],
+      "notes": [
+        "step 1: 2nd circle from the left is Mark Mon 5 Oct as done",
+        "step 2: 3rd circle from the left is Mark Tue 6 Oct as done",
+        "step 3: 4th circle from the left is Mark Wed 7 Oct as done",
+        "step 4: rightmost circle (today) is Mark Sat 10 Oct as done",
+        "gap profile: ['thin', 'thick', 'thick', 'thin', 'thin', 'thin']"
+      ],
+      "checks": [
+        {
+          "name": "precondition: UAT-03 done and 'Stretch 10 minutes' has nothing ticked",
+          "ok": true,
+          "detail": [
+            "2 days",
+            [
+              "false",
+              "false",
+              "false",
+              "false",
+              "false",
+              "false",
+              "false"
+            ]
+          ]
+        },
+        {
+          "name": "hit-test step 1: 2nd circle from the left",
+          "ok": true,
+          "detail": "elementFromPoint(275,441) -> svg."
+        },
+        {
+          "name": "hit-test step 2: 3rd circle from the left",
+          "ok": true,
+          "detail": "elementFromPoint(347,441) -> svg."
+        },
+        {
+          "name": "hit-test step 3: 4th circle from the left",
+          "ok": true,
+          "detail": "elementFromPoint(418,441) -> svg."
+        },
+        {
+          "name": "hit-test step 4: rightmost circle (today)",
+          "ok": true,
+          "detail": "elementFromPoint(632,441) -> svg."
+        },
+        {
+          "name": "step 5: line reads '1 day' then 'Best 3'",
+          "ok": true,
+          "detail": [
+            "1 day",
+            "Best 3"
+          ]
+        },
+        {
+          "name": "ticked circles are the 2nd, 3rd, 4th and today",
+          "ok": true,
+          "detail": [
+            "false",
+            "true",
+            "true",
+            "true",
+            "false",
+            "false",
+            "true"
+          ]
+        },
+        {
+          "name": "PAINT: 2nd-3rd-4th are joined by one thick line (gaps 1-2 and 2-3)",
+          "ok": true,
+          "detail": [
+            "thin",
+            "thick",
+            "thick",
+            "thin",
+            "thin",
+            "thin"
+          ]
+        },
+        {
+          "name": "PAINT: the run is not joined to circle 1 or to circle 5 (gaps 0-1 and 3-4 are not thick)",
+          "ok": true,
+          "detail": [
+            "thin",
+            "thick",
+            "thick",
+            "thin",
+            "thin",
+            "thin"
+          ]
+        },
+        {
+          "name": "PAINT: today is filled but not joined to the run (gap 5-6 not thick, not dashed)",
+          "ok": true,
+          "detail": [
+            [
+              46,
+              90,
+              80
+            ],
+            {
+              "gap": "5-6",
+              "label": "thin",
+              "px": 21,
+              "green_frac": 0.0,
+              "green_runs": 0,
+              "max_green_rows": 0,
+              "max_thread_rows": 2
+            }
+          ]
+        },
+        {
+          "name": "screenshot uat04-final.png is not empty",
+          "ok": true,
+          "detail": "47871 bytes"
+        }
+      ]
+    },
+    {
+      "id": "UAT-05",
+      "title": "The heatmap shows how much of each day got done",
+      "auto_all_checks_ok": true,
+      "crashed": null,
+      "shots": [
+        "uat05-step1-heat.png",
+        "uat05-step3-heat.png",
+        "uat05-final.png",
+        "uat05-step4-heat.png"
+      ],
+      "notes": [
+        "step 1 today cell label: Sat 10 Oct, 2 of 2 habits",
+        "step 3 today cell label: Sat 10 Oct, 1 of 2 habits",
+        "84 cells in the grid, 1 after today (['2026-10-11'])"
+      ],
+      "checks": [
+        {
+          "name": "precondition: both habits have today ticked",
+          "ok": true,
+          "detail": [
+            "true",
+            "true"
+          ]
+        },
+        {
+          "name": "panel 'Last 12 weeks' is on the right on a wide window",
+          "ok": true,
+          "detail": "heat x=732, main right=668"
+        },
+        {
+          "name": "panel is on screen without scrolling",
+          "ok": true,
+          "detail": "heat y=101 h=311"
+        },
+        {
+          "name": "step 1: exactly one ringed (today) dot",
+          "ok": true,
+          "detail": 1
+        },
+        {
+          "name": "step 1: today's dot is the largest kind (class l4, 17px)",
+          "ok": true,
+          "detail": [
+            "hc l4 today",
+            "17px"
+          ]
+        },
+        {
+          "name": "step 1 PAINT: the painted dot is as wide and as dark as 'All' in the legend",
+          "ok": true,
+          "detail": "today px=(46, 90, 80) w=17 css=17px/rgb(46, 90, 80); legend All px=(46, 90, 80) w=17 css=17px/rgb(46, 90, 80)"
+        },
+        {
+          "name": "step 1: a thin ring around it (22px wide, ring-coloured border, painted)",
+          "ok": true,
+          "detail": "22px / border 1px rgb(126, 142, 136) (declared 1.5px; Chromium draws 1px at 1x) / painted ring pixel found=True"
+        },
+        {
+          "name": "hit-test step 2 Stretch today's circle",
+          "ok": true,
+          "detail": "elementFromPoint(632,441) -> svg."
+        },
+        {
+          "name": "step 3: Stretch today is unticked",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "name": "step 3: today's dot is smaller and lighter (class l2, 11px)",
+          "ok": true,
+          "detail": [
+            "hc l2 today",
+            "11px"
+          ]
+        },
+        {
+          "name": "step 3 PAINT: smaller than before and lighter than before",
+          "ok": true,
+          "detail": "before px=(46, 90, 80) w=17; now px=(79, 124, 112) w=11"
+        },
+        {
+          "name": "step 3 PAINT: equals the legend's middle dot",
+          "ok": true,
+          "detail": "today px=(79, 124, 112) w=11; legend l2 px=(79, 124, 112) w=11 css=11px"
+        },
+        {
+          "name": "hit-test step 4 Stretch today's circle",
+          "ok": true,
+          "detail": "elementFromPoint(632,441) -> svg."
+        },
+        {
+          "name": "step 4: largest again (class l4, 17px, same colour as before)",
+          "ok": true,
+          "detail": [
+            "hc l4 today",
+            "17px",
+            [
+              46,
+              90,
+              80
+            ],
+            17
+          ]
+        },
+        {
+          "name": "days after today have no dot (computed dot 0px, transparent, painted pixel = panel colour)",
+          "ok": true,
+          "detail": {
+            "future": [
+              {
+                "date": "2026-10-11",
+                "w": "0px",
+                "bg": "rgba(0, 0, 0, 0)",
+                "hidden": "true",
+                "role": null,
+                "cx": 1075.5234375,
+                "cy": 343.1953125
+              }
+            ],
+            "pixels": [
+              [
+                250,
+                252,
+                251
+              ]
+            ]
+          }
+        },
+        {
+          "name": "screenshot uat05-final.png is not empty",
+          "ok": true,
+          "detail": "47871 bytes"
+        }
+      ]
+    },
+    {
+      "id": "UAT-06",
+      "title": "I can delete a habit, but only on purpose",
+      "auto_all_checks_ok": true,
+      "crashed": null,
+      "shots": [
+        "uat06-dialog.png",
+        "uat06-final.png"
+      ],
+      "notes": [
+        "after Cancel, keyboard focus is on BUTTON#.icon-btn",
+        "step 5: waited 1000 ms as the script says (plus ~300 ms already elapsed)",
+        "after Delete, keyboard focus is on INPUT#new-habit.input"
+      ],
+      "checks": [
+        {
+          "name": "precondition: two habits",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "name": "step 1: the bin is at the right of 'Stretch 10 minutes'",
+          "ok": true,
+          "detail": "bin x=636, row x=168 w=500"
+        },
+        {
+          "name": "hit-test step 1 bin icon",
+          "ok": true,
+          "detail": "elementFromPoint(658,323) -> svg."
+        },
+        {
+          "name": "step 2: a box opens (dialog[open])",
+          "ok": true,
+          "detail": 1
+        },
+        {
+          "name": "step 2: it asks Delete \"Stretch 10 minutes\"?",
+          "ok": true,
+          "detail": "'Delete \"Stretch 10 minutes\"?'"
+        },
+        {
+          "name": "step 2: 'Its history is deleted too.' is under it",
+          "ok": true,
+          "detail": "Its history is deleted too."
+        },
+        {
+          "name": "step 2: two buttons Cancel and Delete habit are visible",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "name": "step 2: the box is in the middle of the page",
+          "ok": true,
+          "detail": "centre=(640,400) of 1280x800"
+        },
+        {
+          "name": "screenshot uat06-dialog.png is not empty",
+          "ok": true,
+          "detail": "59964 bytes"
+        },
+        {
+          "name": "hit-test step 3 Cancel",
+          "ok": true,
+          "detail": "elementFromPoint(549,442) -> BUTTON.btn btn-secondary"
+        },
+        {
+          "name": "step 3: the box closes",
+          "ok": true,
+          "detail": 0
+        },
+        {
+          "name": "step 3: both habits are still there",
+          "ok": true,
+          "detail": [
+            "Read 20 pages",
+            "Stretch 10 minutes"
+          ]
+        },
+        {
+          "name": "hit-test step 4 bin icon again",
+          "ok": true,
+          "detail": "elementFromPoint(658,323) -> svg."
+        },
+        {
+          "name": "step 4: the box opens again, same question",
+          "ok": true,
+          "detail": "Delete \"Stretch 10 minutes\"?"
+        },
+        {
+          "name": "hit-test step 6 Delete habit",
+          "ok": true,
+          "detail": "elementFromPoint(731,442) -> BUTTON.btn btn-danger"
+        },
+        {
+          "name": "step 6: the box is closed",
+          "ok": true,
+          "detail": 0
+        },
+        {
+          "name": "step 6: 'Stretch 10 minutes' is gone, only 'Read 20 pages' remains",
+          "ok": true,
+          "detail": [
+            "Read 20 pages"
+          ]
+        },
+        {
+          "name": "step 6: 'Read 20 pages' is unchanged",
+          "ok": true,
+          "detail": {
+            "before": {
+              "name": "Read 20 pages",
+              "cur": "2 days",
+              "best": "Best 2",
+              "pressed": [
+                "false",
+                "false",
+                "false",
+                "false",
+                "false",
+                "true",
+                "true"
+              ]
+            },
+            "after": {
+              "name": "Read 20 pages",
+              "cur": "2 days",
+              "best": "Best 2",
+              "pressed": [
+                "false",
+                "false",
+                "false",
+                "false",
+                "false",
+                "true",
+                "true"
+              ]
+            }
+          }
+        },
+        {
+          "name": "step 6: heatmap counts one habit, today's cell reads 1 of 1",
+          "ok": true,
+          "detail": "Sat 10 Oct, 1 of 1 habits"
+        },
+        {
+          "name": "step 6 PAINT: today's dot is the largest kind again (l4, matches legend All)",
+          "ok": true,
+          "detail": "hc l4 today px=(46, 90, 80) w=17 css=17px; legend All px=(46, 90, 80) w=17"
+        },
+        {
+          "name": "step 6: storage no longer holds the deleted habit's name",
+          "ok": true,
+          "detail": "saved keys: ['streaks.state']"
+        },
+        {
+          "name": "screenshot uat06-final.png is not empty",
+          "ok": true,
+          "detail": "36971 bytes"
+        }
+      ]
+    },
+    {
+      "id": "UAT-07",
+      "title": "My habits are still there when I come back",
+      "auto_all_checks_ok": true,
+      "crashed": null,
+      "shots": [
+        "uat07-step1-after-reload.png",
+        "uat07-final.png"
+      ],
+      "notes": [
+        "saved data in localStorage: {\"streaks.state\": \"{\\\"version\\\":1,\\\"habits\\\":[{\\\"name\\\":\\\"Read 20 pages\\\",\\\"done\\\":[\\\"2026-10-09\\\",\\\"2026-10-10\\\"]}]}\"}",
+        "pressing F5 through automation did NOT reload (marker survived), so page.reload() was used as instructed",
+        "step 2: closed the tab (page.close()); the context and its localStorage stay"
+      ],
+      "checks": [
+        {
+          "name": "precondition: one habit 'Read 20 pages', yesterday and today ticked",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "name": "step 1: 'Read 20 pages' with the same filled circles, '2 days' and 'Best 2'",
+          "ok": true,
+          "detail": {
+            "name": "Read 20 pages",
+            "cur": "2 days",
+            "curClass": "cur",
+            "best": "Best 2",
+            "pressed": [
+              "false",
+              "false",
+              "false",
+              "false",
+              "false",
+              "true",
+              "true"
+            ],
+            "labels": [
+              "Mark Sun 4 Oct as done",
+              "Mark Mon 5 Oct as done",
+              "Mark Tue 6 Oct as done",
+              "Mark Wed 7 Oct as done",
+              "Mark Thu 8 Oct as done",
+              "Mark Fri 9 Oct as done",
+              "Mark Sat 10 Oct as done"
+            ],
+            "current": [
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true
+            ],
+            "runContinues": false,
+            "deleteLabel": "Delete Read 20 pages"
+          }
+        },
+        {
+          "name": "step 1: same heatmap (all 84 cells identical: class and label)",
+          "ok": true,
+          "detail": "84 cells equal"
+        },
+        {
+          "name": "screenshot uat07-step1-after-reload.png is not empty",
+          "ok": true,
+          "detail": "33694 bytes"
+        },
+        {
+          "name": "step 1 PAINT: yesterday and today painted filled and joined by a thick line",
+          "ok": true,
+          "detail": [
+            [
+              59,
+              107,
+              96
+            ],
+            [
+              59,
+              107,
+              96
+            ],
+            {
+              "gap": "5-6",
+              "label": "thick",
+              "px": 21,
+              "green_frac": 1.0,
+              "green_runs": 1,
+              "max_green_rows": 4,
+              "max_thread_rows": 0
+            }
+          ]
+        },
+        {
+          "name": "step 3: new tab shows 'Read 20 pages' with the same filled circles, '2 days' and 'Best 2'",
+          "ok": true,
+          "detail": {
+            "name": "Read 20 pages",
+            "cur": "2 days",
+            "curClass": "cur",
+            "best": "Best 2",
+            "pressed": [
+              "false",
+              "false",
+              "false",
+              "false",
+              "false",
+              "true",
+              "true"
+            ],
+            "labels": [
+              "Mark Sun 4 Oct as done",
+              "Mark Mon 5 Oct as done",
+              "Mark Tue 6 Oct as done",
+              "Mark Wed 7 Oct as done",
+              "Mark Thu 8 Oct as done",
+              "Mark Fri 9 Oct as done",
+              "Mark Sat 10 Oct as done"
+            ],
+            "current": [
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true
+            ],
+            "runContinues": false,
+            "deleteLabel": "Delete Read 20 pages"
+          }
+        },
+        {
+          "name": "step 3: same heatmap (all 84 cells identical: class and label)",
+          "ok": true,
+          "detail": "84 cells equal"
+        },
+        {
+          "name": "step 3: no 'list was reset' note shown",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "name": "screenshot uat07-final.png is not empty",
+          "ok": true,
+          "detail": "33694 bytes"
+        }
+      ]
+    }
+  ],
+  "extras": {
+    "guards": {
+      "bin_click_right_after_Cancel": {
+        "python_gap_ms": 31,
+        "dialog_open_after": 0
+      },
+      "bin_click_after_calm_second_opens": true,
+      "delete_habit_click_right_after_open": {
+        "python_gap_ms": 252,
+        "dialog_still_open": 1,
+        "habits_left": 1,
+        "click_events": [
+          {
+            "t": 3509,
+            "cls": "svg",
+            "prevented": false
+          },
+          {
+            "t": 5261,
+            "cls": "btn btn-secondary",
+            "prevented": false
+          },
+          {
+            "t": 6492,
+            "cls": "svg",
+            "prevented": false
+          },
+          {
+            "t": 6745,
+            "cls": "btn btn-danger",
+            "prevented": true
+          }
+        ]
+      },
+      "habit_still_there_at_end": true
+    },
+    "midnight": {
+      "fake_now_after_load": "Sat Oct 10 2026 23:59:40 GMT+0800 (Malaysia Time)",
+      "before": {
+        "clock": "Sat Oct 10 2026 23:59:41 GMT+0800 (Malaysia Time)",
+        "header": "Saturday 10 October",
+        "headerDatetime": "2026-10-10",
+        "first_day": "Mark Sun 4 Oct as done",
+        "last_day": "Mark Sat 10 Oct as done",
+        "pressed": [
+          "false",
+          "false",
+          "false",
+          "false",
+          "false",
+          "false",
+          "true"
+        ],
+        "streak": [
+          "1 day",
+          "Best 1"
+        ],
+        "today_cell": [
+          "Sat 10 Oct, 1 of 1 habits"
+        ],
+        "aria_current": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          true
+        ]
+      },
+      "after_run_60s": {
+        "clock": "Sun Oct 11 2026 00:00:41 GMT+0800 (Malaysia Time)",
+        "header": "Sunday 11 October",
+        "headerDatetime": "2026-10-11",
+        "first_day": "Mark Mon 5 Oct as done",
+        "last_day": "Mark Sun 11 Oct as done",
+        "pressed": [
+          "false",
+          "false",
+          "false",
+          "false",
+          "false",
+          "true",
+          "false"
+        ],
+        "streak": [
+          "1 day",
+          "Best 1"
+        ],
+        "today_cell": [
+          "Sun 11 Oct, 0 of 1 habits"
+        ],
+        "aria_current": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          true
+        ]
+      },
+      "last_day_moved_to_tomorrow": true
+    }
+  },
+  "console": []
+}

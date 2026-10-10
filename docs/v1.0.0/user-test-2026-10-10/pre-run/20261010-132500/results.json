@@ -1,0 +1,71 @@
+{
+  "kind": "uat-pre-run",
+  "version": "1.0.0",
+  "sitting": "1 of 1",
+  "ran_against": "http://127.0.0.1:8731/ (python -m http.server, pid 12828, not started or touched by the tester)",
+  "driver": "Python Playwright 1.61.0, headless Chromium, fresh context, 1280x800, timezone Asia/Kuala_Lumpur, locale en-GB, real clock (2026-10-10 about 13:27 +08:00)",
+  "raw": "results-raw.json (every check with its detail; second and final run)",
+  "caveat": "A tester PASS is evidence the script is runnable, not evidence the feature works. Do not cite it as the version's proof.",
+  "counts": { "pass": 6, "fail": 0, "blocked_product": 0, "blocked_script": 1 },
+  "cases": [
+    {
+      "id": "UAT-01",
+      "verdict": "BLOCKED (script)",
+      "observed": "Steps 1 to 3 and 5 to 7 met the Expected result. Step 4 as written does not work: after the mouse click on Add, keyboard focus stays on the Add button, so typing 'Stretch 10 minutes' without clicking the field first presses Add on the first space (red 'Name the habit first.') and only '10 minutes' lands in the field. After I clicked the field myself, steps 5 to 7 all matched.",
+      "screenshots": ["uat01-step3.png", "uat01-step4-literal-typing-lost.png", "uat01-step5.png", "uat01-final.png"],
+      "script_defect": "Step 4 does not say to click the field. Product behaviour is as specified (app spec R10: focus stays on Add after a mouse add). Suggested step 4: 'Click the text field again, then type Stretch 10 minutes.'"
+    },
+    {
+      "id": "UAT-02",
+      "verdict": "PASS",
+      "observed": "Step 1 today fills green with a white check; step 2 yesterday fills and a 4px green line joins the two (read from painted pixels); step 3 today is hollow again; step 4 filled and joined again. Every click hit-tested inside the circle first.",
+      "screenshots": ["uat02-step1-row.png", "uat02-step2-row.png", "uat02-step3-row.png", "uat02-final.png"]
+    },
+    {
+      "id": "UAT-03",
+      "verdict": "PASS",
+      "observed": "Step 1 '2 days' in green then 'Best 2' in grey; step 3 '1 day' with a dashed green line from yesterday into today's open circle (alternating 4px dashes, read from pixels); step 4 '2 days' with a solid line. At step 3 the line also reads 'Best 1' (Best fell from 2), which the script does not mention.",
+      "screenshots": ["uat03-step1-row.png", "uat03-step3-row.png", "uat03-final.png"]
+    },
+    {
+      "id": "UAT-04",
+      "verdict": "PASS",
+      "observed": "Circles 2, 3, 4 (Mon 5, Tue 6, Wed 7 Oct) and today ticked; line reads '1 day' then 'Best 3'; one thick line joins circles 2 to 4; today is filled with only the thin thread to its left.",
+      "screenshots": ["uat04-row.png", "uat04-final.png"]
+    },
+    {
+      "id": "UAT-05",
+      "verdict": "PASS",
+      "observed": "Step 1 today's ringed dot is 17px, rgb(46,90,80), identical to the legend 'All' dot; step 3 it is 11px, rgb(79,124,112), identical to the legend middle dot, label 'Sat 10 Oct, 1 of 2 habits'; step 4 back to 17px. The one day after today (Sun 11 Oct) has no dot (0px, panel colour pixel).",
+      "screenshots": ["uat05-step1-heat.png", "uat05-step3-heat.png", "uat05-step4-heat.png", "uat05-final.png"]
+    },
+    {
+      "id": "UAT-06",
+      "verdict": "PASS",
+      "observed": "Bin opens a centred box 'Delete \"Stretch 10 minutes\"?' with 'Its history is deleted too.', Cancel and Delete habit; Cancel closes it and keeps both habits; after the one second wait Delete habit removes only 'Stretch 10 minutes'; 'Read 20 pages' unchanged ('2 days', 'Best 2'); today's cell reads '1 of 1 habits' and its dot is the largest kind (it was already the largest, so nothing visibly changes there).",
+      "screenshots": ["uat06-dialog.png", "uat06-final.png"]
+    },
+    {
+      "id": "UAT-07",
+      "verdict": "PASS",
+      "observed": "After reload and after closing the tab and opening a new one at the same address, 'Read 20 pages' shows the same filled circles, '2 days', 'Best 2', thick line, and all 84 heatmap cells identical (class and label). No 'list was reset' note. F5 pressed through automation does not reload in headless Chromium, so page.reload() was used as instructed.",
+      "screenshots": ["uat07-step1-after-reload.png", "uat07-final.png"]
+    }
+  ],
+  "extras": {
+    "midnight": {
+      "setup": "fresh context, Playwright clock installed at 2026-10-10 23:59:40 +08:00, one habit added and today ticked, then page.clock.run_for(60000)",
+      "before": { "clock": "Sat Oct 10 2026 23:59:41", "header": "Saturday 10 October", "last_day": "Mark Sat 10 Oct as done", "streak": "1 day / Best 1", "today_cell": "Sat 10 Oct, 1 of 1 habits" },
+      "after": { "clock": "Sun Oct 11 2026 00:00:41", "header": "Sunday 11 October", "first_day": "Mark Mon 5 Oct as done", "last_day": "Mark Sun 11 Oct as done", "pressed": "Sat 10 ticked, Sun 11 open", "streak": "1 day / Best 1 (holding, dashed line)", "today_cell": "Sun 11 Oct, 0 of 1 habits" },
+      "last_day_moved_to_tomorrow": true,
+      "screenshots": ["extra-midnight-before.png", "extra-midnight-after.png"]
+    },
+    "half_second_guards": {
+      "note": "Not a case. Measured so the owner's ruling in UAT-06 rests on an observation.",
+      "bin_click_right_after_Cancel": "ignored, no box opened",
+      "bin_click_after_a_calm_second": "opens the box",
+      "delete_habit_click_about_250ms_after_the_box_opened": "ignored (click event default prevented), box stayed open, habit kept"
+    }
+  },
+  "console_errors_or_warnings": []
+}
