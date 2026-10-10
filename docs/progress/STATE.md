@@ -4,8 +4,8 @@
 - **design-phase:** sdlc:design
 - **version:** 1.1.0 (1.0.0 sealed 2026-10-10, tag v1.0.0)
 - **mode:** greenfield
-- **phase:** v1.1.0 design, round 2 (sdlc:design step 4): revision F2 Orbit List, revised, from the owner's review of F
-- **next:** designer builds round-2/f2.html, orchestrator writes round-2/compare.html, owner reviews, then lock, compose, wire, goldens
+- **phase:** v1.1.0 design, round 2 (sdlc:design step 4): F2 built and verified, compare page written, waiting for the owner
+- **next:** owner reviews round-2/compare.html (pick F2 or more notes), then lock, compose, wire, goldens
 - **last-regression:** PASS @ 2026-10-10 12:25 (docs/regression/REGRESSION.md)
 
 ## Modules
@@ -18,7 +18,7 @@
 none
 
 ## Next action
-Round 2 revision is running: one designer builds `docs/design-explore/v1.1.0/round-2/f2.html` (F2 Orbit List, revised) from `round-2/BRIEF-F2.md`. The owner reviewed F (ledger H-02 round 2 ruling, S7 row 4, S1 row 3, brainstorm "Round 2 rulings"): the overview stays 12 weeks with a Year button that opens P4, a year view of the last 12 months with every habit together (desktop and phone), and a delete button on every habit row. F `f.html` stays as the record. Then the orchestrator writes `round-2/compare.html` (round 1 D, F and F2, readings (a) to (h) flagged), the owner reviews, then sdlc:design steps 5 to 9, the logo with the name "Streaky Habit", then plan on sdlc 2.4.0.
+Waiting for the owner's review of `docs/design-explore/v1.1.0/round-2/compare.html` (round 1 D, F, F2 with every reading flagged, orchestrator's pick F2, ledger S7 row 5, H-02 round 2 recommendation). If he accepts F2, run sdlc:design steps 5 to 9 (lock the system with AA ratios, decide the 2.97 pair, compose every screen and state, wire and verify, self-critique, finalize goldens), then the logo with the name "Streaky Habit", then plan on sdlc 2.4.0.
 
 ## Notes
 Goldens (immutable): docs/design/today.html (key), today-empty.html, delete-dialog.html, states.html (specimen sheet), system.md, system.css, sample-history.json, RULINGS.md.

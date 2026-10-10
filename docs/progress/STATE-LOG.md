@@ -199,3 +199,8 @@ Append-only history. STATE.md holds the situation, this file holds what happened
 - Owner after seeing F: the overview stays the last 12 weeks with a button to a year popup for the overview, desktop and phone, and a button or icon to delete a habit on its row. His words in ledger H-02 (round 2 ruling), S7 row 4, S1 row 3. Brainstorm "Round 2 rulings" rows 20 and 21, C5 and C6 changed.
 - ORCH readings, flagged: (f) P4 shows every habit together in the overview's rings, last 12 months, newest month first, a day opens P1. (g) Its Year button sits in the band header on a desktop and in P3's header on a phone. (h) Delete habit stays in P2 too.
 - round-2/BRIEF-F2.md written. One designer builds f2.html from f.html next.
+
+## 2026-10-10 23:33 v1.1.0 round 2 revision F2 built, compare page written
+- Designer agent: round-2/f2.html, f2.md, checks/f2 (66 screenshots). f.html untouched. Verified on disk: 252 of 252 designer asserts, orchestrator's own spot check 60 of 60 at 1280, 390 and 360 (no page scroll with P4 open, 366 P4 days, P4 day opens P1, Esc order, row bin opens M1 with the habit's name, focus after a row delete, add field unmoved, 0 console errors, 0 network). Committed `4701776`.
+- Designer self-report: two runs of its own check script only, no rule broken. The app's Browser pane opened f2.html on its own after the write, not used by the agent.
+- round-2/compare.html written (D, F, F2 at 390 and 1280, his points table, readings table with ORCH and DESIGNER tags). Rendered at 1280 and 390, 0 console errors, no sideways scroll, no broken images, the desktop switch works, no long dashes.

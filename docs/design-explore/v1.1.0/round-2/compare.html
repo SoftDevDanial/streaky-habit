@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Streaky Habit v1.1.0 round 2 compare</title>
+<style>
+  :root {
+    --bg: #eceef1; --panel: #ffffff; --ink: #16181d; --muted: #4f5662; --line: #d5d9df;
+    --pick: #1f5fd1; --flag-bg: #fff6e0; --flag-edge: #b7791f; --ask-bg: #eef4ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+    font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 1320px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1 { font-size: 26px; margin: 0 0 4px; letter-spacing: -0.01em; }
+  h2 { font-size: 19px; margin: 36px 0 12px; }
+  .lede { color: var(--muted); margin: 0 0 24px; max-width: 78ch; }
+  .box { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 16px 20px; margin: 0 0 16px; max-width: 100ch; }
+  .box h3 { font-size: 16px; margin: 0 0 6px; }
+  .box p { margin: 0 0 8px; }
+  .box p:last-child { margin: 0; }
+  .rec { border-left: 4px solid var(--pick); }
+  .ask { background: var(--ask-bg); border-left: 4px solid var(--pick); }
+  table { border-collapse: collapse; width: 100%; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; font-size: 14px; }
+  th, td { text-align: left; vertical-align: top; padding: 9px 12px; border-top: 1px solid var(--line); }
+  thead th { border-top: 0; background: #f6f7f9; font-size: 13px; color: var(--muted); font-weight: 600; }
+  tbody th { font-weight: 600; }
+  td.num, th.num { white-space: nowrap; }
+  tr.flag td, tr.flag th { background: var(--flag-bg); }
+  .who { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; padding: 1px 6px; border-radius: 4px; border: 1px solid var(--line); background: #f6f7f9; color: var(--muted); white-space: nowrap; }
+  .who.you { border-color: var(--pick); color: var(--pick); background: #f3f7ff; }
+  .who.orch { border-color: var(--flag-edge); color: #7a4f0f; background: var(--flag-bg); }
+  .scroll { overflow-x: auto; }
+  .row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; align-items: start; }
+  .dir { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 16px; min-width: 0; }
+  .dir[data-pick] { border-color: var(--pick); box-shadow: 0 0 0 1px var(--pick); }
+  .tag { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin: 0; }
+  .dir[data-pick] .tag { color: var(--pick); font-weight: 600; }
+  .dir h3 { font-size: 18px; margin: 2px 0 4px; }
+  .thesis { margin: 0 0 12px; color: var(--muted); }
+  .frame { width: 100%; aspect-ratio: 390 / 844; overflow: hidden; border: 1px solid var(--line); border-radius: 6px; background: #18191c; position: relative; }
+  .frame iframe { position: absolute; top: 0; left: 0; width: 390px; height: 844px; border: 0; transform-origin: 0 0; }
+  dl { margin: 12px 0 0; }
+  dt { font-weight: 600; font-size: 13px; }
+  dd { margin: 0 0 8px; color: var(--muted); }
+  .open { margin: 10px 0 0; }
+  a { color: var(--pick); }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--pick); outline-offset: 2px; }
+  .switch { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; }
+  .switch button { font: inherit; font-size: 14px; min-height: 40px; padding: 6px 14px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); color: var(--ink); cursor: pointer; }
+  .switch button[aria-pressed="true"] { border-color: var(--pick); background: var(--pick); color: #fff; }
+  .desk { width: 100%; aspect-ratio: 1280 / 800; overflow: hidden; border: 1px solid var(--line); border-radius: 6px; background: #18191c; position: relative; }
+  .desk iframe { position: absolute; top: 0; left: 0; width: 1280px; height: 800px; border: 0; transform-origin: 0 0; }
+  .glance { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+  .glance figure { margin: 0; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
+  .glance figure.is-pick { border-color: var(--pick); box-shadow: 0 0 0 1px var(--pick); }
+  .glance img { display: block; width: 100%; height: auto; border-radius: 4px; }
+  .glance figcaption { font-size: 13px; margin-top: 6px; font-weight: 600; }
+  .glance .wide { grid-column: span 2; }
+  @media (max-width: 1000px) {
+    .row { grid-template-columns: minmax(0, 1fr); max-width: 440px; }
+    .glance { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .glance .wide { grid-column: span 2; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>Streaky Habit v1.1.0, design round 2</h1>
+  <p class="lede">F2 is direction F with your two notes from tonight built in. The overview keeps the last 12 weeks and gains a Year button that opens the whole year for every habit, and every habit row has a bin. Round 1 D and the first F sit beside it so you can see what moved. Every frame below is the real prototype, so you can tap Done today, open a Year view, tick a day, press a bin, and use Prototype states inside it. The desktop view is further down.</p>
+
+  <section class="box rec" aria-label="Recommendation">
+    <h3>My recommendation, take F2 forward</h3>
+    <p>F2 does everything you listed in both rounds and nothing else. The page never scrolls at 1280 x 800, 390 x 844 or 360 x 780, only the list frame does. The add field stays in the same place with 3 habits or 12. A day reads the same in the overview, a habit's Year view and the new all-habits Year view, and a tick in any of them moves every number at once.</p>
+    <p>If you accept it, the next steps are lock the design system with its contrast ratios, compose every screen and state, wire the flow, then the golden files the build is checked against. The logo is redrawn with the name "Streaky Habit" after that.</p>
+  </section>
+
+  <section class="box ask" aria-label="Decisions for you">
+    <h3>What needs your word</h3>
+    <p><strong>1. F2 as the direction.</strong> Accept it, or give more notes for another revision.</p>
+    <p><strong>2. The readings below.</strong> Where your words left a detail open, I or the designer chose. Each is easy to change. The highlighted rows are the ones most likely to matter to you.</p>
+  </section>
+
+  <h2>At a glance</h2>
+  <div class="glance">
+    <figure><img src="../round-1/checks/d/k1-390.png" alt="Round 1 D on a phone"><figcaption>Round 1 D</figcaption></figure>
+    <figure class="is-pick"><img src="checks/f2/k1-390.png" alt="F2 on a phone, three habit rows each with a bin"><figcaption>F2, phone</figcaption></figure>
+    <figure class="is-pick"><img src="checks/f2/p4-390.png" alt="F2 all habits year view on a phone"><figcaption>F2, all habits Year view, phone</figcaption></figure>
+    <figure class="is-pick wide"><img src="checks/f2/k1-1280.png" alt="F2 on a desktop, overview band with a Year button, habit rows with bins"><figcaption>F2, desktop</figcaption></figure>
+  </div>
+
+  <h2>What changed, point by point</h2>
+  <div class="scroll">
+    <table>
+      <thead><tr><th scope="col">Your point</th><th scope="col">Round 1 D</th><th scope="col">F2 now</th><th scope="col">Where to see it</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">"I like Orbit Rings"</th><td>Charcoal, one amber, small rings with one segment per habit</td><td>The same colours, type and rings</td><td>Everywhere</td></tr>
+        <tr><th scope="row">"make the numbers in the calendar bigger"</th><td>10.5 px day numbers on a desktop, 9.9 px on a phone</td><td>16 px on a desktop and at 360, 16.8 px at 390</td><td>The overview band, the Overview popup, the all-habits Year view</td></tr>
+        <tr><th scope="row">"it doesnt make the input field pushed down"</th><td>The add field moved down as habits were added</td><td>The add field is fixed below the list. It sits in the same place with 3 habits and with 12</td><td>Prototype states, S3 12 habits</td></tr>
+        <tr><th scope="row">"we list down the habits", three functions each</th><td>Each habit was a card with a seven-day ring</td><td>Each habit is a row with Done today, Year, and Current and Best</td><td>The list</td></tr>
+        <tr><th scope="row">"The modal will show all days of the year"</th><td>No such view</td><td>Year on a row opens that habit's last 12 months, Current and Best at the top. Tap a day to tick or untick it</td><td>Year on any row</td></tr>
+        <tr><th scope="row">Overview on top, the list scrolls inside its own frame</th><td>The 12 weeks sat beside the habits and the page scrolled</td><td>Overview band on top, list frame below it, the page never scrolls</td><td>Desktop view</td></tr>
+        <tr><th scope="row">Phone, fixed input below, overview behind a button</th><td>Everything on one long page</td><td>The add field is pinned to the bottom. The Overview button in the header opens the 12 weeks as a full-screen popup</td><td>Phone view, Overview</td></tr>
+        <tr><th scope="row">"last 12 weeks but have a button to check last year", desktop and mobile</th><td>No such view</td><td>The overview stays 12 weeks. Its Year button opens all habits over the last 12 months, the same rings, and a day opens the day editor</td><td>Desktop, Year on the band. Phone, Overview then Year</td></tr>
+        <tr><th scope="row">"button or icon to remove a habit in the list itself"</th><td>A bin on each card</td><td>A bin on every row, quiet grey until you point at it. It opens the same confirm as before</td><td>The bin on any row</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Readings made for you</h2>
+  <p class="lede">The first column says who chose. <span class="who orch">ORCH</span> is me, from your words. <span class="who">DESIGNER</span> is the designer agent, where the brief left it open.</p>
+  <div class="scroll">
+    <table>
+      <thead><tr><th scope="col">Who</th><th scope="col">Reading</th><th scope="col">Why</th></tr></thead>
+      <tbody>
+        <tr class="flag"><td class="num"><span class="who orch">ORCH</span></td><td>The all-habits Year view shows every habit together, one ring per day as the overview draws it, newest month first</td><td>You asked for a yearly popup "for overview", so it reads like the overview. Newest first matches a habit's own Year view</td></tr>
+        <tr class="flag"><td class="num"><span class="who orch">ORCH</span></td><td>Its Year button sits on the overview band's title line on a desktop, and in the Overview popup's header on a phone</td><td>It belongs to the overview, and on a phone the overview lives in that popup</td></tr>
+        <tr class="flag"><td class="num"><span class="who orch">ORCH</span></td><td>Delete habit also stays inside a habit's Year view</td><td>"in the list itself as well" reads as in addition, so both places open the same confirm</td></tr>
+        <tr class="flag"><td class="num"><span class="who">DESIGNER</span></td><td>On a phone the bin sits at the right end of the name line, with the numbers, Year and Done today on the line below. On a desktop the row is one line with the bin in its own column after the name</td><td>A 44 px bin does not fit on the second line at 360 px, and it keeps the bin well away from Done today so one is never pressed for the other. A phone row is 16 px taller for it</td></tr>
+        <tr class="flag"><td class="num"><span class="who">DESIGNER</span></td><td>On a desktop the overview runs weeks as columns, newest on the right. The phone popup runs weeks as rows, newest on top</td><td>Columns keep the band 7 rings tall so the list still gets room. A phone is too narrow for 12 columns of touch targets</td></tr>
+        <tr><td class="num"><span class="who">DESIGNER</span></td><td>The Year buttons say "Year" in words, with no calendar icon</td><td>No calendar icon path is on disk and icons are never hand-drawn. One can be added from the icon set later</td></tr>
+        <tr><td class="num"><span class="who">DESIGNER</span></td><td>In a habit's Year view, done days in a row are joined by an amber thread</td><td>The logo's idea, beads on one thread</td></tr>
+        <tr><td class="num"><span class="who orch">ORCH</span></td><td>The big seven-day ring on each habit is gone</td><td>Your list layout gives each row Done today and a Year view instead</td></tr>
+        <tr><td class="num"><span class="who orch">ORCH</span></td><td>The 12 weeks keep D's sideways shape, every past day a tap target</td><td>"i like the current orbit ones"</td></tr>
+        <tr><td class="num"><span class="who orch">ORCH</span></td><td>The add field sits below the list on every width, like a chat box</td><td>"either before or after", after keeps it under the thumb on a phone</td></tr>
+        <tr><td class="num"><span class="who orch">ORCH</span></td><td>Done today toggles, a second tap unticks today</td><td>A wrong tap can be undone on the spot</td></tr>
+        <tr><td class="num"><span class="who">DESIGNER</span></td><td>One colour pair is just under the 3 to 1 rule. A thin not-done segment on a day you point at is 2.97 to 1, carried over from F</td><td>A one-line colour change fixes it. It touches F's colours, so it is left for the lock step unless you say otherwise</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Phone, 390 px</h2>
+  <div class="row">
+    <article class="dir" id="dir-d">
+      <header>
+        <p class="tag">Round 1, your pick for the look</p>
+        <h3>D Orbit Rings</h3>
+        <p class="thesis">Each habit was a ring of its last seven days, with the 12 weeks below.</p>
+      </header>
+      <div class="frame"><iframe src="../round-1/d.html" title="Round 1 D, Orbit Rings" loading="lazy"></iframe></div>
+      <p class="open"><a href="../round-1/d.html">Open full size</a></p>
+    </article>
+    <article class="dir" id="dir-f">
+      <header>
+        <p class="tag">Round 2, first build</p>
+        <h3>F Orbit List</h3>
+        <p class="thesis">D's look on your list layout. The one you reviewed tonight.</p>
+      </header>
+      <div class="frame"><iframe src="f.html" title="F, Orbit List" loading="lazy"></iframe></div>
+      <p class="open"><a href="f.html">Open full size</a></p>
+    </article>
+    <article class="dir" id="dir-f2" data-pick="true">
+      <header>
+        <p class="tag">Round 2, revised, my pick</p>
+        <h3>F2 Orbit List, revised</h3>
+        <p class="thesis">F with an all-habits Year view on the overview and a bin on every row.</p>
+      </header>
+      <div class="frame"><iframe src="f2.html" title="F2, Orbit List revised" loading="lazy"></iframe></div>
+      <dl>
+        <dt>Try</dt><dd>Overview in the header, then Year. Tap a day there to open it. Press a bin on any row.</dd>
+        <dt>Costs</dt><dd>Phone rows are 16 px taller, so 12 habits show four and a bit rows before the list scrolls. Two buttons read "Year", one per habit and one for all habits. The year views are long to tab through by keyboard.</dd>
+      </dl>
+      <p class="open"><a href="f2.html">Open full size</a></p>
+    </article>
+  </div>
+
+  <h2>Desktop, 1280 px</h2>
+  <div class="switch" role="group" aria-label="Choose a design for the desktop view">
+    <button type="button" data-src="../round-1/d.html" aria-pressed="false">Round 1 D</button>
+    <button type="button" data-src="f.html" aria-pressed="false">F</button>
+    <button type="button" data-src="f2.html" aria-pressed="true">F2, my pick</button>
+  </div>
+  <div class="desk"><iframe id="desk" src="f2.html" title="Desktop view of the chosen design"></iframe></div>
+
+  <h2>Checks</h2>
+  <p class="lede">F2 passed the designer's 252 of 252 render checks and my own separate 60 of 60 at 1280, 390 and 360 px. No console errors, no network requests, no page scroll, no sideways scroll at 360, every row control at least 44 px, and the add field unmoved after a delete. Screenshots are in checks/f2.</p>
+</main>
+<script>
+  // Scale each fixed-size prototype frame to the width of its box.
+  function fit() {
+    document.querySelectorAll('.frame').forEach(function (f) {
+      f.querySelector('iframe').style.transform = 'scale(' + (f.clientWidth / 390) + ')';
+    });
+    var d = document.querySelector('.desk');
+    d.querySelector('iframe').style.transform = 'scale(' + (d.clientWidth / 1280) + ')';
+  }
+  document.querySelectorAll('.switch button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('.switch button').forEach(function (o) { o.setAttribute('aria-pressed', String(o === b)); });
+      document.getElementById('desk').src = b.dataset.src;
+    });
+  });
+  window.addEventListener('resize', fit);
+  fit();
+</script>
+</body>
+</html>
