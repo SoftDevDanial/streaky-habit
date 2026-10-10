@@ -1,0 +1,849 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>Danial's Streaky Habit</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20112%20112'%3E%3Cpath%20fill='%235CF2E3'%20d='M46%2017H70A20%2020%200%201%201%2070%2041H46A20%2020%200%200%201%2042%2045V69A20%2020%200%201%201%2018%2069V45A20%2020%200%201%201%2046%2017ZM86%2065A20%2020%200%200%201%2086%20105A20%2020%200%200%201%2086%2065ZM86%2073A12%2012%200%200%200%2086%2097A12%2012%200%200%200%2086%2073Z'/%3E%3C/svg%3E">
+<style>
+/* Direction B, Neon Thread. One theme (dark deep blue), one accent (luminous aqua).
+   The glow lives only on done nodes and the run trail between them. Everything else is flat. */
+:root {
+  /* colour */
+  --bg: #0B1433;          /* page */
+  --bg-lift: #111E4A;     /* the soft top wash behind the header, no glow */
+  --well: #070D24;        /* the two "night wells" that hold light: the strip rail and the starfield */
+  --surface: #121D46;     /* dialogs, the sheet, notes */
+  --surface-hi: #1B2A57;  /* hover fill */
+  --line: #24356B;        /* hairlines, the unlit thread (decorative) */
+  --ring: #6676AA;        /* not-done node stroke, empty star, input and Cancel borders */
+  --ink: #E9EEFF;         /* primary text, focus ring */
+  --ink-soft: #9DABD3;    /* secondary text, today ring */
+  --aqua: #5CF2E3;        /* the one accent: done node, run trail, current streak, Add */
+  --aqua-hi: #93F8EE;     /* Add hover */
+  --aqua-glow: rgb(92 242 227 / .55);
+  --aqua-haze: rgb(92 242 227 / .14);
+  --on-aqua: #03211F;     /* check mark and text on aqua */
+  --star-0: var(--ring);
+  --star-1: #27807A;
+  --star-2: #37AFA6;
+  --star-3: #4CD9CD;
+  --star-4: var(--aqua);
+  --danger: #FF8090;      /* field errors, save warning edge, Delete habit */
+  --danger-hi: #FFA6B1;
+  --on-danger: #2B0911;
+  --focus: var(--ink);
+  --scrim: rgb(3 6 18 / .72);
+  --scrim-light: rgb(3 6 18 / .5);   /* the day editor: the starfield stays readable behind it */
+  --shadow-pop: 0 24px 64px rgb(2 5 16 / .6), 0 2px 8px rgb(2 5 16 / .4);
+
+  /* type: system stacks only */
+  --font: ui-sans-serif, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Segoe UI Variable Display", ui-sans-serif, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --t-xs: 12px;  --lh-xs: 16px;
+  --t-sm: 14px;  --lh-sm: 20px;
+  --t-md: 16px;  --lh-md: 24px;
+  --t-lg: 18px;  --lh-lg: 26px;
+  --t-xl: 22px;  --lh-xl: 28px;
+
+  /* space, 4 px base */
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 20px; --s6: 24px; --s7: 32px; --s8: 40px; --s9: 48px; --s10: 64px;
+
+  /* radius rule: controls 12, containers 16, round things 50% */
+  --r-ctl: 12px; --r-panel: 16px; --r-round: 50%;
+
+  /* sizes */
+  --hit: 44px; --ctl-h: 48px; --icon: 20px;
+  --node: 30px; --node-stroke: 2px; --trail: 3px; --thread: 2px;
+  --dash: 5px; --dash-gap: 4px;
+  --mo-w: 30px; --sky-w: 380px; --name-w: 200px;
+  --page-max-phone: 600px; --page-max: 1180px; --dialog-max: 400px;
+
+  /* motion */
+  --dur-press: 120ms; --dur: 180ms; --dur-enter: 240ms;
+  --ease: cubic-bezier(.2, 0, 0, 1); --ease-out: cubic-bezier(.16, 1, .3, 1);
+
+  /* layers */
+  --z-local: 1; --z-tip: 2; --z-proto: 30;
+}
+@media (max-width: 374.98px) { :root { --node: 28px; --mo-w: 28px; } }
+@media (min-width: 1000px) { :root { --node: 32px; --mo-w: 36px; } }
+
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--bg); color-scheme: dark; scrollbar-gutter: stable; -webkit-text-size-adjust: 100%; }
+html:has(dialog[open]) { overflow: hidden; }
+body {
+  margin: 0; min-height: 100dvh; color: var(--ink);
+  background: radial-gradient(80% 360px at 50% -140px, var(--bg-lift), transparent 75%) no-repeat, var(--bg);
+  font: 400 var(--t-md)/var(--lh-md) var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+button, input { font: inherit; color: inherit; }
+button { -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+.vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+svg.ph { width: var(--icon); height: var(--icon); fill: currentColor; flex: none; }
+
+/* ---------- page ---------- */
+.page { max-width: var(--page-max-phone); margin: 0 auto; padding: var(--s5) var(--s4) 104px; }
+.top { display: flex; align-items: center; justify-content: space-between; gap: var(--s3); min-height: var(--hit); margin-bottom: var(--s6); }
+.brand { display: flex; align-items: center; gap: var(--s2); margin: 0; font: 700 var(--t-xl)/var(--lh-xl) var(--font-display); letter-spacing: -0.015em; white-space: nowrap; }
+.brand .mark { width: 28px; height: 28px; fill: var(--aqua); flex: none; }
+.date { color: var(--ink-soft); font-size: var(--t-sm); line-height: var(--lh-sm); white-space: nowrap; }
+@media (max-width: 374.98px) { .brand { font-size: 20px; } .brand .mark { width: 26px; height: 26px; } }
+
+.layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s8); }
+.col { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s8); align-content: start; min-width: 0; }
+
+/* ---------- notes (S4, S5) ---------- */
+.note { display: flex; align-items: flex-start; gap: var(--s2); margin: 0; padding: var(--s1) var(--s1) var(--s1) var(--s4); border-radius: var(--r-panel); background: var(--surface); border: 1px solid var(--line); }
+.note p { margin: 0; padding: 10px 0; flex: 1; }
+.note.warn { border-color: var(--danger); padding-right: var(--s4); }
+
+/* ---------- habits ---------- */
+.habits { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s7); }
+.habit { display: grid; grid-template-columns: minmax(0, 1fr) var(--hit); grid-template-areas: "name del" "rail rail" "streak streak"; align-items: start; }
+.habit-name { grid-area: name; margin: 9px 0 0; font-size: var(--t-lg); line-height: var(--lh-lg); font-weight: 600; overflow-wrap: anywhere; }
+.habit .del { grid-area: del; margin-right: -6px; }
+.habit .rail { grid-area: rail; margin-top: var(--s2); }
+.habit .streak { grid-area: streak; margin-top: var(--s3); }
+
+/* the rail: a dark well the light runs through */
+.rail { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); padding: var(--s1) 2px; background: var(--well); border: 1px solid var(--line); border-radius: var(--r-panel); }
+.day {
+  appearance: none; border: 0; background: transparent; margin: 0; cursor: pointer;
+  display: flex; flex-direction: column; align-items: center;
+  min-width: 0; min-height: var(--hit); padding: var(--s2) 0 10px; border-radius: var(--r-ctl);
+}
+.day:focus-visible { outline-offset: -2px; }
+.wd { font-size: var(--t-xs); line-height: var(--lh-xs); color: var(--ink-soft); }
+.dn { font-size: var(--t-md); line-height: 20px; font-weight: 500; font-variant-numeric: tabular-nums; margin: 2px 0 var(--s2); }
+.day[aria-current="date"] .wd, .day[aria-current="date"] .dn { color: var(--ink); font-weight: 700; }
+
+/* one slot per day: the node sits on its own two half-segments of thread */
+.slot { position: relative; width: 100%; height: var(--node); display: flex; justify-content: center; }
+.slot::before, .slot::after { content: ""; position: absolute; top: 50%; transform: translateY(-50%); height: var(--thread); }
+.slot::before { left: 0; right: 50%; }
+.slot::after { left: 50%; right: 0; }
+.slot[data-l="thin"]::before, .slot[data-r="thin"]::after { background: var(--line); }
+.slot[data-l="fade-thin"]::before { background: linear-gradient(90deg, transparent, var(--line)); }
+.slot[data-l="run"]::before, .slot[data-r="run"]::after { height: var(--trail); background: var(--aqua); box-shadow: 0 0 10px 1px var(--aqua-glow); }
+.slot[data-l="fade-run"]::before { height: var(--trail); background: linear-gradient(90deg, transparent, var(--aqua)); }
+/* holding: yesterday is lit, today is not yet. Dashes anchored on the boundary between the two cells. */
+.slot[data-l="hold"]::before { height: var(--trail); background: linear-gradient(90deg, var(--aqua) 0 var(--dash), transparent var(--dash) calc(var(--dash) + var(--dash-gap))) left center / calc(var(--dash) + var(--dash-gap)) 100% repeat-x; }
+.slot[data-r="hold"]::after { height: var(--trail); background: linear-gradient(90deg, var(--aqua) 0 var(--dash), transparent var(--dash) calc(var(--dash) + var(--dash-gap))) right center / calc(var(--dash) + var(--dash-gap)) 100% repeat-x; }
+.slot[data-r="none"]::after { display: none; }
+
+.node {
+  position: relative; z-index: var(--z-local);
+  width: var(--node); height: var(--node); border-radius: var(--r-round);
+  border: var(--node-stroke) solid var(--ring); background: var(--well);
+  display: grid; place-items: center; flex: none;
+}
+.node svg { width: 56%; height: 56%; fill: var(--on-aqua); opacity: 0; transform: scale(.6); }
+.node.is-done { background: var(--aqua); border-color: var(--aqua); box-shadow: 0 0 0 4px var(--aqua-haze), 0 0 18px 2px var(--aqua-glow); }
+.node.is-done svg { opacity: 1; transform: none; }
+.day[aria-current="date"] .node { box-shadow: 0 0 0 3px var(--well), 0 0 0 4.5px var(--ink-soft); }
+.day[aria-current="date"] .node.is-done { box-shadow: 0 0 0 3px var(--well), 0 0 0 4.5px var(--ink-soft), 0 0 22px 3px var(--aqua-glow); }
+@media (hover: hover) {
+  .day:hover .node:not(.is-done) { border-color: var(--aqua); }
+  .day:hover .node.is-done { background: var(--aqua-hi); border-color: var(--aqua-hi); }
+}
+
+/* streak line: Current on the left, Best on the right */
+.streak, .ed-streak { display: flex; align-items: center; gap: 10px; margin: 0; font-size: var(--t-sm); line-height: var(--lh-sm); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.streak .lbl, .ed-streak .lbl { color: var(--ink-soft); }
+.cur strong { color: var(--aqua); font-weight: 600; }
+.cur.none { color: var(--ink-soft); font-weight: 600; }
+.best strong { color: var(--ink); font-weight: 600; }
+.rule { flex: 1; min-width: var(--s3); height: 1px; background: var(--line); }
+
+/* empty list (S1, S5) */
+.empty { padding: var(--s2) 0; }
+.empty p { margin: 0; }
+.empty-lead { font-size: var(--t-lg); line-height: var(--lh-lg); font-weight: 600; }
+.empty-sub { color: var(--ink-soft); margin-top: var(--s1) !important; }
+
+/* ---------- add form ---------- */
+.add { display: grid; gap: var(--s2); }
+.add label { font-weight: 600; }
+.add-row { display: flex; gap: var(--s3); }
+.input { flex: 1; width: 0; min-width: 0; height: var(--ctl-h); padding: 0 var(--s4); border-radius: var(--r-ctl); border: 2px solid var(--ring); background: var(--well); color: var(--ink); }
+.input:focus-visible { outline-offset: 2px; }
+.input[aria-invalid="true"] { border-color: var(--danger); }
+.input:disabled { background: var(--surface); border-color: var(--line); color: var(--ink-soft); cursor: not-allowed; }
+.add.is-full label { color: var(--ink-soft); }
+.field-msg { margin: 0; font-size: var(--t-sm); line-height: var(--lh-sm); }
+.field-msg.err { color: var(--danger); }
+.field-msg.full { color: var(--ink-soft); }
+
+.btn { height: var(--ctl-h); padding: 0 var(--s5); border-radius: var(--r-ctl); border: 2px solid transparent; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; gap: var(--s2); cursor: pointer; white-space: nowrap; }
+.btn-primary { background: var(--aqua); color: var(--on-aqua); }
+.btn-primary:hover { background: var(--aqua-hi); }
+.btn-primary:disabled { background: var(--surface); color: var(--ink-soft); border-color: var(--line); cursor: not-allowed; }
+.btn-secondary { background: transparent; border-color: var(--ring); color: var(--ink); }
+.btn-secondary:hover { background: var(--surface-hi); }
+.btn-danger { background: var(--danger); color: var(--on-danger); }
+.btn-danger:hover { background: var(--danger-hi); }
+
+.icon-btn { width: var(--hit); height: var(--hit); display: grid; place-items: center; border: 0; padding: 0; border-radius: var(--r-ctl); background: transparent; color: var(--ink-soft); cursor: pointer; flex: none; }
+.icon-btn:hover { background: var(--surface-hi); color: var(--ink); }
+.icon-btn:focus-visible { outline-offset: -2px; }
+
+/* ---------- the starfield ---------- */
+.sky { background: var(--well); border: 1px solid var(--line); border-radius: var(--r-panel); padding: var(--s4) var(--s2) var(--s3); min-width: 0; }
+.sky-head { padding: 0 var(--s2); margin-bottom: var(--s3); }
+.sky h2 { margin: 0; font-size: var(--t-md); line-height: var(--lh-md); font-weight: 600; }
+.sky-hint { margin: 2px 0 0; color: var(--ink-soft); font-size: var(--t-sm); line-height: var(--lh-sm); }
+.hm { display: grid; grid-template-columns: var(--mo-w) repeat(7, minmax(0, 1fr)); }
+.hm-wd { text-align: center; font-size: var(--t-xs); line-height: var(--lh-xs); color: var(--ink-soft); padding-bottom: var(--s1); }
+.hm-mo { align-self: center; padding-left: var(--s1); font-size: var(--t-xs); line-height: var(--lh-xs); color: var(--ink-soft); }
+.hm-cell { position: relative; aspect-ratio: 1 / 1; display: grid; place-items: center; margin: 0; padding: 0; border: 0; border-radius: var(--r-ctl); background: transparent; }
+button.hm-cell { cursor: pointer; }
+button.hm-cell:focus-visible { outline-offset: -2px; }
+.hm-cell.is-today::before, .hm-cell.is-open::before { content: ""; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); border-radius: var(--r-round); pointer-events: none; }
+.hm-cell.is-today::before { width: 28px; height: 28px; border: 1.5px solid var(--ink-soft); }
+.hm-cell.is-open::before { width: 30px; height: 30px; border: 2px solid var(--ink); }
+.star { display: block; border-radius: var(--r-round); flex: none; }
+.star.lv0 { width: 8px; height: 8px; border: 1.5px solid var(--star-0); }
+.star.lv1 { width: 6px; height: 6px; background: var(--star-1); }
+.star.lv2 { width: 9px; height: 9px; background: var(--star-2); }
+.star.lv3 { width: 12px; height: 12px; background: var(--star-3); }
+.star.lv4 { width: 15px; height: 15px; background: var(--star-4); }
+.legend { display: flex; align-items: center; justify-content: flex-end; gap: var(--s1); margin-top: var(--s3); padding: 0 var(--s2); font-size: var(--t-xs); line-height: var(--lh-xs); color: var(--ink-soft); }
+.legend .lg { width: 20px; height: 20px; display: grid; place-items: center; }
+/* on phones the starfield runs edge to edge, so each day keeps a full touch target */
+@media (max-width: 599.98px) {
+  .sky { margin: 0 calc(-1 * var(--s4)); border-radius: 0; border-left: 0; border-right: 0; padding: var(--s4) var(--s3) var(--s3); }
+  .sky-head, .legend { padding: 0 var(--s1); }
+}
+@media (hover: hover) {
+  button.hm-cell:hover { background: var(--surface); }
+  button.hm-cell[data-tip]:hover::after {
+    content: attr(data-tip); position: absolute; bottom: calc(100% + 2px); left: 50%; transform: translateX(-50%); z-index: var(--z-tip);
+    white-space: nowrap; pointer-events: none; padding: 2px var(--s2); border-radius: var(--r-ctl);
+    background: var(--surface-hi); border: 1px solid var(--line); color: var(--ink); font-size: var(--t-xs); line-height: var(--lh-xs);
+  }
+  button.hm-cell[data-col="0"]:hover::after { left: 0; transform: none; }
+  button.hm-cell[data-col="5"]:hover::after, button.hm-cell[data-col="6"]:hover::after { left: auto; right: 0; transform: none; }
+}
+
+/* ---------- dialogs ---------- */
+dialog { padding: 0; border: 1px solid var(--line); background: var(--surface); color: var(--ink); box-shadow: var(--shadow-pop); }
+dialog::backdrop { background: var(--scrim); }
+.dlg { padding: var(--s6); }
+
+.confirm { width: min(var(--dialog-max), calc(100% - 32px)); max-width: none; border-radius: var(--r-panel); margin: auto; }
+.confirm h2 { margin: 0 0 var(--s2); font-size: var(--t-lg); line-height: var(--lh-lg); font-weight: 600; overflow-wrap: anywhere; }
+.confirm p { margin: 0 0 var(--s6); color: var(--ink-soft); }
+.actions { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s3); }
+.actions .btn { padding: 0 var(--s3); }
+
+/* P1, the day editor: a bottom sheet on phones, a popover beside the starfield on desktop */
+.editor { width: min(100%, 600px); max-width: 100%; max-height: 86dvh; margin: auto auto 0; border-bottom: 0; border-radius: var(--r-panel) var(--r-panel) 0 0; overflow: auto; }
+.editor::backdrop { background: var(--scrim-light); }
+html.ed-sheet .page { padding-bottom: 70dvh; }
+.editor .dlg { padding: var(--s5) var(--s4) calc(var(--s6) + env(safe-area-inset-bottom, 0px)); }
+.ed-head { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--s3); margin-bottom: var(--s3); }
+.ed-head h2 { margin: 0; font: 700 var(--t-xl)/var(--lh-xl) var(--font-display); letter-spacing: -0.01em; }
+.ed-sum { margin: var(--s1) 0 0; display: flex; align-items: center; gap: var(--s2); color: var(--ink-soft); font-size: var(--t-sm); line-height: var(--lh-sm); }
+.ed-star { width: 16px; height: 16px; display: grid; place-items: center; }
+.ed-head .icon-btn { margin: -6px -6px 0 0; }
+.ed-list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s1); }
+.ed-row { width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: var(--s4); min-height: 64px; margin: 0; padding: var(--s2) var(--s3); border: 0; border-radius: var(--r-ctl); background: transparent; text-align: left; cursor: pointer; }
+.ed-row:focus-visible { outline-offset: -2px; }
+.ed-text { min-width: 0; display: grid; gap: 2px; }
+.ed-name { font-weight: 600; overflow-wrap: anywhere; }
+.ed-row .node { background: var(--surface); }
+.ed-row .node.is-done { background: var(--aqua); }
+@media (hover: hover) {
+  .ed-row:hover { background: var(--surface-hi); }
+  .ed-row:hover .node:not(.is-done) { border-color: var(--aqua); }
+}
+
+/* ---------- prototype states (not part of the design) ---------- */
+.proto { position: fixed; left: 8px; bottom: 8px; z-index: var(--z-proto); font: 12px/1.3 ui-monospace, "Cascadia Mono", Consolas, monospace; color: #1d1d1f; }
+.proto-toggle { background: #f3f3f3; color: #1d1d1f; border: 1px dashed #6b6b6b; border-radius: 4px; padding: 6px 10px; cursor: pointer; font: inherit; }
+.proto-menu { position: absolute; left: 0; bottom: calc(100% + 6px); display: grid; gap: 2px; width: max-content; max-width: calc(100vw - 16px); padding: 6px; background: #f3f3f3; border: 1px dashed #6b6b6b; border-radius: 4px; }
+.proto-menu[hidden] { display: none; }
+.proto-menu button { text-align: left; background: transparent; border: 0; padding: 6px 8px; font: inherit; color: #1d1d1f; cursor: pointer; border-radius: 2px; }
+.proto-menu button:hover { background: #e2e2e2; }
+.proto-menu button[aria-current="true"] { background: #d6d6d6; font-weight: 700; }
+.proto :focus-visible { outline: 2px solid #1d1d1f; outline-offset: 1px; }
+
+/* ---------- wide layouts ---------- */
+@media (min-width: 1000px) {
+  .page { max-width: var(--page-max); padding: var(--s7) var(--s9) var(--s10); }
+  .top { margin-bottom: var(--s7); }
+  .layout { grid-template-columns: minmax(0, 1fr) var(--sky-w); gap: var(--s9); align-items: start; }
+  .sky { position: sticky; top: var(--s6); padding: var(--s5) var(--s2) var(--s4); }
+  .hm-cell { aspect-ratio: auto; height: var(--hit); }
+  .editor { width: var(--dialog-max); max-height: calc(100dvh - 32px); margin: auto; border-bottom: 1px solid var(--line); border-radius: var(--r-panel); }
+  .editor .dlg { padding: var(--s5); }
+  .editor.anchored { position: fixed; inset: auto; margin: 0; overflow: visible; }
+  .editor.anchored .dlg { max-height: calc(100dvh - 32px); overflow: auto; }
+  .editor.anchored::after {
+    content: ""; position: absolute; right: -7px; top: var(--caret-y, 50%); width: 12px; height: 12px;
+    background: var(--surface); border-top: 1px solid var(--line); border-right: 1px solid var(--line);
+    transform: translateY(-50%) rotate(45deg);
+  }
+}
+/* one line of light per habit once there is room */
+@media (min-width: 1200px) {
+  .habits { gap: var(--s5); }
+  .habit { grid-template-columns: var(--name-w) minmax(0, 1fr) var(--hit); grid-template-areas: "name rail del" "streak rail del"; column-gap: var(--s5); }
+  .habit-name { align-self: end; margin: 0; }
+  .habit .streak { align-self: start; margin-top: var(--s1); }
+  .habit .rail { margin-top: 0; align-self: center; }
+  .habit .del { align-self: center; margin-right: 0; }
+}
+
+/* ---------- motion: only to answer an action ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .node { transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease), transform var(--dur-press) var(--ease); }
+  .node svg { transition: opacity var(--dur-enter) var(--ease-out), transform var(--dur-enter) var(--ease-out); }
+  .day:active .node, .ed-row:active .node { transform: scale(.92); }
+  .btn { transition: background-color var(--dur) var(--ease), transform var(--dur-press) var(--ease); }
+  .btn:active:not(:disabled) { transform: scale(.98); }
+  .icon-btn, button.hm-cell, .ed-row { transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease); }
+  /* a tick lights the node, then the trail draws in from the lit neighbours */
+  .node.ignite { animation: ignite 460ms var(--ease-out); }
+  .node.ignite svg { animation: pop var(--dur-enter) var(--ease-out); }
+  .slot.fresh-r::after { transform-origin: left center; animation: draw 160ms var(--ease-out) both; }
+  .slot.fresh-l::before { transform-origin: right center; animation: draw 160ms var(--ease-out) both; }
+  .slot.fresh::before { transform-origin: left center; animation: draw 200ms var(--ease-out) 120ms both; }
+  .slot.fresh::after { transform-origin: right center; animation: draw 200ms var(--ease-out) 120ms both; }
+  .star.pop { animation: pop 260ms var(--ease-out); }
+  dialog[open] { animation: rise var(--dur-enter) var(--ease-out); }
+  dialog[open]::backdrop { animation: fade var(--dur) var(--ease); }
+}
+@keyframes ignite {
+  0% { transform: scale(.82); box-shadow: 0 0 0 0 rgb(92 242 227 / 0), 0 0 0 0 rgb(92 242 227 / 0); }
+  45% { transform: scale(1.08); box-shadow: 0 0 0 7px rgb(92 242 227 / .2), 0 0 30px 8px rgb(92 242 227 / .75); }
+}
+@keyframes pop { from { opacity: 0; transform: scale(.5); } }
+@keyframes draw { from { transform: translateY(-50%) scaleX(0); } }
+@keyframes rise { from { opacity: 0; transform: translateY(16px); } }
+@keyframes fade { from { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <!-- Phosphor Icons (MIT): check (bold), trash, x and plus (regular) -->
+  <symbol id="i-check" viewBox="0 0 256 256"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 256 256"><path d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"/></symbol>
+  <symbol id="i-x" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/></symbol>
+</svg>
+
+<div class="page">
+  <header class="top">
+    <h1 class="brand">
+      <!-- docs/brand/mark.svg, recoloured to the accent, geometry untouched -->
+      <svg class="mark" viewBox="0 0 112 112" aria-hidden="true" focusable="false"><path d="M46 17H70A20 20 0 1 1 70 41H46A20 20 0 0 1 42 45V69A20 20 0 1 1 18 69V45A20 20 0 1 1 46 17ZM86 65A20 20 0 0 1 86 105A20 20 0 0 1 86 65ZM86 73A12 12 0 0 0 86 97A12 12 0 0 0 86 73Z"/></svg>
+      Streaky Habit
+    </h1>
+    <time class="date" datetime="2026-10-10">Saturday 10 October</time>
+  </header>
+
+  <main class="layout">
+    <div class="col">
+      <div id="banner" hidden></div>
+
+      <section aria-labelledby="habits-h">
+        <h2 id="habits-h" class="vh">Habits</h2>
+        <div id="empty" class="empty" hidden>
+          <p class="empty-lead">No habits yet.</p>
+          <p class="empty-sub">Add one you want to do every day.</p>
+        </div>
+        <ul id="habit-list" class="habits"></ul>
+      </section>
+
+      <form id="add" class="add" novalidate>
+        <label for="new-habit">New habit</label>
+        <div class="add-row">
+          <input id="new-habit" class="input" type="text" autocomplete="off" spellcheck="false" aria-describedby="new-habit-msg">
+          <button id="add-btn" class="btn btn-primary" type="submit"><svg class="ph" aria-hidden="true" focusable="false"><use href="#i-plus"/></svg>Add</button>
+        </div>
+        <p id="new-habit-msg" class="field-msg" aria-live="polite" hidden></p>
+      </form>
+    </div>
+
+    <section id="sky" class="sky" aria-labelledby="sky-h">
+      <div class="sky-head">
+        <h2 id="sky-h">Last 12 weeks</h2>
+        <p id="sky-hint" class="sky-hint">Open any day to edit it.</p>
+      </div>
+      <div id="hm" class="hm" role="group" aria-labelledby="sky-h"></div>
+      <div class="legend" aria-hidden="true">
+        <span>None</span>
+        <span class="lg"><span class="star lv0"></span></span>
+        <span class="lg"><span class="star lv1"></span></span>
+        <span class="lg"><span class="star lv2"></span></span>
+        <span class="lg"><span class="star lv3"></span></span>
+        <span class="lg"><span class="star lv4"></span></span>
+        <span>All</span>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- P1, the day editor -->
+<dialog id="editor" class="editor" aria-labelledby="ed-title" aria-describedby="ed-count">
+  <div class="dlg">
+    <div class="ed-head">
+      <div>
+        <h2 id="ed-title">Tuesday 22 September</h2>
+        <p class="ed-sum"><span class="ed-star" aria-hidden="true"><span id="ed-star" class="star lv1"></span></span><span id="ed-count" aria-live="polite">1 of 3 habits</span></p>
+      </div>
+      <button type="button" id="ed-close" class="icon-btn" aria-label="Close"><svg class="ph" aria-hidden="true" focusable="false"><use href="#i-x"/></svg></button>
+    </div>
+    <ul id="ed-list" class="ed-list"></ul>
+  </div>
+</dialog>
+
+<!-- M1, the delete dialog -->
+<dialog id="confirm" class="confirm" role="alertdialog" aria-labelledby="cf-title" aria-describedby="cf-body">
+  <div class="dlg">
+    <h2 id="cf-title">Delete "Stretch 10 minutes"?</h2>
+    <p id="cf-body">Its history is deleted too.</p>
+    <div class="actions">
+      <button type="button" id="cf-cancel" class="btn btn-secondary">Cancel</button>
+      <button type="button" id="cf-delete" class="btn btn-danger">Delete habit</button>
+    </div>
+  </div>
+</dialog>
+
+<!-- Prototype only. Not part of the design. -->
+<div class="proto" role="region" aria-label="Prototype states">
+  <div id="proto-menu" class="proto-menu" hidden>
+    <button type="button" data-state="k1" aria-current="true">K1 Today, sample data</button>
+    <button type="button" data-state="s1">S1 First visit</button>
+    <button type="button" data-state="s2-empty">S2 Name empty</button>
+    <button type="button" data-state="s2-long">S2 Name too long</button>
+    <button type="button" data-state="s2-dup">S2 Name taken</button>
+    <button type="button" data-state="s3">S3 12 habits reached</button>
+    <button type="button" data-state="s4">S4 Save warning</button>
+    <button type="button" data-state="s5">S5 Saved habits unreadable</button>
+  </div>
+  <button type="button" id="proto-toggle" class="proto-toggle" aria-expanded="false" aria-controls="proto-menu">Prototype states</button>
+</div>
+
+<script>
+(() => {
+  'use strict';
+
+  // The sample's today. The prototype pins it so every number below can be checked by hand.
+  const TODAY = new Date(2026, 9, 10);
+  const WD = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const WDL = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const MO = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const MOL = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const MAX_HABITS = 12, MAX_LEN = 40;
+  const NS = 'http://www.w3.org/2000/svg';
+
+  const addDays = (d, n) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
+  const key = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  const parse = s => { const [y, m, dd] = s.split('-').map(Number); return new Date(y, m - 1, dd); };
+  const short = d => `${WD[d.getDay()]} ${d.getDate()} ${MO[d.getMonth()]}`;
+  const long = d => `${WDL[d.getDay()]} ${d.getDate()} ${MOL[d.getMonth()]}`;
+  const TODAY_KEY = key(TODAY);
+  const THIS_MONDAY = addDays(TODAY, -((TODAY.getDay() + 6) % 7));
+  const START = addDays(THIS_MONDAY, -77);           // Mon 20 Jul 2026, the first of 12 weeks
+  const STRIP_FIRST = addDays(TODAY, -6);
+
+  function days(parts) {
+    const set = new Set();
+    for (const p of parts) {
+      if (Array.isArray(p)) { for (let d = parse(p[0]), end = parse(p[1]); d <= end; d = addDays(d, 1)) set.add(key(d)); }
+      else set.add(p);
+    }
+    return set;
+  }
+
+  // Histories. The streak numbers on screen are computed from these, never typed in.
+  // Read 20 pages: Current 4, Best 9 (13 to 21 Sep). 22 Sep was forgotten: tick it and Best becomes 18.
+  // Stretch 10 minutes: Current 2 (8 and 9 Oct, today still open), Best 6 (24 to 29 Aug).
+  // No phone after 11pm: no streak (9 and 10 Oct not done), Best 5 (25 to 29 Jul).
+  function sample() {
+    return [
+      { id: 'h1', name: 'Read 20 pages', done: days([
+        ['2026-07-20', '2026-07-24'], ['2026-07-27', '2026-07-29'], ['2026-08-03', '2026-08-09'], ['2026-08-12', '2026-08-15'],
+        ['2026-08-18', '2026-08-23'], ['2026-08-26', '2026-08-29'], ['2026-09-01', '2026-09-03'], ['2026-09-06', '2026-09-10'],
+        ['2026-09-13', '2026-09-21'], ['2026-09-23', '2026-09-30'], ['2026-10-02', '2026-10-04'], ['2026-10-07', '2026-10-10']]) },
+      { id: 'h2', name: 'Stretch 10 minutes', done: days([
+        ['2026-07-21', '2026-07-23'], ['2026-07-28', '2026-07-30'], ['2026-08-04', '2026-08-05'], ['2026-08-10', '2026-08-13'],
+        ['2026-08-17', '2026-08-19'], ['2026-08-24', '2026-08-29'], ['2026-09-02', '2026-09-04'], ['2026-09-08', '2026-09-09'],
+        ['2026-09-14', '2026-09-17'], ['2026-09-21', '2026-09-23'], ['2026-09-28', '2026-10-01'], ['2026-10-05', '2026-10-06'],
+        ['2026-10-08', '2026-10-09']]) },
+      { id: 'h3', name: 'No phone after 11pm', done: days([
+        ['2026-07-20', '2026-07-22'], ['2026-07-25', '2026-07-29'], ['2026-08-02', '2026-08-04'], ['2026-08-09', '2026-08-10'],
+        ['2026-08-15', '2026-08-18'], ['2026-08-22', '2026-08-24'], ['2026-08-30', '2026-09-02'], ['2026-09-07', '2026-09-09'],
+        ['2026-09-12', '2026-09-13'], ['2026-09-19', '2026-09-20'], ['2026-09-26', '2026-09-29'], ['2026-10-03', '2026-10-06'],
+        '2026-10-08']) },
+    ];
+  }
+  const EXTRA = ['Drink 2 litres of water', 'Walk 8,000 steps', 'Journal 3 lines', 'Meditate 5 minutes', 'Practise guitar 15 minutes',
+    'Cook dinner at home', 'Learn 10 Japanese words', 'Floss', 'In bed by 11:30pm'];
+
+  let habits = sample();
+  let nextId = 100;
+  let editorKey = null;
+  let editorOpener = null;
+  let deleteId = null;
+  let banner = null;           // null, 'save' or 'read'
+
+  // ---------- rules ----------
+  function current(hb) {
+    let d = hb.done.has(TODAY_KEY) ? TODAY : addDays(TODAY, -1);
+    let n = 0;
+    while (hb.done.has(key(d))) { n++; d = addDays(d, -1); }
+    return n;
+  }
+  function best(hb) {
+    let top = 0, run = 0, prev = null;
+    for (const k of [...hb.done].sort()) {
+      run = (prev && key(addDays(parse(prev), 1)) === k) ? run + 1 : 1;
+      if (run > top) top = run;
+      prev = k;
+    }
+    return top;
+  }
+  const level = (n, t) => (t === 0 || n === 0) ? 0 : n === t ? 4 : 3 * n <= t ? 1 : 3 * n <= 2 * t ? 2 : 3;
+  const doneCount = k => habits.filter(x => x.done.has(k)).length;
+
+  // ---------- dom helpers ----------
+  const $ = s => document.querySelector(s);
+  function h(tag, attrs, ...kids) {
+    const n = document.createElement(tag);
+    if (attrs) for (const [k, v] of Object.entries(attrs)) {
+      if (v === null || v === undefined || v === false) continue;
+      if (k === 'class') n.className = v; else n.setAttribute(k, v === true ? '' : String(v));
+    }
+    for (const kid of kids) if (kid !== null && kid !== undefined) n.append(kid);
+    return n;
+  }
+  function icon(name) {
+    const svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('class', 'ph'); svg.setAttribute('aria-hidden', 'true'); svg.setAttribute('focusable', 'false');
+    const use = document.createElementNS(NS, 'use'); use.setAttribute('href', '#i-' + name);
+    svg.append(use);
+    return svg;
+  }
+
+  // ---------- habits ----------
+  function streakLine(hb, cls) {
+    const cur = current(hb), b = best(hb);
+    const p = h('p', { class: cls });
+    if (cur > 0) p.append(h('span', { class: 'cur' }, h('span', { class: 'lbl' }, 'Current'), ' ', h('strong', null, cur === 1 ? '1 day' : `${cur} days`)));
+    else p.append(h('span', { class: 'cur none' }, 'No streak yet'));
+    if (b > 0) p.append(h('span', { class: 'rule', 'aria-hidden': 'true' }), h('span', { class: 'best' }, h('span', { class: 'lbl' }, 'Best'), ' ', h('strong', null, String(b))));
+    return p;
+  }
+
+  function rail(hb, fresh) {
+    const wrap = h('div', { class: 'rail', role: 'group', 'aria-labelledby': 'n-' + hb.id });
+    const isDone = d => hb.done.has(key(d));
+    const freshIdx = fresh && fresh.id === hb.id ? Math.round((parse(fresh.k) - STRIP_FIRST) / 864e5) : -1;
+    for (let i = 0; i < 7; i++) {
+      const d = addDays(STRIP_FIRST, i), done = isDone(d), prev = addDays(d, -1), next = addDays(d, 1);
+      let L, R;
+      if (i === 0) L = (done && isDone(prev)) ? 'fade-run' : 'fade-thin';
+      else if (done && isDone(prev)) L = 'run';
+      else if (i === 6 && !done && isDone(prev)) L = 'hold';
+      else L = 'thin';
+      if (i === 6) R = 'none';
+      else if (done && isDone(next)) R = 'run';
+      else if (i === 5 && done && !isDone(next)) R = 'hold';
+      else R = 'thin';
+      const slot = h('span', { class: 'slot', 'data-l': L, 'data-r': R });
+      const node = h('span', { class: 'node' + (done ? ' is-done' : '') }, icon('check'));
+      if (freshIdx >= 0 && done) {
+        if (i === freshIdx) { node.classList.add('ignite'); slot.classList.add('fresh'); }
+        if (i === freshIdx - 1) slot.classList.add('fresh-r');
+        if (i === freshIdx + 1) slot.classList.add('fresh-l');
+      }
+      slot.append(node);
+      const btn = h('button', {
+        type: 'button', class: 'day', 'data-key': key(d), 'aria-pressed': String(done),
+        'aria-label': `Mark ${short(d)} as done`, 'aria-current': i === 6 ? 'date' : null,
+      }, h('span', { class: 'wd', 'aria-hidden': 'true' }, WD[d.getDay()]), h('span', { class: 'dn', 'aria-hidden': 'true' }, String(d.getDate())), slot);
+      wrap.append(btn);
+    }
+    return wrap;
+  }
+
+  function renderHabits(fresh) {
+    const list = $('#habit-list');
+    list.replaceChildren();
+    $('#empty').hidden = habits.length > 0;
+    list.hidden = habits.length === 0;
+    for (const hb of habits) {
+      const li = h('li', { class: 'habit', 'data-id': hb.id });
+      li.append(
+        h('h3', { class: 'habit-name', id: 'n-' + hb.id }, hb.name),
+        h('button', { type: 'button', class: 'icon-btn del', 'data-del': hb.id, 'aria-label': 'Delete ' + hb.name }, icon('trash')),
+        rail(hb, fresh),
+        streakLine(hb, 'streak'),
+      );
+      list.append(li);
+    }
+  }
+
+  // ---------- the starfield ----------
+  function renderSky(popKey) {
+    const grid = $('#hm');
+    grid.replaceChildren();
+    const live = habits.length > 0;
+    $('#sky-hint').hidden = !live;
+    grid.append(h('span', { class: 'hm-corner', 'aria-hidden': 'true' }));
+    for (const w of ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']) grid.append(h('span', { class: 'hm-wd', 'aria-hidden': 'true' }, w));
+    for (let r = 0; r < 12; r++) {
+      const mon = addDays(START, r * 7);
+      const showMo = r === 0 || addDays(mon, -7).getMonth() !== mon.getMonth();
+      grid.append(h('span', { class: 'hm-mo', 'aria-hidden': 'true' }, showMo ? MO[mon.getMonth()] : ''));
+      for (let c = 0; c < 7; c++) {
+        const d = addDays(mon, c);
+        if (d > TODAY) { grid.append(h('span', { class: 'hm-cell is-future', 'aria-hidden': 'true' })); continue; }
+        const k = key(d), n = doneCount(k);
+        const label = `${short(d)}, ${n} of ${habits.length} habits`;
+        const star = h('span', { class: 'star lv' + level(n, habits.length) + (k === popKey ? ' pop' : ''), 'aria-hidden': 'true' });
+        const cell = live
+          ? h('button', { type: 'button', class: 'hm-cell', 'data-key': k, 'data-col': c, 'data-tip': label, 'aria-label': label }, star)
+          : h('span', { class: 'hm-cell', role: 'img', 'aria-label': label }, star);
+        if (k === TODAY_KEY) { cell.classList.add('is-today'); cell.setAttribute('aria-current', 'date'); }
+        if (k === editorKey) cell.classList.add('is-open');
+        grid.append(cell);
+      }
+    }
+  }
+
+  // ---------- notes and the add form ----------
+  function renderBanner() {
+    const box = $('#banner');
+    box.replaceChildren();
+    box.hidden = !banner;
+    if (banner === 'save') {
+      box.append(h('div', { class: 'note warn', role: 'status' }, h('p', null, 'Your habits are not being saved on this device. Changes will be lost when you close this tab.')));
+    } else if (banner === 'read') {
+      const btn = h('button', { type: 'button', class: 'icon-btn', id: 'note-dismiss', 'aria-label': 'Dismiss note' }, icon('x'));
+      box.append(h('div', { class: 'note', role: 'status' }, h('p', null, 'Your saved habits could not be read, so the list was reset.'), btn));
+    }
+  }
+
+  const input = $('#new-habit'), msg = $('#new-habit-msg'), addBtn = $('#add-btn'), form = $('#add');
+  function setMsg(text, kind) {
+    msg.textContent = text || '';
+    msg.className = 'field-msg' + (kind ? ' ' + kind : '');
+    msg.hidden = !text;
+    input.setAttribute('aria-invalid', kind === 'err' ? 'true' : 'false');
+  }
+  function renderForm() {
+    const full = habits.length >= MAX_HABITS;
+    input.disabled = full; addBtn.disabled = full;
+    form.classList.toggle('is-full', full);
+    if (full) setMsg('You track 12 habits, the most this app holds. Delete one to add another.', 'full');
+    else if (msg.classList.contains('full')) setMsg('');
+  }
+
+  function renderAll(fresh, popKey) { renderBanner(); renderHabits(fresh); renderForm(); renderSky(popKey); }
+
+  // ---------- ticking ----------
+  function toggleDay(id, k) {
+    const hb = habits.find(x => x.id === id);
+    const on = !hb.done.has(k);
+    if (on) hb.done.add(k); else hb.done.delete(k);
+    return on;
+  }
+
+  document.addEventListener('click', e => {
+    const day = e.target.closest('.rail .day');
+    if (day) {
+      const id = day.closest('.habit').dataset.id, k = day.dataset.key;
+      const on = toggleDay(id, k);
+      renderHabits(on ? { id, k } : null);
+      renderSky(k);
+      const again = document.querySelector(`.habit[data-id="${id}"] .day[data-key="${k}"]`);
+      if (again) again.focus({ preventScroll: true });
+      return;
+    }
+    const del = e.target.closest('[data-del]');
+    if (del) { openDelete(del.dataset.del); return; }
+    const cell = e.target.closest('button.hm-cell');
+    if (cell) { openEditor(cell.dataset.key); return; }
+    if (e.target.closest('#note-dismiss')) { banner = null; renderBanner(); input.focus(); }
+  });
+
+  // ---------- P1, the day editor ----------
+  const ed = $('#editor');
+  function updateEdSum() {
+    const n = doneCount(editorKey);
+    $('#ed-count').textContent = `${n} of ${habits.length} habits`;
+    $('#ed-star').className = 'star lv' + level(n, habits.length);
+  }
+  function buildEditor() {
+    const d = parse(editorKey);
+    $('#ed-title').textContent = long(d);
+    const list = $('#ed-list');
+    list.replaceChildren();
+    for (const hb of habits) {
+      const done = hb.done.has(editorKey);
+      list.append(h('li', null, h('button', {
+        type: 'button', class: 'ed-row', 'data-id': hb.id, 'aria-pressed': String(done), 'aria-label': `Mark ${hb.name} as done on ${short(d)}`,
+      }, h('span', { class: 'ed-text' }, h('span', { class: 'ed-name' }, hb.name), streakLine(hb, 'ed-streak')),
+         h('span', { class: 'node' + (done ? ' is-done' : '') }, icon('check')))));
+    }
+    updateEdSum();
+  }
+  function placeEditor() {
+    ed.classList.remove('anchored');
+    ed.style.left = ed.style.top = '';
+    ed.style.removeProperty('--caret-y');
+    const cell = document.querySelector(`#hm [data-key="${editorKey}"]`);
+    if (!matchMedia('(min-width: 1000px)').matches) {
+      // bottom sheet: lift the page so the star being edited stays in sight above the sheet
+      document.documentElement.classList.add('ed-sheet');
+      if (cell) {
+        const limit = innerHeight - ed.offsetHeight - 16, c = cell.getBoundingClientRect();
+        if (c.bottom > limit) scrollBy(0, c.bottom - limit);
+      }
+      return;
+    }
+    document.documentElement.classList.remove('ed-sheet');
+    if (!cell) return;
+    ed.classList.add('anchored');
+    const sky = $('#sky').getBoundingClientRect(), c = cell.getBoundingClientRect();
+    const w = ed.offsetWidth, ht = ed.offsetHeight, cy = c.top + c.height / 2;
+    const top = Math.min(Math.max(16, cy - ht / 2), innerHeight - ht - 16);
+    ed.style.left = Math.max(16, sky.left - 20 - w) + 'px';
+    ed.style.top = top + 'px';
+    ed.style.setProperty('--caret-y', Math.min(Math.max(24, cy - top), ht - 24) + 'px');
+  }
+  function openEditor(k) {
+    editorKey = k;
+    editorOpener = k;
+    buildEditor();
+    renderSky();
+    ed.showModal();
+    placeEditor();
+    const first = ed.querySelector('.ed-row');
+    (first || $('#ed-close')).focus();
+  }
+  $('#ed-list').addEventListener('click', e => {
+    const row = e.target.closest('.ed-row');
+    if (!row) return;
+    const hb = habits.find(x => x.id === row.dataset.id);
+    const on = toggleDay(hb.id, editorKey);
+    row.setAttribute('aria-pressed', String(on));
+    const node = row.querySelector('.node');
+    node.classList.toggle('is-done', on);
+    node.classList.remove('ignite');
+    if (on) { void node.offsetWidth; node.classList.add('ignite'); }
+    row.querySelector('.ed-streak').replaceWith(streakLine(hb, 'ed-streak'));
+    updateEdSum();
+    renderHabits(on && parse(editorKey) >= STRIP_FIRST ? { id: hb.id, k: editorKey } : null);
+    renderSky(editorKey);
+  });
+  $('#ed-close').addEventListener('click', () => ed.close());
+  ed.addEventListener('click', e => { if (e.target === ed) ed.close(); });
+  ed.addEventListener('close', () => {
+    editorKey = null;
+    document.documentElement.classList.remove('ed-sheet');
+    renderSky();
+    const cell = editorOpener && document.querySelector(`#hm [data-key="${editorOpener}"]`);
+    editorOpener = null;
+    if (cell) cell.focus({ preventScroll: true });
+  });
+  addEventListener('resize', () => { if (ed.open) placeEditor(); });
+
+  // ---------- M1, the delete dialog ----------
+  const cf = $('#confirm');
+  function openDelete(id) {
+    deleteId = id;
+    const hb = habits.find(x => x.id === id);
+    $('#cf-title').textContent = `Delete "${hb.name}"?`;
+    cf.returnValue = '';
+    cf.showModal();
+    $('#cf-cancel').focus();
+  }
+  $('#cf-cancel').addEventListener('click', () => cf.close('cancel'));
+  $('#cf-delete').addEventListener('click', () => cf.close('delete'));
+  cf.addEventListener('click', e => { if (e.target === cf) cf.close('cancel'); });
+  cf.addEventListener('close', () => {
+    const id = deleteId; deleteId = null;
+    if (cf.returnValue === 'delete') {
+      const idx = habits.findIndex(x => x.id === id);
+      habits.splice(idx, 1);
+      renderAll();
+      const next = habits[Math.min(idx, habits.length - 1)];
+      const target = next ? document.querySelector(`[data-del="${next.id}"]`) : input;
+      if (target) target.focus();
+    } else {
+      const back = document.querySelector(`[data-del="${id}"]`);
+      if (back) back.focus();
+    }
+  });
+
+  // ---------- add ----------
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    if (input.disabled) return;
+    const name = input.value.trim();
+    let err = '';
+    if (!name) err = 'Name the habit first.';
+    else if (name.length > MAX_LEN) err = 'Keep it to 40 characters or fewer.';
+    else if (habits.some(x => x.name.toLowerCase() === name.toLowerCase())) err = 'You already track this habit.';
+    if (err) { setMsg(err, 'err'); input.focus(); return; }
+    habits.push({ id: 'h' + (nextId++), name, done: new Set() });
+    input.value = '';
+    setMsg('');
+    renderAll();
+    if (!input.disabled) input.focus();
+  });
+  input.addEventListener('input', () => { if (msg.classList.contains('err')) setMsg(''); });
+
+  // ---------- prototype states ----------
+  const protoMenu = $('#proto-menu'), protoToggle = $('#proto-toggle');
+  protoToggle.addEventListener('click', () => {
+    const open = protoMenu.hidden;
+    protoMenu.hidden = !open;
+    protoToggle.setAttribute('aria-expanded', String(open));
+  });
+  function setState(s) {
+    if (ed.open) ed.close();
+    if (cf.open) cf.close('cancel');
+    banner = null; input.value = ''; setMsg('');
+    habits = sample();
+    if (s === 's1') habits = [];
+    if (s === 's3') EXTRA.forEach((name, i) => habits.push({ id: 'x' + i, name, done: new Set() }));
+    if (s === 's4') banner = 'save';
+    if (s === 's5') { habits = []; banner = 'read'; }
+    renderAll();
+    if (s.startsWith('s2')) {
+      input.value = s === 's2-long' ? 'Read twenty pages of a novel every night before bed' : s === 's2-dup' ? 'read 20 pages' : '';
+      setMsg(s === 's2-empty' ? 'Name the habit first.' : s === 's2-long' ? 'Keep it to 40 characters or fewer.' : 'You already track this habit.', 'err');
+    }
+    if (s.startsWith('s2') || s === 's3') form.scrollIntoView({ block: 'center' });
+    else scrollTo(0, 0);
+    protoMenu.querySelectorAll('button').forEach(b => b.setAttribute('aria-current', String(b.dataset.state === s)));
+  }
+  protoMenu.addEventListener('click', e => {
+    const b = e.target.closest('[data-state]');
+    if (!b) return;
+    setState(b.dataset.state);
+    protoMenu.hidden = true;
+    protoToggle.setAttribute('aria-expanded', 'false');
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && !protoMenu.hidden) { protoMenu.hidden = true; protoToggle.setAttribute('aria-expanded', 'false'); protoToggle.focus(); }
+  });
+
+  renderAll();
+})();
+</script>
+</body>
+</html>
