@@ -4,8 +4,8 @@
 - **design-phase:** sdlc:design
 - **version:** 1.1.0 (1.0.0 sealed 2026-10-10, tag v1.0.0)
 - **mode:** greenfield
-- **phase:** v1.1.0 design, round 1 done (sdlc:design step 3), waiting for the owner's pick
-- **next:** owner picks from docs/design-explore/v1.1.0/round-1/compare.html, then converge, lock, compose, wire, goldens
+- **phase:** v1.1.0 design, round 2 (sdlc:design step 4): one new direction F Orbit List from the owner's pick
+- **next:** designer builds round-2/f.html, orchestrator writes round-2/compare.html, owner reviews, then lock, compose, wire, goldens
 - **last-regression:** PASS @ 2026-10-10 12:25 (docs/regression/REGRESSION.md)
 
 ## Modules
@@ -18,7 +18,7 @@
 none
 
 ## Next action
-Owner rules on round 1 (`docs/design-explore/v1.1.0/round-1/compare.html`): which direction (orchestrator's pick A Night Console, runner-up B Neon Thread) and whether the 12-week heatmap may turn on its side (all five do, a 1.0 rule change). Then sdlc:design steps 4 to 9 (converge, lock system, compose every screen and state, wire, self-critique, finalize goldens), the logo redraw with the name "Streaky Habit", then plan. **Start a new Claude session before plan** so the 2.2.0 plugin (UAT test sheet, plan-checker with Write) is loaded; the session that ran round 1 still ran plugin 1.0.0. UAT sheet layout already ruled (ledger off-scope row 5, sdlc 2.2.0 template).
+Round 2 is running: one designer builds `docs/design-explore/v1.1.0/round-2/f.html` (F Orbit List) from `round-2/BRIEF.md`. The owner picked D Orbit Rings' look with his own list layout (ledger H-02 ruling, brainstorm "Round 1 rulings"). Then the orchestrator writes `round-2/compare.html` with the ORCH readings flagged, the owner reviews, then sdlc:design steps 5 to 9, the logo with the name "Streaky Habit", then plan. **Start a new Claude session before plan** so sdlc 2.4.0 is loaded (this session runs 2.2.0, the design steps are the same).
 
 ## Notes
 Goldens (immutable): docs/design/today.html (key), today-empty.html, delete-dialog.html, states.html (specimen sheet), system.md, system.css, sample-history.json, RULINGS.md.

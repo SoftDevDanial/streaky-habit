@@ -146,3 +146,22 @@ even initial D. Danial is just to make it unique."). The page title and the READ
 | 14 | How should it feel? | Futuristic but minimal, "like discord" | USER |
 | 15 | Feeling words | Owner: "Decide for me". Bright, rewarding, focused | ORCH |
 | 16 | Name | Danial's Streaky Habit, logo without his name or initial | USER |
+
+### Round 1 rulings (2026-10-10 21:43 to 21:49, design round 1, ledger H-02)
+The owner picked D Orbit Rings' look and gave the key screen a new layout. These change the rows above where they say so.
+
+| ID | Capability | What the user gets | Tag |
+|---|---|---|---|
+| C2 | Tick today, and any past day (changed again) | Each habit is a row in a list with a **Done today** button, a button that opens **that habit's year view**, and its Current and Best. The year view shows the last 12 months, and tapping a day ticks or unticks it for that habit. The overview calendar still opens any day in the day editor (every habit for that day). The per-habit 7-day strip is gone | USER |
+| C3, C4 | Current and best streak (changed) | Shown on each row and again in the habit's year view | USER |
+| C5 | Overview (changed) | The 12-week calendar becomes an overview: a band at the top on a desktop, a popup or page behind a button on a phone. Day numbers bigger | USER |
+
+- **Past days:** any day in the last 12 months, today included (today back to the same date last year). Days after today stay closed. Replaces "any day inside the heatmap's 12 weeks". (USER on the reach, ORCH on "same date last year")
+- **Layout:** the habit list scrolls inside its own frame, the page does not. The add field sits outside that frame and does not move when habits are added. On a phone it is pinned at the bottom. (USER, ORCH on "below the list on every width")
+- **Delete habit** lives in the habit's year view. **Done today** toggles. (ORCH, reversible)
+
+| # | Question | Decision | Tag |
+|---|---|---|---|
+| 17 | Which direction? | D Orbit Rings, colours and fonts, with his list layout | USER |
+| 18 | How far back does the year view go? | The last 12 months | USER |
+| 19 | Does tapping an overview day still open it? | Yes, the day editor | USER |

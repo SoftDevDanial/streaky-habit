@@ -186,3 +186,8 @@ Append-only history. STATE.md holds the situation, this file holds what happened
 - All five turn the 12-week heatmap on its side (weeks as rows, C only on a phone) so every past day is a tap target. A 1.0 rule change, put to the owner.
 - UAT sheet layout ruled by the owner (ledger off-scope row 5, `e6ae069`), shipped as sdlc 2.2.0's test sheet template.
 - compare.html written by the orchestrator `a5ca2a9`: pick A Night Console, runner-up B. Waiting for the owner.
+
+## 2026-10-10 21:43 to 21:55 v1.1.0 round 1 ruled, round 2 briefed
+- Owner picked D Orbit Rings' look with his own layout: a habit list (Done today, a year view per habit, Current and Best on the row and in the view), the 12-week calendar as an overview band on top, the list in its own scroll frame, the add field outside it (pinned on a phone), bigger day numbers. Clarified: the year view covers the last 12 months, an overview day still opens the day editor. Ledger H-02 ruling, S1 row 2, S7 row 3. Brainstorm "Round 1 rulings" appended (C2, C3 and C4, C5 changed, rows 17 to 19).
+- ORCH readings, flagged for round 2: the seven-day ring goes, the turned heatmap is accepted by "i like the current orbit ones", the add field sits below the list, Delete habit moves into the year view, Done today toggles.
+- round-2/BRIEF.md written. One new direction F Orbit List next.

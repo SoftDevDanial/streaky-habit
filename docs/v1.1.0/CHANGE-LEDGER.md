@@ -18,13 +18,13 @@
 
 | scope | title | status | tag | open items |
 |---|---|---|---|---|
-| S1 | Edit any past day | OPEN | USER | 0 |
+| S1 | Edit any past day | OPEN, reach now 12 months | USER | 0 |
 | S2 | The streak line says which is Current and which is Best | OPEN | USER | 0 |
 | S3 | A delete guard that does not depend on time | OPEN | USER | 0 |
 | S4 | Habits that cannot be saved say so | OPEN | USER | 0 |
 | S5 | Tested in Safari's engine too | OPEN | USER | 0 |
 | S6 | The logo in the app | OPEN | USER | 0 |
-| S7 | A livelier look, chosen from five directions | OPEN, round 1 done | USER | 1 (H-02) |
+| S7 | A livelier look, chosen from five directions | OPEN, round 2 (one new direction) | USER | 0 |
 | S8 | A name that is free to use | OPEN, name ruled | USER | 0 |
 
 ---
@@ -40,6 +40,7 @@ The user can open an older day and tick or untick its habits, to fix a mistake o
 | # | Problem found | When | What changed | Who | Outcome |
 |---|---|---|---|---|---|
 | 1 | Scope opened from the owner's UAT request | 2026-10-10 seal | Brainstorm delta (how far back, days before a habit existed, how the day is opened), design, plan to follow | USER | Open |
+| 2 | Reach and route changed by the owner's round 1 ruling (H-02): each habit gets its own year view covering the last 12 months, and a day tapped in the overview still opens the day editor | 2026-10-10 21:49 design | Brainstorm delta "Round 1 rulings" appended, round 2 brief | USER | Open |
 
 ### S2 - The streak line says which is Current and which is Best
 **Status:** OPEN · **Opened:** 2026-10-10 · **Tag:** USER
@@ -101,6 +102,7 @@ A new look the owner picks from five clickable static directions, then a new gol
 |---|---|---|---|---|---|
 | 1 | Scope opened from the owner's comment | 2026-10-10 seal | Design round with him | USER | Open |
 | 2 | Round 1, five clickable directions on the key screen with every popup and state reachable | 2026-10-10 design | A Night Console `44362bd`, B Neon Thread `6776272`, C Daylight Instrument `c3dbdb5`, D Orbit Rings `2784715`, E Command Line `10ab8da`, each by its own designer agent with render checks at 390, 360 and 1280 px (0 console errors, no sideways scroll at 360). round-1/compare.html `a5ca2a9` with the orchestrator's pick A, runner-up B. All five turn the 12-week heatmap on its side so every past day is a tap target, a 1.0 rule change put to the owner (H-02) | ORCH (designer agents) | Waiting for the owner's pick (H-02) |
+| 3 | Owner's pick (H-02 ruling): D Orbit Rings' look, with a new layout of his own (a habit list, a per-habit year view, an overview calendar) | 2026-10-10 21:43 design | Round 2 brief `round-2/BRIEF.md`, one new direction F "Orbit List". His words and the readings in H-02 | USER, ORCH on the readings | Round 2 next |
 
 ### S8 - A name that is free to use
 **Status:** OPEN · **Opened:** 2026-10-10 · **Tag:** USER
@@ -140,7 +142,9 @@ A product name no other habit app uses, shown in the new wordmark and the logo l
 - **Why an agent cannot decide it:** the look is his pick, and the heatmap shape is a 1.0 rule.
 - **Options:** pick one direction, ask for a mix (one new direction in round 2), or reject all. Accept or refuse the turned heatmap.
 - **Recommendation:** A Night Console (closest to "like discord", a date on every past day, the most rewarding tick), runner-up B Neon Thread. Accept the turned heatmap: 12 columns give about 24 px per day on a phone, 7 columns give 41 to 47 px, and every past day must now be a tap target.
-- **Ruling:** (pending)
+- **Ruling, 2026-10-10 21:43 (owner's words):** "1. I like Orbit Rings. 2. For dekstop, make the numbers in the calendar bigger. The habit should be fixed so th at if thers multiple habit, it doesnt make the input field pushed down. 3. You know what, i think we need to change the design. Design is like this instead. Colors, fonts and all of that is good. Instead, we list down the habits . Each list will have 3 functionality. A button or icon to say that we did that habit today ( so its like a daily thing someone needs to login and click it). But if they forget and they remember later on, they can click the second button to open a modal. The modal will show all days of the year and we can click the date which we remember we did. Each list will have its own current and best streak number both at the list level and modal level. The big calendar on the right, we can have an overview at the top. So it will be an overview at the top, bottom is the div that contains the list and its scrollable. Not the page but the div only. Outside of that div either before or after, is the input. Design calendar wise for overview, i like the current orbit ones but just make the number bigger. 4. For mobile, using the same logic before, have a fixed input below. Then at the top or a button somewhere that will show overview calendar as a popup or a different page. Below that is the list and the same logic as desktop."
+- **Clarified, 2026-10-10 21:49 (his answers):** the year view shows the **last 12 months** (today back to the same date last year, future days closed). Tapping a day in the overview **opens that day** in the day editor (every habit for that day), a second way to fix the past.
+- **Readings (ORCH, reversible, flagged on the round 2 page):** (a) The per-habit seven-day ring goes, replaced by the row's Done today button and the year view. (b) The turned heatmap is accepted by "i like the current orbit ones": the overview keeps D's small rings with one segment per habit and the 12 weeks, numbers bigger. On a wide desktop band its orientation is the designer's call, shown to him. (c) The input sits below the list on every width, like a chat composer, pinned on the phone. (d) Delete habit moves into the habit's year view, so each row keeps his three functions. (e) Done today toggles, a second tap unticks today.
 
 ---
 
