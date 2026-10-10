@@ -24,8 +24,8 @@
 | S4 | Habits that cannot be saved say so | OPEN | USER | 0 |
 | S5 | Tested in Safari's engine too | OPEN | USER | 0 |
 | S6 | The logo in the app | OPEN | USER | 0 |
-| S7 | A livelier look, chosen from five directions | OPEN | USER | 0 |
-| S8 | A name that is free to use | OPEN | USER | 1 |
+| S7 | A livelier look, chosen from five directions | OPEN, round 1 done | USER | 1 (H-02) |
+| S8 | A name that is free to use | OPEN, name ruled | USER | 0 |
 
 ---
 
@@ -100,6 +100,7 @@ A new look the owner picks from five clickable static directions, then a new gol
 | # | Problem found | When | What changed | Who | Outcome |
 |---|---|---|---|---|---|
 | 1 | Scope opened from the owner's comment | 2026-10-10 seal | Design round with him | USER | Open |
+| 2 | Round 1, five clickable directions on the key screen with every popup and state reachable | 2026-10-10 design | A Night Console `44362bd`, B Neon Thread `6776272`, C Daylight Instrument `c3dbdb5`, D Orbit Rings `2784715`, E Command Line `10ab8da`, each by its own designer agent with render checks at 390, 360 and 1280 px (0 console errors, no sideways scroll at 360). round-1/compare.html `a5ca2a9` with the orchestrator's pick A, runner-up B. All five turn the 12-week heatmap on its side so every past day is a tap target, a 1.0 rule change put to the owner (H-02) | ORCH (designer agents) | Waiting for the owner's pick (H-02) |
 
 ### S8 - A name that is free to use
 **Status:** OPEN · **Opened:** 2026-10-10 · **Tag:** USER
@@ -131,6 +132,14 @@ A product name no other habit app uses, shown in the new wordmark and the logo l
 - **What:** "Streaky" and "Streaky Habit" are taken in spirit by three habit trackers. His fallback is his own name with the app name ("Danial's Streaks") or another way to make it his.
 - **Why an agent cannot decide it:** the name of his public showcase piece is his.
 - **Options:** decided in the design round, beside the wordmark.
+- **Ruling:** (pending)
+- **Ruling, added 2026-10-10:** "Danial's Splity Tab and Danial's Streaky Habit. Logo wise, dont need danial or even initial D." (Off-scope row 2). The logo and header show "Streaky Habit".
+
+### H-02 - Which design direction, and the heatmap turned on its side (S7)
+- **What:** round 1 gave five directions (round-1/compare.html). All five make weeks the rows and weekdays the 7 columns (C only below 720 px), where the 1.0 rule was 12 columns, one per week.
+- **Why an agent cannot decide it:** the look is his pick, and the heatmap shape is a 1.0 rule.
+- **Options:** pick one direction, ask for a mix (one new direction in round 2), or reject all. Accept or refuse the turned heatmap.
+- **Recommendation:** A Night Console (closest to "like discord", a date on every past day, the most rewarding tick), runner-up B Neon Thread. Accept the turned heatmap: 12 columns give about 24 px per day on a phone, 7 columns give 41 to 47 px, and every past day must now be a tap target.
 - **Ruling:** (pending)
 
 ---

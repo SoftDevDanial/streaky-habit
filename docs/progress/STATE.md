@@ -4,8 +4,8 @@
 - **design-phase:** sdlc:design
 - **version:** 1.1.0 (1.0.0 sealed 2026-10-10, tag v1.0.0)
 - **mode:** greenfield
-- **phase:** v1.1.0 opened; design round with the owner next
-- **next:** brainstorm delta, then sdlc:design with the owner
+- **phase:** v1.1.0 design, round 1 done (sdlc:design step 3), waiting for the owner's pick
+- **next:** owner picks from docs/design-explore/v1.1.0/round-1/compare.html, then converge, lock, compose, wire, goldens
 - **last-regression:** PASS @ 2026-10-10 12:25 (docs/regression/REGRESSION.md)
 
 ## Modules
@@ -18,7 +18,7 @@
 none
 
 ## Next action
-Owner first gets the list of what the designer does (he asked for it before the round). Then brainstorm delta rows for the new scopes, then the design round: five clickable static directions, dialogs and popups reachable, the name and wordmark, the logo in the app, the UAT sheet layout.
+Owner rules on round 1 (`docs/design-explore/v1.1.0/round-1/compare.html`): which direction (orchestrator's pick A Night Console, runner-up B Neon Thread) and whether the 12-week heatmap may turn on its side (all five do, a 1.0 rule change). Then sdlc:design steps 4 to 9 (converge, lock system, compose every screen and state, wire, self-critique, finalize goldens), the logo redraw with the name "Streaky Habit", then plan. **Start a new Claude session before plan** so the 2.2.0 plugin (UAT test sheet, plan-checker with Write) is loaded; the session that ran round 1 still ran plugin 1.0.0. UAT sheet layout already ruled (ledger off-scope row 5, sdlc 2.2.0 template).
 
 ## Notes
 Goldens (immutable): docs/design/today.html (key), today-empty.html, delete-dialog.html, states.html (specimen sheet), system.md, system.css, sample-history.json, RULINGS.md.

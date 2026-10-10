@@ -178,3 +178,11 @@ Append-only history. STATE.md holds the situation, this file holds what happened
 ## 2026-10-10 16:37 v1.1.0 opened
 - docs/v1.1.0/CHANGE-LEDGER.md opened with the scopes the owner approved at UAT and at the seal.
 - STATE version 1.1.0.
+
+## 2026-10-10 17:00 to 20:10 v1.1.0 design round 1
+- Inputs with the owner: feeling words "Decide for me" (ORCH: bright, rewarding, focused), "futuristic but minimal, like discord", past days by tapping any heatmap day, name "Danial's Streaky Habit" (the logo and header show "Streaky Habit"). Brainstorm delta and docs/design-explore/v1.1.0/BRIEF.md committed `9b09699`.
+- Five directions, each by its own designer agent, two at a time, each with render checks at 390, 360 and 1280 px: A Night Console `44362bd`, B Neon Thread `6776272`, C Daylight Instrument `c3dbdb5`, D Orbit Rings `2784715`, E Command Line `10ab8da`. All 0 console errors, no sideways scroll at 360.
+- Rule slips by designers, all self-reported, no file left behind: a "> /dev/null" once in A and B. Later briefs forbid it by name.
+- All five turn the 12-week heatmap on its side (weeks as rows, C only on a phone) so every past day is a tap target. A 1.0 rule change, put to the owner.
+- UAT sheet layout ruled by the owner (ledger off-scope row 5, `e6ae069`), shipped as sdlc 2.2.0's test sheet template.
+- compare.html written by the orchestrator `a5ca2a9`: pick A Night Console, runner-up B. Waiting for the owner.
