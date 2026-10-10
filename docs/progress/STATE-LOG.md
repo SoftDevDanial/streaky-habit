@@ -160,3 +160,7 @@ Append-only history. STATE.md holds the situation, this file holds what happened
 - Stakeholder drive on a cold boot, real gestures, no seed: 32 of 32 checks, evidence docs/review/20261010-130904/.
 - docs/lifecycle.md (per phase, verdict, deviations with cause) and docs/init/repo-summary.md written.
 - Ledger row for the review close. Staleness check: no handoff file in docs/progress/handoff, so the ledger is the newest record.
+
+## 2026-10-10 13:30 UAT pre-run done, script repaired
+- sdlc-uat-tester: 6 PASS, UAT-01 BLOCKED for a script reason (no click on the field at step 4). Step rewritten, three wordings fixed, tester verdicts written beside the empty human column.
+- Server pid 12828 on 127.0.0.1:8731 deliberately running for the owner, recorded in the process ledger.

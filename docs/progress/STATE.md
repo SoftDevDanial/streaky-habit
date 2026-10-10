@@ -4,8 +4,8 @@
 - **design-phase:** sdlc:design
 - **version:** 1.0.0
 - **mode:** greenfield
-- **phase:** review done (shippable for UAT); uat next
-- **next:** uat
+- **phase:** uat: sitting 1 pre-run done, waiting for the owner
+- **next:** uat (owner verdicts), then seal on his word
 - **last-regression:** PASS @ 2026-10-10 12:25 (docs/regression/REGRESSION.md)
 
 ## Modules
@@ -18,7 +18,7 @@
 none
 
 ## Next action
-sdlc:uat: build the stakeholder-seat script from the CHANGE-LEDGER scopes, pre-run by sdlc-uat-tester (human column empty), boot the app, hand the owner the USER TEST BRIEF. The seal is his word only.
+The owner tests docs/v1.0.0/user-test-2026-10-10/TEST-CASES.md at http://127.0.0.1:8731/ (server pid 12828, deliberately running). Record his verdicts verbatim with the date, route any non-PASS with him, findings.md, ledger. Seal only on his word.
 
 ## Notes
 Goldens (immutable): docs/design/today.html (key), today-empty.html, delete-dialog.html, states.html (specimen sheet), system.md, system.css, sample-history.json, RULINGS.md.
