@@ -1,0 +1,12 @@
+﻿[serve_and_run] http.server pid 4412 on 127.0.0.1:37774
+Thu 01 Oct :: 1 day Best 1
+Fri 02 Oct :: 2 days Best 2
+Sat 03 Oct :: 3 days Best 3
+Sun 04 Oct :: 4 days Best 4
+Mon 05 Oct :: 5 days Best 5
+Tue 06 Oct :: 6 days Best 6
+Wed 07 Oct :: 7 days Best 7
+Thu 08 Oct :: 8 days Best 8
+Fri 09 Oct :: 9 days Best 9
+Sat 10 Oct :: 10 days Best 10
+[serve_and_run] stopped pid 4412; 127.0.0.1:37774 refuses connections: True; command exit code: 0

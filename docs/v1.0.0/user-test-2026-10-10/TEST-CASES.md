@@ -46,7 +46,7 @@ until your next add, through the next cases. That is expected, not a stuck error
 
 | tester (pre-run) | YOUR verdict | next step (agreed with you) |
 |---|---|---|
-| BLOCKED (script) as first written: step 4 had no click on the field, so the first space pressed Add. With the click added (the step as it reads now), steps 4 to 7 matched. Fixed before handover | | |
+| BLOCKED (script) as first written: step 4 had no click on the field, so the first space pressed Add. With the click added (the step as it reads now), steps 4 to 7 matched. Fixed before handover | "Pass, not sure why its blocked by tester but it was good" (2026-10-10) | none. The BLOCKED was the first draft of this script, fixed before you got it (findings.md UAT-F1) |
 
 ---
 
@@ -70,7 +70,7 @@ circle. After step 4, it is filled again and joined to yesterday.
 
 | tester (pre-run) | YOUR verdict | next step (agreed with you) |
 |---|---|---|
-| PASS: today filled with a white check, yesterday filled and joined by a 4 px green line, step 3 hollow, step 4 filled and joined again | | |
+| PASS: today filled with a white check, yesterday filled and joined by a 4 px green line, step 3 hollow, step 4 filled and joined again | "Pass . I like the design for this week what we have done but a big limitation is that we cant input something that we did last week or change a specific date habit incase we input it wrong or want to add something we just remembered. Think about it and if its a good idea then implement it. If not report to me why. Also, we can have a continous streak for something we do for weeks also. LIke, read 20 pages, i read everydya. Then next week also everyday, it should be a continous streak." (2026-10-10) | Past days: Proposed for 1.1.0, waiting for your yes (findings.md UAT-F2). Streak across weeks: already works, proof in findings.md UAT-F3 |
 
 ---
 
@@ -95,7 +95,7 @@ ticked now. After step 4 it reads "2 days" and "Best 2" again with a solid line.
 
 | tester (pre-run) | YOUR verdict | next step (agreed with you) |
 |---|---|---|
-| PASS: "2 days" and "Best 2", then "1 day" with a dashed line into today's open circle, then "2 days" with a solid line | | |
+| PASS: "2 days" and "Best 2", then "1 day" with a dashed line into today's open circle, then "2 days" with a solid line | "Pass. I think it needs to show that left side is current and right is best" (2026-10-10) | Proposed for 1.1.0, waiting for your yes (findings.md UAT-F4) |
 
 ---
 
@@ -121,7 +121,7 @@ filled but not joined to them.
 
 | tester (pre-run) | YOUR verdict | next step (agreed with you) |
 |---|---|---|
-| PASS: "1 day" then "Best 3", one thick line joins circles 2 to 4, today filled and not joined | | |
+| PASS: "1 day" then "Best 3", one thick line joins circles 2 to 4, today filled and not joined | "Pass" (2026-10-10) | none |
 
 ---
 
@@ -146,7 +146,7 @@ the largest again. Days after today have no dot at all.
 
 | tester (pre-run) | YOUR verdict | next step (agreed with you) |
 |---|---|---|
-| PASS: today's dot 17 px darkest (same as "All"), 11 px lighter at step 3 (the middle legend dot), 17 px again at step 4, the day after today has no dot | | |
+| PASS: today's dot 17 px darkest (same as "All"), 11 px lighter at step 3 (the middle legend dot), 17 px again at step 4, the day after today has no dot | "Pass" (2026-10-10) | none |
 
 ---
 
@@ -182,7 +182,7 @@ habit". That is fixed in 1.1.0 with a guard that does not depend on time.
 
 | tester (pre-run) | YOUR verdict | next step (agreed with you) |
 |---|---|---|
-| PASS: the box asked the question with both buttons, Cancel kept both habits, after a one second wait Delete habit removed only "Stretch 10 minutes", today reads 1 of 1 habits. Extra: a bin click right after Cancel and a Delete habit click 250 ms after opening were both ignored | | |
+| PASS: the box asked the question with both buttons, Cancel kept both habits, after a one second wait Delete habit removed only "Stretch 10 minutes", today reads 1 of 1 habits. Extra: a bin click right after Cancel and a Delete habit click 250 ms after opening were both ignored | "Pass" (2026-10-10) | none |
 
 ---
 
@@ -204,7 +204,7 @@ circles, "2 days" and "Best 2", and the same heatmap.
 
 | tester (pre-run) | YOUR verdict | next step (agreed with you) |
 |---|---|---|
-| PASS: after a reload, and after closing the tab and opening a new one, the circles, "2 days", "Best 2" and all 84 heatmap cells were the same | | |
+| PASS: after a reload, and after closing the tab and opening a new one, the circles, "2 days", "Best 2" and all 84 heatmap cells were the same | "Pass" (2026-10-10) | none |
 
 ---
 
@@ -212,13 +212,13 @@ circles, "2 days" and "Best 2", and the same heatmap.
 
 | case | scope | tester | you | next step |
 |---|---|---|---|---|
-| UAT-01 | C1 Add a habit | BLOCKED (script), fixed, then steps matched | | |
-| UAT-02 | C2 Tick the week | PASS | | |
-| UAT-03 | C3 Current streak | PASS | | |
-| UAT-04 | C4 Best streak | PASS | | |
-| UAT-05 | C5 12-week heatmap | PASS | | |
-| UAT-06 | C6 Delete a habit | PASS | | |
-| UAT-07 | C7 Kept on the device | PASS | | |
+| UAT-01 | C1 Add a habit | BLOCKED (script), fixed, then steps matched | PASS | see the case |
+| UAT-02 | C2 Tick the week | PASS | PASS | see the case |
+| UAT-03 | C3 Current streak | PASS | PASS | see the case |
+| UAT-04 | C4 Best streak | PASS | PASS | none |
+| UAT-05 | C5 12-week heatmap | PASS | PASS | none |
+| UAT-06 | C6 Delete a habit | PASS | PASS | none |
+| UAT-07 | C7 Kept on the device | PASS | PASS | none |
 
 The tester's PASS shows the script can be run. It is not the proof that the feature works. That is your verdict.
 Pre-run evidence: `pre-run/20261010-132500/` (the driver, 122 checks, a screenshot per case).
@@ -265,6 +265,7 @@ something you could see.
 - **Options.** Keep "Streaks" (it is a portfolio example, not a product) · rename it before publishing.
 - **Recommendation.** Keep it, and say "example app" wherever it is shown. Renaming touches the approved
   design and every document.
+- **Your ruling (2026-10-10).** "Streaky Habit". Waiting for your confirmation after the name check in findings.md (two habit trackers already use "Streaky").
 
 ---
 

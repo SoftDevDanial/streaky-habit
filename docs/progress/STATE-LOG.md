@@ -164,3 +164,8 @@ Append-only history. STATE.md holds the situation, this file holds what happened
 ## 2026-10-10 13:30 UAT pre-run done, script repaired
 - sdlc-uat-tester: 6 PASS, UAT-01 BLOCKED for a script reason (no click on the field at step 4). Step rewritten, three wordings fixed, tester verdicts written beside the empty human column.
 - Server pid 12828 on 127.0.0.1:8731 deliberately running for the owner, recorded in the process ledger.
+
+## 2026-10-10 15:58 owner's UAT verdicts recorded
+- Owner: 7 of 7 PASS, his words recorded with the date in TEST-CASES.md. D-02 answered "Streaky Habit", waiting for his confirmation after the name check.
+- findings.md: UAT-F1 answered (the BLOCKED was the first script draft), UAT-F2 past days (FULL, 1.1.0), UAT-F3 streak across weeks already works (10 days proof), UAT-F4 Current and Best labels (FULL, 1.1.0).
+- Ledger rows with his exact words, including his comments on the logo, the plain look, the test-case layout and the showcase, and a dated correction of the logo row.
