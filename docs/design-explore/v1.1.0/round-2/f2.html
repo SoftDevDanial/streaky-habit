@@ -280,7 +280,7 @@ span.hc{ cursor:default; }
 .seg{ fill:none; stroke:var(--ring); stroke-width:1.5; }
 .seg.on{ stroke:var(--amber); stroke-width:3.5; }
 .c-core{ fill:var(--amber); }
-.c-num{ fill:var(--ink-soft); font:600 var(--t-ov) var(--font); text-anchor:middle; dominant-baseline:central; font-variant-numeric:tabular-nums; }
+.c-num{ fill:var(--ink-soft); font:600 var(--t-ov) var(--font); text-anchor:middle; dominant-baseline:alphabetic; font-variant-numeric:proportional-nums; } /* sits on the baseline, dropped half a figure height (dy .367em) so the digits' ink centres in the ring on any system font. Proportional figures, so a "1" does not carry an "8"'s width and pull the number off centre */
 .c-num.on{ fill:var(--on-amber); font-weight:700; }
 .c-num.dim{ fill:var(--closed); font-weight:500; } /* P4: days after today, closed like P2's */
 .c-today{ fill:none; stroke:var(--ink); stroke-width:1.4; }
@@ -835,7 +835,7 @@ button.yc:active .bead{ transform:scale(.9); }
       });
     }
     if (all) s += '<circle class="c-core" cx="20" cy="20" r="11.5"/>';
-    if (num != null) s += '<text class="c-num' + (all ? " on" : "") + '" x="20" y="20.5">' + num + "</text>";
+    if (num != null) s += '<text class="c-num' + (all ? " on" : "") + '" x="20" y="20" dy=".367em">' + num + "</text>";
     return s + "</svg>";
   }
   function legendHTML(){
@@ -1012,7 +1012,7 @@ button.yc:active .bead{ transform:scale(.9); }
   ovDlg.addEventListener("close", () => { const b = $("#ov-btn"); if (b && getComputedStyle(b).display !== "none") b.focus({ preventScroll: true }); });
 
   /* ---------- P4 overview year view: the overview's rings over P2's months ---------- */
-  const closedRing = dd => '<span class="hc closed" aria-hidden="true"><svg viewBox="0 0 40 40" aria-hidden="true" focusable="false"><text class="c-num dim" x="20" y="20.5">' + dd + "</text></svg></span>";
+  const closedRing = dd => '<span class="hc closed" aria-hidden="true"><svg viewBox="0 0 40 40" aria-hidden="true" focusable="false"><text class="c-num dim" x="20" y="20" dy=".367em">' + dd + "</text></svg></span>";
   function renderAll(){
     $("#all-months").innerHTML = monthsHTML("a", "hc", d => dayCell(d, "a", true), closedRing);
     $("#all-legend").innerHTML = legendHTML();
