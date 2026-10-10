@@ -1,0 +1,1565 @@
+{
+  "console_errors": [],
+  "page_errors": [],
+  "requests_off_file": [],
+  "clipboard_writes": {
+    "1280": [],
+    "390": [],
+    "360": []
+  },
+  "asserts": {
+    "title is Danial's Streaky Habit": {
+      "pass": true,
+      "detail": null
+    },
+    "1280 Read 20 pages row matches history": {
+      "pass": true,
+      "detail": {
+        "computed": [
+          4,
+          9
+        ],
+        "row": [
+          4,
+          9
+        ],
+        "row_text": "Current 4 days Best 9",
+        "expected": [
+          4,
+          9
+        ],
+        "first_day": "2025-10-10",
+        "days_done": 250
+      }
+    },
+    "1280 Read 20 pages last 12 weeks equal round 1": {
+      "pass": true,
+      "detail": null
+    },
+    "1280 Read 20 pages history inside the last 12 months": {
+      "pass": true,
+      "detail": [
+        "2025-10-10",
+        "2026-10-10"
+      ]
+    },
+    "1280 Stretch 10 minutes row matches history": {
+      "pass": true,
+      "detail": {
+        "computed": [
+          2,
+          5
+        ],
+        "row": [
+          2,
+          5
+        ],
+        "row_text": "Current 2 days Best 5",
+        "expected": [
+          2,
+          5
+        ],
+        "first_day": "2025-10-10",
+        "days_done": 184
+      }
+    },
+    "1280 Stretch 10 minutes last 12 weeks equal round 1": {
+      "pass": true,
+      "detail": null
+    },
+    "1280 Stretch 10 minutes history inside the last 12 months": {
+      "pass": true,
+      "detail": [
+        "2025-10-10",
+        "2026-10-09"
+      ]
+    },
+    "1280 No phone after 11pm row matches history": {
+      "pass": true,
+      "detail": {
+        "computed": [
+          0,
+          14
+        ],
+        "row": [
+          0,
+          14
+        ],
+        "row_text": "Current No streak yet Best 14",
+        "expected": [
+          0,
+          14
+        ],
+        "first_day": "2025-10-10",
+        "days_done": 265
+      }
+    },
+    "1280 No phone after 11pm last 12 weeks equal round 1": {
+      "pass": true,
+      "detail": null
+    },
+    "1280 No phone after 11pm history inside the last 12 months": {
+      "pass": true,
+      "detail": [
+        "2025-10-10",
+        "2026-10-08"
+      ]
+    },
+    "1280 K1 page does not scroll": {
+      "pass": true,
+      "detail": {
+        "scrollHeight": 800,
+        "innerHeight": 800,
+        "scrollWidth": 1280,
+        "innerWidth": 1280
+      }
+    },
+    "1280 K1 proto tab overlaps no content": {
+      "pass": true,
+      "detail": {
+        "tab": {
+          "x": 1014.875,
+          "y": 16,
+          "w": 121.125,
+          "h": 24
+        },
+        "overlaps": []
+      }
+    },
+    "1280 Done today updates the row and the overview": {
+      "pass": true,
+      "detail": {
+        "row": {
+          "name": "Stretch 10 minutes",
+          "current": 3,
+          "best": 5,
+          "doneToday": true,
+          "text": "Current 3 days Best 5"
+        },
+        "today cell before": "Sat 10 Oct, 1 of 3 habits",
+        "after": "Sat 10 Oct, 2 of 3 habits"
+      }
+    },
+    "1280 Done today unticks on a second tap": {
+      "pass": true,
+      "detail": {
+        "name": "Stretch 10 minutes",
+        "current": 2,
+        "best": 5,
+        "doneToday": false,
+        "text": "Current 2 days Best 5"
+      }
+    },
+    "1280 P1 tick updates the overview": {
+      "pass": true,
+      "detail": [
+        "Tue 22 Sep, 1 of 3 habits",
+        "Tue 22 Sep, 2 of 3 habits"
+      ]
+    },
+    "1280 P1 closes on the backdrop": {
+      "pass": true,
+      "detail": null
+    },
+    "1280 future day closed": {
+      "pass": true,
+      "detail": null
+    },
+    "1280 P2 Read 20 pages numbers match history": {
+      "pass": true,
+      "detail": {
+        "title": "Read 20 pages",
+        "current": 4,
+        "best": 9,
+        "text": "Current 4 days Best 9",
+        "dayButtons": 366,
+        "closed": 21
+      }
+    },
+    "1280 P2 Read 20 pages shows 366 days, 21 closed": {
+      "pass": true,
+      "detail": {
+        "title": "Read 20 pages",
+        "current": 4,
+        "best": 9,
+        "text": "Current 4 days Best 9",
+        "dayButtons": 366,
+        "closed": 21
+      }
+    },
+    "1280 P2 Read 20 pages closes on Esc": {
+      "pass": true,
+      "detail": null
+    },
+    "1280 P2 Stretch 10 minutes numbers match history": {
+      "pass": true,
+      "detail": {
+        "title": "Stretch 10 minutes",
+        "current": 2,
+        "best": 5,
+        "text": "Current 2 days Best 5",
+        "dayButtons": 366,
+        "closed": 21
+      }
+    },
+    "1280 P2 Stretch 10 minutes shows 366 days, 21 closed": {
+      "pass": true,
+      "detail": {
+        "title": "Stretch 10 minutes",
+        "current": 2,
+        "best": 5,
+        "text": "Current 2 days Best 5",
+        "dayButtons": 366,
+        "closed": 21
+      }
+    },
+    "1280 P2 tick updates P2, the row and the overview": {
+      "pass": true,
+      "detail": {
+        "p2": "Current 3 days Best 5",
+        "row": "Current 3 days Best 5",
+        "overview": [
+          "Wed 7 Oct, 2 of 3 habits",
+          "Wed 7 Oct, 3 of 3 habits"
+        ]
+      }
+    },
+    "1280 M1 copy": {
+      "pass": true,
+      "detail": null
+    },
+    "1280 M1 closes on the backdrop, P2 stays": {
+      "pass": true,
+      "detail": null
+    },
+    "1280 P2 Stretch 10 minutes closes on Esc": {
+      "pass": true,
+      "detail": null
+    },
+    "1280 P2 No phone after 11pm numbers match history": {
+      "pass": true,
+      "detail": {
+        "title": "No phone after 11pm",
+        "current": 0,
+        "best": 14,
+        "text": "Current No streak yet Best 14",
+        "dayButtons": 366,
+        "closed": 21
+      }
+    },
+    "1280 P2 No phone after 11pm shows 366 days, 21 closed": {
+      "pass": true,
+      "detail": {
+        "title": "No phone after 11pm",
+        "current": 0,
+        "best": 14,
+        "text": "Current No streak yet Best 14",
+        "dayButtons": 366,
+        "closed": 21
+      }
+    },
+    "1280 P2 No phone after 11pm closes on Esc": {
+      "pass": true,
+      "detail": null
+    },
+    "1280 Delete habit removes the row and closes both popups": {
+      "pass": true,
+      "detail": [
+        "Read 20 pages",
+        "No phone after 11pm"
+      ]
+    },
+    "1280 s2-empty add field does not move": {
+      "pass": true,
+      "detail": {
+        "x": 246.234375,
+        "y": 727,
+        "w": 774.734375,
+        "h": 48
+      }
+    },
+    "1280 s2-long add field does not move": {
+      "pass": true,
+      "detail": {
+        "x": 246.234375,
+        "y": 727,
+        "w": 774.734375,
+        "h": 48
+      }
+    },
+    "1280 s2-dup add field does not move": {
+      "pass": true,
+      "detail": {
+        "x": 246.234375,
+        "y": 727,
+        "w": 774.734375,
+        "h": 48
+      }
+    },
+    "1280 S3 page does not scroll": {
+      "pass": true,
+      "detail": {
+        "scrollHeight": 800,
+        "innerHeight": 800,
+        "scrollWidth": 1280,
+        "innerWidth": 1280
+      }
+    },
+    "1280 add field does not move between K1 and S3": {
+      "pass": true,
+      "detail": {
+        "k1": {
+          "x": 246.234375,
+          "y": 727,
+          "w": 774.734375,
+          "h": 48
+        },
+        "s3": {
+          "x": 246.234375,
+          "y": 727,
+          "w": 774.734375,
+          "h": 48
+        }
+      }
+    },
+    "1280 S3 list frame scrolls and shows it": {
+      "pass": true,
+      "detail": {
+        "scrollHeight": 829,
+        "clientHeight": 250,
+        "rows": 12,
+        "fadeBelow": true
+      }
+    },
+    "1280 S3 field and Add disabled": {
+      "pass": true,
+      "detail": null
+    },
+    "1280 S3 proto tab overlaps no content": {
+      "pass": true,
+      "detail": {
+        "tab": {
+          "x": 1014.875,
+          "y": 16,
+          "w": 121.125,
+          "h": 24
+        },
+        "overlaps": []
+      }
+    },
+    "1280 S4 proto tab overlaps no content": {
+      "pass": true,
+      "detail": null
+    },
+    "1280 S4 page does not scroll": {
+      "pass": true,
+      "detail": {
+        "scrollHeight": 800,
+        "innerHeight": 800,
+        "scrollWidth": 1280,
+        "innerWidth": 1280
+      }
+    },
+    "390 Read 20 pages row matches history": {
+      "pass": true,
+      "detail": {
+        "computed": [
+          4,
+          9
+        ],
+        "row": [
+          4,
+          9
+        ],
+        "row_text": "Current 4 days Best 9",
+        "expected": [
+          4,
+          9
+        ],
+        "first_day": "2025-10-10",
+        "days_done": 250
+      }
+    },
+    "390 Read 20 pages last 12 weeks equal round 1": {
+      "pass": true,
+      "detail": null
+    },
+    "390 Read 20 pages history inside the last 12 months": {
+      "pass": true,
+      "detail": [
+        "2025-10-10",
+        "2026-10-10"
+      ]
+    },
+    "390 Stretch 10 minutes row matches history": {
+      "pass": true,
+      "detail": {
+        "computed": [
+          2,
+          5
+        ],
+        "row": [
+          2,
+          5
+        ],
+        "row_text": "Current 2 days Best 5",
+        "expected": [
+          2,
+          5
+        ],
+        "first_day": "2025-10-10",
+        "days_done": 184
+      }
+    },
+    "390 Stretch 10 minutes last 12 weeks equal round 1": {
+      "pass": true,
+      "detail": null
+    },
+    "390 Stretch 10 minutes history inside the last 12 months": {
+      "pass": true,
+      "detail": [
+        "2025-10-10",
+        "2026-10-09"
+      ]
+    },
+    "390 No phone after 11pm row matches history": {
+      "pass": true,
+      "detail": {
+        "computed": [
+          0,
+          14
+        ],
+        "row": [
+          0,
+          14
+        ],
+        "row_text": "Current No streak yet Best 14",
+        "expected": [
+          0,
+          14
+        ],
+        "first_day": "2025-10-10",
+        "days_done": 265
+      }
+    },
+    "390 No phone after 11pm last 12 weeks equal round 1": {
+      "pass": true,
+      "detail": null
+    },
+    "390 No phone after 11pm history inside the last 12 months": {
+      "pass": true,
+      "detail": [
+        "2025-10-10",
+        "2026-10-08"
+      ]
+    },
+    "390 K1 page does not scroll": {
+      "pass": true,
+      "detail": {
+        "scrollHeight": 844,
+        "innerHeight": 844,
+        "scrollWidth": 390,
+        "innerWidth": 390
+      }
+    },
+    "390 add field pinned at the bottom": {
+      "pass": true,
+      "detail": {
+        "x": 29,
+        "y": 771,
+        "w": 229.96875,
+        "h": 48
+      }
+    },
+    "390 K1 proto tab overlaps no content": {
+      "pass": true,
+      "detail": {
+        "tab": {
+          "x": 16,
+          "y": 8,
+          "w": 121.125,
+          "h": 24
+        },
+        "overlaps": []
+      }
+    },
+    "390 Done today updates the row and the overview": {
+      "pass": true,
+      "detail": {
+        "row": "Current 3 days Best 5",
+        "button": ", today 2 of 3 habits done",
+        "popup today": "Sat 10 Oct, 2 of 3 habits"
+      }
+    },
+    "390 P1 sheet leaves the chosen day in sight": {
+      "pass": true,
+      "detail": {
+        "cell": {
+          "x": 96.28125,
+          "y": 210,
+          "w": 46.28125,
+          "h": 48
+        },
+        "sheet": {
+          "x": 0,
+          "y": 551,
+          "w": 390,
+          "h": 293
+        }
+      }
+    },
+    "390 P1 tick updates the overview popup": {
+      "pass": true,
+      "detail": [
+        "Tue 22 Sep, 1 of 3 habits",
+        "Tue 22 Sep, 2 of 3 habits"
+      ]
+    },
+    "390 Esc closes P1 first, P3 stays": {
+      "pass": true,
+      "detail": null
+    },
+    "390 P3 Close button closes it": {
+      "pass": true,
+      "detail": null
+    },
+    "390 P2 numbers match history": {
+      "pass": true,
+      "detail": {
+        "title": "Stretch 10 minutes",
+        "current": 2,
+        "best": 5,
+        "text": "Current 2 days Best 5",
+        "dayButtons": 366,
+        "closed": 21
+      }
+    },
+    "390 P2 tick updates P2 and the row": {
+      "pass": true,
+      "detail": {
+        "p2": "Current 3 days Best 5",
+        "row": "Current 3 days Best 5"
+      }
+    },
+    "390 Esc closes M1, P2 stays": {
+      "pass": true,
+      "detail": null
+    },
+    "390 P2 Close button closes it": {
+      "pass": true,
+      "detail": null
+    },
+    "390 s2-empty add field does not move": {
+      "pass": true,
+      "detail": {
+        "x": 29,
+        "y": 771,
+        "w": 229.96875,
+        "h": 48
+      }
+    },
+    "390 s2-long add field does not move": {
+      "pass": true,
+      "detail": {
+        "x": 29,
+        "y": 771,
+        "w": 229.96875,
+        "h": 48
+      }
+    },
+    "390 s2-dup add field does not move": {
+      "pass": true,
+      "detail": {
+        "x": 29,
+        "y": 771,
+        "w": 229.96875,
+        "h": 48
+      }
+    },
+    "390 add field does not move between K1 and S3": {
+      "pass": true,
+      "detail": {
+        "k1": {
+          "x": 29,
+          "y": 771,
+          "w": 229.96875,
+          "h": 48
+        },
+        "s3": {
+          "x": 29,
+          "y": 771,
+          "w": 229.96875,
+          "h": 48
+        }
+      }
+    },
+    "390 S3 page does not scroll": {
+      "pass": true,
+      "detail": {
+        "scrollHeight": 844,
+        "innerHeight": 844,
+        "scrollWidth": 390,
+        "innerWidth": 390
+      }
+    },
+    "390 S3 list frame scrolls and shows it": {
+      "pass": true,
+      "detail": {
+        "scrollHeight": 1189,
+        "clientHeight": 552,
+        "rows": 12,
+        "fadeBelow": true
+      }
+    },
+    "390 S3 proto tab overlaps no content": {
+      "pass": true,
+      "detail": {
+        "tab": {
+          "x": 16,
+          "y": 8,
+          "w": 121.125,
+          "h": 24
+        },
+        "overlaps": []
+      }
+    },
+    "390 S4 proto tab overlaps no content": {
+      "pass": true,
+      "detail": null
+    },
+    "360 Read 20 pages row matches history": {
+      "pass": true,
+      "detail": {
+        "computed": [
+          4,
+          9
+        ],
+        "row": [
+          4,
+          9
+        ],
+        "row_text": "Current 4 days Best 9",
+        "expected": [
+          4,
+          9
+        ],
+        "first_day": "2025-10-10",
+        "days_done": 250
+      }
+    },
+    "360 Read 20 pages last 12 weeks equal round 1": {
+      "pass": true,
+      "detail": null
+    },
+    "360 Read 20 pages history inside the last 12 months": {
+      "pass": true,
+      "detail": [
+        "2025-10-10",
+        "2026-10-10"
+      ]
+    },
+    "360 Stretch 10 minutes row matches history": {
+      "pass": true,
+      "detail": {
+        "computed": [
+          2,
+          5
+        ],
+        "row": [
+          2,
+          5
+        ],
+        "row_text": "Current 2 days Best 5",
+        "expected": [
+          2,
+          5
+        ],
+        "first_day": "2025-10-10",
+        "days_done": 184
+      }
+    },
+    "360 Stretch 10 minutes last 12 weeks equal round 1": {
+      "pass": true,
+      "detail": null
+    },
+    "360 Stretch 10 minutes history inside the last 12 months": {
+      "pass": true,
+      "detail": [
+        "2025-10-10",
+        "2026-10-09"
+      ]
+    },
+    "360 No phone after 11pm row matches history": {
+      "pass": true,
+      "detail": {
+        "computed": [
+          0,
+          14
+        ],
+        "row": [
+          0,
+          14
+        ],
+        "row_text": "Current No streak yet Best 14",
+        "expected": [
+          0,
+          14
+        ],
+        "first_day": "2025-10-10",
+        "days_done": 265
+      }
+    },
+    "360 No phone after 11pm last 12 weeks equal round 1": {
+      "pass": true,
+      "detail": null
+    },
+    "360 No phone after 11pm history inside the last 12 months": {
+      "pass": true,
+      "detail": [
+        "2025-10-10",
+        "2026-10-08"
+      ]
+    },
+    "360 K1 page does not scroll": {
+      "pass": true,
+      "detail": {
+        "scrollHeight": 780,
+        "innerHeight": 780,
+        "scrollWidth": 360,
+        "innerWidth": 360
+      }
+    },
+    "360 add field pinned at the bottom": {
+      "pass": true,
+      "detail": {
+        "x": 25,
+        "y": 707,
+        "w": 207.96875,
+        "h": 48
+      }
+    },
+    "360 K1 proto tab overlaps no content": {
+      "pass": true,
+      "detail": {
+        "tab": {
+          "x": 12,
+          "y": 8,
+          "w": 121.125,
+          "h": 24
+        },
+        "overlaps": []
+      }
+    },
+    "360 Done today updates the row and the overview": {
+      "pass": true,
+      "detail": {
+        "row": "Current 3 days Best 5",
+        "button": ", today 2 of 3 habits done",
+        "popup today": "Sat 10 Oct, 2 of 3 habits"
+      }
+    },
+    "360 P1 sheet leaves the chosen day in sight": {
+      "pass": true,
+      "detail": {
+        "cell": {
+          "x": 89.140625,
+          "y": 206,
+          "w": 43.140625,
+          "h": 46
+        },
+        "sheet": {
+          "x": 0,
+          "y": 487,
+          "w": 360,
+          "h": 293
+        }
+      }
+    },
+    "360 P1 tick updates the overview popup": {
+      "pass": true,
+      "detail": [
+        "Tue 22 Sep, 1 of 3 habits",
+        "Tue 22 Sep, 2 of 3 habits"
+      ]
+    },
+    "360 Esc closes P1 first, P3 stays": {
+      "pass": true,
+      "detail": null
+    },
+    "360 P3 Close button closes it": {
+      "pass": true,
+      "detail": null
+    },
+    "360 P2 numbers match history": {
+      "pass": true,
+      "detail": {
+        "title": "Stretch 10 minutes",
+        "current": 2,
+        "best": 5,
+        "text": "Current 2 days Best 5",
+        "dayButtons": 366,
+        "closed": 21
+      }
+    },
+    "360 P2 tick updates P2 and the row": {
+      "pass": true,
+      "detail": {
+        "p2": "Current 3 days Best 5",
+        "row": "Current 3 days Best 5"
+      }
+    },
+    "360 Esc closes M1, P2 stays": {
+      "pass": true,
+      "detail": null
+    },
+    "360 P2 Close button closes it": {
+      "pass": true,
+      "detail": null
+    },
+    "360 s2-long add field does not move": {
+      "pass": true,
+      "detail": {
+        "x": 25,
+        "y": 707,
+        "w": 207.96875,
+        "h": 48
+      }
+    },
+    "360 add field does not move between K1 and S3": {
+      "pass": true,
+      "detail": {
+        "k1": {
+          "x": 25,
+          "y": 707,
+          "w": 207.96875,
+          "h": 48
+        },
+        "s3": {
+          "x": 25,
+          "y": 707,
+          "w": 207.96875,
+          "h": 48
+        }
+      }
+    },
+    "360 S3 page does not scroll": {
+      "pass": true,
+      "detail": {
+        "scrollHeight": 780,
+        "innerHeight": 780,
+        "scrollWidth": 360,
+        "innerWidth": 360
+      }
+    },
+    "360 S3 list frame scrolls and shows it": {
+      "pass": true,
+      "detail": {
+        "scrollHeight": 1189,
+        "clientHeight": 488,
+        "rows": 12,
+        "fadeBelow": true
+      }
+    },
+    "360 S3 proto tab overlaps no content": {
+      "pass": true,
+      "detail": {
+        "tab": {
+          "x": 12,
+          "y": 8,
+          "w": 121.125,
+          "h": 24
+        },
+        "overlaps": []
+      }
+    },
+    "360 S4 proto tab overlaps no content": {
+      "pass": true,
+      "detail": null
+    },
+    "overview numbers bigger than round 1 at 1280": {
+      "pass": true,
+      "detail": {
+        "round 2": 16,
+        "round 1": 10.5
+      }
+    },
+    "overview numbers bigger than round 1 at 390": {
+      "pass": true,
+      "detail": {
+        "round 2": 16.8,
+        "round 1": 9.92
+      }
+    },
+    "360 no sideways scroll and nothing past the viewport": {
+      "pass": true,
+      "detail": {
+        "k1": {
+          "scrollWidth": 360,
+          "clientWidth": 360,
+          "poking": []
+        },
+        "p3": {
+          "scrollWidth": 360,
+          "clientWidth": 360,
+          "poking": []
+        },
+        "p1": {
+          "scrollWidth": 360,
+          "clientWidth": 360,
+          "poking": []
+        },
+        "p2": {
+          "scrollWidth": 360,
+          "clientWidth": 360,
+          "poking": []
+        },
+        "s1": {
+          "scrollWidth": 360,
+          "clientWidth": 360,
+          "poking": []
+        },
+        "s2-long": {
+          "scrollWidth": 360,
+          "clientWidth": 360,
+          "poking": []
+        },
+        "s3": {
+          "scrollWidth": 360,
+          "clientWidth": 360,
+          "poking": []
+        },
+        "s4": {
+          "scrollWidth": 360,
+          "clientWidth": 360,
+          "poking": []
+        }
+      }
+    },
+    "console errors 0": {
+      "pass": true,
+      "detail": []
+    },
+    "no network requests": {
+      "pass": true,
+      "detail": []
+    },
+    "no clipboard writes": {
+      "pass": true,
+      "detail": {
+        "1280": [],
+        "390": [],
+        "360": []
+      }
+    },
+    "contrast ink on bg (body text)": {
+      "pass": true,
+      "detail": 15.14
+    },
+    "contrast ink on surface (habit names)": {
+      "pass": true,
+      "detail": 13.69
+    },
+    "contrast ink on surface-2 (dialog text)": {
+      "pass": true,
+      "detail": 12.17
+    },
+    "contrast ink-soft on bg (date)": {
+      "pass": true,
+      "detail": 7.64
+    },
+    "contrast ink-soft on surface (labels, overview numbers)": {
+      "pass": true,
+      "detail": 6.91
+    },
+    "contrast ink-soft on surface-2 (dialog labels)": {
+      "pass": true,
+      "detail": 6.14
+    },
+    "contrast amber on bg (accent)": {
+      "pass": true,
+      "detail": 9.61
+    },
+    "contrast amber on surface (Current on a row)": {
+      "pass": true,
+      "detail": 8.69
+    },
+    "contrast amber on surface-2 (Current in P2)": {
+      "pass": true,
+      "detail": 7.72
+    },
+    "contrast on-amber on amber (Done today, Add, done numbers)": {
+      "pass": true,
+      "detail": 9.61
+    },
+    "contrast on-amber on danger (Delete habit in M1)": {
+      "pass": true,
+      "detail": 6.32
+    },
+    "contrast danger on surface (field error)": {
+      "pass": true,
+      "detail": 5.71
+    },
+    "contrast ink-soft on surface-2 (Delete habit in P2 at rest)": {
+      "pass": true,
+      "detail": 6.14
+    },
+    "contrast danger on surface-2 (Delete habit in P2 on hover)": {
+      "pass": true,
+      "detail": 5.08
+    },
+    "contrast ring on surface (not-done outline, 3:1)": {
+      "pass": true,
+      "detail": 3.97
+    },
+    "contrast ring on surface-2 (not-done bead in P2, 3:1)": {
+      "pass": true,
+      "detail": 3.53
+    },
+    "contrast ring on bg (Overview button edge, 3:1)": {
+      "pass": true,
+      "detail": 4.39
+    },
+    "contrast ring on field (input border, 3:1)": {
+      "pass": true,
+      "detail": 4.64
+    },
+    "contrast focus on bg": {
+      "pass": true,
+      "detail": 15.14
+    },
+    "contrast focus on surface-2": {
+      "pass": true,
+      "detail": 12.17
+    }
+  },
+  "info": {
+    "title": "Danial's Streaky Habit",
+    "numbers-1280": {
+      "Read 20 pages": {
+        "computed": [
+          4,
+          9
+        ],
+        "row": [
+          4,
+          9
+        ],
+        "row_text": "Current 4 days Best 9",
+        "expected": [
+          4,
+          9
+        ],
+        "first_day": "2025-10-10",
+        "days_done": 250
+      },
+      "Stretch 10 minutes": {
+        "computed": [
+          2,
+          5
+        ],
+        "row": [
+          2,
+          5
+        ],
+        "row_text": "Current 2 days Best 5",
+        "expected": [
+          2,
+          5
+        ],
+        "first_day": "2025-10-10",
+        "days_done": 184
+      },
+      "No phone after 11pm": {
+        "computed": [
+          0,
+          14
+        ],
+        "row": [
+          0,
+          14
+        ],
+        "row_text": "Current No streak yet Best 14",
+        "expected": [
+          0,
+          14
+        ],
+        "first_day": "2025-10-10",
+        "days_done": 265
+      }
+    },
+    "1280 K1 frame": {
+      "x": 144,
+      "y": 422,
+      "w": 992,
+      "h": 210
+    },
+    "1280 proto K1": {
+      "tab": {
+        "x": 1014.875,
+        "y": 16,
+        "w": 121.125,
+        "h": 24
+      },
+      "overlaps": []
+    },
+    "overview number size 1280": {
+      "fontSizeUserUnits": 16,
+      "svgPx": 40,
+      "viewBox": 40,
+      "renderedPx": 16
+    },
+    "band height 1280": {
+      "x": 144,
+      "y": 56,
+      "w": 992,
+      "h": 354
+    },
+    "p1 title 1280": "Tuesday 22 September",
+    "m1 title 1280": "Delete \"Stretch 10 minutes\"?",
+    "focus after delete": "Year view, No phone after 11pm",
+    "1280 proto S3": {
+      "tab": {
+        "x": 1014.875,
+        "y": 16,
+        "w": 121.125,
+        "h": 24
+      },
+      "overlaps": []
+    },
+    "1280 proto S4": {
+      "tab": {
+        "x": 1014.875,
+        "y": 16,
+        "w": 121.125,
+        "h": 24
+      },
+      "overlaps": []
+    },
+    "focus outline": "solid 2px rgb(237, 238, 240)",
+    "numbers-390": {
+      "Read 20 pages": {
+        "computed": [
+          4,
+          9
+        ],
+        "row": [
+          4,
+          9
+        ],
+        "row_text": "Current 4 days Best 9",
+        "expected": [
+          4,
+          9
+        ],
+        "first_day": "2025-10-10",
+        "days_done": 250
+      },
+      "Stretch 10 minutes": {
+        "computed": [
+          2,
+          5
+        ],
+        "row": [
+          2,
+          5
+        ],
+        "row_text": "Current 2 days Best 5",
+        "expected": [
+          2,
+          5
+        ],
+        "first_day": "2025-10-10",
+        "days_done": 184
+      },
+      "No phone after 11pm": {
+        "computed": [
+          0,
+          14
+        ],
+        "row": [
+          0,
+          14
+        ],
+        "row_text": "Current No streak yet Best 14",
+        "expected": [
+          0,
+          14
+        ],
+        "first_day": "2025-10-10",
+        "days_done": 265
+      }
+    },
+    "390 K1 page scroll": {
+      "scrollHeight": 844,
+      "innerHeight": 844,
+      "scrollWidth": 390,
+      "innerWidth": 390
+    },
+    "390 K1 add field": {
+      "x": 29,
+      "y": 771,
+      "w": 229.96875,
+      "h": 48
+    },
+    "390 proto K1": {
+      "tab": {
+        "x": 16,
+        "y": 8,
+        "w": 121.125,
+        "h": 24
+      },
+      "overlaps": []
+    },
+    "overview number size 390": {
+      "fontSizeUserUnits": 16,
+      "svgPx": 42,
+      "viewBox": 40,
+      "renderedPx": 16.8
+    },
+    "390 proto S3": {
+      "tab": {
+        "x": 16,
+        "y": 8,
+        "w": 121.125,
+        "h": 24
+      },
+      "overlaps": []
+    },
+    "390 proto S4": {
+      "tab": {
+        "x": 16,
+        "y": 8,
+        "w": 121.125,
+        "h": 24
+      },
+      "overlaps": []
+    },
+    "numbers-360": {
+      "Read 20 pages": {
+        "computed": [
+          4,
+          9
+        ],
+        "row": [
+          4,
+          9
+        ],
+        "row_text": "Current 4 days Best 9",
+        "expected": [
+          4,
+          9
+        ],
+        "first_day": "2025-10-10",
+        "days_done": 250
+      },
+      "Stretch 10 minutes": {
+        "computed": [
+          2,
+          5
+        ],
+        "row": [
+          2,
+          5
+        ],
+        "row_text": "Current 2 days Best 5",
+        "expected": [
+          2,
+          5
+        ],
+        "first_day": "2025-10-10",
+        "days_done": 184
+      },
+      "No phone after 11pm": {
+        "computed": [
+          0,
+          14
+        ],
+        "row": [
+          0,
+          14
+        ],
+        "row_text": "Current No streak yet Best 14",
+        "expected": [
+          0,
+          14
+        ],
+        "first_day": "2025-10-10",
+        "days_done": 265
+      }
+    },
+    "360 K1 page scroll": {
+      "scrollHeight": 780,
+      "innerHeight": 780,
+      "scrollWidth": 360,
+      "innerWidth": 360
+    },
+    "360 K1 add field": {
+      "x": 25,
+      "y": 707,
+      "w": 207.96875,
+      "h": 48
+    },
+    "360 proto K1": {
+      "tab": {
+        "x": 12,
+        "y": 8,
+        "w": 121.125,
+        "h": 24
+      },
+      "overlaps": []
+    },
+    "overview number size 360": {
+      "fontSizeUserUnits": 16,
+      "svgPx": 40,
+      "viewBox": 40,
+      "renderedPx": 16
+    },
+    "360 proto S3": {
+      "tab": {
+        "x": 12,
+        "y": 8,
+        "w": 121.125,
+        "h": 24
+      },
+      "overlaps": []
+    },
+    "360 proto S4": {
+      "tab": {
+        "x": 12,
+        "y": 8,
+        "w": 121.125,
+        "h": 24
+      },
+      "overlaps": []
+    },
+    "round 1 overview number size": {
+      "1280": {
+        "fontSizeUserUnits": 10.5,
+        "svgPx": 36,
+        "viewBox": 36,
+        "renderedPx": 10.5
+      },
+      "390": {
+        "fontSizeUserUnits": 10.5,
+        "svgPx": 34,
+        "viewBox": 36,
+        "renderedPx": 9.92
+      }
+    },
+    "reduced motion animation on the tapped dot": "none"
+  },
+  "contrast": {
+    "ink on bg (body text)": {
+      "fg": "#EDEEF0",
+      "bg": "#18191C",
+      "ratio": 15.14,
+      "needs": 4.5
+    },
+    "ink on surface (habit names)": {
+      "fg": "#EDEEF0",
+      "bg": "#212226",
+      "ratio": 13.69,
+      "needs": 4.5
+    },
+    "ink on surface-2 (dialog text)": {
+      "fg": "#EDEEF0",
+      "bg": "#2A2B30",
+      "ratio": 12.17,
+      "needs": 4.5
+    },
+    "ink-soft on bg (date)": {
+      "fg": "#A8ABB2",
+      "bg": "#18191C",
+      "ratio": 7.64,
+      "needs": 4.5
+    },
+    "ink-soft on surface (labels, overview numbers)": {
+      "fg": "#A8ABB2",
+      "bg": "#212226",
+      "ratio": 6.91,
+      "needs": 4.5
+    },
+    "ink-soft on surface-2 (dialog labels)": {
+      "fg": "#A8ABB2",
+      "bg": "#2A2B30",
+      "ratio": 6.14,
+      "needs": 4.5
+    },
+    "amber on bg (accent)": {
+      "fg": "#FFB020",
+      "bg": "#18191C",
+      "ratio": 9.61,
+      "needs": 4.5
+    },
+    "amber on surface (Current on a row)": {
+      "fg": "#FFB020",
+      "bg": "#212226",
+      "ratio": 8.69,
+      "needs": 4.5
+    },
+    "amber on surface-2 (Current in P2)": {
+      "fg": "#FFB020",
+      "bg": "#2A2B30",
+      "ratio": 7.72,
+      "needs": 4.5
+    },
+    "on-amber on amber (Done today, Add, done numbers)": {
+      "fg": "#18191C",
+      "bg": "#FFB020",
+      "ratio": 9.61,
+      "needs": 4.5
+    },
+    "on-amber on danger (Delete habit in M1)": {
+      "fg": "#18191C",
+      "bg": "#FF6B66",
+      "ratio": 6.32,
+      "needs": 4.5
+    },
+    "danger on surface (field error)": {
+      "fg": "#FF6B66",
+      "bg": "#212226",
+      "ratio": 5.71,
+      "needs": 4.5
+    },
+    "ink-soft on surface-2 (Delete habit in P2 at rest)": {
+      "fg": "#A8ABB2",
+      "bg": "#2A2B30",
+      "ratio": 6.14,
+      "needs": 4.5
+    },
+    "danger on surface-2 (Delete habit in P2 on hover)": {
+      "fg": "#FF6B66",
+      "bg": "#2A2B30",
+      "ratio": 5.08,
+      "needs": 4.5
+    },
+    "ring on surface (not-done outline, 3:1)": {
+      "fg": "#7C7F88",
+      "bg": "#212226",
+      "ratio": 3.97,
+      "needs": 3.0
+    },
+    "ring on surface-2 (not-done bead in P2, 3:1)": {
+      "fg": "#7C7F88",
+      "bg": "#2A2B30",
+      "ratio": 3.53,
+      "needs": 3.0
+    },
+    "ring on bg (Overview button edge, 3:1)": {
+      "fg": "#7C7F88",
+      "bg": "#18191C",
+      "ratio": 4.39,
+      "needs": 3.0
+    },
+    "ring on field (input border, 3:1)": {
+      "fg": "#7C7F88",
+      "bg": "#121316",
+      "ratio": 4.64,
+      "needs": 3.0
+    },
+    "focus on bg": {
+      "fg": "#EDEEF0",
+      "bg": "#18191C",
+      "ratio": 15.14,
+      "needs": 3.0
+    },
+    "focus on surface-2": {
+      "fg": "#EDEEF0",
+      "bg": "#2A2B30",
+      "ratio": 12.17,
+      "needs": 3.0
+    }
+  },
+  "overflow_360": {
+    "k1": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "poking": []
+    },
+    "p3": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "poking": []
+    },
+    "p1": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "poking": []
+    },
+    "p2": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "poking": []
+    },
+    "s1": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "poking": []
+    },
+    "s2-long": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "poking": []
+    },
+    "s3": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "poking": []
+    },
+    "s4": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "poking": []
+    }
+  },
+  "shots": [
+    "k1-1280.png",
+    "k1-1280-after-done-today.png",
+    "p1-1280.png",
+    "p2-1280.png",
+    "p2-1280-after-tick.png",
+    "m1-1280.png",
+    "proto-menu-1280.png",
+    "s1-1280.png",
+    "s2-empty-1280.png",
+    "s2-long-1280.png",
+    "s2-dup-1280.png",
+    "s3-1280.png",
+    "s3-1280-scrolled.png",
+    "s4-1280.png",
+    "s5-1280.png",
+    "focus-1280.png",
+    "k1-390.png",
+    "k1-390-after-done-today.png",
+    "p3-390-after-done-today.png",
+    "p3-390.png",
+    "p1-390.png",
+    "p1-390-after-tick.png",
+    "p2-390.png",
+    "p2-390-after-tick.png",
+    "p2-390-scrolled.png",
+    "m1-390.png",
+    "proto-menu-390.png",
+    "s1-390.png",
+    "s2-empty-390.png",
+    "s2-long-390.png",
+    "s2-dup-390.png",
+    "s3-390.png",
+    "s4-390.png",
+    "s5-390.png",
+    "k1-360.png",
+    "p3-360.png",
+    "p1-360.png",
+    "p2-360.png",
+    "m1-360.png",
+    "s1-360.png",
+    "s2-long-360.png",
+    "s3-360.png",
+    "s4-360.png"
+  ],
+  "summary": {
+    "asserts": 122,
+    "failed": [],
+    "shots": 43
+  }
+}
