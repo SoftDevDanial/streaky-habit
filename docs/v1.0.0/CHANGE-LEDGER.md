@@ -44,6 +44,7 @@ Name a habit and it joins the list (1 to 40 characters, unique, up to 12).
 | # | Problem found | When | What changed | Who | Outcome |
 |---|---|---|---|---|---|
 | 1 | Scope opened from the brainstorm capability | 2026-10-08 plan | Specced | ORCH (planner lane) | Open |
+| 2 | sdlc:regression --full | 2026-10-10 regression | Re-verified, no regression. Proof: regression-qa.md (every C1 scenario PASS), cold boot `docs/regression/20261010-122303/` steps 2, 3 and 10 | ORCH | Re-verified |
 
 ### C2 - Tick the week
 **Status:** SHIPPED · **Opened:** 2026-10-08 · **Closed:** 2026-10-09 · **Tag:** IN SCOPE
@@ -55,6 +56,7 @@ Each habit shows the last 7 days and a tap marks a day done or not done.
 | # | Problem found | When | What changed | Who | Outcome |
 |---|---|---|---|---|---|
 | 1 | Scope opened from the brainstorm capability | 2026-10-08 plan | Specced | ORCH (planner lane) | Open |
+| 2 | sdlc:regression --full | 2026-10-10 regression | Re-verified, no regression. Proof: regression-qa.md (every C2 scenario PASS), cold boot `docs/regression/20261010-122303/` steps 4 and 5 | ORCH | Re-verified |
 
 ### C3 - Current streak
 **Status:** SHIPPED · **Opened:** 2026-10-08 · **Closed:** 2026-10-09 · **Tag:** IN SCOPE
@@ -66,6 +68,7 @@ Days in a row, counted so the streak does not break until today is over.
 | # | Problem found | When | What changed | Who | Outcome |
 |---|---|---|---|---|---|
 | 1 | Scope opened from the brainstorm capability | 2026-10-08 plan | Specced | ORCH (planner lane) | Open |
+| 2 | sdlc:regression --full | 2026-10-10 regression | Re-verified, no regression. Proof: regression-qa.md (every C3 scenario PASS), cold boot `docs/regression/20261010-122303/` steps 4, 5 and 11 (1 day, then 2 days after a reload) | ORCH | Re-verified |
 
 ### C4 - Best streak
 **Status:** SHIPPED · **Opened:** 2026-10-08 · **Closed:** 2026-10-09 · **Tag:** IN SCOPE
@@ -77,6 +80,7 @@ The longest run the habit has ever had.
 | # | Problem found | When | What changed | Who | Outcome |
 |---|---|---|---|---|---|
 | 1 | Scope opened from the brainstorm capability | 2026-10-08 plan | Specced | ORCH (planner lane) | Open |
+| 2 | sdlc:regression --full | 2026-10-10 regression | Re-verified, no regression. Proof: regression-qa.md (every C4 scenario PASS), cold boot `docs/regression/20261010-122303/` steps 4, 5 and 11 (Best 1, then Best 2 after a reload) | ORCH | Re-verified |
 
 ### C5 - 12-week heatmap
 **Status:** SHIPPED · **Opened:** 2026-10-08 · **Closed:** 2026-10-09 · **Tag:** IN SCOPE
@@ -88,6 +92,7 @@ One grid for all habits, darker when more habits were done that day.
 | # | Problem found | When | What changed | Who | Outcome |
 |---|---|---|---|---|---|
 | 1 | Scope opened from the brainstorm capability | 2026-10-08 plan | Specced | ORCH (planner lane) | Open |
+| 2 | sdlc:regression --full | 2026-10-10 regression | Re-verified, no regression. Proof: regression-qa.md (every C5 scenario PASS), fidelity 6 of 6 at 0 px stands on unchanged src, cold boot `docs/regression/20261010-122303/` steps 4, 5 and 9 (cell levels 4 and 2, then a count of 1 habit) | ORCH | Re-verified |
 
 ### C6 - Delete a habit
 **Status:** SHIPPED · **Opened:** 2026-10-08 · **Closed:** 2026-10-09 · **Tag:** IN SCOPE
@@ -99,6 +104,7 @@ Removes the habit and its history after a confirmation.
 | # | Problem found | When | What changed | Who | Outcome |
 |---|---|---|---|---|---|
 | 1 | Scope opened from the brainstorm capability | 2026-10-08 plan | Specced | ORCH (planner lane) | Open |
+| 2 | sdlc:regression --full | 2026-10-10 regression | Re-verified, no regression. Proof: regression-qa.md (every C6 scenario PASS), regression code review solved and re-checked (guard edge tests pinned), cold boot `docs/regression/20261010-122303/` steps 7, 8 and 9 | ORCH | Re-verified |
 
 ### C7 - Kept on the device
 **Status:** SHIPPED · **Opened:** 2026-10-08 · **Closed:** 2026-10-09 · **Tag:** IN SCOPE
@@ -110,6 +116,7 @@ Habits and history survive reloads on the same browser, and the day turns over a
 | # | Problem found | When | What changed | Who | Outcome |
 |---|---|---|---|---|---|
 | 1 | Scope opened from the brainstorm capability | 2026-10-08 plan | Specced | ORCH (planner lane) | Open |
+| 2 | sdlc:regression --full | 2026-10-10 regression | Re-verified, no regression. Proof: regression-qa.md (every C7 scenario PASS), cold boot `docs/regression/20261010-122303/` steps 6 and 11 (reloads keep every row) | ORCH | Re-verified |
 
 ---
 
@@ -185,6 +192,7 @@ Habits and history survive reloads on the same browser, and the day turns over a
 | 50 | RG-CR-07 | 2026-10-09 regression | Spec R13 note reworded by the orchestrator: it states what the page guard does with a keyboard-made click and that no requirement or test covers it, without the v1.1.0 premise. Stop rule: code review ends for v1.0.0 | ORCH | Fixed |
 | 51 | Regression QA on the final code (haiku): PASS, 120 of 120 scenarios (habit-logic 32, app 88), 0 untested. Suites 99 and 179. Driven by hand: the cold-boot gate 11 of 11, the pixel gate 6 of 6 at 0 px, the states sheet 0 differences, five everyday flows at 390x844 9 of 9. Observation: an Add within 500 ms of a mouse press in the delete dialog is dropped silently (the documented SEC-01 page guard) | 2026-10-10 regression | findings/regression-qa.md, evidence `qa/regression-qa/20261009T233524/` | LANE (sdlc-qa-tester, haiku) | PASS |
 | 52 | The silent drop of a click within 500 ms after a dialog press | 2026-10-10 regression | Kept for v1.0 as documented behaviour (README, Behaviour worth knowing). Listed for the owner's UAT pass. v1.1.0 replaces the Delete habit window with a time-free guard; whether the page guard goes the same way is his call then | ORCH | Accepted for v1.0 |
+| 53 | sdlc:regression --full closed | 2026-10-10 regression | Cold boot 11 of 11 PASS into `docs/regression/20261010-122303/` (21 requests all same-origin, 0 console or page errors). Suites on the final tree 99 unit and 179 browser. docs/regression/REGRESSION.md written. Process ledger reconciled. Full credential gate exit 0 | ORCH | PASS |
 
 ---
 

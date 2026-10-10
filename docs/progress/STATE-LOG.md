@@ -147,3 +147,10 @@ Append-only history. STATE.md holds the situation, this file holds what happened
 
 ## 2026-10-10 00:01 regression QA PASS
 - QA finder PASS 120 of 120 scenarios on the final code, suites 99 and 179.
+
+## 2026-10-10 12:26 regression --full closed, PASS
+- Cold boot by the orchestrator: 11 of 11 PASS into docs/regression/20261010-122303/ (21 requests all same-origin, 0 console or page errors, server pid 12816 port 31368 stopped).
+- Suites on the final tree: 99 unit, 179 browser in 42.32 s.
+- docs/regression/REGRESSION.md written (mode full under the economy ruling, scope per module, finder verdicts, one solver round, cold boot table).
+- CHANGE-LEDGER: a re-verified row in C1 to C7 and row 53. Process ledger reconciled (31 rows, including the hung no-op heredoc of 2026-10-09 22:02 and the orchestrator's own runs).
+- last-regression = PASS @ 2026-10-10 12:25.

@@ -4,8 +4,9 @@
 - **design-phase:** sdlc:design
 - **version:** 1.0.0
 - **mode:** greenfield
-- **phase:** regression (QA PASS; cold boot and report next)
-- **next:** regression
+- **phase:** regression PASS; review next (after the logo and README pass)
+- **next:** review
+- **last-regression:** PASS @ 2026-10-10 12:25 (docs/regression/REGRESSION.md)
 
 ## Modules
 | module | nature | depends on | status | last green |
@@ -17,7 +18,7 @@
 none
 
 ## Next action
-Cold boot into docs/regression/<ts>/ (serve_and_run.py + live_e2e.py --out), docs/regression/REGRESSION.md, process ledger (proc_ledger.py), ledger re-verified rows, full credential gate, STATE last-regression. Then logos and README design, review, UAT pre-run.
+Logo and README design (owner request 2026-10-09 23:40, logo in the repo now, favicon in v1.1.0 per his 2026-10-10 answer). Then sdlc:review (lifecycle.md, repo summary), then sdlc:uat pre-run by sdlc-uat-tester with the human column empty, then the USER TEST BRIEF. The seal is his word only.
 
 ## Notes
 Goldens (immutable): docs/design/today.html (key), today-empty.html, delete-dialog.html, states.html (specimen sheet), system.md, system.css, sample-history.json, RULINGS.md.
