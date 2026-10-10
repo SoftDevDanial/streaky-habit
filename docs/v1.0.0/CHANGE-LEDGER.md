@@ -12,7 +12,7 @@
 
 **Version:** v1.0.0 · **Opened:** 2026-10-08 by `sdlc:plan` as ~~v0.1.0~~ · **Relabelled:** 2026-10-09 to
 v1.0.0 on the owner's word (see Off-scope, the USER row of that date). Same version, same scope. Plan-phase
-documents written before that date still say v0.1.0. · **Sealed:** not yet (see `SEAL.md` once sealed)
+documents written before that date still say v0.1.0. · **Sealed:** 2026-10-10 on the owner's word, "Seal both apps" (see `SEAL.md`, tag `v1.0.0`)
 
 > **This run was delegated.** The owner asked for the whole lifecycle to be created ("Auto create with
 > lifecycles for 2 projects", 2026-10-08). Every decision an agent or the orchestrator took in his place is
@@ -208,6 +208,14 @@ Habits and history survive reloads on the same browser, and the day turns over a
 | 66 | D-02 ruling, owner: "Streaky Habit" | 2026-10-10 uat | Name check: "Habit Tracking: Streaky" (App Store) and "Streaky: Habit Tracker" (Google Play) already exist. The rename touches the golden wordmark, the logo lockup and every document, so it lands in 1.1.0 through the design phase once he confirms | USER | Waiting for his confirmation |
 | 67 | H-01, D-01 and the UAT-06 question on the half-second pauses | 2026-10-10 uat | Not ruled in his verdicts. Asked again | ORCH | Open |
 | 68 | Owner comments on both apps: (1) "Wheres the logo. I dont see it being used for both" (2) "Both designs are great but is just that its so dull. Need to spice it up so it looks nicer" (3) "Test cases, i want steps and expected result in a table. Much easier to read. Bigger fonts for UAT number. I think scope, problem, precond, steps and result should be in a table. Steps and result can be side by side. If theres any extra notes, have a row for notes as well. Overall make it nicer to read the whole test cases. Its hard for a human to find a read properly. Present it better. Also include some sort of verdict selection examples so people will know if its pass or fail or any other option with its explanation somewhere at the top. i think the best is to run the design phase with me. Propose 5 designs for both app. Doesnt need to be working, i just want the design part." (4) "I also want this part to be displayed in the showcase. What else besides test cases can be shown. We dont need to show all, just bits or parts of it so people can know what it is." | 2026-10-10 uat | Correction to the brand row, dated: "no header mark inside the app" was the orchestrator's reading of "where needed", not his words. He expects to see the logo in the app, so it goes into the app in 1.1.0 through the design phase with him. Comments 2 and 3 go to a design round run with him, comment 4 to the showcase plan. Routing agreed in the conversation | USER | Recorded, routing with him |
+| 69 | H-01 ruled, owner: "Yes but not fully as i have given comments about it. For both app, they both are functioning fluidly which is very good. But design wise for both is not that good. For streaks, the missing previous dates is actually a big thing. Overall , its good but not superbly." | 2026-10-10 uat | The delegated choices stand, except where his comments reopen them: the look (design round), past days (UAT-F2) and the labels (UAT-F4), all in 1.1.0 | USER | Ruled |
+| 70 | D-01 ruled, owner: "If its the same as split, then no need. If its something that really requires my attention then sure." | 2026-10-10 uat | Split's rulings applied to the shared items: a message when the habits cannot be saved and Safari's engine (WebKit) in the test runs go into 1.1.0, the shared github.io address and two tabs stay. The slow double click was already in 1.1.0. The two Streaks-only items (stacked accent marks, a clock past the year 9999) are minor and stay. Applied by analogy, reversible | ORCH | Ruled by analogy |
+| 71 | UAT-06 pauses, owner: "UAT-06 thing, is very minor, i think just keep it unless its an easy change (fast meaning a few lines only). Barely noticebly by a human." | 2026-10-10 uat | Kept for 1.0. The 1.1.0 time-free trash guard replaces the Delete habit pause anyway | USER | Ruled |
+| 72 | 1.1.0 scope, owner: "3.  Yes." (to editing past days and labelling Current and Best) | 2026-10-10 uat | UAT-F2 and UAT-F4 become 1.1.0 scopes | USER | Ruled |
+| 73 | Name, owner: "Check if its ok to be used. Also, for split, change it to SplitIO. Also, if both names cant be used, then add Danials [app name] Or if theres a better way to make it uniquely to me." | 2026-10-10 uat | Name check: "Streaky" is used by three habit trackers (two on the App Store, one on Google Play). Not usable. His fallback applies. The name and the wordmark are chosen with him in the 1.1.0 design round | USER | Into the 1.1.0 design round |
+| 74 | Design round, owner: "Yes, doesnt need to be functionable, as long as i can see the design. Including popups and modals or anything that requires a button click or something. If its easier and faster to make it work instead , then do it. The important thing is, the prototype design should be quick and mainly focus on the design. Also, this phase should be with the designer. Before doing this, list out what the designer does. I forgot" | 2026-10-10 uat | 1.1.0 design round with him: 5 directions per app as clickable static prototypes (dialogs and popups reachable), the test-case layout in the same round. The designer's role listed for him before it starts | USER | Ruled |
+| 75 | Showcase, owner: "For comments 4, i like all of that." | 2026-10-10 uat | The showcase shows the version story from UAT to 1.1.0, the test sheet with both columns, one bug story, the design exploration and the pixel match | USER | Ruled |
+| 76 | Seal, owner: "1. Seal both apps" | 2026-10-10 uat | v1.0.0 sealed: SEAL.md, local tag v1.0.0, next working version 1.1.0 | USER | Sealed |
 
 ---
 
@@ -220,7 +228,7 @@ Habits and history survive reloads on the same browser, and the day turns over a
   (`docs/design-explore/round-1/DECISION.md`), the design rulings (`docs/design/RULINGS.md`), the
   clarify-gate rulings above, and the planner decisions in `docs/modules/ROADMAP.md`.
 - **Recommendation:** read the two compare pages and the rulings first. They carry the most taste.
-- **Ruling:** (pending)
+- **Ruling:** 2026-10-10, USER, at UAT: "Yes but not fully as i have given comments about it." The choices stand except where his UAT comments reopen them (the look, past days, the streak labels), all in 1.1.0.
 
 ---
 

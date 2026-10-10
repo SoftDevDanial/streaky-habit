@@ -4,8 +4,8 @@
 - **design-phase:** sdlc:design
 - **version:** 1.0.0
 - **mode:** greenfield
-- **phase:** uat: owner verdicts recorded, 7 of 7 PASS; seal waits for his word
-- **next:** seal on his word, then v1.1.0
+- **phase:** v1.0.0 SEALED 2026-10-10 on the owner's word; v1.1.0 opening
+- **next:** v1.1.0: brainstorm delta, then the design round with the owner
 - **last-regression:** PASS @ 2026-10-10 12:25 (docs/regression/REGRESSION.md)
 
 ## Modules
@@ -18,7 +18,7 @@
 none
 
 ## Next action
-Waiting on the owner: the seal of v1.0.0, his yes on UAT-F2 (edit past days) and UAT-F4 (label Current and Best) for 1.1.0, his confirmation of the name "Streaky Habit" after the name check, H-01, D-01, the UAT-06 pause question, and what the five designs cover. v1.1.0 candidates: the time-free trash guard, UAT-F2, UAT-F4, the rename, the logo in the app, a livelier design in a design round with him. Server pid 12828 on 8731 still up until he is done.
+Open docs/v1.1.0/CHANGE-LEDGER.md with the scopes the owner approved at UAT. Then the brainstorm delta (new rows, future-implementation note), then the design round with him: list the designer's job first, five clickable static directions per app, the name and wordmark, the logo in the app, the test-case layout.
 
 ## Notes
 Goldens (immutable): docs/design/today.html (key), today-empty.html, delete-dialog.html, states.html (specimen sheet), system.md, system.css, sample-history.json, RULINGS.md.

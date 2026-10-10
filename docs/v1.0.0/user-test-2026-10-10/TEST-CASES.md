@@ -70,7 +70,7 @@ circle. After step 4, it is filled again and joined to yesterday.
 
 | tester (pre-run) | YOUR verdict | next step (agreed with you) |
 |---|---|---|
-| PASS: today filled with a white check, yesterday filled and joined by a 4 px green line, step 3 hollow, step 4 filled and joined again | "Pass . I like the design for this week what we have done but a big limitation is that we cant input something that we did last week or change a specific date habit incase we input it wrong or want to add something we just remembered. Think about it and if its a good idea then implement it. If not report to me why. Also, we can have a continous streak for something we do for weeks also. LIke, read 20 pages, i read everydya. Then next week also everyday, it should be a continous streak." (2026-10-10) | Past days: Proposed for 1.1.0, waiting for your yes (findings.md UAT-F2). Streak across weeks: already works, proof in findings.md UAT-F3 |
+| PASS: today filled with a white check, yesterday filled and joined by a 4 px green line, step 3 hollow, step 4 filled and joined again | "Pass . I like the design for this week what we have done but a big limitation is that we cant input something that we did last week or change a specific date habit incase we input it wrong or want to add something we just remembered. Think about it and if its a good idea then implement it. If not report to me why. Also, we can have a continous streak for something we do for weeks also. LIke, read 20 pages, i read everydya. Then next week also everyday, it should be a continous streak." (2026-10-10) | Past days: In 1.1.0, your yes on 2026-10-10 (findings.md UAT-F2). Streak across weeks: already works, proof in findings.md UAT-F3 |
 
 ---
 
@@ -95,7 +95,7 @@ ticked now. After step 4 it reads "2 days" and "Best 2" again with a solid line.
 
 | tester (pre-run) | YOUR verdict | next step (agreed with you) |
 |---|---|---|
-| PASS: "2 days" and "Best 2", then "1 day" with a dashed line into today's open circle, then "2 days" with a solid line | "Pass. I think it needs to show that left side is current and right is best" (2026-10-10) | Proposed for 1.1.0, waiting for your yes (findings.md UAT-F4) |
+| PASS: "2 days" and "Best 2", then "1 day" with a dashed line into today's open circle, then "2 days" with a solid line | "Pass. I think it needs to show that left side is current and right is best" (2026-10-10) | In 1.1.0, your yes on 2026-10-10 (findings.md UAT-F4) |
 
 ---
 
@@ -182,7 +182,7 @@ habit". That is fixed in 1.1.0 with a guard that does not depend on time.
 
 | tester (pre-run) | YOUR verdict | next step (agreed with you) |
 |---|---|---|
-| PASS: the box asked the question with both buttons, Cancel kept both habits, after a one second wait Delete habit removed only "Stretch 10 minutes", today reads 1 of 1 habits. Extra: a bin click right after Cancel and a Delete habit click 250 ms after opening were both ignored | "Pass" (2026-10-10) | none |
+| PASS: the box asked the question with both buttons, Cancel kept both habits, after a one second wait Delete habit removed only "Stretch 10 minutes", today reads 1 of 1 habits. Extra: a bin click right after Cancel and a Delete habit click 250 ms after opening were both ignored | "Pass" (2026-10-10) | Pauses kept. Your words: "very minor, i think just keep it unless its an easy change (fast meaning a few lines only). Barely noticebly by a human." The 1.1.0 time-free guard replaces the Delete habit pause anyway |
 
 ---
 
@@ -243,6 +243,7 @@ something you could see.
 - **Options.** Accept them as they are · reopen any one of them (it then becomes work for a later version).
 - **Recommendation.** Skim `docs/design-explore/round-1/compare.html` (the three looks side by side) and
   `docs/design/RULINGS.md`. Those carry the most taste. Everything else is in the ledger.
+- **Your ruling (2026-10-10).** "Yes but not fully as i have given comments about it. For both app, they both are functioning fluidly which is very good. But design wise for both is not that good. For streaks, the missing previous dates is actually a big thing. Overall , its good but not superbly."
 
 ### D-01: The limits we accepted for 1.0 on your behalf
 - **What it is.** Each was found during this version and kept on purpose.
@@ -258,6 +259,7 @@ something you could see.
 - **Why it needs you.** Deferring is a decision we made for you.
 - **Options.** Keep each as a known limit · move any one into 1.1.0.
 - **Recommendation.** Keep them. 1.1.0 already takes the one a person is likely to meet (the slow double click).
+- **Your ruling (2026-10-10).** "If its the same as split, then no need. If its something that really requires my attention then sure." So Split's rulings apply to the items the two apps share: the silent failed save and the Safari engine go into 1.1.0, the shared github.io address and two tabs stay. The slow double click was already planned for 1.1.0. The two Streaks-only items (stacked accent marks, a clock set past the year 9999) are minor and stay as known limits.
 
 ### D-02: The app's name
 - **What it is.** A well-known iPhone habit tracker is also called "Streaks".
@@ -265,7 +267,7 @@ something you could see.
 - **Options.** Keep "Streaks" (it is a portfolio example, not a product) · rename it before publishing.
 - **Recommendation.** Keep it, and say "example app" wherever it is shown. Renaming touches the approved
   design and every document.
-- **Your ruling (2026-10-10).** "Streaky Habit". Waiting for your confirmation after the name check in findings.md (two habit trackers already use "Streaky").
+- **Your ruling (2026-10-10).** "Streaky Habit". Then, after the name check: "Check if its ok to be used. Also, for split, change it to SplitIO. Also, if both names cant be used, then add Danials [app name] Or if theres a better way to make it uniquely to me." Neither name is free (findings.md D-02), so the name is chosen with you in the 1.1.0 design round.
 
 ---
 
