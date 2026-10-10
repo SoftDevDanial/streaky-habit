@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Streaky Habit v1.1.0 round 1 compare</title>
+<style>
+  :root {
+    --bg: #eceef1; --panel: #ffffff; --ink: #16181d; --muted: #4f5662; --line: #d5d9df;
+    --pick: #1f5fd1; --flag-bg: #fff6e0; --flag-edge: #b7791f; --ask-bg: #eef4ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+    font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 1320px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1 { font-size: 26px; margin: 0 0 4px; letter-spacing: -0.01em; }
+  h2 { font-size: 19px; margin: 36px 0 12px; }
+  .lede { color: var(--muted); margin: 0 0 24px; max-width: 78ch; }
+  .box { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 16px 20px; margin: 0 0 16px; max-width: 100ch; }
+  .box h3 { font-size: 16px; margin: 0 0 6px; }
+  .box p { margin: 0 0 8px; }
+  .box p:last-child { margin: 0; }
+  .rec { border-left: 4px solid var(--pick); }
+  .ask { background: var(--ask-bg); border-left: 4px solid var(--pick); }
+  table { border-collapse: collapse; width: 100%; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; font-size: 14px; }
+  th, td { text-align: left; vertical-align: top; padding: 9px 12px; border-top: 1px solid var(--line); }
+  thead th { border-top: 0; background: #f6f7f9; font-size: 13px; color: var(--muted); font-weight: 600; }
+  tbody th { white-space: nowrap; }
+  tr.is-pick th, tr.is-pick td { background: #f3f7ff; }
+  .scroll { overflow-x: auto; }
+  .row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; align-items: start; }
+  .dir { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 16px; min-width: 0; }
+  .dir[data-pick] { border-color: var(--pick); box-shadow: 0 0 0 1px var(--pick); }
+  .tag { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin: 0; }
+  .dir[data-pick] .tag { color: var(--pick); font-weight: 600; }
+  .dir h3 { font-size: 18px; margin: 2px 0 4px; }
+  .thesis { margin: 0 0 12px; color: var(--muted); }
+  .frame { width: 100%; aspect-ratio: 390 / 844; overflow: hidden; border: 1px solid var(--line); border-radius: 6px; background: #fff; position: relative; }
+  .frame iframe { position: absolute; top: 0; left: 0; width: 390px; height: 844px; border: 0; transform-origin: 0 0; }
+  dl { margin: 12px 0 0; }
+  dt { font-weight: 600; font-size: 13px; }
+  dd { margin: 0 0 8px; color: var(--muted); }
+  .flag { background: var(--flag-bg); border-left: 3px solid var(--flag-edge); padding: 6px 10px; font-size: 13px; margin: 8px 0 0; }
+  .open { margin: 10px 0 0; }
+  a { color: var(--pick); }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--pick); outline-offset: 2px; }
+  .switch { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; }
+  .switch button { font: inherit; font-size: 14px; min-height: 40px; padding: 6px 14px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); color: var(--ink); cursor: pointer; }
+  .switch button[aria-pressed="true"] { border-color: var(--pick); background: var(--pick); color: #fff; }
+  .desk { width: 100%; aspect-ratio: 1280 / 800; overflow: hidden; border: 1px solid var(--line); border-radius: 6px; background: #fff; position: relative; }
+  .desk iframe { position: absolute; top: 0; left: 0; width: 1280px; height: 800px; border: 0; transform-origin: 0 0; }
+  .glance { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+  .glance a { display: block; text-decoration: none; color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
+  .glance a.is-pick { border-color: var(--pick); box-shadow: 0 0 0 1px var(--pick); }
+  .glance img { display: block; width: 100%; height: auto; border-radius: 4px; }
+  .glance span { display: block; font-size: 13px; margin-top: 6px; font-weight: 600; }
+  @media (max-width: 1000px) {
+    .row { grid-template-columns: minmax(0, 1fr); max-width: 440px; }
+    .glance { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+  @media (max-width: 560px) { .glance { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+</style>
+</head>
+<body>
+<main>
+  <h1>Streaky Habit v1.1.0, design round 1</h1>
+  <p class="lede">Five directions for the key screen, each drawn by its own designer from the same brief. Every frame below is the real prototype, so you can tick days, open a past day, press a bin, and use Prototype states inside it for the other states. The desktop view is further down.</p>
+
+  <section class="box rec" aria-label="Recommendation">
+    <h3>My pick, A Night Console</h3>
+    <p>It is the closest to your words "like discord". Every past day in its 12-week log shows its date and is a full-size button, which serves the day editor, the feature this version exists for. Ticking a day turns an open circle into a filled teal tile with a check, the most rewarding tap of the five. One teal on layered slate keeps it minimal, and the desktop gets a real two-pane layout.</p>
+    <p>Runner-up B, Neon Thread, if you want to keep the 1.0 idea of a thread joining done days, which also matches the logo. Its past days show no dates, so I would add them. A mix, for example A's dated log with B's lit thread on the strip, becomes one new direction in round 2.</p>
+  </section>
+
+  <section class="box ask" aria-label="Decisions for you">
+    <h3>Two decisions for you</h3>
+    <p><strong>1. Which direction.</strong> Pick one, ask for a mix (it becomes one new direction), or reject them all (round 2 brings new bets, not polished copies).</p>
+    <p><strong>2. The 12-week history turns on its side.</strong> All five make weeks the rows and weekdays the 7 columns (C only on a phone). The 1.0 rule was 12 columns, one per week. The reason is the day editor. Every past day must now be a tap target, and 12 columns give about 24 px per day on a phone where 7 columns give 41 to 47 px. It changes a 1.0 rule, so it needs your OK. I recommend accepting it.</p>
+  </section>
+
+  <h2>At a glance</h2>
+  <div class="glance">
+    <a href="#dir-a" class="is-pick"><img src="checks/a/k1-390.png" alt="Direction A key screen on a phone"><span>A Night Console, my pick</span></a>
+    <a href="#dir-b"><img src="checks/b/k1-390.png" alt="Direction B key screen on a phone"><span>B Neon Thread</span></a>
+    <a href="#dir-c"><img src="checks/c/k1-390.png" alt="Direction C key screen on a phone"><span>C Daylight Instrument</span></a>
+    <a href="#dir-d"><img src="checks/d/k1-390.png" alt="Direction D key screen on a phone"><span>D Orbit Rings</span></a>
+    <a href="#dir-e"><img src="checks/e/k1-390.png" alt="Direction E key screen on a phone"><span>E Command Line</span></a>
+  </div>
+
+  <h2>How they differ</h2>
+  <div class="scroll">
+    <table>
+      <thead><tr><th scope="col">Direction</th><th scope="col">Look</th><th scope="col">Current and Best</th><th scope="col">Past 12 weeks</th><th scope="col">First phone screen</th></tr></thead>
+      <tbody>
+        <tr class="is-pick"><th scope="row">A Night Console</th><td>Dark slate panes, one teal</td><td>Live badge on the left, quiet chip on the right</td><td>Dated calendar log, newest week at the bottom</td><td>Three habits, the log starts below</td></tr>
+        <tr><th scope="row">B Neon Thread</th><td>Deep navy, one glowing aqua</td><td>One line, Current on the left, Best on the right</td><td>Starfield of dots, month labels, no dates</td><td>Three habits and the add field</td></tr>
+        <tr><th scope="row">C Daylight Instrument</th><td>Cool white, electric cobalt</td><td>Huge thin numerals side by side</td><td>Square gauges that fill, 1.0 shape on desktop</td><td>Two and a half habits</td></tr>
+        <tr><th scope="row">D Orbit Rings</th><td>Charcoal, warm amber</td><td>Current in the ring's centre, Best beside it</td><td>Small rings with dates, newest week on top</td><td>Three habits and the add field</td></tr>
+        <tr><th scope="row">E Command Line</th><td>Pale graphite, monospace, signal orange</td><td>Orange chip on the left, number on the right</td><td>Dated calendar with segment meters</td><td>Three habits, the calendar starts below</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="lede" style="margin-top:10px">The streak numbers differ between directions because each designer wrote its own sample history. In every direction they are computed from that history, never typed in.</p>
+
+  <h2>Phone, 390 px</h2>
+  <div class="row">
+    <article class="dir" id="dir-a" data-pick="true">
+      <header>
+        <p class="tag">Direction A, my pick</p>
+        <h3>Night Console</h3>
+        <p class="thesis">A chat app's dark console. Habits read like channels, Current is a live badge, and the 12 weeks are a scrollback log.</p>
+      </header>
+      <div class="frame"><iframe src="a.html" title="Direction A, Night Console" loading="lazy"></iframe></div>
+      <dl>
+        <dt>Bets on</dt><dd>Layered dark panes and one teal, the look you named. A done day morphs from an open circle into a filled tile with a check. Current is solid when today is done, dashed while the run still holds, grey at zero. Every past day prints its date.</dd>
+        <dt>Costs</dt><dd>The log sits below the habits on a phone. It is the most "app chrome" of the five, and desktop leaves space between the rows and the composer.</dd>
+        <dt>1.0 rules it changes</dt><dd>The 12 weeks turn on their side. Heat levels show as a growing bar as well as a tint.</dd>
+      </dl>
+      <p class="open"><a href="a.html">Open full size</a></p>
+    </article>
+    <article class="dir" id="dir-b">
+      <header>
+        <p class="tag">Direction B, runner-up</p>
+        <h3>Neon Thread</h3>
+        <p class="thesis">The 1.0 thread grows a light. Done days are lit nodes joined by a glowing trail, and the past is a quiet starfield.</p>
+      </header>
+      <div class="frame"><iframe src="b.html" title="Direction B, Neon Thread" loading="lazy"></iframe></div>
+      <dl>
+        <dt>Bets on</dt><dd>Glow spent in one place, the done nodes and the trail. The streak line is a real line, Current on the left and Best on the right. The day editor shows each habit's streak move as you tick.</dd>
+        <dt>Costs</dt><dd>Five lit nodes in a row is a lot of light. The starfield prints no dates. Two desktop layouts to build. Dark theme only.</dd>
+        <dt>1.0 rules it changes</dt><dd>The 12 weeks turn on their side. Heat levels are star size and tone.</dd>
+      </dl>
+      <p class="flag">Prototype only. The Prototype states tab covers the New habit field on a phone.</p>
+      <p class="open"><a href="b.html">Open full size</a></p>
+    </article>
+    <article class="dir" id="dir-c">
+      <header>
+        <p class="tag">Direction C</p>
+        <h3>Daylight Instrument</h3>
+        <p class="thesis">Futuristic in daylight. Oversized thin numerals, Current in cobalt and Best in ink, and past days as gauges.</p>
+      </header>
+      <div class="frame"><iframe src="c.html" title="Direction C, Daylight Instrument" loading="lazy"></iframe></div>
+      <dl>
+        <dt>Bets on</dt><dd>The streak is the number, so the number is huge. Past days are square gauges that fill a quarter, a half, three quarters or all the way.</dd>
+        <dt>Costs</dt><dd>The numerals take height, so a phone shows two and a half habits. A light page is the furthest from "like discord".</dd>
+        <dt>1.0 rules it changes</dt><dd>The 12 weeks turn on their side below 720 px only. Desktop keeps the 1.0 shape.</dd>
+      </dl>
+      <p class="flag">Prototype only. The Prototype states button floats over the strip on a phone and over the heatmap corner on desktop.</p>
+      <p class="open"><a href="c.html">Open full size</a></p>
+    </article>
+    <article class="dir" id="dir-d">
+      <header>
+        <p class="tag">Direction D</p>
+        <h3>Orbit Rings</h3>
+        <p class="thesis">Each habit is a ring of its last seven days, with Current in the centre and Best beside it.</p>
+      </header>
+      <div class="frame"><iframe src="d.html" title="Direction D, Orbit Rings" loading="lazy"></iframe></div>
+      <dl>
+        <dt>Bets on</dt><dd>The ring is both the week and the control, and a run is a lit amber arc. The 12 weeks are small rings with one segment per habit. Desktop tiles the rings two by two.</dd>
+        <dt>Costs</dt><dd>Each card is tall. Ticks sit on a curve, which takes a moment to learn. Newest week on top, unlike the others.</dd>
+        <dt>1.0 rules it changes</dt><dd>The 12 weeks turn on their side, newest on top. The strip becomes a ring. Best shows "days".</dd>
+      </dl>
+      <p class="flag">Prototype only. The Prototype states tab covers part of the New habit field on a phone.</p>
+      <p class="open"><a href="d.html">Open full size</a></p>
+    </article>
+    <article class="dir" id="dir-e">
+      <header>
+        <p class="tag">Direction E</p>
+        <h3>Command Line</h3>
+        <p class="thesis">Keyboard first and monospaced. Habits are aligned rows of marks, and the add field is a command palette.</p>
+      </header>
+      <div class="frame"><iframe src="e.html" title="Direction E, Command Line" loading="lazy"></iframe></div>
+      <dl>
+        <dt>Bets on</dt><dd>Orange means live and nothing else. Keys are visible but never required. The calendar prints every date, and a day's level is a count of segments.</dd>
+        <dt>Costs</dt><dd>The calendar is tall on a phone. Monospace wraps long names sooner. Calm and precise rather than futuristic in the neon sense.</dd>
+        <dt>1.0 rules it changes</dt><dd>The 12 weeks turn on their side. One shared week header. Done is an ink square with a check.</dd>
+      </dl>
+      <p class="flag">Prototype only. The Prototype states tab covers some calendar days while you scroll on a phone.</p>
+      <p class="open"><a href="e.html">Open full size</a></p>
+    </article>
+  </div>
+
+  <h2>Desktop, 1280 px</h2>
+  <div class="switch" role="group" aria-label="Choose a direction for the desktop view">
+    <button type="button" data-src="a.html" aria-pressed="true">A Night Console</button>
+    <button type="button" data-src="b.html" aria-pressed="false">B Neon Thread</button>
+    <button type="button" data-src="c.html" aria-pressed="false">C Daylight Instrument</button>
+    <button type="button" data-src="d.html" aria-pressed="false">D Orbit Rings</button>
+    <button type="button" data-src="e.html" aria-pressed="false">E Command Line</button>
+  </div>
+  <div class="desk"><iframe id="desk" src="a.html" title="Desktop view of the chosen direction"></iframe></div>
+</main>
+<script>
+  // Scale each fixed-size prototype frame to the width of its box.
+  function fit() {
+    document.querySelectorAll('.frame').forEach(function (f) {
+      f.querySelector('iframe').style.transform = 'scale(' + (f.clientWidth / 390) + ')';
+    });
+    var d = document.querySelector('.desk');
+    d.querySelector('iframe').style.transform = 'scale(' + (d.clientWidth / 1280) + ')';
+  }
+  document.querySelectorAll('.switch button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('.switch button').forEach(function (o) { o.setAttribute('aria-pressed', String(o === b)); });
+      document.getElementById('desk').src = b.dataset.src;
+    });
+  });
+  window.addEventListener('resize', fit);
+  fit();
+</script>
+</body>
+</html>
