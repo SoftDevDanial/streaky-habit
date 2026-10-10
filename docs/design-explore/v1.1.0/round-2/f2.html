@@ -1,0 +1,1229 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Danial's Streaky Habit</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 112 112'%3E%3Cpath fill='%23FFB020' d='M46 17H70A20 20 0 1 1 70 41H46A20 20 0 0 1 42 45V69A20 20 0 1 1 18 69V45A20 20 0 1 1 46 17ZM86 65A20 20 0 0 1 86 105A20 20 0 0 1 86 65ZM86 73A12 12 0 0 0 86 97A12 12 0 0 0 86 73Z'/%3E%3C/svg%3E">
+<!--
+  Direction F2, "Orbit List, revised". Round 2 prototype for v1.1.0, built from f.html.
+  Two changes from F. The overview (the last 12 weeks) gets a Year button that opens P4, every habit's last 12 months
+  in the overview's own rings. Every habit row gets a bin button that opens M1. Everything else is F.
+  No network. System fonts. Phosphor icons (MIT) inlined: x, plus, trash (regular), check (bold), copied from round 1.
+  The mark is docs/brand/mark.svg, recoloured.
+-->
+<style>
+:root{
+  /* colour (D's tokens, unchanged) */
+  --bg:#18191C;
+  --surface:#212226;
+  --surface-2:#2A2B30;
+  --raise:#35373D;
+  --field:#121316;
+  --line:#33353B;
+  --track:#4A4C53;
+  --ring:#7C7F88;
+  --ink:#EDEEF0;
+  --ink-soft:#A8ABB2;
+  --closed:#5C5E66;
+  --amber:#FFB020;
+  --amber-hover:#FFC24F;
+  --on-amber:#18191C;
+  --amber-wash:rgba(255,176,32,.09);
+  --danger:#FF6B66;
+  --danger-hover:#FF8D89;
+  --scrim:rgba(10,11,13,.74);
+  --scrim-soft:rgba(10,11,13,.52);
+  --focus:#EDEEF0;
+  --shadow-dlg:0 24px 64px rgba(6,7,9,.55), 0 2px 8px rgba(6,7,9,.4);
+  --fade-top:linear-gradient(#212226 20%, rgba(33,34,38,0));
+  --fade-bot:linear-gradient(rgba(33,34,38,0), #212226 80%);
+  --proto-bg:#E4E5E8;
+  --proto-ink:#1F2023;
+  --proto-line:#6E7078;
+
+  /* type */
+  --font:ui-sans-serif, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono:ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --t-2xs:11px;
+  --t-xs:12px;
+  --t-sm:14px;
+  --t-btn:15px;
+  --t-md:16px;
+  --t-lg:17px;
+  --t-xl:19px;
+  --t-ov:16px;      /* overview day numbers. Round 1 drew them at 10.5 px */
+  --t-stat:22px;    /* Current and Best on a row */
+  --t-cur-lg:34px;  /* Current in the year view */
+  --t-best-lg:26px; /* Best in the year view */
+
+  /* space */
+  --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:20px; --s-6:24px; --s-7:32px; --s-8:40px;
+
+  /* shape: controls 10, containers 16, sheets 20, round things are circles */
+  --r-ctl:10px;
+  --r-card:16px;
+  --r-sheet:20px;
+  --r-round:50%;
+
+  /* size */
+  --hit:44px;
+  --ctl-h:48px;
+  --icon:20px;
+  --app-max:1040px;
+  --ov-ring:40px;   /* overview ring, round 1 was 34 to 36 */
+  --ov-cell-h:44px;
+  --yc:44px;        /* year view day cell, phone */
+  --bead:36px;
+
+  /* motion */
+  --dur-press:120ms;
+  --dur:170ms;
+  --dur-enter:220ms;
+  --ease:cubic-bezier(.2,0,0,1);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+html{ background:var(--bg); -webkit-text-size-adjust:100%; }
+html:has(dialog[open]){ overflow:hidden; }
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font:400 var(--t-md)/24px var(--font);
+  -webkit-font-smoothing:antialiased;
+}
+button,input{ font:inherit; color:inherit; }
+button{ -webkit-tap-highlight-color:transparent; }
+:focus-visible{ outline:2px solid var(--focus); outline-offset:2px; }
+.sr{ position:absolute; width:1px; height:1px; margin:-1px; padding:0; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0; }
+svg.ph{ width:var(--icon); height:var(--icon); fill:currentColor; flex:none; }
+
+/* ---------- the app column: one screen tall, only the list frame scrolls ---------- */
+.app{
+  display:flex; flex-direction:column; gap:var(--s-3);
+  height:100vh; height:100dvh; min-height:480px;
+  max-width:640px; margin:0 auto;
+  padding:var(--s-2) var(--s-4) max(var(--s-3), env(safe-area-inset-bottom));
+}
+.main{ flex:1; min-height:0; display:flex; flex-direction:column; gap:var(--s-3); }
+
+/* ---------- header ---------- */
+.top{
+  flex:none; display:grid; grid-template-columns:minmax(0,1fr) auto;
+  grid-template-areas:"proto proto" "brand ov" "date date";
+  column-gap:var(--s-3); row-gap:6px; align-items:center;
+}
+.brand{ grid-area:brand; display:flex; align-items:center; gap:10px; min-width:0; }
+.mark{ width:28px; height:28px; color:var(--amber); fill:currentColor; flex:none; }
+.word{ margin:0; font-size:var(--t-xl); line-height:24px; font-weight:700; letter-spacing:-.01em; white-space:nowrap; }
+.date{ grid-area:date; font-size:var(--t-sm); line-height:20px; color:var(--ink-soft); white-space:nowrap; }
+.ov-btn{
+  grid-area:ov; height:var(--hit); padding:0 14px 0 8px; border-radius:var(--r-ctl);
+  border:1.5px solid var(--ring); background:transparent; color:var(--ink);
+  display:inline-flex; align-items:center; gap:var(--s-2);
+  font-size:var(--t-btn); font-weight:600; white-space:nowrap; cursor:pointer;
+  transition:background-color var(--dur) var(--ease), transform var(--dur-press) var(--ease);
+}
+.ov-btn:active{ transform:scale(.98); }
+.ov-ring svg{ width:28px; height:28px; display:block; overflow:visible; }
+@media (hover: hover){ .ov-btn:hover{ background:var(--raise); } }
+
+/* ---------- banners (S4, S5) ---------- */
+.banners{ flex:none; display:grid; gap:var(--s-2); }
+.banners:empty{ display:none; }
+.banner{ display:flex; align-items:flex-start; gap:var(--s-2); border-radius:var(--r-card); padding:var(--s-3) var(--s-4); margin:0; font-size:15px; line-height:22px; }
+.banner p{ margin:0; flex:1; padding:1px 0; }
+.banner.warn{ background:var(--amber-wash); border:1px solid var(--amber); color:var(--ink); }
+.banner.note{ background:var(--surface-2); border:1px solid var(--line); padding:var(--s-1) var(--s-1) var(--s-1) var(--s-4); }
+.banner.note p{ padding:10px 0; }
+
+.icon-btn{
+  width:var(--hit); height:var(--hit); flex:none; border:0; padding:0; border-radius:var(--r-round);
+  background:transparent; color:var(--ink-soft); display:grid; place-items:center; cursor:pointer;
+  transition:background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.icon-btn:focus-visible{ outline-offset:-2px; }
+@media (hover: hover){ .icon-btn:hover{ background:var(--raise); color:var(--ink); } }
+
+/* ---------- the list frame ---------- */
+.frame-wrap{ position:relative; flex:0 1 auto; min-height:0; display:flex; flex-direction:column; }
+.frame{
+  flex:0 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain;
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--r-card);
+  scrollbar-width:thin; scrollbar-color:var(--ring) transparent;
+}
+.frame:focus-visible{ outline-offset:2px; }
+.sentinel{ height:1px; }
+/* the frame shows that it scrolls: a fade at an edge that has more behind it */
+.frame-wrap::before, .frame-wrap::after{
+  content:""; position:absolute; left:1px; right:12px; height:36px; pointer-events:none; z-index:1;
+  opacity:0; transition:opacity var(--dur) var(--ease);
+}
+.frame-wrap::before{ top:1px; border-radius:var(--r-card) 0 0 0; background:var(--fade-top); }
+.frame-wrap::after{ bottom:1px; border-radius:0 0 0 var(--r-card); background:var(--fade-bot); }
+.frame-wrap.more-above::before, .frame-wrap.more-below::after{ opacity:1; }
+
+.rows{ list-style:none; margin:0; padding:0; }
+/* phone: the name line carries the bin, the numbers line carries Year and Done today */
+.row{
+  display:grid; grid-template-columns:minmax(0,1fr) auto auto;
+  grid-template-areas:"name name name" "stats year done";
+  column-gap:var(--s-2); row-gap:var(--s-3); align-items:center;
+  padding:var(--s-3) 14px;
+}
+.row + .row{ border-top:1px solid var(--line); }
+.r-head{ grid-area:name; display:flex; align-items:flex-start; gap:var(--s-2); min-width:0; }
+.r-name{ flex:1 1 auto; min-width:0; margin:0; font-size:var(--t-md); line-height:22px; font-weight:600; overflow-wrap:anywhere; }
+
+/* the bin: quiet like Delete habit in P2. Grey at rest, the danger colour on hover and focus, never a red fill */
+.btn-bin{
+  width:var(--hit); height:var(--hit); flex:none; padding:0; margin:-10px -10px 0 0;
+  border-radius:var(--r-round); border:1.5px solid transparent; background:transparent; color:var(--ink-soft);
+  display:grid; place-items:center; cursor:pointer;
+  transition:border-color var(--dur) var(--ease), color var(--dur) var(--ease), transform var(--dur-press) var(--ease);
+}
+.btn-bin:active{ transform:scale(.94); }
+.btn-bin:focus-visible{ color:var(--danger); outline-offset:-2px; }
+@media (hover: hover){ .btn-bin:hover{ border-color:var(--danger); color:var(--danger); } }
+
+.stats{ grid-area:stats; margin:0; display:flex; align-items:flex-start; gap:14px; min-width:0; }
+.stat{ display:flex; flex-direction:column; min-width:0; }
+.stat .lbl{ font-size:var(--t-xs); line-height:16px; font-weight:600; color:var(--ink-soft); }
+.stat .val{ display:flex; align-items:baseline; gap:4px; }
+.stat .num{ font-size:var(--t-stat); line-height:26px; font-weight:700; font-variant-numeric:tabular-nums; letter-spacing:-.01em; }
+.stat.cur .num{ color:var(--amber); }
+.stat.best .num{ color:var(--ink); font-weight:600; }
+.stat .unit{ font-size:13px; line-height:16px; color:var(--ink-soft); }
+.stat .none{ font-size:13px; line-height:16px; font-weight:600; color:var(--ink-soft); padding-top:3px; }
+
+.btn-year, .btn-done, .btn-all{
+  height:var(--hit); border-radius:var(--r-ctl); border:1.5px solid var(--ring);
+  background:transparent; color:var(--ink); cursor:pointer;
+  display:inline-flex; align-items:center; justify-content:center;
+  font-size:var(--t-btn); font-weight:600; white-space:nowrap;
+  transition:background-color var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease), transform var(--dur-press) var(--ease);
+}
+.btn-year{ grid-area:year; min-width:var(--hit); padding:0 12px; }
+.btn-all{ flex:none; min-width:var(--hit); padding:0 12px; }
+.btn-done{ grid-area:done; padding:0 12px 0 9px; gap:7px; }
+.btn-year:active, .btn-done:active, .btn-all:active{ transform:scale(.97); }
+.btn-done .dot{
+  width:22px; height:22px; border-radius:var(--r-round); border:2px solid var(--ring);
+  display:grid; place-items:center; color:var(--amber); flex:none;
+  transition:background-color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.btn-done .dot svg{ width:13px; height:13px; fill:currentColor; opacity:0; }
+.btn-done[aria-pressed="true"]{ background:var(--amber); border-color:var(--amber); color:var(--on-amber); }
+.btn-done[aria-pressed="true"] .dot{ background:var(--on-amber); border-color:var(--on-amber); }
+.btn-done[aria-pressed="true"] .dot svg{ opacity:1; }
+@media (hover: hover){
+  .btn-year:hover, .btn-done:hover, .btn-all:hover{ background:var(--raise); }
+  .btn-done[aria-pressed="true"]:hover{ background:var(--amber-hover); border-color:var(--amber-hover); }
+}
+
+/* empty list (S1, S5) */
+.empty{ display:grid; grid-template-columns:96px minmax(0,1fr); gap:var(--s-4); align-items:center; padding:var(--s-4); }
+.empty svg{ width:96px; height:96px; display:block; }
+.empty .e-orbit{ fill:none; stroke:var(--ring); stroke-width:1.5; stroke-dasharray:2 6; stroke-linecap:round; }
+.empty .e-core{ fill:none; stroke:var(--track); stroke-width:2; }
+.empty .lead{ margin:0; font-size:var(--t-lg); line-height:24px; font-weight:600; }
+.empty .line{ margin:var(--s-1) 0 0; font-size:var(--t-sm); line-height:20px; color:var(--ink-soft); }
+
+/* ---------- composer: below the list, outside it, pinned to the bottom ---------- */
+.composer{
+  flex:none; margin-top:auto;
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--r-card);
+  padding:10px var(--s-3) var(--s-3);
+}
+/* the message sits above the field, so a message grows the bar upward and the field never moves */
+.field-msg{ margin:0 0 var(--s-2) 2px; font-size:var(--t-sm); line-height:20px; }
+.field-msg.err{ color:var(--danger); }
+.field-msg.note{ color:var(--ink-soft); }
+.add-label{ display:block; font-size:var(--t-sm); line-height:20px; font-weight:600; margin:0 0 6px 2px; }
+.composer.is-full .add-label{ color:var(--ink-soft); }
+.add-ctl{ display:flex; gap:var(--s-2); }
+.input{
+  flex:1; min-width:0; height:var(--ctl-h); padding:0 14px; border-radius:var(--r-ctl);
+  border:1.5px solid var(--ring); background:var(--field); color:var(--ink); font-size:var(--t-md);
+}
+.input[aria-invalid="true"]{ border-color:var(--danger); }
+.input:disabled{ background:var(--surface-2); border-color:var(--line); color:var(--ink-soft); }
+.btn{
+  height:var(--ctl-h); padding:0 18px; border-radius:var(--r-ctl); border:0;
+  display:inline-flex; align-items:center; justify-content:center; gap:var(--s-2);
+  font-size:var(--t-md); font-weight:600; white-space:nowrap; cursor:pointer;
+  transition:background-color var(--dur) var(--ease), transform var(--dur-press) var(--ease);
+}
+.btn:active:not(:disabled){ transform:scale(.98); }
+.btn:focus-visible{ outline-offset:3px; }
+.btn-primary{ background:var(--amber); color:var(--on-amber); }
+.btn-primary:hover:not(:disabled){ background:var(--amber-hover); }
+.btn-primary:disabled{ background:var(--surface-2); color:var(--ink-soft); cursor:not-allowed; }
+.btn-secondary{ background:transparent; color:var(--ink); border:1.5px solid var(--ring); }
+.btn-secondary:hover{ background:var(--raise); }
+.btn-danger{ background:var(--danger); color:var(--on-amber); }
+.btn-danger:hover{ background:var(--danger-hover); }
+
+/* ---------- overview: a field of small rings, one segment per habit ---------- */
+.band{ display:none; }
+.hint{ margin:2px 0 0; font-size:var(--t-sm); line-height:20px; color:var(--ink-soft); }
+.hc{
+  height:var(--ov-cell-h); border:0; padding:0; margin:0; background:transparent; border-radius:12px;
+  display:grid; place-items:center; cursor:pointer;
+  transition:background-color var(--dur) var(--ease);
+}
+@media (hover: hover){ button.hc:hover{ background:var(--raise); } }
+.hc.is-open{ background:var(--raise); box-shadow:inset 0 0 0 1.5px var(--amber); }
+.hc:focus-visible{ outline-offset:-2px; }
+.hc svg{ width:var(--ov-ring); height:var(--ov-ring); display:block; overflow:visible; }
+span.hc{ cursor:default; }
+.seg{ fill:none; stroke:var(--ring); stroke-width:1.5; }
+.seg.on{ stroke:var(--amber); stroke-width:3.5; }
+.c-core{ fill:var(--amber); }
+.c-num{ fill:var(--ink-soft); font:600 var(--t-ov) var(--font); text-anchor:middle; dominant-baseline:central; font-variant-numeric:tabular-nums; }
+.c-num.on{ fill:var(--on-amber); font-weight:700; }
+.c-num.dim{ fill:var(--closed); font-weight:500; } /* P4: days after today, closed like P2's */
+.c-today{ fill:none; stroke:var(--ink); stroke-width:1.4; }
+.og-mo, .og-wd{ font-size:var(--t-xs); line-height:16px; font-weight:600; color:var(--ink-soft); }
+.legend{ display:flex; align-items:center; gap:6px; font-size:var(--t-xs); line-height:16px; color:var(--ink-soft); }
+.legend svg{ width:22px; height:22px; display:block; }
+
+/* phone popup grid: weeks as rows, newest on top */
+.ovg-rows{ display:grid; grid-template-columns:34px repeat(7, minmax(0,1fr)); }
+.ovg-rows .og-wd{ text-align:center; padding-bottom:var(--s-1); }
+.ovg-rows .og-mo{ display:flex; align-items:center; padding-left:2px; }
+
+/* ---------- dialogs ---------- */
+dialog{ padding:0; border:0; background:transparent; color:inherit; max-width:100vw; max-height:100dvh; overflow:visible; }
+dialog::backdrop{ background:var(--scrim); }
+.dlg-day::backdrop{ background:var(--scrim-soft); }
+.dlg-box{ background:var(--surface-2); border:1px solid var(--line); border-radius:var(--r-sheet); box-shadow:var(--shadow-dlg); padding:var(--s-5); }
+.dlg-sub{ margin:2px 0 0; font-size:var(--t-sm); line-height:20px; color:var(--ink-soft); }
+
+/* P1 day editor (round 1 D) */
+.dlg-day{ margin:auto 0 0; width:100vw; }
+.dlg-day .dlg-box{ border-radius:var(--r-sheet) var(--r-sheet) 0 0; border-bottom:0; padding:var(--s-4) var(--s-4) var(--s-6); max-height:85dvh; overflow:auto; }
+.day-head{ display:grid; grid-template-columns:56px minmax(0,1fr) var(--hit); gap:var(--s-3); align-items:center; }
+.day-mini svg{ width:56px; height:56px; display:block; overflow:visible; }
+.day-head h2{ margin:0; font-size:var(--t-lg); line-height:24px; font-weight:600; }
+.day-list{ list-style:none; margin:var(--s-3) 0 0; padding:0; display:grid; gap:2px; }
+.tick{
+  width:100%; min-height:60px; border:0; margin:0; padding:var(--s-2) var(--s-3); border-radius:12px;
+  background:transparent; color:var(--ink); text-align:left; cursor:pointer;
+  display:grid; grid-template-columns:28px minmax(0,1fr); grid-template-areas:"box name" "box stat"; column-gap:var(--s-3); align-items:center;
+  transition:background-color var(--dur) var(--ease);
+}
+@media (hover: hover){ .tick:hover{ background:var(--raise); } }
+.tick:focus-visible{ outline-offset:-2px; }
+.tbox{
+  grid-area:box; width:28px; height:28px; border-radius:var(--r-round); border:2px solid var(--ring);
+  display:grid; place-items:center; color:var(--on-amber);
+  transition:background-color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.tbox svg{ width:16px; height:16px; fill:currentColor; opacity:0; }
+.tick.on .tbox{ background:var(--amber); border-color:var(--amber); }
+.tick.on .tbox svg{ opacity:1; }
+.tname{ grid-area:name; font-size:var(--t-md); line-height:22px; font-weight:600; overflow-wrap:anywhere; }
+.tstat{ grid-area:stat; display:flex; flex-wrap:wrap; column-gap:var(--s-3); font-size:13px; line-height:18px; color:var(--ink-soft); }
+.tstat .tcur{ color:var(--amber); font-weight:600; }
+.tstat .tcur.none{ color:var(--ink-soft); }
+.day-empty{ margin:var(--s-4) 0 var(--s-1); color:var(--ink-soft); font-size:var(--t-sm); }
+
+/* M1 delete (round 1 D) */
+.dlg-del{ margin:auto; width:min(400px, calc(100vw - 32px)); }
+.dlg-del h2{ margin:0; font-size:var(--t-lg); line-height:26px; font-weight:600; overflow-wrap:anywhere; }
+.dlg-del p{ margin:var(--s-2) 0 var(--s-5); color:var(--ink-soft); }
+.dlg-actions{ display:grid; grid-template-columns:1fr 1fr; gap:var(--s-3); }
+
+/* P2 year view, P3 overview and P4 overview year view: full-screen sheets on a phone */
+.dlg-full{ margin:0; width:100vw; height:100vh; height:100dvh; }
+.dlg-full .dlg-box{ height:100%; border:0; border-radius:0; padding:0; box-shadow:none; display:flex; flex-direction:column; }
+.sheet-head{ flex:none; padding:var(--s-3) var(--s-4) var(--s-3); border-bottom:1px solid var(--line); }
+.sheet-body{
+  flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; padding:var(--s-3) var(--s-4) var(--s-6);
+  scrollbar-width:thin; scrollbar-color:var(--ring) transparent;
+  /* a soft shadow at an edge with more behind it: the covers scroll with the content, the shadows stay put */
+  background:
+    linear-gradient(var(--surface-2) 30%, rgba(42,43,48,0)) center top / 100% 40px no-repeat local,
+    linear-gradient(rgba(42,43,48,0), var(--surface-2) 70%) center bottom / 100% 40px no-repeat local,
+    radial-gradient(farthest-side at 50% 0, rgba(6,7,9,.6), rgba(6,7,9,0)) center top / 100% 16px no-repeat scroll,
+    radial-gradient(farthest-side at 50% 100%, rgba(6,7,9,.6), rgba(6,7,9,0)) center bottom / 100% 16px no-repeat scroll,
+    var(--surface-2);
+}
+.head-top{ display:flex; align-items:flex-start; gap:var(--s-2); }
+.head-top > div{ flex:1; min-width:0; padding-top:9px; }
+.head-top h2{ margin:0; font-size:var(--t-xl); line-height:26px; font-weight:700; overflow-wrap:anywhere; }
+.head-top .icon-btn{ margin:0 -6px 0 0; }
+
+.yr-mid{ display:flex; align-items:flex-end; justify-content:space-between; gap:var(--s-3); margin-top:var(--s-2); flex-wrap:wrap; }
+.yr-stats{ margin:0; display:flex; align-items:flex-start; gap:var(--s-5); }
+.yr-stats .stat .num{ font-size:var(--t-cur-lg); line-height:38px; }
+.yr-stats .stat.best .num{ font-size:var(--t-best-lg); line-height:32px; }
+.yr-stats .stat .none{ font-size:var(--t-sm); line-height:20px; max-width:none; padding:4px 0 8px; }
+.btn-del{
+  height:var(--hit); padding:0 12px 0 10px; border-radius:var(--r-ctl); border:1.5px solid transparent;
+  background:transparent; color:var(--ink-soft); display:inline-flex; align-items:center; gap:6px;
+  font-size:var(--t-btn); font-weight:600; white-space:nowrap; cursor:pointer;
+  transition:background-color var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+/* quiet until pointed at, like D's bin: the red belongs to the confirm in M1 */
+@media (hover: hover){ .btn-del:hover{ border-color:var(--danger); color:var(--danger); } }
+.yr-tools{ display:flex; align-items:center; justify-content:space-between; gap:var(--s-3); margin-top:var(--s-2); flex-wrap:wrap; }
+.yr-tools .hint{ margin:0; }
+.yr-legend{ display:flex; align-items:center; gap:6px; margin:0; font-size:var(--t-xs); line-height:16px; color:var(--ink-soft); }
+.mini{ width:16px; height:16px; border-radius:var(--r-round); border:2px solid var(--ring); display:inline-block; }
+.mini.on{ background:var(--amber); border-color:var(--amber); }
+.yr-legend .mini + span{ margin-right:6px; }
+
+.months{ display:grid; grid-template-columns:minmax(0,1fr); gap:var(--s-5); }
+.month h3{ margin:0 0 var(--s-1) 2px; font-size:var(--t-btn); line-height:22px; font-weight:600; }
+.mgrid{ display:grid; grid-template-columns:repeat(7, minmax(0,1fr)); }
+.mwd{ font-size:var(--t-2xs); line-height:16px; font-weight:600; color:var(--ink-soft); text-align:center; padding-bottom:2px; }
+.yc{
+  position:relative; height:var(--yc); border:0; padding:0; margin:0; background:transparent;
+  display:grid; place-items:center; cursor:pointer;
+}
+span.yc{ cursor:default; }
+.bead{
+  position:relative; z-index:1; width:var(--bead); height:var(--bead); border-radius:var(--r-round);
+  border:2px solid var(--ring); background:var(--surface-2); color:var(--ink);
+  font:600 var(--t-btn)/1 var(--font); font-variant-numeric:tabular-nums;
+  display:grid; place-items:center;
+  transition:background-color var(--dur) var(--ease), border-color var(--dur) var(--ease), transform var(--dur-press) var(--ease);
+}
+.yc.on .bead{ background:var(--amber); border-color:var(--amber); color:var(--on-amber); font-weight:700; }
+.yc.today .bead{ box-shadow:0 0 0 3px var(--surface-2), 0 0 0 4.5px var(--ink); }
+.yc.closed .bead{ border-color:transparent; background:transparent; color:var(--closed); font-weight:500; }
+/* consecutive done days are strung on one thread, like the mark */
+.yc.l::before, .yc.r::after{ content:""; position:absolute; top:50%; height:8px; margin-top:-4px; background:var(--amber); }
+.yc.l::before{ left:0; right:50%; }
+.yc.r::after{ left:50%; right:0; }
+@media (hover: hover){
+  button.yc:hover .bead{ border-color:var(--amber); }
+  button.yc.on:hover .bead{ background:var(--amber-hover); border-color:var(--amber-hover); }
+}
+button.yc:active .bead{ transform:scale(.9); }
+.yc:focus-visible{ outline:none; }
+.yc:focus-visible .bead{ outline:2px solid var(--focus); outline-offset:3px; }
+
+/* P3 overview popup */
+.ov-head{ display:flex; align-items:flex-start; gap:var(--s-2); }
+.ov-head > div{ flex:1; min-width:0; padding-top:9px; }
+.ov-head h2{ margin:0; font-size:var(--t-xl); line-height:26px; font-weight:700; }
+.ov-head .icon-btn{ margin:0 -6px 0 0; }
+.dlg-ov .legend{ justify-content:flex-end; margin-top:var(--s-3); padding:0 6px; }
+/* sized for a thumb: the popup has the whole screen, so its rings grow */
+.dlg-ov .hc{ height:48px; }
+.dlg-ov .hc svg{ width:42px; height:42px; }
+
+/* P4 overview year view: P2's months, the overview's rings, every habit together */
+.dlg-all .mgrid .hc{ height:48px; }
+.dlg-all .mgrid .hc svg{ width:42px; height:42px; }
+
+/* ---------- prototype states (tooling for the review, not part of the design) ---------- */
+.proto{ grid-area:proto; justify-self:start; position:relative; font:11px/14px var(--mono); }
+.proto-tab{
+  min-height:24px; padding:4px 8px; border-radius:6px; cursor:pointer;
+  background:var(--proto-bg); color:var(--proto-ink); border:1px dashed var(--proto-line); font:inherit;
+}
+.proto-menu{
+  position:absolute; left:0; top:calc(100% + 6px); z-index:5; width:252px; padding:6px; border-radius:8px; font-size:12px; line-height:16px;
+  background:var(--proto-bg); color:var(--proto-ink); border:1px dashed var(--proto-line);
+  box-shadow:0 10px 28px rgba(6,7,9,.5); display:grid; gap:2px;
+}
+.proto-menu[hidden]{ display:none; }
+.proto-menu p{ margin:2px 6px 6px; color:#4A4C53; }
+.proto-menu button{ min-height:34px; text-align:left; padding:6px 8px; border:0; border-radius:4px; background:transparent; color:inherit; cursor:pointer; font:inherit; }
+.proto-menu button:hover, .proto-menu button[aria-current="true"]{ background:#CBCDD2; }
+.proto :focus-visible{ outline:2px solid var(--proto-ink); outline-offset:1px; }
+
+/* ---------- motion (only when the reader has not asked for less) ---------- */
+@media (prefers-reduced-motion: no-preference){
+  .btn-done.pop .dot{ animation:pop 260ms var(--ease-out); }
+  .bump{ animation:bump 280ms var(--ease-out); }
+  .hc.pop svg{ animation:pop 300ms var(--ease-out); }
+  .ov-ring.pop svg{ animation:pop 300ms var(--ease-out); }
+  .tick.pop .tbox{ animation:pop 260ms var(--ease-out); }
+  .yc.pop .bead{ animation:pop 260ms var(--ease-out); }
+  dialog[open] .dlg-box{ animation:rise var(--dur-enter) var(--ease-out); }
+  .dlg-day[open] .dlg-box{ animation:sheet 260ms var(--ease-out); }
+  dialog[open]::backdrop{ animation:fade 180ms var(--ease); }
+}
+@keyframes pop{ 0%{ transform:scale(.82); } 60%{ transform:scale(1.08); } 100%{ transform:scale(1); } }
+@keyframes bump{ 0%{ transform:translateY(6px); opacity:.2; } 100%{ transform:none; opacity:1; } }
+@keyframes rise{ from{ transform:translateY(8px); opacity:0; } to{ transform:none; opacity:1; } }
+@keyframes sheet{ from{ transform:translateY(40px); opacity:.4; } to{ transform:none; opacity:1; } }
+@keyframes fade{ from{ opacity:0; } to{ opacity:1; } }
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{ animation:none !important; transition:none !important; }
+}
+
+/* ---------- widths ---------- */
+@media (max-width: 379px){
+  .app{ padding-left:var(--s-3); padding-right:var(--s-3); }
+  .row{ padding-left:var(--s-3); padding-right:var(--s-3); column-gap:6px; }
+  .stats{ gap:var(--s-3); }
+  .btn-year{ padding:0 10px; }
+  .btn-done{ padding:0 10px 0 8px; gap:6px; font-size:var(--t-sm); }
+  .sheet-head, .sheet-body{ padding-left:var(--s-3); padding-right:var(--s-3); }
+  .dlg-ov .hc{ height:46px; }
+  .dlg-ov .hc svg{ width:40px; height:40px; }
+  .dlg-all .mgrid .hc{ height:46px; }
+  .dlg-all .mgrid .hc svg{ width:40px; height:40px; }
+  :root{ --bead:34px; }
+}
+@media (min-width: 768px){
+  .dlg-day{ margin:auto; width:min(440px, calc(100vw - 32px)); }
+  .dlg-day .dlg-box{ border-radius:var(--r-sheet); border-bottom:1px solid var(--line); padding:var(--s-5); }
+  .dlg-full{ margin:auto; width:min(980px, calc(100vw - 48px)); height:auto; max-height:calc(100dvh - 48px); }
+  .dlg-full .dlg-box{ height:auto; max-height:calc(100dvh - 48px); border:1px solid var(--line); border-radius:var(--r-sheet); box-shadow:var(--shadow-dlg); }
+  .dlg-ov{ width:min(520px, calc(100vw - 48px)); }
+  .sheet-head{ padding:var(--s-4) var(--s-6) var(--s-3); }
+  .sheet-body{ padding:var(--s-4) var(--s-6) var(--s-6); }
+  .months{ grid-template-columns:repeat(2, max-content); justify-content:center; gap:var(--s-6) var(--s-8); }
+  .mgrid{ grid-template-columns:repeat(7, 40px); }
+  :root{ --yc:40px; --bead:32px; }
+  .bead{ font-size:var(--t-sm); }
+  /* P4: the overview's 40 px ring in a 42 px column keeps the 16 px day number and fits three months across */
+  .months.months-all{ grid-template-columns:repeat(auto-fill, 294px); gap:var(--s-6) var(--s-5); }
+  .dlg-all .mgrid{ grid-template-columns:repeat(7, 42px); }
+  .dlg-all .mgrid .hc{ height:var(--ov-cell-h); }
+  .dlg-all .mgrid .hc svg{ width:var(--ov-ring); height:var(--ov-ring); }
+}
+@media (min-width: 1024px){
+  .app{ max-width:var(--app-max); padding:var(--s-3) var(--s-6); }
+  .top{ grid-template-columns:minmax(0,1fr) auto auto; grid-template-areas:"brand date proto"; column-gap:var(--s-5); }
+  .mark{ width:32px; height:32px; }
+  .word{ font-size:21px; }
+  .date{ font-size:var(--t-md); }
+  .proto{ justify-self:end; }
+  .proto-menu{ left:auto; right:0; }
+  .ov-btn{ display:none; }
+
+  /* the overview band: weeks as columns, newest on the right */
+  .band{
+    flex:none; display:grid; grid-template-columns:180px minmax(0,1fr); gap:var(--s-5);
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--r-card);
+    padding:14px var(--s-5) var(--s-3);
+  }
+  .band-meta{ display:flex; flex-direction:column; min-width:0; }
+  /* the band's own header line: the title and its Year button, never inside the ring grid */
+  .band-head{ display:flex; align-items:center; justify-content:space-between; gap:var(--s-2); margin-top:-10px; }
+  .band-meta h2{ margin:0; font-size:var(--t-md); line-height:24px; font-weight:600; white-space:nowrap; }
+  .band-meta .legend{ margin-top:auto; padding-bottom:6px; }
+  .ovg-cols{
+    display:grid; grid-auto-flow:column;
+    grid-template-columns:22px repeat(12, minmax(0,1fr));
+    grid-template-rows:18px repeat(7, var(--ov-cell-h));
+  }
+  .ovg-cols .og-mo{ padding-left:6px; white-space:nowrap; }
+  .ovg-cols .og-wd{ display:flex; align-items:center; }
+  .ovg-cols .hc{ width:52px; justify-self:center; }
+
+  /* one line: the bin closes the name column, so the stats and Year sit between it and Done today */
+  .row{
+    grid-template-columns:minmax(0,1fr) calc(var(--hit) + var(--s-3)) 200px auto auto;
+    grid-template-areas:"name bin stats year done";
+    column-gap:var(--s-3); padding:var(--s-3) var(--s-3) var(--s-3) var(--s-5);
+  }
+  .r-head{ display:contents; }
+  .r-name{ grid-area:name; font-size:var(--t-lg); line-height:24px; }
+  .btn-bin{ grid-area:bin; justify-self:start; margin:0; }
+  .stats{ gap:var(--s-5); }
+  .stat.cur{ min-width:96px; } /* Best lines up down the list, with or without a streak */
+
+  /* label left, field right, a message sits above the field it is about */
+  .composer{ padding:var(--s-3); display:grid; grid-template-columns:auto minmax(0,1fr); column-gap:var(--s-4); }
+  .field-msg{ grid-column:2; grid-row:1; }
+  .add-row{ display:contents; }
+  .add-label{ grid-column:1; grid-row:2; align-self:center; margin:0 0 0 var(--s-2); white-space:nowrap; }
+  .add-ctl{ grid-column:2; grid-row:2; }
+
+  .months{ grid-template-columns:repeat(3, max-content); }
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <!-- Phosphor Icons (MIT): x, plus, trash (regular), check (bold). Paths copied from round 1. -->
+  <symbol id="i-x" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 256 256"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 256 256"><path d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"/></symbol>
+  <!-- docs/brand/mark.svg, same path, recoloured through currentColor -->
+  <symbol id="i-mark" viewBox="0 0 112 112"><path d="M46 17H70A20 20 0 1 1 70 41H46A20 20 0 0 1 42 45V69A20 20 0 1 1 18 69V45A20 20 0 1 1 46 17ZM86 65A20 20 0 0 1 86 105A20 20 0 0 1 86 65ZM86 73A12 12 0 0 0 86 97A12 12 0 0 0 86 73Z"/></symbol>
+</svg>
+
+<div class="app">
+  <header class="top">
+    <div class="brand">
+      <svg class="mark" aria-hidden="true" focusable="false"><use href="#i-mark"/></svg>
+      <h1 class="word">Streaky Habit</h1>
+    </div>
+    <button type="button" class="ov-btn" id="ov-btn" data-act="overview" data-fk="ov-btn" aria-haspopup="dialog"><span id="ov-ring" class="ov-ring" aria-hidden="true"></span>Overview<span class="sr" id="ov-btn-sr"></span></button>
+    <time class="date" datetime="2026-10-10" id="today-label">Saturday 10 October</time>
+    <!-- Prototype states: tooling for the review, not part of the design. It sits in the page flow, so it never covers content -->
+    <div class="proto" id="proto">
+      <button type="button" class="proto-tab" id="proto-tab" data-act="proto" aria-expanded="false" aria-controls="proto-menu">Prototype states</button>
+      <div id="proto-menu" class="proto-menu" hidden>
+        <p>P1 tap an overview day. P2 Year on a row. P3 Overview (phone width). P4 Year on the overview. M1 the bin on a row, or Delete habit in P2.</p>
+        <button type="button" data-act="state" data-state="k1">K1 Key screen</button>
+        <button type="button" data-act="state" data-state="s1">S1 First visit</button>
+        <button type="button" data-act="state" data-state="s2-empty">S2 Name missing</button>
+        <button type="button" data-act="state" data-state="s2-long">S2 Name too long</button>
+        <button type="button" data-act="state" data-state="s2-dup">S2 Name already tracked</button>
+        <button type="button" data-act="state" data-state="s3">S3 12 habits</button>
+        <button type="button" data-act="state" data-state="s4">S4 Save warning</button>
+        <button type="button" data-act="state" data-state="s5">S5 Could not read</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="band" id="band" aria-labelledby="h-ov">
+      <div class="band-meta">
+        <div class="band-head">
+          <h2 id="h-ov">Last 12 weeks</h2>
+          <button type="button" class="btn-all" id="band-yr" data-act="all-year" data-fk="band-yr" aria-haspopup="dialog" aria-label="Year view, all habits">Year</button>
+        </div>
+        <p class="hint">Tap a day to change it.</p>
+        <div id="band-legend" class="legend" aria-hidden="true"></div>
+      </div>
+      <div id="band-grid" class="ovg-cols" role="group" aria-labelledby="h-ov"></div>
+    </section>
+
+    <div id="banners" class="banners"></div>
+
+    <h2 id="h-habits" class="sr">Habits</h2>
+    <div class="frame-wrap" id="frame-wrap">
+      <div class="frame" id="frame">
+        <div class="sentinel" id="s-top" aria-hidden="true"></div>
+        <ul id="list" class="rows" aria-labelledby="h-habits"></ul>
+        <div class="sentinel" id="s-bot" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <form id="add" class="composer" novalidate>
+      <p id="nh-msg" class="field-msg" aria-live="polite" hidden></p>
+      <div class="add-row">
+        <label for="nh" class="add-label">New habit</label>
+        <div class="add-ctl">
+          <input id="nh" class="input" type="text" autocomplete="off" spellcheck="false" aria-describedby="nh-msg">
+          <button id="add-btn" class="btn btn-primary" type="submit"><svg class="ph" aria-hidden="true" focusable="false"><use href="#i-plus"/></svg>Add</button>
+        </div>
+      </div>
+    </form>
+  </main>
+</div>
+
+<!-- P1 day editor -->
+<dialog id="day-dlg" class="dlg-day" aria-labelledby="day-title" aria-describedby="day-sub">
+  <div class="dlg-box">
+    <div class="day-head">
+      <div id="day-mini" class="day-mini" aria-hidden="true"></div>
+      <div>
+        <h2 id="day-title">Tuesday 22 September</h2>
+        <p id="day-sub" class="dlg-sub">1 of 3 habits</p>
+      </div>
+      <button type="button" class="icon-btn" data-act="close-day" aria-label="Close"><svg class="ph" aria-hidden="true" focusable="false"><use href="#i-x"/></svg></button>
+    </div>
+    <ul id="day-list" class="day-list"></ul>
+  </div>
+</dialog>
+
+<!-- P2 year view -->
+<dialog id="yr-dlg" class="dlg-full dlg-year" aria-labelledby="yr-title" aria-describedby="yr-sub">
+  <div class="dlg-box">
+    <div class="sheet-head">
+      <div class="head-top">
+        <div>
+          <h2 id="yr-title">Read 20 pages</h2>
+          <p id="yr-sub" class="dlg-sub">The last 12 months</p>
+        </div>
+        <button type="button" class="icon-btn" data-act="close-year" data-fk="yr-close" aria-label="Close"><svg class="ph" aria-hidden="true" focusable="false"><use href="#i-x"/></svg></button>
+      </div>
+      <div class="yr-mid">
+        <p class="yr-stats" id="yr-stats"></p>
+        <button type="button" class="btn-del" data-act="del" data-fk="yr-del"><svg class="ph" aria-hidden="true" focusable="false"><use href="#i-trash"/></svg>Delete habit</button>
+      </div>
+      <div class="yr-tools">
+        <p class="hint">Tap a day to mark it done or not done.</p>
+        <p class="yr-legend" aria-hidden="true"><span class="mini on"></span><span>Done</span><span class="mini"></span><span>Not done</span></p>
+      </div>
+    </div>
+    <div class="sheet-body" id="yr-body">
+      <div id="months" class="months"></div>
+    </div>
+  </div>
+</dialog>
+
+<!-- P3 overview popup (phone) -->
+<dialog id="ov-dlg" class="dlg-full dlg-ov" aria-labelledby="ov-title">
+  <div class="dlg-box">
+    <div class="sheet-head">
+      <div class="ov-head">
+        <div>
+          <h2 id="ov-title">Last 12 weeks</h2>
+          <p class="hint">Tap a day to change it.</p>
+        </div>
+        <button type="button" class="btn-all" id="ov-yr" data-act="all-year" data-fk="ov-yr" aria-haspopup="dialog" aria-label="Year view, all habits">Year</button>
+        <button type="button" class="icon-btn" data-act="close-ov" data-fk="ov-close" aria-label="Close"><svg class="ph" aria-hidden="true" focusable="false"><use href="#i-x"/></svg></button>
+      </div>
+    </div>
+    <div class="sheet-body" id="ov-body">
+      <div id="ov-grid" class="ovg-rows" role="group" aria-labelledby="ov-title"></div>
+      <div id="ov-legend" class="legend" aria-hidden="true"></div>
+    </div>
+  </div>
+</dialog>
+
+<!-- P4 overview year view: every habit together, the last 12 months -->
+<dialog id="all-dlg" class="dlg-full dlg-all" aria-labelledby="all-title" aria-describedby="all-sub">
+  <div class="dlg-box">
+    <div class="sheet-head">
+      <div class="head-top">
+        <div>
+          <h2 id="all-title">All habits</h2>
+          <p id="all-sub" class="dlg-sub">The last 12 months</p>
+        </div>
+        <button type="button" class="icon-btn" data-act="close-all" data-fk="all-close" aria-label="Close"><svg class="ph" aria-hidden="true" focusable="false"><use href="#i-x"/></svg></button>
+      </div>
+      <div class="yr-tools">
+        <p class="hint">Tap a day to change it.</p>
+        <div id="all-legend" class="legend" aria-hidden="true"></div>
+      </div>
+    </div>
+    <div class="sheet-body" id="all-body">
+      <div id="all-months" class="months months-all"></div>
+    </div>
+  </div>
+</dialog>
+
+<!-- M1 delete dialog -->
+<dialog id="del-dlg" class="dlg-del" role="alertdialog" aria-labelledby="del-title" aria-describedby="del-body">
+  <div class="dlg-box">
+    <h2 id="del-title">Delete "Stretch 10 minutes"?</h2>
+    <p id="del-body">Its history is deleted too.</p>
+    <div class="dlg-actions">
+      <button type="button" id="del-cancel" class="btn btn-secondary" data-act="cancel-del">Cancel</button>
+      <button type="button" class="btn btn-danger" data-act="confirm-del">Delete habit</button>
+    </div>
+  </div>
+</dialog>
+
+<script>
+(() => {
+  "use strict";
+
+  /* ---------- dates ---------- */
+  const TODAY = new Date(2026, 9, 10); // Saturday 10 October 2026, the brief's sample day
+  const WD_SHORT = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+  const WD_LONG = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+  const WD_MON = ["M","T","W","T","F","S","S"];
+  const MON_SHORT = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const MON_LONG = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  const addDays = (d, n) => { const x = new Date(d.getFullYear(), d.getMonth(), d.getDate()); x.setDate(x.getDate() + n); return x; };
+  const pad = n => String(n).padStart(2, "0");
+  const keyOf = d => d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate());
+  const fromKey = k => { const [y, m, d] = k.split("-").map(Number); return new Date(y, m - 1, d); };
+  const shortDate = d => WD_SHORT[d.getDay()] + " " + d.getDate() + " " + MON_SHORT[d.getMonth()];
+  const yearDate = d => shortDate(d) + " " + d.getFullYear();
+  const longDate = d => WD_LONG[d.getDay()] + " " + d.getDate() + " " + MON_LONG[d.getMonth()];
+  const TODAY_KEY = keyOf(TODAY);
+  const LAST_MON = addDays(TODAY, -((TODAY.getDay() + 6) % 7));
+  const GRID_START = addDays(LAST_MON, -77); // Monday 20 July 2026, 12 weeks
+  const YEAR_START = addDays(TODAY, -365);   // Friday 10 October 2025, the same date last year
+
+  /* ---------- sample data ----------
+     The last 12 weeks are round 1 D's rows exactly (Monday to Sunday, oldest week first).
+     Before Monday 20 July each history is extended back to 10 October 2025 by a seeded walk that never
+     lets a run reach that habit's Best, so Best stays where round 1 showed it. Numbers are computed, never typed. */
+  const SAMPLE = [
+    { name: "Read 20 pages", weeks: ["1101100","1110110","0111011","1100111","0110110","1110011","0111100","1100101","1111111","1011100","1101101","1011111"], seed: 11, start: .55, keep: .78 },
+    { name: "Stretch 10 minutes", weeks: ["0101010","1001001","0110100","1111100","0010110","1100100","0011010","1101100","0110011","1001110","0111010","1001100"], seed: 23, start: .42, keep: .6 },
+    { name: "No phone after 11pm", weeks: ["1110111","0111101","1011110","0111011","1101110","1111111","1111111","0110111","1101111","0110110","1110111","1111000"], seed: 37, start: .5, keep: .84 },
+  ];
+  const EXTRA = ["Drink 2 litres of water","Walk 8,000 steps","Journal one page","Practise guitar","Cook dinner at home","Lights out by midnight","Meditate 5 minutes","Floss","Learn 10 Malay words"];
+  const HOLIDAY = [keyOf(new Date(2025, 11, 22)), keyOf(new Date(2026, 0, 3))]; // a quiet fortnight at the year end
+
+  let nextId = 1;
+  function seeded(seed){ let s = seed >>> 0; return () => { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; }; }
+  function fromWeeks(weeks){
+    const s = new Set();
+    weeks.forEach((w, wi) => { for (let d = 0; d < 7; d++) if (w[d] === "1") { const dt = addDays(GRID_START, wi * 7 + d); if (dt <= TODAY) s.add(keyOf(dt)); } });
+    return s;
+  }
+  function runFrom(set, start){ let n = 0, d = start; while (set.has(keyOf(d))){ n++; d = addDays(d, 1); } return n; }
+  function walk(set, from, to, seed, start, keep, cap){
+    const rnd = seeded(seed);
+    let prev = false, run = 0;
+    for (let d = from; d < to; d = addDays(d, 1)){
+      const k = keyOf(d), quiet = k >= HOLIDAY[0] && k <= HOLIDAY[1];
+      let on = rnd() < (quiet ? .12 : prev ? keep : start);
+      if (on && run >= cap) on = false;
+      if (on){ set.add(k); run++; } else run = 0;
+      prev = on;
+    }
+    return run;
+  }
+  const BASE = SAMPLE.map(h => {
+    const done = fromWeeks(h.weeks);
+    const best12 = bestOf(done);
+    const tail = walk(done, YEAR_START, GRID_START, h.seed, h.start, h.keep, best12 - 1);
+    // a run that reaches Monday 20 July joins the first run of the 12 weeks, so keep the joined run under Best too
+    if (tail > 0 && tail + runFrom(done, GRID_START) > best12 - 1) done.delete(keyOf(addDays(GRID_START, -1)));
+    return { name: h.name, done: [...done] };
+  });
+  const BASE_EXTRA = EXTRA.map((name, i) => {
+    const done = new Set();
+    walk(done, YEAR_START, addDays(TODAY, 1), 97 + i * 31, .45 + (i % 3) * .08, .72, 11);
+    return { name, done: [...done] };
+  });
+  const sample = () => BASE.map(h => ({ id: nextId++, name: h.name, done: new Set(h.done) }));
+  const twelve = () => sample().concat(BASE_EXTRA.map(h => ({ id: nextId++, name: h.name, done: new Set(h.done) })));
+
+  /* ---------- streak rules ---------- */
+  function currentStreak(h){
+    let d = h.done.has(TODAY_KEY) ? TODAY : addDays(TODAY, -1), n = 0;
+    while (h.done.has(keyOf(d))){ n++; d = addDays(d, -1); }
+    return n;
+  }
+  function bestOf(set){
+    const days = [...set].sort();
+    let best = 0, run = 0, prev = null;
+    for (const k of days){
+      const d = fromKey(k);
+      run = prev && Math.round((d - prev) / 86400000) === 1 ? run + 1 : 1;
+      if (run > best) best = run;
+      prev = d;
+    }
+    return best;
+  }
+  const bestStreak = h => bestOf(h.done);
+  const dayWord = n => n === 1 ? "day" : "days";
+
+  /* ---------- state ----------
+     One source of truth: each habit's set of done days. The rows, the overview, P1, P2 and P4 all read it. */
+  let habits = sample();
+  let ui = { saveWarn: false, readNote: false, error: null };
+  const memo = new Map(); // remembers what was drawn, so only real changes animate
+  function changed(id, val){ const had = memo.has(id), old = memo.get(id); memo.set(id, val); return had && old !== val; }
+
+  const $ = s => document.querySelector(s);
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const f2 = n => Math.round(n * 100) / 100;
+  const list = $("#list"), banners = $("#banners"), frame = $("#frame"), frameWrap = $("#frame-wrap");
+  const bandGrid = $("#band-grid"), bandLegend = $("#band-legend"), ovRing = $("#ov-ring");
+  const form = $("#add"), input = $("#nh"), addBtn = $("#add-btn"), msg = $("#nh-msg");
+  const dayDlg = $("#day-dlg"), yrDlg = $("#yr-dlg"), ovDlg = $("#ov-dlg"), allDlg = $("#all-dlg"), delDlg = $("#del-dlg");
+  let openDay = null, dayOpener = null, yearHid = null, yearOpener = null, allOpener = null;
+
+  /* ---------- the small ring: one segment per habit, thick when done; a full day also fills its core ---------- */
+  function ring(flags, isToday, num){
+    const N = flags.length, all = N > 0 && flags.every(Boolean);
+    let s = '<svg viewBox="0 0 40 40" aria-hidden="true" focusable="false">';
+    if (isToday) s += '<circle class="c-today" cx="20" cy="20" r="19.2"/>';
+    if (N <= 1){
+      s += '<circle class="seg' + (N === 1 && flags[0] ? " on" : "") + '" cx="20" cy="20" r="15"/>';
+    } else {
+      const step = 360 / N, gap = Math.min(22, step * 0.3);
+      flags.forEach((on, i) => {
+        const a1 = (i * step + gap / 2) * Math.PI / 180, a2 = ((i + 1) * step - gap / 2) * Math.PI / 180;
+        const x1 = 20 + 15 * Math.sin(a1), y1 = 20 - 15 * Math.cos(a1), x2 = 20 + 15 * Math.sin(a2), y2 = 20 - 15 * Math.cos(a2);
+        s += '<path class="seg' + (on ? " on" : "") + '" d="M' + f2(x1) + " " + f2(y1) + "A15 15 0 " + (step - gap > 180 ? 1 : 0) + " 1 " + f2(x2) + " " + f2(y2) + '"/>';
+      });
+    }
+    if (all) s += '<circle class="c-core" cx="20" cy="20" r="11.5"/>';
+    if (num != null) s += '<text class="c-num' + (all ? " on" : "") + '" x="20" y="20.5">' + num + "</text>";
+    return s + "</svg>";
+  }
+  function legendHTML(){
+    const N = habits.length;
+    let lg = "<span>None</span>";
+    if (N === 0) lg += ring([], false, null);
+    else {
+      const steps = [...new Set([0, Math.ceil(N / 3), Math.ceil(2 * N / 3), N])].filter(c => c <= N);
+      steps.forEach(c => { lg += ring(Array.from({ length: N }, (_, i) => i < c), false, null); });
+    }
+    return lg + "<span>All</span>";
+  }
+
+  /* ---------- overview: the band (weeks as columns), the phone popup (weeks as rows) and P4 (months) ---------- */
+  function dayCell(day, pfx, withYear){
+    const k = keyOf(day), N = habits.length;
+    if (day > TODAY) return '<span class="hc" aria-hidden="true"></span>';
+    const flags = habits.map(h => h.done.has(k)), n = flags.filter(Boolean).length;
+    const pop = changed(pfx + "-" + k, flags.join(""));
+    return '<button type="button" class="hc' + (pop ? " pop" : "") + (k === openDay ? " is-open" : "") + '" data-act="open-day" data-key="' + k + '" data-fk="' + pfx + "-" + k
+      + '" aria-haspopup="dialog" aria-label="' + (withYear ? yearDate(day) : shortDate(day)) + ", " + n + " of " + N + ' habits"'
+      + (k === TODAY_KEY ? ' aria-current="date"' : "") + ">" + ring(flags, k === TODAY_KEY, day.getDate()) + "</button>";
+  }
+  function renderBand(){
+    let html = '<div aria-hidden="true"></div>';
+    WD_MON.forEach(l => { html += '<div class="og-wd" aria-hidden="true">' + l + "</div>"; });
+    for (let w = 0; w < 12; w++){ // column flow: the tab order runs day by day, oldest first
+      const mon = addDays(GRID_START, w * 7), prev = w ? addDays(GRID_START, (w - 1) * 7) : null;
+      html += '<div class="og-mo" aria-hidden="true">' + (!prev || prev.getMonth() !== mon.getMonth() ? MON_SHORT[mon.getMonth()] : "") + "</div>";
+      for (let d = 0; d < 7; d++) html += dayCell(addDays(mon, d), "b");
+    }
+    bandGrid.innerHTML = html;
+    bandLegend.innerHTML = legendHTML();
+  }
+  function renderOvPopup(){
+    let html = '<div aria-hidden="true"></div>';
+    WD_MON.forEach(l => { html += '<div class="og-wd" aria-hidden="true">' + l + "</div>"; });
+    for (let w = 11; w >= 0; w--){ // newest week on top
+      const mon = addDays(GRID_START, w * 7);
+      const lbl = (w === 11 || w === 0 || mon.getDate() <= 7) ? MON_SHORT[mon.getMonth()] : "";
+      html += '<div class="og-mo" aria-hidden="true">' + lbl + "</div>";
+      for (let d = 0; d < 7; d++) html += dayCell(addDays(mon, d), "o");
+    }
+    $("#ov-grid").innerHTML = html;
+    $("#ov-legend").innerHTML = legendHTML();
+  }
+  function renderOvButton(){
+    const flags = habits.map(h => h.done.has(TODAY_KEY)), n = flags.filter(Boolean).length;
+    ovRing.innerHTML = ring(flags, false, null);
+    ovRing.classList.toggle("pop", changed("ovbtn", flags.join("")));
+    $("#ov-btn-sr").textContent = ", today " + n + " of " + habits.length + " habits done";
+  }
+
+  /* ---------- the habit rows ---------- */
+  function statsHTML(h, pfx){
+    const cur = currentStreak(h), best = bestStreak(h);
+    const bumpC = changed(pfx + "cur-" + h.id, cur), bumpB = changed(pfx + "best-" + h.id, best);
+    const curVal = cur > 0
+      ? '<span class="val' + (bumpC ? " bump" : "") + '"><b class="num">' + cur + '</b><span class="unit">' + dayWord(cur) + "</span></span>"
+      : '<span class="none' + (bumpC ? " bump" : "") + '">No streak yet</span>';
+    const bestHtml = best > 0
+      ? '<span class="stat best"><span class="lbl">Best</span><span class="val' + (bumpB ? " bump" : "") + '"><b class="num">' + best + "</b></span></span>"
+      : "";
+    return '<span class="stat cur"><span class="lbl">Current</span>' + curVal + "</span>" + bestHtml;
+  }
+  function rowHTML(h){
+    const today = h.done.has(TODAY_KEY), pop = changed("dt-" + h.id, today);
+    return '<li class="row" data-hid="' + h.id + '">'
+      + '<div class="r-head"><h3 class="r-name" id="rn-' + h.id + '">' + esc(h.name) + "</h3>"
+      + '<button type="button" class="btn-bin" data-act="del-row" data-hid="' + h.id + '" data-fk="x-' + h.id + '" aria-haspopup="dialog" aria-label="Delete &quot;' + esc(h.name) + '&quot;">'
+      + '<svg class="ph" aria-hidden="true" focusable="false"><use href="#i-trash"/></svg></button></div>'
+      + '<p class="stats" id="rs-' + h.id + '">' + statsHTML(h, "r") + "</p>"
+      + '<button type="button" class="btn-year" data-act="year" data-hid="' + h.id + '" data-fk="y-' + h.id + '" aria-haspopup="dialog" aria-label="Year view, ' + esc(h.name) + '">Year</button>'
+      + '<button type="button" class="btn-done' + (pop ? " pop" : "") + '" data-act="done-today" data-hid="' + h.id + '" data-fk="d-' + h.id + '" aria-pressed="' + today + '" aria-label="Done today, ' + esc(h.name) + '" aria-describedby="rs-' + h.id + '">'
+      + '<span class="dot"><svg aria-hidden="true" focusable="false"><use href="#i-check"/></svg></span>Done today</button>'
+      + "</li>";
+  }
+  function emptyRow(){
+    return '<li class="empty"><svg viewBox="0 0 120 120" aria-hidden="true" focusable="false">'
+      + '<circle class="e-orbit" cx="60" cy="60" r="50"/><circle class="e-core" cx="60" cy="60" r="18"/></svg>'
+      + '<div><p class="lead">No habits yet.</p><p class="line">Add one you want to do every day.</p></div></li>';
+  }
+
+  /* ---------- composer ---------- */
+  const ERR = {
+    empty: "Name the habit first.",
+    long: "Keep it to 40 characters or fewer.",
+    dup: "You already track this habit.",
+  };
+  function renderComposer(){
+    const full = habits.length >= 12;
+    form.classList.toggle("is-full", full);
+    input.disabled = full; addBtn.disabled = full;
+    if (full){
+      msg.hidden = false; msg.className = "field-msg note";
+      msg.textContent = "You track 12 habits, the most this app holds. Delete one to add another.";
+      input.removeAttribute("aria-invalid");
+    } else if (ui.error){
+      msg.hidden = false; msg.className = "field-msg err"; msg.textContent = ERR[ui.error];
+      input.setAttribute("aria-invalid", "true");
+    } else {
+      msg.hidden = true; msg.className = "field-msg"; msg.textContent = "";
+      input.removeAttribute("aria-invalid");
+    }
+  }
+  function renderBanners(){
+    let html = "";
+    if (ui.saveWarn) html += '<div class="banner warn" role="status"><p>Your habits are not being saved on this device. Changes will be lost when you close this tab.</p></div>';
+    if (ui.readNote) html += '<div class="banner note" role="status"><p>Your saved habits could not be read, so the list was reset.</p>'
+      + '<button type="button" class="icon-btn" data-act="dismiss-note" data-fk="dismiss" aria-label="Dismiss note"><svg class="ph" aria-hidden="true" focusable="false"><use href="#i-x"/></svg></button></div>';
+    banners.innerHTML = html;
+  }
+
+  /* ---------- the last 12 months, month by month, newest first (P2 and P4 share this layout) ---------- */
+  function monthsHTML(pfx, cellCls, dayHTML, closedHTML){
+    let html = "";
+    let m = new Date(TODAY.getFullYear(), TODAY.getMonth(), 1);
+    const stop = new Date(YEAR_START.getFullYear(), YEAR_START.getMonth(), 1);
+    while (m >= stop){ // newest month first
+      const y = m.getFullYear(), mo = m.getMonth(), id = pfx + "mo-" + y + "-" + (mo + 1);
+      const days = new Date(y, mo + 1, 0).getDate(), lead = (m.getDay() + 6) % 7;
+      html += '<section class="month" aria-labelledby="' + id + '"><h3 id="' + id + '">' + MON_LONG[mo] + " " + y + "</h3>"
+        + '<div class="mgrid" role="group" aria-labelledby="' + id + '">';
+      WD_MON.forEach(l => { html += '<span class="mwd" aria-hidden="true">' + l + "</span>"; });
+      for (let i = 0; i < lead; i++) html += '<span class="' + cellCls + ' lead" aria-hidden="true"></span>';
+      for (let dd = 1; dd <= days; dd++){
+        const d = new Date(y, mo, dd);
+        if (d < YEAR_START) html += '<span class="' + cellCls + ' blank" aria-hidden="true"></span>'; // before the 12 months
+        else if (d > TODAY) html += closedHTML(dd);                                                    // after today, closed
+        else html += dayHTML(d);
+      }
+      html += "</div></section>";
+      m = new Date(y, mo - 1, 1);
+    }
+    return html;
+  }
+
+  /* ---------- P2 year view ---------- */
+  function renderYear(){
+    const h = habits.find(x => x.id === yearHid); if (!h) return;
+    $("#yr-title").textContent = h.name;
+    $("#yr-stats").innerHTML = statsHTML(h, "p");
+    const has = d => d >= YEAR_START && d <= TODAY && h.done.has(keyOf(d));
+    $("#months").innerHTML = monthsHTML("", "yc", d => {
+      const k = keyOf(d), dd = d.getDate();
+      const on = h.done.has(k), l = on && has(addDays(d, -1)), r = on && has(addDays(d, 1));
+      const pop = changed("yc-" + h.id + "-" + k, on);
+      return '<button type="button" class="yc' + (on ? " on" : "") + (l ? " l" : "") + (r ? " r" : "") + (k === TODAY_KEY ? " today" : "") + (pop ? " pop" : "")
+        + '" data-act="year-tick" data-key="' + k + '" data-fk="yc-' + k + '" aria-pressed="' + on + '" aria-label="Mark ' + yearDate(d) + ' as done"'
+        + (k === TODAY_KEY ? ' aria-current="date"' : "") + '><span class="bead">' + dd + "</span></button>";
+    }, dd => '<span class="yc closed" aria-hidden="true"><span class="bead">' + dd + "</span></span>");
+  }
+  function openYear(hid, opener){
+    const h = habits.find(x => x.id === hid); if (!h) return;
+    yearHid = hid; yearOpener = opener ? opener.dataset.fk : null;
+    for (const k of memo.keys()) if (k.startsWith("yc-") || k.startsWith("pcur-") || k.startsWith("pbest-")) memo.delete(k);
+    renderYear();
+    yrDlg.showModal();
+    $("#yr-body").scrollTop = 0;
+    yrDlg.querySelector("[data-act=close-year]").focus({ preventScroll: true });
+  }
+  yrDlg.addEventListener("close", () => {
+    yearHid = null;
+    if (yearOpener){ const el = document.querySelector('[data-fk="' + yearOpener + '"]'); if (el) el.focus({ preventScroll: true }); }
+  });
+
+  /* ---------- P3 overview popup ---------- */
+  function openOv(){
+    renderOvPopup();
+    ovDlg.showModal();
+    $("#ov-body").scrollTop = 0;
+    ovDlg.querySelector("[data-act=close-ov]").focus({ preventScroll: true });
+  }
+  ovDlg.addEventListener("close", () => { const b = $("#ov-btn"); if (b && getComputedStyle(b).display !== "none") b.focus({ preventScroll: true }); });
+
+  /* ---------- P4 overview year view: the overview's rings over P2's months ---------- */
+  const closedRing = dd => '<span class="hc closed" aria-hidden="true"><svg viewBox="0 0 40 40" aria-hidden="true" focusable="false"><text class="c-num dim" x="20" y="20.5">' + dd + "</text></svg></span>";
+  function renderAll(){
+    $("#all-months").innerHTML = monthsHTML("a", "hc", d => dayCell(d, "a", true), closedRing);
+    $("#all-legend").innerHTML = legendHTML();
+  }
+  function openAll(opener){
+    allOpener = opener ? opener.dataset.fk : null;
+    for (const k of memo.keys()) if (k.startsWith("a-")) memo.delete(k);
+    renderAll();
+    allDlg.showModal();
+    $("#all-body").scrollTop = 0;
+    allDlg.querySelector("[data-act=close-all]").focus({ preventScroll: true });
+  }
+  allDlg.addEventListener("close", () => {
+    if (allOpener){ const el = document.querySelector('[data-fk="' + allOpener + '"]'); if (el) el.focus({ preventScroll: true }); }
+    allOpener = null;
+  });
+
+  /* ---------- P1 day editor ---------- */
+  function renderDay(){
+    if (!openDay) return;
+    const d = fromKey(openDay), flags = habits.map(h => h.done.has(openDay)), n = flags.filter(Boolean).length;
+    $("#day-title").textContent = longDate(d);
+    $("#day-sub").textContent = n + " of " + habits.length + " habits";
+    $("#day-mini").innerHTML = ring(flags, false, null);
+    if (!habits.length){ $("#day-list").innerHTML = '<li class="day-empty">No habits yet.</li>'; return; }
+    $("#day-list").innerHTML = habits.map(h => {
+      const on = h.done.has(openDay), cur = currentStreak(h), best = bestStreak(h);
+      const pop = changed("tick-" + h.id + "-" + openDay, on);
+      const curTxt = cur > 0 ? '<span class="tcur">Current ' + cur + " " + dayWord(cur) + "</span>" : '<span class="tcur none">No streak yet</span>';
+      const bestTxt = best > 0 ? "<span>Best " + best + "</span>" : "";
+      return '<li><button type="button" class="tick' + (on ? " on" : "") + (pop ? " pop" : "") + '" data-act="tick-day" data-hid="' + h.id + '" data-fk="t-' + h.id
+        + '" aria-pressed="' + on + '" aria-label="' + esc(h.name) + '" aria-describedby="ts-' + h.id + '">'
+        + '<span class="tbox"><svg aria-hidden="true" focusable="false"><use href="#i-check"/></svg></span>'
+        + '<span class="tname">' + esc(h.name) + "</span>"
+        + '<span class="tstat" id="ts-' + h.id + '">' + curTxt + bestTxt + "</span></button></li>";
+    }).join("");
+  }
+  function openDayDlg(k, opener){
+    openDay = k; dayOpener = opener ? opener.dataset.fk : null;
+    habits.forEach(h => memo.set("tick-" + h.id + "-" + k, h.done.has(k)));
+    renderDay();
+    renderBand();
+    if (ovDlg.open) renderOvPopup(); // marks the open day in the grid
+    if (allDlg.open) renderAll();
+    dayDlg.showModal();
+    (dayDlg.querySelector(".tick") || dayDlg.querySelector("[data-act=close-day]")).focus({ preventScroll: true });
+    // on a phone the editor is a bottom sheet over the overview popup or P4: keep the chosen day in sight above it
+    const host = allDlg.open ? allDlg : ovDlg.open ? ovDlg : null;
+    if (host && window.matchMedia("(max-width: 767px)").matches){
+      const cell = host.querySelector('[data-key="' + k + '"]'), body = host.querySelector(".sheet-body");
+      if (cell){
+        const sheet = dayDlg.querySelector(".dlg-box").getBoundingClientRect().height;
+        const r = cell.getBoundingClientRect(), limit = window.innerHeight - sheet - 12;
+        if (r.bottom > limit) body.scrollTop += r.bottom - limit;
+        else if (r.top < 80) body.scrollTop += r.top - 80;
+      }
+    }
+  }
+  dayDlg.addEventListener("close", () => {
+    openDay = null;
+    renderBand();
+    if (ovDlg.open) renderOvPopup();
+    if (allDlg.open) renderAll();
+    if (dayOpener){ const el = document.querySelector('[data-fk="' + dayOpener + '"]'); if (el) el.focus({ preventScroll: true }); }
+  });
+
+  /* ---------- M1 delete: from a row's bin or from P2 ---------- */
+  let delTarget = null, delFrom = null, delOpener = null;
+  function openDel(hid, from, opener){
+    const h = habits.find(x => x.id === hid); if (!h) return;
+    delTarget = hid; delFrom = from; delOpener = opener ? opener.dataset.fk : null;
+    $("#del-title").textContent = 'Delete "' + h.name + '"?';
+    delDlg.returnValue = "";
+    delDlg.showModal();
+    $("#del-cancel").focus();
+  }
+  function doDelete(){
+    const idx = habits.findIndex(x => x.id === delTarget), from = delFrom;
+    if (idx < 0){ delDlg.close(); return; }
+    habits.splice(idx, 1);
+    yearOpener = null;
+    delDlg.close("deleted");
+    if (yrDlg.open) yrDlg.close();
+    render();
+    let el = null;
+    if (from === "row"){
+      // from a row: the next row's bin, or the previous row's when the last row went
+      const bins = [...document.querySelectorAll("#list .btn-bin")];
+      el = bins[idx] || bins[idx - 1] || null;
+    } else {
+      // from P2 (F's reading 18): the next row's Year button
+      const years = [...document.querySelectorAll("#list .btn-year")];
+      el = years[Math.min(idx, years.length - 1)] || null;
+    }
+    el = el || (input.disabled ? null : input) || $("#proto-tab");
+    el.focus({ preventScroll: true });
+    if (frame.contains(el)) el.scrollIntoView({ block: "nearest" });
+  }
+  delDlg.addEventListener("close", () => {
+    if (delDlg.returnValue !== "deleted"){
+      if (delFrom === "row"){ const el = delOpener && document.querySelector('[data-fk="' + delOpener + '"]'); if (el) el.focus({ preventScroll: true }); }
+      else { const el = yrDlg.querySelector("[data-act=del]"); if (yrDlg.open && el) el.focus({ preventScroll: true }); }
+    }
+    delTarget = null; delFrom = null; delOpener = null;
+  });
+
+  /* Esc closes through the native cancel event, the top popup first. The backdrop closes too. */
+  [dayDlg, yrDlg, ovDlg, allDlg, delDlg].forEach(d => d.addEventListener("click", e => { if (e.target === d) d.close(); }));
+
+  /* ---------- render ---------- */
+  function render(){
+    const fk = document.activeElement && document.activeElement.dataset ? document.activeElement.dataset.fk : null;
+    renderBanners();
+    list.innerHTML = habits.length ? habits.map(rowHTML).join("") : emptyRow();
+    renderComposer();
+    renderBand();
+    renderOvButton();
+    if (ovDlg.open) renderOvPopup();
+    if (allDlg.open) renderAll();
+    if (yrDlg.open) renderYear();
+    if (dayDlg.open) renderDay();
+    if (fk){ const el = document.querySelector('[data-fk="' + fk + '"]'); if (el && el !== document.activeElement) el.focus({ preventScroll: true }); }
+  }
+
+  /* the list frame shows that it scrolls: a fade on any edge that has more rows behind it */
+  const io = new IntersectionObserver(entries => {
+    for (const e of entries) frameWrap.classList.toggle(e.target.id === "s-top" ? "more-above" : "more-below", !e.isIntersecting);
+  }, { root: frame, threshold: 0 });
+  io.observe($("#s-top")); io.observe($("#s-bot"));
+
+  /* ---------- toggles ---------- */
+  function toggle(hid, k){
+    const h = habits.find(x => x.id === hid); if (!h || fromKey(k) > TODAY || fromKey(k) < YEAR_START) return;
+    if (h.done.has(k)) h.done.delete(k); else h.done.add(k);
+  }
+
+  /* ---------- prototype states ---------- */
+  const protoTab = $("#proto-tab"), protoMenu = $("#proto-menu");
+  let currentState = "k1";
+  function setProto(open){
+    protoMenu.hidden = !open; protoTab.setAttribute("aria-expanded", String(open));
+    protoMenu.querySelectorAll("[data-state]").forEach(b => b.setAttribute("aria-current", String(b.dataset.state === currentState)));
+    if (open) protoMenu.querySelector('[aria-current="true"]').focus();
+  }
+  function setState(s){
+    currentState = s;
+    yearOpener = null; dayOpener = null; allOpener = null; delOpener = null;
+    [delDlg, dayDlg, allDlg, yrDlg, ovDlg].forEach(d => { if (d.open) d.close(); });
+    ui = { saveWarn: false, readNote: false, error: null };
+    memo.clear(); input.value = "";
+    if (s === "k1") habits = sample();
+    else if (s === "s1") habits = [];
+    else if (s === "s2-empty"){ habits = sample(); ui.error = "empty"; }
+    else if (s === "s2-long"){ habits = sample(); input.value = "Read twenty pages of a novel before bed each night"; ui.error = "long"; }
+    else if (s === "s2-dup"){ habits = sample(); input.value = "read 20 pages"; ui.error = "dup"; }
+    else if (s === "s3") habits = twelve();
+    else if (s === "s4"){ habits = sample(); ui.saveWarn = true; }
+    else if (s === "s5"){ habits = []; ui.readNote = true; }
+    setProto(false);
+    render();
+    frame.scrollTop = 0;
+    protoTab.focus({ preventScroll: true });
+  }
+
+  /* ---------- events ---------- */
+  document.addEventListener("click", e => {
+    const t = e.target.closest("[data-act]");
+    if (!t){ if (!protoMenu.hidden && !e.target.closest("#proto")) setProto(false); return; }
+    const act = t.dataset.act, hid = Number(t.dataset.hid);
+    if (act === "done-today"){ toggle(hid, TODAY_KEY); render(); }
+    else if (act === "year") openYear(hid, t);
+    else if (act === "year-tick"){ toggle(yearHid, t.dataset.key); render(); }
+    else if (act === "close-year") yrDlg.close();
+    else if (act === "overview") openOv();
+    else if (act === "close-ov") ovDlg.close();
+    else if (act === "all-year") openAll(t);
+    else if (act === "close-all") allDlg.close();
+    else if (act === "open-day") openDayDlg(t.dataset.key, t);
+    else if (act === "tick-day"){ toggle(hid, openDay); render(); }
+    else if (act === "close-day") dayDlg.close();
+    else if (act === "del") openDel(yearHid, "year", t);
+    else if (act === "del-row") openDel(hid, "row", t);
+    else if (act === "cancel-del") delDlg.close();
+    else if (act === "confirm-del") doDelete();
+    else if (act === "dismiss-note"){ ui.readNote = false; render(); input.focus(); }
+    else if (act === "proto") setProto(protoMenu.hidden);
+    else if (act === "state") setState(t.dataset.state);
+  });
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && !protoMenu.hidden){ setProto(false); protoTab.focus(); }
+  });
+
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    if (habits.length >= 12) return;
+    const v = input.value.trim();
+    if (!v) ui.error = "empty";
+    else if (v.length > 40) ui.error = "long";
+    else if (habits.some(h => h.name.toLowerCase() === v.toLowerCase())) ui.error = "dup";
+    else { ui.error = null; habits.push({ id: nextId++, name: v, done: new Set() }); input.value = ""; }
+    render();
+    if (!ui.error) frame.scrollTop = frame.scrollHeight; // new habits go to the bottom, keep it in sight
+    if (!input.disabled) input.focus();
+  });
+  input.addEventListener("input", () => { if (ui.error){ ui.error = null; renderComposer(); } });
+
+  /* read-only hook for the render check: the histories the numbers are computed from */
+  window.__streaky = { histories: () => habits.map(h => ({ name: h.name, done: [...h.done].sort() })) };
+
+  render();
+})();
+</script>
+</body>
+</html>
