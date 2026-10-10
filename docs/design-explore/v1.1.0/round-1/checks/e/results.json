@@ -1,0 +1,305 @@
+{
+  "url": "file:///{workspace}/examples/streaks/docs/design-explore/v1.1.0/round-1/e.html",
+  "console_errors": [],
+  "page_errors": [],
+  "requests_non_file": [],
+  "sizes": {
+    "390": {
+      "overflow_k1": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "poking": []
+      },
+      "targets": {
+        ".day": [
+          44,
+          44
+        ],
+        "button.hc": [
+          44,
+          44
+        ],
+        ".del": [
+          44,
+          44
+        ],
+        ".btn-add": [
+          76.8,
+          44
+        ],
+        "#proto-tab": [
+          110.9,
+          34
+        ]
+      },
+      "streaks_k1": {
+        "Read 20 pages": "Current4 daysBest9",
+        "Stretch 10 minutes": "Current2 daysBest7",
+        "No phone after 11pm": "Current6 daysBest11"
+      },
+      "p1_title": "Tuesday 22 September",
+      "p1_sub_before": "1 of 3 habits",
+      "p1_stretch_before": "Current2 daysBest7",
+      "p1_stretch_after": "Current2 daysBest12",
+      "p1_sub_after": "2 of 3 habits",
+      "p1_heat_level": "1 -> 2",
+      "p1_list_best_after": "Current2 daysBest12",
+      "overflow_p1": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "poking": []
+      },
+      "p1_closed_by_esc": true,
+      "p1_focus_after_close": "Tue 22 Sep, 2 of 3 habits",
+      "p1_closed_by_backdrop": true,
+      "future_cells_are_buttons": "1:0",
+      "strip_tick_stretch": "Current2 daysBest7  ->  Current3 daysBest7",
+      "strip_tick_heat_today": "1 -> 2",
+      "m1_title": "Delete \"Stretch 10 minutes\"?",
+      "m1_focus": "del-cancel",
+      "overflow_m1": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "poking": []
+      },
+      "m1_closed_by_backdrop": true,
+      "m1_closed_by_esc": true,
+      "m1_focus_after_esc": "Delete Stretch 10 minutes",
+      "s3_disabled": true,
+      "s3_rows": 12
+    },
+    "360": {
+      "overflow_k1": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "poking": []
+      },
+      "targets": {
+        ".day": [
+          41.4,
+          44
+        ],
+        "button.hc": [
+          41.4,
+          41.4
+        ],
+        ".del": [
+          44,
+          44
+        ],
+        ".btn-add": [
+          76.8,
+          44
+        ],
+        "#proto-tab": [
+          110.9,
+          34
+        ]
+      },
+      "streaks_k1": {
+        "Read 20 pages": "Current4 daysBest9",
+        "Stretch 10 minutes": "Current2 daysBest7",
+        "No phone after 11pm": "Current6 daysBest11"
+      },
+      "p1_title": "Tuesday 22 September",
+      "p1_sub_before": "1 of 3 habits",
+      "p1_stretch_before": "Current2 daysBest7",
+      "p1_stretch_after": "Current2 daysBest12",
+      "p1_sub_after": "2 of 3 habits",
+      "p1_heat_level": "1 -> 2",
+      "p1_list_best_after": "Current2 daysBest12",
+      "overflow_p1": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "poking": []
+      },
+      "p1_closed_by_esc": true,
+      "p1_focus_after_close": "Tue 22 Sep, 2 of 3 habits",
+      "p1_closed_by_backdrop": true,
+      "future_cells_are_buttons": "1:0",
+      "strip_tick_stretch": "Current2 daysBest7  ->  Current3 daysBest7",
+      "strip_tick_heat_today": "1 -> 2",
+      "m1_title": "Delete \"Stretch 10 minutes\"?",
+      "m1_focus": "del-cancel",
+      "overflow_m1": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "poking": []
+      },
+      "m1_closed_by_backdrop": true,
+      "m1_closed_by_esc": true,
+      "m1_focus_after_esc": "Delete Stretch 10 minutes",
+      "overflow_S1": [],
+      "overflow_S2a": [],
+      "overflow_S2b": [],
+      "overflow_S2c": [],
+      "overflow_S3": [],
+      "s3_disabled": true,
+      "s3_rows": 12,
+      "overflow_S4": [],
+      "overflow_S5": []
+    },
+    "1280": {
+      "overflow_k1": {
+        "scrollWidth": 1280,
+        "clientWidth": 1280,
+        "poking": []
+      },
+      "targets": {
+        ".day": [
+          44,
+          44
+        ],
+        "button.hc": [
+          44.8,
+          44.8
+        ],
+        ".del": [
+          44,
+          44
+        ],
+        ".btn-add": [
+          76.8,
+          44
+        ],
+        "#proto-tab": [
+          110.9,
+          34
+        ]
+      },
+      "streaks_k1": {
+        "Read 20 pages": "Current4 daysBest9",
+        "Stretch 10 minutes": "Current2 daysBest7",
+        "No phone after 11pm": "Current6 daysBest11"
+      },
+      "p1_title": "Tuesday 22 September",
+      "p1_sub_before": "1 of 3 habits",
+      "p1_stretch_before": "Current2 daysBest7",
+      "p1_stretch_after": "Current2 daysBest12",
+      "p1_sub_after": "2 of 3 habits",
+      "p1_heat_level": "1 -> 2",
+      "p1_list_best_after": "Current2 daysBest12",
+      "p1_closed_by_esc": true,
+      "p1_focus_after_close": "Tue 22 Sep, 2 of 3 habits",
+      "p1_closed_by_backdrop": true,
+      "future_cells_are_buttons": "1:0",
+      "strip_tick_stretch": "Current2 daysBest7  ->  Current3 daysBest7",
+      "strip_tick_heat_today": "1 -> 2",
+      "m1_title": "Delete \"Stretch 10 minutes\"?",
+      "m1_focus": "del-cancel",
+      "m1_closed_by_backdrop": true,
+      "m1_closed_by_esc": true,
+      "m1_focus_after_esc": "Delete Stretch 10 minutes",
+      "s3_disabled": true,
+      "s3_rows": 12
+    }
+  },
+  "checks": {
+    "keyboard": {
+      "tab_order_to_heatmap": [
+        "INPUT pal-input",
+        "BUTTON btn-add Add \u21b5",
+        "BUTTON icon-btn del Delete Read 20 pages",
+        "BUTTON day today Mark Sat 10 Oct as done",
+        "BUTTON icon-btn del Delete Stretch 10 minutes",
+        "BUTTON icon-btn del Delete No phone after 11pm",
+        "BUTTON hc today Sat 10 Oct, 1 of 3 habits"
+      ],
+      "tabs_to_heatmap": 7,
+      "arrow_to": "Fri 2 Oct, 2 of 3 habits",
+      "p1_open_by_enter": "Friday 2 October",
+      "p1_first_focus": "Read 20 pages",
+      "p1_space_toggled": "true",
+      "p1_closed": true,
+      "focus_back": "Fri 2 Oct, 3 of 3 habits",
+      "slash_focuses_input": "new-habit",
+      "tabs_from_input_to_bin": 2,
+      "bin_label": "Delete Read 20 pages",
+      "m1_open_by_enter": "Delete \"Read 20 pages\"?",
+      "m1_closed_by_esc": true,
+      "m1_open_by_del_key": "Delete \"No phone after 11pm\"?",
+      "deleted_and_focus": [
+        2,
+        "Delete Stretch 10 minutes"
+      ],
+      "focus_ring": "solid 2px rgb(178, 58, 0)"
+    },
+    "reduced_motion_mark_transition": "0s",
+    "tokens": {
+      "--bg": "#E6E8EB",
+      "--panel": "#F5F6F8",
+      "--raised": "#FCFCFD",
+      "--well": "#EBEDF0",
+      "--ink": "#15181C",
+      "--ink-soft": "#535A64",
+      "--mute": "#737A84",
+      "--on-ink": "#F5F6F8",
+      "--signal": "#FF5A1F",
+      "--signal-ink": "#B23A00",
+      "--signal-tint": "#FFE6D9",
+      "--line-strong": "#B4BAC2",
+      "--seg-off": "#D9DCE1"
+    },
+    "contrast": {
+      "body text --ink on --panel": 16.47,
+      "body text --ink on --bg": 14.51,
+      "secondary --ink-soft on --panel": 6.44,
+      "secondary --ink-soft on --bg": 5.68,
+      "secondary --ink-soft on --well (heat numbers)": 5.94,
+      "accent text --signal-ink on --panel (today, errors)": 5.55,
+      "accent text --signal-ink on --raised (palette prompt)": 5.85,
+      "accent text --signal-ink on --well (today heat number)": 5.12,
+      "Current chip --ink on --signal": 5.71,
+      "Add / Delete habit --on-ink on --ink": 16.47,
+      "save warning --ink on --signal-tint": 14.9,
+      "focus ring --signal-ink vs --panel (3:1)": 5.55,
+      "focus ring --signal-ink vs --bg (3:1)": 4.89,
+      "open mark stroke --mute on --panel (3:1)": 4.01,
+      "open mark stroke --mute on --signal-tint (3:1)": 3.63,
+      "meter segment --ink on --well (3:1)": 15.18,
+      "meter segment --ink vs empty --seg-off (3:1)": 12.95,
+      "today ring --signal-ink on --well (3:1)": 5.12,
+      "signal fill --signal vs --panel (decorative)": 2.88
+    }
+  },
+  "screenshots": [
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\e\\k1-390.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\e\\k1-390-full.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\e\\p1-390.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\e\\p1-390-ticked.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\e\\m1-390.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\e\\proto-menu-390.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\e\\s1-390.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\e\\s2a-390.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\e\\s2b-390.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\e\\s2c-390.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\e\\s3-390.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\e\\s3-390-full.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\e\\s4-390.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\e\\s5-390.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\e\\k1-360.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\e\\k1-360-full.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\e\\p1-360.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\e\\p1-360-ticked.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\e\\m1-360.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\e\\proto-menu-360.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\e\\s2b-360.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\e\\s3-360.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\e\\s3-360-full.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\e\\s4-360.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\e\\k1-1280.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\e\\k1-1280-full.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\e\\p1-1280.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\e\\p1-1280-ticked.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\e\\m1-1280.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\e\\proto-menu-1280.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\e\\s1-1280.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\e\\s2b-1280.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\e\\s3-1280.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\e\\s3-1280-full.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\e\\s4-1280.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\e\\p1-1280-keyboard.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\e\\m1-1280-keyboard.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\e\\k1-1280-focus.png"
+  ]
+}
