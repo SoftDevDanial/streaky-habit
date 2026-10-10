@@ -1,0 +1,275 @@
+{
+  "console_errors": [],
+  "page_errors": [],
+  "requests_off_file": [],
+  "checks": {
+    "k1-numbers-390": {
+      "Read 20 pages": {
+        "current": "Current 4 days",
+        "best": "Best 9 days"
+      },
+      "Stretch 10 minutes": {
+        "current": "Current 2 days",
+        "best": "Best 5 days"
+      },
+      "No phone after 11pm": {
+        "current": "Current No streak yet",
+        "best": "Best 14 days"
+      }
+    },
+    "title-390": "Danial's Streaky Habit",
+    "after-strip-tick-390": {
+      "current": "Current 3 days",
+      "best": "Best 5 days"
+    },
+    "today-cell-after-strip-390": "Sat 10 Oct, 2 of 3 habits",
+    "p1-title-390": "Tuesday 22 September",
+    "p1-cell-label-before-390": "Tue 22 Sep, 1 of 3 habits",
+    "p1-after-tick-row-390": "Current 4 days\nBest 13",
+    "p1-closed-by-esc-390": true,
+    "after-p1-read-390": {
+      "current": "Current 4 days",
+      "best": "Best 13 days"
+    },
+    "p1-cell-label-after-390": "Tue 22 Sep, 2 of 3 habits",
+    "future-day-closed-390": true,
+    "m1-title-390": "Delete \"Stretch 10 minutes\"?",
+    "m1-closed-by-backdrop-390": true,
+    "p1-closed-by-backdrop-390": true,
+    "m1-closed-by-esc-390": true,
+    "k1-numbers-360": {
+      "Read 20 pages": {
+        "current": "Current 4 days",
+        "best": "Best 9 days"
+      },
+      "Stretch 10 minutes": {
+        "current": "Current 2 days",
+        "best": "Best 5 days"
+      },
+      "No phone after 11pm": {
+        "current": "Current No streak yet",
+        "best": "Best 14 days"
+      }
+    },
+    "title-360": "Danial's Streaky Habit",
+    "p1-title-360": "Tuesday 22 September",
+    "p1-cell-label-before-360": "Tue 22 Sep, 1 of 3 habits",
+    "p1-after-tick-row-360": "Current 4 days\nBest 13",
+    "p1-closed-by-esc-360": true,
+    "after-p1-read-360": {
+      "current": "Current 4 days",
+      "best": "Best 13 days"
+    },
+    "p1-cell-label-after-360": "Tue 22 Sep, 2 of 3 habits",
+    "future-day-closed-360": true,
+    "m1-title-360": "Delete \"Stretch 10 minutes\"?",
+    "m1-closed-by-backdrop-360": true,
+    "k1-numbers-1280": {
+      "Read 20 pages": {
+        "current": "Current 4 days",
+        "best": "Best 9 days"
+      },
+      "Stretch 10 minutes": {
+        "current": "Current 2 days",
+        "best": "Best 5 days"
+      },
+      "No phone after 11pm": {
+        "current": "Current No streak yet",
+        "best": "Best 14 days"
+      }
+    },
+    "title-1280": "Danial's Streaky Habit",
+    "after-strip-tick-1280": {
+      "current": "Current 3 days",
+      "best": "Best 5 days"
+    },
+    "today-cell-after-strip-1280": "Sat 10 Oct, 2 of 3 habits",
+    "p1-title-1280": "Tuesday 22 September",
+    "p1-cell-label-before-1280": "Tue 22 Sep, 1 of 3 habits",
+    "p1-after-tick-row-1280": "Current 4 days\nBest 13",
+    "p1-closed-by-esc-1280": true,
+    "after-p1-read-1280": {
+      "current": "Current 4 days",
+      "best": "Best 13 days"
+    },
+    "p1-cell-label-after-1280": "Tue 22 Sep, 2 of 3 habits",
+    "future-day-closed-1280": true,
+    "m1-title-1280": "Delete \"Stretch 10 minutes\"?",
+    "m1-closed-by-backdrop-1280": true,
+    "p1-closed-by-backdrop-1280": true,
+    "m1-closed-by-esc-1280": true,
+    "reduced-motion-run-arcs-visible": true
+  },
+  "contrast": {
+    "ink on bg (body text)": {
+      "fg": "#EDEEF0",
+      "bg": "#18191C",
+      "ratio": 15.14
+    },
+    "ink on surface (habit names)": {
+      "fg": "#EDEEF0",
+      "bg": "#212226",
+      "ratio": 13.69
+    },
+    "ink on surface-2 (dialog)": {
+      "fg": "#EDEEF0",
+      "bg": "#2A2B30",
+      "ratio": 12.17
+    },
+    "ink-soft on bg (date)": {
+      "fg": "#A8ABB2",
+      "bg": "#18191C",
+      "ratio": 7.64
+    },
+    "ink-soft on surface (labels, grid numbers)": {
+      "fg": "#A8ABB2",
+      "bg": "#212226",
+      "ratio": 6.91
+    },
+    "ink-soft on surface-2 (dialog body)": {
+      "fg": "#A8ABB2",
+      "bg": "#2A2B30",
+      "ratio": 6.14
+    },
+    "amber on bg (accent)": {
+      "fg": "#FFB020",
+      "bg": "#18191C",
+      "ratio": 9.61
+    },
+    "amber on surface (Current number, done ring)": {
+      "fg": "#FFB020",
+      "bg": "#212226",
+      "ratio": 8.69
+    },
+    "amber on surface-2 (Current in the editor)": {
+      "fg": "#FFB020",
+      "bg": "#2A2B30",
+      "ratio": 7.72
+    },
+    "on-amber on amber (Add, done day number)": {
+      "fg": "#18191C",
+      "bg": "#FFB020",
+      "ratio": 9.61
+    },
+    "on-amber on amber-hover": {
+      "fg": "#18191C",
+      "bg": "#FFC24F",
+      "ratio": 10.95
+    },
+    "on-amber on danger (Delete habit)": {
+      "fg": "#18191C",
+      "bg": "#FF6B66",
+      "ratio": 6.32
+    },
+    "danger on bg (field error)": {
+      "fg": "#FF6B66",
+      "bg": "#18191C",
+      "ratio": 6.32
+    },
+    "ring on surface (not-done outline, 3:1)": {
+      "fg": "#7C7F88",
+      "bg": "#212226",
+      "ratio": 3.97
+    },
+    "ring on field (input border, 3:1)": {
+      "fg": "#7C7F88",
+      "bg": "#121316",
+      "ratio": 4.64
+    },
+    "ring on surface-2 (tick outline, 3:1)": {
+      "fg": "#7C7F88",
+      "bg": "#2A2B30",
+      "ratio": 3.53
+    },
+    "focus on bg": {
+      "fg": "#EDEEF0",
+      "bg": "#18191C",
+      "ratio": 15.14
+    },
+    "focus on surface": {
+      "fg": "#EDEEF0",
+      "bg": "#212226",
+      "ratio": 13.69
+    },
+    "ink on field (typed text)": {
+      "fg": "#EDEEF0",
+      "bg": "#121316",
+      "ratio": 16.0
+    }
+  },
+  "overflow_360": {
+    "k1": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "poking": []
+    },
+    "s1": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "poking": []
+    },
+    "s3": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "poking": []
+    },
+    "s4": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "poking": []
+    },
+    "p1": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "poking": []
+    }
+  },
+  "shots": [
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\k1-390.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\k1-390-full.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\k1-390-after-strip-tick.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\p1-390.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\p1-390-after-tick.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\k1-390-after-p1-tick.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\m1-390.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\proto-menu-390.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\s1-390.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\s1-390-full.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\s2-empty-390.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\s2-long-390.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\s2-dup-390.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\s3-390.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\s3-390-full.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\s4-390.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\s5-390.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\k1-360.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\k1-360-full.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\p1-360.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\p1-360-after-tick.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\m1-360.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\proto-menu-360.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\s1-360.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\s1-360-full.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\s3-360.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\s3-360-full.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\s4-360.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\k1-1280.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\k1-1280-full.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\k1-1280-after-strip-tick.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\p1-1280.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\p1-1280-after-tick.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\k1-1280-after-p1-tick.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\m1-1280.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\proto-menu-1280.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\s1-1280.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\s1-1280-full.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\s2-empty-1280.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\s2-long-1280.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\s2-dup-1280.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\s3-1280.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\s3-1280-full.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\s4-1280.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\s5-1280.png",
+    "{workspace}\\examples\\streaks\\docs\\design-explore\\v1.1.0\\round-1\\checks\\d\\focus-1280.png"
+  ]
+}
