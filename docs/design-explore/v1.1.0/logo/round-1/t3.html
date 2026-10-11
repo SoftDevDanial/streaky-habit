@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440">
+<title>Streaky Habit logo, round 1, T3 The orbit S</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%2318191C'/%3E%3Cpath fill='%23FFB020' d='M7 8.873A4 4 0 1 1 12 5H10A2 2 0 1 0 7 6.732ZM9 7.127A4 4 0 1 1 4 11H6A2 2 0 1 0 9 9.268Z'/%3E%3C/svg%3E">
+<!--
+  T3, lettermark, "The orbit S".
+  Two days in a row write the S, each day ring keeping one thick arc with its ends cut square.
+  Construction, 32 unit grid. Ring centres 16 10 and 16 22, centre line radius 6, band 4 (radii 4 and 8), so the two
+  rings touch at 16 16, the middle of the S, the way two days sit one above the other in a column of the 12 week band.
+  The top ring keeps its arc from the slit, up the left, over the top and down to 3 o'clock. The bottom ring keeps the
+  same arc turned 180 degrees about 16 16. Each arc runs 250.5 degrees.
+  Every end is cut square on its own ring's radius, like the app's butt capped segments. At the two terminals that cut
+  is level (3 and 9 o'clock). In the middle the two cuts lean 19.47 degrees (sine one third), which makes them parallel
+  and exactly 4 units apart, a slit as wide as the band. The S is point symmetric, nothing overlaps, one flat fill.
+  At 28 px the band draws 3.5 px, the weight of a done arc in the overview's 40 px rings, and the slit draws 3.5 px.
+  The 16 px favicon is the same drawing at half size (centres 8 5 and 8 11, radii 2 and 4). Its slit stands upright
+  on x 7 to 9, since the 19 degree lean is under one pixel at that size. Every straight edge and every circle extreme
+  sits on a whole pixel at 16 and 32 px. Band, slit and both openings are 2 px or more in the favicon.
+  No stroke, no gradient, no opacity in the mark. Production sources sit hidden at the end of the body.
+-->
+<style>
+:root{
+  --sheet:#0c0d10;
+  --panel:#111216;
+  --panel-line:#1d1f24;
+  --app:#18191C;
+  --amber:#FFB020;
+  --ink:#EDEEF0;
+  --ink-soft:#A8ABB2;
+  --muted:#8C9099;
+  --quiet:#737781;
+  --ring:#7C7F88;
+  --sheet-font:'Segoe UI', system-ui, sans-serif;
+  --app-font:ui-sans-serif, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+*,*::before,*::after{ box-sizing:border-box; }
+html,body{ margin:0; background:var(--sheet); }
+body{
+  width:1440px; height:900px; overflow:hidden;
+  color:var(--ink); font:400 14px/20px var(--sheet-font);
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,p,figure,figcaption,dl,dt,dd{ margin:0; }
+.sprite{ position:absolute; width:0; height:0; overflow:hidden; }
+.mk{ display:block; fill:currentColor; flex:none; }
+
+.sheet{
+  display:grid; grid-template-columns:500px 796px; column-gap:48px;
+  padding:48px; height:900px;
+}
+
+/* ---------- 1 hero ---------- */
+.hero{
+  position:relative; height:804px; border-radius:20px;
+  background:var(--panel); box-shadow:inset 0 0 0 1px var(--panel-line);
+}
+.hero-meta{
+  position:absolute; top:24px; left:28px; right:28px;
+  display:flex; justify-content:space-between;
+  font-size:12px; line-height:16px; color:var(--quiet);
+}
+/* 274 px box, so the S (28 of the 32 units tall) draws 240 px tall, centred on x 250 */
+.hero-mark{ position:absolute; left:113px; top:56px; width:274px; height:274px; color:var(--amber); }
+.hero-id{
+  position:absolute; top:344px; left:0; right:0; text-align:center;
+  font-size:20px; line-height:28px; font-weight:600; color:#C4C7CE;
+}
+.hero-id .tid{ color:var(--muted); margin-right:10px; }
+.hero-idea{
+  position:absolute; top:380px; left:48px; right:48px; text-align:center;
+  font-size:15px; line-height:23px; color:var(--muted);
+}
+.notes{
+  position:absolute; left:28px; right:28px; bottom:26px;
+  padding-top:18px; border-top:1px solid #1f2126;
+}
+.notes h3{ font-size:12px; line-height:16px; font-weight:600; color:var(--muted); margin-bottom:6px; }
+.build{
+  display:grid; grid-template-columns:60px minmax(0,1fr); column-gap:16px; align-items:start;
+  margin-bottom:16px;
+}
+.build p{ font-size:12px; line-height:18px; color:var(--quiet); }
+.cons{ display:block; width:60px; height:96px; }
+.cons .cl{ fill:none; stroke:var(--ring); stroke-width:.4; }
+.cons .cdot{ fill:var(--ring); }
+.cons .cs{ fill:var(--amber); }
+.notes dl{
+  display:grid; grid-template-columns:96px minmax(0,1fr); column-gap:14px; row-gap:4px;
+  font-size:12px; line-height:18px;
+}
+.notes dt{ color:#B9BCC3; font-weight:600; }
+.notes dd{ color:var(--quiet); }
+
+/* ---------- right column ---------- */
+.col{ display:flex; flex-direction:column; justify-content:space-between; height:804px; }
+.lbl{ font-size:12px; line-height:16px; font-weight:600; color:var(--muted); margin-bottom:12px; }
+.cap{ font-size:12px; line-height:16px; color:var(--quiet); margin-bottom:8px; }
+
+/* ---------- 2 in the app (the real header, values from system.css) ---------- */
+.app-row{ display:flex; gap:16px; }
+.pane{ height:94px; background:var(--app); border-radius:14px; box-shadow:0 0 0 1px #24262b; }
+.pane.phone{ width:360px; padding:12px 16px; }
+.pane.desk{ width:420px; padding:0 24px; display:flex; align-items:center; justify-content:space-between; }
+.top{
+  display:grid; grid-template-columns:minmax(0,1fr) auto;
+  grid-template-areas:"brand ov" "date date";
+  column-gap:12px; row-gap:6px; align-items:center;
+}
+.brand{ grid-area:brand; display:flex; align-items:center; gap:10px; min-width:0; }
+.brand .mk{ color:var(--amber); }
+.mark28{ width:28px; height:28px; }
+.mark32{ width:32px; height:32px; }
+.word{ font:700 19px/24px var(--app-font); letter-spacing:-.01em; white-space:nowrap; color:var(--ink); }
+.desk .word{ font-size:21px; }
+.date{ grid-area:date; font:400 14px/20px var(--app-font); color:var(--ink-soft); white-space:nowrap; }
+.desk .date{ font-size:16px; line-height:24px; }
+.ov-btn{
+  grid-area:ov; height:44px; padding:0 14px 0 8px; border-radius:10px;
+  border:1.5px solid var(--ring); color:var(--ink);
+  display:inline-flex; align-items:center; gap:8px;
+  font:600 15px/1 var(--app-font); white-space:nowrap;
+}
+.ov-ring{ width:28px; height:28px; display:block; overflow:visible; }
+/* the app's UI ring (one of three habits done), drawn the app's way. Not the mark */
+.seg{ fill:none; stroke:var(--ring); stroke-width:1.5; }
+.seg.on{ stroke:var(--amber); stroke-width:3.5; }
+
+/* ---------- 3 legibility, every box on a whole pixel ---------- */
+.legi{ position:relative; height:176px; background:var(--app); border-radius:16px; box-shadow:0 0 0 1px #24262b; }
+.legi .mk{ position:absolute; color:var(--amber); }
+.legi .rule{ position:absolute; left:440px; top:24px; width:1px; height:128px; background:#2a2c32; }
+.legi .plate{ position:absolute; left:496px; top:24px; width:256px; height:96px; border-radius:12px; background:#2A2B30; }
+.legi .tile{ position:absolute; display:block; }
+.legi .px{
+  position:absolute; top:134px; text-align:center;
+  font-size:12px; line-height:16px; color:var(--quiet);
+}
+
+/* ---------- 4 swatches ---------- */
+.sw{ display:grid; grid-template-columns:390px 390px; grid-auto-rows:160px; gap:16px; }
+.card{ position:relative; border-radius:16px; display:flex; align-items:center; justify-content:center; }
+.card .cc{ position:absolute; top:14px; left:16px; font-size:12px; line-height:16px; }
+.c-dark{ background:#15171c; box-shadow:0 0 0 1px #22242a; }
+.c-dark .cc{ color:var(--quiet); }
+.c-light{ background:#f7f6f3; }
+.c-light .cc{ color:#8B877E; }
+.c-bw{ background:#ffffff; }
+.c-bw .cc{ color:#8A8A8A; }
+.c-wb{ background:#000000; box-shadow:0 0 0 1px #22242a; }
+.c-wb .cc{ color:#6A6A6A; }
+/* the header lockup scaled, mark 44 and word 30 keep the 28 to 19 ratio and the 10 px gap grows to 16 */
+.lockup{ display:flex; align-items:center; gap:16px; }
+.lockup .mk{ width:44px; height:44px; }
+.lockup .w{ font:700 30px/36px var(--app-font); letter-spacing:-.01em; white-space:nowrap; }
+.c-dark .mk{ color:var(--amber); }
+.c-dark .w{ color:var(--ink); }
+.c-light .mk{ color:#9A5B00; }
+.c-light .w{ color:#1C2523; }
+.solo{ width:88px; height:88px; }
+.c-bw .solo{ color:#000000; }
+.c-wb .solo{ color:#ffffff; }
+</style>
+</head>
+<body>
+
+<svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
+  <defs>
+    <!-- the mark, byte for byte the path in #mark-src -->
+    <path id="m" d="M13.333 17.542A8 8 0 1 1 24 10H20A4 4 0 1 0 14.667 13.771ZM18.667 14.458A8 8 0 1 1 8 22H12A4 4 0 1 0 17.333 18.229Z"/>
+    <!-- the favicon tile, byte for byte the content of #favicon-src -->
+    <g id="fv"><rect width="16" height="16" fill="#18191C"/><path fill="#FFB020" d="M7 8.873A4 4 0 1 1 12 5H10A2 2 0 1 0 7 6.732ZM9 7.127A4 4 0 1 1 4 11H6A2 2 0 1 0 9 9.268Z"/></g>
+    <!-- the app's three habit arcs, from today.html, for the Overview button only -->
+    <path id="a3-0" d="M22.86 5.28A15 15 0 0 1 34.18 24.88"/>
+    <path id="a3-1" d="M31.32 29.84A15 15 0 0 1 8.68 29.84"/>
+    <path id="a3-2" d="M5.82 24.88A15 15 0 0 1 17.14 5.28"/>
+  </defs>
+</svg>
+
+<main class="sheet">
+
+  <!-- 1 hero -->
+  <section class="hero" aria-labelledby="hero-id">
+    <div class="hero-meta"><span>Streaky Habit logo, round 1</span><span>Lettermark</span></div>
+    <svg class="mk hero-mark" viewBox="0 0 32 32" role="img" aria-label="Streaky Habit mark, T3"><use href="#m"/></svg>
+    <h1 class="hero-id" id="hero-id"><span class="tid">T3</span>The orbit S</h1>
+    <p class="hero-idea">Two days in a row write the S, each day ring keeping one thick arc with its ends cut square.</p>
+
+    <div class="notes">
+      <h3>Construction</h3>
+      <div class="build">
+        <svg class="cons" viewBox="6 0 20 32" aria-hidden="true" focusable="false">
+          <circle class="cl" cx="16" cy="10" r="6"/>
+          <circle class="cl" cx="16" cy="22" r="6"/>
+          <use class="cs" href="#m"/>
+          <circle class="cdot" cx="16" cy="10" r=".5"/>
+          <circle class="cdot" cx="16" cy="22" r=".5"/>
+        </svg>
+        <p>Two rings, centre line radius 6, band 4, touching at the middle, stacked like two days in one column of the band. Each keeps 250° of arc, cut square on its own radius, so the slit where they meet is 4 units, as wide as the band. At 28 px the band is 3.5 px, the weight of a done arc in the 12 week band. The 16 px tile halves it on whole pixels.</p>
+      </div>
+      <h3>Pressure tests</h3>
+      <dl>
+        <dt>A dollar sign</dt><dd>No bar crosses it, the break is inside the spine.</dd>
+        <dt>A snake</dt><dd>Two even circles, square ends, no head, no taper.</dd>
+        <dt>A yin-yang</dt><dd>No outer circle, no dots, each arc runs 250°.</dd>
+        <dt>The number 5</dt><dd>Closest call at 16 px. A round arch, not a flat bar, and its right end drops to the equator.</dd>
+        <dt>A 2 or an 8</dt><dd>No flat base, and three openings never close.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <div class="col">
+
+    <!-- 2 in the app -->
+    <section aria-labelledby="h-app">
+      <h2 class="lbl" id="h-app">In the app</h2>
+      <div class="app-row">
+        <figure>
+          <figcaption class="cap">Phone header, mark 28 px</figcaption>
+          <div class="pane phone">
+            <div class="top">
+              <div class="brand">
+                <svg class="mk mark28" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#m"/></svg>
+                <span class="word">Streaky Habit</span>
+              </div>
+              <span class="ov-btn"><svg class="ov-ring" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><use class="seg on" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg" href="#a3-2"/></svg>Overview</span>
+              <span class="date">Saturday 10 October</span>
+            </div>
+          </div>
+        </figure>
+        <figure>
+          <figcaption class="cap">On a desktop, mark 32 px</figcaption>
+          <div class="pane desk">
+            <div class="brand">
+              <svg class="mk mark32" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#m"/></svg>
+              <span class="word">Streaky Habit</span>
+            </div>
+            <span class="date">Saturday 10 October</span>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 3 legibility -->
+    <section aria-labelledby="h-legi">
+      <h2 class="lbl" id="h-legi">Legibility</h2>
+      <div class="legi">
+        <svg class="mk" viewBox="0 0 32 32" style="left:40px;top:24px;width:96px;height:96px" aria-hidden="true" focusable="false"><use href="#m"/></svg>
+        <svg class="mk" viewBox="0 0 32 32" style="left:184px;top:48px;width:48px;height:48px" aria-hidden="true" focusable="false"><use href="#m"/></svg>
+        <svg class="mk" viewBox="0 0 32 32" style="left:284px;top:58px;width:28px;height:28px" aria-hidden="true" focusable="false"><use href="#m"/></svg>
+        <svg class="mk" viewBox="0 0 32 32" style="left:364px;top:63px;width:18px;height:18px" aria-hidden="true" focusable="false"><use href="#m"/></svg>
+        <span class="rule" aria-hidden="true"></span>
+        <span class="plate" aria-hidden="true"></span>
+        <svg class="tile" width="32" height="32" viewBox="0 0 16 16" style="left:548px;top:56px" aria-hidden="true" focusable="false"><use href="#fv"/></svg>
+        <svg class="tile" width="16" height="16" viewBox="0 0 16 16" style="left:676px;top:64px" aria-hidden="true" focusable="false"><use href="#fv"/></svg>
+        <span class="px" style="left:48px;width:80px">96 px</span>
+        <span class="px" style="left:168px;width:80px">48 px</span>
+        <span class="px" style="left:258px;width:80px">28 px</span>
+        <span class="px" style="left:333px;width:80px">18 px</span>
+        <span class="px" style="left:509px;width:110px">Favicon 32 px</span>
+        <span class="px" style="left:629px;width:110px">Favicon 16 px</span>
+      </div>
+    </section>
+
+    <!-- 4 swatches -->
+    <section aria-labelledby="h-sw">
+      <h2 class="lbl" id="h-sw">Swatches</h2>
+      <div class="sw">
+        <div class="card c-dark">
+          <span class="cc">On dark #15171C</span>
+          <div class="lockup">
+            <svg class="mk" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#m"/></svg>
+            <span class="w">Streaky Habit</span>
+          </div>
+        </div>
+        <div class="card c-light">
+          <span class="cc">On light #F7F6F3, mark #9A5B00</span>
+          <div class="lockup">
+            <svg class="mk" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#m"/></svg>
+            <span class="w">Streaky Habit</span>
+          </div>
+        </div>
+        <div class="card c-bw">
+          <span class="cc">Pure black on white</span>
+          <svg class="mk solo" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#m"/></svg>
+        </div>
+        <div class="card c-wb">
+          <span class="cc">Pure white on black</span>
+          <svg class="mk solo" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#m"/></svg>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<!-- production sources, lift these as they are -->
+<svg id="mark-src" viewBox="0 0 32 32" aria-hidden="true" style="display:none"><path fill="currentColor" d="M13.333 17.542A8 8 0 1 1 24 10H20A4 4 0 1 0 14.667 13.771ZM18.667 14.458A8 8 0 1 1 8 22H12A4 4 0 1 0 17.333 18.229Z"/></svg>
+<svg id="favicon-src" viewBox="0 0 16 16" style="display:none"><rect width="16" height="16" fill="#18191C"/><path fill="#FFB020" d="M7 8.873A4 4 0 1 1 12 5H10A2 2 0 1 0 7 6.732ZM9 7.127A4 4 0 1 1 4 11H6A2 2 0 1 0 9 9.268Z"/></svg>
+
+</body>
+</html>
