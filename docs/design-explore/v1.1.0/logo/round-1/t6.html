@@ -10,8 +10,8 @@
   Three done beads on one thick thread that turns a corner (top left, top right, bottom left), today's open bead in the
   bottom right corner, not strung, and one thick arc concentric with the top left bead, from 9 to 12 o'clock.
   Master (mark-src), 28 unit grid, 1 unit per pixel of the 28 px header. Bead 9 (centres 9.5 and 22.5), thread 5,
-  bead gaps 4, open ring 2 round a 5 hole. Arc radii 6.5 and 9.5, so gap 2 and band 3, ends cut square on the bead's
-  axes like the app's butt ended ring segments. Mark spans 0 to 27, moved half a unit up and left of centre.
+  bead gaps 4, open ring 2 round a 5 hole. Arc radii 6.5 and 9.5, so gap 2 and band 3, ends cut square half a unit
+  past the bead's axes (whole pixels at 28) like the app's butt ended ring segments. Mark spans 0 to 27, moved half a unit up and left of centre.
   Small master (favicon-src), its own 16 grid. Bead 5, thread 3, gaps 2, arc gap 2, band 2, open ring 1 round a 3 hole,
   arc ends at 7 (half a pixel past the axes) so every edge is a whole pixel at 16 and 32. Mark spans 0 to 16.
   One flat fill, no stroke, no gradient, no opacity. Production sources sit at the end of the body.
@@ -158,7 +158,7 @@ h1,h2,h3,p,figure,figcaption,dl,dt,dd{ margin:0; }
 <svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
   <defs>
     <!-- the master, byte for byte the path in #mark-src (28 unit grid) -->
-    <path id="m" d="M13.24 7H18.76A4.5 4.5 0 1 1 18.76 12H13.24A4.5 4.5 0 0 1 12 13.24V18.76A4.5 4.5 0 1 1 7 18.76V13.24A4.5 4.5 0 1 1 13.24 7ZM22.5 18A4.5 4.5 0 0 1 22.5 27A4.5 4.5 0 0 1 22.5 18ZM22.5 20A2.5 2.5 0 0 0 22.5 25A2.5 2.5 0 0 0 22.5 20ZM0 9.5A9.5 9.5 0 0 1 9.5 0V3A6.5 6.5 0 0 0 3 9.5Z"/>
+    <path id="m" d="M13.24 7H18.76A4.5 4.5 0 1 1 18.76 12H13.24A4.5 4.5 0 0 1 12 13.24V18.76A4.5 4.5 0 1 1 7 18.76V13.24A4.5 4.5 0 1 1 13.24 7ZM22.5 18A4.5 4.5 0 0 1 22.5 27A4.5 4.5 0 0 1 22.5 18ZM22.5 20A2.5 2.5 0 0 0 22.5 25A2.5 2.5 0 0 0 22.5 20ZM0.013 10A9.5 9.5 0 0 1 10 0.013V3.019A6.5 6.5 0 0 0 3.019 10Z"/>
     <!-- the small master, byte for byte the path in #favicon-src (16 grid) -->
     <path id="f" d="M8.5 5H11.5A2.5 2.5 0 1 1 11.5 8H8.5A2.5 2.5 0 0 1 8 8.5V11.5A2.5 2.5 0 1 1 5 11.5V8.5A2.5 2.5 0 1 1 8.5 5ZM13.5 11A2.5 2.5 0 0 1 13.5 16A2.5 2.5 0 0 1 13.5 11ZM13.5 12A1.5 1.5 0 0 0 13.5 15A1.5 1.5 0 0 0 13.5 12ZM0.02 7A6.5 6.5 0 0 1 7 0.02V2.03A4.5 4.5 0 0 0 2.03 7Z"/>
     <g id="fv"><rect width="16" height="16" fill="#18191C"/><use href="#f" fill="#FFB020"/></g>
@@ -180,7 +180,7 @@ h1,h2,h3,p,figure,figcaption,dl,dt,dd{ margin:0; }
 
     <div class="notes">
       <h3>Construction</h3>
-      <p class="build"><b>Grid.</b> 28 units, 1 unit per pixel of the 28 px header. The 1.0 build in proportion, beads 9, thread 5, gaps 4, open ring 2 round a 5 hole. <b>Ring weight.</b> The arc is concentric with the corner bead, gap 2, band 3, from 9 to 12 o'clock, ends cut square on the bead's axes like the app's segment ends. Band 3 against the open ring's 2 is the app's thick against thin. <b>Balance.</b> The 1.0 sat 2 right and 1 down of 112 because its run outweighed the open bead. The arc fills the empty top left and brings the ink's centre back to the middle, so the drawing now sits half a unit up and left, a hair above centre.</p>
+      <p class="build"><b>Grid.</b> 28 units, 1 unit per pixel of the 28 px header. The 1.0 build in proportion, beads 9, thread 5, gaps 4, open ring 2 round a 5 hole. <b>Ring weight.</b> The arc is concentric with the corner bead, gap 2, band 3, from 9 to 12 o'clock, ends cut square half a unit past the bead's axes like the app's segment ends, so they land on whole pixels. Band 3, thicker than the open ring's 2. <b>Balance.</b> The 1.0 sat 2 right and 1 down of 112 because its run outweighed the open bead. The arc fills the empty top left and brings the ink's centre back to the middle, so the drawing now sits half a unit up and left, a hair above centre.</p>
       <h3>Pressure tests</h3>
       <dl>
         <dt>Wifi, RSS</dt><dd>Closest call. One arc, never a stack, a tight gap, round a strung bead three times its band.</dd>
@@ -189,7 +189,7 @@ h1,h2,h3,p,figure,figcaption,dl,dt,dd{ margin:0; }
         <dt>Dumbbell</dt><dd>Three beads turn a corner, never two on a bar.</dd>
         <dt>Stepper</dt><dd>A stepper runs straight and strings today. This does neither.</dd>
         <dt>Tetromino</dt><dd>Round beads and an open one, no square cells.</dd>
-        <dt>r and o</dt><dd>Faint, as in 1.0, and the arc adds no letter stroke.</dd>
+        <dt>r and o</dt><dd>The same r o risk as 1.0, the arc sits where a serif r's head would.</dd>
         <dt>D at 16 px</dt><dd>Its one extra curve is a top left quarter. A D bowls right.</dd>
       </dl>
     </div>
@@ -282,7 +282,7 @@ h1,h2,h3,p,figure,figcaption,dl,dt,dd{ margin:0; }
 </main>
 
 <!-- production sources, lift these as they are. mark-src from 28 px up, favicon-src (16 grid) below 28 px and for the tab icon -->
-<svg id="mark-src" viewBox="0 0 28 28" aria-hidden="true" style="display:none"><path fill="currentColor" d="M13.24 7H18.76A4.5 4.5 0 1 1 18.76 12H13.24A4.5 4.5 0 0 1 12 13.24V18.76A4.5 4.5 0 1 1 7 18.76V13.24A4.5 4.5 0 1 1 13.24 7ZM22.5 18A4.5 4.5 0 0 1 22.5 27A4.5 4.5 0 0 1 22.5 18ZM22.5 20A2.5 2.5 0 0 0 22.5 25A2.5 2.5 0 0 0 22.5 20ZM0 9.5A9.5 9.5 0 0 1 9.5 0V3A6.5 6.5 0 0 0 3 9.5Z"/></svg>
+<svg id="mark-src" viewBox="0 0 28 28" aria-hidden="true" style="display:none"><path fill="currentColor" d="M13.24 7H18.76A4.5 4.5 0 1 1 18.76 12H13.24A4.5 4.5 0 0 1 12 13.24V18.76A4.5 4.5 0 1 1 7 18.76V13.24A4.5 4.5 0 1 1 13.24 7ZM22.5 18A4.5 4.5 0 0 1 22.5 27A4.5 4.5 0 0 1 22.5 18ZM22.5 20A2.5 2.5 0 0 0 22.5 25A2.5 2.5 0 0 0 22.5 20ZM0.013 10A9.5 9.5 0 0 1 10 0.013V3.019A6.5 6.5 0 0 0 3.019 10Z"/></svg>
 <svg id="favicon-src" viewBox="0 0 16 16" style="display:none"><rect width="16" height="16" fill="#18191C"/><path fill="#FFB020" d="M8.5 5H11.5A2.5 2.5 0 1 1 11.5 8H8.5A2.5 2.5 0 0 1 8 8.5V11.5A2.5 2.5 0 1 1 5 11.5V8.5A2.5 2.5 0 1 1 8.5 5ZM13.5 11A2.5 2.5 0 0 1 13.5 16A2.5 2.5 0 0 1 13.5 11ZM13.5 12A1.5 1.5 0 0 0 13.5 15A1.5 1.5 0 0 0 13.5 12ZM0.02 7A6.5 6.5 0 0 1 7 0.02V2.03A4.5 4.5 0 0 0 2.03 7Z"/></svg>
 
 </body>
