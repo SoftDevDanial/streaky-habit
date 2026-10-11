@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440">
+<title>Streaky Habit logo, round 1, T5 Today on its orbit</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%2318191C'/%3E%3Cpath fill='%23FFB020' d='M15 8A7 7 0 1 1 8 1A5 5 0 0 0 7.085 3.085A5 5 0 1 0 12.915 8.915A5 5 0 0 0 15 8ZM9 4A3 3 0 1 1 15 4A3 3 0 1 1 9 4Z'/%3E%3C/svg%3E">
+<!--
+  T5, pictorial reduction, "Today on its orbit".
+  One thin ring, the run of days going round, and one filled disc, today, riding on the ring's line at the upper right,
+  cut free of it by a knockout gap. The app's own language, thin for the run, filled for a day done.
+
+  Worked from the 16 px tile first, and the tile set the rule. The ring is centred on 8 8 with radii 5 to 7 (14 px wide,
+  2 px band, 1 px margin). The disc rides the ring's path at half past one and touches the ring's square at the top and
+  the right. That makes it radius 3 (6 px, three times the band) on centre 12 4, 0.34 px inside the path, so every
+  extreme lands on a whole pixel. A cut circle of radius 5 on the disc's centre removes the ring round it, so the gap is
+  2 px all round, the band's own weight. On the outer edge the cut lands exactly on 12 and 3 o'clock (8 1 and 15 8).
+  Ink x 1 to 15, y 1 to 15. The 32 px favicon is the same drawing at 2 to 1.
+
+  The master, a 28 unit grid shown through viewBox "0 0 28 28", which is the ink box, so in the 28 px header one unit
+  is one pixel and the 10 px gap to the word reads as 10 px. Same rule, thinner band. Ring centre 14 14, radii 12 to 14,
+  2 px at 28 (7 percent of its width, the app's thin side, where a done arc is 12 percent). Disc radius 5 on 23 5,
+  touching the square at top and right, 0.27 units inside the path so its four extremes sit on whole pixels at 28.
+  Cut circle radius 7, gap 2. The cut ends are arcs of that circle, so they hug the disc and the ring reads as passing
+  behind it. At 28 the cut spans about 60 degrees and the ring's 12 and 3 o'clock stay whole.
+
+  Two drawings, like a type family's optical sizes. 28 px and up use the 28 grid master. Below 28 px use the 16 grid
+  drawing at 1 to 1 or 2 to 1. The 18 px cell draws it at 1 to 1, since the master's band is 1.29 px at 18 and would blur.
+  One path, two subpaths (the cut ring and the disc), fill only, no stroke, no gradient, no opacity.
+  Production sources sit hidden at the end of the body.
+-->
+<style>
+:root{
+  --sheet:#0c0d10;
+  --panel:#111216;
+  --panel-line:#1d1f24;
+  --app:#18191C;
+  --amber:#FFB020;
+  --ink:#EDEEF0;
+  --ink-soft:#A8ABB2;
+  --muted:#8C9099;
+  --quiet:#737781;
+  --ring:#7C7F88;
+  --sheet-font:'Segoe UI', system-ui, sans-serif;
+  --app-font:ui-sans-serif, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+*,*::before,*::after{ box-sizing:border-box; }
+html,body{ margin:0; background:var(--sheet); }
+body{
+  width:1440px; height:900px; overflow:hidden;
+  color:var(--ink); font:400 14px/20px var(--sheet-font);
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,p,figure,figcaption,dl,dt,dd{ margin:0; }
+.sprite{ position:absolute; width:0; height:0; overflow:hidden; }
+.mk{ display:block; fill:currentColor; flex:none; }
+
+.sheet{
+  display:grid; grid-template-columns:500px 796px; column-gap:48px;
+  padding:48px; height:900px;
+}
+
+/* ---------- 1 hero ---------- */
+.hero{
+  position:relative; height:804px; border-radius:20px;
+  background:var(--panel); box-shadow:inset 0 0 0 1px var(--panel-line);
+}
+.hero-meta{
+  position:absolute; top:20px; left:28px; right:28px;
+  display:flex; justify-content:space-between;
+  font-size:12px; line-height:16px; color:var(--quiet);
+}
+/* 240 px box on the square ink box, centred on the ring, since the ring sets the frame and the disc stays inside its square */
+.hero-mark{ position:absolute; left:130px; top:46px; width:240px; height:240px; color:var(--amber); }
+.hero-id{
+  position:absolute; top:306px; left:0; right:0; text-align:center;
+  font-size:20px; line-height:28px; font-weight:600; color:#C4C7CE;
+}
+.hero-id .tid{ color:var(--muted); margin-right:10px; }
+.hero-idea{
+  position:absolute; top:340px; left:56px; right:56px; text-align:center;
+  font-size:15px; line-height:23px; color:var(--muted);
+}
+.notes{
+  position:absolute; left:28px; right:28px; bottom:24px;
+  padding-top:16px; border-top:1px solid #1f2126;
+}
+.notes h3{ font-size:12px; line-height:16px; font-weight:600; color:var(--muted); margin-bottom:6px; }
+.build{
+  display:grid; grid-template-columns:90px minmax(0,1fr); column-gap:14px; align-items:start;
+  margin-bottom:12px;
+}
+.build p{ font-size:12px; line-height:17px; color:var(--quiet); }
+.cons{ display:block; width:90px; height:90px; }
+.cons .cs{ fill:var(--amber); }
+.cons .cl{ fill:none; stroke:var(--ring); stroke-width:.3; }
+.cons .cl2{ fill:none; stroke:var(--ink-soft); stroke-width:.3; stroke-dasharray:.9 .6; }
+.cons .cdot{ fill:var(--ink); }
+.lead{ font-size:12px; line-height:17px; color:#9DA1A9; margin-bottom:8px; }
+.lead b{ color:#C4C7CE; font-weight:600; }
+.notes dl{
+  display:grid; grid-template-columns:104px minmax(0,1fr); column-gap:12px; row-gap:3px;
+  font-size:12px; line-height:17px;
+}
+.notes dt{ color:#B9BCC3; font-weight:600; white-space:nowrap; }
+.notes dd{ color:var(--quiet); }
+
+/* ---------- right column ---------- */
+.col{ display:flex; flex-direction:column; justify-content:space-between; height:804px; }
+.lbl{ font-size:12px; line-height:16px; font-weight:600; color:var(--muted); margin-bottom:12px; }
+.cap{ font-size:12px; line-height:16px; color:var(--quiet); margin-bottom:8px; white-space:nowrap; }
+
+/* ---------- 2 in the app (the real header, values from system.css) ---------- */
+.app-row{ display:flex; gap:16px; }
+.pane{ height:94px; background:var(--app); border-radius:14px; box-shadow:0 0 0 1px #24262b; }
+.pane.phone{ width:360px; padding:12px 16px; }
+.pane.desk{ width:420px; padding:0 24px; display:flex; align-items:center; justify-content:space-between; }
+.top{
+  display:grid; grid-template-columns:minmax(0,1fr) auto;
+  grid-template-areas:"brand ov" "date date";
+  column-gap:12px; row-gap:6px; align-items:center;
+}
+.brand{ grid-area:brand; display:flex; align-items:center; gap:10px; min-width:0; }
+.brand .mk{ color:var(--amber); }
+.mark28{ width:28px; height:28px; }
+.mark32{ width:32px; height:32px; }
+.word{ font:700 19px/24px var(--app-font); letter-spacing:-.01em; white-space:nowrap; color:var(--ink); }
+.desk .word{ font-size:21px; }
+.date{ grid-area:date; font:400 14px/20px var(--app-font); color:var(--ink-soft); white-space:nowrap; }
+.desk .date{ font-size:16px; line-height:24px; }
+.ov-btn{
+  grid-area:ov; height:44px; padding:0 14px 0 8px; border-radius:10px;
+  border:1.5px solid var(--ring); color:var(--ink);
+  display:inline-flex; align-items:center; gap:8px;
+  font:600 15px/1 var(--app-font); white-space:nowrap;
+}
+.ov-ring{ width:28px; height:28px; display:block; overflow:visible; }
+/* the app's UI ring (one of three habits done), drawn the app's way. Not the mark */
+.seg{ fill:none; stroke:var(--ring); stroke-width:1.5; }
+.seg.on{ stroke:var(--amber); stroke-width:3.5; }
+
+/* ---------- 3 legibility, every box on a whole pixel ---------- */
+.legi{ position:relative; height:176px; background:var(--app); border-radius:16px; box-shadow:0 0 0 1px #24262b; }
+.legi .mk{ position:absolute; color:var(--amber); }
+.legi .rule{ position:absolute; top:24px; width:1px; height:128px; background:#2a2c32; }
+.legi .plate{ position:absolute; left:416px; top:24px; width:216px; height:96px; border-radius:12px; background:#2A2B30; }
+.legi .tile{ position:absolute; display:block; }
+.legi .grid{ fill:none; stroke:#0c0d10; stroke-width:.1667; shape-rendering:crispEdges; }
+.legi .px{
+  position:absolute; top:134px; text-align:center;
+  font-size:12px; line-height:16px; color:var(--quiet); white-space:nowrap;
+}
+
+/* ---------- 4 swatches ---------- */
+.sw{ display:grid; grid-template-columns:390px 390px; grid-auto-rows:160px; gap:16px; }
+.card{ position:relative; border-radius:16px; display:flex; align-items:center; justify-content:center; }
+.card .cc{ position:absolute; top:14px; left:16px; font-size:12px; line-height:16px; }
+.c-dark{ background:#15171c; box-shadow:0 0 0 1px #22242a; }
+.c-dark .cc{ color:var(--quiet); }
+.c-light{ background:#f7f6f3; }
+.c-light .cc{ color:#8B877E; }
+.c-bw{ background:#ffffff; }
+.c-bw .cc{ color:#8A8A8A; }
+.c-wb{ background:#000000; box-shadow:0 0 0 1px #22242a; }
+.c-wb .cc{ color:#6A6A6A; }
+/* the header lockup scaled, mark 44 and word 30 keep the 28 to 19 ratio and the 10 px gap grows to 16 */
+.lockup{ display:flex; align-items:center; gap:16px; }
+.lockup .mk{ width:44px; height:44px; }
+.lockup .w{ font:700 30px/36px var(--app-font); letter-spacing:-.01em; white-space:nowrap; }
+.c-dark .mk{ color:var(--amber); }
+.c-dark .w{ color:var(--ink); }
+.c-light .mk{ color:#9A5B00; }
+.c-light .w{ color:#1C2523; }
+.solo{ width:88px; height:88px; }
+.c-bw .solo{ color:#000000; }
+.c-wb .solo{ color:#ffffff; }
+</style>
+</head>
+<body>
+
+<svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
+  <defs>
+    <!-- the mark, byte for byte the path in #mark-src (28 unit grid, the ink box). The cut ring, then the disc -->
+    <path id="m" d="M27.516 10.349A14 14 0 1 1 17.651 .484A7 7 0 0 0 16.552 2.275A12 12 0 1 0 25.725 11.448A7 7 0 0 0 27.516 10.349ZM18 5A5 5 0 1 1 28 5A5 5 0 1 1 18 5Z"/>
+    <!-- the 16 grid drawing, the favicon's path without its tile, for the 18 px cell -->
+    <path id="m16" d="M15 8A7 7 0 1 1 8 1A5 5 0 0 0 7.085 3.085A5 5 0 1 0 12.915 8.915A5 5 0 0 0 15 8ZM9 4A3 3 0 1 1 15 4A3 3 0 1 1 9 4Z"/>
+    <!-- the favicon tile, byte for byte the content of #favicon-src -->
+    <g id="fv"><rect width="16" height="16" fill="#18191C"/><path fill="#FFB020" d="M15 8A7 7 0 1 1 8 1A5 5 0 0 0 7.085 3.085A5 5 0 1 0 12.915 8.915A5 5 0 0 0 15 8ZM9 4A3 3 0 1 1 15 4A3 3 0 1 1 9 4Z"/></g>
+    <!-- the app's three habit arcs, from today.html, for the Overview button only -->
+    <path id="a3-0" d="M22.86 5.28A15 15 0 0 1 34.18 24.88"/>
+    <path id="a3-1" d="M31.32 29.84A15 15 0 0 1 8.68 29.84"/>
+    <path id="a3-2" d="M5.82 24.88A15 15 0 0 1 17.14 5.28"/>
+  </defs>
+</svg>
+
+<main class="sheet">
+
+  <!-- 1 hero -->
+  <section class="hero" aria-labelledby="hero-id">
+    <div class="hero-meta"><span>Streaky Habit logo, round 1</span><span>Pictorial reduction, one ring, one body</span></div>
+    <svg class="mk hero-mark" viewBox="0 0 28 28" role="img" aria-label="Streaky Habit mark, T5"><use href="#m"/></svg>
+    <h1 class="hero-id" id="hero-id"><span class="tid">T5</span>Today on its orbit</h1>
+    <p class="hero-idea">A thin ring for the run of days, and one filled disc, today, riding on its line, cut free by a gap.</p>
+
+    <div class="notes">
+      <h3>Construction</h3>
+      <div class="build">
+        <svg class="cons" viewBox="-2 -2 32 32" aria-hidden="true" focusable="false">
+          <use class="cs" href="#m"/>
+          <rect class="cl" x="0" y="0" width="28" height="28"/>
+          <circle class="cl2" cx="14" cy="14" r="13"/>
+          <circle class="cl2" cx="23" cy="5" r="7"/>
+          <path class="cl" d="M14 14L23 5"/>
+          <circle class="cdot" cx="14" cy="14" r=".7"/>
+          <circle class="cdot" cx="23" cy="5" r=".7"/>
+        </svg>
+        <p>28 unit grid. Ring radii 12 to 14, 2 px at 28. Disc radius 5 on the ring's path (dashed), touching the ring's square top and right. A circle 2 wider than the disc cuts the ring, so the gap equals the band. The 16 px tile keeps the rule, ring 2, gap 2, disc 6.</p>
+      </div>
+      <h3>Pressure tests</h3>
+      <p class="lead"><b>Not a status dot.</b> A dot flags a solid face. Here the ring is an empty track, and the disc, the heaviest form, rides centred on its line.</p>
+      <dl>
+        <dt>Badge</dt><dd>Closest look-alike. A badge clips a solid icon.</dd>
+        <dt>Avatar</dt><dd>A filled face, dot low right. Here the ring is empty.</dd>
+        <dt>Engagement ring</dt><dd>A stone crowns the band at 12. This body sits past it.</dd>
+        <dt>Planet in orbit</dt><dd>Close by design. No sun, no tilt, no ellipse.</dd>
+        <dt>Power icon</dt><dd>Its gap centres on 12 around a stem. No stem here.</dd>
+        <dt>Letter O</dt><dd>The disc stays level with the top, so it is no accent.</dd>
+        <dt>Letters Q, D</dt><dd>Clean lower right, no tail. No stem, so no D.</dd>
+        <dt>Spinner</dt><dd>At 16 px the gap is a quadrant, and the body fills it.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <div class="col">
+
+    <!-- 2 in the app -->
+    <section aria-labelledby="h-app">
+      <h2 class="lbl" id="h-app">In the app</h2>
+      <div class="app-row">
+        <figure>
+          <figcaption class="cap">Phone, mark 28 px. Its ring 2 px, the done arc 2.45 px</figcaption>
+          <div class="pane phone">
+            <div class="top">
+              <div class="brand">
+                <svg class="mk mark28" viewBox="0 0 28 28" aria-hidden="true" focusable="false"><use href="#m"/></svg>
+                <span class="word">Streaky Habit</span>
+              </div>
+              <span class="ov-btn"><svg class="ov-ring" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><use class="seg on" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg" href="#a3-2"/></svg>Overview</span>
+              <span class="date">Saturday 10 October</span>
+            </div>
+          </div>
+        </figure>
+        <figure>
+          <figcaption class="cap">On a desktop, mark 32 px</figcaption>
+          <div class="pane desk">
+            <div class="brand">
+              <svg class="mk mark32" viewBox="0 0 28 28" aria-hidden="true" focusable="false"><use href="#m"/></svg>
+              <span class="word">Streaky Habit</span>
+            </div>
+            <span class="date">Saturday 10 October</span>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 3 legibility -->
+    <section aria-labelledby="h-legi">
+      <h2 class="lbl" id="h-legi">Legibility</h2>
+      <p class="cap">Set by the 16 px tile, ring 2, gap 2, disc 6 on a 14 px ring, every extreme on a whole pixel. Below 28 px use the 16 grid.</p>
+      <div class="legi">
+        <svg class="mk" viewBox="0 0 28 28" style="left:28px;top:24px;width:96px;height:96px" aria-hidden="true" focusable="false"><use href="#m"/></svg>
+        <svg class="mk" viewBox="0 0 28 28" style="left:156px;top:48px;width:48px;height:48px" aria-hidden="true" focusable="false"><use href="#m"/></svg>
+        <svg class="mk" viewBox="0 0 28 28" style="left:236px;top:58px;width:28px;height:28px" aria-hidden="true" focusable="false"><use href="#m"/></svg>
+        <svg class="mk" viewBox="-1 -1 18 18" style="left:318px;top:63px;width:18px;height:18px" aria-hidden="true" focusable="false"><use href="#m16"/></svg>
+        <span class="rule" style="left:392px" aria-hidden="true"></span>
+        <span class="plate" aria-hidden="true"></span>
+        <svg class="tile" width="32" height="32" viewBox="0 0 16 16" style="left:452px;top:56px" aria-hidden="true" focusable="false"><use href="#fv"/></svg>
+        <svg class="tile" width="16" height="16" viewBox="0 0 16 16" style="left:572px;top:64px" aria-hidden="true" focusable="false"><use href="#fv"/></svg>
+        <span class="rule" style="left:656px" aria-hidden="true"></span>
+        <svg class="tile" width="96" height="96" viewBox="0 0 16 16" style="left:680px;top:24px" aria-hidden="true" focusable="false"><use href="#fv"/><path class="grid" d="M1 0V16M2 0V16M3 0V16M4 0V16M5 0V16M6 0V16M7 0V16M8 0V16M9 0V16M10 0V16M11 0V16M12 0V16M13 0V16M14 0V16M15 0V16M0 1H16M0 2H16M0 3H16M0 4H16M0 5H16M0 6H16M0 7H16M0 8H16M0 9H16M0 10H16M0 11H16M0 12H16M0 13H16M0 14H16M0 15H16"/></svg>
+        <span class="px" style="left:36px;width:80px">96 px</span>
+        <span class="px" style="left:140px;width:80px">48 px</span>
+        <span class="px" style="left:210px;width:80px">28 px</span>
+        <span class="px" style="left:282px;width:90px">18 px, 16 grid</span>
+        <span class="px" style="left:413px;width:110px">Favicon 32 px</span>
+        <span class="px" style="left:525px;width:110px">Favicon 16 px</span>
+        <span class="px" style="left:668px;width:120px">16 px grid at 6x</span>
+      </div>
+    </section>
+
+    <!-- 4 swatches -->
+    <section aria-labelledby="h-sw">
+      <h2 class="lbl" id="h-sw">Swatches</h2>
+      <div class="sw">
+        <div class="card c-dark">
+          <span class="cc">On dark #15171C</span>
+          <div class="lockup">
+            <svg class="mk" viewBox="0 0 28 28" aria-hidden="true" focusable="false"><use href="#m"/></svg>
+            <span class="w">Streaky Habit</span>
+          </div>
+        </div>
+        <div class="card c-light">
+          <span class="cc">On light #F7F6F3, mark #9A5B00</span>
+          <div class="lockup">
+            <svg class="mk" viewBox="0 0 28 28" aria-hidden="true" focusable="false"><use href="#m"/></svg>
+            <span class="w">Streaky Habit</span>
+          </div>
+        </div>
+        <div class="card c-bw">
+          <span class="cc">Pure black on white</span>
+          <svg class="mk solo" viewBox="0 0 28 28" aria-hidden="true" focusable="false"><use href="#m"/></svg>
+        </div>
+        <div class="card c-wb">
+          <span class="cc">Pure white on black</span>
+          <svg class="mk solo" viewBox="0 0 28 28" aria-hidden="true" focusable="false"><use href="#m"/></svg>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<!-- production sources, lift these as they are -->
+<svg id="mark-src" viewBox="0 0 28 28" aria-hidden="true" style="display:none"><path fill="currentColor" d="M27.516 10.349A14 14 0 1 1 17.651 .484A7 7 0 0 0 16.552 2.275A12 12 0 1 0 25.725 11.448A7 7 0 0 0 27.516 10.349ZM18 5A5 5 0 1 1 28 5A5 5 0 1 1 18 5Z"/></svg>
+<svg id="favicon-src" viewBox="0 0 16 16" style="display:none"><rect width="16" height="16" fill="#18191C"/><path fill="#FFB020" d="M15 8A7 7 0 1 1 8 1A5 5 0 0 0 7.085 3.085A5 5 0 1 0 12.915 8.915A5 5 0 0 0 15 8ZM9 4A3 3 0 1 1 15 4A3 3 0 1 1 9 4Z"/></svg>
+
+</body>
+</html>
