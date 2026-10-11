@@ -19,3 +19,5 @@ All seven rules in "Interaction rules I specified or carried from f2" of `final/
 
 ## The mark (USER)
 Redraw the mark with the logo-design skill. Four directions, each checked by a separate QA agent, and the owner picks one on the design board. Streaky Habit's mark grows from the orbit ring. No "Danial" and no "D" in the mark. The pick replaces the one inline `<svg class="mark">` and the tab icon's data URI in every golden, then `final/checks/check.py` runs again.
+
+**Three on the board (USER, 2026-10-11 17:40).** Five directions were drawn, T2 and T5 retired at QA (`logo/QA.md`). The owner chose to open the board with the three that passed, T1, T3 and T4, rather than draw a fourth.
