@@ -15,6 +15,8 @@ Each sheet was rendered by the orchestrator in headless Chromium at 1440 x 900 (
 
 **T6 no tile, 2026-10-11 (owner's ruling).** The orchestrator removed the `#18191C` rect from `favicon-src`, the tab icon data URI and the sprite, and shows the favicons on a dark tab (`#35363A`) and a white tab. Verified by `logo-qa`, every path byte for byte, F1 in place, nothing relied on the tile. Risks, amber on white is 1.8 to 1 so the 1 px ring and the arc go faint at 16 px, and the light card still draws the mark in `#9A5B00`, for the owner to confirm.
 
+**T6 approved, light grounds (owner, 2026-10-11 20:55).** favicon-src and the tab icon carry `<style>.fi{fill:#FFB020}@media (prefers-color-scheme:light){.fi{fill:#9A5B00}}</style>` on a `class="fi"` path (the class keeps the rule off the sheet's other paths). The sheet's white tab row shows `#9A5B00`.
+
 **T3 text fix, 2026-10-11.** The construction note said the rings touch "like two days in one column of the band", band rings never touch in the app. The orchestrator reworded it to "touching at the middle, stacked like two days in one column of the band". The geometry is unchanged.
 
 **T4 text fix, 2026-10-11.** Two pressure-test lines were wrong. "G 6 9 @ C D" claimed no hollow counter, the gap is an open counter at 12 o'clock, now "The band wraps the core on three sides, so no stem stands beside a bowl." "Snail" dismissed a snail by its missing foot, a shell reads as a snail without one, now "Closest look-alike. One lap and the square cut keep it from a shell's taper." Re-rendered at 1440 x 900. For the swap, if T4 is picked, set mark-src's viewBox to "2 2 28 28" (square, pixel-identical at 28), use favicon-src for the favicon (never mark-src at 16), and consider `.brand { gap: 8px }`.

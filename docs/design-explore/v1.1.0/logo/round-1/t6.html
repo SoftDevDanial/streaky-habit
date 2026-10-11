@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=1440">
 <title>Streaky Habit logo, round 1, T6 The thread, with today's arc</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23FFB020' d='M8.5 5H11.5A2.5 2.5 0 1 1 11.5 8H8.5A2.5 2.5 0 0 1 8 8.5V11.5A2.5 2.5 0 1 1 5 11.5V8.5A2.5 2.5 0 1 1 8.5 5ZM13.5 11A2.5 2.5 0 0 1 13.5 16A2.5 2.5 0 0 1 13.5 11ZM13.5 12A1.5 1.5 0 0 0 13.5 15A1.5 1.5 0 0 0 13.5 12ZM0.02 7A6.5 6.5 0 0 1 7 0.02V2.03A4.5 4.5 0 0 0 2.03 7Z'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cstyle%3E.fi{fill:%23FFB020}@media (prefers-color-scheme:light){.fi{fill:%239A5B00}}%3C/style%3E%3Cpath class='fi' fill='%23FFB020' d='M8.5 5H11.5A2.5 2.5 0 1 1 11.5 8H8.5A2.5 2.5 0 0 1 8 8.5V11.5A2.5 2.5 0 1 1 5 11.5V8.5A2.5 2.5 0 1 1 8.5 5ZM13.5 11A2.5 2.5 0 0 1 13.5 16A2.5 2.5 0 0 1 13.5 11ZM13.5 12A1.5 1.5 0 0 0 13.5 15A1.5 1.5 0 0 0 13.5 12ZM0.02 7A6.5 6.5 0 0 1 7 0.02V2.03A4.5 4.5 0 0 0 2.03 7Z'/%3E%3C/svg%3E">
 <!--
   T6, the owner's direction, built on the 1.0 mark (docs/brand/mark.svg). "The thread, with today's arc".
   Three done beads on one thick thread that turns a corner (top left, top right, bottom left), today's open bead in the
@@ -166,6 +166,7 @@ h1,h2,h3,p,figure,figcaption,dl,dt,dd{ margin:0; }
     <!-- the small master, byte for byte the path in #favicon-src (16 grid) -->
     <path id="f" d="M8.5 5H11.5A2.5 2.5 0 1 1 11.5 8H8.5A2.5 2.5 0 0 1 8 8.5V11.5A2.5 2.5 0 1 1 5 11.5V8.5A2.5 2.5 0 1 1 8.5 5ZM13.5 11A2.5 2.5 0 0 1 13.5 16A2.5 2.5 0 0 1 13.5 11ZM13.5 12A1.5 1.5 0 0 0 13.5 15A1.5 1.5 0 0 0 13.5 12ZM0.02 7A6.5 6.5 0 0 1 7 0.02V2.03A4.5 4.5 0 0 0 2.03 7Z"/>
     <g id="fv"><use href="#f" fill="#FFB020"/></g>
+    <g id="fvl"><use href="#f" fill="#9A5B00"/></g>
     <!-- the app's three habit arcs, from today.html, for the Overview button only -->
     <path id="a3-0" d="M22.86 5.28A15 15 0 0 1 34.18 24.88"/>
     <path id="a3-1" d="M31.32 29.84A15 15 0 0 1 8.68 29.84"/>
@@ -234,7 +235,7 @@ h1,h2,h3,p,figure,figcaption,dl,dt,dd{ margin:0; }
     <!-- 3 legibility -->
     <section aria-labelledby="h-legi">
       <h2 class="lbl" id="h-legi">Legibility</h2>
-      <p class="lnote">96, 48 and 28 px draw mark-src. At 28 every feature is 2 px or more (arc 3, its gap 2, open ring 2, hole 5, bead gaps 4), so the header needs no third drawing. Below 28 px use the 16 grid master, shown at 18 px and as the favicon. No tile, the favicon sits on the browser tab itself (owner). Amber is 6.6 to 1 on a dark tab and 1.8 to 1 on a white one, where the 1 px ring is faint. <b>The 16 px trade.</b> Arc 2, gap 2, bead 5, gap 2, bead 5 fill the 16 grid edge to edge, so the open bead stays 5 px and keeps the 1.0 favicon's 1 px ring round a 3 px hole. A bright 1 px ring still reads open, a 1 px hole would read as a fourth done bead, and every knockout stays 2 px. At 32 px the ring is 2 px. Arc ends sit half a pixel past the axes, on whole pixels.</p>
+      <p class="lnote">96, 48 and 28 px draw mark-src. At 28 every feature is 2 px or more (arc 3, its gap 2, open ring 2, hole 5, bead gaps 4), so the header needs no third drawing. Below 28 px use the 16 grid master, shown at 18 px and as the favicon. No tile, the favicon sits on the browser tab itself (owner). On a dark tab it is amber (6.6 to 1). On a light tab the file switches to dark amber #9A5B00 (about 5 to 1) through prefers-color-scheme, as on the light card (owner). <b>The 16 px trade.</b> Arc 2, gap 2, bead 5, gap 2, bead 5 fill the 16 grid edge to edge, so the open bead stays 5 px and keeps the 1.0 favicon's 1 px ring round a 3 px hole. A bright 1 px ring still reads open, a 1 px hole would read as a fourth done bead, and every knockout stays 2 px. At 32 px the ring is 2 px. Arc ends sit half a pixel past the axes, on whole pixels.</p>
       <div class="legi">
         <svg class="mk" viewBox="0 0 28 28" style="left:33px;top:26px;width:96px;height:96px" aria-hidden="true"><use href="#m"/></svg>
         <svg class="mk" viewBox="0 0 28 28" style="left:181px;top:50px;width:48px;height:48px" aria-hidden="true"><use href="#m"/></svg>
@@ -245,8 +246,8 @@ h1,h2,h3,p,figure,figcaption,dl,dt,dd{ margin:0; }
         <span class="plate lt" aria-hidden="true"></span>
         <svg class="tile" width="32" height="32" viewBox="0 0 16 16" style="left:567px;top:34px" aria-hidden="true"><use href="#fv"/></svg>
         <svg class="tile" width="16" height="16" viewBox="0 0 16 16" style="left:695px;top:42px" aria-hidden="true"><use href="#fv"/></svg>
-        <svg class="tile" width="32" height="32" viewBox="0 0 16 16" style="left:567px;top:82px" aria-hidden="true"><use href="#fv"/></svg>
-        <svg class="tile" width="16" height="16" viewBox="0 0 16 16" style="left:695px;top:90px" aria-hidden="true"><use href="#fv"/></svg>
+        <svg class="tile" width="32" height="32" viewBox="0 0 16 16" style="left:567px;top:82px" aria-hidden="true"><use href="#fvl"/></svg>
+        <svg class="tile" width="16" height="16" viewBox="0 0 16 16" style="left:695px;top:90px" aria-hidden="true"><use href="#fvl"/></svg>
         <span class="tab" style="top:43px;color:#BDC1C6">Dark</span>
         <span class="tab" style="top:91px;color:#5F6368">Light</span>
         <span class="px" style="left:31px">96 px</span>
@@ -292,7 +293,7 @@ h1,h2,h3,p,figure,figcaption,dl,dt,dd{ margin:0; }
 
 <!-- production sources, lift these as they are. mark-src from 28 px up, favicon-src (16 grid) below 28 px and for the tab icon -->
 <svg id="mark-src" viewBox="0 0 28 28" aria-hidden="true" style="display:none"><path fill="currentColor" d="M13.24 7H18.76A4.5 4.5 0 1 1 18.76 12H13.24A4.5 4.5 0 0 1 12 13.24V18.76A4.5 4.5 0 1 1 7 18.76V13.24A4.5 4.5 0 1 1 13.24 7ZM22.5 18A4.5 4.5 0 0 1 22.5 27A4.5 4.5 0 0 1 22.5 18ZM22.5 20A2.5 2.5 0 0 0 22.5 25A2.5 2.5 0 0 0 22.5 20ZM0.013 10A9.5 9.5 0 0 1 10 0.013V3.019A6.5 6.5 0 0 0 3.019 10Z"/></svg>
-<svg id="favicon-src" viewBox="0 0 16 16" style="display:none"><path fill="#FFB020" d="M8.5 5H11.5A2.5 2.5 0 1 1 11.5 8H8.5A2.5 2.5 0 0 1 8 8.5V11.5A2.5 2.5 0 1 1 5 11.5V8.5A2.5 2.5 0 1 1 8.5 5ZM13.5 11A2.5 2.5 0 0 1 13.5 16A2.5 2.5 0 0 1 13.5 11ZM13.5 12A1.5 1.5 0 0 0 13.5 15A1.5 1.5 0 0 0 13.5 12ZM0.02 7A6.5 6.5 0 0 1 7 0.02V2.03A4.5 4.5 0 0 0 2.03 7Z"/></svg>
+<svg id="favicon-src" viewBox="0 0 16 16" style="display:none"><style>.fi{fill:#FFB020}@media (prefers-color-scheme:light){.fi{fill:#9A5B00}}</style><path class="fi" fill="#FFB020" d="M8.5 5H11.5A2.5 2.5 0 1 1 11.5 8H8.5A2.5 2.5 0 0 1 8 8.5V11.5A2.5 2.5 0 1 1 5 11.5V8.5A2.5 2.5 0 1 1 8.5 5ZM13.5 11A2.5 2.5 0 0 1 13.5 16A2.5 2.5 0 0 1 13.5 11ZM13.5 12A1.5 1.5 0 0 0 13.5 15A1.5 1.5 0 0 0 13.5 12ZM0.02 7A6.5 6.5 0 0 1 7 0.02V2.03A4.5 4.5 0 0 0 2.03 7Z"/></svg>
 
 </body>
 </html>
