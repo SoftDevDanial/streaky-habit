@@ -222,3 +222,7 @@ Append-only history. STATE.md holds the situation, this file holds what happened
 ## 2026-10-11 13:01 owner's rulings on the composed set, header 12 px
 - Owner chose the recommended option on all four questions. Header 12 px applied to system.css and all nine goldens, check.py 97 of 97, `d786d25`. Copy list and interaction rules approved, small points accepted, logo marks to be redrawn.
 - RULINGS.md not written yet. His words are in HANDOFF-2026-10-11b.md.
+
+## 2026-10-11 13:33 v1.1.0 RULINGS.md written
+- docs/design-explore/v1.1.0/RULINGS.md from his four answers. Copy list and seven rules approved, header 12 px, sideways ink left, desktop day cells accepted, the mark redrawn from the orbit ring. SELF-CRITIQUE open items 1 and 2 marked ruled. check.py 97 of 97. Ledger S7 row 9.
+- docs/explain/2026-10-11-d786d25/ (an sdlc:explain run at 12:43) is untracked and was left as found.

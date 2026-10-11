@@ -1,0 +1,21 @@
+# Design rulings, Streaks v1.1.0
+
+**Date.** 2026-10-11 · **Ruled by.** the owner (**USER**), who picked the option recommended to him on each of four questions
+
+The composer listed copy, interaction rules and points the brainstorm leaves open (`final/SELF-CRITIQUE.md`). They are ruled here so the plan phase does not have to guess. 1.0's rulings (`../RULINGS.md`) still stand, the browser floor among them, unless a ruling here replaces one.
+
+## Added copy, approved (USER)
+All copy in the "Copy the brainstorm does not word" table of `final/SELF-CRITIQUE.md` is approved as written.
+
+## Interaction rules, approved (USER)
+All seven rules in "Interaction rules I specified or carried from f2" of `final/SELF-CRITIQUE.md` are approved as written.
+
+## Small points (USER)
+| # | Point | Ruling |
+|---|---|---|
+| 1 | The phone header sat 8 px from the top once the Prototype states tab was gone, f2's padding (open item 3) | 12 px, the desktop value. Applied to `system.css` and every golden (`d786d25`) |
+| 2 | Ring and bead numbers with a "1" sit up to about 1 px left of centre (`text-anchor:middle` centres the advance, not the ink). The vertical measure passes (open item 1) | Leave it. A fix would need per-glyph offsets tied to one font |
+| 3 | Desktop day cells under 44 px, P2 40 by 40 and P4 42 by 44 at 1280, P3 43.1 wide at 360, all f2 (open item 2) | Accepted. WCAG 2.5.8 (24 px) is met, and larger cells would cost the three months across |
+
+## The mark (USER)
+Redraw the mark with the logo-design skill. Four directions, each checked by a separate QA agent, and the owner picks one on the design board. Streaky Habit's mark grows from the orbit ring. No "Danial" and no "D" in the mark. The pick replaces the one inline `<svg class="mark">` and the tab icon's data URI in every golden, then `final/checks/check.py` runs again.

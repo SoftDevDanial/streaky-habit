@@ -51,8 +51,8 @@ Not visible, for the builder. Arcs are `<use>` of shared paths, ring svgs drop I
 | 3 | Writing K1's band under every popup ran the context budget down | Drew K1 without the band under P3 and P4. The orchestrator put the band back after the run, so K1 under every popup is `today.html`'s K1 |
 
 ## Open for the owner
-1. **Horizontal ink.** `text-anchor:middle` centres the advance, not the ink. Numbers with a "1" sit up to 0.83 px left in the band, 1.05 px in P3 at 390, 0.78 px in beads. The brief's measure was vertical (ink rows), and it passes. A horizontal fix needs per-glyph offsets tied to one font, so I left it.
-2. **Desktop day cells under 44.** P2 40 by 40 and P4 42 by 44 at 1280, P3 43.1 wide at 360, all f2. WCAG 2.5.8 (24 px) is met. Larger would cost the three-months-across layout.
+1. **Horizontal ink.** `text-anchor:middle` centres the advance, not the ink. Numbers with a "1" sit up to 0.83 px left in the band, 1.05 px in P3 at 390, 0.78 px in beads. The brief's measure was vertical (ink rows), and it passes. A horizontal fix needs per-glyph offsets tied to one font, so I left it. **Ruled 2026-10-11, owner, leave it.**
+2. **Desktop day cells under 44.** P2 40 by 40 and P4 42 by 44 at 1280, P3 43.1 wide at 360, all f2. WCAG 2.5.8 (24 px) is met. Larger would cost the three-months-across layout. **Ruled 2026-10-11, owner, accepted.**
 3. **Phone header at 8 px from the top** now the tab is gone. It is f2's padding. A 12 px top (the desktop value) would read calmer. **Ruled 2026-10-11, owner: 12 px.** `system.css` and every golden changed.
 
 ## Copy the brainstorm does not word (for the owner's ruling)
