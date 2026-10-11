@@ -20,7 +20,8 @@
    Changes from f2: (1) the Prototype states tab and its tokens are gone, so the header loses its "proto" area.
    (2) Ruling 1, a thin not-done segment on a hovered or open day draws in --ink-soft (5.17 on --raise, was 2.97).
    (3) Ruling 2, every ring and bead number is SVG text on the baseline at the shape's centre, dropped .352em, proportional figures.
-   (4) The last block stands in for showModal() in the static goldens and is not needed by the app. */
+   (4) The last block stands in for showModal() in the static goldens and is not needed by the app.
+   (5) Owner's ruling 2026-10-11, the app column's top padding on a phone is 12 px (f2 had 8 beside its tab). */
 :root{
   /* colour */
   --bg:#18191C;
@@ -107,7 +108,7 @@ svg.ph{ width:var(--icon); height:var(--icon); fill:currentColor; flex:none; }
   display:flex; flex-direction:column; gap:var(--s-3);
   height:100vh; height:100dvh; min-height:480px;
   max-width:640px; margin:0 auto;
-  padding:var(--s-2) var(--s-4) max(var(--s-3), env(safe-area-inset-bottom));
+  padding:var(--s-3) var(--s-4) max(var(--s-3), env(safe-area-inset-bottom));
 }
 .main{ flex:1; min-height:0; display:flex; flex-direction:column; gap:var(--s-3); }
 

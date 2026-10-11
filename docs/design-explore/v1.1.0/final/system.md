@@ -131,7 +131,7 @@ Row and P2 numbers use tabular figures so they line up. Ring and bead numbers us
 
 | Where | Value |
 |---|---|
-| App column, phone | 8 top, 16 sides (12 under 380 px), 12 bottom or the safe area |
+| App column, phone | 12 top (owner, 2026-10-11, f2 had 8), 16 sides (12 under 380 px), 12 bottom or the safe area |
 | App column, desktop | max 1040, 12 top and bottom, 24 sides |
 | Between header, band, banners, list and composer | 12 |
 | Row padding | 12 by 14 on a phone (12 under 380), 12 with 20 on the left on a desktop |
