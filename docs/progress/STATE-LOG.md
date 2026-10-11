@@ -229,3 +229,8 @@ Append-only history. STATE.md holds the situation, this file holds what happened
 
 ## 2026-10-11 15:08 logo round 1 started
 - Brief written (orbit ring, one flat fill, 28 px header and 16 px favicon slots, no D). T1 the full day passed 22 of 24. T2 another lap designing. Committed 8d35464.
+
+## 2026-10-11 20:53 Logo T6 approved and swapped
+- T6 passed QA 18 of 24, arc ends moved onto whole pixels (QA F1)
+- Owner rulings, no background or tile anywhere, 1 px favicon ring accepted, dark amber on light grounds, T6 approved
+- T6 swapped into final/ (8 goldens), check.py 97 of 97, FLOW-CHECK 49 of 49, ledger S7 row 10

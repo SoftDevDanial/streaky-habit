@@ -4,8 +4,8 @@
 - **design-phase:** sdlc:design
 - **version:** 1.1.0 (1.0.0 sealed 2026-10-10, tag v1.0.0)
 - **mode:** greenfield
-- **phase:** v1.1.0 design, logo round 1 in progress (T1 passed, T2 designing, T3 and T4 next)
-- **next:** logo round (redraw the mark from the orbit ring, four directions, QA-checked, he picks on the design board), swap the mark and favicon into every golden, rerun check.py, finalize gate (his approval AND his word to replace 1.0's goldens), then plan (sdlc 2.5.0 is installed)
+- **phase:** v1.1.0 design, logo done (T6 approved and swapped into final/), finalize gate next
+- **next:** finalize gate (step 9), ask him explicitly to approve the final set AND to replace 1.0's goldens in docs/design/ (1.0's stay in tag v1.0.0), then STATE design done, skills-loaded declaration, sdlc:plan
 - **last-regression:** PASS @ 2026-10-10 12:25 (docs/regression/REGRESSION.md)
 
 ## Modules
@@ -18,7 +18,7 @@
 none
 
 ## Next action
-Logo round 1 in docs/design-explore/v1.1.0/logo/ (BRIEF.md, QA.md, round-1/). T1 passed QA 22 of 24, with a risk to show him (it twins the live Overview ring at 28 px on a full day). T2 was still designing at 15:15. Next render and QA T2, then T3 and T4, then the board on port 4556. Details in `HANDOFF-2026-10-11c.md` at the showcase root.
+Logo round 1 closed for Streaky Habit. T6 (the 1.0 thread with one ring arc round the top left bead) passed QA 18 of 24 and the owner approved it with no tile or background, the favicon's 1 px open ring as in 1.0, and dark amber #9A5B00 on light grounds (prefers-color-scheme light in the favicon). Swapped into the eight final goldens (header mark viewBox 0 0 28 28, tab icon). check.py 97 of 97, FLOW-CHECK 49 of 49. Ledger S7 row 10. Next is the finalize gate, his explicit word before anything is copied into docs/design/. Split's logo round still runs, so ask both gates together if that is closer.
 
 ## Notes
 Goldens (immutable): docs/design/today.html (key), today-empty.html, delete-dialog.html, states.html (specimen sheet), system.md, system.css, sample-history.json, RULINGS.md.
