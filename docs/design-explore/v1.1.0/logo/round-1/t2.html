@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Streaky Habit, logo round 1, T2 Another lap</title>
+<!--
+  T2, abstract one stroke, "Another lap".
+  Construction (viewBox 120): ring centre (60,68), centre line radius 38, band 17 (outer 46.5, inner 29.5).
+  The band leaves the ring on the tangent at 27 degrees left of top (the end, on top) and joins it on the tangent
+  at 27 degrees right of top (the beginning, underneath). The two tangents cross at (60,25.35), 54 degrees apart.
+  The lower layer is cut back 4.5 units from both edges of the top layer, so it shows on both sides of the crossing.
+  Free ends run 29 units past the crossing and are cut square.
+-->
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;background:#0c0d10}
+body{width:1440px;height:900px;overflow:hidden;color:#EDEEF0;font-family:'Segoe UI',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.sheet{width:1440px;height:900px;padding:48px;display:grid;grid-template-columns:520px 776px;column-gap:48px}
+.lbl{margin:0 0 12px;font-size:12px;line-height:16px;font-weight:600;color:#8A8D95;letter-spacing:.02em}
+.mk{display:block;flex:none;fill:currentColor;color:#FFB020}
+
+/* 1 hero */
+.hero{height:804px;border-radius:20px;background:#111215;border:1px solid #1C1E23;display:flex;flex-direction:column;align-items:center;padding:28px 40px 30px}
+.hero .lbl{align-self:flex-start}
+.hero-mark{width:240px;height:240px;margin-top:160px}
+.hero-id{margin:44px 0 0;font-size:17px;line-height:24px;font-weight:600;color:#C9CBD0}
+.hero-idea{margin:8px 0 0;max-width:390px;text-align:center;font-size:15px;line-height:22px;color:#8A8D95}
+.hero-note{margin:auto 0 0;max-width:430px;text-align:center;font-size:12px;line-height:18px;color:#62656D}
+
+/* right column */
+.col{height:804px;display:flex;flex-direction:column;justify-content:space-between}
+.pair{display:flex;gap:16px;align-items:flex-start}
+.cap{margin:8px 0 0;font-size:12px;line-height:16px;color:#6E717A}
+
+/* 2 in the app, the header markup and values from final/today.html */
+.app-card{background:#18191C;border:1px solid #26282D;border-radius:14px}
+.phone{width:360px;padding:12px 16px}
+.desk{width:400px;height:94px;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.top{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"brand ov" "date date";column-gap:12px;row-gap:6px;align-items:center}
+.brand{grid-area:brand;display:flex;align-items:center;gap:10px;min-width:0}
+.m28{width:28px;height:28px}
+.m32{width:32px;height:32px}
+.word{margin:0;font-weight:700;letter-spacing:-.01em;line-height:24px;white-space:nowrap;color:#EDEEF0}
+.w19{font-size:19px}
+.w21{font-size:21px}
+.ov-btn{grid-area:ov;height:44px;padding:0 14px 0 8px;border-radius:10px;border:1.5px solid #7C7F88;background:transparent;color:#EDEEF0;display:inline-flex;align-items:center;gap:8px;font:600 15px/1 'Segoe UI',system-ui,sans-serif;white-space:nowrap}
+.ring28{width:28px;height:28px;display:block;overflow:visible;flex:none}
+.seg{fill:none;stroke:#7C7F88;stroke-width:1.5}
+.seg.on{stroke:#FFB020;stroke-width:3.5}
+.core{fill:#FFB020}
+.date{grid-area:date;font-size:14px;line-height:20px;color:#A8ABB2;white-space:nowrap}
+.desk .date{font-size:16px}
+.twin{margin-top:14px;height:64px;padding:0 20px;display:flex;align-items:center;gap:22px}
+.tw{display:flex;align-items:center;gap:8px;font-size:12px;line-height:16px;color:#A8ABB2;white-space:nowrap}
+.tw-rule{width:1px;height:28px;background:#2E3036}
+.tw-note{font-size:12px;line-height:17px;color:#6E717A}
+
+/* 3 legibility */
+.legi{height:176px;padding:0 32px 18px;display:flex;align-items:flex-end;gap:44px}
+.lg{display:flex;flex-direction:column;align-items:center;gap:12px}
+.lg span{font-size:11px;line-height:14px;color:#8A8D95;white-space:nowrap}
+.m96{width:96px;height:96px}
+.m48{width:48px;height:48px}
+.m18{width:18px;height:18px}
+.lg-rule{width:1px;height:96px;background:#2A2C31;margin-bottom:26px}
+.fav{display:block;shape-rendering:crispEdges}
+
+/* 4 swatches */
+.sw-row{display:grid;grid-template-columns:250px 250px 120px 120px;gap:12px}
+.sw{height:168px;border-radius:14px;display:flex;align-items:center;justify-content:center}
+.sw.dark{background:#15171c;border:1px solid #23252B}
+.sw.light{background:#f7f6f3}
+.sw.bw{background:#FFFFFF}
+.sw.wb{background:#000000;border:1px solid #23252B}
+.lock{display:flex;align-items:center;gap:12px}
+.m36{width:36px;height:36px}
+.w24{font-size:24px;line-height:30px}
+.light .mk{color:#9A5B00}
+.light .word{color:#1C2523}
+.bw .mk{color:#000000}
+.wb .mk{color:#FFFFFF}
+.m64{width:64px;height:64px}
+.sw-caps{display:grid;grid-template-columns:250px 250px 120px 120px;gap:12px}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="mk" viewBox="0 0 120 120"><path d="M64.96 37.42L83.58 27.92A46.5 46.5 0 1 1 38.89 26.57L81.98 4.61L89.7 19.76L46.61 41.72A29.5 29.5 0 1 0 73.39 41.72ZM38.02 4.61L55.04 13.29L36.32 22.83L30.3 19.76Z"/></symbol>
+    <symbol id="fv" viewBox="0 0 16 16"><rect width="16" height="16" fill="#18191C"/><path fill="#FFB020" d="M10 1H12V3H10V4H8V5H6V6H5V7H4V11H5V12H6V13H10V12H11V11H12V7H11V6H10V5H11V4H12V5H13V7H14V11H13V13H12V14H10V15H6V14H4V13H3V11H2V7H3V5H4V4H6V3H8V2H10ZM3 1H5V3H3Z"/></symbol>
+    <!-- the app's own ring segments (final/today.html, a3-0 to a3-2), used only to show the live Overview ring -->
+    <path id="a0" d="M22.86 5.28A15 15 0 0 1 34.18 24.88"/>
+    <path id="a1" d="M31.32 29.84A15 15 0 0 1 8.68 29.84"/>
+    <path id="a2" d="M5.82 24.88A15 15 0 0 1 17.14 5.28"/>
+  </defs>
+</svg>
+
+<main class="sheet">
+
+  <section class="hero" aria-labelledby="h-hero">
+    <h2 class="lbl" id="h-hero">Hero</h2>
+    <svg class="mk hero-mark" viewBox="0 0 120 120" role="img" aria-label="Streaky Habit mark, T2 Another lap"><use href="#mk"/></svg>
+    <p class="hero-id">T2 &middot; Another lap</p>
+    <p class="hero-idea">One thick band runs a whole lap and keeps going, so its end crosses over its own start.</p>
+    <p class="hero-note">Pressure tested against a power icon, a refresh arrow, a coiled spring, the letters O and Q and an awareness ribbon. The ribbon is the closest call. Here the loop stays a full round circle and the two short ends splay out above it, so nothing pinches and nothing hangs.</p>
+  </section>
+
+  <div class="col">
+
+    <section aria-labelledby="h-app">
+      <h2 class="lbl" id="h-app">In the app</h2>
+      <div class="pair">
+        <div>
+          <div class="app-card phone">
+            <div class="top">
+              <div class="brand">
+                <svg class="mk m28" viewBox="0 0 120 120" aria-hidden="true"><use href="#mk"/></svg>
+                <h1 class="word w19">Streaky Habit</h1>
+              </div>
+              <span class="ov-btn"><svg class="ring28" viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a0"/><use class="seg" href="#a1"/><use class="seg" href="#a2"/></svg>Overview</span>
+              <span class="date">Saturday 10 October</span>
+            </div>
+          </div>
+          <p class="cap">Phone header, mark 28 px with the live Overview ring 28 px beside it</p>
+        </div>
+        <div>
+          <div class="app-card desk">
+            <div class="brand">
+              <svg class="mk m32" viewBox="0 0 120 120" aria-hidden="true"><use href="#mk"/></svg>
+              <span class="word w21">Streaky Habit</span>
+            </div>
+            <span class="date">Saturday 10 October</span>
+          </div>
+          <p class="cap">Desktop header, mark 32 px, word 21 px</p>
+        </div>
+      </div>
+      <div class="app-card twin">
+        <span class="tw"><svg class="mk m28" viewBox="0 0 120 120" aria-hidden="true"><use href="#mk"/></svg>Mark</span>
+        <span class="tw-rule"></span>
+        <span class="tw"><svg class="ring28" viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a0"/><use class="seg" href="#a1"/><use class="seg" href="#a2"/></svg>Today, 1 of 3</span>
+        <span class="tw"><svg class="ring28" viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a0"/><use class="seg on" href="#a1"/><use class="seg on" href="#a2"/><circle class="core" cx="20" cy="20" r="11.5"/></svg>Full day</span>
+        <span class="tw-rule"></span>
+        <span class="tw-note">Twin check at 28 px. The mark is one heavy band with a crossing on top. The live ring is thin, split in three and never crosses itself.</span>
+      </div>
+    </section>
+
+    <section aria-labelledby="h-legi">
+      <h2 class="lbl" id="h-legi">Legibility</h2>
+      <div class="app-card legi">
+        <div class="lg"><svg class="mk m96" viewBox="0 0 120 120" aria-hidden="true"><use href="#mk"/></svg><span>96 px</span></div>
+        <div class="lg"><svg class="mk m48" viewBox="0 0 120 120" aria-hidden="true"><use href="#mk"/></svg><span>48 px</span></div>
+        <div class="lg"><svg class="mk m28" viewBox="0 0 120 120" aria-hidden="true"><use href="#mk"/></svg><span>28 px</span></div>
+        <div class="lg"><svg class="mk m18" viewBox="0 0 120 120" aria-hidden="true"><use href="#mk"/></svg><span>18 px</span></div>
+        <span class="lg-rule"></span>
+        <div class="lg"><svg class="fav" width="32" height="32" viewBox="0 0 16 16" aria-hidden="true"><use href="#fv"/></svg><span>Favicon 32 px</span></div>
+        <div class="lg"><svg class="fav" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><use href="#fv"/></svg><span>Favicon 16 px</span></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="h-sw">
+      <h2 class="lbl" id="h-sw">Swatches</h2>
+      <div class="sw-row">
+        <div class="sw dark"><div class="lock"><svg class="mk m36" viewBox="0 0 120 120" aria-hidden="true"><use href="#mk"/></svg><span class="word w24">Streaky Habit</span></div></div>
+        <div class="sw light"><div class="lock"><svg class="mk m36" viewBox="0 0 120 120" aria-hidden="true"><use href="#mk"/></svg><span class="word w24">Streaky Habit</span></div></div>
+        <div class="sw bw"><svg class="mk m64" viewBox="0 0 120 120" aria-hidden="true"><use href="#mk"/></svg></div>
+        <div class="sw wb"><svg class="mk m64" viewBox="0 0 120 120" aria-hidden="true"><use href="#mk"/></svg></div>
+      </div>
+      <div class="sw-caps">
+        <p class="cap">Dark card #15171c, mark #FFB020</p>
+        <p class="cap">Light card #f7f6f3, mark #9A5B00</p>
+        <p class="cap">Black on white</p>
+        <p class="cap">White on black</p>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<!-- production sources, lift these as they are -->
+<svg id="mark-src" viewBox="0 0 120 120" aria-hidden="true" hidden><path fill="currentColor" d="M64.96 37.42L83.58 27.92A46.5 46.5 0 1 1 38.89 26.57L81.98 4.61L89.7 19.76L46.61 41.72A29.5 29.5 0 1 0 73.39 41.72ZM38.02 4.61L55.04 13.29L36.32 22.83L30.3 19.76Z"/></svg>
+<svg id="favicon-src" viewBox="0 0 16 16" aria-hidden="true" hidden><rect width="16" height="16" fill="#18191C"/><path fill="#FFB020" shape-rendering="crispEdges" d="M10 1H12V3H10V4H8V5H6V6H5V7H4V11H5V12H6V13H10V12H11V11H12V7H11V6H10V5H11V4H12V5H13V7H14V11H13V13H12V14H10V15H6V14H4V13H3V11H2V7H3V5H4V4H6V3H8V2H10ZM3 1H5V3H3Z"/></svg>
+
+</body>
+</html>
