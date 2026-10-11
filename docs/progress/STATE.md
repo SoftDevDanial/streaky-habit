@@ -4,8 +4,8 @@
 - **design-phase:** sdlc:design
 - **version:** 1.1.0 (1.0.0 sealed 2026-10-10, tag v1.0.0)
 - **mode:** greenfield
-- **phase:** v1.1.0 design, step 7 wired and verified (FLOW-CHECK 49 of 49), owner's rulings next
-- **next:** owner rules on the composer's copy list, seven interaction rules and three open points (v1.1.0/RULINGS.md), logo redraw swapped in, finalize gate (his approval AND his word to replace 1.0's goldens), then plan
+- **phase:** v1.1.0 design, step 7 done, owner's rulings given 2026-10-11, RULINGS.md and logo round next
+- **next:** write v1.1.0/RULINGS.md (his four answers), logo round (redraw the mark, four directions, he picks), swap the mark in, finalize gate (his approval AND his word to replace 1.0's goldens), install sdlc 2.5.0 (his yes), then plan
 - **last-regression:** PASS @ 2026-10-10 12:25 (docs/regression/REGRESSION.md)
 
 ## Modules
@@ -18,7 +18,7 @@
 none
 
 ## Next action
-Step 7 done. `docs/design-explore/v1.1.0/FLOW-CHECK.md` 49 of 49 links, zero errors, prototype in `v1.1.0/prototype/`. Orchestrator fixes in final/ (ledger S7 rows 7 and 8). K1 under P3 and P4 is today.html's K1 with its band, states.html inlines system.css, the Overview button's name is an aria-label (Chromium read "Overview , today ..."). check.py 97 of 97. Next, put SELF-CRITIQUE's copy list, its seven interaction rules and three open points (horizontal ink of numbers with a "1" up to 1.05 px left, desktop day cells under 44 px inherited from f2, the phone header top at 8 px) to the owner and record his answers in `docs/design-explore/v1.1.0/RULINGS.md`. Then logo redraw ("Streaky Habit", swap the one inline mark svg and the favicon), then the finalize gate.
+Owner answered all four on 2026-10-11 (recommended option each). Phone header 12 px, done (`d786d25`). Copy list and seven interaction rules approved as written. Horizontal ink, desktop day cells under 44 and the rest accepted. Logo, redraw the mark. Next, write `docs/design-explore/v1.1.0/RULINGS.md` from his words (in `HANDOFF-2026-10-11b.md` at the showcase root), then the logo round, then the finalize gate.
 
 ## Notes
 Goldens (immutable): docs/design/today.html (key), today-empty.html, delete-dialog.html, states.html (specimen sheet), system.md, system.css, sample-history.json, RULINGS.md.

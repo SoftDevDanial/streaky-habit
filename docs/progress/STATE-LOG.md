@@ -218,3 +218,7 @@ Append-only history. STATE.md holds the situation, this file holds what happened
 - Orchestrator fixed the composer's two shortcuts (`2b7b712`). overview.html and overview-year.html draw today.html's K1 with its band, states.html inlines system.css byte for byte, check.py asserts it. 97 of 97.
 - flowcheck_v.py streaks v1.1.0 first run 27 of 29. One golden defect, Chromium's own tree read the Overview button as "Overview , today 1 of 3 habits done" (hidden span next to a flex item). Fixed with aria-label, nothing visible changed. One helper defect, it clicked an inert Close under P1. Helper now skips inert matches, clicks radios through labels, matches raw clicks by point, runs width-less links at 360, 390 and 1280.
 - Second run 49 of 49, zero errors. FLOW-CHECK.md and prototype/ written. Ledger S7 rows 7 and 8.
+
+## 2026-10-11 13:01 owner's rulings on the composed set, header 12 px
+- Owner chose the recommended option on all four questions. Header 12 px applied to system.css and all nine goldens, check.py 97 of 97, `d786d25`. Copy list and interaction rules approved, small points accepted, logo marks to be redrawn.
+- RULINGS.md not written yet. His words are in HANDOFF-2026-10-11b.md.
