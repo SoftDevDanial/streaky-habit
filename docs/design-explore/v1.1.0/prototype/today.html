@@ -1,0 +1,660 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Danial's Streaky Habit</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 112 112'%3E%3Cpath fill='%23FFB020' d='M46 17H70A20 20 0 1 1 70 41H46A20 20 0 0 1 42 45V69A20 20 0 1 1 18 69V45A20 20 0 1 1 46 17ZM86 65A20 20 0 0 1 86 105A20 20 0 0 1 86 65ZM86 73A12 12 0 0 0 86 97A12 12 0 0 0 86 73Z'/%3E%3C/svg%3E">
+<!--
+  Golden K1, the key screen. Danial's Streaky Habit v1.1.0, today Saturday 10 October 2026.
+  Three habits from sample-history.json, the overview band (1024 px and up) or the Overview button (below), the add field.
+  Static, no script. The style block is system.css byte for byte.
+  Icons: Phosphor Icons (MIT), x, plus, trash (regular), check (bold). The mark is docs/brand/mark.svg in one inline svg.
+-->
+<style>
+/* Danial's Streaky Habit v1.1.0, the locked design system (sdlc:design step 5).
+   Source: round-2/f2.html ("Orbit List, revised"), every value unchanged except where a compose ruling says so.
+   Every golden inlines this file byte for byte. Read system.md for the roles, the contrast table and the rules.
+   Changes from f2: (1) the Prototype states tab and its tokens are gone, so the header loses its "proto" area.
+   (2) Ruling 1, a thin not-done segment on a hovered or open day draws in --ink-soft (5.17 on --raise, was 2.97).
+   (3) Ruling 2, every ring and bead number is SVG text on the baseline at the shape's centre, dropped .352em, proportional figures.
+   (4) The last block stands in for showModal() in the static goldens and is not needed by the app. */
+:root{
+  /* colour */
+  --bg:#18191C;
+  --surface:#212226;
+  --surface-2:#2A2B30;
+  --raise:#35373D;
+  --field:#121316;
+  --line:#33353B;
+  --track:#4A4C53;
+  --ring:#7C7F88;
+  --ink:#EDEEF0;
+  --ink-soft:#A8ABB2;
+  --closed:#5C5E66;
+  --amber:#FFB020;
+  --amber-hover:#FFC24F;
+  --on-amber:#18191C;
+  --amber-wash:rgba(255,176,32,.09);
+  --danger:#FF6B66;
+  --danger-hover:#FF8D89;
+  --scrim:rgba(10,11,13,.74);
+  --scrim-soft:rgba(10,11,13,.52);
+  --focus:#EDEEF0;
+  --shadow-dlg:0 24px 64px rgba(6,7,9,.55), 0 2px 8px rgba(6,7,9,.4);
+  --fade-top:linear-gradient(#212226 20%, rgba(33,34,38,0));
+  --fade-bot:linear-gradient(rgba(33,34,38,0), #212226 80%);
+
+  /* type */
+  --font:ui-sans-serif, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --t-2xs:11px;
+  --t-xs:12px;
+  --t-sm:14px;
+  --t-btn:15px;
+  --t-md:16px;
+  --t-lg:17px;
+  --t-xl:19px;
+  --t-ov:16px;      /* overview day numbers */
+  --t-stat:22px;    /* Current and Best on a row */
+  --t-cur-lg:34px;  /* Current in the year view */
+  --t-best-lg:26px; /* Best in the year view */
+
+  /* space */
+  --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:20px; --s-6:24px; --s-7:32px; --s-8:40px;
+
+  /* shape: controls 10, containers 16, sheets 20, round things are circles */
+  --r-ctl:10px;
+  --r-card:16px;
+  --r-sheet:20px;
+  --r-round:50%;
+
+  /* size */
+  --hit:44px;
+  --ctl-h:48px;
+  --icon:20px;
+  --app-max:1040px;
+  --ov-ring:40px;
+  --ov-cell-h:44px;
+  --yc:44px;        /* year view day cell, phone */
+  --bead:36px;
+
+  /* motion */
+  --dur-press:120ms;
+  --dur:170ms;
+  --dur-enter:220ms;
+  --ease:cubic-bezier(.2,0,0,1);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+html{ background:var(--bg); -webkit-text-size-adjust:100%; }
+html:has(dialog[open]){ overflow:hidden; }
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font:400 var(--t-md)/24px var(--font);
+  -webkit-font-smoothing:antialiased;
+}
+button,input{ font:inherit; color:inherit; }
+button{ -webkit-tap-highlight-color:transparent; }
+:focus-visible{ outline:2px solid var(--focus); outline-offset:2px; }
+.sr{ position:absolute; width:1px; height:1px; margin:-1px; padding:0; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0; }
+svg.ph{ width:var(--icon); height:var(--icon); fill:currentColor; flex:none; }
+
+/* ---------- the app column: one screen tall, only the list frame scrolls ---------- */
+.app{
+  display:flex; flex-direction:column; gap:var(--s-3);
+  height:100vh; height:100dvh; min-height:480px;
+  max-width:640px; margin:0 auto;
+  padding:var(--s-2) var(--s-4) max(var(--s-3), env(safe-area-inset-bottom));
+}
+.main{ flex:1; min-height:0; display:flex; flex-direction:column; gap:var(--s-3); }
+
+/* ---------- header ---------- */
+.top{
+  flex:none; display:grid; grid-template-columns:minmax(0,1fr) auto;
+  grid-template-areas:"brand ov" "date date";
+  column-gap:var(--s-3); row-gap:6px; align-items:center;
+}
+.brand{ grid-area:brand; display:flex; align-items:center; gap:10px; min-width:0; }
+.mark{ width:28px; height:28px; color:var(--amber); fill:currentColor; flex:none; }
+.word{ margin:0; font-size:var(--t-xl); line-height:24px; font-weight:700; letter-spacing:-.01em; white-space:nowrap; }
+.date{ grid-area:date; font-size:var(--t-sm); line-height:20px; color:var(--ink-soft); white-space:nowrap; }
+.ov-btn{
+  grid-area:ov; height:var(--hit); padding:0 14px 0 8px; border-radius:var(--r-ctl);
+  border:1.5px solid var(--ring); background:transparent; color:var(--ink);
+  display:inline-flex; align-items:center; gap:var(--s-2);
+  font-size:var(--t-btn); font-weight:600; white-space:nowrap; cursor:pointer;
+  transition:background-color var(--dur) var(--ease), transform var(--dur-press) var(--ease);
+}
+.ov-btn:active{ transform:scale(.98); }
+.ov-ring svg{ width:28px; height:28px; display:block; overflow:visible; }
+@media (hover: hover){ .ov-btn:hover{ background:var(--raise); } }
+
+/* ---------- banners (S4, S5) ---------- */
+.banners{ flex:none; display:grid; gap:var(--s-2); }
+.banners:empty{ display:none; }
+.banner{ display:flex; align-items:flex-start; gap:var(--s-2); border-radius:var(--r-card); padding:var(--s-3) var(--s-4); margin:0; font-size:15px; line-height:22px; }
+.banner p{ margin:0; flex:1; padding:1px 0; }
+.banner.warn{ background:var(--amber-wash); border:1px solid var(--amber); color:var(--ink); }
+.banner.note{ background:var(--surface-2); border:1px solid var(--line); padding:var(--s-1) var(--s-1) var(--s-1) var(--s-4); }
+.banner.note p{ padding:10px 0; }
+
+.icon-btn{
+  width:var(--hit); height:var(--hit); flex:none; border:0; padding:0; border-radius:var(--r-round);
+  background:transparent; color:var(--ink-soft); display:grid; place-items:center; cursor:pointer;
+  transition:background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.icon-btn:focus-visible{ outline-offset:-2px; }
+@media (hover: hover){ .icon-btn:hover{ background:var(--raise); color:var(--ink); } }
+
+/* ---------- the list frame ---------- */
+.frame-wrap{ position:relative; flex:0 1 auto; min-height:0; display:flex; flex-direction:column; }
+.frame{
+  flex:0 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain;
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--r-card);
+  scrollbar-width:thin; scrollbar-color:var(--ring) transparent;
+}
+.frame:focus-visible{ outline-offset:2px; }
+.sentinel{ height:1px; }
+/* the frame shows that it scrolls: a fade at an edge that has more behind it */
+.frame-wrap::before, .frame-wrap::after{
+  content:""; position:absolute; left:1px; right:12px; height:36px; pointer-events:none; z-index:1;
+  opacity:0; transition:opacity var(--dur) var(--ease);
+}
+.frame-wrap::before{ top:1px; border-radius:var(--r-card) 0 0 0; background:var(--fade-top); }
+.frame-wrap::after{ bottom:1px; border-radius:0 0 0 var(--r-card); background:var(--fade-bot); }
+.frame-wrap.more-above::before, .frame-wrap.more-below::after{ opacity:1; }
+
+.rows{ list-style:none; margin:0; padding:0; }
+/* phone: the name line carries the bin, the numbers line carries Year and Done today */
+.row{
+  display:grid; grid-template-columns:minmax(0,1fr) auto auto;
+  grid-template-areas:"name name name" "stats year done";
+  column-gap:var(--s-2); row-gap:var(--s-3); align-items:center;
+  padding:var(--s-3) 14px;
+}
+.row + .row{ border-top:1px solid var(--line); }
+.r-head{ grid-area:name; display:flex; align-items:flex-start; gap:var(--s-2); min-width:0; }
+.r-name{ flex:1 1 auto; min-width:0; margin:0; font-size:var(--t-md); line-height:22px; font-weight:600; overflow-wrap:anywhere; }
+
+/* the bin: quiet like Delete habit in P2. Grey at rest, the danger colour on hover and focus, never a red fill */
+.btn-bin{
+  width:var(--hit); height:var(--hit); flex:none; padding:0; margin:-10px -10px 0 0;
+  border-radius:var(--r-round); border:1.5px solid transparent; background:transparent; color:var(--ink-soft);
+  display:grid; place-items:center; cursor:pointer;
+  transition:border-color var(--dur) var(--ease), color var(--dur) var(--ease), transform var(--dur-press) var(--ease);
+}
+.btn-bin:active{ transform:scale(.94); }
+.btn-bin:focus-visible{ color:var(--danger); outline-offset:-2px; }
+@media (hover: hover){ .btn-bin:hover{ border-color:var(--danger); color:var(--danger); } }
+
+.stats{ grid-area:stats; margin:0; display:flex; align-items:flex-start; gap:14px; min-width:0; }
+.stat{ display:flex; flex-direction:column; min-width:0; }
+.stat .lbl{ font-size:var(--t-xs); line-height:16px; font-weight:600; color:var(--ink-soft); }
+.stat .val{ display:flex; align-items:baseline; gap:4px; }
+.stat .num{ font-size:var(--t-stat); line-height:26px; font-weight:700; font-variant-numeric:tabular-nums; letter-spacing:-.01em; }
+.stat.cur .num{ color:var(--amber); }
+.stat.best .num{ color:var(--ink); font-weight:600; }
+.stat .unit{ font-size:13px; line-height:16px; color:var(--ink-soft); }
+.stat .none{ font-size:13px; line-height:16px; font-weight:600; color:var(--ink-soft); padding-top:3px; }
+
+.btn-year, .btn-done, .btn-all{
+  height:var(--hit); border-radius:var(--r-ctl); border:1.5px solid var(--ring);
+  background:transparent; color:var(--ink); cursor:pointer;
+  display:inline-flex; align-items:center; justify-content:center;
+  font-size:var(--t-btn); font-weight:600; white-space:nowrap;
+  transition:background-color var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease), transform var(--dur-press) var(--ease);
+}
+.btn-year{ grid-area:year; min-width:var(--hit); padding:0 12px; }
+.btn-all{ flex:none; min-width:var(--hit); padding:0 12px; }
+.btn-done{ grid-area:done; padding:0 12px 0 9px; gap:7px; }
+.btn-year:active, .btn-done:active, .btn-all:active{ transform:scale(.97); }
+.btn-done .dot{
+  width:22px; height:22px; border-radius:var(--r-round); border:2px solid var(--ring);
+  display:grid; place-items:center; color:var(--amber); flex:none;
+  transition:background-color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.btn-done .dot svg{ width:13px; height:13px; fill:currentColor; opacity:0; }
+.btn-done[aria-pressed="true"]{ background:var(--amber); border-color:var(--amber); color:var(--on-amber); }
+.btn-done[aria-pressed="true"] .dot{ background:var(--on-amber); border-color:var(--on-amber); }
+.btn-done[aria-pressed="true"] .dot svg{ opacity:1; }
+@media (hover: hover){
+  .btn-year:hover, .btn-done:hover, .btn-all:hover{ background:var(--raise); }
+  .btn-done[aria-pressed="true"]:hover{ background:var(--amber-hover); border-color:var(--amber-hover); }
+}
+
+/* empty list (S1, S5) */
+.empty{ display:grid; grid-template-columns:96px minmax(0,1fr); gap:var(--s-4); align-items:center; padding:var(--s-4); }
+.empty svg{ width:96px; height:96px; display:block; }
+.empty .e-orbit{ fill:none; stroke:var(--ring); stroke-width:1.5; stroke-dasharray:2 6; stroke-linecap:round; }
+.empty .e-core{ fill:none; stroke:var(--track); stroke-width:2; }
+.empty .lead{ margin:0; font-size:var(--t-lg); line-height:24px; font-weight:600; }
+.empty .line{ margin:var(--s-1) 0 0; font-size:var(--t-sm); line-height:20px; color:var(--ink-soft); }
+
+/* ---------- composer: below the list, outside it, pinned to the bottom ---------- */
+.composer{
+  flex:none; margin-top:auto;
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--r-card);
+  padding:10px var(--s-3) var(--s-3);
+}
+/* the message sits above the field, so a message grows the bar upward and the field never moves */
+.field-msg{ margin:0 0 var(--s-2) 2px; font-size:var(--t-sm); line-height:20px; }
+.field-msg.err{ color:var(--danger); }
+.field-msg.note{ color:var(--ink-soft); }
+.add-label{ display:block; font-size:var(--t-sm); line-height:20px; font-weight:600; margin:0 0 6px 2px; }
+.composer.is-full .add-label{ color:var(--ink-soft); }
+.add-ctl{ display:flex; gap:var(--s-2); }
+.input{
+  flex:1; min-width:0; height:var(--ctl-h); padding:0 14px; border-radius:var(--r-ctl);
+  border:1.5px solid var(--ring); background:var(--field); color:var(--ink); font-size:var(--t-md);
+}
+.input[aria-invalid="true"]{ border-color:var(--danger); }
+.input:disabled{ background:var(--surface-2); border-color:var(--line); color:var(--ink-soft); }
+.btn{
+  height:var(--ctl-h); padding:0 18px; border-radius:var(--r-ctl); border:0;
+  display:inline-flex; align-items:center; justify-content:center; gap:var(--s-2);
+  font-size:var(--t-md); font-weight:600; white-space:nowrap; cursor:pointer;
+  transition:background-color var(--dur) var(--ease), transform var(--dur-press) var(--ease);
+}
+.btn:active:not(:disabled){ transform:scale(.98); }
+.btn:focus-visible{ outline-offset:3px; }
+.btn-primary{ background:var(--amber); color:var(--on-amber); }
+.btn-primary:hover:not(:disabled){ background:var(--amber-hover); }
+.btn-primary:disabled{ background:var(--surface-2); color:var(--ink-soft); cursor:not-allowed; }
+.btn-secondary{ background:transparent; color:var(--ink); border:1.5px solid var(--ring); }
+.btn-secondary:hover{ background:var(--raise); }
+.btn-danger{ background:var(--danger); color:var(--on-amber); }
+.btn-danger:hover{ background:var(--danger-hover); }
+
+/* ---------- overview: a field of small rings, one segment per habit ---------- */
+.band{ display:none; }
+.hint{ margin:2px 0 0; font-size:var(--t-sm); line-height:20px; color:var(--ink-soft); }
+.hc{
+  height:var(--ov-cell-h); border:0; padding:0; margin:0; background:transparent; border-radius:12px;
+  display:grid; place-items:center; cursor:pointer;
+  transition:background-color var(--dur) var(--ease);
+}
+@media (hover: hover){ button.hc:hover{ background:var(--raise); } }
+.hc.is-open{ background:var(--raise); box-shadow:inset 0 0 0 1.5px var(--amber); }
+.hc:focus-visible{ outline-offset:-2px; }
+.hc svg{ width:var(--ov-ring); height:var(--ov-ring); display:block; overflow:visible; }
+span.hc{ cursor:default; }
+.seg{ fill:none; stroke:var(--ring); stroke-width:1.5; }
+.seg.on{ stroke:var(--amber); stroke-width:3.5; }
+/* ruling 1: on a hovered or open day the cell turns --raise, so a thin not-done segment steps up to --ink-soft (5.17 to 1) */
+.hc.is-open .seg:not(.on){ stroke:var(--ink-soft); }
+@media (hover: hover){ button.hc:hover .seg:not(.on){ stroke:var(--ink-soft); } }
+.c-core{ fill:var(--amber); }
+/* sits on the baseline, dropped half a figure height (dy .352em, measured) so the digits' ink centres in the ring.
+   Proportional figures, so a "1" does not carry an "8"'s width and pull the number off centre */
+.c-num{ fill:var(--ink-soft); font:600 var(--t-ov) var(--font); text-anchor:middle; dominant-baseline:alphabetic; font-variant-numeric:proportional-nums; }
+.c-num.on{ fill:var(--on-amber); font-weight:700; }
+.c-num.dim{ fill:var(--closed); font-weight:500; } /* P4: days after today, closed like P2's */
+.c-today{ fill:none; stroke:var(--ink); stroke-width:1.4; }
+.og-mo, .og-wd{ font-size:var(--t-xs); line-height:16px; font-weight:600; color:var(--ink-soft); }
+.legend{ display:flex; align-items:center; gap:6px; font-size:var(--t-xs); line-height:16px; color:var(--ink-soft); }
+.legend svg{ width:22px; height:22px; display:block; }
+
+/* phone popup grid: weeks as rows, newest on top */
+.ovg-rows{ display:grid; grid-template-columns:34px repeat(7, minmax(0,1fr)); }
+.ovg-rows .og-wd{ text-align:center; padding-bottom:var(--s-1); }
+.ovg-rows .og-mo{ display:flex; align-items:center; padding-left:2px; }
+
+/* ---------- dialogs ---------- */
+dialog{ padding:0; border:0; background:transparent; color:inherit; max-width:100vw; max-height:100dvh; overflow:visible; }
+dialog::backdrop{ background:var(--scrim); }
+.dlg-day::backdrop{ background:var(--scrim-soft); }
+.dlg-box{ background:var(--surface-2); border:1px solid var(--line); border-radius:var(--r-sheet); box-shadow:var(--shadow-dlg); padding:var(--s-5); }
+.dlg-sub{ margin:2px 0 0; font-size:var(--t-sm); line-height:20px; color:var(--ink-soft); }
+
+/* P1 day editor */
+.dlg-day{ margin:auto 0 0; width:100vw; }
+.dlg-day .dlg-box{ border-radius:var(--r-sheet) var(--r-sheet) 0 0; border-bottom:0; padding:var(--s-4) var(--s-4) var(--s-6); max-height:85dvh; overflow:auto; }
+.day-head{ display:grid; grid-template-columns:56px minmax(0,1fr) var(--hit); gap:var(--s-3); align-items:center; }
+.day-mini svg{ width:56px; height:56px; display:block; overflow:visible; }
+.day-head h2{ margin:0; font-size:var(--t-lg); line-height:24px; font-weight:600; }
+.day-list{ list-style:none; margin:var(--s-3) 0 0; padding:0; display:grid; gap:2px; }
+.tick{
+  width:100%; min-height:60px; border:0; margin:0; padding:var(--s-2) var(--s-3); border-radius:12px;
+  background:transparent; color:var(--ink); text-align:left; cursor:pointer;
+  display:grid; grid-template-columns:28px minmax(0,1fr); grid-template-areas:"box name" "box stat"; column-gap:var(--s-3); align-items:center;
+  transition:background-color var(--dur) var(--ease);
+}
+@media (hover: hover){ .tick:hover{ background:var(--raise); } }
+.tick:focus-visible{ outline-offset:-2px; }
+.tbox{
+  grid-area:box; width:28px; height:28px; border-radius:var(--r-round); border:2px solid var(--ring);
+  display:grid; place-items:center; color:var(--on-amber);
+  transition:background-color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.tbox svg{ width:16px; height:16px; fill:currentColor; opacity:0; }
+.tick.on .tbox{ background:var(--amber); border-color:var(--amber); }
+.tick.on .tbox svg{ opacity:1; }
+.tname{ grid-area:name; font-size:var(--t-md); line-height:22px; font-weight:600; overflow-wrap:anywhere; }
+.tstat{ grid-area:stat; display:flex; flex-wrap:wrap; column-gap:var(--s-3); font-size:13px; line-height:18px; color:var(--ink-soft); }
+.tstat .tcur{ color:var(--amber); font-weight:600; }
+.tstat .tcur.none{ color:var(--ink-soft); }
+.day-empty{ margin:var(--s-4) 0 var(--s-1); color:var(--ink-soft); font-size:var(--t-sm); }
+
+/* M1 delete */
+.dlg-del{ margin:auto; width:min(400px, calc(100vw - 32px)); }
+.dlg-del h2{ margin:0; font-size:var(--t-lg); line-height:26px; font-weight:600; overflow-wrap:anywhere; }
+.dlg-del p{ margin:var(--s-2) 0 var(--s-5); color:var(--ink-soft); }
+.dlg-actions{ display:grid; grid-template-columns:1fr 1fr; gap:var(--s-3); }
+
+/* P2 year view, P3 overview and P4 overview year view: full-screen sheets on a phone */
+.dlg-full{ margin:0; width:100vw; height:100vh; height:100dvh; }
+.dlg-full .dlg-box{ height:100%; border:0; border-radius:0; padding:0; box-shadow:none; display:flex; flex-direction:column; }
+.sheet-head{ flex:none; padding:var(--s-3) var(--s-4) var(--s-3); border-bottom:1px solid var(--line); }
+.sheet-body{
+  flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; padding:var(--s-3) var(--s-4) var(--s-6);
+  scrollbar-width:thin; scrollbar-color:var(--ring) transparent;
+  /* a soft shadow at an edge with more behind it: the covers scroll with the content, the shadows stay put */
+  background:
+    linear-gradient(var(--surface-2) 30%, rgba(42,43,48,0)) center top / 100% 40px no-repeat local,
+    linear-gradient(rgba(42,43,48,0), var(--surface-2) 70%) center bottom / 100% 40px no-repeat local,
+    radial-gradient(farthest-side at 50% 0, rgba(6,7,9,.6), rgba(6,7,9,0)) center top / 100% 16px no-repeat scroll,
+    radial-gradient(farthest-side at 50% 100%, rgba(6,7,9,.6), rgba(6,7,9,0)) center bottom / 100% 16px no-repeat scroll,
+    var(--surface-2);
+}
+.head-top{ display:flex; align-items:flex-start; gap:var(--s-2); }
+.head-top > div{ flex:1; min-width:0; padding-top:9px; }
+.head-top h2{ margin:0; font-size:var(--t-xl); line-height:26px; font-weight:700; overflow-wrap:anywhere; }
+.head-top .icon-btn{ margin:0 -6px 0 0; }
+
+.yr-mid{ display:flex; align-items:flex-end; justify-content:space-between; gap:var(--s-3); margin-top:var(--s-2); flex-wrap:wrap; }
+.yr-stats{ margin:0; display:flex; align-items:flex-start; gap:var(--s-5); }
+.yr-stats .stat .num{ font-size:var(--t-cur-lg); line-height:38px; }
+.yr-stats .stat.best .num{ font-size:var(--t-best-lg); line-height:32px; }
+.yr-stats .stat .none{ font-size:var(--t-sm); line-height:20px; max-width:none; padding:4px 0 8px; }
+.btn-del{
+  height:var(--hit); padding:0 12px 0 10px; border-radius:var(--r-ctl); border:1.5px solid transparent;
+  background:transparent; color:var(--ink-soft); display:inline-flex; align-items:center; gap:6px;
+  font-size:var(--t-btn); font-weight:600; white-space:nowrap; cursor:pointer;
+  transition:background-color var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+/* quiet until pointed at, like the bin: the red belongs to the confirm in M1 */
+@media (hover: hover){ .btn-del:hover{ border-color:var(--danger); color:var(--danger); } }
+.yr-tools{ display:flex; align-items:center; justify-content:space-between; gap:var(--s-3); margin-top:var(--s-2); flex-wrap:wrap; }
+.yr-tools .hint{ margin:0; }
+.yr-legend{ display:flex; align-items:center; gap:6px; margin:0; font-size:var(--t-xs); line-height:16px; color:var(--ink-soft); }
+.mini{ width:16px; height:16px; border-radius:var(--r-round); border:2px solid var(--ring); display:inline-block; }
+.mini.on{ background:var(--amber); border-color:var(--amber); }
+.yr-legend .mini + span{ margin-right:6px; }
+
+.months{ display:grid; grid-template-columns:minmax(0,1fr); gap:var(--s-5); }
+.month h3{ margin:0 0 var(--s-1) 2px; font-size:var(--t-btn); line-height:22px; font-weight:600; }
+.mgrid{ display:grid; grid-template-columns:repeat(7, minmax(0,1fr)); }
+.mwd{ font-size:var(--t-2xs); line-height:16px; font-weight:600; color:var(--ink-soft); text-align:center; padding-bottom:2px; }
+.yc{
+  position:relative; height:var(--yc); border:0; padding:0; margin:0; background:transparent;
+  display:grid; place-items:center; cursor:pointer;
+}
+span.yc{ cursor:default; }
+/* ruling 2: the number is SVG text drawn the ring's way, on the baseline at the bead's centre, dropped .352em,
+   so its ink centres. (HTML text snaps its baseline to whole pixels and could only land 0.3 high or 0.7 low) */
+.bead{
+  position:relative; z-index:1; width:var(--bead); height:var(--bead); border-radius:var(--r-round);
+  border:2px solid var(--ring); background:var(--surface-2); color:var(--ink);
+  font:600 var(--t-btn)/1 var(--font); font-variant-numeric:proportional-nums;
+  display:grid; place-items:center;
+  transition:background-color var(--dur) var(--ease), border-color var(--dur) var(--ease), transform var(--dur-press) var(--ease);
+}
+.bead svg{ position:absolute; inset:0; width:100%; height:100%; overflow:visible; }
+.bead text{ fill:currentColor; text-anchor:middle; dominant-baseline:alphabetic; }
+.yc.on .bead{ background:var(--amber); border-color:var(--amber); color:var(--on-amber); font-weight:700; }
+.yc.today .bead{ box-shadow:0 0 0 3px var(--surface-2), 0 0 0 4.5px var(--ink); }
+.yc.closed .bead{ border-color:transparent; background:transparent; color:var(--closed); font-weight:500; }
+/* consecutive done days are strung on one thread, like the mark */
+.yc.l::before, .yc.r::after{ content:""; position:absolute; top:50%; height:8px; margin-top:-4px; background:var(--amber); }
+.yc.l::before{ left:0; right:50%; }
+.yc.r::after{ left:50%; right:0; }
+@media (hover: hover){
+  button.yc:hover .bead{ border-color:var(--amber); }
+  button.yc.on:hover .bead{ background:var(--amber-hover); border-color:var(--amber-hover); }
+}
+button.yc:active .bead{ transform:scale(.9); }
+.yc:focus-visible{ outline:none; }
+.yc:focus-visible .bead{ outline:2px solid var(--focus); outline-offset:3px; }
+
+/* P3 overview popup */
+.ov-head{ display:flex; align-items:flex-start; gap:var(--s-2); }
+.ov-head > div{ flex:1; min-width:0; padding-top:9px; }
+.ov-head h2{ margin:0; font-size:var(--t-xl); line-height:26px; font-weight:700; }
+.ov-head .icon-btn{ margin:0 -6px 0 0; }
+.dlg-ov .legend{ justify-content:flex-end; margin-top:var(--s-3); padding:0 6px; }
+/* sized for a thumb: the popup has the whole screen, so its rings grow */
+.dlg-ov .hc{ height:48px; }
+.dlg-ov .hc svg{ width:42px; height:42px; }
+
+/* P4 overview year view: P2's months, the overview's rings, every habit together */
+.dlg-all .mgrid .hc{ height:48px; }
+.dlg-all .mgrid .hc svg{ width:42px; height:42px; }
+
+/* ---------- motion (only when the reader has not asked for less) ---------- */
+@media (prefers-reduced-motion: no-preference){
+  .btn-done.pop .dot{ animation:pop 260ms var(--ease-out); }
+  .bump{ animation:bump 280ms var(--ease-out); }
+  .hc.pop svg{ animation:pop 300ms var(--ease-out); }
+  .ov-ring.pop svg{ animation:pop 300ms var(--ease-out); }
+  .tick.pop .tbox{ animation:pop 260ms var(--ease-out); }
+  .yc.pop .bead{ animation:pop 260ms var(--ease-out); }
+  dialog[open] .dlg-box{ animation:rise var(--dur-enter) var(--ease-out); }
+  .dlg-day[open] .dlg-box{ animation:sheet 260ms var(--ease-out); }
+  dialog[open]::backdrop, .scrim{ animation:fade 180ms var(--ease); }
+}
+@keyframes pop{ 0%{ transform:scale(.82); } 60%{ transform:scale(1.08); } 100%{ transform:scale(1); } }
+@keyframes bump{ 0%{ transform:translateY(6px); opacity:.2; } 100%{ transform:none; opacity:1; } }
+@keyframes rise{ from{ transform:translateY(8px); opacity:0; } to{ transform:none; opacity:1; } }
+@keyframes sheet{ from{ transform:translateY(40px); opacity:.4; } to{ transform:none; opacity:1; } }
+@keyframes fade{ from{ opacity:0; } to{ opacity:1; } }
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{ animation:none !important; transition:none !important; }
+}
+
+/* ---------- widths ---------- */
+@media (max-width: 379px){
+  .app{ padding-left:var(--s-3); padding-right:var(--s-3); }
+  .row{ padding-left:var(--s-3); padding-right:var(--s-3); column-gap:6px; }
+  .stats{ gap:var(--s-3); }
+  .btn-year{ padding:0 10px; }
+  .btn-done{ padding:0 10px 0 8px; gap:6px; font-size:var(--t-sm); }
+  .sheet-head, .sheet-body{ padding-left:var(--s-3); padding-right:var(--s-3); }
+  .dlg-ov .hc{ height:46px; }
+  .dlg-ov .hc svg{ width:40px; height:40px; }
+  .dlg-all .mgrid .hc{ height:46px; }
+  .dlg-all .mgrid .hc svg{ width:40px; height:40px; }
+  :root{ --bead:34px; }
+}
+@media (min-width: 768px){
+  .dlg-day{ margin:auto; width:min(440px, calc(100vw - 32px)); }
+  .dlg-day .dlg-box{ border-radius:var(--r-sheet); border-bottom:1px solid var(--line); padding:var(--s-5); }
+  .dlg-full{ margin:auto; width:min(980px, calc(100vw - 48px)); height:auto; max-height:calc(100dvh - 48px); }
+  .dlg-full .dlg-box{ height:auto; max-height:calc(100dvh - 48px); border:1px solid var(--line); border-radius:var(--r-sheet); box-shadow:var(--shadow-dlg); }
+  .dlg-ov{ width:min(520px, calc(100vw - 48px)); }
+  .sheet-head{ padding:var(--s-4) var(--s-6) var(--s-3); }
+  .sheet-body{ padding:var(--s-4) var(--s-6) var(--s-6); }
+  .months{ grid-template-columns:repeat(2, max-content); justify-content:center; gap:var(--s-6) var(--s-8); }
+  .mgrid{ grid-template-columns:repeat(7, 40px); }
+  :root{ --yc:40px; --bead:32px; }
+  .bead{ font-size:var(--t-sm); }
+  /* P4: the overview's 40 px ring in a 42 px column keeps the 16 px day number and fits three months across */
+  .months.months-all{ grid-template-columns:repeat(auto-fill, 294px); gap:var(--s-6) var(--s-5); }
+  .dlg-all .mgrid{ grid-template-columns:repeat(7, 42px); }
+  .dlg-all .mgrid .hc{ height:var(--ov-cell-h); }
+  .dlg-all .mgrid .hc svg{ width:var(--ov-ring); height:var(--ov-ring); }
+}
+@media (min-width: 1024px){
+  .app{ max-width:var(--app-max); padding:var(--s-3) var(--s-6); }
+  .top{ grid-template-columns:minmax(0,1fr) auto; grid-template-areas:"brand date"; column-gap:var(--s-5); }
+  .mark{ width:32px; height:32px; }
+  .word{ font-size:21px; }
+  .date{ font-size:var(--t-md); }
+  .ov-btn{ display:none; }
+
+  /* the overview band: weeks as columns, newest on the right */
+  .band{
+    flex:none; display:grid; grid-template-columns:180px minmax(0,1fr); gap:var(--s-5);
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--r-card);
+    padding:14px var(--s-5) var(--s-3);
+  }
+  .band-meta{ display:flex; flex-direction:column; min-width:0; }
+  /* the band's own header line: the title and its Year button, never inside the ring grid */
+  .band-head{ display:flex; align-items:center; justify-content:space-between; gap:var(--s-2); margin-top:-10px; }
+  .band-meta h2{ margin:0; font-size:var(--t-md); line-height:24px; font-weight:600; white-space:nowrap; }
+  .band-meta .legend{ margin-top:auto; padding-bottom:6px; }
+  .ovg-cols{
+    display:grid; grid-auto-flow:column;
+    grid-template-columns:22px repeat(12, minmax(0,1fr));
+    grid-template-rows:18px repeat(7, var(--ov-cell-h));
+  }
+  .ovg-cols .og-mo{ padding-left:6px; white-space:nowrap; }
+  .ovg-cols .og-wd{ display:flex; align-items:center; }
+  .ovg-cols .hc{ width:52px; justify-self:center; }
+
+  /* one line: the bin closes the name column, so the stats and Year sit between it and Done today */
+  .row{
+    grid-template-columns:minmax(0,1fr) calc(var(--hit) + var(--s-3)) 200px auto auto;
+    grid-template-areas:"name bin stats year done";
+    column-gap:var(--s-3); padding:var(--s-3) var(--s-3) var(--s-3) var(--s-5);
+  }
+  .r-head{ display:contents; }
+  .r-name{ grid-area:name; font-size:var(--t-lg); line-height:24px; }
+  .btn-bin{ grid-area:bin; justify-self:start; margin:0; }
+  .stats{ gap:var(--s-5); }
+  .stat.cur{ min-width:96px; } /* Best lines up down the list, with or without a streak */
+
+  /* label left, field right, a message sits above the field it is about */
+  .composer{ padding:var(--s-3); display:grid; grid-template-columns:auto minmax(0,1fr); column-gap:var(--s-4); }
+  .field-msg{ grid-column:2; grid-row:1; }
+  .add-row{ display:contents; }
+  .add-label{ grid-column:1; grid-row:2; align-self:center; margin:0 0 0 var(--s-2); white-space:nowrap; }
+  .add-ctl{ grid-column:2; grid-row:2; }
+
+  .months{ grid-template-columns:repeat(3, max-content); }
+}
+
+/* ---------- golden stand-ins (static goldens only, the app does not need them) ----------
+   The app opens every popup with showModal(), which puts it in the top layer over a ::backdrop.
+   A golden has no script, so it marks a popup <dialog open> and draws the backdrop as a .scrim before it.
+   Layers paint in document order: scrim, dialog, scrim, dialog. */
+.scrim{ position:fixed; inset:0; z-index:10; background:var(--scrim); }
+.scrim.soft{ background:var(--scrim-soft); }
+dialog[open]{ position:fixed; inset:0; z-index:10; }
+/* a layer that only exists below the desktop layout (P3 under P1 on a phone) */
+@media (min-width: 1024px){ .below-desktop{ display:none; } }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <!-- Phosphor Icons (MIT): x, plus, trash (regular), check (bold) -->
+  <symbol id="i-x" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 256 256"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 256 256"><path d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"/></symbol>
+  <!-- ring segments on a 40 unit box, radius 15: three habits (98 degree arcs) and twelve (21 degree arcs). A segment is <use class="seg"> or <use class="seg on"> -->
+  <defs>
+<path id="a3-0" d="M22.86 5.28A15 15 0 0 1 34.18 24.88"/><path id="a3-1" d="M31.32 29.84A15 15 0 0 1 8.68 29.84"/><path id="a3-2" d="M5.82 24.88A15 15 0 0 1 17.14 5.28"/>
+<path id="a12-0" d="M21.18 5.05A15 15 0 0 1 26.46 6.46"/><path id="a12-1" d="M28.5 7.64A15 15 0 0 1 32.36 11.5"/><path id="a12-2" d="M33.54 13.54A15 15 0 0 1 34.95 18.82"/><path id="a12-3" d="M34.95 21.18A15 15 0 0 1 33.54 26.46"/><path id="a12-4" d="M32.36 28.5A15 15 0 0 1 28.5 32.36"/><path id="a12-5" d="M26.46 33.54A15 15 0 0 1 21.18 34.95"/><path id="a12-6" d="M18.82 34.95A15 15 0 0 1 13.54 33.54"/><path id="a12-7" d="M11.5 32.36A15 15 0 0 1 7.64 28.5"/><path id="a12-8" d="M6.46 26.46A15 15 0 0 1 5.05 21.18"/><path id="a12-9" d="M5.05 18.82A15 15 0 0 1 6.46 13.54"/><path id="a12-10" d="M7.64 11.5A15 15 0 0 1 11.5 7.64"/><path id="a12-11" d="M13.54 6.46A15 15 0 0 1 18.82 5.05"/>
+  </defs>
+</svg>
+
+<div class="app">
+  <header class="top">
+    <div class="brand">
+      <!-- the mark: docs/brand/mark.svg, recoloured through currentColor. Swap this one svg when the logo is redrawn -->
+      <svg class="mark" viewBox="0 0 112 112" aria-hidden="true" focusable="false"><path d="M46 17H70A20 20 0 1 1 70 41H46A20 20 0 0 1 42 45V69A20 20 0 1 1 18 69V45A20 20 0 1 1 46 17ZM86 65A20 20 0 0 1 86 105A20 20 0 0 1 86 65ZM86 73A12 12 0 0 0 86 97A12 12 0 0 0 86 73Z"/></svg>
+      <h1 class="word">Streaky Habit</h1>
+    </div>
+    <button type="button" class="ov-btn" aria-haspopup="dialog" aria-label="Overview, today 1 of 3 habits done"><span class="ov-ring" aria-hidden="true"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg" href="#a3-2"/></svg></span>Overview</button>
+    <time class="date" datetime="2026-10-10">Saturday 10 October</time>
+  </header>
+
+  <main class="main">
+    <section class="band" aria-labelledby="h-ov">
+      <div class="band-meta">
+        <div class="band-head">
+          <h2 id="h-ov">Last 12 weeks</h2>
+          <button type="button" class="btn-all" aria-haspopup="dialog" aria-label="Year view, all habits">Year</button>
+        </div>
+        <p class="hint">Tap a day to change it.</p>
+        <div class="legend" aria-hidden="true"><span>None</span><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg" href="#a3-2"/></svg><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg" href="#a3-2"/></svg><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg" href="#a3-2"/></svg><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg on" href="#a3-2"/><circle class="c-core" cx="20" cy="20" r="11.5"/></svg><span>All</span></div>
+      </div>
+      <div class="ovg-cols" role="group" aria-labelledby="h-ov">
+<div aria-hidden="true"></div><div class="og-wd" aria-hidden="true">M</div><div class="og-wd" aria-hidden="true">T</div><div class="og-wd" aria-hidden="true">W</div><div class="og-wd" aria-hidden="true">T</div><div class="og-wd" aria-hidden="true">F</div><div class="og-wd" aria-hidden="true">S</div><div class="og-wd" aria-hidden="true">S</div>
+<div class="og-mo" aria-hidden="true">Jul</div><button type="button" class="hc" data-key="2026-07-20" aria-haspopup="dialog" aria-label="Mon 20 Jul, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">20</text></svg></button><button type="button" class="hc" data-key="2026-07-21" aria-haspopup="dialog" aria-label="Tue 21 Jul, 3 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg on" href="#a3-2"/><circle class="c-core" cx="20" cy="20" r="11.5"/><text class="c-num on" x="20" y="20" dy=".352em">21</text></svg></button><button type="button" class="hc" data-key="2026-07-22" aria-haspopup="dialog" aria-label="Wed 22 Jul, 1 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">22</text></svg></button><button type="button" class="hc" data-key="2026-07-23" aria-haspopup="dialog" aria-label="Thu 23 Jul, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">23</text></svg></button><button type="button" class="hc" data-key="2026-07-24" aria-haspopup="dialog" aria-label="Fri 24 Jul, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">24</text></svg></button><button type="button" class="hc" data-key="2026-07-25" aria-haspopup="dialog" aria-label="Sat 25 Jul, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">25</text></svg></button><button type="button" class="hc" data-key="2026-07-26" aria-haspopup="dialog" aria-label="Sun 26 Jul, 1 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">26</text></svg></button>
+<div class="og-mo" aria-hidden="true"></div><button type="button" class="hc" data-key="2026-07-27" aria-haspopup="dialog" aria-label="Mon 27 Jul, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">27</text></svg></button><button type="button" class="hc" data-key="2026-07-28" aria-haspopup="dialog" aria-label="Tue 28 Jul, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">28</text></svg></button><button type="button" class="hc" data-key="2026-07-29" aria-haspopup="dialog" aria-label="Wed 29 Jul, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">29</text></svg></button><button type="button" class="hc" data-key="2026-07-30" aria-haspopup="dialog" aria-label="Thu 30 Jul, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">30</text></svg></button><button type="button" class="hc" data-key="2026-07-31" aria-haspopup="dialog" aria-label="Fri 31 Jul, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">31</text></svg></button><button type="button" class="hc" data-key="2026-08-01" aria-haspopup="dialog" aria-label="Sat 1 Aug, 1 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">1</text></svg></button><button type="button" class="hc" data-key="2026-08-02" aria-haspopup="dialog" aria-label="Sun 2 Aug, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">2</text></svg></button>
+<div class="og-mo" aria-hidden="true">Aug</div><button type="button" class="hc" data-key="2026-08-03" aria-haspopup="dialog" aria-label="Mon 3 Aug, 1 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">3</text></svg></button><button type="button" class="hc" data-key="2026-08-04" aria-haspopup="dialog" aria-label="Tue 4 Aug, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">4</text></svg></button><button type="button" class="hc" data-key="2026-08-05" aria-haspopup="dialog" aria-label="Wed 5 Aug, 3 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg on" href="#a3-2"/><circle class="c-core" cx="20" cy="20" r="11.5"/><text class="c-num on" x="20" y="20" dy=".352em">5</text></svg></button><button type="button" class="hc" data-key="2026-08-06" aria-haspopup="dialog" aria-label="Thu 6 Aug, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">6</text></svg></button><button type="button" class="hc" data-key="2026-08-07" aria-haspopup="dialog" aria-label="Fri 7 Aug, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">7</text></svg></button><button type="button" class="hc" data-key="2026-08-08" aria-haspopup="dialog" aria-label="Sat 8 Aug, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">8</text></svg></button><button type="button" class="hc" data-key="2026-08-09" aria-haspopup="dialog" aria-label="Sun 9 Aug, 1 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">9</text></svg></button>
+<div class="og-mo" aria-hidden="true"></div><button type="button" class="hc" data-key="2026-08-10" aria-haspopup="dialog" aria-label="Mon 10 Aug, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">10</text></svg></button><button type="button" class="hc" data-key="2026-08-11" aria-haspopup="dialog" aria-label="Tue 11 Aug, 3 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg on" href="#a3-2"/><circle class="c-core" cx="20" cy="20" r="11.5"/><text class="c-num on" x="20" y="20" dy=".352em">11</text></svg></button><button type="button" class="hc" data-key="2026-08-12" aria-haspopup="dialog" aria-label="Wed 12 Aug, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">12</text></svg></button><button type="button" class="hc" data-key="2026-08-13" aria-haspopup="dialog" aria-label="Thu 13 Aug, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">13</text></svg></button><button type="button" class="hc" data-key="2026-08-14" aria-haspopup="dialog" aria-label="Fri 14 Aug, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">14</text></svg></button><button type="button" class="hc" data-key="2026-08-15" aria-haspopup="dialog" aria-label="Sat 15 Aug, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">15</text></svg></button><button type="button" class="hc" data-key="2026-08-16" aria-haspopup="dialog" aria-label="Sun 16 Aug, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">16</text></svg></button>
+<div class="og-mo" aria-hidden="true"></div><button type="button" class="hc" data-key="2026-08-17" aria-haspopup="dialog" aria-label="Mon 17 Aug, 1 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">17</text></svg></button><button type="button" class="hc" data-key="2026-08-18" aria-haspopup="dialog" aria-label="Tue 18 Aug, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">18</text></svg></button><button type="button" class="hc" data-key="2026-08-19" aria-haspopup="dialog" aria-label="Wed 19 Aug, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">19</text></svg></button><button type="button" class="hc" data-key="2026-08-20" aria-haspopup="dialog" aria-label="Thu 20 Aug, 1 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">20</text></svg></button><button type="button" class="hc" data-key="2026-08-21" aria-haspopup="dialog" aria-label="Fri 21 Aug, 3 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg on" href="#a3-2"/><circle class="c-core" cx="20" cy="20" r="11.5"/><text class="c-num on" x="20" y="20" dy=".352em">21</text></svg></button><button type="button" class="hc" data-key="2026-08-22" aria-haspopup="dialog" aria-label="Sat 22 Aug, 3 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg on" href="#a3-2"/><circle class="c-core" cx="20" cy="20" r="11.5"/><text class="c-num on" x="20" y="20" dy=".352em">22</text></svg></button><button type="button" class="hc" data-key="2026-08-23" aria-haspopup="dialog" aria-label="Sun 23 Aug, 0 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">23</text></svg></button>
+<div class="og-mo" aria-hidden="true"></div><button type="button" class="hc" data-key="2026-08-24" aria-haspopup="dialog" aria-label="Mon 24 Aug, 3 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg on" href="#a3-2"/><circle class="c-core" cx="20" cy="20" r="11.5"/><text class="c-num on" x="20" y="20" dy=".352em">24</text></svg></button><button type="button" class="hc" data-key="2026-08-25" aria-haspopup="dialog" aria-label="Tue 25 Aug, 3 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg on" href="#a3-2"/><circle class="c-core" cx="20" cy="20" r="11.5"/><text class="c-num on" x="20" y="20" dy=".352em">25</text></svg></button><button type="button" class="hc" data-key="2026-08-26" aria-haspopup="dialog" aria-label="Wed 26 Aug, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">26</text></svg></button><button type="button" class="hc" data-key="2026-08-27" aria-haspopup="dialog" aria-label="Thu 27 Aug, 1 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">27</text></svg></button><button type="button" class="hc" data-key="2026-08-28" aria-haspopup="dialog" aria-label="Fri 28 Aug, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">28</text></svg></button><button type="button" class="hc" data-key="2026-08-29" aria-haspopup="dialog" aria-label="Sat 29 Aug, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">29</text></svg></button><button type="button" class="hc" data-key="2026-08-30" aria-haspopup="dialog" aria-label="Sun 30 Aug, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">30</text></svg></button>
+<div class="og-mo" aria-hidden="true"></div><button type="button" class="hc" data-key="2026-08-31" aria-haspopup="dialog" aria-label="Mon 31 Aug, 1 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">31</text></svg></button><button type="button" class="hc" data-key="2026-09-01" aria-haspopup="dialog" aria-label="Tue 1 Sep, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">1</text></svg></button><button type="button" class="hc" data-key="2026-09-02" aria-haspopup="dialog" aria-label="Wed 2 Sep, 3 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg on" href="#a3-2"/><circle class="c-core" cx="20" cy="20" r="11.5"/><text class="c-num on" x="20" y="20" dy=".352em">2</text></svg></button><button type="button" class="hc" data-key="2026-09-03" aria-haspopup="dialog" aria-label="Thu 3 Sep, 3 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg on" href="#a3-2"/><circle class="c-core" cx="20" cy="20" r="11.5"/><text class="c-num on" x="20" y="20" dy=".352em">3</text></svg></button><button type="button" class="hc" data-key="2026-09-04" aria-haspopup="dialog" aria-label="Fri 4 Sep, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">4</text></svg></button><button type="button" class="hc" data-key="2026-09-05" aria-haspopup="dialog" aria-label="Sat 5 Sep, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">5</text></svg></button><button type="button" class="hc" data-key="2026-09-06" aria-haspopup="dialog" aria-label="Sun 6 Sep, 1 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">6</text></svg></button>
+<div class="og-mo" aria-hidden="true">Sep</div><button type="button" class="hc" data-key="2026-09-07" aria-haspopup="dialog" aria-label="Mon 7 Sep, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">7</text></svg></button><button type="button" class="hc" data-key="2026-09-08" aria-haspopup="dialog" aria-label="Tue 8 Sep, 3 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg on" href="#a3-2"/><circle class="c-core" cx="20" cy="20" r="11.5"/><text class="c-num on" x="20" y="20" dy=".352em">8</text></svg></button><button type="button" class="hc" data-key="2026-09-09" aria-haspopup="dialog" aria-label="Wed 9 Sep, 1 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">9</text></svg></button><button type="button" class="hc" data-key="2026-09-10" aria-haspopup="dialog" aria-label="Thu 10 Sep, 1 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">10</text></svg></button><button type="button" class="hc" data-key="2026-09-11" aria-haspopup="dialog" aria-label="Fri 11 Sep, 3 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg on" href="#a3-2"/><circle class="c-core" cx="20" cy="20" r="11.5"/><text class="c-num on" x="20" y="20" dy=".352em">11</text></svg></button><button type="button" class="hc" data-key="2026-09-12" aria-haspopup="dialog" aria-label="Sat 12 Sep, 1 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">12</text></svg></button><button type="button" class="hc" data-key="2026-09-13" aria-haspopup="dialog" aria-label="Sun 13 Sep, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">13</text></svg></button>
+<div class="og-mo" aria-hidden="true"></div><button type="button" class="hc" data-key="2026-09-14" aria-haspopup="dialog" aria-label="Mon 14 Sep, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">14</text></svg></button><button type="button" class="hc" data-key="2026-09-15" aria-haspopup="dialog" aria-label="Tue 15 Sep, 3 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg on" href="#a3-2"/><circle class="c-core" cx="20" cy="20" r="11.5"/><text class="c-num on" x="20" y="20" dy=".352em">15</text></svg></button><button type="button" class="hc" data-key="2026-09-16" aria-haspopup="dialog" aria-label="Wed 16 Sep, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">16</text></svg></button><button type="button" class="hc" data-key="2026-09-17" aria-haspopup="dialog" aria-label="Thu 17 Sep, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">17</text></svg></button><button type="button" class="hc" data-key="2026-09-18" aria-haspopup="dialog" aria-label="Fri 18 Sep, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">18</text></svg></button><button type="button" class="hc" data-key="2026-09-19" aria-haspopup="dialog" aria-label="Sat 19 Sep, 3 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg on" href="#a3-2"/><circle class="c-core" cx="20" cy="20" r="11.5"/><text class="c-num on" x="20" y="20" dy=".352em">19</text></svg></button><button type="button" class="hc" data-key="2026-09-20" aria-haspopup="dialog" aria-label="Sun 20 Sep, 3 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg on" href="#a3-2"/><circle class="c-core" cx="20" cy="20" r="11.5"/><text class="c-num on" x="20" y="20" dy=".352em">20</text></svg></button>
+<div class="og-mo" aria-hidden="true"></div><button type="button" class="hc" data-key="2026-09-21" aria-haspopup="dialog" aria-label="Mon 21 Sep, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">21</text></svg></button><button type="button" class="hc" data-key="2026-09-22" aria-haspopup="dialog" aria-label="Tue 22 Sep, 1 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">22</text></svg></button><button type="button" class="hc" data-key="2026-09-23" aria-haspopup="dialog" aria-label="Wed 23 Sep, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">23</text></svg></button><button type="button" class="hc" data-key="2026-09-24" aria-haspopup="dialog" aria-label="Thu 24 Sep, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">24</text></svg></button><button type="button" class="hc" data-key="2026-09-25" aria-haspopup="dialog" aria-label="Fri 25 Sep, 3 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg on" href="#a3-2"/><circle class="c-core" cx="20" cy="20" r="11.5"/><text class="c-num on" x="20" y="20" dy=".352em">25</text></svg></button><button type="button" class="hc" data-key="2026-09-26" aria-haspopup="dialog" aria-label="Sat 26 Sep, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">26</text></svg></button><button type="button" class="hc" data-key="2026-09-27" aria-haspopup="dialog" aria-label="Sun 27 Sep, 0 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">27</text></svg></button>
+<div class="og-mo" aria-hidden="true"></div><button type="button" class="hc" data-key="2026-09-28" aria-haspopup="dialog" aria-label="Mon 28 Sep, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">28</text></svg></button><button type="button" class="hc" data-key="2026-09-29" aria-haspopup="dialog" aria-label="Tue 29 Sep, 3 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg on" href="#a3-2"/><circle class="c-core" cx="20" cy="20" r="11.5"/><text class="c-num on" x="20" y="20" dy=".352em">29</text></svg></button><button type="button" class="hc" data-key="2026-09-30" aria-haspopup="dialog" aria-label="Wed 30 Sep, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">30</text></svg></button><button type="button" class="hc" data-key="2026-10-01" aria-haspopup="dialog" aria-label="Thu 1 Oct, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">1</text></svg></button><button type="button" class="hc" data-key="2026-10-02" aria-haspopup="dialog" aria-label="Fri 2 Oct, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">2</text></svg></button><button type="button" class="hc" data-key="2026-10-03" aria-haspopup="dialog" aria-label="Sat 3 Oct, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">3</text></svg></button><button type="button" class="hc" data-key="2026-10-04" aria-haspopup="dialog" aria-label="Sun 4 Oct, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">4</text></svg></button>
+<div class="og-mo" aria-hidden="true">Oct</div><button type="button" class="hc" data-key="2026-10-05" aria-haspopup="dialog" aria-label="Mon 5 Oct, 3 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg on" href="#a3-2"/><circle class="c-core" cx="20" cy="20" r="11.5"/><text class="c-num on" x="20" y="20" dy=".352em">5</text></svg></button><button type="button" class="hc" data-key="2026-10-06" aria-haspopup="dialog" aria-label="Tue 6 Oct, 1 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">6</text></svg></button><button type="button" class="hc" data-key="2026-10-07" aria-haspopup="dialog" aria-label="Wed 7 Oct, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg on" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">7</text></svg></button><button type="button" class="hc" data-key="2026-10-08" aria-haspopup="dialog" aria-label="Thu 8 Oct, 3 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg on" href="#a3-2"/><circle class="c-core" cx="20" cy="20" r="11.5"/><text class="c-num on" x="20" y="20" dy=".352em">8</text></svg></button><button type="button" class="hc" data-key="2026-10-09" aria-haspopup="dialog" aria-label="Fri 9 Oct, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true"><use class="seg on" href="#a3-0"/><use class="seg on" href="#a3-1"/><use class="seg" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">9</text></svg></button><button type="button" class="hc" data-key="2026-10-10" aria-haspopup="dialog" aria-label="Sat 10 Oct, 1 of 3 habits" aria-current="date"><svg viewBox="0 0 40 40" aria-hidden="true"><circle class="c-today" cx="20" cy="20" r="19.2"/><use class="seg on" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg" href="#a3-2"/><text class="c-num" x="20" y="20" dy=".352em">10</text></svg></button><span class="hc" aria-hidden="true"></span>
+      </div>
+    </section>
+
+    <div class="banners"></div>
+
+    <h2 id="h-habits" class="sr">Habits</h2>
+    <div class="frame-wrap">
+      <div class="frame">
+        <div class="sentinel" aria-hidden="true"></div>
+        <ul class="rows" aria-labelledby="h-habits">
+<li class="row"><div class="r-head"><h3 class="r-name" id="rn-1">Read 20 pages</h3><button type="button" class="btn-bin" aria-haspopup="dialog" aria-label="Delete &quot;Read 20 pages&quot;"><svg class="ph" aria-hidden="true"><use href="#i-trash"/></svg></button></div><p class="stats" id="rs-1"><span class="stat cur"><span class="lbl">Current</span><span class="val"><b class="num">4</b><span class="unit">days</span></span></span><span class="stat best"><span class="lbl">Best</span><span class="val"><b class="num">9</b></span></span></p><button type="button" class="btn-year" aria-haspopup="dialog" aria-label="Year view, Read 20 pages">Year</button><button type="button" class="btn-done" aria-pressed="true" aria-label="Done today, Read 20 pages" aria-describedby="rs-1"><span class="dot"><svg aria-hidden="true"><use href="#i-check"/></svg></span>Done today</button></li>
+<li class="row"><div class="r-head"><h3 class="r-name" id="rn-2">Stretch 10 minutes</h3><button type="button" class="btn-bin" aria-haspopup="dialog" aria-label="Delete &quot;Stretch 10 minutes&quot;"><svg class="ph" aria-hidden="true"><use href="#i-trash"/></svg></button></div><p class="stats" id="rs-2"><span class="stat cur"><span class="lbl">Current</span><span class="val"><b class="num">2</b><span class="unit">days</span></span></span><span class="stat best"><span class="lbl">Best</span><span class="val"><b class="num">5</b></span></span></p><button type="button" class="btn-year" aria-haspopup="dialog" aria-label="Year view, Stretch 10 minutes">Year</button><button type="button" class="btn-done" aria-pressed="false" aria-label="Done today, Stretch 10 minutes" aria-describedby="rs-2"><span class="dot"><svg aria-hidden="true"><use href="#i-check"/></svg></span>Done today</button></li>
+<li class="row"><div class="r-head"><h3 class="r-name" id="rn-3">No phone after 11pm</h3><button type="button" class="btn-bin" aria-haspopup="dialog" aria-label="Delete &quot;No phone after 11pm&quot;"><svg class="ph" aria-hidden="true"><use href="#i-trash"/></svg></button></div><p class="stats" id="rs-3"><span class="stat cur"><span class="lbl">Current</span><span class="none">No streak yet</span></span><span class="stat best"><span class="lbl">Best</span><span class="val"><b class="num">14</b></span></span></p><button type="button" class="btn-year" aria-haspopup="dialog" aria-label="Year view, No phone after 11pm">Year</button><button type="button" class="btn-done" aria-pressed="false" aria-label="Done today, No phone after 11pm" aria-describedby="rs-3"><span class="dot"><svg aria-hidden="true"><use href="#i-check"/></svg></span>Done today</button></li>
+        </ul>
+        <div class="sentinel" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <form class="composer" novalidate>
+      <p id="nh-msg" class="field-msg" aria-live="polite" hidden></p>
+      <div class="add-row">
+        <label for="nh" class="add-label">New habit</label>
+        <div class="add-ctl">
+          <input id="nh" class="input" type="text" autocomplete="off" spellcheck="false" aria-describedby="nh-msg">
+          <button id="add-btn" class="btn btn-primary" type="submit"><svg class="ph" aria-hidden="true"><use href="#i-plus"/></svg>Add</button>
+        </div>
+      </div>
+    </form>
+  </main>
+</div>
+
+
+<script>
+// Prototype wiring added by the design flow check. Not part of the golden.
+(function () {
+  var links = [{"from": "today.html", "role": "button", "name": "Overview, today 1 of 3 habits done", "to": "overview.html", "exact": true, "width": 390}, {"from": "today.html", "role": "button", "name": "Year view, all habits", "to": "overview-year.html", "exact": true, "width": 1280}, {"from": "today.html", "role": "button", "name": "Tue 22 Sep, 1 of 3 habits", "to": "day-editor.html", "exact": true, "width": 1280}, {"from": "today.html", "role": "button", "name": "Year view, Read 20 pages", "to": "year-view.html", "exact": true}, {"from": "today.html", "role": "button", "name": "Delete \"Stretch 10 minutes\"", "to": "delete-dialog.html", "exact": true}];
+  function label(el) { var s = el.getAttribute('aria-label') || (el.labels && el.labels.length ? el.labels[0].textContent : el.textContent) || ''; return s.replace(/\s+/g, ' ').trim(); }
+  function here(l) { return !l.width || (l.width >= 1024 ? innerWidth >= 1024 : innerWidth < 1024); }
+  document.addEventListener('click', function (e) {
+    for (var i = 0; i < links.length; i++) {
+      var l = links[i];
+      if (!here(l)) continue;
+      if (l.selector) { if (e.target.closest(l.selector)) { location.href = l.to; return; } continue; }
+      if (l.click) {
+        if (Math.abs(e.clientX - l.click[0]) > 2 || Math.abs(e.clientY - l.click[1]) > 2) continue;
+        var onCtl = !!e.target.closest('button, a, input, label, [role=button], [role=dialog], dialog > *');
+        if (/backdrop/.test(l.why || '') ? !onCtl : onCtl) { location.href = l.to; return; }
+        continue;
+      }
+      if (!l.name) continue;
+      var el = e.target.closest('button, a, [role=button], [role=radio], label, input');
+      if (!el) continue;
+      var t = label(el);
+      if (l.exact ? t === l.name : t.indexOf(l.name) !== -1) { e.preventDefault(); location.href = l.to; return; }
+    }
+  });
+  document.addEventListener('keydown', function (e) {
+    links.forEach(function (l) { if (l.key && here(l) && e.key === l.key) location.href = l.to; });
+  });
+})();
+</script>
+</body>
+</html>

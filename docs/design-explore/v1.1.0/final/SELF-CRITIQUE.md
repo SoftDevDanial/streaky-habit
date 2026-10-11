@@ -83,3 +83,8 @@ Not visible, for the builder. Arcs are `<use>` of shared paths, ring svgs drop I
 5. A tick anywhere (Done today, P1, P2) redraws every ring, row, Current and Best at once.
 6. Ring and bead numbers are SVG text on the baseline at the shape's centre, dropped `.352em`.
 7. Name errors show when Add is pressed, the typed text stays, typing clears the error. Dismiss note moves focus to the field.
+
+## After the run, orchestrator (design step 7)
+- **K1 under P3 and P4.** `overview.html` and `overview-year.html` now draw `today.html`'s K1 with its band, so K1 under every popup golden is the same (difference 5 above is the reference render only).
+- **`states.html`** inlines `system.css` byte for byte, then its sheet chrome. `check.py` now asserts it like every screen golden (97 of 97).
+- **Overview button name.** The visually hidden ", today 1 of 3 habits done" span sat beside a flex item, so Chromium's own tree read "Overview , today 1 of 3 habits done". The button now carries the documented name as `aria-label` and the span is gone. Nothing visible changed.

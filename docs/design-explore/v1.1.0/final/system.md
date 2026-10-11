@@ -278,7 +278,7 @@ None, then rings for 0, a third, two thirds and all of the habits, then All. 22 
 | Year on a row | "Year view, " plus the name | "Year view, Read 20 pages" |
 | Year on the overview | fixed | "Year view, all habits" |
 | Bin | "Delete " plus the name in straight quotes | Delete "Stretch 10 minutes" |
-| Overview button | the word plus today's count | "Overview, today 1 of 3 habits done" |
+| Overview button | the word plus today's count, as the button's `aria-label` | "Overview, today 1 of 3 habits done" |
 | Tick in P1 | the habit name, state in `aria-pressed` | "No phone after 11pm" |
 | Close, Dismiss | fixed | "Close", "Dismiss note" |
 
