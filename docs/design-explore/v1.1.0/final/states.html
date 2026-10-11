@@ -7,8 +7,8 @@
 <!--
   Specimen sheet (not a screen) for the states without their own golden: S2 (the three name errors), S4 (save
   warning) and S5 (saved habits could not be read). Each frame uses the app's own classes at the viewport's width,
-  so a phone shows the phone composer and 1280 shows the desktop one. The first style block is the part of system.css
-  these frames use, rules copied unchanged (the :root block is complete). The second is sheet-only chrome. Icons: Phosphor Icons (MIT), x and plus (regular).
+  so a phone shows the phone composer and 1280 shows the desktop one. The first style block is system.css byte for byte.
+  The second is sheet-only chrome. Icons: Phosphor Icons (MIT), x and plus (regular).
 -->
 <style>
 /* Danial's Streaky Habit v1.1.0, the locked design system (sdlc:design step 5).
@@ -99,6 +99,36 @@ button{ -webkit-tap-highlight-color:transparent; }
 .sr{ position:absolute; width:1px; height:1px; margin:-1px; padding:0; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0; }
 svg.ph{ width:var(--icon); height:var(--icon); fill:currentColor; flex:none; }
 
+/* ---------- the app column: one screen tall, only the list frame scrolls ---------- */
+.app{
+  display:flex; flex-direction:column; gap:var(--s-3);
+  height:100vh; height:100dvh; min-height:480px;
+  max-width:640px; margin:0 auto;
+  padding:var(--s-2) var(--s-4) max(var(--s-3), env(safe-area-inset-bottom));
+}
+.main{ flex:1; min-height:0; display:flex; flex-direction:column; gap:var(--s-3); }
+
+/* ---------- header ---------- */
+.top{
+  flex:none; display:grid; grid-template-columns:minmax(0,1fr) auto;
+  grid-template-areas:"brand ov" "date date";
+  column-gap:var(--s-3); row-gap:6px; align-items:center;
+}
+.brand{ grid-area:brand; display:flex; align-items:center; gap:10px; min-width:0; }
+.mark{ width:28px; height:28px; color:var(--amber); fill:currentColor; flex:none; }
+.word{ margin:0; font-size:var(--t-xl); line-height:24px; font-weight:700; letter-spacing:-.01em; white-space:nowrap; }
+.date{ grid-area:date; font-size:var(--t-sm); line-height:20px; color:var(--ink-soft); white-space:nowrap; }
+.ov-btn{
+  grid-area:ov; height:var(--hit); padding:0 14px 0 8px; border-radius:var(--r-ctl);
+  border:1.5px solid var(--ring); background:transparent; color:var(--ink);
+  display:inline-flex; align-items:center; gap:var(--s-2);
+  font-size:var(--t-btn); font-weight:600; white-space:nowrap; cursor:pointer;
+  transition:background-color var(--dur) var(--ease), transform var(--dur-press) var(--ease);
+}
+.ov-btn:active{ transform:scale(.98); }
+.ov-ring svg{ width:28px; height:28px; display:block; overflow:visible; }
+@media (hover: hover){ .ov-btn:hover{ background:var(--raise); } }
+
 /* ---------- banners (S4, S5) ---------- */
 .banners{ flex:none; display:grid; gap:var(--s-2); }
 .banners:empty{ display:none; }
@@ -117,12 +147,80 @@ svg.ph{ width:var(--icon); height:var(--icon); fill:currentColor; flex:none; }
 @media (hover: hover){ .icon-btn:hover{ background:var(--raise); color:var(--ink); } }
 
 /* ---------- the list frame ---------- */
+.frame-wrap{ position:relative; flex:0 1 auto; min-height:0; display:flex; flex-direction:column; }
 .frame{
   flex:0 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain;
   background:var(--surface); border:1px solid var(--line); border-radius:var(--r-card);
   scrollbar-width:thin; scrollbar-color:var(--ring) transparent;
 }
+.frame:focus-visible{ outline-offset:2px; }
+.sentinel{ height:1px; }
+/* the frame shows that it scrolls: a fade at an edge that has more behind it */
+.frame-wrap::before, .frame-wrap::after{
+  content:""; position:absolute; left:1px; right:12px; height:36px; pointer-events:none; z-index:1;
+  opacity:0; transition:opacity var(--dur) var(--ease);
+}
+.frame-wrap::before{ top:1px; border-radius:var(--r-card) 0 0 0; background:var(--fade-top); }
+.frame-wrap::after{ bottom:1px; border-radius:0 0 0 var(--r-card); background:var(--fade-bot); }
+.frame-wrap.more-above::before, .frame-wrap.more-below::after{ opacity:1; }
+
 .rows{ list-style:none; margin:0; padding:0; }
+/* phone: the name line carries the bin, the numbers line carries Year and Done today */
+.row{
+  display:grid; grid-template-columns:minmax(0,1fr) auto auto;
+  grid-template-areas:"name name name" "stats year done";
+  column-gap:var(--s-2); row-gap:var(--s-3); align-items:center;
+  padding:var(--s-3) 14px;
+}
+.row + .row{ border-top:1px solid var(--line); }
+.r-head{ grid-area:name; display:flex; align-items:flex-start; gap:var(--s-2); min-width:0; }
+.r-name{ flex:1 1 auto; min-width:0; margin:0; font-size:var(--t-md); line-height:22px; font-weight:600; overflow-wrap:anywhere; }
+
+/* the bin: quiet like Delete habit in P2. Grey at rest, the danger colour on hover and focus, never a red fill */
+.btn-bin{
+  width:var(--hit); height:var(--hit); flex:none; padding:0; margin:-10px -10px 0 0;
+  border-radius:var(--r-round); border:1.5px solid transparent; background:transparent; color:var(--ink-soft);
+  display:grid; place-items:center; cursor:pointer;
+  transition:border-color var(--dur) var(--ease), color var(--dur) var(--ease), transform var(--dur-press) var(--ease);
+}
+.btn-bin:active{ transform:scale(.94); }
+.btn-bin:focus-visible{ color:var(--danger); outline-offset:-2px; }
+@media (hover: hover){ .btn-bin:hover{ border-color:var(--danger); color:var(--danger); } }
+
+.stats{ grid-area:stats; margin:0; display:flex; align-items:flex-start; gap:14px; min-width:0; }
+.stat{ display:flex; flex-direction:column; min-width:0; }
+.stat .lbl{ font-size:var(--t-xs); line-height:16px; font-weight:600; color:var(--ink-soft); }
+.stat .val{ display:flex; align-items:baseline; gap:4px; }
+.stat .num{ font-size:var(--t-stat); line-height:26px; font-weight:700; font-variant-numeric:tabular-nums; letter-spacing:-.01em; }
+.stat.cur .num{ color:var(--amber); }
+.stat.best .num{ color:var(--ink); font-weight:600; }
+.stat .unit{ font-size:13px; line-height:16px; color:var(--ink-soft); }
+.stat .none{ font-size:13px; line-height:16px; font-weight:600; color:var(--ink-soft); padding-top:3px; }
+
+.btn-year, .btn-done, .btn-all{
+  height:var(--hit); border-radius:var(--r-ctl); border:1.5px solid var(--ring);
+  background:transparent; color:var(--ink); cursor:pointer;
+  display:inline-flex; align-items:center; justify-content:center;
+  font-size:var(--t-btn); font-weight:600; white-space:nowrap;
+  transition:background-color var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease), transform var(--dur-press) var(--ease);
+}
+.btn-year{ grid-area:year; min-width:var(--hit); padding:0 12px; }
+.btn-all{ flex:none; min-width:var(--hit); padding:0 12px; }
+.btn-done{ grid-area:done; padding:0 12px 0 9px; gap:7px; }
+.btn-year:active, .btn-done:active, .btn-all:active{ transform:scale(.97); }
+.btn-done .dot{
+  width:22px; height:22px; border-radius:var(--r-round); border:2px solid var(--ring);
+  display:grid; place-items:center; color:var(--amber); flex:none;
+  transition:background-color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.btn-done .dot svg{ width:13px; height:13px; fill:currentColor; opacity:0; }
+.btn-done[aria-pressed="true"]{ background:var(--amber); border-color:var(--amber); color:var(--on-amber); }
+.btn-done[aria-pressed="true"] .dot{ background:var(--on-amber); border-color:var(--on-amber); }
+.btn-done[aria-pressed="true"] .dot svg{ opacity:1; }
+@media (hover: hover){
+  .btn-year:hover, .btn-done:hover, .btn-all:hover{ background:var(--raise); }
+  .btn-done[aria-pressed="true"]:hover{ background:var(--amber-hover); border-color:var(--amber-hover); }
+}
 
 /* empty list (S1, S5) */
 .empty{ display:grid; grid-template-columns:96px minmax(0,1fr); gap:var(--s-4); align-items:center; padding:var(--s-4); }
@@ -162,18 +260,288 @@ svg.ph{ width:var(--icon); height:var(--icon); fill:currentColor; flex:none; }
 .btn-primary{ background:var(--amber); color:var(--on-amber); }
 .btn-primary:hover:not(:disabled){ background:var(--amber-hover); }
 .btn-primary:disabled{ background:var(--surface-2); color:var(--ink-soft); cursor:not-allowed; }
+.btn-secondary{ background:transparent; color:var(--ink); border:1.5px solid var(--ring); }
+.btn-secondary:hover{ background:var(--raise); }
+.btn-danger{ background:var(--danger); color:var(--on-amber); }
+.btn-danger:hover{ background:var(--danger-hover); }
 
+/* ---------- overview: a field of small rings, one segment per habit ---------- */
+.band{ display:none; }
+.hint{ margin:2px 0 0; font-size:var(--t-sm); line-height:20px; color:var(--ink-soft); }
+.hc{
+  height:var(--ov-cell-h); border:0; padding:0; margin:0; background:transparent; border-radius:12px;
+  display:grid; place-items:center; cursor:pointer;
+  transition:background-color var(--dur) var(--ease);
+}
+@media (hover: hover){ button.hc:hover{ background:var(--raise); } }
+.hc.is-open{ background:var(--raise); box-shadow:inset 0 0 0 1.5px var(--amber); }
+.hc:focus-visible{ outline-offset:-2px; }
+.hc svg{ width:var(--ov-ring); height:var(--ov-ring); display:block; overflow:visible; }
+span.hc{ cursor:default; }
+.seg{ fill:none; stroke:var(--ring); stroke-width:1.5; }
+.seg.on{ stroke:var(--amber); stroke-width:3.5; }
+/* ruling 1: on a hovered or open day the cell turns --raise, so a thin not-done segment steps up to --ink-soft (5.17 to 1) */
+.hc.is-open .seg:not(.on){ stroke:var(--ink-soft); }
+@media (hover: hover){ button.hc:hover .seg:not(.on){ stroke:var(--ink-soft); } }
+.c-core{ fill:var(--amber); }
+/* sits on the baseline, dropped half a figure height (dy .352em, measured) so the digits' ink centres in the ring.
+   Proportional figures, so a "1" does not carry an "8"'s width and pull the number off centre */
+.c-num{ fill:var(--ink-soft); font:600 var(--t-ov) var(--font); text-anchor:middle; dominant-baseline:alphabetic; font-variant-numeric:proportional-nums; }
+.c-num.on{ fill:var(--on-amber); font-weight:700; }
+.c-num.dim{ fill:var(--closed); font-weight:500; } /* P4: days after today, closed like P2's */
+.c-today{ fill:none; stroke:var(--ink); stroke-width:1.4; }
+.og-mo, .og-wd{ font-size:var(--t-xs); line-height:16px; font-weight:600; color:var(--ink-soft); }
+.legend{ display:flex; align-items:center; gap:6px; font-size:var(--t-xs); line-height:16px; color:var(--ink-soft); }
+.legend svg{ width:22px; height:22px; display:block; }
+
+/* phone popup grid: weeks as rows, newest on top */
+.ovg-rows{ display:grid; grid-template-columns:34px repeat(7, minmax(0,1fr)); }
+.ovg-rows .og-wd{ text-align:center; padding-bottom:var(--s-1); }
+.ovg-rows .og-mo{ display:flex; align-items:center; padding-left:2px; }
+
+/* ---------- dialogs ---------- */
+dialog{ padding:0; border:0; background:transparent; color:inherit; max-width:100vw; max-height:100dvh; overflow:visible; }
+dialog::backdrop{ background:var(--scrim); }
+.dlg-day::backdrop{ background:var(--scrim-soft); }
+.dlg-box{ background:var(--surface-2); border:1px solid var(--line); border-radius:var(--r-sheet); box-shadow:var(--shadow-dlg); padding:var(--s-5); }
+.dlg-sub{ margin:2px 0 0; font-size:var(--t-sm); line-height:20px; color:var(--ink-soft); }
+
+/* P1 day editor */
+.dlg-day{ margin:auto 0 0; width:100vw; }
+.dlg-day .dlg-box{ border-radius:var(--r-sheet) var(--r-sheet) 0 0; border-bottom:0; padding:var(--s-4) var(--s-4) var(--s-6); max-height:85dvh; overflow:auto; }
+.day-head{ display:grid; grid-template-columns:56px minmax(0,1fr) var(--hit); gap:var(--s-3); align-items:center; }
+.day-mini svg{ width:56px; height:56px; display:block; overflow:visible; }
+.day-head h2{ margin:0; font-size:var(--t-lg); line-height:24px; font-weight:600; }
+.day-list{ list-style:none; margin:var(--s-3) 0 0; padding:0; display:grid; gap:2px; }
+.tick{
+  width:100%; min-height:60px; border:0; margin:0; padding:var(--s-2) var(--s-3); border-radius:12px;
+  background:transparent; color:var(--ink); text-align:left; cursor:pointer;
+  display:grid; grid-template-columns:28px minmax(0,1fr); grid-template-areas:"box name" "box stat"; column-gap:var(--s-3); align-items:center;
+  transition:background-color var(--dur) var(--ease);
+}
+@media (hover: hover){ .tick:hover{ background:var(--raise); } }
+.tick:focus-visible{ outline-offset:-2px; }
+.tbox{
+  grid-area:box; width:28px; height:28px; border-radius:var(--r-round); border:2px solid var(--ring);
+  display:grid; place-items:center; color:var(--on-amber);
+  transition:background-color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.tbox svg{ width:16px; height:16px; fill:currentColor; opacity:0; }
+.tick.on .tbox{ background:var(--amber); border-color:var(--amber); }
+.tick.on .tbox svg{ opacity:1; }
+.tname{ grid-area:name; font-size:var(--t-md); line-height:22px; font-weight:600; overflow-wrap:anywhere; }
+.tstat{ grid-area:stat; display:flex; flex-wrap:wrap; column-gap:var(--s-3); font-size:13px; line-height:18px; color:var(--ink-soft); }
+.tstat .tcur{ color:var(--amber); font-weight:600; }
+.tstat .tcur.none{ color:var(--ink-soft); }
+.day-empty{ margin:var(--s-4) 0 var(--s-1); color:var(--ink-soft); font-size:var(--t-sm); }
+
+/* M1 delete */
+.dlg-del{ margin:auto; width:min(400px, calc(100vw - 32px)); }
+.dlg-del h2{ margin:0; font-size:var(--t-lg); line-height:26px; font-weight:600; overflow-wrap:anywhere; }
+.dlg-del p{ margin:var(--s-2) 0 var(--s-5); color:var(--ink-soft); }
+.dlg-actions{ display:grid; grid-template-columns:1fr 1fr; gap:var(--s-3); }
+
+/* P2 year view, P3 overview and P4 overview year view: full-screen sheets on a phone */
+.dlg-full{ margin:0; width:100vw; height:100vh; height:100dvh; }
+.dlg-full .dlg-box{ height:100%; border:0; border-radius:0; padding:0; box-shadow:none; display:flex; flex-direction:column; }
+.sheet-head{ flex:none; padding:var(--s-3) var(--s-4) var(--s-3); border-bottom:1px solid var(--line); }
+.sheet-body{
+  flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; padding:var(--s-3) var(--s-4) var(--s-6);
+  scrollbar-width:thin; scrollbar-color:var(--ring) transparent;
+  /* a soft shadow at an edge with more behind it: the covers scroll with the content, the shadows stay put */
+  background:
+    linear-gradient(var(--surface-2) 30%, rgba(42,43,48,0)) center top / 100% 40px no-repeat local,
+    linear-gradient(rgba(42,43,48,0), var(--surface-2) 70%) center bottom / 100% 40px no-repeat local,
+    radial-gradient(farthest-side at 50% 0, rgba(6,7,9,.6), rgba(6,7,9,0)) center top / 100% 16px no-repeat scroll,
+    radial-gradient(farthest-side at 50% 100%, rgba(6,7,9,.6), rgba(6,7,9,0)) center bottom / 100% 16px no-repeat scroll,
+    var(--surface-2);
+}
+.head-top{ display:flex; align-items:flex-start; gap:var(--s-2); }
+.head-top > div{ flex:1; min-width:0; padding-top:9px; }
+.head-top h2{ margin:0; font-size:var(--t-xl); line-height:26px; font-weight:700; overflow-wrap:anywhere; }
+.head-top .icon-btn{ margin:0 -6px 0 0; }
+
+.yr-mid{ display:flex; align-items:flex-end; justify-content:space-between; gap:var(--s-3); margin-top:var(--s-2); flex-wrap:wrap; }
+.yr-stats{ margin:0; display:flex; align-items:flex-start; gap:var(--s-5); }
+.yr-stats .stat .num{ font-size:var(--t-cur-lg); line-height:38px; }
+.yr-stats .stat.best .num{ font-size:var(--t-best-lg); line-height:32px; }
+.yr-stats .stat .none{ font-size:var(--t-sm); line-height:20px; max-width:none; padding:4px 0 8px; }
+.btn-del{
+  height:var(--hit); padding:0 12px 0 10px; border-radius:var(--r-ctl); border:1.5px solid transparent;
+  background:transparent; color:var(--ink-soft); display:inline-flex; align-items:center; gap:6px;
+  font-size:var(--t-btn); font-weight:600; white-space:nowrap; cursor:pointer;
+  transition:background-color var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+/* quiet until pointed at, like the bin: the red belongs to the confirm in M1 */
+@media (hover: hover){ .btn-del:hover{ border-color:var(--danger); color:var(--danger); } }
+.yr-tools{ display:flex; align-items:center; justify-content:space-between; gap:var(--s-3); margin-top:var(--s-2); flex-wrap:wrap; }
+.yr-tools .hint{ margin:0; }
+.yr-legend{ display:flex; align-items:center; gap:6px; margin:0; font-size:var(--t-xs); line-height:16px; color:var(--ink-soft); }
+.mini{ width:16px; height:16px; border-radius:var(--r-round); border:2px solid var(--ring); display:inline-block; }
+.mini.on{ background:var(--amber); border-color:var(--amber); }
+.yr-legend .mini + span{ margin-right:6px; }
+
+.months{ display:grid; grid-template-columns:minmax(0,1fr); gap:var(--s-5); }
+.month h3{ margin:0 0 var(--s-1) 2px; font-size:var(--t-btn); line-height:22px; font-weight:600; }
+.mgrid{ display:grid; grid-template-columns:repeat(7, minmax(0,1fr)); }
+.mwd{ font-size:var(--t-2xs); line-height:16px; font-weight:600; color:var(--ink-soft); text-align:center; padding-bottom:2px; }
+.yc{
+  position:relative; height:var(--yc); border:0; padding:0; margin:0; background:transparent;
+  display:grid; place-items:center; cursor:pointer;
+}
+span.yc{ cursor:default; }
+/* ruling 2: the number is SVG text drawn the ring's way, on the baseline at the bead's centre, dropped .352em,
+   so its ink centres. (HTML text snaps its baseline to whole pixels and could only land 0.3 high or 0.7 low) */
+.bead{
+  position:relative; z-index:1; width:var(--bead); height:var(--bead); border-radius:var(--r-round);
+  border:2px solid var(--ring); background:var(--surface-2); color:var(--ink);
+  font:600 var(--t-btn)/1 var(--font); font-variant-numeric:proportional-nums;
+  display:grid; place-items:center;
+  transition:background-color var(--dur) var(--ease), border-color var(--dur) var(--ease), transform var(--dur-press) var(--ease);
+}
+.bead svg{ position:absolute; inset:0; width:100%; height:100%; overflow:visible; }
+.bead text{ fill:currentColor; text-anchor:middle; dominant-baseline:alphabetic; }
+.yc.on .bead{ background:var(--amber); border-color:var(--amber); color:var(--on-amber); font-weight:700; }
+.yc.today .bead{ box-shadow:0 0 0 3px var(--surface-2), 0 0 0 4.5px var(--ink); }
+.yc.closed .bead{ border-color:transparent; background:transparent; color:var(--closed); font-weight:500; }
+/* consecutive done days are strung on one thread, like the mark */
+.yc.l::before, .yc.r::after{ content:""; position:absolute; top:50%; height:8px; margin-top:-4px; background:var(--amber); }
+.yc.l::before{ left:0; right:50%; }
+.yc.r::after{ left:50%; right:0; }
+@media (hover: hover){
+  button.yc:hover .bead{ border-color:var(--amber); }
+  button.yc.on:hover .bead{ background:var(--amber-hover); border-color:var(--amber-hover); }
+}
+button.yc:active .bead{ transform:scale(.9); }
+.yc:focus-visible{ outline:none; }
+.yc:focus-visible .bead{ outline:2px solid var(--focus); outline-offset:3px; }
+
+/* P3 overview popup */
+.ov-head{ display:flex; align-items:flex-start; gap:var(--s-2); }
+.ov-head > div{ flex:1; min-width:0; padding-top:9px; }
+.ov-head h2{ margin:0; font-size:var(--t-xl); line-height:26px; font-weight:700; }
+.ov-head .icon-btn{ margin:0 -6px 0 0; }
+.dlg-ov .legend{ justify-content:flex-end; margin-top:var(--s-3); padding:0 6px; }
+/* sized for a thumb: the popup has the whole screen, so its rings grow */
+.dlg-ov .hc{ height:48px; }
+.dlg-ov .hc svg{ width:42px; height:42px; }
+
+/* P4 overview year view: P2's months, the overview's rings, every habit together */
+.dlg-all .mgrid .hc{ height:48px; }
+.dlg-all .mgrid .hc svg{ width:42px; height:42px; }
+
+/* ---------- motion (only when the reader has not asked for less) ---------- */
+@media (prefers-reduced-motion: no-preference){
+  .btn-done.pop .dot{ animation:pop 260ms var(--ease-out); }
+  .bump{ animation:bump 280ms var(--ease-out); }
+  .hc.pop svg{ animation:pop 300ms var(--ease-out); }
+  .ov-ring.pop svg{ animation:pop 300ms var(--ease-out); }
+  .tick.pop .tbox{ animation:pop 260ms var(--ease-out); }
+  .yc.pop .bead{ animation:pop 260ms var(--ease-out); }
+  dialog[open] .dlg-box{ animation:rise var(--dur-enter) var(--ease-out); }
+  .dlg-day[open] .dlg-box{ animation:sheet 260ms var(--ease-out); }
+  dialog[open]::backdrop, .scrim{ animation:fade 180ms var(--ease); }
+}
+@keyframes pop{ 0%{ transform:scale(.82); } 60%{ transform:scale(1.08); } 100%{ transform:scale(1); } }
+@keyframes bump{ 0%{ transform:translateY(6px); opacity:.2; } 100%{ transform:none; opacity:1; } }
+@keyframes rise{ from{ transform:translateY(8px); opacity:0; } to{ transform:none; opacity:1; } }
+@keyframes sheet{ from{ transform:translateY(40px); opacity:.4; } to{ transform:none; opacity:1; } }
+@keyframes fade{ from{ opacity:0; } to{ opacity:1; } }
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{ animation:none !important; transition:none !important; }
 }
+
+/* ---------- widths ---------- */
+@media (max-width: 379px){
+  .app{ padding-left:var(--s-3); padding-right:var(--s-3); }
+  .row{ padding-left:var(--s-3); padding-right:var(--s-3); column-gap:6px; }
+  .stats{ gap:var(--s-3); }
+  .btn-year{ padding:0 10px; }
+  .btn-done{ padding:0 10px 0 8px; gap:6px; font-size:var(--t-sm); }
+  .sheet-head, .sheet-body{ padding-left:var(--s-3); padding-right:var(--s-3); }
+  .dlg-ov .hc{ height:46px; }
+  .dlg-ov .hc svg{ width:40px; height:40px; }
+  .dlg-all .mgrid .hc{ height:46px; }
+  .dlg-all .mgrid .hc svg{ width:40px; height:40px; }
+  :root{ --bead:34px; }
+}
+@media (min-width: 768px){
+  .dlg-day{ margin:auto; width:min(440px, calc(100vw - 32px)); }
+  .dlg-day .dlg-box{ border-radius:var(--r-sheet); border-bottom:1px solid var(--line); padding:var(--s-5); }
+  .dlg-full{ margin:auto; width:min(980px, calc(100vw - 48px)); height:auto; max-height:calc(100dvh - 48px); }
+  .dlg-full .dlg-box{ height:auto; max-height:calc(100dvh - 48px); border:1px solid var(--line); border-radius:var(--r-sheet); box-shadow:var(--shadow-dlg); }
+  .dlg-ov{ width:min(520px, calc(100vw - 48px)); }
+  .sheet-head{ padding:var(--s-4) var(--s-6) var(--s-3); }
+  .sheet-body{ padding:var(--s-4) var(--s-6) var(--s-6); }
+  .months{ grid-template-columns:repeat(2, max-content); justify-content:center; gap:var(--s-6) var(--s-8); }
+  .mgrid{ grid-template-columns:repeat(7, 40px); }
+  :root{ --yc:40px; --bead:32px; }
+  .bead{ font-size:var(--t-sm); }
+  /* P4: the overview's 40 px ring in a 42 px column keeps the 16 px day number and fits three months across */
+  .months.months-all{ grid-template-columns:repeat(auto-fill, 294px); gap:var(--s-6) var(--s-5); }
+  .dlg-all .mgrid{ grid-template-columns:repeat(7, 42px); }
+  .dlg-all .mgrid .hc{ height:var(--ov-cell-h); }
+  .dlg-all .mgrid .hc svg{ width:var(--ov-ring); height:var(--ov-ring); }
+}
 @media (min-width: 1024px){
+  .app{ max-width:var(--app-max); padding:var(--s-3) var(--s-6); }
+  .top{ grid-template-columns:minmax(0,1fr) auto; grid-template-areas:"brand date"; column-gap:var(--s-5); }
+  .mark{ width:32px; height:32px; }
+  .word{ font-size:21px; }
+  .date{ font-size:var(--t-md); }
+  .ov-btn{ display:none; }
+
+  /* the overview band: weeks as columns, newest on the right */
+  .band{
+    flex:none; display:grid; grid-template-columns:180px minmax(0,1fr); gap:var(--s-5);
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--r-card);
+    padding:14px var(--s-5) var(--s-3);
+  }
+  .band-meta{ display:flex; flex-direction:column; min-width:0; }
+  /* the band's own header line: the title and its Year button, never inside the ring grid */
+  .band-head{ display:flex; align-items:center; justify-content:space-between; gap:var(--s-2); margin-top:-10px; }
+  .band-meta h2{ margin:0; font-size:var(--t-md); line-height:24px; font-weight:600; white-space:nowrap; }
+  .band-meta .legend{ margin-top:auto; padding-bottom:6px; }
+  .ovg-cols{
+    display:grid; grid-auto-flow:column;
+    grid-template-columns:22px repeat(12, minmax(0,1fr));
+    grid-template-rows:18px repeat(7, var(--ov-cell-h));
+  }
+  .ovg-cols .og-mo{ padding-left:6px; white-space:nowrap; }
+  .ovg-cols .og-wd{ display:flex; align-items:center; }
+  .ovg-cols .hc{ width:52px; justify-self:center; }
+
+  /* one line: the bin closes the name column, so the stats and Year sit between it and Done today */
+  .row{
+    grid-template-columns:minmax(0,1fr) calc(var(--hit) + var(--s-3)) 200px auto auto;
+    grid-template-areas:"name bin stats year done";
+    column-gap:var(--s-3); padding:var(--s-3) var(--s-3) var(--s-3) var(--s-5);
+  }
+  .r-head{ display:contents; }
+  .r-name{ grid-area:name; font-size:var(--t-lg); line-height:24px; }
+  .btn-bin{ grid-area:bin; justify-self:start; margin:0; }
+  .stats{ gap:var(--s-5); }
+  .stat.cur{ min-width:96px; } /* Best lines up down the list, with or without a streak */
+
   /* label left, field right, a message sits above the field it is about */
   .composer{ padding:var(--s-3); display:grid; grid-template-columns:auto minmax(0,1fr); column-gap:var(--s-4); }
   .field-msg{ grid-column:2; grid-row:1; }
   .add-row{ display:contents; }
   .add-label{ grid-column:1; grid-row:2; align-self:center; margin:0 0 0 var(--s-2); white-space:nowrap; }
   .add-ctl{ grid-column:2; grid-row:2; }
+
+  .months{ grid-template-columns:repeat(3, max-content); }
 }
+
+/* ---------- golden stand-ins (static goldens only, the app does not need them) ----------
+   The app opens every popup with showModal(), which puts it in the top layer over a ::backdrop.
+   A golden has no script, so it marks a popup <dialog open> and draws the backdrop as a .scrim before it.
+   Layers paint in document order: scrim, dialog, scrim, dialog. */
+.scrim{ position:fixed; inset:0; z-index:10; background:var(--scrim); }
+.scrim.soft{ background:var(--scrim-soft); }
+dialog[open]{ position:fixed; inset:0; z-index:10; }
+/* a layer that only exists below the desktop layout (P3 under P1 on a phone) */
+@media (min-width: 1024px){ .below-desktop{ display:none; } }
 </style>
 <style>
 /* sheet only, not part of the app: page frame, group titles, captions */

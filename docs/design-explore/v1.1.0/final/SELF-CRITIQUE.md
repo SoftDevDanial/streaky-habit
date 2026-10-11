@@ -38,10 +38,9 @@
 | 2 | A thin not-done segment on the open day draws in `--ink-soft` | `day-editor.html` (band at 1280, P3 on a phone), and on hover everywhere | Ruling 1, 2.97 to 5.17 |
 | 3 | Ring numbers sit up to 0.25 px higher (`dy .352em` for `.367em`) | every ring | Ruling 2. f2 measured 0.34 px low on average at 390, 0.5 at worst. Below the diff threshold, invisible at 1x |
 | 4 | Bead numbers sit about 0.7 px higher on a phone, and use proportional figures | `year-view.html` | Ruling 2. f2's beads were 0.72 px low. This is the only difference the pixel diff sees |
-| 5 | K1 under P3 and P4 is drawn without its band | `overview.html`, `overview-year.html` | Never visible on a phone (full-screen sheets). At 1280 P4 hides all but 5 px a side, and P3 cannot open at 1280 at all. Kept the goldens within the session's context budget |
-| 6 | `overview.html` at 1280 shows P3 as the 520 px dialog over a band-less K1 | `overview.html` | f2 cannot open P3 at 1024 and up. The render is reference only, said in `MANIFEST.md` |
+| 5 | `overview.html` at 1280 shows P3 as the 520 px dialog over K1 and its band | `overview.html` | f2 cannot open P3 at 1024 and up. The render is reference only, said in `MANIFEST.md` |
 
-Not visible, for the builder. Arcs are `<use>` of shared paths, ring svgs drop IE's `focusable`, `data-act` and `data-fk` hooks are gone, popups are `<dialog open>` with a `.scrim` and `inert` behind (system stand-ins), `states.html` carries the part of `system.css` its frames use.
+Not visible, for the builder. Arcs are `<use>` of shared paths, ring svgs drop IE's `focusable`, `data-act` and `data-fk` hooks are gone, popups are `<dialog open>` with a `.scrim` and `inert` behind (system stand-ins), `states.html` carries `system.css` byte for byte, then its own sheet chrome.
 
 ## What I changed while composing
 
@@ -49,7 +48,7 @@ Not visible, for the builder. Arcs are `<use>` of shared paths, ring svgs drop I
 |---|---|---|
 | 1 | A CSS strut (`.bead::before`, baseline flex) centred beads at 1280 but left them 0.72 px low at 390. Measured that HTML text snaps its baseline to whole pixels, so 0.28 high or 0.72 low were the only choices | Bead numbers became SVG text, the ring's own method, which moves in quarter pixels |
 | 2 | f2's `.367em` left P3 rings 0.5 px low at 390 | Measured the figures' half height, `.352em`, for rings and beads |
-| 3 | Writing K1's band under every popup ran the context budget down | Drew K1 without the band only where it can never show (difference 5) |
+| 3 | Writing K1's band under every popup ran the context budget down | Drew K1 without the band under P3 and P4. The orchestrator put the band back after the run, so K1 under every popup is `today.html`'s K1 |
 
 ## Open for the owner
 1. **Horizontal ink.** `text-anchor:middle` centres the advance, not the ink. Numbers with a "1" sit up to 0.83 px left in the band, 1.05 px in P3 at 390, 0.78 px in beads. The brief's measure was vertical (ink rows), and it passes. A horizontal fix needs per-glyph offsets tied to one font, so I left it.

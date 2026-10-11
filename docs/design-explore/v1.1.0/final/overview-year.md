@@ -8,7 +8,7 @@
 The overview's own year. Every day of P2's 366 is drawn as the overview's ring, so a day reads the same in the band, P3, P4 and P1.
 
 ## What the golden shows
-Months newest first, October 2026 to October 2025. 366 ring buttons, 21 closed days (11 to 31 October 2026, number only in `--closed` 500), 9 empty days (1 to 9 October 2025). Phone, a full-screen sheet over P3 (P3 is fully covered and not drawn), one month across, 42 px rings in 48 px cells (40 in 46 under 380). Desktop, a centred 980 px dialog over K1 under `--scrim`, three months across in 42 px columns, 40 px rings in 44 px cells, numbers 16 px. K1 is drawn without its band, which P4 covers except for 5 px at each side.
+Months newest first, October 2026 to October 2025. 366 ring buttons, 21 closed days (11 to 31 October 2026, number only in `--closed` 500), 9 empty days (1 to 9 October 2025). Phone, a full-screen sheet over P3 (P3 is fully covered and not drawn), one month across, 42 px rings in 48 px cells (40 in 46 under 380). Desktop, a centred 980 px dialog over K1 under `--scrim`, three months across in 42 px columns, 40 px rings in 44 px cells, numbers 16 px. K1 underneath is today.html's K1, band included. P4 covers it except for the header and 5 px at each side.
 
 ## Exact copy
 

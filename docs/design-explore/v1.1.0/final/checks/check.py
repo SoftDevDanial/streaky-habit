@@ -111,12 +111,11 @@ def main():
     (HERE / "shots").mkdir(exist_ok=True)
     (HERE / "compare").mkdir(exist_ok=True)
     system = (FINAL / "system.css").read_text(encoding="utf-8").strip()
-    root = system[system.index(":root{"):system.index("}", system.index(":root{")) + 1]
     for g in GOLDENS:
         txt = (FINAL / f"{g}.html").read_text(encoding="utf-8")
         style = re.search(r"<style>\n(.*?)\n</style>", txt, re.S).group(1).strip()
-        R["css_equal_system"][g] = style == system if g != "states" else (root in style)
-        ok(f"{g} style block is system.css" + (" (states: :root block)" if g == "states" else ""), R["css_equal_system"][g])
+        R["css_equal_system"][g] = style == system
+        ok(f"{g} style block is system.css", R["css_equal_system"][g])
     for p in FINAL.rglob("*"):
         if p.is_file() and p.suffix in (".html", ".md", ".css", ".json"):
             t = p.read_text(encoding="utf-8")

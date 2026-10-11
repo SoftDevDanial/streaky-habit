@@ -2773,12 +2773,12 @@
    "count": 0
   },
   "overview": {
-   "rings": 83,
+   "rings": 166,
    "mismatches": [],
    "count": 0
   },
   "overview-year": {
-   "rings": 366,
+   "rings": 449,
    "mismatches": [],
    "count": 0
   },
@@ -3462,7 +3462,7 @@
    "pass": true,
    "detail": null
   },
-  "states style block is system.css (states: :root block)": {
+  "states style block is system.css": {
    "pass": true,
    "detail": null
   },
