@@ -226,3 +226,6 @@ Append-only history. STATE.md holds the situation, this file holds what happened
 ## 2026-10-11 13:33 v1.1.0 RULINGS.md written
 - docs/design-explore/v1.1.0/RULINGS.md from his four answers. Copy list and seven rules approved, header 12 px, sideways ink left, desktop day cells accepted, the mark redrawn from the orbit ring. SELF-CRITIQUE open items 1 and 2 marked ruled. check.py 97 of 97. Ledger S7 row 9.
 - docs/explain/2026-10-11-d786d25/ (an sdlc:explain run at 12:43) is untracked and was left as found.
+
+## 2026-10-11 15:08 logo round 1 started
+- Brief written (orbit ring, one flat fill, 28 px header and 16 px favicon slots, no D). T1 the full day passed 22 of 24. T2 another lap designing. Committed 8d35464.

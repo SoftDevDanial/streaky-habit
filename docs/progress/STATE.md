@@ -4,7 +4,7 @@
 - **design-phase:** sdlc:design
 - **version:** 1.1.0 (1.0.0 sealed 2026-10-10, tag v1.0.0)
 - **mode:** greenfield
-- **phase:** v1.1.0 design, step 7 done, rulings written (RULINGS.md v1.1.0), logo round next
+- **phase:** v1.1.0 design, logo round 1 in progress (T1 passed, T2 designing, T3 and T4 next)
 - **next:** logo round (redraw the mark from the orbit ring, four directions, QA-checked, he picks on the design board), swap the mark and favicon into every golden, rerun check.py, finalize gate (his approval AND his word to replace 1.0's goldens), then plan (sdlc 2.5.0 is installed)
 - **last-regression:** PASS @ 2026-10-10 12:25 (docs/regression/REGRESSION.md)
 
@@ -18,7 +18,7 @@
 none
 
 ## Next action
-RULINGS.md v1.1.0 written in docs/design-explore/v1.1.0/ from his four answers of 2026-10-11. Next the logo round, usage check first, at most 2 agents at a time, load the logo-design skill. Then swap his pick into each golden's one inline <svg class="mark"> and the favicon data URL, rerun check.py. Then the finalize gate. Details in `HANDOFF-2026-10-11b.md` at the showcase root.
+Logo round 1 in docs/design-explore/v1.1.0/logo/ (BRIEF.md, QA.md, round-1/). T1 passed QA 22 of 24, with a risk to show him (it twins the live Overview ring at 28 px on a full day). T2 was still designing at 15:15. Next render and QA T2, then T3 and T4, then the board on port 4556. Details in `HANDOFF-2026-10-11c.md` at the showcase root.
 
 ## Notes
 Goldens (immutable): docs/design/today.html (key), today-empty.html, delete-dialog.html, states.html (specimen sheet), system.md, system.css, sample-history.json, RULINGS.md.
