@@ -32,6 +32,9 @@ Habit trackers and streak counters. Their marks lean on concentric activity ring
 | T2 | Abstract, one stroke | **Another lap.** One thick ring drawn as a single band that runs past its own start at the top, the end passing over the beginning with a knockout gap. The ring keeps going, day after day. Pressure test against a power icon, a refresh arrow, a coiled spring, the letters O and Q and an awareness ribbon |
 | T3 | Lettermark | **The orbit S.** An S drawn as two ring arcs in the ring's thick weight, the top arc open to the right and the bottom arc open to the left, their ends cut square like ring segments. Two days in a row write the S. Pressure test against a dollar sign, a snake, a yin-yang and the number 5 |
 | T4 | Abstract, motion | **Wound up.** One thick arc that spirals inward, lap after lap, into the filled core of a full day. The streak winding tighter. Pressure test against a snail, a hypnosis spiral, a lollipop, a cinnamon roll and a loading spinner |
+| T5 | Pictorial reduction | **Today on its orbit.** One full ring in the app's thin weight, the days going round, and one filled disc, today, riding on the ring at the upper right, cut free of it by a knockout gap. The ring's own language, thin for the run, filled for a day done. Pressure test against an avatar with a status dot, a notification badge, an engagement ring, a planet in orbit, a power icon and the letters O and Q |
+
+T2 was retired after one QA review (`QA.md`). Its over-under crossing needs about 10 px of a 14 px favicon at 2 px per feature, so at 16 px it read as a letter O with accents. T5 replaces it.
 
 ## Output contract
 A self-contained HTML brand sheet, exactly 1440 x 900, background `#0c0d10`, inline CSS and SVG only, no network, system fonts only (`'Segoe UI', system-ui, sans-serif`). Four sections.
