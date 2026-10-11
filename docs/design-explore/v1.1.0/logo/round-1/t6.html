@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440">
+<title>Streaky Habit logo, round 1, T6 The thread, with today's arc</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%2318191C'/%3E%3Cpath fill='%23FFB020' d='M8.5 5H11.5A2.5 2.5 0 1 1 11.5 8H8.5A2.5 2.5 0 0 1 8 8.5V11.5A2.5 2.5 0 1 1 5 11.5V8.5A2.5 2.5 0 1 1 8.5 5ZM13.5 11A2.5 2.5 0 0 1 13.5 16A2.5 2.5 0 0 1 13.5 11ZM13.5 12A1.5 1.5 0 0 0 13.5 15A1.5 1.5 0 0 0 13.5 12ZM0.02 7A6.5 6.5 0 0 1 7 0.02V2.03A4.5 4.5 0 0 0 2.03 7Z'/%3E%3C/svg%3E">
+<!--
+  T6, the owner's direction, built on the 1.0 mark (docs/brand/mark.svg). "The thread, with today's arc".
+  Three done beads on one thick thread that turns a corner (top left, top right, bottom left), today's open bead in the
+  bottom right corner, not strung, and one thick arc concentric with the top left bead, from 9 to 12 o'clock.
+  Master (mark-src), 28 unit grid, 1 unit per pixel of the 28 px header. Bead 9 (centres 9.5 and 22.5), thread 5,
+  bead gaps 4, open ring 2 round a 5 hole. Arc radii 6.5 and 9.5, so gap 2 and band 3, ends cut square on the bead's
+  axes like the app's butt ended ring segments. Mark spans 0 to 27, moved half a unit up and left of centre.
+  Small master (favicon-src), its own 16 grid. Bead 5, thread 3, gaps 2, arc gap 2, band 2, open ring 1 round a 3 hole,
+  arc ends at 7 (half a pixel past the axes) so every edge is a whole pixel at 16 and 32. Mark spans 0 to 16.
+  One flat fill, no stroke, no gradient, no opacity. Production sources sit at the end of the body.
+-->
+<style>
+:root{
+  --sheet:#0c0d10;
+  --panel:#111216;
+  --panel-line:#1d1f24;
+  --app:#18191C;
+  --amber:#FFB020;
+  --ink:#EDEEF0;
+  --ink-soft:#A8ABB2;
+  --muted:#8C9099;
+  --quiet:#6C7079;
+  --ring:#7C7F88;
+  --sheet-font:'Segoe UI', system-ui, sans-serif;
+  --app-font:ui-sans-serif, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+*,*::before,*::after{ box-sizing:border-box; }
+html,body{ margin:0; background:var(--sheet); }
+body{
+  width:1440px; height:900px; overflow:hidden;
+  color:var(--ink); font:400 14px/20px var(--sheet-font);
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,p,figure,figcaption,dl,dt,dd{ margin:0; }
+.sprite{ position:absolute; width:0; height:0; overflow:hidden; }
+.mk{ display:block; fill:currentColor; flex:none; }
+
+.sheet{
+  display:grid; grid-template-columns:500px 796px; column-gap:48px;
+  padding:48px; height:900px;
+}
+
+/* ---------- 1 hero ---------- */
+.hero{
+  position:relative; height:804px; border-radius:20px;
+  background:var(--panel); box-shadow:inset 0 0 0 1px var(--panel-line);
+}
+.hero-meta{
+  position:absolute; top:20px; left:28px; right:28px;
+  display:flex; justify-content:space-between;
+  font-size:12px; line-height:16px; color:var(--quiet);
+}
+/* 252 px box, 9 px per unit, the 27 unit mark draws at 243 px */
+.hero-mark{ position:absolute; left:124px; top:48px; width:252px; height:252px; color:var(--amber); }
+.hero-id{
+  position:absolute; top:312px; left:0; right:0; text-align:center;
+  font-size:20px; line-height:28px; font-weight:600; color:#C4C7CE;
+}
+.hero-id .tid{ color:var(--muted); margin-right:10px; }
+.hero-idea{
+  position:absolute; top:346px; left:40px; right:40px; text-align:center;
+  font-size:14px; line-height:20px; color:var(--muted);
+}
+.notes{
+  position:absolute; left:28px; right:28px; top:404px;
+  padding-top:14px; border-top:1px solid #1f2126;
+}
+.notes h3{ font-size:11.5px; line-height:16px; font-weight:600; color:var(--muted); margin-bottom:4px; }
+.notes .build{ font-size:11.5px; line-height:16px; color:var(--quiet); margin-bottom:12px; }
+.notes .build b{ color:#B9BCC3; font-weight:600; }
+.notes dl{
+  display:grid; grid-template-columns:92px minmax(0,1fr); column-gap:12px; row-gap:1px;
+  font-size:11.5px; line-height:16px;
+}
+.notes dt{ color:#B9BCC3; font-weight:600; }
+.notes dd{ color:var(--quiet); }
+
+/* ---------- right column ---------- */
+.col{ display:flex; flex-direction:column; justify-content:space-between; height:804px; }
+.lbl{ font-size:12px; line-height:16px; font-weight:600; color:var(--muted); margin-bottom:12px; }
+.cap{ font-size:12px; line-height:16px; color:var(--quiet); margin-bottom:8px; }
+.lnote{ font-size:12px; line-height:16px; color:var(--quiet); margin-bottom:10px; }
+.lnote b{ color:#B9BCC3; font-weight:600; }
+
+/* ---------- 2 in the app (the real header, values from system.css) ---------- */
+.app-row{ display:flex; gap:16px; }
+.pane{ height:94px; background:var(--app); border-radius:14px; box-shadow:0 0 0 1px #24262b; }
+.pane.phone{ width:360px; padding:12px 16px; }
+.pane.desk{ width:420px; padding:0 24px; display:flex; align-items:center; justify-content:space-between; }
+.top{
+  display:grid; grid-template-columns:minmax(0,1fr) auto;
+  grid-template-areas:"brand ov" "date date";
+  column-gap:12px; row-gap:6px; align-items:center;
+}
+.brand{ grid-area:brand; display:flex; align-items:center; gap:10px; min-width:0; }
+.brand .mk{ color:var(--amber); }
+.mark28{ width:28px; height:28px; }
+.mark32{ width:32px; height:32px; }
+.word{ font:700 19px/24px var(--app-font); letter-spacing:-.01em; white-space:nowrap; color:var(--ink); }
+.desk .word{ font-size:21px; }
+.date{ grid-area:date; font:400 14px/20px var(--app-font); color:var(--ink-soft); white-space:nowrap; }
+.desk .date{ font-size:16px; line-height:24px; }
+.ov-btn{
+  grid-area:ov; height:44px; padding:0 14px 0 8px; border-radius:10px;
+  border:1.5px solid var(--ring); color:var(--ink);
+  display:inline-flex; align-items:center; gap:8px;
+  font:600 15px/1 var(--app-font); white-space:nowrap;
+}
+.ov-ring{ width:28px; height:28px; display:block; overflow:visible; }
+/* the app's UI ring (one of three habits done), drawn the app's way. Not the mark */
+.seg{ fill:none; stroke:var(--ring); stroke-width:1.5; }
+.seg.on{ stroke:var(--amber); stroke-width:3.5; }
+
+/* ---------- 3 legibility, every position a whole pixel ---------- */
+.legi{ position:relative; height:176px; background:var(--app); border-radius:16px; box-shadow:0 0 0 1px #24262b; }
+.legi .mk{ position:absolute; color:var(--amber); }
+.legi .rule{ position:absolute; left:451px; top:26px; width:1px; height:124px; background:#2a2c32; }
+.legi .plate{ position:absolute; left:523px; top:26px; width:240px; height:96px; border-radius:12px; background:#2A2B30; }
+.legi .tile{ position:absolute; display:block; }
+.legi .px{
+  position:absolute; top:134px; width:100px; text-align:center;
+  font-size:12px; line-height:16px; color:var(--quiet);
+}
+
+/* ---------- 4 swatches ---------- */
+.sw{ display:grid; grid-template-columns:390px 390px; grid-auto-rows:144px; gap:16px; }
+.card{ position:relative; border-radius:16px; display:flex; align-items:center; justify-content:center; }
+.card .cc{ position:absolute; top:12px; left:16px; font-size:12px; line-height:16px; }
+.c-dark{ background:#15171c; box-shadow:0 0 0 1px #22242a; }
+.c-dark .cc{ color:var(--quiet); }
+.c-light{ background:#f7f6f3; }
+.c-light .cc{ color:#8B877E; }
+.c-bw{ background:#ffffff; }
+.c-bw .cc{ color:#8A8A8A; }
+.c-wb{ background:#000000; box-shadow:0 0 0 1px #22242a; }
+.c-wb .cc{ color:#6A6A6A; }
+.lockup{ display:flex; align-items:center; gap:16px; margin-top:8px; }
+.lockup .mk{ width:44px; height:44px; }
+.lockup .w{ font:700 30px/36px var(--app-font); letter-spacing:-.01em; white-space:nowrap; }
+.c-dark .mk{ color:var(--amber); }
+.c-dark .w{ color:var(--ink); }
+.c-light .mk{ color:#9A5B00; }
+.c-light .w{ color:#1C2523; }
+.solo{ width:72px; height:72px; margin-top:8px; }
+.c-bw .solo{ color:#000000; }
+.c-wb .solo{ color:#ffffff; }
+</style>
+</head>
+<body>
+
+<svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
+  <defs>
+    <!-- the master, byte for byte the path in #mark-src (28 unit grid) -->
+    <path id="m" d="M13.24 7H18.76A4.5 4.5 0 1 1 18.76 12H13.24A4.5 4.5 0 0 1 12 13.24V18.76A4.5 4.5 0 1 1 7 18.76V13.24A4.5 4.5 0 1 1 13.24 7ZM22.5 18A4.5 4.5 0 0 1 22.5 27A4.5 4.5 0 0 1 22.5 18ZM22.5 20A2.5 2.5 0 0 0 22.5 25A2.5 2.5 0 0 0 22.5 20ZM0 9.5A9.5 9.5 0 0 1 9.5 0V3A6.5 6.5 0 0 0 3 9.5Z"/>
+    <!-- the small master, byte for byte the path in #favicon-src (16 grid) -->
+    <path id="f" d="M8.5 5H11.5A2.5 2.5 0 1 1 11.5 8H8.5A2.5 2.5 0 0 1 8 8.5V11.5A2.5 2.5 0 1 1 5 11.5V8.5A2.5 2.5 0 1 1 8.5 5ZM13.5 11A2.5 2.5 0 0 1 13.5 16A2.5 2.5 0 0 1 13.5 11ZM13.5 12A1.5 1.5 0 0 0 13.5 15A1.5 1.5 0 0 0 13.5 12ZM0.02 7A6.5 6.5 0 0 1 7 0.02V2.03A4.5 4.5 0 0 0 2.03 7Z"/>
+    <g id="fv"><rect width="16" height="16" fill="#18191C"/><use href="#f" fill="#FFB020"/></g>
+    <!-- the app's three habit arcs, from today.html, for the Overview button only -->
+    <path id="a3-0" d="M22.86 5.28A15 15 0 0 1 34.18 24.88"/>
+    <path id="a3-1" d="M31.32 29.84A15 15 0 0 1 8.68 29.84"/>
+    <path id="a3-2" d="M5.82 24.88A15 15 0 0 1 17.14 5.28"/>
+  </defs>
+</svg>
+
+<main class="sheet">
+
+  <!-- 1 hero -->
+  <section class="hero" aria-labelledby="hero-id">
+    <div class="hero-meta"><span>Streaky Habit logo, round 1</span><span>Built on 1.0, the owner's pick</span></div>
+    <svg class="mk hero-mark" viewBox="0 0 28 28" role="img" aria-label="Streaky Habit mark, T6"><use href="#m"/></svg>
+    <h1 class="hero-id" id="hero-id"><span class="tid">T6</span>The thread, with today's arc</h1>
+    <p class="hero-idea">The 1.0 thread of done days and today's open bead, with one thick segment of the day ring round its corner bead.</p>
+
+    <div class="notes">
+      <h3>Construction</h3>
+      <p class="build"><b>Grid.</b> 28 units, 1 unit per pixel of the 28 px header. The 1.0 build in proportion, beads 9, thread 5, gaps 4, open ring 2 round a 5 hole. <b>Ring weight.</b> The arc is concentric with the corner bead, gap 2, band 3, from 9 to 12 o'clock, ends cut square on the bead's axes like the app's segment ends. Band 3 against the open ring's 2 is the app's thick against thin. <b>Balance.</b> The 1.0 sat 2 right and 1 down of 112 because its run outweighed the open bead. The arc fills the empty top left and brings the ink's centre back to the middle, so the drawing now sits half a unit up and left, a hair above centre.</p>
+      <h3>Pressure tests</h3>
+      <dl>
+        <dt>Wifi, RSS</dt><dd>Closest call. One arc, never a stack, a tight gap, round a strung bead three times its band.</dd>
+        <dt>Pattern lock</dt><dd>2 by 2, not 3 by 3, a thick thread and an open bead.</dd>
+        <dt>Network nodes</dt><dd>One thread, one turn, no diagonal, the fourth node unlinked.</dd>
+        <dt>Dumbbell</dt><dd>Three beads turn a corner, never two on a bar.</dd>
+        <dt>Stepper</dt><dd>A stepper runs straight and strings today. This does neither.</dd>
+        <dt>Tetromino</dt><dd>Round beads and an open one, no square cells.</dd>
+        <dt>r and o</dt><dd>Faint, as in 1.0, and the arc adds no letter stroke.</dd>
+        <dt>D at 16 px</dt><dd>Its one extra curve is a top left quarter. A D bowls right.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <div class="col">
+
+    <!-- 2 in the app -->
+    <section aria-labelledby="h-app">
+      <h2 class="lbl" id="h-app">In the app</h2>
+      <div class="app-row">
+        <figure>
+          <figcaption class="cap">Phone header, mark 28 px</figcaption>
+          <div class="pane phone">
+            <div class="top">
+              <div class="brand">
+                <svg class="mk mark28" viewBox="0 0 28 28" aria-hidden="true" focusable="false"><use href="#m"/></svg>
+                <span class="word">Streaky Habit</span>
+              </div>
+              <span class="ov-btn"><svg class="ov-ring" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><use class="seg on" href="#a3-0"/><use class="seg" href="#a3-1"/><use class="seg" href="#a3-2"/></svg>Overview</span>
+              <span class="date">Saturday 10 October</span>
+            </div>
+          </div>
+        </figure>
+        <figure>
+          <figcaption class="cap">Desktop header, mark 32 px</figcaption>
+          <div class="pane desk">
+            <div class="brand">
+              <svg class="mk mark32" viewBox="0 0 28 28" aria-hidden="true" focusable="false"><use href="#m"/></svg>
+              <span class="word">Streaky Habit</span>
+            </div>
+            <span class="date">Saturday 10 October</span>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 3 legibility -->
+    <section aria-labelledby="h-legi">
+      <h2 class="lbl" id="h-legi">Legibility</h2>
+      <p class="lnote">96, 48 and 28 px draw mark-src. At 28 every feature is 2 px or more (arc 3, its gap 2, open ring 2, hole 5, bead gaps 4), so the header needs no third drawing. Below 28 px use the 16 grid master, shown at 18 px and in both tiles. <b>The 16 px trade.</b> Arc 2, gap 2, bead 5, gap 2, bead 5 fill the tile edge to edge, so the open bead stays 5 px and keeps the 1.0 favicon's 1 px ring round a 3 px hole. A bright 1 px ring still reads open, a 1 px hole would read as a fourth done bead, and every knockout stays 2 px. At 32 px the ring is 2 px. Arc ends sit half a pixel past the axes, on whole pixels.</p>
+      <div class="legi">
+        <svg class="mk" viewBox="0 0 28 28" style="left:33px;top:26px;width:96px;height:96px" aria-hidden="true"><use href="#m"/></svg>
+        <svg class="mk" viewBox="0 0 28 28" style="left:181px;top:50px;width:48px;height:48px" aria-hidden="true"><use href="#m"/></svg>
+        <svg class="mk" viewBox="0 0 28 28" style="left:281px;top:60px;width:28px;height:28px" aria-hidden="true"><use href="#m"/></svg>
+        <svg class="mk" viewBox="0 0 16 16" style="left:361px;top:65px;width:18px;height:18px" aria-hidden="true"><use href="#f"/></svg>
+        <span class="rule" aria-hidden="true"></span>
+        <span class="plate" aria-hidden="true"></span>
+        <svg class="tile" width="32" height="32" viewBox="0 0 16 16" style="left:567px;top:58px" aria-hidden="true"><use href="#fv"/></svg>
+        <svg class="tile" width="16" height="16" viewBox="0 0 16 16" style="left:695px;top:66px" aria-hidden="true"><use href="#fv"/></svg>
+        <span class="px" style="left:31px">96 px</span>
+        <span class="px" style="left:155px">48 px</span>
+        <span class="px" style="left:245px">28 px</span>
+        <span class="px" style="left:320px">18 px, 16 grid</span>
+        <span class="px" style="left:533px">Favicon 32 px</span>
+        <span class="px" style="left:653px">Favicon 16 px</span>
+      </div>
+    </section>
+
+    <!-- 4 swatches -->
+    <section aria-labelledby="h-sw">
+      <h2 class="lbl" id="h-sw">Swatches</h2>
+      <div class="sw">
+        <div class="card c-dark">
+          <span class="cc">Dark card #15171C</span>
+          <div class="lockup">
+            <svg class="mk" viewBox="0 0 28 28" aria-hidden="true"><use href="#m"/></svg>
+            <span class="w">Streaky Habit</span>
+          </div>
+        </div>
+        <div class="card c-light">
+          <span class="cc">Light card #F7F6F3, mark #9A5B00</span>
+          <div class="lockup">
+            <svg class="mk" viewBox="0 0 28 28" aria-hidden="true"><use href="#m"/></svg>
+            <span class="w">Streaky Habit</span>
+          </div>
+        </div>
+        <div class="card c-bw">
+          <span class="cc">Pure black on white</span>
+          <svg class="mk solo" viewBox="0 0 28 28" aria-hidden="true"><use href="#m"/></svg>
+        </div>
+        <div class="card c-wb">
+          <span class="cc">Pure white on black</span>
+          <svg class="mk solo" viewBox="0 0 28 28" aria-hidden="true"><use href="#m"/></svg>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<!-- production sources, lift these as they are. mark-src from 28 px up, favicon-src (16 grid) below 28 px and for the tab icon -->
+<svg id="mark-src" viewBox="0 0 28 28" aria-hidden="true" style="display:none"><path fill="currentColor" d="M13.24 7H18.76A4.5 4.5 0 1 1 18.76 12H13.24A4.5 4.5 0 0 1 12 13.24V18.76A4.5 4.5 0 1 1 7 18.76V13.24A4.5 4.5 0 1 1 13.24 7ZM22.5 18A4.5 4.5 0 0 1 22.5 27A4.5 4.5 0 0 1 22.5 18ZM22.5 20A2.5 2.5 0 0 0 22.5 25A2.5 2.5 0 0 0 22.5 20ZM0 9.5A9.5 9.5 0 0 1 9.5 0V3A6.5 6.5 0 0 0 3 9.5Z"/></svg>
+<svg id="favicon-src" viewBox="0 0 16 16" style="display:none"><rect width="16" height="16" fill="#18191C"/><path fill="#FFB020" d="M8.5 5H11.5A2.5 2.5 0 1 1 11.5 8H8.5A2.5 2.5 0 0 1 8 8.5V11.5A2.5 2.5 0 1 1 5 11.5V8.5A2.5 2.5 0 1 1 8.5 5ZM13.5 11A2.5 2.5 0 0 1 13.5 16A2.5 2.5 0 0 1 13.5 11ZM13.5 12A1.5 1.5 0 0 0 13.5 15A1.5 1.5 0 0 0 13.5 12ZM0.02 7A6.5 6.5 0 0 1 7 0.02V2.03A4.5 4.5 0 0 0 2.03 7Z"/></svg>
+
+</body>
+</html>
