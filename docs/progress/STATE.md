@@ -4,8 +4,8 @@
 - **design-phase:** sdlc:design
 - **version:** 1.1.0 (1.0.0 sealed 2026-10-10, tag v1.0.0)
 - **mode:** greenfield
-- **phase:** v1.1.0 design, logo done (T6 approved and swapped into final/), finalize gate next
-- **next:** finalize gate (step 9), ask him explicitly to approve the final set AND to replace 1.0's goldens in docs/design/ (1.0's stay in tag v1.0.0), then STATE design done, skills-loaded declaration, sdlc:plan
+- **phase:** v1.1.0 design done (finalize gate passed 2026-10-13, goldens in docs/design/)
+- **next:** sdlc:plan for v1.1.0 (a delta on the sealed 1.0 specs, scope S1 to S8 in docs/v1.1.0/CHANGE-LEDGER.md)
 - **last-regression:** PASS @ 2026-10-10 12:25 (docs/regression/REGRESSION.md)
 
 ## Modules
@@ -18,7 +18,7 @@
 none
 
 ## Next action
-Logo round 1 closed for Streaky Habit. T6 (the 1.0 thread with one ring arc round the top left bead) passed QA 18 of 24 and the owner approved it with no tile or background, the favicon's 1 px open ring as in 1.0, and dark amber #9A5B00 on light grounds (prefers-color-scheme light in the favicon). Swapped into the eight final goldens (header mark viewBox 0 0 28 28, tab icon). check.py 97 of 97, FLOW-CHECK 49 of 49. Ledger S7 row 10. Next is the finalize gate, his explicit word before anything is copied into docs/design/. Split's logo round still runs, so ask both gates together if that is closer.
+Design v1.1.0 closed. The owner approved the final set and the replacement of 1.0's goldens on 2026-10-11 23:45 ("Yes, but later"). On 2026-10-13 final/ was copied into docs/design/ (23 files, SHA-256 equal), the v1.1.0 rulings sit beside 1.0's as RULINGS-v1.1.0.md, and check.py rerun against docs/design/ gave 97 of 97 with every section equal to the final/ run (design-explore/v1.1.0/finalize/). Ledger S7 row 11. Next is sdlc:plan. Its inputs are the goldens below, both RULINGS files, design-explore/v1.1.0/final/SELF-CRITIQUE.md (the approved copy list and interaction rules the rulings point to) and the brainstorm delta.
 
 ## Notes
-Goldens (immutable): docs/design/today.html (key), today-empty.html, delete-dialog.html, states.html (specimen sheet), system.md, system.css, sample-history.json, RULINGS.md.
+Goldens (immutable, v1.1.0, 1.0's in tag v1.0.0): docs/design/today.html (key), day-editor.html, year-view.html, overview.html, overview-year.html, delete-dialog.html, today-empty.html, today-full.html, states.html (specimen sheet), each with its .md, plus system.md, system.css, sample-history.json, LINKS.json, MANIFEST.md, RULINGS.md (1.0), RULINGS-v1.1.0.md.

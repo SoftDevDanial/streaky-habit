@@ -2,773 +2,624 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Streaks states</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Danial's Streaky Habit</title>
 <!--
-  Specimen sheet, not a screen. Shows S3 (name errors), S4 (12 habits reached), S5 (saved habits could
-  not be read), a newly added habit row, and the hover and focus states the screens cannot show statically.
-  The component block is identical to the screens. The "sheet" block at the end styles only this page.
-  Icons: Phosphor Icons (MIT), "check" bold, "trash" regular and "x" regular, paths inlined.
+  Specimen sheet (not a screen) for the states without their own golden: S2 (the three name errors), S4 (save
+  warning) and S5 (saved habits could not be read). Each frame uses the app's own classes at the viewport's width,
+  so a phone shows the phone composer and 1280 shows the desktop one. The first style block is system.css byte for byte.
+  The second is sheet-only chrome. Icons: Phosphor Icons (MIT), x and plus (regular).
 -->
 <style>
-/* system.css tokens: same names and values, comments live in system.css */
-:root {
-  --bg: #F2F5F3;
-  --surface: #FAFCFB;
-  --field: #FDFEFE;
-  --wash: #E5ECE9;
-  --ink: #1C2523;
-  --ink-soft: #52605B;
-  --bead: #3B6B60;
-  --bead-deep: #2E5A50;
-  --on-bead: #F7FAF9;
-  --ring: #7E8E88;
-  --thread: #C6D0CC;
-  --danger: #A23B32;
-  --danger-deep: #84302A;
-  --heat-1: #78968B;
-  --heat-2: #4F7C70;
-  --heat-3: var(--bead);
-  --heat-4: var(--bead-deep);
-  --focus: var(--ink);
-  --scrim: rgb(28 37 35 / 0.5);
-  --shadow-dialog: 0 16px 48px rgb(28 37 35 / 0.18), 0 2px 6px rgb(28 37 35 / 0.08);
-  --font: ui-rounded, "SF Pro Rounded", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --text-xs: 12px;  --lh-xs: 16px;
-  --text-sm: 14px;  --lh-sm: 20px;
-  --text-md: 16px;  --lh-md: 24px;
-  --text-lg: 18px;  --lh-lg: 28px;
-  --text-xl: 22px;  --lh-xl: 28px;
-  --weight-regular: 400;
-  --weight-medium: 500;
-  --weight-semibold: 600;
-  --weight-bold: 700;
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-5: 20px;
-  --space-6: 24px;
-  --space-7: 32px;
-  --space-8: 40px;
-  --space-9: 48px;
-  --space-10: 64px;
-  --radius-pill: 999px;
-  --radius-round: 50%;
-  --radius-panel: 20px;
-  --hit-min: 44px;
-  --control-h: 48px;
-  --icon: 20px;
-  --bead-size: 32px;
-  --bead-stroke: 2px;
-  --thread-thin: 2px;
-  --thread-run: 4px;
-  --dash: 4px;
-  --dash-gap: 3px;
-  --today-gap: 3px;
-  --today-ring: 1.5px;
-  --focus-w: 2px;
-  --dot-0: 6px;
-  --dot-1: 7px;
-  --dot-2: 11px;
-  --dot-3: 14px;
-  --dot-4: 17px;
-  --dot-ring: 1.5px;
-  --today-cell-ring: 22px;
-  --legend-cell: 20px;
-  --page-max-phone: 600px;
-  --page-max: 1040px;
-  --heat-panel-w: 380px;
-  --dialog-max: 400px;
-  --dur-press: 120ms;
-  --dur: 180ms;
-  --dur-enter: 200ms;
-  --ease: cubic-bezier(0.2, 0, 0, 1);
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --z-scrim: 10;
-  --z-dialog: 20;
-}
-@media (min-width: 375px) { :root { --bead-size: 36px; } }
-@media (min-width: 900px) { :root { --bead-size: 40px; } }
+/* Danial's Streaky Habit v1.1.0, the locked design system (sdlc:design step 5).
+   Source: round-2/f2.html ("Orbit List, revised"), every value unchanged except where a compose ruling says so.
+   Every golden inlines this file byte for byte. Read system.md for the roles, the contrast table and the rules.
+   Changes from f2: (1) the Prototype states tab and its tokens are gone, so the header loses its "proto" area.
+   (2) Ruling 1, a thin not-done segment on a hovered or open day draws in --ink-soft (5.17 on --raise, was 2.97).
+   (3) Ruling 2, every ring and bead number is SVG text on the baseline at the shape's centre, dropped .352em, proportional figures.
+   (4) The last block stands in for showModal() in the static goldens and is not needed by the app.
+   (5) Owner's ruling 2026-10-11, the app column's top padding on a phone is 12 px (f2 had 8 beside its tab). */
+:root{
+  /* colour */
+  --bg:#18191C;
+  --surface:#212226;
+  --surface-2:#2A2B30;
+  --raise:#35373D;
+  --field:#121316;
+  --line:#33353B;
+  --track:#4A4C53;
+  --ring:#7C7F88;
+  --ink:#EDEEF0;
+  --ink-soft:#A8ABB2;
+  --closed:#5C5E66;
+  --amber:#FFB020;
+  --amber-hover:#FFC24F;
+  --on-amber:#18191C;
+  --amber-wash:rgba(255,176,32,.09);
+  --danger:#FF6B66;
+  --danger-hover:#FF8D89;
+  --scrim:rgba(10,11,13,.74);
+  --scrim-soft:rgba(10,11,13,.52);
+  --focus:#EDEEF0;
+  --shadow-dlg:0 24px 64px rgba(6,7,9,.55), 0 2px 8px rgba(6,7,9,.4);
+  --fade-top:linear-gradient(#212226 20%, rgba(33,34,38,0));
+  --fade-bot:linear-gradient(rgba(33,34,38,0), #212226 80%);
 
-/* ---------- components (identical block in every golden) ---------- */
-*, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--ink);
-  font: var(--weight-regular) var(--text-md)/var(--lh-md) var(--font);
-  -webkit-font-smoothing: antialiased;
-}
-h1, h2, h3, p { margin: 0; }
-.sr-only {
-  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
-  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  /* type */
+  --font:ui-sans-serif, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --t-2xs:11px;
+  --t-xs:12px;
+  --t-sm:14px;
+  --t-btn:15px;
+  --t-md:16px;
+  --t-lg:17px;
+  --t-xl:19px;
+  --t-ov:16px;      /* overview day numbers */
+  --t-stat:22px;    /* Current and Best on a row */
+  --t-cur-lg:34px;  /* Current in the year view */
+  --t-best-lg:26px; /* Best in the year view */
+
+  /* space */
+  --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:20px; --s-6:24px; --s-7:32px; --s-8:40px;
+
+  /* shape: controls 10, containers 16, sheets 20, round things are circles */
+  --r-ctl:10px;
+  --r-card:16px;
+  --r-sheet:20px;
+  --r-round:50%;
+
+  /* size */
+  --hit:44px;
+  --ctl-h:48px;
+  --icon:20px;
+  --app-max:1040px;
+  --ov-ring:40px;
+  --ov-cell-h:44px;
+  --yc:44px;        /* year view day cell, phone */
+  --bead:36px;
+
+  /* motion */
+  --dur-press:120ms;
+  --dur:170ms;
+  --dur-enter:220ms;
+  --ease:cubic-bezier(.2,0,0,1);
+  --ease-out:cubic-bezier(.16,1,.3,1);
 }
 
-/* Page frame */
-.page {
-  max-width: var(--page-max-phone);
-  margin: 0 auto;
-  padding: var(--space-6) var(--space-5) var(--space-9);
+*,*::before,*::after{ box-sizing:border-box; }
+html{ background:var(--bg); -webkit-text-size-adjust:100%; }
+html:has(dialog[open]){ overflow:hidden; }
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font:400 var(--t-md)/24px var(--font);
+  -webkit-font-smoothing:antialiased;
 }
-.top {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--space-3);
-  padding-bottom: var(--space-6);
+button,input{ font:inherit; color:inherit; }
+button{ -webkit-tap-highlight-color:transparent; }
+:focus-visible{ outline:2px solid var(--focus); outline-offset:2px; }
+.sr{ position:absolute; width:1px; height:1px; margin:-1px; padding:0; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0; }
+svg.ph{ width:var(--icon); height:var(--icon); fill:currentColor; flex:none; }
+
+/* ---------- the app column: one screen tall, only the list frame scrolls ---------- */
+.app{
+  display:flex; flex-direction:column; gap:var(--s-3);
+  height:100vh; height:100dvh; min-height:480px;
+  max-width:640px; margin:0 auto;
+  padding:var(--s-3) var(--s-4) max(var(--s-3), env(safe-area-inset-bottom));
 }
-.brand {
-  font-size: var(--text-xl);
-  line-height: var(--lh-xl);
-  font-weight: var(--weight-bold);
-  letter-spacing: -0.01em;
-  color: var(--bead-deep);
+.main{ flex:1; min-height:0; display:flex; flex-direction:column; gap:var(--s-3); }
+
+/* ---------- header ---------- */
+.top{
+  flex:none; display:grid; grid-template-columns:minmax(0,1fr) auto;
+  grid-template-areas:"brand ov" "date date";
+  column-gap:var(--s-3); row-gap:6px; align-items:center;
 }
-.date {
-  font-size: var(--text-md);
-  line-height: var(--lh-md);
-  color: var(--ink-soft);
-  text-align: right;
+.brand{ grid-area:brand; display:flex; align-items:center; gap:10px; min-width:0; }
+.mark{ width:28px; height:28px; color:var(--amber); fill:currentColor; flex:none; }
+.word{ margin:0; font-size:var(--t-xl); line-height:24px; font-weight:700; letter-spacing:-.01em; white-space:nowrap; }
+.date{ grid-area:date; font-size:var(--t-sm); line-height:20px; color:var(--ink-soft); white-space:nowrap; }
+.ov-btn{
+  grid-area:ov; height:var(--hit); padding:0 14px 0 8px; border-radius:var(--r-ctl);
+  border:1.5px solid var(--ring); background:transparent; color:var(--ink);
+  display:inline-flex; align-items:center; gap:var(--s-2);
+  font-size:var(--t-btn); font-weight:600; white-space:nowrap; cursor:pointer;
+  transition:background-color var(--dur) var(--ease), transform var(--dur-press) var(--ease);
+}
+.ov-btn:active{ transform:scale(.98); }
+.ov-ring svg{ width:28px; height:28px; display:block; overflow:visible; }
+@media (hover: hover){ .ov-btn:hover{ background:var(--raise); } }
+
+/* ---------- banners (S4, S5) ---------- */
+.banners{ flex:none; display:grid; gap:var(--s-2); }
+.banners:empty{ display:none; }
+.banner{ display:flex; align-items:flex-start; gap:var(--s-2); border-radius:var(--r-card); padding:var(--s-3) var(--s-4); margin:0; font-size:15px; line-height:22px; }
+.banner p{ margin:0; flex:1; padding:1px 0; }
+.banner.warn{ background:var(--amber-wash); border:1px solid var(--amber); color:var(--ink); }
+.banner.note{ background:var(--surface-2); border:1px solid var(--line); padding:var(--s-1) var(--s-1) var(--s-1) var(--s-4); }
+.banner.note p{ padding:10px 0; }
+
+.icon-btn{
+  width:var(--hit); height:var(--hit); flex:none; border:0; padding:0; border-radius:var(--r-round);
+  background:transparent; color:var(--ink-soft); display:grid; place-items:center; cursor:pointer;
+  transition:background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.icon-btn:focus-visible{ outline-offset:-2px; }
+@media (hover: hover){ .icon-btn:hover{ background:var(--raise); color:var(--ink); } }
+
+/* ---------- the list frame ---------- */
+.frame-wrap{ position:relative; flex:0 1 auto; min-height:0; display:flex; flex-direction:column; }
+.frame{
+  flex:0 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain;
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--r-card);
+  scrollbar-width:thin; scrollbar-color:var(--ring) transparent;
+}
+.frame:focus-visible{ outline-offset:2px; }
+.sentinel{ height:1px; }
+/* the frame shows that it scrolls: a fade at an edge that has more behind it */
+.frame-wrap::before, .frame-wrap::after{
+  content:""; position:absolute; left:1px; right:12px; height:36px; pointer-events:none; z-index:1;
+  opacity:0; transition:opacity var(--dur) var(--ease);
+}
+.frame-wrap::before{ top:1px; border-radius:var(--r-card) 0 0 0; background:var(--fade-top); }
+.frame-wrap::after{ bottom:1px; border-radius:0 0 0 var(--r-card); background:var(--fade-bot); }
+.frame-wrap.more-above::before, .frame-wrap.more-below::after{ opacity:1; }
+
+.rows{ list-style:none; margin:0; padding:0; }
+/* phone: the name line carries the bin, the numbers line carries Year and Done today */
+.row{
+  display:grid; grid-template-columns:minmax(0,1fr) auto auto;
+  grid-template-areas:"name name name" "stats year done";
+  column-gap:var(--s-2); row-gap:var(--s-3); align-items:center;
+  padding:var(--s-3) 14px;
+}
+.row + .row{ border-top:1px solid var(--line); }
+.r-head{ grid-area:name; display:flex; align-items:flex-start; gap:var(--s-2); min-width:0; }
+.r-name{ flex:1 1 auto; min-width:0; margin:0; font-size:var(--t-md); line-height:22px; font-weight:600; overflow-wrap:anywhere; }
+
+/* the bin: quiet like Delete habit in P2. Grey at rest, the danger colour on hover and focus, never a red fill */
+.btn-bin{
+  width:var(--hit); height:var(--hit); flex:none; padding:0; margin:-10px -10px 0 0;
+  border-radius:var(--r-round); border:1.5px solid transparent; background:transparent; color:var(--ink-soft);
+  display:grid; place-items:center; cursor:pointer;
+  transition:border-color var(--dur) var(--ease), color var(--dur) var(--ease), transform var(--dur-press) var(--ease);
+}
+.btn-bin:active{ transform:scale(.94); }
+.btn-bin:focus-visible{ color:var(--danger); outline-offset:-2px; }
+@media (hover: hover){ .btn-bin:hover{ border-color:var(--danger); color:var(--danger); } }
+
+.stats{ grid-area:stats; margin:0; display:flex; align-items:flex-start; gap:14px; min-width:0; }
+.stat{ display:flex; flex-direction:column; min-width:0; }
+.stat .lbl{ font-size:var(--t-xs); line-height:16px; font-weight:600; color:var(--ink-soft); }
+.stat .val{ display:flex; align-items:baseline; gap:4px; }
+.stat .num{ font-size:var(--t-stat); line-height:26px; font-weight:700; font-variant-numeric:tabular-nums; letter-spacing:-.01em; }
+.stat.cur .num{ color:var(--amber); }
+.stat.best .num{ color:var(--ink); font-weight:600; }
+.stat .unit{ font-size:13px; line-height:16px; color:var(--ink-soft); }
+.stat .none{ font-size:13px; line-height:16px; font-weight:600; color:var(--ink-soft); padding-top:3px; }
+
+.btn-year, .btn-done, .btn-all{
+  height:var(--hit); border-radius:var(--r-ctl); border:1.5px solid var(--ring);
+  background:transparent; color:var(--ink); cursor:pointer;
+  display:inline-flex; align-items:center; justify-content:center;
+  font-size:var(--t-btn); font-weight:600; white-space:nowrap;
+  transition:background-color var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease), transform var(--dur-press) var(--ease);
+}
+.btn-year{ grid-area:year; min-width:var(--hit); padding:0 12px; }
+.btn-all{ flex:none; min-width:var(--hit); padding:0 12px; }
+.btn-done{ grid-area:done; padding:0 12px 0 9px; gap:7px; }
+.btn-year:active, .btn-done:active, .btn-all:active{ transform:scale(.97); }
+.btn-done .dot{
+  width:22px; height:22px; border-radius:var(--r-round); border:2px solid var(--ring);
+  display:grid; place-items:center; color:var(--amber); flex:none;
+  transition:background-color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.btn-done .dot svg{ width:13px; height:13px; fill:currentColor; opacity:0; }
+.btn-done[aria-pressed="true"]{ background:var(--amber); border-color:var(--amber); color:var(--on-amber); }
+.btn-done[aria-pressed="true"] .dot{ background:var(--on-amber); border-color:var(--on-amber); }
+.btn-done[aria-pressed="true"] .dot svg{ opacity:1; }
+@media (hover: hover){
+  .btn-year:hover, .btn-done:hover, .btn-all:hover{ background:var(--raise); }
+  .btn-done[aria-pressed="true"]:hover{ background:var(--amber-hover); border-color:var(--amber-hover); }
 }
 
-/* Icon button (delete, dismiss) */
-.icon-btn {
-  flex: none;
-  width: var(--hit-min);
-  height: var(--hit-min);
-  display: grid;
-  place-items: center;
-  padding: 0;
-  border: 0;
-  border-radius: var(--radius-round);
-  background: transparent;
-  color: var(--ink-soft);
-  cursor: pointer;
-  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
-}
-.icon-btn svg { width: var(--icon); height: var(--icon); fill: currentColor; }
-.icon-btn:focus { outline: none; }
-.icon-btn:focus-visible { outline: var(--focus-w) solid var(--focus); outline-offset: calc(var(--focus-w) * -1); }
+/* empty list (S1, S5) */
+.empty{ display:grid; grid-template-columns:96px minmax(0,1fr); gap:var(--s-4); align-items:center; padding:var(--s-4); }
+.empty svg{ width:96px; height:96px; display:block; }
+.empty .e-orbit{ fill:none; stroke:var(--ring); stroke-width:1.5; stroke-dasharray:2 6; stroke-linecap:round; }
+.empty .e-core{ fill:none; stroke:var(--track); stroke-width:2; }
+.empty .lead{ margin:0; font-size:var(--t-lg); line-height:24px; font-weight:600; }
+.empty .line{ margin:var(--s-1) 0 0; font-size:var(--t-sm); line-height:20px; color:var(--ink-soft); }
 
-/* Habit list */
-.habits {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: var(--space-7);
+/* ---------- composer: below the list, outside it, pinned to the bottom ---------- */
+.composer{
+  flex:none; margin-top:auto;
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--r-card);
+  padding:10px var(--s-3) var(--s-3);
 }
-.habit-head {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: var(--space-2);
+/* the message sits above the field, so a message grows the bar upward and the field never moves */
+.field-msg{ margin:0 0 var(--s-2) 2px; font-size:var(--t-sm); line-height:20px; }
+.field-msg.err{ color:var(--danger); }
+.field-msg.note{ color:var(--ink-soft); }
+.add-label{ display:block; font-size:var(--t-sm); line-height:20px; font-weight:600; margin:0 0 6px 2px; }
+.composer.is-full .add-label{ color:var(--ink-soft); }
+.add-ctl{ display:flex; gap:var(--s-2); }
+.input{
+  flex:1; min-width:0; height:var(--ctl-h); padding:0 14px; border-radius:var(--r-ctl);
+  border:1.5px solid var(--ring); background:var(--field); color:var(--ink); font-size:var(--t-md);
 }
-.habit-head .icon-btn { margin-right: calc(var(--space-3) * -1); }
-.habit-name {
-  padding-top: var(--space-2);
-  font-size: var(--text-lg);
-  line-height: var(--lh-lg);
-  font-weight: var(--weight-semibold);
-  overflow-wrap: anywhere;
+.input[aria-invalid="true"]{ border-color:var(--danger); }
+.input:disabled{ background:var(--surface-2); border-color:var(--line); color:var(--ink-soft); }
+.btn{
+  height:var(--ctl-h); padding:0 18px; border-radius:var(--r-ctl); border:0;
+  display:inline-flex; align-items:center; justify-content:center; gap:var(--s-2);
+  font-size:var(--t-md); font-weight:600; white-space:nowrap; cursor:pointer;
+  transition:background-color var(--dur) var(--ease), transform var(--dur-press) var(--ease);
 }
-.streak {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: var(--space-1) var(--space-3);
-  font-size: var(--text-sm);
-  line-height: var(--lh-sm);
-  color: var(--ink-soft);
-  font-variant-numeric: tabular-nums;
-}
-.streak .cur { color: var(--bead-deep); font-weight: var(--weight-semibold); }
-.streak .cur.none { color: var(--ink-soft); }
+.btn:active:not(:disabled){ transform:scale(.98); }
+.btn:focus-visible{ outline-offset:3px; }
+.btn-primary{ background:var(--amber); color:var(--on-amber); }
+.btn-primary:hover:not(:disabled){ background:var(--amber-hover); }
+.btn-primary:disabled{ background:var(--surface-2); color:var(--ink-soft); cursor:not-allowed; }
+.btn-secondary{ background:transparent; color:var(--ink); border:1.5px solid var(--ring); }
+.btn-secondary:hover{ background:var(--raise); }
+.btn-danger{ background:var(--danger); color:var(--on-amber); }
+.btn-danger:hover{ background:var(--danger-hover); }
 
-/* Empty list */
-.empty { font-size: var(--text-md); line-height: var(--lh-md); color: var(--ink-soft); }
-.empty strong {
-  display: block;
-  margin-bottom: var(--space-1);
-  font-size: var(--text-lg);
-  line-height: var(--lh-lg);
-  font-weight: var(--weight-semibold);
-  color: var(--ink);
+/* ---------- overview: a field of small rings, one segment per habit ---------- */
+.band{ display:none; }
+.hint{ margin:2px 0 0; font-size:var(--t-sm); line-height:20px; color:var(--ink-soft); }
+.hc{
+  height:var(--ov-cell-h); border:0; padding:0; margin:0; background:transparent; border-radius:12px;
+  display:grid; place-items:center; cursor:pointer;
+  transition:background-color var(--dur) var(--ease);
 }
+@media (hover: hover){ button.hc:hover{ background:var(--raise); } }
+.hc.is-open{ background:var(--raise); box-shadow:inset 0 0 0 1.5px var(--amber); }
+.hc:focus-visible{ outline-offset:-2px; }
+.hc svg{ width:var(--ov-ring); height:var(--ov-ring); display:block; overflow:visible; }
+span.hc{ cursor:default; }
+.seg{ fill:none; stroke:var(--ring); stroke-width:1.5; }
+.seg.on{ stroke:var(--amber); stroke-width:3.5; }
+/* ruling 1: on a hovered or open day the cell turns --raise, so a thin not-done segment steps up to --ink-soft (5.17 to 1) */
+.hc.is-open .seg:not(.on){ stroke:var(--ink-soft); }
+@media (hover: hover){ button.hc:hover .seg:not(.on){ stroke:var(--ink-soft); } }
+.c-core{ fill:var(--amber); }
+/* sits on the baseline, dropped half a figure height (dy .352em, measured) so the digits' ink centres in the ring.
+   Proportional figures, so a "1" does not carry an "8"'s width and pull the number off centre */
+.c-num{ fill:var(--ink-soft); font:600 var(--t-ov) var(--font); text-anchor:middle; dominant-baseline:alphabetic; font-variant-numeric:proportional-nums; }
+.c-num.on{ fill:var(--on-amber); font-weight:700; }
+.c-num.dim{ fill:var(--closed); font-weight:500; } /* P4: days after today, closed like P2's */
+.c-today{ fill:none; stroke:var(--ink); stroke-width:1.4; }
+.og-mo, .og-wd{ font-size:var(--t-xs); line-height:16px; font-weight:600; color:var(--ink-soft); }
+.legend{ display:flex; align-items:center; gap:6px; font-size:var(--t-xs); line-height:16px; color:var(--ink-soft); }
+.legend svg{ width:22px; height:22px; display:block; }
 
-/* Week strip: seven beads on a thread */
-.strip {
-  margin-top: var(--space-2);
-  display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-}
-.day {
-  appearance: none;
-  -webkit-appearance: none;
-  margin: 0;
-  padding: var(--space-1) 0 var(--space-2);
-  min-height: var(--hit-min);
-  border: 0;
-  border-radius: var(--radius-pill);
-  background: transparent;
-  font: inherit;
-  color: inherit;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-2);
-  -webkit-tap-highlight-color: transparent;
-}
-.day:focus { outline: none; }
-.day:focus-visible { outline: var(--focus-w) solid var(--focus); outline-offset: 0; }
-.day-label { display: flex; flex-direction: column; align-items: center; }
-.wd { font-size: var(--text-xs); line-height: var(--lh-xs); color: var(--ink-soft); }
-.dm {
-  font-size: var(--text-md);
-  line-height: var(--lh-sm);
-  font-weight: var(--weight-medium);
-  font-variant-numeric: tabular-nums;
-}
-.day[aria-current="date"] .wd,
-.day[aria-current="date"] .dm { color: var(--ink); font-weight: var(--weight-bold); }
+/* phone popup grid: weeks as rows, newest on top */
+.ovg-rows{ display:grid; grid-template-columns:34px repeat(7, minmax(0,1fr)); }
+.ovg-rows .og-wd{ text-align:center; padding-bottom:var(--s-1); }
+.ovg-rows .og-mo{ display:flex; align-items:center; padding-left:2px; }
 
-.slot {
-  position: relative;
-  align-self: stretch;
-  height: var(--bead-size);
-  display: grid;
-  place-items: center;
-}
-/* Each slot draws its own half of the thread on each side of its bead. */
-.slot::before,
-.slot::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  height: var(--thread-thin);
-  margin-top: calc(var(--thread-thin) / -2);
-  background: var(--thread);
-}
-.slot::before { left: 0; right: 50%; }
-.slot::after { left: 50%; right: 0; }
-/* Older days continue to the left, so the thread fades out there. Future days are never drawn. */
-.day:first-child .slot::before { background: linear-gradient(to right, transparent, var(--thread)); }
-.day:last-child .slot::after { display: none; }
+/* ---------- dialogs ---------- */
+dialog{ padding:0; border:0; background:transparent; color:inherit; max-width:100vw; max-height:100dvh; overflow:visible; }
+dialog::backdrop{ background:var(--scrim); }
+.dlg-day::backdrop{ background:var(--scrim-soft); }
+.dlg-box{ background:var(--surface-2); border:1px solid var(--line); border-radius:var(--r-sheet); box-shadow:var(--shadow-dlg); padding:var(--s-5); }
+.dlg-sub{ margin:2px 0 0; font-size:var(--t-sm); line-height:20px; color:var(--ink-soft); }
 
-.bead {
-  position: relative;
-  z-index: 1;
-  width: var(--bead-size);
-  height: var(--bead-size);
-  display: grid;
-  place-items: center;
-  border-radius: var(--radius-round);
-  border: var(--bead-stroke) solid var(--ring);
-  background: var(--bg);
-  transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease), transform var(--dur-press) var(--ease);
+/* P1 day editor */
+.dlg-day{ margin:auto 0 0; width:100vw; }
+.dlg-day .dlg-box{ border-radius:var(--r-sheet) var(--r-sheet) 0 0; border-bottom:0; padding:var(--s-4) var(--s-4) var(--s-6); max-height:85dvh; overflow:auto; }
+.day-head{ display:grid; grid-template-columns:56px minmax(0,1fr) var(--hit); gap:var(--s-3); align-items:center; }
+.day-mini svg{ width:56px; height:56px; display:block; overflow:visible; }
+.day-head h2{ margin:0; font-size:var(--t-lg); line-height:24px; font-weight:600; }
+.day-list{ list-style:none; margin:var(--s-3) 0 0; padding:0; display:grid; gap:2px; }
+.tick{
+  width:100%; min-height:60px; border:0; margin:0; padding:var(--s-2) var(--s-3); border-radius:12px;
+  background:transparent; color:var(--ink); text-align:left; cursor:pointer;
+  display:grid; grid-template-columns:28px minmax(0,1fr); grid-template-areas:"box name" "box stat"; column-gap:var(--s-3); align-items:center;
+  transition:background-color var(--dur) var(--ease);
 }
-.bead svg {
-  width: 56%;
-  height: 56%;
-  fill: var(--on-bead);
-  opacity: 0;
-  transform: scale(0.6);
-  transition: opacity var(--dur) var(--ease), transform var(--dur-enter) var(--ease-out);
+@media (hover: hover){ .tick:hover{ background:var(--raise); } }
+.tick:focus-visible{ outline-offset:-2px; }
+.tbox{
+  grid-area:box; width:28px; height:28px; border-radius:var(--r-round); border:2px solid var(--ring);
+  display:grid; place-items:center; color:var(--on-amber);
+  transition:background-color var(--dur) var(--ease), border-color var(--dur) var(--ease);
 }
-.day[aria-pressed="true"] .bead { background: var(--bead); border-color: var(--bead); }
-.day[aria-pressed="true"] .bead svg { opacity: 1; transform: none; }
-.day[aria-current="date"] .bead {
-  box-shadow: 0 0 0 var(--today-gap) var(--bg), 0 0 0 calc(var(--today-gap) + var(--today-ring)) var(--ring);
-}
-.day:active .bead { transform: scale(0.94); }
+.tbox svg{ width:16px; height:16px; fill:currentColor; opacity:0; }
+.tick.on .tbox{ background:var(--amber); border-color:var(--amber); }
+.tick.on .tbox svg{ opacity:1; }
+.tname{ grid-area:name; font-size:var(--t-md); line-height:22px; font-weight:600; overflow-wrap:anywhere; }
+.tstat{ grid-area:stat; display:flex; flex-wrap:wrap; column-gap:var(--s-3); font-size:13px; line-height:18px; color:var(--ink-soft); }
+.tstat .tcur{ color:var(--amber); font-weight:600; }
+.tstat .tcur.none{ color:var(--ink-soft); }
+.day-empty{ margin:var(--s-4) 0 var(--s-1); color:var(--ink-soft); font-size:var(--t-sm); }
 
-/* A run: two done days side by side are joined by a thick thread. */
-.day[aria-pressed="true"] + .day[aria-pressed="true"] .slot::before,
-.day[aria-pressed="true"]:has(+ .day[aria-pressed="true"]) .slot::after {
-  height: var(--thread-run);
-  margin-top: calc(var(--thread-run) / -2);
-  background: var(--bead);
-}
-/* A run that started before the strip carries on to the left and fades. */
-.strip[data-run-continues] .day:first-child[aria-pressed="true"] .slot::before {
-  height: var(--thread-run);
-  margin-top: calc(var(--thread-run) / -2);
-  background: linear-gradient(to right, transparent, var(--bead));
-}
-/* Holding: yesterday is done and today is still open, so the run is not broken yet.
-   Dash tiles are anchored on the cell boundary so the pattern stays continuous across both halves. */
-.day[aria-pressed="true"]:has(+ .day[aria-current="date"][aria-pressed="false"]) .slot::after,
-.day[aria-pressed="true"] + .day[aria-current="date"][aria-pressed="false"] .slot::before {
-  height: var(--thread-run);
-  margin-top: calc(var(--thread-run) / -2);
-  background: linear-gradient(to right, var(--bead) 0 var(--dash), transparent var(--dash)) left center / calc(var(--dash) + var(--dash-gap)) 100% repeat-x;
-}
-.day[aria-pressed="true"]:has(+ .day[aria-current="date"][aria-pressed="false"]) .slot::after {
-  background-position: right center;
-}
+/* M1 delete */
+.dlg-del{ margin:auto; width:min(400px, calc(100vw - 32px)); }
+.dlg-del h2{ margin:0; font-size:var(--t-lg); line-height:26px; font-weight:600; overflow-wrap:anywhere; }
+.dlg-del p{ margin:var(--s-2) 0 var(--s-5); color:var(--ink-soft); }
+.dlg-actions{ display:grid; grid-template-columns:1fr 1fr; gap:var(--s-3); }
 
-/* Add a habit */
-.add { margin-top: var(--space-8); }
-.add-label {
-  display: block;
-  margin-bottom: var(--space-2);
-  font-size: var(--text-md);
-  line-height: var(--lh-md);
-  font-weight: var(--weight-semibold);
+/* P2 year view, P3 overview and P4 overview year view: full-screen sheets on a phone */
+.dlg-full{ margin:0; width:100vw; height:100vh; height:100dvh; }
+.dlg-full .dlg-box{ height:100%; border:0; border-radius:0; padding:0; box-shadow:none; display:flex; flex-direction:column; }
+.sheet-head{ flex:none; padding:var(--s-3) var(--s-4) var(--s-3); border-bottom:1px solid var(--line); }
+.sheet-body{
+  flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; padding:var(--s-3) var(--s-4) var(--s-6);
+  scrollbar-width:thin; scrollbar-color:var(--ring) transparent;
+  /* a soft shadow at an edge with more behind it: the covers scroll with the content, the shadows stay put */
+  background:
+    linear-gradient(var(--surface-2) 30%, rgba(42,43,48,0)) center top / 100% 40px no-repeat local,
+    linear-gradient(rgba(42,43,48,0), var(--surface-2) 70%) center bottom / 100% 40px no-repeat local,
+    radial-gradient(farthest-side at 50% 0, rgba(6,7,9,.6), rgba(6,7,9,0)) center top / 100% 16px no-repeat scroll,
+    radial-gradient(farthest-side at 50% 100%, rgba(6,7,9,.6), rgba(6,7,9,0)) center bottom / 100% 16px no-repeat scroll,
+    var(--surface-2);
 }
-.add-row { display: flex; gap: var(--space-3); }
-.input {
-  flex: 1;
-  min-width: 0;
-  height: var(--control-h);
-  margin: 0;
-  padding: 0 var(--space-5);
-  border: var(--bead-stroke) solid var(--ring);
-  border-radius: var(--radius-pill);
-  background: var(--field);
-  color: var(--ink);
-  font: inherit;
-}
-.input:focus { outline: none; }
-.input:focus-visible { outline: var(--focus-w) solid var(--focus); outline-offset: 2px; }
-.input[aria-invalid="true"] { border-color: var(--danger); }
-.input:disabled { background: var(--wash); border-color: var(--thread); color: var(--ink-soft); cursor: not-allowed; }
-.add:has(.input:disabled) .add-label { color: var(--ink-soft); }
-.field-msg { margin-top: var(--space-2); font-size: var(--text-sm); line-height: var(--lh-sm); }
-.field-msg:empty { display: none; }
-.field-error { color: var(--danger); }
-.field-note { color: var(--ink-soft); }
+.head-top{ display:flex; align-items:flex-start; gap:var(--s-2); }
+.head-top > div{ flex:1; min-width:0; padding-top:9px; }
+.head-top h2{ margin:0; font-size:var(--t-xl); line-height:26px; font-weight:700; overflow-wrap:anywhere; }
+.head-top .icon-btn{ margin:0 -6px 0 0; }
 
-/* Buttons */
-.btn {
-  flex: none;
-  height: var(--control-h);
-  margin: 0;
-  padding: 0 var(--space-6);
-  border: var(--bead-stroke) solid transparent;
-  border-radius: var(--radius-pill);
-  font: inherit;
-  font-weight: var(--weight-semibold);
-  white-space: nowrap;
-  cursor: pointer;
-  transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease), transform var(--dur-press) var(--ease);
+.yr-mid{ display:flex; align-items:flex-end; justify-content:space-between; gap:var(--s-3); margin-top:var(--s-2); flex-wrap:wrap; }
+.yr-stats{ margin:0; display:flex; align-items:flex-start; gap:var(--s-5); }
+.yr-stats .stat .num{ font-size:var(--t-cur-lg); line-height:38px; }
+.yr-stats .stat.best .num{ font-size:var(--t-best-lg); line-height:32px; }
+.yr-stats .stat .none{ font-size:var(--t-sm); line-height:20px; max-width:none; padding:4px 0 8px; }
+.btn-del{
+  height:var(--hit); padding:0 12px 0 10px; border-radius:var(--r-ctl); border:1.5px solid transparent;
+  background:transparent; color:var(--ink-soft); display:inline-flex; align-items:center; gap:6px;
+  font-size:var(--t-btn); font-weight:600; white-space:nowrap; cursor:pointer;
+  transition:background-color var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease);
 }
-.btn:focus { outline: none; }
-.btn:focus-visible { outline: var(--focus-w) solid var(--focus); outline-offset: 3px; }
-.btn:active { transform: scale(0.98); }
-.btn-primary { background: var(--bead); color: var(--on-bead); }
-.btn-secondary { background: transparent; border-color: var(--ring); color: var(--ink); }
-.btn-danger { background: var(--danger); color: var(--on-bead); }
-.btn:disabled { background: var(--thread); border-color: transparent; color: var(--ink-soft); cursor: not-allowed; transform: none; }
+/* quiet until pointed at, like the bin: the red belongs to the confirm in M1 */
+@media (hover: hover){ .btn-del:hover{ border-color:var(--danger); color:var(--danger); } }
+.yr-tools{ display:flex; align-items:center; justify-content:space-between; gap:var(--s-3); margin-top:var(--s-2); flex-wrap:wrap; }
+.yr-tools .hint{ margin:0; }
+.yr-legend{ display:flex; align-items:center; gap:6px; margin:0; font-size:var(--t-xs); line-height:16px; color:var(--ink-soft); }
+.mini{ width:16px; height:16px; border-radius:var(--r-round); border:2px solid var(--ring); display:inline-block; }
+.mini.on{ background:var(--amber); border-color:var(--amber); }
+.yr-legend .mini + span{ margin-right:6px; }
 
-/* Note banner */
-.note {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-2);
-  margin-bottom: var(--space-7);
-  padding: var(--space-2) var(--space-2) var(--space-2) var(--space-5);
-  border-radius: var(--radius-panel);
-  background: var(--wash);
+.months{ display:grid; grid-template-columns:minmax(0,1fr); gap:var(--s-5); }
+.month h3{ margin:0 0 var(--s-1) 2px; font-size:var(--t-btn); line-height:22px; font-weight:600; }
+.mgrid{ display:grid; grid-template-columns:repeat(7, minmax(0,1fr)); }
+.mwd{ font-size:var(--t-2xs); line-height:16px; font-weight:600; color:var(--ink-soft); text-align:center; padding-bottom:2px; }
+.yc{
+  position:relative; height:var(--yc); border:0; padding:0; margin:0; background:transparent;
+  display:grid; place-items:center; cursor:pointer;
 }
-.note-text { flex: 1; padding: var(--space-2) 0; color: var(--ink); }
+span.yc{ cursor:default; }
+/* ruling 2: the number is SVG text drawn the ring's way, on the baseline at the bead's centre, dropped .352em,
+   so its ink centres. (HTML text snaps its baseline to whole pixels and could only land 0.3 high or 0.7 low) */
+.bead{
+  position:relative; z-index:1; width:var(--bead); height:var(--bead); border-radius:var(--r-round);
+  border:2px solid var(--ring); background:var(--surface-2); color:var(--ink);
+  font:600 var(--t-btn)/1 var(--font); font-variant-numeric:proportional-nums;
+  display:grid; place-items:center;
+  transition:background-color var(--dur) var(--ease), border-color var(--dur) var(--ease), transform var(--dur-press) var(--ease);
+}
+.bead svg{ position:absolute; inset:0; width:100%; height:100%; overflow:visible; }
+.bead text{ fill:currentColor; text-anchor:middle; dominant-baseline:alphabetic; }
+.yc.on .bead{ background:var(--amber); border-color:var(--amber); color:var(--on-amber); font-weight:700; }
+.yc.today .bead{ box-shadow:0 0 0 3px var(--surface-2), 0 0 0 4.5px var(--ink); }
+.yc.closed .bead{ border-color:transparent; background:transparent; color:var(--closed); font-weight:500; }
+/* consecutive done days are strung on one thread, like the mark */
+.yc.l::before, .yc.r::after{ content:""; position:absolute; top:50%; height:8px; margin-top:-4px; background:var(--amber); }
+.yc.l::before{ left:0; right:50%; }
+.yc.r::after{ left:50%; right:0; }
+@media (hover: hover){
+  button.yc:hover .bead{ border-color:var(--amber); }
+  button.yc.on:hover .bead{ background:var(--amber-hover); border-color:var(--amber-hover); }
+}
+button.yc:active .bead{ transform:scale(.9); }
+.yc:focus-visible{ outline:none; }
+.yc:focus-visible .bead{ outline:2px solid var(--focus); outline-offset:3px; }
 
-/* Heatmap: a dot grid in the bead language */
-.heat {
-  margin-top: var(--space-8);
-  padding: var(--space-5) var(--space-4);
-  border-radius: var(--radius-panel);
-  background: var(--surface);
-}
-.heat-title {
-  margin-bottom: var(--space-3);
-  font-size: var(--text-md);
-  line-height: var(--lh-md);
-  font-weight: var(--weight-semibold);
-}
-.heat-grid {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  column-gap: var(--space-2);
-  row-gap: var(--space-1);
-}
-.months {
-  grid-column: 2;
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  font-size: var(--text-xs);
-  line-height: var(--lh-xs);
-  color: var(--ink-soft);
-}
-.months span { white-space: nowrap; }
-.wdays {
-  grid-column: 1;
-  display: grid;
-  grid-template-rows: repeat(7, minmax(0, 1fr));
-  align-items: center;
-  font-size: var(--text-xs);
-  line-height: 1;
-  color: var(--ink-soft);
-}
-.cells {
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  grid-template-rows: repeat(7, auto);
-  grid-auto-flow: column;
-}
-.hc {
-  position: relative;
-  aspect-ratio: 1;
-  display: grid;
-  place-items: center;
-}
-/* Dots use whole-pixel sizes so they stay round after pixel snapping. */
-.hc::before,
-.hc::after { content: ""; grid-area: 1 / 1; border-radius: var(--radius-round); }
-.hc::before {
-  width: var(--dot, 0);
-  height: var(--dot, 0);
-  background: var(--tone, transparent);
-  transition: width var(--dur) var(--ease), height var(--dur) var(--ease), background-color var(--dur) var(--ease);
-}
-.l0 { --dot: var(--dot-0); }
-.l0::before { box-shadow: inset 0 0 0 var(--dot-ring) var(--ring); }
-.l1 { --dot: var(--dot-1); --tone: var(--heat-1); }
-.l2 { --dot: var(--dot-2); --tone: var(--heat-2); }
-.l3 { --dot: var(--dot-3); --tone: var(--heat-3); }
-.l4 { --dot: var(--dot-4); --tone: var(--heat-4); }
-.hc.today::after {
-  width: var(--today-cell-ring);
-  height: var(--today-cell-ring);
-  border: var(--today-ring) solid var(--ring);
-}
-.legend {
-  margin-top: var(--space-3);
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: var(--space-1);
-  font-size: var(--text-xs);
-  line-height: var(--lh-xs);
-  color: var(--ink-soft);
-}
-.legend .hc { width: var(--legend-cell); }
+/* P3 overview popup */
+.ov-head{ display:flex; align-items:flex-start; gap:var(--s-2); }
+.ov-head > div{ flex:1; min-width:0; padding-top:9px; }
+.ov-head h2{ margin:0; font-size:var(--t-xl); line-height:26px; font-weight:700; }
+.ov-head .icon-btn{ margin:0 -6px 0 0; }
+.dlg-ov .legend{ justify-content:flex-end; margin-top:var(--s-3); padding:0 6px; }
+/* sized for a thumb: the popup has the whole screen, so its rings grow */
+.dlg-ov .hc{ height:48px; }
+.dlg-ov .hc svg{ width:42px; height:42px; }
 
-/* Delete dialog */
-.scrim { position: fixed; inset: 0; z-index: var(--z-scrim); background: var(--scrim); }
-.dialog {
-  position: fixed;
-  inset: 0;
-  z-index: var(--z-dialog);
-  width: min(var(--dialog-max), calc(100% - var(--space-5) * 2));
-  max-width: none;
-  height: fit-content;
-  margin: auto;
-  padding: var(--space-6);
-  border: 0;
-  border-radius: var(--radius-panel);
-  background: var(--surface);
-  color: var(--ink);
-  box-shadow: var(--shadow-dialog);
+/* P4 overview year view: P2's months, the overview's rings, every habit together */
+.dlg-all .mgrid .hc{ height:48px; }
+.dlg-all .mgrid .hc svg{ width:42px; height:42px; }
+
+/* ---------- motion (only when the reader has not asked for less) ---------- */
+@media (prefers-reduced-motion: no-preference){
+  .btn-done.pop .dot{ animation:pop 260ms var(--ease-out); }
+  .bump{ animation:bump 280ms var(--ease-out); }
+  .hc.pop svg{ animation:pop 300ms var(--ease-out); }
+  .ov-ring.pop svg{ animation:pop 300ms var(--ease-out); }
+  .tick.pop .tbox{ animation:pop 260ms var(--ease-out); }
+  .yc.pop .bead{ animation:pop 260ms var(--ease-out); }
+  dialog[open] .dlg-box{ animation:rise var(--dur-enter) var(--ease-out); }
+  .dlg-day[open] .dlg-box{ animation:sheet 260ms var(--ease-out); }
+  dialog[open]::backdrop, .scrim{ animation:fade 180ms var(--ease); }
 }
-.dialog::backdrop { background: var(--scrim); }
-/* Entering: the backdrop fades, the dialog fades and rises 8px. Answers the user's tap on delete. */
-@keyframes scrim-in { from { opacity: 0; } }
-@keyframes dialog-in { from { opacity: 0; transform: translateY(8px); } }
-.scrim, .dialog::backdrop { animation: scrim-in var(--dur) var(--ease); }
-.dialog[open] { animation: dialog-in var(--dur-enter) var(--ease-out); }
-/* While the dialog is open the page behind it does not scroll. */
-html:has(.dialog[open]),
-html:has(.dialog[open]) body { height: 100%; overflow: hidden; }
-.dialog-title {
-  font-size: var(--text-lg);
-  line-height: var(--lh-lg);
-  font-weight: var(--weight-semibold);
-  overflow-wrap: anywhere;
-}
-.dialog-body { margin-top: var(--space-2); color: var(--ink-soft); }
-.dialog-actions {
-  margin: var(--space-6) 0 0;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-3);
+@keyframes pop{ 0%{ transform:scale(.82); } 60%{ transform:scale(1.08); } 100%{ transform:scale(1); } }
+@keyframes bump{ 0%{ transform:translateY(6px); opacity:.2; } 100%{ transform:none; opacity:1; } }
+@keyframes rise{ from{ transform:translateY(8px); opacity:0; } to{ transform:none; opacity:1; } }
+@keyframes sheet{ from{ transform:translateY(40px); opacity:.4; } to{ transform:none; opacity:1; } }
+@keyframes fade{ from{ opacity:0; } to{ opacity:1; } }
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{ animation:none !important; transition:none !important; }
 }
 
-/* Hover only where a pointer can hover */
-@media (hover: hover) {
-  .icon-btn:hover { background: var(--wash); color: var(--ink); }
-  .day:hover .bead { border-color: var(--bead); }
-  .day[aria-pressed="true"]:hover .bead { background: var(--bead-deep); border-color: var(--bead-deep); }
-  .btn-primary:hover { background: var(--bead-deep); }
-  .btn-secondary:hover { background: var(--wash); }
-  .btn-danger:hover { background: var(--danger-deep); }
-  .btn:disabled:hover { background: var(--thread); }
+/* ---------- widths ---------- */
+@media (max-width: 379px){
+  .app{ padding-left:var(--s-3); padding-right:var(--s-3); }
+  .row{ padding-left:var(--s-3); padding-right:var(--s-3); column-gap:6px; }
+  .stats{ gap:var(--s-3); }
+  .btn-year{ padding:0 10px; }
+  .btn-done{ padding:0 10px 0 8px; gap:6px; font-size:var(--t-sm); }
+  .sheet-head, .sheet-body{ padding-left:var(--s-3); padding-right:var(--s-3); }
+  .dlg-ov .hc{ height:46px; }
+  .dlg-ov .hc svg{ width:40px; height:40px; }
+  .dlg-all .mgrid .hc{ height:46px; }
+  .dlg-all .mgrid .hc svg{ width:40px; height:40px; }
+  :root{ --bead:34px; }
 }
+@media (min-width: 768px){
+  .dlg-day{ margin:auto; width:min(440px, calc(100vw - 32px)); }
+  .dlg-day .dlg-box{ border-radius:var(--r-sheet); border-bottom:1px solid var(--line); padding:var(--s-5); }
+  .dlg-full{ margin:auto; width:min(980px, calc(100vw - 48px)); height:auto; max-height:calc(100dvh - 48px); }
+  .dlg-full .dlg-box{ height:auto; max-height:calc(100dvh - 48px); border:1px solid var(--line); border-radius:var(--r-sheet); box-shadow:var(--shadow-dlg); }
+  .dlg-ov{ width:min(520px, calc(100vw - 48px)); }
+  .sheet-head{ padding:var(--s-4) var(--s-6) var(--s-3); }
+  .sheet-body{ padding:var(--s-4) var(--s-6) var(--s-6); }
+  .months{ grid-template-columns:repeat(2, max-content); justify-content:center; gap:var(--s-6) var(--s-8); }
+  .mgrid{ grid-template-columns:repeat(7, 40px); }
+  :root{ --yc:40px; --bead:32px; }
+  .bead{ font-size:var(--t-sm); }
+  /* P4: the overview's 40 px ring in a 42 px column keeps the 16 px day number and fits three months across */
+  .months.months-all{ grid-template-columns:repeat(auto-fill, 294px); gap:var(--s-6) var(--s-5); }
+  .dlg-all .mgrid{ grid-template-columns:repeat(7, 42px); }
+  .dlg-all .mgrid .hc{ height:var(--ov-cell-h); }
+  .dlg-all .mgrid .hc svg{ width:var(--ov-ring); height:var(--ov-ring); }
+}
+@media (min-width: 1024px){
+  .app{ max-width:var(--app-max); padding:var(--s-3) var(--s-6); }
+  .top{ grid-template-columns:minmax(0,1fr) auto; grid-template-areas:"brand date"; column-gap:var(--s-5); }
+  .mark{ width:32px; height:32px; }
+  .word{ font-size:21px; }
+  .date{ font-size:var(--t-md); }
+  .ov-btn{ display:none; }
 
-/* Desktop: two deliberate columns, habits left, heatmap right */
-@media (min-width: 900px) {
-  .page { max-width: var(--page-max); padding: var(--space-8) var(--space-9) var(--space-9); }
-  .top { padding-bottom: var(--space-7); }
-  .layout {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) var(--heat-panel-w);
-    gap: var(--space-10);
-    align-items: start;
+  /* the overview band: weeks as columns, newest on the right */
+  .band{
+    flex:none; display:grid; grid-template-columns:180px minmax(0,1fr); gap:var(--s-5);
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--r-card);
+    padding:14px var(--s-5) var(--s-3);
   }
-  .heat { margin-top: 0; padding: var(--space-6); position: sticky; top: var(--space-7); }
+  .band-meta{ display:flex; flex-direction:column; min-width:0; }
+  /* the band's own header line: the title and its Year button, never inside the ring grid */
+  .band-head{ display:flex; align-items:center; justify-content:space-between; gap:var(--s-2); margin-top:-10px; }
+  .band-meta h2{ margin:0; font-size:var(--t-md); line-height:24px; font-weight:600; white-space:nowrap; }
+  .band-meta .legend{ margin-top:auto; padding-bottom:6px; }
+  .ovg-cols{
+    display:grid; grid-auto-flow:column;
+    grid-template-columns:22px repeat(12, minmax(0,1fr));
+    grid-template-rows:18px repeat(7, var(--ov-cell-h));
+  }
+  .ovg-cols .og-mo{ padding-left:6px; white-space:nowrap; }
+  .ovg-cols .og-wd{ display:flex; align-items:center; }
+  .ovg-cols .hc{ width:52px; justify-self:center; }
+
+  /* one line: the bin closes the name column, so the stats and Year sit between it and Done today */
+  .row{
+    grid-template-columns:minmax(0,1fr) calc(var(--hit) + var(--s-3)) 200px auto auto;
+    grid-template-areas:"name bin stats year done";
+    column-gap:var(--s-3); padding:var(--s-3) var(--s-3) var(--s-3) var(--s-5);
+  }
+  .r-head{ display:contents; }
+  .r-name{ grid-area:name; font-size:var(--t-lg); line-height:24px; }
+  .btn-bin{ grid-area:bin; justify-self:start; margin:0; }
+  .stats{ gap:var(--s-5); }
+  .stat.cur{ min-width:96px; } /* Best lines up down the list, with or without a streak */
+
+  /* label left, field right, a message sits above the field it is about */
+  .composer{ padding:var(--s-3); display:grid; grid-template-columns:auto minmax(0,1fr); column-gap:var(--s-4); }
+  .field-msg{ grid-column:2; grid-row:1; }
+  .add-row{ display:contents; }
+  .add-label{ grid-column:1; grid-row:2; align-self:center; margin:0 0 0 var(--s-2); white-space:nowrap; }
+  .add-ctl{ grid-column:2; grid-row:2; }
+
+  .months{ grid-template-columns:repeat(3, max-content); }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { transition: none !important; animation: none !important; }
-}
-/* ---------- end components ---------- */
-
-/* ---------- sheet only: frames and forced states for this specimen page ---------- */
-.sheet { max-width: 1240px; margin: 0 auto; padding: var(--space-6) var(--space-5) var(--space-9); }
-.sheet-head { padding-bottom: var(--space-2); }
-.sheet-title {
-  font-size: var(--text-xl);
-  line-height: var(--lh-xl);
-  font-weight: var(--weight-bold);
-  letter-spacing: -0.01em;
-  color: var(--bead-deep);
-}
-.sheet-sub { margin-top: var(--space-1); max-width: 60ch; color: var(--ink-soft); }
-.group { margin-top: var(--space-8); }
-.group-title {
-  margin-bottom: var(--space-4);
-  font-size: var(--text-lg);
-  line-height: var(--lh-lg);
-  font-weight: var(--weight-semibold);
-}
-.frames {
-  display: grid;
-  gap: var(--space-6);
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
-  align-items: start;
-}
-.frame { margin: 0; min-width: 0; }
-.frame-cap { margin-bottom: var(--space-2); font-size: var(--text-sm); line-height: var(--lh-sm); color: var(--ink-soft); }
-.frame-body {
-  --bead-size: 32px; /* frames stand for the narrowest phone, so beads use the 360 px size at any viewport */
-  padding: var(--space-5);
-  border-radius: var(--radius-panel);
-  background: var(--bg);
-  box-shadow: inset 0 0 0 1px var(--thread);
-}
-.frame-body > .add { margin-top: 0; }
-.frame-body > .page { padding: 0; }
-.specs { display: flex; flex-wrap: wrap; align-items: flex-start; gap: var(--space-6) var(--space-7); }
-.frame-body.on-surface { background: var(--surface); }
-.spec { display: grid; justify-items: start; gap: var(--space-2); min-width: 0; }
-.spec .frame-cap { margin: 0; white-space: nowrap; }
-.spec-input { width: 240px; max-width: 100%; }
-.spec-input .input { width: 100%; }
-.spec-day > .day { width: 56px; }
-.spec-day .slot::before, .spec-day .slot::after { display: none; } /* a lone bead has no neighbours to thread */
-.spec-cell .hc { width: 24px; }
-/* Forced states: the screens draw these on :hover and :focus-visible; the classes exist only here. */
-.icon-btn.is-hover { background: var(--wash); color: var(--ink); }
-.icon-btn.is-focus { outline: var(--focus-w) solid var(--focus); outline-offset: calc(var(--focus-w) * -1); }
-.btn-primary.is-hover { background: var(--bead-deep); }
-.btn-secondary.is-hover { background: var(--wash); }
-.btn-danger.is-hover { background: var(--danger-deep); }
-.btn.is-focus { outline: var(--focus-w) solid var(--focus); outline-offset: 3px; }
-.input.is-focus { outline: var(--focus-w) solid var(--focus); outline-offset: 2px; }
-.day.is-hover .bead { border-color: var(--bead); }
-.day.is-hover[aria-pressed="true"] .bead { background: var(--bead-deep); border-color: var(--bead-deep); }
-.day.is-focus { outline: var(--focus-w) solid var(--focus); outline-offset: 0; }
-@media (min-width: 900px) {
-  .sheet { padding: var(--space-8) var(--space-9) var(--space-9); }
-}
+/* ---------- golden stand-ins (static goldens only, the app does not need them) ----------
+   The app opens every popup with showModal(), which puts it in the top layer over a ::backdrop.
+   A golden has no script, so it marks a popup <dialog open> and draws the backdrop as a .scrim before it.
+   Layers paint in document order: scrim, dialog, scrim, dialog. */
+.scrim{ position:fixed; inset:0; z-index:10; background:var(--scrim); }
+.scrim.soft{ background:var(--scrim-soft); }
+dialog[open]{ position:fixed; inset:0; z-index:10; }
+/* a layer that only exists below the desktop layout (P3 under P1 on a phone) */
+@media (min-width: 1024px){ .below-desktop{ display:none; } }
+</style>
+<style>
+/* sheet only, not part of the app: page frame, group titles, captions */
+.sheet{ max-width:640px; margin:0 auto; padding:var(--s-4); display:grid; gap:var(--s-7); }
+@media (min-width: 1024px){ .sheet{ max-width:var(--app-max); padding:var(--s-6); } }
+.sheet > h1{ margin:0; font-size:var(--t-xl); line-height:24px; font-weight:700; }
+.spec{ display:grid; gap:var(--s-2); }
+.spec > h2{ margin:0; font-size:var(--t-sm); line-height:20px; font-weight:600; color:var(--ink-soft); }
+.stack{ display:grid; gap:var(--s-3); }
 </style>
 </head>
 <body>
+
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-  <symbol id="i-check" viewBox="0 0 256 256"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></symbol>
-  <symbol id="i-trash" viewBox="0 0 256 256"><path d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"/></symbol>
+  <!-- Phosphor Icons (MIT): x, plus (regular) -->
   <symbol id="i-x" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/></symbol>
 </svg>
 
-<div class="sheet">
-  <header class="sheet-head">
-    <h1 class="sheet-title">Streaks states</h1>
-    <p class="sheet-sub">A specimen sheet, not a screen. Each frame shows one state at phone width, drawn with the same system as the screens.</p>
-  </header>
+<main class="sheet">
+  <h1>Streaky Habit states</h1>
 
-  <!-- S3 and S4: the add field, which sits under the habit list on S1 -->
-  <section class="group" aria-labelledby="g-add">
-    <h2 class="group-title" id="g-add">Add field</h2>
-    <div class="frames">
-      <figure class="frame">
-        <figcaption class="frame-cap">S3 Add pressed with an empty name</figcaption>
-        <div class="frame-body">
-          <form class="add" novalidate>
-            <label class="add-label" for="s3a">New habit</label>
-            <div class="add-row">
-              <input class="input" id="s3a" name="name" type="text" autocomplete="off" value="" aria-invalid="true" aria-describedby="s3a-msg">
-              <button class="btn btn-primary" type="submit">Add</button>
-            </div>
-            <p class="field-msg field-error" id="s3a-msg" aria-live="polite">Name the habit first.</p>
-          </form>
+  <section class="spec" aria-labelledby="s2a">
+    <h2 id="s2a">S2, Add pressed with no name (K1's add field)</h2>
+    <form class="composer" novalidate>
+      <p id="m1" class="field-msg err" aria-live="polite">Name the habit first.</p>
+      <div class="add-row">
+        <label for="n1" class="add-label">New habit</label>
+        <div class="add-ctl">
+          <input id="n1" class="input" type="text" autocomplete="off" spellcheck="false" aria-describedby="m1" aria-invalid="true">
+          <button class="btn btn-primary" type="submit"><svg class="ph" aria-hidden="true"><use href="#i-plus"/></svg>Add</button>
         </div>
-      </figure>
-      <figure class="frame">
-        <figcaption class="frame-cap">S3 Name longer than 40 characters</figcaption>
-        <div class="frame-body">
-          <form class="add" novalidate>
-            <label class="add-label" for="s3b">New habit</label>
-            <div class="add-row">
-              <input class="input" id="s3b" name="name" type="text" autocomplete="off" value="Walk to the end of the street and back after dinner" aria-invalid="true" aria-describedby="s3b-msg">
-              <button class="btn btn-primary" type="submit">Add</button>
-            </div>
-            <p class="field-msg field-error" id="s3b-msg" aria-live="polite">Keep it to 40 characters or fewer.</p>
-          </form>
-        </div>
-      </figure>
-      <figure class="frame">
-        <figcaption class="frame-cap">S3 Name already tracked, ignoring case</figcaption>
-        <div class="frame-body">
-          <form class="add" novalidate>
-            <label class="add-label" for="s3c">New habit</label>
-            <div class="add-row">
-              <input class="input" id="s3c" name="name" type="text" autocomplete="off" value="read 20 pages" aria-invalid="true" aria-describedby="s3c-msg">
-              <button class="btn btn-primary" type="submit">Add</button>
-            </div>
-            <p class="field-msg field-error" id="s3c-msg" aria-live="polite">You already track this habit.</p>
-          </form>
-        </div>
-      </figure>
-      <figure class="frame">
-        <figcaption class="frame-cap">S4 Twelve habits, field and button disabled</figcaption>
-        <div class="frame-body">
-          <form class="add" novalidate>
-            <label class="add-label" for="s4">New habit</label>
-            <div class="add-row">
-              <input class="input" id="s4" name="name" type="text" autocomplete="off" disabled aria-describedby="s4-msg">
-              <button class="btn btn-primary" type="submit" disabled>Add</button>
-            </div>
-            <p class="field-msg field-note" id="s4-msg" aria-live="polite">You track 12 habits, the most this app holds. Delete one to add another.</p>
-          </form>
-        </div>
-      </figure>
-    </div>
+      </div>
+    </form>
   </section>
 
-  <!-- The list: a habit just added, and S5 after a reset -->
-  <section class="group" aria-labelledby="g-list">
-    <h2 class="group-title" id="g-list">Habit list</h2>
-    <div class="frames">
-      <figure class="frame">
-        <figcaption class="frame-cap">A habit just added, at the bottom of the list</figcaption>
-        <div class="frame-body">
-          <ul class="habits">
-            <li class="habit">
-              <div class="habit-head">
-                <h3 class="habit-name" id="new-name">Read 20 pages</h3>
-                <button class="icon-btn" type="button" aria-label="Delete Read 20 pages"><svg aria-hidden="true" focusable="false"><use href="#i-trash"/></svg></button>
-              </div>
-              <p class="streak" aria-live="polite"><span class="cur none">No streak yet</span></p>
-              <div class="strip" role="group" aria-labelledby="new-name">
-                <button class="day" type="button" data-date="2026-10-02" aria-pressed="false" aria-label="Mark Fri 2 Oct as done"><span class="day-label" aria-hidden="true"><span class="wd">Fri</span><span class="dm">2</span></span><span class="slot" aria-hidden="true"><span class="bead"><svg aria-hidden="true" focusable="false"><use href="#i-check"/></svg></span></span></button>
-                <button class="day" type="button" data-date="2026-10-03" aria-pressed="false" aria-label="Mark Sat 3 Oct as done"><span class="day-label" aria-hidden="true"><span class="wd">Sat</span><span class="dm">3</span></span><span class="slot" aria-hidden="true"><span class="bead"><svg aria-hidden="true" focusable="false"><use href="#i-check"/></svg></span></span></button>
-                <button class="day" type="button" data-date="2026-10-04" aria-pressed="false" aria-label="Mark Sun 4 Oct as done"><span class="day-label" aria-hidden="true"><span class="wd">Sun</span><span class="dm">4</span></span><span class="slot" aria-hidden="true"><span class="bead"><svg aria-hidden="true" focusable="false"><use href="#i-check"/></svg></span></span></button>
-                <button class="day" type="button" data-date="2026-10-05" aria-pressed="false" aria-label="Mark Mon 5 Oct as done"><span class="day-label" aria-hidden="true"><span class="wd">Mon</span><span class="dm">5</span></span><span class="slot" aria-hidden="true"><span class="bead"><svg aria-hidden="true" focusable="false"><use href="#i-check"/></svg></span></span></button>
-                <button class="day" type="button" data-date="2026-10-06" aria-pressed="false" aria-label="Mark Tue 6 Oct as done"><span class="day-label" aria-hidden="true"><span class="wd">Tue</span><span class="dm">6</span></span><span class="slot" aria-hidden="true"><span class="bead"><svg aria-hidden="true" focusable="false"><use href="#i-check"/></svg></span></span></button>
-                <button class="day" type="button" data-date="2026-10-07" aria-pressed="false" aria-label="Mark Wed 7 Oct as done"><span class="day-label" aria-hidden="true"><span class="wd">Wed</span><span class="dm">7</span></span><span class="slot" aria-hidden="true"><span class="bead"><svg aria-hidden="true" focusable="false"><use href="#i-check"/></svg></span></span></button>
-                <button class="day" type="button" data-date="2026-10-08" aria-pressed="false" aria-current="date" aria-label="Mark Thu 8 Oct as done"><span class="day-label" aria-hidden="true"><span class="wd">Thu</span><span class="dm">8</span></span><span class="slot" aria-hidden="true"><span class="bead"><svg aria-hidden="true" focusable="false"><use href="#i-check"/></svg></span></span></button>
-              </div>
-            </li>
-          </ul>
+  <section class="spec" aria-labelledby="s2b">
+    <h2 id="s2b">S2, a name longer than 40 characters</h2>
+    <form class="composer" novalidate>
+      <p id="m2" class="field-msg err" aria-live="polite">Keep it to 40 characters or fewer.</p>
+      <div class="add-row">
+        <label for="n2" class="add-label">New habit</label>
+        <div class="add-ctl">
+          <input id="n2" class="input" type="text" autocomplete="off" spellcheck="false" aria-describedby="m2" aria-invalid="true" value="Read twenty pages of a novel before bed each night">
+          <button class="btn btn-primary" type="submit"><svg class="ph" aria-hidden="true"><use href="#i-plus"/></svg>Add</button>
         </div>
-      </figure>
-      <!-- S5: the note sits at the top of the main column; the list was reset, so it is empty -->
-      <figure class="frame">
-        <figcaption class="frame-cap">S5 Saved habits could not be read, top of the screen</figcaption>
-        <div class="frame-body">
-          <div class="page">
-            <header class="top">
-              <p class="brand">Streaks</p>
-              <p class="date"><time datetime="2026-10-08">Thursday 8 October</time></p>
-            </header>
-            <div class="note" role="status">
-              <p class="note-text">Your saved habits could not be read, so the list was reset.</p>
-              <button class="icon-btn" type="button" aria-label="Dismiss note"><svg aria-hidden="true" focusable="false"><use href="#i-x"/></svg></button>
-            </div>
-            <p class="empty"><strong>No habits yet.</strong> Add one you want to do every day.</p>
-            <form class="add" novalidate>
-              <label class="add-label" for="s5">New habit</label>
-              <div class="add-row">
-                <input class="input" id="s5" name="name" type="text" autocomplete="off" aria-describedby="s5-msg">
-                <button class="btn btn-primary" type="submit">Add</button>
-              </div>
-              <p class="field-msg field-error" id="s5-msg" aria-live="polite"></p>
-            </form>
-          </div>
-        </div>
-      </figure>
-    </div>
+      </div>
+    </form>
   </section>
 
-  <!-- Component states the static screens cannot show -->
-  <section class="group" aria-labelledby="g-c">
-    <h2 class="group-title" id="g-c">Component states</h2>
-    <div class="frames">
-      <figure class="frame">
-        <figcaption class="frame-cap">Buttons: default, hover, keyboard focus, disabled</figcaption>
-        <div class="frame-body specs">
-          <div class="spec"><button class="btn btn-primary" type="button">Add</button><span class="frame-cap">Primary</span></div>
-          <div class="spec"><button class="btn btn-primary is-hover" type="button">Add</button><span class="frame-cap">Primary hover</span></div>
-          <div class="spec"><button class="btn btn-primary is-focus" type="button">Add</button><span class="frame-cap">Primary focus</span></div>
-          <div class="spec"><button class="btn btn-primary" type="button" disabled>Add</button><span class="frame-cap">Disabled</span></div>
-          <div class="spec"><button class="btn btn-secondary" type="button">Cancel</button><span class="frame-cap">Secondary</span></div>
-          <div class="spec"><button class="btn btn-secondary is-hover" type="button">Cancel</button><span class="frame-cap">Secondary hover</span></div>
-          <div class="spec"><button class="btn btn-danger" type="button">Delete habit</button><span class="frame-cap">Danger</span></div>
-          <div class="spec"><button class="btn btn-danger is-hover" type="button">Delete habit</button><span class="frame-cap">Danger hover</span></div>
+  <section class="spec" aria-labelledby="s2c">
+    <h2 id="s2c">S2, a name already tracked, ignoring case</h2>
+    <form class="composer" novalidate>
+      <p id="m3" class="field-msg err" aria-live="polite">You already track this habit.</p>
+      <div class="add-row">
+        <label for="n3" class="add-label">New habit</label>
+        <div class="add-ctl">
+          <input id="n3" class="input" type="text" autocomplete="off" spellcheck="false" aria-describedby="m3" aria-invalid="true" value="read 20 pages">
+          <button class="btn btn-primary" type="submit"><svg class="ph" aria-hidden="true"><use href="#i-plus"/></svg>Add</button>
         </div>
-      </figure>
-      <figure class="frame">
-        <figcaption class="frame-cap">Text input: default, keyboard focus, error, disabled</figcaption>
-        <div class="frame-body specs">
-          <div class="spec spec-input"><input class="input" type="text" aria-label="New habit, default" value="Read 20 pages"><span class="frame-cap">Default</span></div>
-          <div class="spec spec-input"><input class="input is-focus" type="text" aria-label="New habit, focus" value="Read 20 pages"><span class="frame-cap">Focus</span></div>
-          <div class="spec spec-input"><input class="input" type="text" aria-label="New habit, error" value="" aria-invalid="true"><span class="frame-cap">Error</span></div>
-          <div class="spec spec-input"><input class="input" type="text" aria-label="New habit, disabled" disabled><span class="frame-cap">Disabled</span></div>
-        </div>
-      </figure>
-      <figure class="frame">
-        <figcaption class="frame-cap">Day bead and icon button</figcaption>
-        <div class="frame-body specs">
-          <div class="spec spec-day"><button class="day" type="button" aria-pressed="false" aria-label="Mark Wed 7 Oct as done"><span class="day-label" aria-hidden="true"><span class="wd">Wed</span><span class="dm">7</span></span><span class="slot" aria-hidden="true"><span class="bead"><svg aria-hidden="true" focusable="false"><use href="#i-check"/></svg></span></span></button><span class="frame-cap">Not done</span></div>
-          <div class="spec spec-day"><button class="day" type="button" aria-pressed="true" aria-label="Mark Wed 7 Oct as done"><span class="day-label" aria-hidden="true"><span class="wd">Wed</span><span class="dm">7</span></span><span class="slot" aria-hidden="true"><span class="bead"><svg aria-hidden="true" focusable="false"><use href="#i-check"/></svg></span></span></button><span class="frame-cap">Done</span></div>
-          <div class="spec spec-day"><button class="day" type="button" aria-pressed="false" aria-current="date" aria-label="Mark Thu 8 Oct as done"><span class="day-label" aria-hidden="true"><span class="wd">Thu</span><span class="dm">8</span></span><span class="slot" aria-hidden="true"><span class="bead"><svg aria-hidden="true" focusable="false"><use href="#i-check"/></svg></span></span></button><span class="frame-cap">Today</span></div>
-          <div class="spec spec-day"><button class="day" type="button" aria-pressed="true" aria-current="date" aria-label="Mark Thu 8 Oct as done"><span class="day-label" aria-hidden="true"><span class="wd">Thu</span><span class="dm">8</span></span><span class="slot" aria-hidden="true"><span class="bead"><svg aria-hidden="true" focusable="false"><use href="#i-check"/></svg></span></span></button><span class="frame-cap">Today done</span></div>
-          <div class="spec spec-day"><button class="day is-hover" type="button" aria-pressed="false" aria-label="Mark Wed 7 Oct as done"><span class="day-label" aria-hidden="true"><span class="wd">Wed</span><span class="dm">7</span></span><span class="slot" aria-hidden="true"><span class="bead"><svg aria-hidden="true" focusable="false"><use href="#i-check"/></svg></span></span></button><span class="frame-cap">Hover</span></div>
-          <div class="spec spec-day"><button class="day is-hover" type="button" aria-pressed="true" aria-label="Mark Wed 7 Oct as done"><span class="day-label" aria-hidden="true"><span class="wd">Wed</span><span class="dm">7</span></span><span class="slot" aria-hidden="true"><span class="bead"><svg aria-hidden="true" focusable="false"><use href="#i-check"/></svg></span></span></button><span class="frame-cap">Done hover</span></div>
-          <div class="spec spec-day"><button class="day is-focus" type="button" aria-pressed="false" aria-current="date" aria-label="Mark Thu 8 Oct as done"><span class="day-label" aria-hidden="true"><span class="wd">Thu</span><span class="dm">8</span></span><span class="slot" aria-hidden="true"><span class="bead"><svg aria-hidden="true" focusable="false"><use href="#i-check"/></svg></span></span></button><span class="frame-cap">Focus</span></div>
-          <div class="spec"><button class="icon-btn" type="button" aria-label="Delete Read 20 pages"><svg aria-hidden="true" focusable="false"><use href="#i-trash"/></svg></button><span class="frame-cap">Delete</span></div>
-          <div class="spec"><button class="icon-btn is-hover" type="button" aria-label="Delete Read 20 pages"><svg aria-hidden="true" focusable="false"><use href="#i-trash"/></svg></button><span class="frame-cap">Hover</span></div>
-          <div class="spec"><button class="icon-btn is-focus" type="button" aria-label="Delete Read 20 pages"><svg aria-hidden="true" focusable="false"><use href="#i-trash"/></svg></button><span class="frame-cap">Focus</span></div>
-        </div>
-      </figure>
-      <figure class="frame">
-        <figcaption class="frame-cap">Heatmap cell: levels 0 to 4, today, a future day</figcaption>
-        <div class="frame-body on-surface specs">
-          <div class="spec spec-cell"><span class="hc l0" role="img" aria-label="Level 0, none of the habits"></span><span class="frame-cap">0 None</span></div>
-          <div class="spec spec-cell"><span class="hc l1" role="img" aria-label="Level 1, up to a third"></span><span class="frame-cap">1 Up to a third</span></div>
-          <div class="spec spec-cell"><span class="hc l2" role="img" aria-label="Level 2, up to two thirds"></span><span class="frame-cap">2 Up to two thirds</span></div>
-          <div class="spec spec-cell"><span class="hc l3" role="img" aria-label="Level 3, more than two thirds"></span><span class="frame-cap">3 More than two thirds</span></div>
-          <div class="spec spec-cell"><span class="hc l4" role="img" aria-label="Level 4, all habits"></span><span class="frame-cap">4 All</span></div>
-          <div class="spec spec-cell"><span class="hc l4 today" role="img" aria-label="Today at level 4"></span><span class="frame-cap">Today</span></div>
-          <div class="spec spec-cell"><span class="hc future" aria-hidden="true"></span><span class="frame-cap">Future, blank</span></div>
-        </div>
-      </figure>
+      </div>
+    </form>
+  </section>
+
+  <section class="spec" aria-labelledby="s4">
+    <h2 id="s4">S4, the save warning (K1, between the band or header and the list)</h2>
+    <div class="banners"><div class="banner warn" role="status"><p>Your habits are not being saved on this device. Changes will be lost when you close this tab.</p></div></div>
+  </section>
+
+  <section class="spec" aria-labelledby="s5">
+    <h2 id="s5">S5, saved habits could not be read (S1 with the note above the list)</h2>
+    <div class="stack">
+      <div class="banners"><div class="banner note" role="status"><p>Your saved habits could not be read, so the list was reset.</p><button type="button" class="icon-btn" aria-label="Dismiss note"><svg class="ph" aria-hidden="true"><use href="#i-x"/></svg></button></div></div>
+      <div class="frame"><ul class="rows"><li class="empty"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="e-orbit" cx="60" cy="60" r="50"/><circle class="e-core" cx="60" cy="60" r="18"/></svg><div><p class="lead">No habits yet.</p><p class="line">Add one you want to do every day.</p></div></li></ul></div>
     </div>
   </section>
-</div>
+</main>
+
 </body>
 </html>

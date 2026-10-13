@@ -234,3 +234,9 @@ Append-only history. STATE.md holds the situation, this file holds what happened
 - T6 passed QA 18 of 24, arc ends moved onto whole pixels (QA F1)
 - Owner rulings, no background or tile anywhere, 1 px favicon ring accepted, dark amber on light grounds, T6 approved
 - T6 swapped into final/ (8 goldens), check.py 97 of 97, FLOW-CHECK 49 of 49, ledger S7 row 10
+
+## 2026-10-13 design v1.1.0 finalized
+- Finalize gate approved by the owner 2026-10-11 23:45 ("Yes, but later"), run in the showcase session after the unify move
+- final/ copied into docs/design/, 23 files (12 new, 11 replacing 1.0's, 1.0's in tag v1.0.0), SHA-256 equal. v1.1.0 rulings beside 1.0's as RULINGS-v1.1.0.md. checks/ and SELF-CRITIQUE.md stay in design-explore
+- check.py rerun with goldens read from docs/design/, 97 of 97, every section equal to the final/ run (design-explore/v1.1.0/finalize/)
+- Phase skills loaded throughout the round, taste-skill and frontend-design (docs/design/system.md, Skills loaded). Ledger S7 row 11. Next sdlc:plan
