@@ -72,6 +72,7 @@ If the browser blocks or fills its storage, the page tells the user the habits a
 | # | Problem found | When | What changed | Who | Outcome |
 |---|---|---|---|---|---|
 | 1 | Carried from v1.0.0 (accepted limit) | 2026-10-10 seal | Copy and state in the design round, then plan | ORCH | Open |
+| 2 | Clarify gate part 1 on the research (docs/brainstorm/research/save-warning-and-tab-icon.md), CG-1 and CG-2 | 2026-10-13 18:45 plan | USER "Yes, show it at once (Recommended)", the warning shows at boot when the browser refuses storage outright. USER on the known limit "Yes not it in the readme. maybe we can note that since this is a showcase, a detection isnt built. Or if its bad for showcase then just note the limitations". ORCH reading, the README states the limit and its reason (a private window and Safari's 7-day clean-up report every save as working, so no page can tell), not "not built", since no reliable detection exists. UAT drives the warning with storage blocked in the browser settings. The plan replaces the 1.0 rule that a failed save shows no message | USER, ORCH on the README wording | Ruled, plan next |
 
 ### S5 - Tested in Safari's engine too
 **Status:** OPEN · **Opened:** 2026-10-10 · **Tag:** ORCH
@@ -82,6 +83,7 @@ The browser tests and the gates also run in WebKit, the engine of Safari on iPho
 | # | Problem found | When | What changed | Who | Outcome |
 |---|---|---|---|---|---|
 | 1 | Carried from v1.0.0 (only Chromium was tested) | 2026-10-10 seal | Plan, then build | ORCH | Open |
+| 2 | Clarify gate part 1 on the research (docs/brainstorm/research/webkit-testing.md). The owner asked "Do we really need to test it on safari? Does this do any impact for showcase. Also, will playwright be used in the future". Answered in chat (every iPhone browser runs WebKit, links get opened on phones, Playwright already runs every build of both apps) | 2026-10-13 18:40 plan | USER "Keep it, install WebKit (Recommended)", so the build may run python -m playwright install webkit (about 62 MB, Playwright's download server). USER "Suites and live gates (Recommended)", the pixel match against the goldens stays Chromium only. No preference on two questions, so the recommendations apply. A WebKit failure in the suites or the live gates blocks the seal. Chromium-only tests are skipped in WebKit with a written reason and counted. Where WebKit acts differently by design the spec states each engine's behaviour. The v1.1.0 UAT adds a few cases he runs on his own iPhone. The plan amends the CLAUDE.md stack line and the 1.0 spec lines that say Chromium only | USER, ORCH on the two without a preference | Ruled, plan next |
 
 ### S6 - The logo in the app
 **Status:** OPEN · **Opened:** 2026-10-10 · **Tag:** USER
@@ -92,6 +94,7 @@ The logo shows in the app's header and as the browser tab icon.
 | # | Problem found | When | What changed | Who | Outcome |
 |---|---|---|---|---|---|
 | 1 | Scope opened from the owner's comment. Corrects the v1.0.0 reading "no header mark in the app" | 2026-10-10 seal | Design round | USER | Open |
+| 2 | Clarify gate part 1 on the research (docs/brainstorm/research/save-warning-and-tab-icon.md). The golden's tab icon is a data URL, which both apps' CSP blocks and the 1.0 no-scheme rules forbid. CG-3 and CG-4 | 2026-10-13 18:45 plan | USER "Yes, a file (Recommended)", the tab icon ships as src/icon.svg, the golden's decoded SVG byte for byte, linked from index.html, CSP as strict as 1.0. Only the head link differs from the golden, nothing visible. USER "Header and tab only (Recommended)", Safari 26 showing one icon colour in both themes is accepted as Safari's bug and checked in UAT. A home-screen icon is deferred (off-scope row 7) | USER | Ruled, plan next |
 
 ### S7 - A livelier look, chosen from five directions
 **Status:** OPEN · **Opened:** 2026-10-10 · **Tag:** USER
@@ -134,6 +137,8 @@ A product name no other habit app uses, shown in the new wordmark and the logo l
 | 3 | Brainstorm delta for v1.1.0 | 2026-10-10 brainstorm | Appended to docs/brainstorm/brainstorm.md: the name, the new and changed capabilities, the rules (USER where he decided, ORCH where the orchestrator settled details so design can start), the grill log rows. One theme may now be dark. Still system fonts and no network | USER, ORCH | Written |
 | 4 | Design brief for v1.1.0 with the five directions | 2026-10-10 design | docs/design-explore/v1.1.0/BRIEF.md: who, the key screen's job, feeling words, his words, constraints, the logo rule, the inventory with exact figures, the prototype rules, five direction theses | ORCH | Written, design round next |
 | 5 | UAT sheet layout chosen (row 1). Designed once in the Split folder with real Split cases and used for both apps. Owner 2026-10-10, after three layouts and two revisions: "Besides that i am happy with the design." Full words and the rules (PASS, FAIL, BLOCKED with a note on any, a tick or cross per expected line, NOT RUN and RETEST set by the sheet) in the Split v1.1.0 ledger, Off-scope row 5 | 2026-10-10 design | split/docs/design-explore/v1.1.0/uat-sheet/c2.html "C revised". TEST-CASES.md stays the record | USER | Ruled. Used for the 1.1.0 UAT of both apps |
+| 6 | Plan phase opened (sdlc:continue, sdlc 2.6.0). The project's docs/constitution.md was the older copy, without the sections Gates and evidence and the clipboard rule, and the explainer role | 2026-10-13 18:20 plan | docs/constitution.md replaced with the installed sdlc 2.6.0 copy (SHA-256 equal to the plugin's), so every plan and build agent reads the current law. Two researchers started, WebKit testing (S5) and the save warning with the tab icon (S4, S6), findings in docs/brainstorm/research/, shared by both apps | ORCH | Reversible, the old copy is in git |
+| 7 | A home-screen icon (iPhone and Android) | 2026-10-13 18:45 plan | Not built in v1.1.0. Why, a home-screen icon needs a filled tile, against the owner's no-tile ruling, and iOS paints a transparent icon black. Blocking item, a tile logo round with the owner | USER "Header and tab only (Recommended)" | DEFERRED |
 
 ---
 
