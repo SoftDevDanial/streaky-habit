@@ -4,8 +4,8 @@
 - **design-phase:** sdlc:design
 - **version:** 1.1.0 (1.0.0 sealed 2026-10-10, tag v1.0.0)
 - **mode:** greenfield
-- **phase:** v1.1.0 plan, step 1 research (started 2026-10-13 18:20 from sdlc:continue, sdlc 2.6.0)
-- **next:** research returns (docs/brainstorm/research/webkit-testing.md, save-warning-and-tab-icon.md, both shared with Split), then the planner writes the delta specs (scope S1 to S8 in docs/v1.1.0/CHANGE-LEDGER.md), then plan check and the clarify gate
+- **phase:** v1.1.0 plan, step 3 plan re-check running after the fix pass (first check BLOCK, B1 and F1 to F11 fixed by the planner 2026-10-13 21:55). Clarify gate part 2 ruled 2026-10-13 21:15 (CG-10 to CG-19, all USER)
+- **next:** PLAN-CHECK.md verdict, then a planner pass flips the specs' pending CG-12 to CG-19 markers to ruled and fixes any BLOCK, then the ledger scope map and commit. The orchestrator installs WebKit (owner approved 2026-10-13) before app task 11 and amends the CLAUDE.md stack line
 - **last-regression:** PASS @ 2026-10-10 12:25 (docs/regression/REGRESSION.md)
 
 ## Modules

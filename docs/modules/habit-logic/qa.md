@@ -2,6 +2,7 @@
 
 > Test contract. Every scenario is tagged `@R#` and maps to a requirement in `spec.md`.
 > Written by: the solutions architect (sdlc planner), 2026-10-08.
+> v1.1.0 delta by the planner (solutions architect role), 2026-10-13. Scenarios marked `(v1.1.0 changed)` replace their 1.0 form (kept in tag `v1.0.0`). Scenarios of retired requirements (R5, R11) are kept as text only under "Feature: Retired in v1.1.0" at the end of the Gherkin, each with a `# Retired in v1.1.0` comment, and their tests are removed. New scenarios carry `(v1.1.0 new)`. Every new or changed R# (R9, R10, R17, R18, R19, R20) has at least one scenario. Changed 2026-10-13 after the plan check (F10). The three retired scenarios first sat inside the live Features "Week strip and streaks" and "Heatmap", and one comment covered both `@R11` scenarios, so a tag count read `No habits means level 0` as live.
 
 ## How these scenarios run
 - This module has no UI. Its "running app" is the module code itself, exercised by Node's built-in test runner.
@@ -13,8 +14,11 @@
 - The runner starts no server and no browser. It leaves no process behind. If a run is cut off by the 120 second cap, the finder reports which process it killed (PID) in its `PROCESSES` block.
 - Test data: `docs/design/sample-history.json`, read-only. Any captured output goes to `docs/modules/habit-logic/qa/unit/<datetimestamp>/`.
 - Named data used below:
-  - **the sample**: the three habits of `sample-history.json` in file order ("Read 20 pages", "Stretch 10 minutes", "No phone after 11pm").
+  - **the sample**: the three habits of `sample-history.json` in file order ("Read 20 pages", "Stretch 10 minutes", "No phone after 11pm"). v1.1.0 changed, read from `tests/fixtures/sample-history-v1.0.0.json`, the 1.0 file byte for byte (spec, Contracts, Tests), because `docs/design/sample-history.json` was replaced at the v1.1.0 finalize.
   - **sample today**: `"2026-10-08"`.
+  - **the v1.1.0 sample** (v1.1.0 new). The habits of `docs/design/sample-history.json` (read-only), converted by `sampleHabits` in `tests/fixtures/sample.js` (each `"1"` at position i becomes `addDays(from, i)`). "Its first three habits" are "Read 20 pages", "Stretch 10 minutes" and "No phone after 11pm". **v1.1.0 today** is `"2026-10-10"`.
+  - A control is watched failing first (constitution, Gates and evidence). Each new scenario's test is run once against the tree before its task's code lands and recorded RED against the asserted property, never against a missing export alone. The RED capture goes to `docs/modules/habit-logic/qa/red-first/<datetimestamp>/`.
+  - **The RED-first method for a new export** (stated here once, `../app/qa.md` points here). A named ES module import of an export that does not exist fails when the module links, before any test body runs, which is exactly the import error the line above forbids. So for each new export (`yearDate`, `monthTitle`, `yearStart`, `doneFlags`, `yearMonths`, and in `app` the `src/ring.js` exports `arcPath` and `legendCounts`) the builder first adds a throwaway stub that returns a value of the right type that is wrong (`""` for a label or a date key, `[]` for a list), runs the new tests once, keeps the RED capture, then replaces the stub with the real function. The stub is never committed. Where a scenario's property is an absence (the `@R20 @R16` purity scenario), the stub reads the clock with `new Date()`, so the scan is seen RED on that property. A changed export (`toggleDay`, `heatmapCells`) needs no stub, because its 1.0 form fails the new assertion. Added 2026-10-13 after the plan check (F6), the rule first named no method.
 
 ## Functional test cases (Gherkin)
 
@@ -149,44 +153,34 @@ Feature: Local date keys and English labels
     Then the results are "Thursday 8 October" and "Tue 6 Oct"
 
 Feature: Week strip and streaks
+  # The retired R5 scenario moved to "Feature: Retired in v1.1.0" at the end (2026-10-13, plan check F10).
 
-  @R5
-  Scenario Outline: The seven days of the strip
-    When weekWindow is called with "<today>"
-    Then the result is <days>
-
-    Examples:
-      | today      | days                                                                                              |
-      | 2026-10-08 | ["2026-10-02","2026-10-03","2026-10-04","2026-10-05","2026-10-06","2026-10-07","2026-10-08"]      |
-      | 2027-01-03 | ["2026-12-28","2026-12-29","2026-12-30","2026-12-31","2027-01-01","2027-01-02","2027-01-03"]      |
-      | 2028-03-02 | ["2028-02-25","2028-02-26","2028-02-27","2028-02-28","2028-02-29","2028-03-01","2028-03-02"]      |
-
-  @R5 @R6 @R7 @R8
-  Scenario Outline: The sample's strips and streaks on the key screen
+  # v1.1.0 changed. The strip and run columns are retired with R5 and R8. The 1.0 form (tags @R5 @R6 @R7 @R8, with the
+  # strip ". D D D D D D", "D D . D D D .", ". D . . D . D" and run false, true, false) is in tag v1.0.0.
+  @R6 @R7
+  Scenario Outline: The sample's streaks on the 1.0 key screen (v1.1.0 changed)
     Given the sample and today "2026-10-08"
-    When the strip, current streak, best streak and run flag of "<habit>" are computed
-    Then the strip from Fri 2 to Thu 8 reads "<strip>" (D done, . not done)
-    And currentStreak is <current>
+    When the current streak and best streak of "<habit>" are computed
+    Then currentStreak is <current>
     And bestStreak is <best>
-    And runContinues is <run>
 
     Examples:
-      | habit               | strip         | current | best | run   |
-      | Read 20 pages       | . D D D D D D | 6       | 14   | false |
-      | Stretch 10 minutes  | D D . D D D . | 3       | 9    | true  |
-      | No phone after 11pm | . D . . D . D | 1       | 4    | false |
+      | habit               | current | best |
+      | Read 20 pages       | 6       | 14   |
+      | Stretch 10 minutes  | 3       | 9    |
+      | No phone after 11pm | 1       | 4    |
 
-  @R6 @R8
-  Scenario Outline: The same sample one day later
+  # v1.1.0 changed. The run column is retired with R8 (1.0 tags @R6 @R8, runs false, true, false).
+  @R6
+  Scenario Outline: The same sample one day later (v1.1.0 changed)
     Given the sample and today "2026-10-09"
     Then currentStreak of "<habit>" is <current>
-    And runContinues of "<habit>" is <run>
 
     Examples:
-      | habit               | current | run   |
-      | Read 20 pages       | 6       | false |
-      | Stretch 10 minutes  | 0       | true  |
-      | No phone after 11pm | 1       | false |
+      | habit               | current |
+      | Read 20 pages       | 6       |
+      | Stretch 10 minutes  | 0       |
+      | No phone after 11pm | 1       |
 
   @R6
   Scenario Outline: A streak does not break until today is over
@@ -259,32 +253,77 @@ Feature: Week strip and streaks
       | 1     | 2026-10-02 | no longer contains   | 3       |
       | 0     | 2026-10-02 | now contains         | 10      |
 
+  # v1.1.0 changed. The range is yearStart(today) to today (R9). 1.0 rows (0, 2026-10-01) and (2, 2026-07-20) are now
+  # inside the range and moved to the scenario below. They are replaced here by a day before the year start and a date
+  # that is not a real day.
   @R9
-  Scenario Outline: Days outside the window and bad indexes change nothing
+  Scenario Outline: Days outside the year and bad indexes change nothing (v1.1.0 changed)
     Given the sample and today "2026-10-08"
     When toggleDay is called with index <index> and date "<date>"
     Then the result is a new array equal in content to the sample
 
     Examples:
       | index | date       |
-      | 0     | 2026-10-01 |
+      | 0     | 2025-10-07 |
       | 1     | 2026-10-09 |
-      | 2     | 2026-07-20 |
+      | 2     | 2026-02-30 |
       | 3     | 2026-10-08 |
       | -1    | 2026-10-08 |
       | 0.5   | 2026-10-08 |
 
+  @R9
+  Scenario Outline: Any day of the last 12 months can be ticked (v1.1.0 new)
+    Given the sample and today "2026-10-08"
+    When toggleDay is called with index <index> and date "<date>"
+    Then the habit at <index> <change> "<date>", its done array stays ascending without duplicates, and the other habits are equal in content to the input
+
+    Examples:
+      | index | date       | change             |
+      | 0     | 2026-10-01 | no longer contains |
+      | 1     | 2025-10-08 | now contains       |
+      | 2     | 2026-01-15 | now contains       |
+    # 2025-10-08 is yearStart("2026-10-08"), the first editable day. 2026-01-15 is long before any day in the 1.0 sample,
+    # so a day before the habit's history (and before it was added) can be ticked.
+
+  @R9 @R6 @R7
+  Scenario Outline: Ticks on the v1.1.0 sample move Current and Best (v1.1.0 new)
+    Given the v1.1.0 sample's first three habits and today "2026-10-10"
+    When toggleDay is called with index <index> and date "<date>"
+    Then the habit at <index> <change> "<date>"
+    And currentStreak of that habit for today is <current> and bestStreak is <best>
+
+    Examples:
+      | index | date       | change             | current | best |
+      | 1     | 2026-10-10 | now contains       | 3       | 5    |
+      | 0     | 2026-10-10 | no longer contains | 3       | 9    |
+      | 0     | 2026-09-22 | now contains       | 4       | 13   |
+      | 2     | 2026-10-09 | now contains       | 8       | 14   |
+      | 0     | 2025-10-10 | no longer contains | 4       | 9    |
+
+  @R9
+  Scenario Outline: The edges of the v1.1.0 year (v1.1.0 new)
+    Given the v1.1.0 sample's first three habits and today "2026-10-10"
+    When toggleDay is called with index 0 and date "<date>"
+    Then the result is a new array equal in content to the input
+
+    Examples:
+      | date       |
+      | 2025-10-09 |
+      | 2026-10-11 |
+
 Feature: Heatmap
 
+  # v1.1.0 changed. "level null" and "level 0" read "done null" and "done []" (R10 changed, level removed).
   @R10
-  Scenario Outline: The 12-week grid around today
+  Scenario Outline: The 12-week grid around today (v1.1.0 changed)
     Given no habits
     When heatmapCells is called with today "<today>"
     Then there are 84 cells in column-major order with rows Monday (1) to Sunday (7)
     And the first cell is "<first>" at column 1 row 1 and the last cell is "<last>" at column 12 row 7
-    And exactly <future> cells are future, all of them after "<today>", each with count null and level null
+    And exactly <future> cells are future, all of them after "<today>", each with done null and count null
     And exactly one cell has today true, the one for "<today>"
-    And every cell that is not future has count 0, total 0 and level 0
+    And every cell that is not future has done [], count 0 and total 0
+    And no cell has a property named level
 
     Examples:
       | today      | first      | last       | future |
@@ -294,45 +333,39 @@ Feature: Heatmap
       | 2026-10-12 | 2026-07-27 | 2026-10-18 | 6      |
       | 2027-01-07 | 2026-10-19 | 2027-01-10 | 3      |
 
-  @R10 @R11
-  Scenario: The sample's heatmap equals the golden
+  # v1.1.0 changed. The level lines are retired with R11. The 1.0 form (@R10 @R11, "for every one of the 81 keys in
+  # heatmapLevels the cell's level equals the file's value", "the levels count 3 at 0, 30 at 1, 28 at 2, 0 at 3 and 20
+  # at 4") is in tag v1.0.0. The counts below are the same 81 days counted as 3 at 0, 30 at 1, 28 at 2 and 20 at 3,
+  # read from the fixture's own heatmapLevels (level 4 is 3 of 3 for three habits, level 1 is 1 of 3, level 2 is 2 of 3).
+  @R10
+  Scenario: The 1.0 sample's 12 weeks (v1.1.0 changed)
     Given the sample and today "2026-10-08"
     When heatmapCells is called
     Then the cell for "2026-10-08" is at column 12 row 4 with today true
-    And for every one of the 81 keys in heatmapLevels the cell's level equals the file's value
-    And each of those cells has total 3 and count equal to the number of sample habits whose done contains the key
-    And the levels count 3 at 0, 30 at 1, 28 at 2, 0 at 3 and 20 at 4
+    And each of the 81 cells up to today has total 3, a done array of three booleans equal to whether each sample habit's done contains the key, and count equal to the number of true values
+    And the counts are 3 cells at 0, 30 at 1, 28 at 2 and 20 at 3
     And the cells for "2026-10-09", "2026-10-10" and "2026-10-11" are future
 
-  @R11
-  Scenario Outline: Levels from the share of habits done
-    When heatLevel is called with count 0 up to <total> and total <total>
-    Then the levels are <levels>
+  @R10 @R19
+  Scenario: The v1.1.0 sample's band (v1.1.0 new)
+    Given the v1.1.0 sample's first three habits and today "2026-10-10"
+    When heatmapCells is called
+    Then the cells run from "2026-07-20" to "2026-10-11", the cell for "2026-10-10" is at column 12 row 6 with today true and the cell for "2026-10-11" is the only future cell
+    And the cell for "2026-09-22" has done [false, false, true] and count 1, the cell for "2026-07-21" has done [true, true, true] and count 3, the cell for "2026-10-10" has done [true, false, false] and count 1
+    And of the 83 cells up to today, 2 have count 0, 16 count 1, 47 count 2 and 18 count 3
 
-    Examples:
-      | total | levels                     |
-      | 1     | 0 4                        |
-      | 2     | 0 2 4                      |
-      | 3     | 0 1 2 4                    |
-      | 4     | 0 1 2 3 4                  |
-      | 5     | 0 1 2 2 3 4                |
-      | 6     | 0 1 1 2 2 3 4              |
-      | 12    | 0 1 1 1 1 2 2 2 2 3 3 3 4  |
+  # The two retired R11 scenarios moved to "Feature: Retired in v1.1.0" at the end (2026-10-13, plan check F10).
 
-  @R11
-  Scenario: No habits means level 0
-    When heatLevel is called with count 0 and total 0
-    Then the level is 0
-
-  @R10 @R11
-  Scenario: A fourth habit makes level 3 appear
+  # v1.1.0 changed. The level values are retired with R11 (1.0 tags @R10 @R11, levels 3, 3, 2, 1, 0).
+  @R10
+  Scenario: A fourth habit counts in total and done (v1.1.0 changed)
     Given the sample plus a fourth habit "Drink water" with no done days, and today "2026-10-08"
     When heatmapCells is called
-    Then "2026-07-20" has count 3, total 4, level 3
-    And "2026-10-06" has count 3, total 4, level 3
-    And "2026-10-08" has count 2, total 4, level 2
-    And "2026-07-21" has count 1, total 4, level 1
-    And "2026-08-12" has count 0, total 4, level 0
+    Then "2026-07-20" has count 3, total 4 and a done array of four values ending with false
+    And "2026-10-06" has count 3, total 4
+    And "2026-10-08" has count 2, total 4
+    And "2026-07-21" has count 1, total 4
+    And "2026-08-12" has count 0, total 4
 
   @R12
   Scenario Outline: Month labels over the first column whose Monday is in the month
@@ -345,6 +378,112 @@ Feature: Heatmap
       | 2026-10-12 | [{column:1,month:"Jul"},{column:2,month:"Aug"},{column:7,month:"Sep"},{column:11,month:"Oct"}] |
       | 2027-01-07 | [{column:1,month:"Oct"},{column:3,month:"Nov"},{column:8,month:"Dec"},{column:12,month:"Jan"}] |
       | 2026-03-31 | [{column:1,month:"Jan"},{column:4,month:"Feb"},{column:8,month:"Mar"}]                         |
+
+Feature: The year (v1.1.0 new)
+
+  @R17
+  Scenario Outline: Labels with the year (v1.1.0 new)
+    When yearDate and monthTitle are called with "<key>"
+    Then yearDate gives "<year date>" and monthTitle gives "<title>"
+
+    Examples:
+      | key        | year date        | title          |
+      | 2025-10-10 | Fri 10 Oct 2025  | October 2025   |
+      | 2026-10-10 | Sat 10 Oct 2026  | October 2026   |
+      | 2026-09-22 | Tue 22 Sep 2026  | September 2026 |
+      | 2025-12-01 | Mon 1 Dec 2025   | December 2025  |
+      | 2028-02-29 | Tue 29 Feb 2028  | February 2028  |
+
+  @R17
+  Scenario: The year labels do not follow the runtime locale (v1.1.0 new)
+    Given the child process of the @R4 locale scenario, with German proven as the default locale
+    When yearDate is called with "2026-10-10" and monthTitle with "2026-10-10"
+    Then the results are "Sat 10 Oct 2026" and "October 2026"
+
+  @R18
+  Scenario Outline: The same date last year (v1.1.0 new)
+    When yearStart is called with "<today>"
+    Then the result is "<start>"
+    And the range from "<start>" to "<today>", both included, holds <days> days
+
+    Examples:
+      | today      | start      | days |
+      | 2026-10-10 | 2025-10-10 | 366  |
+      | 2026-01-01 | 2025-01-01 | 366  |
+      | 2027-03-01 | 2026-03-01 | 366  |
+      | 2028-03-01 | 2027-03-01 | 367  |
+      | 2028-02-29 | 2027-02-28 | 367  |
+    # The last row is CG-13, ruled 2026-10-13 by the owner with this answer (ledger S1 row 4). Changed 2026-10-13
+    # after the plan check (F1), this note first called CG-13 pending.
+
+  @R19
+  Scenario Outline: Which habits are done on a day (v1.1.0 new)
+    Given the v1.1.0 sample's first three habits
+    When doneFlags is called with "<key>"
+    Then the result is <flags>
+
+    Examples:
+      | key        | flags                |
+      | 2026-10-10 | [true, false, false] |
+      | 2026-09-22 | [false, false, true] |
+      | 2026-07-21 | [true, true, true]   |
+      | 2026-10-11 | [false, false, false]|
+
+  @R19
+  Scenario: No habits gives an empty list, and twelve habits give the golden's count (v1.1.0 new)
+    When doneFlags is called with no habits and "2026-10-10"
+    Then the result is []
+    When doneFlags is called with all twelve habits of the v1.1.0 sample and "2026-10-10"
+    Then the result holds 12 booleans, 7 of them true, in the order [true, false, false, true, false, true, true, true, false, true, true, false]
+
+  @R19 @R6 @R7
+  Scenario Outline: The goldens' Current and Best come from the v1.1.0 sample (v1.1.0 new)
+    Given all twelve habits of the v1.1.0 sample and today "2026-10-10"
+    Then currentStreak of "<habit>" is <current> and bestStreak is <best>
+
+    Examples:
+      | habit                   | current | best |
+      | Read 20 pages           | 4       | 9    |
+      | Stretch 10 minutes      | 2       | 5    |
+      | No phone after 11pm     | 0       | 14   |
+      | Drink 2 litres of water | 1       | 11   |
+      | Walk 8,000 steps        | 1       | 11   |
+      | Journal one page        | 8       | 11   |
+      | Practise guitar         | 1       | 11   |
+      | Cook dinner at home     | 5       | 11   |
+      | Lights out by midnight  | 2       | 11   |
+      | Meditate 5 minutes      | 2       | 11   |
+      | Floss                   | 1       | 11   |
+      | Learn 10 Malay words    | 1       | 11   |
+    # today.md and today-full.md show these numbers. Current 0 shows as "No streak yet" in the app.
+
+  @R20
+  Scenario: The year of the goldens (v1.1.0 new)
+    When yearMonths is called with "2026-10-10"
+    Then it returns 13 months, the first with key "2026-10-01", title "October 2026" and lead 3, the last with key "2025-10-01", title "October 2025" and lead 2
+    And the months in between are September 2026 (lead 1), August 2026 (lead 5), July 2026 (lead 2), and so on back to November 2025, each title equal to monthTitle of its key
+    And October 2026 has days 1 to 10 open and 11 to 31 closed, and October 2025 has days 1 to 9 empty and 10 to 31 open
+    And every day of the other 11 months is open
+    And over all 13 months 366 days are open, 21 closed and 9 empty, and the leads add up to 39
+    And each day's key is its month's key with the day of the month, and each month holds as many days as the calendar month
+
+  @R20
+  Scenario Outline: The year on other days (v1.1.0 new)
+    When yearMonths is called with "<today>"
+    Then it returns 13 months, the first "<first>", the last "<last>"
+    And <open> days are open, <closed> closed and <empty> empty
+
+    Examples:
+      | today      | first         | last          | open | closed | empty |
+      | 2026-11-01 | November 2026 | November 2025 | 366  | 29     | 0     |
+      | 2026-10-31 | October 2026  | October 2025  | 366  | 0      | 30    |
+      | 2028-02-29 | February 2028 | February 2027 | 367  | 0      | 27    |
+      | 2027-01-01 | January 2027  | January 2026  | 366  | 30     | 0     |
+
+  @R20 @R16
+  Scenario: yearMonths reads no clock (v1.1.0 new)
+    Given the purity scan of @R16 over src/habits.js with the new exports
+    Then it passes, and yearMonths called twice with the same key gives equal results
 
 Feature: Names and the habit list
 
@@ -443,6 +582,44 @@ Feature: Purity
     Then no call throws
     And the frozen sample still equals the file's habits
     And the Date passed to localDateKey has the same getTime() after the call as before it
+
+Feature: Retired in v1.1.0
+  # Text only. No test implements a scenario of this Feature, and a tag count reads none of them as live.
+  # Moved here 2026-10-13 after the plan check (F10) from "Week strip and streaks" (R5) and "Heatmap" (R11).
+
+  # Retired in v1.1.0 (R5 retired, replaced by R18). Text kept, test removed.
+  @R5
+  Scenario Outline: The seven days of the strip
+    When weekWindow is called with "<today>"
+    Then the result is <days>
+
+    Examples:
+      | today      | days                                                                                              |
+      | 2026-10-08 | ["2026-10-02","2026-10-03","2026-10-04","2026-10-05","2026-10-06","2026-10-07","2026-10-08"]      |
+      | 2027-01-03 | ["2026-12-28","2026-12-29","2026-12-30","2026-12-31","2027-01-01","2027-01-02","2027-01-03"]      |
+      | 2028-03-02 | ["2028-02-25","2028-02-26","2028-02-27","2028-02-28","2028-02-29","2028-03-01","2028-03-02"]      |
+
+  # Retired in v1.1.0 (R11 retired, replaced by R19). Text kept, test removed.
+  @R11
+  Scenario Outline: Levels from the share of habits done
+    When heatLevel is called with count 0 up to <total> and total <total>
+    Then the levels are <levels>
+
+    Examples:
+      | total | levels                     |
+      | 1     | 0 4                        |
+      | 2     | 0 2 4                      |
+      | 3     | 0 1 2 4                    |
+      | 4     | 0 1 2 3 4                  |
+      | 5     | 0 1 2 2 3 4                |
+      | 6     | 0 1 1 2 2 3 4              |
+      | 12    | 0 1 1 1 1 2 2 2 2 3 3 3 4  |
+
+  # Retired in v1.1.0 (R11 retired, replaced by R19). Text kept, test removed.
+  @R11
+  Scenario: No habits means level 0
+    When heatLevel is called with count 0 and total 0
+    Then the level is 0
 ```
 
 ## FE element checklist

@@ -4,6 +4,21 @@
 > Stack: LOCKED to project stack (vanilla JavaScript ES modules, zero dependencies, Node 24 built-in test runner). Depends on: none.
 > Nature: logic only. No UI, no DOM, no storage, no clock. Consumed by `app` through the Contracts below and nothing else.
 > Written by: the solutions architect (sdlc planner), 2026-10-08. Clarify-gate item that touches this module: CG-8, ruled 2026-10-08, ORCH: accepted as recommended, length counts Unicode code points (see `../ROADMAP.md`). CG-1 (the unit-test command) was resolved on 2026-10-08 when CLAUDE.md adopted `node --test "tests/**/*.test.js"`.
+> v1.1.0 delta written by the planner (solutions architect role), 2026-10-13. 1.0's text stays in git tag `v1.0.0`. The one clarify item that touches this module is CG-13 (the same date last year on 29 February). The owner ruled it on 2026-10-13 with the recommended answer (ledger S1 row 4, `../ROADMAP.md`). Changed 2026-10-13 after the plan check (F1), this line first named CG-13 as open.
+
+## v1.1.0 delta
+| R# | Status | Ledger scope | What changes |
+|---|---|---|---|
+| R5 | Retired in v1.1.0, replaced by R18 | S1, S7 | The 7-day strip is gone (brainstorm Round 1 rulings), so the week window has no user. The editable reach is the year of R18 |
+| R8 | Retired in v1.1.0, replaced by app R34 | S7 | The run flag drew the strip's thread. The year view strings its beads by its own rule (app R34) |
+| R9 | Changed | S1 | `toggleDay` accepts any day from `yearStart(today)` to today, not only the last 7 |
+| R10 | Changed | S7 | A cell carries each habit's done flag (R19) for the rings. `level` is gone |
+| R11 | Retired in v1.1.0, replaced by R19 | S7 | The overview draws one ring segment per habit (system.md, Ring), so no level is drawn |
+| R17 | New | S1, S7 | `yearDate` and `monthTitle`, the labels of the year views |
+| R18 | New | S1 | `yearStart`, the same date last year |
+| R19 | New | S1, S7 | `doneFlags`, which habits are done on a day |
+| R20 | New | S1, S7 | `yearMonths`, the 12-month calendar of both year views |
+| (test data) | Changed | S7 | `docs/design/sample-history.json` was replaced at the v1.1.0 finalize (366-character done strings, no `heatmapLevels`). The 1.0 worked examples move to a test fixture, see Contracts, Tests |
 
 ## Sources
 | Source | What it fixes here |
@@ -13,6 +28,11 @@
 | `docs/design/today.md` | the sample values on the key screen |
 | `docs/design/sample-history.json` | verified test data (read-only) |
 | `docs/design/RULINGS.md`, rule 3 | trim, then check empty, too long, duplicate, in that order |
+| v1.1.0. `docs/brainstorm/brainstorm.md`, "v1.1.0 delta" with the Round 1 and Round 2 rulings | the reach (today back to the same date last year), days after today closed, a day before a habit was added can be ticked, the strip gone |
+| v1.1.0. `docs/design/system.md` (Ring, Bead, Accessible names), `year-view.md`, `overview-year.md`, `today.md` | one ring segment per habit, the 366-day year newest month first, the labels with a year, the band's 12 weeks |
+| v1.1.0. `docs/design/sample-history.json` (today 2026-10-10) | the v1.1.0 test data. The 1.0 file is kept as a test fixture (Contracts, Tests) |
+
+Note (v1.1.0). The 1.0 rows above name `system.md` sections and `today.md` values of the 1.0 goldens, which stay in tag `v1.0.0`.
 
 Phase skills: the registry assigns none to plan, and this module has no UI work, so the design row does not apply to its builder.
 
@@ -48,11 +68,11 @@ Phase skills: the registry assigns none to plan, and this module has no UI work,
 
 ### Week strip and streaks
 
-- **R5.** `weekWindow(todayKey)` returns 7 date keys, from `todayKey` minus 6 days to `todayKey`, oldest first (brainstorm: "7 cells, oldest on the left, today on the right").
+- **R5.** Retired in v1.1.0, replaced by R18. The export `weekWindow` and its tests are removed. (1.0 text) `weekWindow(todayKey)` returns 7 date keys, from `todayKey` minus 6 days to `todayKey`, oldest first (brainstorm: "7 cells, oldest on the left, today on the right").
   Examples: `"2026-10-08"` gives `["2026-10-02", "2026-10-03", "2026-10-04", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08"]`. `"2027-01-03"` gives `["2026-12-28", "2026-12-29", "2026-12-30", "2026-12-31", "2027-01-01", "2027-01-02", "2027-01-03"]`.
 
 - **R6.** `currentStreak(done, todayKey)` (brainstorm C3, "counted so it does not break until today is over"). If `todayKey` is in `done`, count consecutive done days going back from `todayKey`. Otherwise count consecutive done days going back from the day before `todayKey`. Return that count, which is 0 when the starting day is not done. Order and duplicates in `done` do not change the result. Days after `todayKey` never count.
-  Worked examples from `sample-history.json`, today `2026-10-08`:
+  Worked examples from `sample-history.json`, today `2026-10-08` (noted v1.1.0, the 1.0 sample, now the fixture `tests/fixtures/sample-history-v1.0.0.json`, see Contracts, Tests. The v1.1.0 sample's values are in R19's examples).
   - "Read 20 pages" gives 6: 8, 7, 6, 5, 4 and 3 Oct are done, 2 Oct is not.
   - "Stretch 10 minutes" gives 3: today is not done, so counting starts at 7 Oct. 7, 6 and 5 Oct are done, 4 Oct is not.
   - "No phone after 11pm" gives 1: 8 Oct is done, 7 Oct is not.
@@ -64,23 +84,28 @@ Phase skills: the registry assigns none to plan, and this module has no UI work,
   Worked examples: sample "Read 20 pages" gives 14 (2026-09-07 to 2026-09-20). "Stretch 10 minutes" gives 9 (2026-08-18 to 2026-08-26). "No phone after 11pm" gives 4 (2026-08-22 to 2026-08-25). `["2026-12-30", "2026-12-31", "2027-01-01"]` gives 3. `["2028-02-28", "2028-02-29", "2028-03-01"]` gives 3. `["2026-02-28", "2026-03-01"]` gives 2. `["2026-10-08", "2026-10-08"]` gives 1. `["2026-10-01", "2026-10-03"]` gives 1. `[]` gives 0.
   Changed 2026-10-09 (security re-check SEC-01 and code review WR-12, ORCH): "over every entry" means every entry that passes `isDateKey`. `bestStreak` ignores a key that fails it (`streakDays`), so such a key neither starts nor extends a run. Examples: `["2026-10-06", "2026-10-07", "2026-10-08", "24660873954866-12-02", "24660873954866-12-04"]` gives 3, and a `done` that holds only keys failing `isDateKey` gives 0. R7 first said "over every entry" and nothing about such keys.
 
-- **R8.** `runContinues(done, todayKey)` returns `true` exactly when both the first day of the week window (`todayKey` minus 6) and the day before it (`todayKey` minus 7) are in `done` (system.md, "Run carried in"). The app writes it as the `data-run-continues` attribute.
+- **R8.** Retired in v1.1.0, replaced by app R34. The export `runContinues` and its tests are removed. (1.0 text) `runContinues(done, todayKey)` returns `true` exactly when both the first day of the week window (`todayKey` minus 6) and the day before it (`todayKey` minus 7) are in `done` (system.md, "Run carried in"). The app writes it as the `data-run-continues` attribute.
   Worked examples, today 2026-10-08: Stretch gives true (1 and 2 Oct are done). Read gives false (2 Oct is not done, although 1 Oct is). No phone gives false. Today 2026-10-09: Read false, Stretch true (2 and 3 Oct done), No phone false.
 
-- **R9.** `toggleDay(habits, index, dateKey, todayKey)` returns a new habits array in which the habit at `index` has `dateKey` added to its `done` when absent, or removed when present, with `done` kept in ascending order without duplicates. Only the 7 days of `weekWindow(todayKey)` can change (brainstorm: "Only these 7 days can be changed"). When `dateKey` is outside the window, or `index` is not an integer index of `habits`, the function returns a new array equal in content to `habits`. The other habits keep their content and order.
-  Examples with the sample and today 2026-10-08: toggling 2026-10-08 on Stretch (index 1) adds it, and Stretch's current streak becomes 4. Toggling 2026-10-08 on Read (index 0) removes it, and Read's current streak becomes 5. Toggling 2026-10-01 or 2026-10-09 on any habit changes nothing. Index 3 or -1 changes nothing.
+- **R9.** (v1.1.0 changed, S1) `toggleDay(habits, index, dateKey, todayKey)` returns a new habits array in which the habit at `index` has `dateKey` added to its `done` when absent, or removed when present, with `done` kept in ascending order without duplicates. Only the days from `yearStart(todayKey)` (R18) to `todayKey`, both included, can change (brainstorm v1.1.0, Round 1 rulings, "any day in the last 12 months, today included (today back to the same date last year). Days after today stay closed"). A day before the habit's first done day, or before the habit was added, can change like any other, since no start date is stored (brainstorm v1.1.0, Rules). When `dateKey` is outside that range, is not a valid date key (R2), or `index` is not an integer index of `habits`, the function returns a new array equal in content to `habits`. The other habits keep their content and order.
+  Examples with the 1.0 sample fixture and today 2026-10-08. Toggling 2026-10-08 on Stretch (index 1) adds it, and Stretch's current streak becomes 4. Toggling 2026-10-08 on Read (index 0) removes it, and Read's current streak becomes 5. Toggling 2026-10-09 on any habit changes nothing (after today). Index 3 or -1 changes nothing. Toggling 2026-10-01 on Read now removes it (1.0 refused it), and toggling 2025-10-08 (the year start) on Stretch adds it, while 2025-10-07 changes nothing.
+  Changed 2026-10-13 after the plan check (F2). The 2026-10-01 example first said the toggle adds the day. Read already holds 2026-10-01 in the 1.0 fixture, so the toggle removes it, as the qa row (index 0, 2026-10-01, "no longer contains") says.
+  Examples with the v1.1.0 sample and today 2026-10-10. Toggling 2026-09-22 on Read adds it and Read's best streak becomes 13 (current stays 4). Toggling 2026-10-09 on "No phone after 11pm" adds it and its current streak becomes 8 (best stays 14). Toggling 2025-10-10 (the year start) on Read removes it. Toggling 2025-10-09 or 2026-10-11 changes nothing.
+  (1.0 text) Only the 7 days of `weekWindow(todayKey)` can change (brainstorm: "Only these 7 days can be changed"). When `dateKey` is outside the window, or `index` is not an integer index of `habits`, the function returns a new array equal in content to `habits`.
 
 ### Heatmap
 
-- **R10.** `heatmapCells(habits, todayKey)` returns 84 cells covering 12 weeks (brainstorm C5). Column 12 is the Monday to Sunday week that contains `todayKey`. Column 1 starts on the Monday 11 weeks before that week's Monday. Cells come in column-major order (column 1 from Monday to Sunday, then column 2, and so on). Row 1 is Monday, row 7 is Sunday. For each cell:
-  - `future` is true when the key is after `todayKey`. A future cell has `count` and `level` set to `null`.
+- **R10.** (v1.1.0 changed, S7) `heatmapCells(habits, todayKey)` returns 84 cells covering 12 weeks (brainstorm C5, and v1.1.0 C5 "The overview stays the last 12 weeks"). Column 12 is the Monday to Sunday week that contains `todayKey`. Column 1 starts on the Monday 11 weeks before that week's Monday. Cells come in column-major order (column 1 from Monday to Sunday, then column 2, and so on). Row 1 is Monday, row 7 is Sunday. For each cell:
+  - `future` is true when the key is after `todayKey`. A future cell has `done` and `count` set to `null`.
   - `today` is true only for `todayKey`.
   - `total` is `habits.length`.
-  - `count` is the number of habits whose `done` contains the key.
-  - `level` is `heatLevel(count, total)`.
+  - `done` is `doneFlags(habits, key)` (R19), one boolean per habit in list order.
+  - `count` is the number of `true` values in `done`.
+  The cell has no `level` (R11 retired). v1.1.0 example with the v1.1.0 sample and today 2026-10-10. Cells 2026-07-20 to 2026-10-11, 83 not future and 1 future (2026-10-11). 2026-09-22 has `done` [false, false, true] and `count` 1. 2026-10-10 has `today` true, `done` [true, false, false], `count` 1. Of the 83 days, 2 have count 0, 16 count 1, 47 count 2 and 18 count 3.
+  (1.0 text) a future cell has `count` and `level` set to `null`, and `level` is `heatLevel(count, total)`. 1.0 worked examples below still hold for the grid, the future cells and `count`. Read "level 0" in the last one as "count 0".
   Worked examples: today 2026-10-08 (a Thursday) gives a first cell 2026-07-20 (column 1, row 1), a last cell 2026-10-11 (column 12, row 7), today at column 12 row 4, 81 cells up to today and 3 future cells (2026-10-09 to 2026-10-11). Today 2026-10-11 (Sunday) gives the same range with 0 future cells. Today 2026-10-05 (Monday) gives the same range with 6 future cells. Today 2026-10-12 (Monday) gives 2026-07-27 to 2026-10-18 with 6 future cells. Today 2027-01-07 gives 2026-10-19 to 2027-01-10. With no habits every cell up to today has `count` 0, `total` 0 and `level` 0.
 
-- **R11.** `heatLevel(count, total)` (brainstorm: "the share of the current habits done that day") uses integer arithmetic only. It returns 0 when `count` is 0 or `total` is 0, 4 when `count` equals `total`, else 1 when `3 * count <= total` (up to a third, inclusive), else 2 when `3 * count <= 2 * total` (up to two thirds, inclusive), else 3 (more than two thirds, not all). The goldens confirm both boundaries are inclusive: 1 of 3 is level 1 and 2 of 3 is level 2.
+- **R11.** Retired in v1.1.0, replaced by R19. The export `heatLevel` and its tests are removed (v1.1.0 C5, the overview's rings draw one segment per habit, so no level is drawn and the function would be dead code). (1.0 text) `heatLevel(count, total)` (brainstorm: "the share of the current habits done that day") uses integer arithmetic only. It returns 0 when `count` is 0 or `total` is 0, 4 when `count` equals `total`, else 1 when `3 * count <= total` (up to a third, inclusive), else 2 when `3 * count <= 2 * total` (up to two thirds, inclusive), else 3 (more than two thirds, not all). The goldens confirm both boundaries are inclusive: 1 of 3 is level 1 and 2 of 3 is level 2.
   Levels for count = 0 up to total:
 
   | total | levels |
@@ -125,6 +150,25 @@ Phase skills: the registry assigns none to plan, and this module has no UI work,
   Before this change the scan matched only the text `Date.now(`, the pattern `/new\s+Date\s*\(\s*\)/` and the words of the first sentence, so `new Date` without parentheses, `Date()` and every network and storage call passed it.
   Changed 2026-10-09 (security re-check SEC-04, ORCH): the two lists above are incomplete. `CLOCK_AND_RANDOM_READS` also holds `Temporal.Now` (`/\bTemporal\s*\.\s*Now\b/`), matched the same way, and `Temporal.PlainDate` arithmetic stays allowed. `BANNED_IN_CODE` also bans code built from a string at run time, `eval` and the `Function` constructor (`Function(` and `new Function(`), because a clock read spelled inside such a string passes every pattern. A text scan still cannot see a clock read reached through an alias, such as `Reflect.construct(Date, [])`, `const Clock = Date; new Clock()` or `new (Date)()`. Those are deliberate evasions, left to review.
 
+### The year (v1.1.0)
+
+- **R17.** (v1.1.0 new, S1 and S7) Two more English labels from the same fixed tables as R4, the same under every runtime locale (system.md, Accessible names, "P4 day ... with the year, because P4 holds two Octobers", and year-view.md, "Months").
+  - `yearDate(key)` returns `"<weekday> <day> <month> <year>"`, the R4 `shortDate` followed by a space and the 4-digit year, for example `"2025-10-10"` gives `"Fri 10 Oct 2025"` and `"2026-10-10"` gives `"Sat 10 Oct 2026"`.
+  - `monthTitle(key)` returns the full month name of the key's month, a space and the 4-digit year, for example `"2026-10-10"` gives `"October 2026"` and `"2025-12-01"` gives `"December 2025"`.
+
+- **R18.** (v1.1.0 new, S1) `yearStart(todayKey)` returns the first day of the editable year, "today back to the same date last year" (brainstorm v1.1.0, Round 1 rulings). That is the date key with the year one less, the same month and the same day. When that day does not exist (`todayKey` is 29 February), it returns 28 February of the year before (CG-13, ruled 2026-10-13 by the owner with this answer, ledger S1 row 4). The range `yearStart(todayKey)` to `todayKey`, both included, holds 366 days, or 367 when it includes a 29 February.
+  Examples. `"2026-10-10"` gives `"2025-10-10"` (366 days, year-view.md "Friday 10 October 2025 to Saturday 10 October 2026 (366 days)"). `"2026-01-01"` gives `"2025-01-01"`. `"2027-03-01"` gives `"2026-03-01"`. `"2028-03-01"` gives `"2027-03-01"` (367 days). `"2028-02-29"` gives `"2027-02-28"` (367 days, CG-13).
+
+- **R19.** (v1.1.0 new, S1 and S7) `doneFlags(habits, dateKey)` returns one boolean per habit, in list order, `true` when that habit's `done` contains `dateKey` (system.md, Ring, "one segment per habit, clockwise from the top in list order"). With no habits it returns `[]`.
+  Examples with the v1.1.0 sample (its first three habits, today 2026-10-10). `"2026-10-10"` gives `[true, false, false]`. `"2026-09-22"` gives `[false, false, true]`. `"2026-07-21"` gives `[true, true, true]`. `"2026-10-11"` gives `[false, false, false]`. With all twelve habits, `"2026-10-10"` gives 7 `true` values (today-full.md, "today 7 of 12 habits done").
+  With the same sample and today, `currentStreak` and `bestStreak` give the goldens' numbers. Read 20 pages 4 and 9, Stretch 10 minutes 2 and 5, No phone after 11pm 0 and 14 (today.md), and for the twelve habits the values of the table in today-full.md.
+
+- **R20.** (v1.1.0 new, S1 and S7) `yearMonths(todayKey)` returns the calendar of the two year views (year-view.md, overview-year.md), months newest first, from the month of `todayKey` back to the month of `yearStart(todayKey)`, both included (always 13 months, because the month of `yearStart(todayKey)` is the same month one year earlier). Each month is `{ key, title, lead, days }`.
+  - `key` is the date key of its first day. `title` is `monthTitle(key)` (R17).
+  - `lead` is `weekdayIndex(key)` (R4), the number of empty cells before day 1 in a Monday-first grid.
+  - `days` holds one entry per day of the month, `{ key, day, kind }`, where `day` is the day of the month and `kind` is `"empty"` before `yearStart(todayKey)`, `"closed"` after `todayKey`, and `"open"` otherwise.
+  Examples, today `"2026-10-10"`. 13 months, the first `{ key: "2026-10-01", title: "October 2026", lead: 3 }` with days 1 to 10 open and 11 to 31 closed, the last `{ key: "2025-10-01", title: "October 2025", lead: 2 }` with days 1 to 9 empty and 10 to 31 open. September 2026 has lead 1, August 2026 lead 5, July 2026 lead 2. In all 13 months, 366 days are open, 21 closed, 9 empty, and the leads add up to 39 (the golden `year-view.html` holds 366 day buttons, 21 closed cells, 9 blank cells and 39 lead cells). Today `"2026-11-01"` gives November 2026 first (day 1 open, 2 to 30 closed), November 2025 last (no empty day). Today `"2028-02-29"` gives February 2028 first, February 2027 last with days 1 to 27 empty, 367 open days.
+
 ## Contracts
 
 ### Files
@@ -135,8 +179,10 @@ Phase skills: the registry assigns none to plan, and this module has no UI work,
 /** @typedef {string} DateKey  "YYYY-MM-DD", a local calendar day */
 /** @typedef {{ name: string, done: DateKey[] }} Habit  done ascending, no duplicates */
 /** @typedef {{ key: DateKey, column: number, row: number, today: boolean, future: boolean,
- *              count: number | null, total: number, level: 0 | 1 | 2 | 3 | 4 | null }} HeatCell */
+ *              done: boolean[] | null, count: number | null, total: number }} HeatCell   (v1.1.0 changed: done added, level removed) */
 /** @typedef {{ column: number, month: string }} MonthLabel */
+/** @typedef {{ key: DateKey, day: number, kind: "open" | "closed" | "empty" }} YearDay   (v1.1.0 new) */
+/** @typedef {{ key: DateKey, title: string, lead: 0 | 1 | 2 | 3 | 4 | 5 | 6, days: YearDay[] }} YearMonth   (v1.1.0 new) */
 /** @typedef {{ ok: true, name: string } | { ok: false, error: "empty" | "too-long" | "duplicate" }} NameCheck */
 /** @typedef {{ ok: true, habits: Habit[] } | { ok: false, error: "limit" | "empty" | "too-long" | "duplicate" }} AddResult */
 ```
@@ -152,6 +198,8 @@ The `Habit` shape is the same as a habit in `sample-history.json` and in the app
 | `shortDate` | `(key: DateKey) => string` | R4 |
 | `longDate` | `(key: DateKey) => string` | R4 |
 | `weekdayIndex` | `(key: DateKey) => 0 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6` (Monday 0 to Sunday 6) | R4 |
+| `yearDate` (v1.1.0 new) | `(key: DateKey) => string` | R17 |
+| `monthTitle` (v1.1.0 new) | `(key: DateKey) => string` | R17 |
 
 Changed 2026-10-09 (code review WR-04, ORCH): `weekdayIndex` added. The table first listed six exports.
 
@@ -160,19 +208,23 @@ Changed 2026-10-09 (code review WR-04, ORCH): `weekdayIndex` added. The table fi
 |---|---|---|
 | `MAX_HABITS` | `12` | R14 |
 | `MAX_NAME_LENGTH` | `40` | R13 |
-| `weekWindow` | `(todayKey: DateKey) => DateKey[]` (length 7) | R5 |
+| ~~`weekWindow`~~ | removed in v1.1.0 (R5 retired) | R5 |
 | `currentStreak` | `(done: readonly DateKey[], todayKey: DateKey) => number` | R6 |
 | `bestStreak` | `(done: readonly DateKey[]) => number` | R7 |
-| `runContinues` | `(done: readonly DateKey[], todayKey: DateKey) => boolean` | R8 |
-| `toggleDay` | `(habits: readonly Habit[], index: number, dateKey: DateKey, todayKey: DateKey) => Habit[]` | R9 |
-| `heatmapCells` | `(habits: readonly Habit[], todayKey: DateKey) => HeatCell[]` (length 84) | R10 |
-| `heatLevel` | `(count: number, total: number) => 0 \| 1 \| 2 \| 3 \| 4` | R11 |
+| ~~`runContinues`~~ | removed in v1.1.0 (R8 retired) | R8 |
+| `toggleDay` | `(habits: readonly Habit[], index: number, dateKey: DateKey, todayKey: DateKey) => Habit[]` (v1.1.0 changed range) | R9 |
+| `heatmapCells` | `(habits: readonly Habit[], todayKey: DateKey) => HeatCell[]` (length 84, v1.1.0 changed cell) | R10 |
+| ~~`heatLevel`~~ | removed in v1.1.0 (R11 retired) | R11 |
 | `monthLabels` | `(todayKey: DateKey) => MonthLabel[]` | R12 |
+| `yearStart` (v1.1.0 new) | `(todayKey: DateKey) => DateKey` | R18 |
+| `doneFlags` (v1.1.0 new) | `(habits: readonly Habit[], dateKey: DateKey) => boolean[]` | R19 |
+| `yearMonths` (v1.1.0 new) | `(todayKey: DateKey) => YearMonth[]` (length 13) | R20 |
 | `validateName` | `(raw: string, existingNames: readonly string[]) => NameCheck` | R13 |
 | `addHabit` | `(habits: readonly Habit[], raw: string) => AddResult` | R14 |
 | `deleteHabit` | `(habits: readonly Habit[], index: number) => Habit[]` | R15 |
 
 Nothing else is exported. User-facing copy (streak text such as "6 days", error messages, accessible names such as "Mark Tue 6 Oct as done") belongs to `app`, which builds it from these values. The date labels of R4 are the one exception, because they are the date-key concern.
+v1.1.0. The labels of R17 join that exception for the same reason. The ring's drawing (arcs, legend) is `app`'s (app R42), because it is geometry of the view and not a rule about days. `doneFlags` is the one place that answers "which habits are done on this day", so the band, the overview popup, the overview year view, the day editor and the Overview button all read it (DRY), and `heatmapCells` builds its `done` from it.
 
 ### Persistence / state
 None. The module holds no state between calls.
@@ -183,6 +235,9 @@ None. The module holds no state between calls.
 - Time-zone cases set `process.env.TZ` inside the test before they build any `Date`. Node 24 applies the new zone at once (measured 2026-10-08: noon 7 March to noon 8 March 2026 is 23 hours under `America/New_York`). Each test file runs in its own process, so a zone set in one file does not leak into another.
 - Command, from the project root: `node --test "tests/**/*.test.js"` (the CLAUDE.md command. The earlier form `node --test tests/` exits 1 on Node 24.11.1, measured 2026-10-08). No `package.json` is needed: Node 24 detects ES module syntax in `.js` files (measured, no warning).
 - Each `test()` title starts with the tag or tags of the qa.md scenario it implements, for example `@R6 Stretch holds at 3 days while today is open`, so the QA finder can map results to R numbers.
+- v1.1.0 (changed test data). The design finalize of 2026-10-13 replaced `docs/design/sample-history.json`. The v1.1.0 file has `today` "2026-10-10", `from` "2025-10-10" and, per habit, `done` as a string of 366 characters, `"1"` done and `"0"` not, character 0 being `from` and character 365 being `to`. It has no `heatmapLevels`. So on the current tree `tests/habits.test.js`, `tests/purity.test.js` and `tests/sample-history.test.js` read a file they were not written for. Task 6 fixes it as follows.
+  - `tests/fixtures/sample-history-v1.0.0.json` holds, byte for byte, `git show v1.0.0:docs/design/sample-history.json`. Every 1.0 scenario that names "the sample" or "the 1.0 sample" reads this fixture. It is test data under `tests/`, which is never published (CLAUDE.md, Publish).
+  - "The v1.1.0 sample" is `docs/design/sample-history.json` read-only, converted by one shared test helper (`tests/fixtures/sample.js`, export `sampleHabits(file)`) into habits of the `Habit` shape. For each `"1"` at position i, the key `addDays(from, i)`. The helper is test code and uses the module's own `addDays`.
 
 ## Tasks
 > Atomic, ordered, one commit each. Each commit carries the code and the tests that prove it.
@@ -192,6 +247,13 @@ None. The module holds no state between calls.
 3. [x] `src/habits.js`, part 2: `heatLevel`, `heatmapCells`, `monthLabels`, and their scenarios. → R10, R11, R12
 4. [x] `src/habits.js`, part 3: `validateName`, `addHabit`, `deleteHabit`, and their scenarios. → R13, R14, R15
 5. [x] `tests/sample-history.test.js` (every golden value from the sample) and `tests/purity.test.js` (source scan and deep-frozen inputs). → R5, R6, R7, R8, R10, R11, R12, R16
+
+v1.1.0 tasks, in `../ROADMAP.md` build order. Task 6 runs first of all v1.1.0 code work, together with app task 11, because the unit baseline must be green before anything is measured. Changed 2026-10-13 (planner, solutions architect role). This line and the v1.1.0 roadmap note below first read "app task 1" and "app task 3". The app's v1.1.0 tasks are numbered 11 to 28, so they are app task 11 (the engine switch and the baseline) and app task 15 (the boot render, the first app task that uses tasks 7 to 9).
+Changed 2026-10-13 after the plan check (B1). The sample is not the only cause of the red state. Four 1.0 browser tests also read 1.0 goldens that the finalize replaced in `docs/design/`. App task 11 restores those four goldens as fixtures in `tests/fixtures/design-v1.0.0/` the same way task 6 restores the sample (app spec, task 11). This module's unit suite reads no golden, so task 6 is unchanged.
+6. [ ] The test data fix. `tests/fixtures/sample-history-v1.0.0.json` and `tests/fixtures/sample.js`, the three test files pointed at the fixture, no change in `src/`. Proof, `node --test "tests/**/*.test.js"` gives the sealed count (99 tests, `docs/v1.0.0/SEAL.md`) green on the unchanged `src/`, and `git hash-object tests/fixtures/sample-history-v1.0.0.json` prints `62620300113514b9712d0cbdfea2b15534e6d326`, the blob id of `v1.0.0:docs/design/sample-history.json` (`git rev-parse` gives it). The blob id is the check because `core.autocrlf` is true on this machine, so a later checkout may change the file's line ends while its blob stays equal. → R6, R7, R10, R12, R16 (test data only)
+7. [ ] `src/dates.js` gains `yearDate` and `monthTitle`, with their scenarios. → R17
+8. [ ] `src/habits.js` with `yearStart`, `doneFlags`, `yearMonths`, and `toggleDay` on the year range, `heatmapCells` with `done` and without `level`. `weekWindow`, `runContinues` and `heatLevel` removed with their tests, the retired scenarios kept as text in qa.md only. The purity scan and the frozen-input check cover the new exports. → R9, R10, R18, R19, R20, R16
+9. [ ] `tests/sample-history.test.js` gains the v1.1.0 sample checks (the goldens' Current and Best for all twelve habits, the band's 83 days, the year's 366 days). → R10, R19, R20
 
 ## Threat model
 > Feeds the security gate. This module has no I/O. Its risks are wrong values and broken invariants.
@@ -203,7 +265,8 @@ None. The module holds no state between calls.
 | English copy | label functions | `Intl` or `toLocale*` returns another language or other digits on a non-English device | Fixed tables (R4). R16 scans for `Intl` and `toLocale`. |
 | Responsiveness with tampered stored data | strings from storage reach `isDateKey` and `validateName` through the app's decoder | A pathological string causes catastrophic regex backtracking | Only the anchored, linear pattern `^\d{4}-\d{2}-\d{2}$`. Name length is counted in one linear pass. No other regular expression runs on stored data. Changed 2026-10-09 (security SEC-02, ORCH): the threat also covers memory. The name is counted in one pass that stops after 41 code points (`longerThan`), so a stored name of any size costs no more than a short one. The first count was linear in time but copied the whole name into an array first, up to 153 MiB of heap for a name of 5,000,000 UTF-16 units. |
 | The app's in-memory state | arrays passed in by the app | A function mutates its input and the screen, the saved data and the logic disagree | Pure functions returning new arrays (R16, frozen-input tests). |
-| The app's invariants: at most 12 habits, valid unique names, only the last 7 days editable | `addHabit`, `toggleDay` | A caller bypasses the rules through the API | `addHabit` checks the limit, then the name (R14). `toggleDay` refuses dates outside the window (R9). |
+| The app's invariants: at most 12 habits, valid unique names, only the last 7 days editable. v1.1.0 changed, only the days from `yearStart(today)` to today editable | `addHabit`, `toggleDay` | A caller bypasses the rules through the API | `addHabit` checks the limit, then the name (R14). `toggleDay` refuses dates outside the range and keys that fail `isDateKey` (R9, v1.1.0 changed), so a key after today, before the year start or not a real date never enters `done` through a tick. |
+| Responsiveness of the year views. Added v1.1.0 | `doneFlags` takes one day, and the app calls it once per drawn day, up to 367 times for P4 and 84 for the band or P3 (app R39, R35, R38) | Each call reads every habit's `done`, so one draw of P4 costs about days x habits x history. A call that scans a `done` array more than once per habit, or nests scans, makes that worse | One `doneFlags` call reads each habit's `done` at most once (one lookup per habit, or one set built per habit), so no call is quadratic. `heatmapCells` builds each cell's `done` with `doneFlags` (R10), so one band costs at most 84 such calls. The cost of a P4 draw is then bounded by 367 x 12 habits (R14) x the stored history, which grows by at most one day per habit per day of use. Residual, accepted, that draw grows linearly with the years of history (no cache, Non-goals). Unit tests time nothing, the review checks that no call reads a `done` array more than once per habit. Changed 2026-10-13 after the plan check (F11). This row first said `doneFlags` answers from a set built once per call, so a call is linear in the history size. That holds per call, but `doneFlags` takes one day and P4 makes 367 calls, so the row now states the cost of the whole draw and its bound. |
 | Object integrity | habit objects | Prototype pollution through copying objects key by key | New habits are built as literal `{ name, done }` objects. No `Object.assign` or spread of objects whose keys come from data. Changed 2026-10-09 (code review WR-03, ORCH): the two are avoided for different reasons. `Object.assign` runs the `__proto__` setter and can swap the target's prototype. Spread never runs that setter, but it carries every unknown key from stored data (`__proto__`, `constructor` or any other) into new state. Building `{ name, done }` literals avoids both. The row first grouped spread with `Object.assign` as a prototype risk. |
 | Responsiveness with date keys outside the valid range. Added 2026-10-09 (security SEC-01, ORCH) | `done` arrays reach `currentStreak` and `bestStreak` | A key that fails `isDateKey` (near 2^53 days, or before year 0001) makes `addDays` return a key it already returned, so a streak walk never ends. The app computes `bestStreak` at boot, so the tab would hang on every load. Changed 2026-10-09 (security re-check SEC-01, ORCH): `parseKey` reads each part with `Number()`, which ignores white space, so one such date has thousands of spellings. In `bestStreak` each spelling starts its own walk into the stuck key, about n squared steps in all (20,000 keys gave no result in 60 s). | Keys that fail `isDateKey` are ignored by `currentStreak` and `bestStreak` (R6 and R7, notes dated 2026-10-09). Why that ends every walk is in the comment on `streakDays`. The app's readable rule 5 keeps such keys out today. ~~Each walk is bounded by the number of distinct days: `runLength` stops after as many days as the set holds.~~ ~~The bound holds if one gets through.~~ ~~The size bound stays as a second guard.~~ Changed 2026-10-09 (code review WR-12 and WR-15, ORCH): the three struck sentences named the size bound in `runLength`. The control is the filter in `streakDays`. The bound behind it is removed, because behind the filter a walk ends at the first day not in the set, so the bound never decided a result and no test could pin it (`../qa/code-review/20261009-131935/`, `probe-bound.mjs`, mutant `bound-removed`). Valid input gives the same results (`../qa/solver/20261009T135035/`, `bound-differential.mjs`). This cell also held the derivation and the differential counts. They are now in the `streakDays` comment and in `../findings/security.md`, and the earlier wording of this cell is in git history, commit `fa7838d`. |
 | No network or storage call. Added 2026-10-09 (security SEC-03, ORCH) | the whole module | A network, storage, timer or global call added to the module sends data off the device, reads or writes state, or makes results depend on when they run | The module has no I/O. The R16 scan bans each such call in the code (the table `BANNED_IN_CODE`, see R16). |
@@ -214,15 +277,17 @@ None. The module holds no state between calls.
 - No reading of the clock and no timers.
 - No `Intl`, no locale support, no languages other than English.
 - No time zones stored or converted, no UTC day keys.
-- No user-facing copy other than the R4 date labels.
+- No user-facing copy other than the R4 date labels (v1.1.0, and the R17 labels).
 - No caching or memoisation layer.
 - From the brainstorm's non-goals, where they touch logic:
   - No weekly targets ("3 times a week") or any schedule other than daily.
   - No renaming or reordering habits: no rename or move function.
-  - No editing of days older than the last 7: `toggleDay` refuses them.
+  - ~~No editing of days older than the last 7: `toggleDay` refuses them.~~ Removed in v1.1.0 (brainstorm v1.1.0, "The non-goal "Editing days older than the last 7" is removed", USER). Replaced by no editing of a day after today or before `yearStart(today)` (R9).
   - No more than one tick per day, no notes, no amounts: `done` is a set of days.
-  - No stats beyond current streak, best streak and the heatmap: no totals, averages, rates or per-habit heatmaps.
+  - No stats beyond current streak, best streak and the heatmap: no totals, averages, rates or per-habit heatmaps. v1.1.0, "the heatmap" now reads "the overview and the two year views". No totals, averages, rates or done counts per habit (the year view shows days, not a count of them).
   - No export or import.
+- v1.1.0. No start date per habit and no field other than `name` and `done` (brainstorm v1.1.0, "1.0 stores no start date").
+- v1.1.0. No ring geometry, legend rule or any other drawing here (app R42).
 
 ## Roadmap
 - **Build order:** 1 of 2. No dependencies, so it is built first.
@@ -230,3 +295,4 @@ None. The module holds no state between calls.
 - **Done when:** functional QA green (`node --test "tests/**/*.test.js"`, every `@R` scenario passing), code review pass, security pass. No fidelity gate (it renders nothing). Its live behaviour is proven by `app`'s cold-boot live-e2e gate, which uses every export.
   Changed 2026-10-09 (code review WR-07, ORCH): the gate does not use every export. It uses the exports `app` consumes, listed in `../app/spec.md`, "Uses from habit-logic". `addDays`, `weekdayIndex`, `heatLevel` and `MAX_NAME_LENGTH` are not among them. The gate reaches them only inside `toggleDay`, `heatmapCells`, `monthLabels` and `validateName`, so their direct proof is the unit suite.
 - **Unblocks:** `app`.
+- **v1.1.0.** Build order 1 of 2 again. Task 6 (test data) first, with app task 11, then tasks 7 to 9 before app task 15 (corrected 2026-10-13, see the note above Task 6). Done when the unit suite is green with every new and changed `@R` scenario, the retired scenarios are gone from `tests/` (kept as text in qa.md), code review and security pass. The app's cold-boot gate in both engines proves the live use. Nature unchanged (logic, no engine). No phase skill applies (no UI).

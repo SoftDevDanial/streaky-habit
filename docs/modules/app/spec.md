@@ -2,360 +2,536 @@
 
 > Build contract. Read by the Senior Frontend Dev agent. Build ONLY what is here.
 > Stack: LOCKED to project stack (static page, vanilla JavaScript ES modules, plain CSS, `localStorage`, zero dependencies). Depends on: `habit-logic` (its Contracts only).
-> Nature: FE, and the mandatory **live-composition module**: it owns the shipped entry point `index.html`, the composition root, storage, the clock and the midnight rollover, and it carries the **cold-boot live-e2e gate** for the whole system.
-> Written by: the solutions architect (sdlc planner), 2026-10-08. Clarify-gate items that touch this module: CG-2 to CG-7 and CG-9, all ruled 2026-10-08, ORCH (the orchestrator under the owner's delegation, see `../ROADMAP.md`). CG-6 was ruled differently from the recommendation (a backdrop click acts as Cancel) and CG-2 was resolved in the plugin harness (the four state flags arrived in sdlc 2.1.0, 2.1.1 fixed the freeze so time is pinned through Playwright's clock, 2.1.2 added `bypass_csp`; minimum 2.1.1). Changed 2026-10-08 (plan-check flag, ORCH): this header first read "CG-2 was resolved in the plugin harness 2.1.1", which credited the four state flags to 2.1.1. They were added in 2.1.0. The version history and the 2.1.2 check are under Measurements in `../ROADMAP.md` and in the Fidelity gate of `qa.md`. The text below follows the rulings and marks each place with its CG number. CG-8's counting rule lives in `habit-logic`, and CG-1 is resolved.
+> Nature: FE, and the mandatory **live-composition module**. It owns the shipped entry point `index.html`, the composition root, storage, the clock and the midnight rollover, and it carries the **cold-boot live-e2e gate** for the whole system.
+> Written by: the solutions architect (sdlc planner), 2026-10-08 (1.0, sealed, full text in git tag `v1.0.0`). v1.1.0 delta written by the planner (solutions architect role), 2026-10-13. 1.0 clarify items CG-2 to CG-9 stay ruled as recorded in `../ROADMAP.md`. v1.1.0 clarify gate part 1 (ledger S4 row 2, S5 row 2, S6 row 2, off-scope rows 6 and 7) is ruled and applied here. v1.1.0 clarify gate part 2 items CG-10 to CG-19 are ruled. The owner ruled all ten on 2026-10-13 with the recommended answers this spec applies (ledger S1 row 4 for CG-12, CG-13 and CG-19, S3 row 2 for CG-10 and CG-11, S4 row 3 for CG-17, S7 row 12 for CG-14, CG-15, CG-16 and CG-18). Each place that applies one names its item, and no task waits on any of them (`../ROADMAP.md`, v1.1.0, Clarify gate). Changed 2026-10-13 after the plan check (F1). This line first said CG-10 to CG-18 were open, left out CG-19, and held the tasks that depend on them.
+> Changed 2026-10-13 after the plan check (B1, F1, F3 to F6, F8, N1, N3, N7). Each change carries a dated note where a reader of this contract needs it. The prose colons and the "1.0 text" labels of the v1.1.0 text were rewritten without a change of meaning (F8), so they carry no note.
+
+## v1.1.0 delta
+| R# | Status | Ledger scope | What changes |
+|---|---|---|---|
+| R1 | Changed | S6, S7, S8 | Title "Danial's Streaky Habit", the golden's viewport meta, the tab icon link, the new skeleton and five dialogs |
+| R2 | Changed | S7 | The stylesheet is the v1.1.0 `system.css` without its golden stand-ins |
+| R3 | Changed | S7 | First visit is the S1 golden (`today-empty.html`) |
+| R4 | Changed | S6, S7, S8 | The header carries the mark, "Streaky Habit", the date and, below 1024 px, the Overview button |
+| R5 | Changed | S7 | Rows with a bin, Year and Done today, in a list frame that scrolls on its own |
+| R6 | Changed | S2 | The numbers are labelled Current and Best |
+| R7 | Retired in v1.1.0, replaced by R31 and R33 | S1, S7 | The 7-day strip is gone |
+| R8 | Retired in v1.1.0, replaced by R31, R32, R34 and R37 | S1 | Ticking moves to Done today, the year view and the day editor |
+| R9 | Retired in v1.1.0, replaced by R35 and R38 | S7 | The heatmap becomes the overview band and the overview popup |
+| R10 | Changed | S7 | New markup, the frame shows the new row (CG-15) |
+| R11 | Changed | S7 | The message sits above the field, and typing clears it |
+| R12 | Changed | S7 | The composer's full state of the S3 golden |
+| R13 | Changed | S3, S7 | M1 opens from a row's bin or from the year view. A time-free guard replaces the 500 ms Delete habit window (CG-10) |
+| R14 | Changed | S3, S7 | Keeping returns focus to the control that opened M1. The page guard covers every popup (CG-11) |
+| R15 | Changed | S3, S7 | Focus after a delete depends on where it started. From the year view both popups close |
+| R16 | Changed | S1, S4 | Every edit path saves, and a save reports whether it worked |
+| R17 | Changed | S4, S7 | The unreadable note is the S5 banner. It shows with the warning when the reset save fails |
+| R18 | Retired in v1.1.0, replaced by R41 | S4 | A failed save is no longer silent |
+| R19 | Changed | S1, S7 | The rollover redraws the rows, the overview and every open popup |
+| R20 | Unchanged | | |
+| R21 | Changed | S7 | The new sizes at 360 px, and no page scroll |
+| R22 | Changed | S7 | The new tab order, focus rings and Esc order |
+| R23 | Changed | S7 | The v1.1.0 motion table, pop and bump |
+| R24 | Changed | S7 | The places a name appears |
+| R25 | Changed | S6 | `/src/icon.svg` joins the request list |
+| R26 | Unchanged | | |
+| R27 | Changed | S1 to S8, S5 | The new headline flows, in Chromium and in WebKit |
+| R28 | Changed | S7 | Eight screens at their widths, and the states sheet |
+| R29 | New | S6 | The tab icon file |
+| R30 | New | S5 | The browser suite and the live gate run in Chromium and WebKit |
+| R31 | New | S1, S7 | Done today |
+| R32 | New | S1, S2 | Every edit updates every view at once |
+| R33 | New | S1, S2, S3, S7 | The habit's year view (P2) |
+| R34 | New | S1 | Ticking a day in the year view |
+| R35 | New | S7 | The overview band (desktop) |
+| R36 | New | S1, S7 | The day editor (P1) |
+| R37 | New | S1 | Ticking in the day editor |
+| R38 | New | S7 | The overview popup (P3, phone) |
+| R39 | New | S1, S7 | The overview year view (P4) |
+| R40 | New | S7 | Popups, their stack, Esc and the backdrop |
+| R41 | New | S4 | The save warning |
+| R42 | New | S7 | How a ring and the legend are drawn |
+
+Counts. 14 new (R29 to R42), 22 changed, 4 retired (R7, R8, R9, R18), 2 unchanged (R20, R26), 42 in all (38 live).
 
 ## Sources
 | Source | What it fixes here |
 |---|---|
-| `docs/brainstorm/brainstorm.md` | capabilities C1 to C7, key flows 1 to 4, every rule and copy string, non-goals |
-| `docs/design/today.html` (S1, key screen), `today.md` | markup contract, copy, layout, the sample's values |
-| `docs/design/today-empty.html` (S2), `today-empty.md` | first visit |
-| `docs/design/delete-dialog.html` (M1), `delete-dialog.md` | the delete confirmation |
-| `docs/design/states.html` (specimen sheet), `states.md` | S3 errors, S4 limit, a habit just added, S5 note, component states |
-| `docs/design/system.md`, `system.css` | tokens, components, focus, motion, accessible names |
-| `docs/design/RULINGS.md` | approved added copy, the five interaction rules, the browser floor |
-| `docs/design/sample-history.json` | the data behind the goldens (tests only, never shipped) |
+| `docs/brainstorm/brainstorm.md`, the 1.0 part and "v1.1.0 delta" with its Round 1 and Round 2 rulings | capabilities, rules, copy, the reach of past days, the layout, non-goals |
+| `docs/v1.1.0/CHANGE-LEDGER.md`, S1 to S8, clarify gate part 1 rulings, H-01, H-02 | scope, the save warning at boot, WebKit, the icon as a file, the name |
+| `docs/design/` goldens `today.html` (K1), `day-editor.html` (P1), `year-view.html` (P2), `overview.html` (P3), `overview-year.html` (P4), `delete-dialog.html` (M1), `today-empty.html` (S1), `today-full.html` (S3), `states.html` (S2, S4, S5), each with its `.md` | markup, classes, copy, layout, states |
+| `docs/design/system.md`, `system.css` | tokens, components, rings, beads, motion, breakpoints, accessible names |
+| `docs/design/RULINGS.md` (1.0) and `RULINGS-v1.1.0.md` | the browser floor, the approved copy and the seven interaction rules, the small points, the mark |
+| `docs/design-explore/v1.1.0/final/SELF-CRITIQUE.md` | the approved copy list and the seven interaction rules (rules 1 to 7 below) |
+| `docs/design-explore/v1.1.0/round-2/f2.html` and `f2.md` (the direction the owner accepted) | readings where the goldens and rules are silent, each named with its CG item |
+| `docs/design/sample-history.json` | the v1.1.0 test data (tests only, never shipped) |
+| `docs/brainstorm/research/webkit-testing.md`, `save-warning-and-tab-icon.md` | the engine switch, the save rules SW1 to SW8, the test drivers, the icon file |
 
-Phase skills: the plan phase has none assigned. This module is UI work, so its builder (and any solver fixing a UI or fidelity finding) loads the design row of `docs/phase-skills.md` (`taste-skill`, `frontend-design`) before writing UI, and declares in `BUILD.md` what it loaded and what changed. The goldens already apply those skills, so the build copies the goldens rather than re-deciding anything.
+The seven approved interaction rules (SELF-CRITIQUE, approved in RULINGS-v1.1.0) are cited as "rule N". Rule 1, focus on open and focus back to the opener. Rule 2, Esc closes the top layer only, and the backdrop closes a popup. Rule 3, focus after a delete. Rule 4, the phone day editor keeps the chosen day in sight. Rule 5, a tick anywhere redraws everything at once. Rule 6, ring and bead numbers are SVG text. Rule 7, name errors on Add, typing clears, Dismiss moves focus to the field.
+
+Phase skills. The plan phase has none assigned. This module is UI work, so its builder, and any solver fixing a UI or fidelity finding, loads the design row of `docs/phase-skills.md` (`taste-skill`, `frontend-design`) before writing UI and declares in `BUILD.md` what it loaded and what changed. The goldens already apply those skills (`system.md`, "Skills loaded"), so the build copies the goldens rather than re-deciding anything.
 
 ## Invariants & assumptions
 - `index.html` at the project root is the only entry point and the composition root. It boots the real app on the real `localStorage` with whatever is saved there, or with nothing. There is no demo, seed, fixture, flag or query-string path.
-- The goldens are the truth for markup, classes, copy and CSS. The app copies their component CSS and mirrors their DOM. `docs/design/` is read-only for everyone.
-- The current day comes from the device clock in exactly one function, `readToday()` in `src/app.js`, which returns `localDateKey(new Date())`. Tests control time only with Playwright's `page.clock`.
-- All state is one in-memory array of `Habit` (habit-logic Contracts) plus the shown `todayKey`. Every change goes through a habit-logic function, then a save, then a render.
-- Every render runs synchronously inside the event handler that caused it. No `requestAnimationFrame`, `setTimeout`, `queueMicrotask` or promise deferral, so a test sees the result as soon as the event has been handled (and Playwright's paused clock cannot stall a render).
+- The goldens are the truth for markup, classes, copy and CSS. The app copies their CSS (R2) and mirrors their DOM. `docs/design/` is read-only for everyone.
+- The current day comes from the device clock in exactly one function, `readToday()` in `src/app.js`, which returns `localDateKey(new Date())`. Tests control time only with Playwright's `page.clock`, never with a hook in the app.
+- All state is one in-memory array of `Habit` (habit-logic Contracts) plus the shown `todayKey` and which popups are open for what. Every change goes through a habit-logic function, then a save, then a render.
+- Every render runs synchronously inside the event handler that caused it. No `requestAnimationFrame`, `setTimeout`, `queueMicrotask`, promise deferral or observer callback renders anything, so a test sees the result as soon as the event has been handled.
 - Text that comes from data (habit names, dates, counts) reaches the DOM only through `textContent` and `setAttribute`.
-- One tab at a time (CG-9, ruled 2026-10-08, ORCH, an accepted residual). Two open tabs do not see each other's changes and the last save wins.
-- Browser floor (RULINGS): current Chrome, Edge, Safari and Firefox, at least Chrome 105, Safari 15.4, Firefox 121. Tests run on headless Chromium only (CLAUDE.md), so Safari and Firefox behaviour is not verified by this plan.
-- The page is served as static files: GitHub Pages in production, `python -m http.server` in tests, possibly under a sub-path.
-  Changed 2026-10-09 (security SEC-04, ORCH): the public deployment serves only `index.html` and `src/`, plus a `.nojekyll` file. `docs/`, `tests/`, `harness/`, `CLAUDE.md` and all evidence are not served. Why: pointing Pages at the repository root would publish every tracked file, including QA screenshots, process ledgers, local absolute paths (about 33 files) and the deliberate mutant copies of `src/` that earlier audits keep under `docs/modules/habit-logic/qa/**/mirrors/`, and it would break R26 ("tests only, never shipped" for `sample-history.json`). The publish copy is made by the orchestrator at release, not by this module; the repository holds no deploy configuration. Recorded in `CLAUDE.md` under Publish.
-- GitHub Pages serves every project site of one user from a single origin (`<user>.github.io`), so other pages on that origin can read and write this app's `localStorage` key. Saved data is untrusted input.
+- One tab at a time (CG-9 of 1.0, an accepted residual, kept by the owner at the 1.0 seal). The app does not listen to the `storage` event.
+- Browser floor (RULINGS 1.0, still standing). Current Chrome, Edge, Safari and Firefox, at least Chrome 105, Safari 15.4, Firefox 121. v1.1.0 changed (S5). Tests run in headless Chromium and headless WebKit (R30). Firefox is not tested. WebKit on Windows is Safari's engine, not Safari on an iPhone (research, webkit-testing section 3), so touch gestures, the on-screen keyboard and Safari's storage expiry stay with the owner's iPhone cases in UAT.
+- The page is served as static files. GitHub Pages in production, `python -m http.server` in tests, possibly under a sub-path. The public deployment serves only `index.html` and `src/` plus `.nojekyll` (CLAUDE.md, Publish, 1.0 SEC-04).
+- GitHub Pages serves every project site of one user from one origin, so other pages on that origin can read and write this app's `localStorage` key. Saved data is untrusted input. v1.1.0 (research A4). The showcase hub frames the app from that same origin, without `sandbox`, so the framed app and the app opened on its own share one store. The hub never writes `streaks.state` and never calls `localStorage.clear()` (a constraint on the hub, recorded here).
+- Engine behaviour that differs by design (R30). A mouse click on a `<button>` focuses it in Chromium and focuses no element in WebKit (as Safari does). WebKit's mouse-down handler looks for a mouse-focusable element under the pointer, finds none for a button without `tabindex`, and clears focus (research webkit-testing, section 2). Wherever a requirement says a control "keeps focus" after it is pressed, it means the app never moves focus away from it. After a keyboard press both engines show the control focused. After a mouse press Chromium shows the control focused and WebKit shows `document.activeElement` as `body`, whatever had focus before. Task 11's probe confirms it, and a different measurement is written into qa.md with its value. Changed 2026-10-13 (planner, solutions architect role). The last sentence first read "WebKit shows `document.activeElement` unchanged (`body` when nothing had focus)", which disagrees with the research (a click on Add after typing in the field leaves `body`, not the field).
 
 ## Requirements
 
-### Entry point and stylesheet
+### Entry point, stylesheet and icon
 
-- **R1.** `index.html` at the project root is the shipped entry point.
-  - It starts `<!doctype html>` and `<html lang="en">`. Its head holds, in this order: `<meta charset="utf-8">`; the Content Security Policy `<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">`; `<meta name="viewport" content="width=device-width, initial-scale=1">`; `<title>Streaks</title>`; `<link rel="stylesheet" href="src/styles.css">`; `<script type="module" src="src/app.js"></script>`. A comment in the head credits the icons as the goldens do: Phosphor Icons (MIT), "check" bold, "trash" regular and "x" regular, paths inlined.
-  - Every URL in `index.html` and every `import` specifier in `src/` is relative (`src/...`, `./...`), never starting with `/` or a scheme, so the app works when served from a sub-path.
-  - The body is the static skeleton in Contracts, with no habit data.
+- **R1.** (v1.1.0 changed, S6, S7, S8) `index.html` at the project root is the shipped entry point.
+  - It starts `<!doctype html>` and `<html lang="en">`. Its head holds, in this order. `<meta charset="utf-8">`. The Content Security Policy `<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">`, unchanged from 1.0 (ledger S6 row 2, "CSP as strict as 1.0"). `<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">` (the goldens' value, needed for `env(safe-area-inset-bottom)`). `<title>Danial's Streaky Habit</title>` (S8). `<link rel="icon" type="image/svg+xml" href="src/icon.svg">` (R29, after the CSP meta so the policy covers it). `<link rel="stylesheet" href="src/styles.css">`. `<script type="module" src="src/app.js"></script>`. A comment in the head credits the icons as the goldens do, Phosphor Icons (MIT), "x", "plus" and "trash" regular and "check" bold, paths inlined, and names the mark as the app's own.
+  - Every URL in `index.html` and every `import` specifier in `src/` is relative (`src/...`, `./...`), never starting with `/` and never holding a scheme, so the app works from a sub-path. No element in `index.html` carries an `xmlns` attribute (inline SVG in HTML needs none).
+  - The body is the static skeleton in Contracts, with no habit data. Its element children are, in order, the sprite `svg`, `div.app`, `dialog.dlg-ov`, `dialog.dlg-all`, `dialog.dlg-year`, `dialog.dlg-day`, `dialog.dlg-del`.
+  (1.0 text) title "Streaks", viewport without `viewport-fit=cover`, no icon link, the 1.0 skeleton.
 
-- **R2.** `src/styles.css` is the golden stylesheet: the text of the `<style>` element of `docs/design/today.html` from `:root {` through the `/* ---------- end components ---------- */` comment (the tokens, the two bead-size media queries and the component block, byte-identical in all four goldens, measured), with exactly these changes and no other added, removed or changed rule, selector, property or value:
-  1. The `.scrim { ... }` rule is removed and the selector `.scrim, .dialog::backdrop` of the `scrim-in` animation rule becomes `.dialog::backdrop`. The golden draws its backdrop with a `.scrim` element because it has no script. The app draws it with the native `::backdrop` (delete-dialog.md, "Markup contract"), so the `.scrim` rule would be dead code.
-  2. (CG-3) The backdrop colour reads `.dialog::backdrop { background: var(--scrim, rgb(28 37 35 / 0.5)); }`, the same colour as `--scrim`, so the scrim still shows in Chrome before 122 and Safari before 17.4, where `::backdrop` does not inherit custom properties.
-  3. (CG-3) Inside `@media (prefers-reduced-motion: reduce)` the selector list becomes `*, *::before, *::after, ::backdrop`, so the backdrop also appears at once under reduced motion (system.md, Motion: "Under reduced motion both appear at once"). Measured: with the golden rule alone a native `::backdrop` keeps `scrim-in 0.18s` under reduced motion.
-  The comparison ignores comments and whitespace.
+- **R2.** (v1.1.0 changed, S7) `src/styles.css` is the golden stylesheet. Its rules equal the text of `docs/design/system.css` from `:root{` up to, and not including, the comment that opens the golden stand-ins block (`/* ---------- golden stand-ins`), with exactly these changes and no other added, removed or changed rule, selector, property or value.
+  1. The stand-ins block is left out (its own comment says "the app does not need them"). The app opens every popup with `showModal()`, so the top layer and the native `::backdrop` replace `.scrim`, `dialog[open]{ position:fixed; inset:0; z-index:10; }` and `.below-desktop`.
+  2. Inside `@media (prefers-reduced-motion: no-preference)` the selector `dialog[open]::backdrop, .scrim` becomes `dialog[open]::backdrop`, because no `.scrim` element exists in the app.
+  3. CG-3 of 1.0, carried to the new stylesheet. The two backdrop colours read `dialog::backdrop{ background:var(--scrim, rgba(10,11,13,.74)); }` and `.dlg-day::backdrop{ background:var(--scrim-soft, rgba(10,11,13,.52)); }`, the same colours as the tokens, so the scrim still shows in Chrome before 122 and Safari before 17.4, where `::backdrop` does not inherit custom properties. Both are inside the browser floor.
+  The comparison ignores comments and whitespace. The reduced-motion change of 1.0 (`::backdrop` added to the `reduce` selector) is not needed, because the backdrop's only animation sits inside the `no-preference` block.
+  (1.0 text) the style element of 1.0's `today.html` with three listed changes.
 
-### First visit, header and list
+- **R29.** (v1.1.0 new, S6) The tab icon is the file `src/icon.svg`. Its bytes equal, byte for byte as UTF-8 with nothing added, the percent-decoded payload after the first comma of the `href` of the `<link rel="icon">` in every golden that carries one (`today.html`, `day-editor.html`, `year-view.html`, `overview.html`, `overview-year.html`, `delete-dialog.html`, `today-empty.html`, `today-full.html`, one identical href, `states.html` has none). The file parses as XML with the root `{http://www.w3.org/2000/svg}svg` and `viewBox` `0 0 16 16`. It is linked as R1 says. Under the live CSP, loading the link's resolved `href` into an image on the app's page fires `load` and no `securitypolicyviolation`, in both engines. In Chromium, the icon drawn under `prefers-color-scheme: dark` has the fill `#FFB020` (255, 176, 32) and under `light` `#9A5B00` (154, 91, 0) (RULINGS-v1.1.0, the mark). WebKit's colour result is recorded as information only (research B8, item 4). Safari 26 showing one colour in both themes is accepted as Safari's bug (ledger S6 row 2) and is checked in UAT. Never `docs/brand/favicon.svg`, which is the 1.0 mark on a tile.
 
-- **R3.** First visit (brainstorm flow 1; S2, today-empty.html). When the storage key is absent, the app renders S2: the list section holds `<p class="empty"><strong>No habits yet.</strong> Add one you want to do every day.</p>` (with the space after `</strong>`) and no `ul.habits`; the add form is enabled, empty and shows no message; the heatmap shows every cell up to today at level 0 named "<shortDate>, 0 of 0 habits", today's cell ringed, later days blank. No note shows. Nothing is written to storage until the first change.
+### The key screen (K1)
 
-- **R4.** Header (today.md; RULINGS). `h1.brand` reads "Streaks". `p.date > time` has `datetime` set to today's date key and the text `longDate(today)`, for example `datetime="2026-10-08"` and "Thursday 8 October". All copy stays English when the browser locale is not English (for example `de-DE`).
+- **R3.** (v1.1.0 changed, S7) First visit (brainstorm flow 1, golden `today-empty.html`). When the storage key is absent the app renders S1. `ul.rows` holds exactly one `li.empty` with the golden's orbit `svg` (a dotted `circle.e-orbit` r 50 and a `circle.e-core` r 18 on a 120 box) and `div > p.lead` "No habits yet." and `p.line` "Add one you want to do every day.". No `li.row` exists. The composer is enabled, the field empty, `#nh-msg` hidden and empty. The band (R35) draws every day up to today as a button whose ring is one thin `circle.seg` (r 15) with its day number, named "<Ddd D Mon>, 0 of 0 habits", today with the today circle and `aria-current="date"`. The legend holds "None", one ring of one thin circle, "All". The Overview button carries one thin circle and is named "Overview, today 0 of 0 habits done". No banner shows. Nothing is written to storage until the first change.
+  (1.0 text) `p.empty` and 84 heat cells at level 0.
 
-- **R5.** Habit list (brainstorm, Order; today.md markup contract). With one or more habits the list section holds `ul.habits` with one `li.habit` per habit, in stored order. Each row follows the habit-row markup in Contracts: `h3.habit-name` with `id="h<N>-name"` (N is the 1-based position) and the name as text; a trash `button.icon-btn` named `Delete <name>`; the streak line; the strip, whose `aria-labelledby` is the row's `h3` id.
+- **R4.** (v1.1.0 changed, S6, S7, S8) Header (today.md, golden K1). `header.top` holds `div.brand` with the mark, an inline `svg.mark` (`viewBox="0 0 28 28"`, `aria-hidden="true"`, `focusable="false"`, one `path` whose `d` equals the golden's) drawn in `--amber` through `currentColor`, and `h1.word` "Streaky Habit". Then `button.ov-btn` (R38), then `time.date` with `datetime` set to today's key and the text `longDate(today)`, for example `datetime="2026-10-10"` and "Saturday 10 October". All copy stays English under a non-English browser locale (for example `de-DE`). At 1024 px and up the Overview button is not displayed (CSS) and the date sits at the right end of the brand line. Below 1024 px the brand line holds the brand and the Overview button and the date has its own line.
+  (1.0 text) `h1.brand` "Streaks" and `p.date > time`.
 
-- **R6.** Streak line (brainstorm C3, C4; system.md, Habit row). `p.streak[aria-live=polite]` holds `span.cur` and then, only when best is above 0, `span.best`:
-  - current 1 shows `span.cur` "1 day"; current N of 2 or more shows "N days"; current 0 shows `span.cur.none` (classes `cur none`) "No streak yet";
-  - best N of 1 or more shows `span.best` "Best N"; best 0 renders no `span.best` element at all.
-  Values are `currentStreak` and `bestStreak` for today. Sample, today 8 Oct: Read "6 days" and "Best 14"; Stretch "3 days" and "Best 9"; No phone "1 day" and "Best 4". A habit just added: "No streak yet" and no best element. Current 0 with best above 0: "No streak yet" then "Best N" (for example the sample on Mon 12 Oct: Read "No streak yet", "Best 14").
+- **R5.** (v1.1.0 changed, S7) Habit rows and the list frame (today.md, system.md Row, principle 4). With one or more habits `ul.rows` holds one `li.row` per habit in stored order, each built as the habit-row markup in Contracts. Position N (1-based) gives the ids `rn-N` (the name) and `rs-N` (the stats). The bin is named `Delete "<name>"` with straight double quotes, Year is named "Year view, <name>", Done today is named "Done today, <name>" with its state in `aria-pressed` and is described by `rs-N`. The page itself never scrolls at any width (`document.documentElement.scrollHeight` equals the viewport height at 360 x 780, 390 x 844 and 1280 x 800 with any number of habits from 0 to 12). The list scrolls inside `div.frame`, and the composer stays where it is however many habits there are. `div.frame-wrap` has the class `more-above` exactly when `div.frame` is scrolled away from its top, and `more-below` exactly when more of its content lies below its visible part. The app sets both from the frame's scroll position in the frame's `scroll` handler, after every render of the rows and on window `resize`, never through an observer callback (Invariants).
+  (1.0 text) `ul.habits > li.habit` with a trash button, a streak line and a strip.
 
-- **R7.** Week strip (brainstorm, The week strip; system.md; RULINGS). `div.strip[role=group]` holds 7 `button.day` for `weekWindow(today)`, oldest first. Each has `type="button"`, `data-date` set to its key, `aria-pressed` "true" when done and "false" when not, `aria-label="Mark <shortDate> as done"` (the label never changes with the state, which lives only in `aria-pressed`), and inside it `span.wd` with `dayParts.weekday` and `span.dm` with `dayParts.day`. Only today's button has `aria-current="date"`. The strip has the boolean attribute `data-run-continues` exactly when `runContinues(done, today)` is true. No control exists for any day older than the window or after today.
-  Sample, today 8 Oct, Fri 2 to Thu 8 (D done, . not): Read `. D D D D D D`; Stretch `D D . D D D .` with `data-run-continues`; No phone `. D . . D . D`.
+- **R6.** (v1.1.0 changed, S2) Current and Best (brainstorm C3, C4 and v1.1.0 "Label them Current and Best", system.md Row). `p.stats#rs-N` holds `span.stat.cur` with `span.lbl` "Current" and then, when the current streak N is above 0, `span.val` holding `b.num` "N" and `span.unit` "day" (N is 1) or "days", or, when it is 0, `span.none` "No streak yet". Then, only when the best streak B is above 0, `span.stat.best` with `span.lbl` "Best" and `span.val` holding `b.num` "B". When B is 0 no `span.stat.best` element exists. The values are `currentStreak` and `bestStreak` for today. The same stats markup shows in P2 (R33, `p.yr-stats`). In P1 a tick shows them as text (R36).
+  v1.1.0 sample, today 10 Oct 2026. Read 20 pages "Current 4 days" and "Best 9". Stretch 10 minutes "Current 2 days" and "Best 5". No phone after 11pm "Current" with "No streak yet" and "Best 14". A habit just added shows "Current" with "No streak yet" and no Best block.
+  (1.0 text) `span.cur` "6 days" and `span.best` "Best 14", without labels.
 
-- **R8.** Tick (brainstorm C2, flows 2 and 3). Activating a day button (click, tap, or Space or Enter while it has focus) toggles that day for that habit with `toggleDay`, then in the same handler:
-  - the same button element, not a replacement, flips `aria-pressed`, so the bead's CSS transitions run and the button keeps focus;
-  - the strip's `data-run-continues` is recomputed;
-  - the habit's streak line shows the new current and best values;
-  - the heatmap cell for that date changes its level class and its name in place;
-  - the new state is saved (R16).
-  Worked examples, sample, today 8 Oct:
+- **R7.** Retired in v1.1.0, replaced by R31 and R33. The 7-day week strip is not built (brainstorm v1.1.0, Round 1 rulings, "The per-habit 7-day strip is gone").
 
-  | Habit | Day | After | Streak line | Heat cell |
-  |---|---|---|---|---|
-  | Stretch 10 minutes | Thu 8 | pressed | 4 days, Best 9 | Thu 8 Oct, 3 of 3 habits, l4 |
-  | Read 20 pages | Thu 8 | not pressed | 5 days, Best 14 | Thu 8 Oct, 1 of 3 habits, l1 |
-  | No phone after 11pm | Wed 7 | pressed | 3 days, Best 4 | Wed 7 Oct, 3 of 3 habits, l4 |
-  | Stretch 10 minutes | Sun 4 | pressed | 7 days, Best 9 | Sun 4 Oct, 2 of 3 habits, l2 |
-  | Stretch 10 minutes | Fri 2 | not pressed, strip loses `data-run-continues` | 3 days, Best 9 | Fri 2 Oct, 0 of 3 habits, l0 |
-  | Read 20 pages | Fri 2 | pressed, strip gains `data-run-continues` | 10 days, Best 14 | Fri 2 Oct, 2 of 3 habits, l2 |
+- **R8.** Retired in v1.1.0, replaced by R31, R32, R34 and R37.
 
-- **R9.** Heatmap (brainstorm C5; system.md, Heatmap; today.md markup contract). `section.heat` holds `h2.heat-title` "Last 12 weeks"; `div.heat-grid` with `div.months[aria-hidden=true]` (one `span` per `monthLabels(today)` entry, text the month, inline style `grid-column: <column>`), the static `div.wdays`, and `div.cells` with the 84 `heatmapCells` in order; then the static `div.legend`. A cell that is not in the future is `span.hc.l<level>` with `data-date`, `role="img"` and `aria-label="<shortDate>, <count> of <total> habits"`; today's cell also has class `today` and `aria-current="date"`; a future cell is `span.hc.future` with `data-date` and `aria-hidden="true"` and no level class, role or name. The name always says "habits", also for "1 of 1 habits" (the formula as approved in system.md and RULINGS).
-  Sample, today 8 Oct: cells Mon 20 Jul to Sun 11 Oct; the 81 levels equal `heatmapLevels`; names from "Mon 20 Jul, 3 of 3 habits" to "Thu 8 Oct, 2 of 3 habits"; Fri 9 to Sun 11 Oct future; months Jul 1, Aug 3, Sep 8, Oct 12.
+- **R9.** Retired in v1.1.0, replaced by R35 and R38.
 
-### Add a habit
+- **R31.** (v1.1.0 new, S1, S7) Done today (brainstorm v1.1.0, Round 1 rulings, "a Done today button", "Done today toggles"). Activating a row's Done today (click, tap, or Space or Enter while it has focus) calls `toggleDay(habits, index, today, today)`. In the same handler the same button element, not a replacement, flips `aria-pressed` (`"true"` when today is in that habit's `done`), the app never moves focus away from it (Invariants, engine note), and R32 runs. A second activation unticks today.
+  v1.1.0 sample. Stretch 10 minutes, Done today pressed, gives "Current 3 days" and "Best 5", today's ring 2 of 3. Read 20 pages, Done today unpressed, gives "Current 3 days" and "Best 9", today's ring 0 of 3.
 
-- **R10.** Add (brainstorm C1, flow 1, Order; states.md, "A habit just added"). Submitting the add form (Add pressed, or Enter in the field) with a name that `addHabit` accepts appends the habit at the bottom with 7 not-done beads (today ringed) and "No streak yet" with no best element; replaces `p.empty` with `ul.habits` when it is the first habit; empties the field; clears any message (the message is empty with classes `field-msg field-error` and the input has no `aria-invalid`); recounts the heatmap against the new number of habits; and saves. The app does not move focus after a successful add.
-  Worked example, sample plus "  Drink water  " (stored and shown as "Drink water"): "Mon 20 Jul, 3 of 4 habits" l3; "Tue 6 Oct, 3 of 4 habits" l3; "Thu 8 Oct, 2 of 4 habits" l2; "Tue 21 Jul, 1 of 4 habits" l1; "Wed 12 Aug, 0 of 4 habits" l0.
+- **R32.** (v1.1.0 new, S1, S2) Every edit updates every view at once (rule 5, brainstorm v1.1.0 "An edit updates the streaks ... at once"). After a tick from any place (R31, R34, R37), an add (R10) or a delete (R15), the same handler saves once (R16) and then shows the new state everywhere it is drawn. Every row's stats (R6) and Done today state. The band's ring and name for every changed day (R35). The Overview button's ring and name (R38). And, when open, P1's subtitle, mini ring, tick states and tick stats (R36), P2's beads, their threads and its stats (R33), P3's cells (R38) and P4's cells (R39). A ring, Done today dot, tick box or bead whose drawn state changed carries the class `pop`, and every `span.val` or `span.none` whose number or text changed carries `bump`, so the motion of R23 plays once for each change. Elements that did not change carry neither class from that edit.
 
-- **R11.** Name errors (brainstorm, Habit name; RULINGS rule 3; states.md S3). Errors appear only when the form is submitted, never while typing. On a rejected name: the habit is not added; `#new-habit-msg` holds exactly one message and has the classes `field-msg field-error`; the input has `aria-invalid="true"`; the typed text stays in the field unchanged (not trimmed); the input has focus afterwards (states.md: "Focus stays in the input"), so after a click on Add the app moves focus to the input. Messages:
-  - `empty`: "Name the habit first."
-  - `too-long`: "Keep it to 40 characters or fewer."
-  - `duplicate`: "You already track this habit."
-  The message stays until the next submit, which replaces it with the next result's message or clears it on success.
+- **R10.** (v1.1.0 changed, S7) Add (brainstorm C1, flow 1, Order). Submitting the composer (Add pressed, or Enter in the field) with a name that `addHabit` accepts appends the habit as a new last `li.row` with "Current" and "No streak yet", no Best block and Done today unpressed. When it is the first habit, `li.empty` goes. The field empties. Any message clears (`#nh-msg` hidden and empty, the field without `aria-invalid`). R32 runs (the band and the Overview button recount against the new number of habits). Then `div.frame` scrolls so the new row lies fully inside its visible part (CG-15, ruled 2026-10-13, ledger S7 row 12, as F2 does). The app does not move focus after a successful add (Invariants, engine note). Worked example, v1.1.0 sample plus "  Drink water  " (stored and shown as "Drink water"). The band's 2026-07-21 reads "Tue 21 Jul, 3 of 4 habits" and its ring has four segments, three of them on and no core. 2026-10-10 reads "Sat 10 Oct, 1 of 4 habits".
+  (1.0 text) the bottom row with 7 not-done beads, `p.empty` replaced by `ul.habits`.
 
-- **R12.** Twelve habits (brainstorm; states.md S4). Whenever there are 12 habits (after an add, or at load), the input and the Add button carry the `disabled` attribute and `#new-habit-msg` holds "You track 12 habits, the most this app holds. Delete one to add another." with the classes `field-msg field-note`; the input keeps `aria-describedby="new-habit-msg"`. When the count drops below 12, both are enabled again and the message is empty with the classes `field-msg field-error`. After the 12th add the app does not move focus (CG-7 b); the note reaches screen readers through the message line's `aria-live="polite"`.
+- **R11.** (v1.1.0 changed, S7) Name errors (brainstorm, Habit name, golden `states.html` S2, rule 7, system.md Field). Errors show only when the composer is submitted. On a rejected name the habit is not added. `#nh-msg` loses `hidden`, has the classes `field-msg err` and holds exactly one message. The field has `aria-invalid="true"`. The typed text stays unchanged (not trimmed). The field has focus afterwards, also after a click on Add, in both engines (the app moves it there). The message sits above the field, so the field does not move. The messages are `empty` "Name the habit first.", `too-long` "Keep it to 40 characters or fewer.", `duplicate` "You already track this habit.". Typing in the field (any `input` event) clears the error at once (`#nh-msg` hidden and empty, classes `field-msg`, no `aria-invalid`), as rule 7 says. The next submit shows the next result's message or clears it on success.
+  (1.0 text) the message under the field with `field-msg field-error`, staying until the next submit.
+
+- **R12.** (v1.1.0 changed, S7) Twelve habits (brainstorm, golden `today-full.html`). Whenever there are 12 habits (after an add, or at load) `form.composer` has the class `is-full`, the field and Add carry `disabled`, `#nh-msg` is shown with the classes `field-msg note` and holds "You track 12 habits, the most this app holds. Delete one to add another.", and the field has no `aria-invalid`. The field keeps `aria-describedby="nh-msg"`. When the count drops below 12 all of this is undone (`is-full` gone, enabled, `#nh-msg` hidden and empty with the classes `field-msg`). After the 12th add the app does not move focus (CG-7 of 1.0). At 12 habits each row keeps its bin (f2.md reading 31).
+
+### The overview
+
+- **R35.** (v1.1.0 new, S7) The overview band (golden `today.html` at 1280, system.md Band). `section.band[aria-labelledby=h-ov]` holds `div.band-meta` (the head line with `h2#h-ov` "Last 12 weeks" and `button.btn-all` named "Year view, all habits" with the text "Year", then `p.hint` "Tap a day to change it.", then `div.legend[aria-hidden=true]`) and `div.ovg-cols[role=group][aria-labelledby=h-ov]`. The grid's children are one empty `div[aria-hidden=true]`, seven `div.og-wd[aria-hidden=true]` reading M, T, W, T, F, S, S, then for each of the 12 weeks of `heatmapCells(habits, today)`, oldest first, one `div.og-mo[aria-hidden=true]` (the short month of `monthLabels(today)` for that column, else empty) followed by its 7 cells, Monday to Sunday. A day up to today is the day-cell button of Contracts named "<shortDate>, <count> of <total> habits", today's also with `aria-current="date"`. A day after today is an empty `span.hc[aria-hidden=true]`. The legend is R42's. The band is in the DOM at every width and is displayed from 1024 px (CSS). Activating a day opens P1 for it (R36). Year opens P4 (R39).
+  v1.1.0 sample, today 10 Oct 2026. Cells from Mon 20 Jul to Sun 11 Oct, 83 buttons and one empty cell (Sun 11 Oct). Months "Jul" over week 1, "Aug" 3, "Sep" 8, "Oct" 12. "Mon 20 Jul, 2 of 3 habits", "Tue 22 Sep, 1 of 3 habits", "Sat 10 Oct, 1 of 3 habits" with the today circle. Of the 83, 2 rings have no segment on, 16 one, 47 two and 18 all three with the amber core.
+
+- **R38.** (v1.1.0 new, S7) The overview popup (golden `overview.html`, overview.md). Below 1024 px `button.ov-btn` in the header (type `button`, `aria-haspopup="dialog"`) holds `span.ov-ring[aria-hidden=true]` with today's ring (R42, 28 px by CSS, no number, no today circle) and the text "Overview". Its `aria-label` is "Overview, today <count> of <total> habits done" (the golden's way, no hidden span). Activating it opens `dialog.dlg-ov` (P3) with `showModal()`. P3's head holds `h2#ov-title` "Last 12 weeks", `p.hint` "Tap a day to change it.", Year (`button.btn-all` named "Year view, all habits") and Close (`button.icon-btn` named "Close"). Its body holds `div.ovg-rows[role=group][aria-labelledby=ov-title]` with the same children as the band's grid except that weeks run newest first, one row each, and then `div.legend[aria-hidden=true]` (R42). A row's `div.og-mo` holds the short month of the week's Monday when the row is the newest week, the oldest week, or a week whose Monday is day 1 to 7 of its month, and is empty otherwise (CG-16, ruled 2026-10-13, ledger S7 row 12, F2's rule, which gives Oct, Sep, Aug and Jul for the golden). On opening, Close has focus and the body is scrolled to its top. A day opens P1 over P3 (R36). Year opens P4 over P3 (R39). Close, Esc and, where a backdrop shows, the backdrop close P3 and put focus on the Overview button (rule 1).
+
+- **R39.** (v1.1.0 new, S1, S7) The overview year view (golden `overview-year.html`, brainstorm v1.1.0 Round 2 C5). The band's Year (1024 px and up) and P3's Year (below) open `dialog.dlg-all` (P4) with `showModal()`, over K1 or over P3. Its head holds `h2#all-title` "All habits", `p#all-sub.dlg-sub` "The last 12 months", Close, and `div.yr-tools` with `p.hint` "Tap a day to change it." and `div.legend[aria-hidden=true]` (R42). Its body holds `div.months.months-all` with one `section.month[aria-labelledby=amo-<year>-<month>]` per month of `yearMonths(today)`, newest first (the month number without a leading zero, for example `amo-2026-10`, `amo-2025-10`). Each holds `h3#amo-<year>-<month>` with the month's `title` and `div.mgrid[role=group]` labelled by it, holding seven `span.mwd[aria-hidden=true]` (M, T, W, T, F, S, S), `lead` empty `span.hc.lead[aria-hidden=true]` cells, then one cell per day. An open day is the day-cell button of Contracts named "<yearDate>, <count> of <total> habits" (the year because P4 holds two Octobers, system.md), today's with `aria-current="date"`. A closed day is `span.hc.closed[aria-hidden=true]` holding an `svg` with only `text.c-num.dim` (the day number). An empty day is `span.hc.blank[aria-hidden=true]`. On opening, Close has focus and the body is scrolled to its top. A day opens P1 over P4 (R36). Close and Esc close P4 and put focus on the Year button that opened it. The backdrop closes it where one shows.
+  v1.1.0 sample. 366 day buttons from "Fri 10 Oct 2025, 3 of 3 habits" to "Sat 10 Oct 2026, 1 of 3 habits", 21 closed cells (11 to 31 Oct 2026), 9 empty cells (1 to 9 Oct 2025), 39 lead cells.
+
+### The day editor
+
+- **R36.** (v1.1.0 new, S1, S7) Opening a day (golden `day-editor.html`, day-editor.md, brainstorm v1.1.0 "The overview calendar still opens any day in the day editor"). Activating a day button of the band, P3 or P4 opens `dialog.dlg-day` (P1) with `showModal()` for that day, over K1, P3 or P4. Its head holds `div.day-mini[aria-hidden=true]` with the day's ring (R42, 56 px by CSS, no number, no today circle), `h2#day-title` with `longDate(day)` (for example "Tuesday 22 September"), `p#day-sub.dlg-sub` "<count> of <total> habits" and Close. Its `ul.day-list` holds one `li` per habit in list order with the tick of Contracts, named by the habit's name, `aria-pressed` `"true"` when the habit is done that day, described by `ts-N`, whose `span.tstat#ts-N` shows the habit's numbers for today, not as of the chosen day (day-editor.md). That is `span.tcur` "Current N day" or "Current N days", or `span.tcur.none` "No streak yet", then, when Best is above 0, a `span` "Best B". While P1 is open, every day button for that date in the band, P3 and P4 carries the class `is-open`, and loses it when P1 closes. On opening, the first tick has focus (rule 1). Below 768 px, when P1 opens over P3 or P4, the host's `div.sheet-body` scrolls so the chosen day's button lies fully between the bottom of the host's head and the top of P1's box (rule 4), and stays outlined. Close, Esc and the backdrop close P1 and put focus on the day button that opened it, in its host (rule 1, rule 2).
+  With no habits (S1) a day still opens P1. Its subtitle reads "0 of 0 habits", its mini ring is one thin circle, its list holds one `li.day-empty` "No habits yet." and Close has focus (CG-12, ruled 2026-10-13, ledger S1 row 4, as F2 does and `system.css` styles `.day-empty`).
+  v1.1.0 sample. Tue 22 Sep opens with "1 of 3 habits", ticks Read 20 pages off ("Current 4 days", "Best 9"), Stretch 10 minutes off ("Current 2 days", "Best 5"), No phone after 11pm on ("No streak yet", "Best 14").
+
+- **R37.** (v1.1.0 new, S1) Ticking in the day editor. Activating a tick calls `toggleDay(habits, index, day, today)`. In the same handler the same tick element flips `aria-pressed` and its class `on`, the app never moves focus away from it, the subtitle and mini ring show the new count, and R32 runs. A tick stays in P1 (day-editor.md, Links).
+  v1.1.0 sample. Tue 22 Sep, tick Read 20 pages. The tick reads "Current 4 days" and "Best 13", the subtitle "2 of 3 habits", the band's day "Tue 22 Sep, 2 of 3 habits", and Read's row "Best 13".
+
+### The habit's year view
+
+- **R33.** (v1.1.0 new, S1, S2, S3, S7) Opening a habit's year (golden `year-view.html`, year-view.md, brainstorm v1.1.0 Round 1 "a button that opens that habit's year view"). A row's Year opens `dialog.dlg-year` (P2) with `showModal()` for that habit. Its head holds `h2#yr-title` with the habit's name, `p#yr-sub.dlg-sub` "The last 12 months", Close, then `div.yr-mid` with `p.yr-stats` (the R6 stats markup) and `button.btn-del` (type `button`, the trash glyph, the text "Delete habit"), then `div.yr-tools` with `p.hint` "Tap a day to mark it done or not done." and `p.yr-legend[aria-hidden=true]` (`span.mini.on`, "Done", `span.mini`, "Not done"). Its body holds `div.months` with one `section.month[aria-labelledby=mo-<year>-<month>]` per month of `yearMonths(today)`, newest first, each with `h3` and a `div.mgrid[role=group]` holding seven `span.mwd`, `lead` empty `span.yc.lead[aria-hidden=true]` cells, then one cell per day. An open day is the bead button of Contracts, named "Mark <yearDate> as done" whatever its state, with `aria-pressed` and the classes of R34. A closed day is `span.yc.closed[aria-hidden=true]` holding the bead with its number. An empty day is `span.yc.blank[aria-hidden=true]`. On opening, Close has focus and the body is scrolled to its top. Close, Esc and, where it shows, the backdrop close P2 and put focus on that row's Year (rule 1). Delete habit opens M1 for this habit over P2 (R13).
+  v1.1.0 sample. Read 20 pages, "Current 4 days", "Best 9", 366 bead buttons of which 250 are done, today's done with the halo, 21 closed and 9 empty cells.
+
+- **R34.** (v1.1.0 new, S1) Ticking a day in the year view (brainstorm v1.1.0 "tapping a day ticks or unticks it for that habit"). Activating a bead calls `toggleDay(habits, index, day, today)` for P2's habit. In the same handler the same button flips `aria-pressed`, the app never moves focus away from it, and R32 runs. A bead button carries `on` when its day is done, `today` (and `aria-current="date"`) when its day is today, `l` when it and the day before are both done and the day before is not before `yearStart(today)`, and `r` when it and the day after are both done and the day after is not after today (system.md, Bead, "consecutive done days ... on one amber thread"). A tick updates `l` and `r` on the neighbours it joins or splits. No control exists for a day after today or before `yearStart(today)`, so neither can be ticked (brainstorm v1.1.0, "Days after today stay closed"). A day before the habit was added is an open day like any other (brainstorm v1.1.0 Rules).
+  v1.1.0 sample. No phone after 11pm, tick Fri 9 Oct 2026. "Current 8 days", "Best 14". The bead gains `on`, `l` and nothing on the right (10 Oct is not done).
 
 ### Delete a habit
 
-- **R13.** Open (brainstorm C6, flow 4, Delete; delete-dialog.md; RULINGS rules 1 and 2). Activating a habit's trash button opens the one `dialog.dialog` with `showModal()`. Its title `#del-title` reads `Delete "<name>"?` (straight double quotes, the stored name); its body `#del-body` reads "Its history is deleted too."; its buttons are "Cancel" then "Delete habit". Cancel has focus once the dialog is open. The page behind cannot be clicked or focused (native modal inertness) and does not scroll (`html:has(.dialog[open])`).
-  Changed 2026-10-09 (security SEC-01, ORCH): two guards of 500 ms each, both measured in `event.timeStamp` (the browser's event time), because the second click of a double click or double tap lands where the first one left the screen.
-  1. "Delete habit" ignores any activation (mouse, touch or keyboard) that comes less than 500 ms after the click that opened the dialog. The dialog stays open and nothing changes. Why: the dialog opens under the pointer, and on viewports up to about 450 px wide (and from 1000 px up, with a row level with the dialog) "Delete habit" overlaps the trash button, so the second click confirmed the delete (T7). Each opening starts its own window. Cancel, Esc and the backdrop are never held back.
-  2. After a mouse or touch click inside the dialog (Cancel, Delete habit, the backdrop; `event.detail` above 0), the page ignores clicks for 500 ms: the click is cancelled and goes no further, so no day bead is ticked, no trash button opens a dialog and Add does not submit. Why: that click closes the dialog and the second click of the same gesture lands on the page behind it. Measured before the fix (real input, mouse and touch): a double click or double tap on the backdrop ticked the day bead under it at 390x844, 412x915, 1440x900, 375x667 and 360x640; on Cancel it ticked the second habit's bead at 375x667 and 360x640; on Delete habit it ticked or opened another habit's dialog and could lose the delete. Closing with the keyboard (Esc, or Enter or Space on Cancel, where `event.detail` is 0) starts no guard, so keyboard use is not slowed.
-  The CSS is untouched (R2). Two listeners in `app.js` do it (Contracts, Events and focus). A click made less than 500 ms after a mouse or touch click in the dialog, on purpose, is lost, and the user presses again.
-  Noted 2026-10-09 (regression code review RG-CR-02, ORCH): ~~whether the page guard (guard 2) also swallows a click made with the keyboard (`event.detail` 0) inside its window is left unspecified and no test pins it, because v1.1.0 replaces the time window with a time-free guard.~~ [Changed 2026-10-09, ORCH, regression re-check RG-CR-07: the reason overreached, since the v1.1.0 scope on record replaces only the Delete habit window (guard 1).] Item 2 and the Contracts "Guard window" bullet are written for the mouse and touch double click. The code also swallows a keyboard-made click on the page inside the window (`swallowTapThrough` does not look at `event.detail`). No requirement asks for or against that, and no test pins it.
-  Changed 2026-10-09 (security SEC-02, ORCH): the title wraps the name in U+2068 FIRST STRONG ISOLATE and U+2069 POP DIRECTIONAL ISOLATE, so `#del-title` reads `Delete "`, U+2068, the name, U+2069 and `"?`. It is still one text node, and the two marks are invisible and add no width (the M1 pixel diff stays at 0 mismatched pixels at 390x844 and 1280x800). Why: a name with an unterminated bidirectional override (U+202E, for example) reordered the title's own closing quote and question mark (`Delete "?"ereh txet desreveR`). Residuals: (a) accepted for v1.0 (ORCH): a run of combining marks in a name still overprints the brand and the title. (b) found by the solver, closed the same day by the SEC-06 note below: a name that itself holds U+2069 or a paragraph separator (U+0085, U+001C to U+001E, U+2029) ended the isolate early, and an unterminated override after it still moved the quotes (measured by `probe_03` in the SEC-02 evidence). The other way to close it, rejecting bidi format characters in `validateName`, is a `habit-logic` and product decision and was not taken.
-  Changed 2026-10-09 (security SEC-06, ORCH): the title shows the name without the bidi format characters U+202A to U+202E, U+2066 to U+2069, U+0085, U+001C to U+001E and U+2029. `#del-title` is still `Delete "`, U+2068, the name so reduced, U+2069 and `"?` in one text node, so this note supersedes "the stored name" in the first sentence of R13 for a name that holds one of them. Only the title's copy changes. The stored name, the list row, the trash button's `aria-label` (`Delete <name>`) and every other place keep the name as typed, nothing in `habit-logic` changes, and "Delete habit" still deletes the habit whose trash button opened the dialog. Why: the isolate of the SEC-02 note holds only while the name can neither close it nor leave one open. An isolate opener (U+2066 to U+2068) in the name with no closer takes the title's own U+2069, the title's isolate then runs to the end of the line, and after a right-to-left letter it resolves right to left and draws the closing quote and the question mark on the wrong side of the name. The re-check measured five such names that the title before SEC-02 had displayed correctly (a Hebrew alef, then U+2066 or U+2068, then `abc`; a Hebrew word then U+2066, alone or followed by ` abc` before it; an Arabic meem, U+2066, `x`). With none of these characters left in the title's copy, nothing in the name can close or open an isolate, which closes SEC-06 and residual (b) together. Measured with real Chromium: 27 of 27 names keep the opening quote, the name, the closing quote and the question mark in reading order (17 of 27 before), the browser tests cover 16 names and the full set of 14 stripped characters. Accepted cost: a name that holds a matched isolate pair (for example U+05D0, U+2066, `abc`, U+2069) shows without the pair, and a name made only of these characters shows as an empty pair of quotes, as it did before. The U+200E, U+200F and U+061C marks and the zero-width characters are not stripped, because they cannot close or open an isolate.
+- **R13.** (v1.1.0 changed, S3, S7) Open, and the time-free guard (brainstorm C6 and v1.1.0 "A slow double click can never delete, and Delete habit no longer waits half a second", golden `delete-dialog.html`, CG-10, v1.0.0 ledger row 37). Changed 2026-10-13 after the plan check (N7), this citation first named f2.md reading 29, which is about focus after a delete (R15) and not the guard. A row's bin, or Delete habit in P2, opens the one `dialog.dlg-del` (M1) with `showModal()`, over K1 or over P2. Its title `#del-title` reads `Delete "<name>"?`, its body `#del-body` "Its history is deleted too.", its buttons "Cancel" (`.btn.btn-secondary`) then "Delete habit" (`.btn.btn-danger`), both type `button` as the golden draws them. Cancel has focus once M1 is open (rule 1). The title keeps the two 1.0 security notes, SEC-02 and SEC-06 (full text at tag `v1.0.0`). The name sits between U+2068 and U+2069, and the title's copy of it has the bidi format characters U+202A to U+202E, U+2066 to U+2069, U+0085, U+001C to U+001E and U+2029 taken out. The stored name and every other place keep the name as typed.
+  The guard (CG-10, ruled 2026-10-13, ledger S3 row 2). When M1 opens, the app records the box of the control that opened it (`getBoundingClientRect()` of the bin or of P2's Delete habit). Delete habit ignores a mouse or touch activation (a `click` whose `detail` is above 0) when its point lies inside that box, or when its `detail` is above 1. M1 stays open and nothing changes. A keyboard activation (`detail` 0) always acts. Nothing depends on time. Delete habit acts on the first activation that meets neither condition, however soon after opening. Cancel, Esc and the backdrop always act.
+  Why. M1 opens under the pointer, and its Delete habit can lie over the bin that opened it (measured in 1.0, T7). The second click of a double click, slow or fast, lands at the point of the first. The 1.0 500 ms window let a slower second click through (v1.0.0 ledger row 37) and made a deliberate click wait.
+  (1.0 text) two 500 ms guards measured in `event.timeStamp`, the first holding Delete habit after the opening click.
 
-- **R14.** Keep (RULINGS rule 1; CG-6 ruled 2026-10-08, ORCH). Cancel, Esc, or a click on the backdrop (pressed and released outside the dialog box) closes the dialog, keeps the habit and its history unchanged, saves nothing, and puts focus on the trash button of the same habit (looked up after any re-render, for example a rollover while the dialog was open). A click inside the dialog box that hits no button, or a drag that starts inside the box and ends on the backdrop, leaves the dialog open.
-  Changed 2026-10-09 (security SEC-01, ORCH): once a mouse or touch click in the dialog has closed it, the page ignores clicks for 500 ms (R13 note, guard 2). Esc and keyboard activation of Cancel start no such window.
+- **R14.** (v1.1.0 changed, S3, S7) Keep (rule 1, CG-6 of 1.0). Cancel, Esc, or a backdrop click (pressed and released outside M1's box, R40) closes M1, keeps the habit and its history unchanged, saves nothing, and puts focus on the control that opened M1, looked up after any re-render (the row's bin, or P2's Delete habit with P2 still open). A click inside M1's box that hits no button, or a drag that starts inside the box and ends on the backdrop, leaves it open.
+  The tap-through guard (CG-11, ruled 2026-10-13, ledger S3 row 2, the 1.0 page guard kept by the owner's UAT-06 ruling and extended to the new popups). For 500 ms after a mouse or touch click inside any popup (`detail` above 0), measured in `event.timeStamp`, a click on the page or on a popup that was already open beneath it is cancelled and goes no further. Clicks inside that same popup, and in popups opened after it, are never held. Closing with the keyboard starts no window. Why. A click that closes a popup sends the second click of the same gesture to the layer behind (measured in 1.0, T7 b). In v1.1.0 the layer behind holds Done today buttons, band days and bins.
+  (1.0 text) focus back to the trash button, the page guard after a click in the one dialog.
 
-- **R15.** Delete (brainstorm, Delete; RULINGS rule 1). "Delete habit" (once 500 ms have passed since the dialog opened, R13 note of 2026-10-09) removes the habit and its whole history with `deleteHabit`, saves, closes the dialog, re-renders the list and recounts the heatmap against the remaining habits. Focus then moves to the trash button of the habit that was directly below the deleted one; when the deleted habit was the last one in the list (or the only one), focus moves to the "New habit" input. Deleting the only habit shows `p.empty` again. The deleted habit's days no longer count anywhere, and adding a habit with the same name later starts with no history.
-  Worked examples, sample: delete "Read 20 pages" leaves 2 habits, focus on "Delete Stretch 10 minutes", "Mon 20 Jul, 2 of 2 habits" l4, "Tue 21 Jul, 1 of 2 habits" l2, "Thu 8 Oct, 1 of 2 habits" l2. Delete "No phone after 11pm": focus on the "New habit" input, "Thu 8 Oct, 1 of 2 habits" l2.
+- **R15.** (v1.1.0 changed, S3, S7) Delete (brainstorm, Delete, rule 3, f2.md reading 29). Delete habit removes the habit and its whole history with `deleteHabit`, saves (R16), closes M1, closes P2 too when M1 was opened from it (f.md reading 18), and R32 runs. Deleting the only habit shows S1's `li.empty` again. A later habit with the same name starts with no history. Focus then goes as rule 3 says. From a row's bin, to the bin of the row now at the deleted position, else (the last row went) to the bin of the row above, else (the list is empty) to the field. From P2, to the Year of the row now at the deleted position, else to the Year of the row above (CG-18, ruled 2026-10-13, ledger S7 row 12, F2's code), else to the field. When the focused row lies outside the frame's visible part, the frame scrolls it into view.
+  v1.1.0 sample. Delete "Stretch 10 minutes" from its bin. Two rows remain, focus is on `Delete "No phone after 11pm"`, the band's 2026-07-21 reads "Tue 21 Jul, 2 of 2 habits" with a full core. Delete "No phone after 11pm" from its bin. Focus is on `Delete "Stretch 10 minutes"`.
+  (1.0 text) focus to the next trash button or the field, after the 500 ms window.
 
 ### Storage
 
-- **R16.** Kept on the device (brainstorm C7, Storage). The state is saved under the `localStorage` key `streaks.state` as `encodeState(habits)` (Contracts), synchronously after every change (add, tick, delete) and at no other time except the reset in R17. A reload, or closing the tab and opening the page again in the same browser, shows the same habits in the same order with the same done days. Loading writes nothing (a saved value is left byte for byte as it was until the next change).
+- **R16.** (v1.1.0 changed, S1, S4) Kept on the device (brainstorm C7, Storage). The state is saved under the `localStorage` key `streaks.state` as `encodeState(habits)` (Contracts, format unchanged from 1.0), synchronously after every change (add, Done today, a P1 tick, a P2 tick, delete) and at no other time except the reset of R17. A reload, or closing the tab and opening the page again in the same browser, shows the same habits in the same order with the same done days. Loading writes nothing (a saved value is left byte for byte as it was until the next change). `saveHabits` reports whether the write worked (Contracts, R41).
 
-- **R17.** Unreadable saved data (brainstorm, Storage; states.md S5; RULINGS rule 4). When a saved value exists but `decodeState` reports it unreadable (the rule in Contracts, CG-4), the app starts with no habits, immediately saves the empty state `{"version":1,"habits":[]}`, and shows the note as the first child of `div.col-main`: `div.note[role=status]` holding `p.note-text` "Your saved habits could not be read, so the list was reset." and a `button.icon-btn[type=button]` named "Dismiss note" with the Phosphor "x" glyph. The empty message shows under it. Dismiss removes the note and changes nothing else; focus then moves to the "New habit" input when it is enabled (CG-7 a). The note does not come back on the next load (the saved value is now readable); it shows again only when a later load finds unreadable data. On desktop the note sits at the top of the left column, not across both columns.
+- **R17.** (v1.1.0 changed, S4, S7) Unreadable saved data (brainstorm, Storage, golden `states.html` S5, rule 7). When a saved value exists but `decodeState` reports it unreadable (the 1.0 rule, CG-4 of 1.0), the app starts with no habits, at once saves the empty state `{"version":1,"habits":[]}`, and shows `div.banner.note[role=status]` in `div.banners` holding `p` "Your saved habits could not be read, so the list was reset." and `button.icon-btn` (type `button`) named "Dismiss note" with the x glyph. S1's empty list shows under it. Dismiss removes the note, changes nothing else, and moves focus to the field (rule 7). The note does not come back on the next load. When that reset save fails, the save warning of R41 shows as well, above the note (CG-17, ruled 2026-10-13, ledger S4 row 3, the research's reading).
 
-- **R18.** Storage failures (CG-5, ruled 2026-10-08, ORCH, an accepted residual). If `localStorage` cannot be used at load (reading the property, or `getItem`, throws), the app starts empty with no note. If a save throws (for example `QuotaExceededError` or `SecurityError`), the change stays on screen and in memory, no message shows, and the app keeps working. No exception reaches the console in either case.
+- **R18.** Retired in v1.1.0, replaced by R41. (1.0 text) a failed save shows no message (CG-5 of 1.0). Ledger S4 row 2 replaces that rule.
+
+- **R41.** (v1.1.0 new, S4) The save warning (brainstorm v1.1.0 Rules, golden `states.html` S4, research SW1 to SW8, ledger S4 row 2). `div.banner.warn[role=status]` holding `p` "Your habits are not being saved on this device. Changes will be lost when you close this tab." is the first child of `div.banners` while saving fails, and has no dismiss control.
+  - A save attempt (SW1) is every call of `saveHabits`. It fails (SW2) when `localStorage` cannot be read or `setItem` throws, whatever the exception. The app never reads the exception's name or code. It works (SW3) when `setItem` returns.
+  - The latest attempt decides (SW4). After a failed attempt the warning shows. After a working one it is removed. No timer, no probe write, no read back.
+  - At boot (part 1 CG-1, ruled "Yes, show it at once"). When reading the saved state fails (reading `localStorage` or `getItem` throws), the warning shows from the first render and the app starts empty with no note. When the reset save of R17 fails, it shows as well. A readable or absent value at boot shows no warning, because loading saves nothing.
+  - Every attempt reads `localStorage` afresh, so the warning can clear without a reload (SW6).
+  - The banner element is inserted only when the state turns to failing and removed only when it turns to working, so the live region is not touched while saves keep failing (SW7).
+  - When a save fails the change stays in memory and on screen and the app keeps working. No exception reaches the console.
+  - Out of scope, a known limit for the README (part 1 CG-2, SW8). Private browsing, Safari's 7-day clean-up and the user clearing site data lose data with no failure the page can see.
 
 ### Time
 
-- **R19.** Rollover while visible (brainstorm, Rolling over midnight). While the page is open the app compares `readToday()` with the shown day every 30 seconds (so at most 60 seconds after local midnight). When the local date has changed, the same handler re-renders everything derived from today for the new day: the header date, every strip (new window, `aria-current`, `data-run-continues`), every streak line, and the heatmap (cells, today ring, future cells, months). The view never changes day before local midnight. The add form keeps its typed text, its message and its `aria-invalid` state. The element that had focus still has focus; a day button keeps focus at the same position in its strip, so focus on today's bead stays on the new today's bead.
-  Worked example, sample, Thu 8 to Fri 9 Oct: header "Friday 9 October"; strips Sat 3 to Fri 9 with today Fri 9; Read `D D D D D D .`, "6 days", "Best 14", no `data-run-continues`; Stretch `D . D D D . .`, "No streak yet", "Best 9", with `data-run-continues`; No phone `D . . D . D .`, "1 day", "Best 4"; heatmap today "Fri 9 Oct, 0 of 3 habits" l0 ringed, "Thu 8 Oct, 2 of 3 habits" l2 without the ring, future Sat 10 and Sun 11 only.
-  Second example, sample, Sun 11 to Mon 12 Oct: heatmap from Mon 27 Jul to Sun 18 Oct, months Jul 1, Aug 2, Sep 7, Oct 11, six future cells Tue 13 to Sun 18 Oct, today "Mon 12 Oct, 0 of 3 habits" l0 ringed; strips Tue 6 to Mon 12; all three streak lines "No streak yet" with "Best 14", "Best 9", "Best 4".
+- **R19.** (v1.1.0 changed, S1, S7) Rollover while visible (brainstorm, Rolling over midnight). While the page is open the app compares `readToday()` with the shown day every 30 seconds (so at most 60 seconds after local midnight). When the local date has changed, the same handler redraws everything derived from today for the new day. The header date, every row's stats and Done today state (Done today now means the new day), the band (cells, today's ring, closed cells, months), the Overview button's ring and name, and every open popup. P1 keeps its chosen day and updates its numbers. P2 and P4 show the new year (`yearMonths` of the new day), P3 the new 12 weeks. The view never changes day before local midnight. The composer keeps its typed text, its message and its `aria-invalid` state. The control that had focus keeps it when it still exists (the same element, or the control for the same date and the same habit). When its day left the view, focus goes to the open-focus target of the top popup (rule 1), or with no popup open to the first focusable control of the page (CG-14, ruled 2026-10-13, ledger S7 row 12). When P1 is open for a day that leaves the editable year at the rollover (it was `yearStart` of the old day), P1 stays open on that day and its ticks change nothing, because `toggleDay` refuses the day (habit-logic R9) and the app draws each tick from the data, so no tick flips and nothing is saved. Whenever P1 closes after a rollover removed the day button that opened it (from the band, P3 or P4), focus goes as CG-14 says (CG-19, ruled 2026-10-13, ledger S1 row 4. Added 2026-10-13 by the planner, solutions architect role, because no rule or golden covers it).
+  v1.1.0 sample, Sat 10 to Sun 11 Oct 2026. Header "Sunday 11 October". Read 20 pages "Current 4 days", "Best 9", Done today unpressed. Stretch 10 minutes "No streak yet", "Best 5". No phone after 11pm "No streak yet", "Best 14". The band's Sun 11 Oct is a button named "Sun 11 Oct, 0 of 3 habits" with the today circle, and Sat 10 Oct loses it.
+  (1.0 text) the strips, streak lines and heatmap move, focus on a day button keeps its strip position.
 
 - **R20.** Rollover when shown again (brainstorm: "immediately when the tab is shown again"). When `visibilitychange` fires and `document.visibilityState` is "visible", the app runs the R19 check at once, synchronously in that handler, without waiting for the next 30 second check.
 
+### Popups
+
+- **R40.** (v1.1.0 new, S7) Popups (rules 1 and 2, system.md Elevation and layers, Sheet). P1, P2, P3, P4 and M1 are the five `dialog` elements of the skeleton, each opened with `showModal()` and never with `show()` or the `open` attribute. They stack in the order they open (on a phone P1 over P3 or P4, P4 over P3, M1 over P2). Esc closes the top popup only (the native `cancel`), so on a phone Esc closes P1, then P4, then P3. A click whose press and release both land outside a popup's box closes that popup (its backdrop, the 1.0 CG-6 rule for every popup), and closes nothing else. That holds at every width, 768 to 1023 px included, where rule 2 names only desktop and phone. `f2.html` closes every dialog on a backdrop click (`if (e.target === d) d.close()`). Changed 2026-10-13 after the plan check (N1), the `f2.html` source for 768 to 1023 px was added. A click inside the box, or a drag from inside the box to the backdrop, closes nothing. Everything under the top popup is inert (native), the page does not scroll (`html:has(dialog[open])`), and Tab never reaches a control outside the top popup. Each popup's first focus and its return of focus on closing are in R13, R33, R36, R38 and R39. The app sets focus by hand on closing in both engines, because a clicked button never took focus in WebKit (Invariants).
+
 ### Platform
 
-- **R21.** Phone width (brainstorm, Platform; CLAUDE.md). At 360 x 780 the page has no horizontal scrolling (`document.documentElement.scrollWidth` at most 360), each day button is at least 44 px wide, each icon button is 44 x 44 px, the input and every button are 48 px tall, and beads are 32 px.
+- **R21.** (v1.1.0 changed, S7) Phone width (CLAUDE.md, system.md Breakpoints and Sizes). At 360 x 780, with K1, S1, S3 or any popup showing, the page has no horizontal scrolling (`scrollWidth` at most 360) and no vertical page scrolling (R5). Every button that is not a day cell is at least 44 x 44 px, the field and Add are 48 px tall. P2's beads are 34 px. P3 and P4 rings are 40 px in 46 px tall cells, P3's cells 43.1 px wide (RULINGS-v1.1.0 small point 3 accepts day cells under 44). At 390 x 844 beads are 36 px and P3 and P4 rings 42 px in 48 px cells.
+  (1.0 text) day buttons at least 44 wide and 32 px beads.
 
-- **R22.** Keyboard (brainstorm, Platform). Every control can be reached and used with the keyboard. Tab order: the Dismiss button (when the note shows); then, for each habit in order, its trash button and its 7 day buttons oldest first; then the input; then Add. Space and Enter toggle a focused day button. Enter in the input submits. Focus rings show only on `:focus-visible` with the golden values: a 2px solid `--focus` (`rgb(28, 37, 35)`) outline, offset 0 on day buttons, -2px on icon buttons, 2px on the input, 3px on buttons. A mouse click draws no ring. While the dialog is open, Tab never reaches a control behind it.
+- **R22.** (v1.1.0 changed, S7) Keyboard (brainstorm Platform, system.md Row and Accessible names). Every control can be reached and used with the keyboard. Tab order on K1 below 1024 px is the Overview button, then the Dismiss button when the note shows, then for each row its bin, Year and Done today, then the field, then Add. From 1024 px it is the band's Year, the band's day buttons oldest first (column by column, Monday to Sunday), then the Dismiss button, the rows, the field and Add. Space and Enter activate a focused button, Enter in the field submits, Esc closes the top popup. Focus rings show only on `:focus-visible`, as `system.css` sets them. A 2px solid `--focus` outline, computed `rgb(237, 238, 240)`, offset 2px by default, -2px on `.icon-btn`, `.btn-bin`, `.hc` and `.tick`, 3px on `.btn`, and on a bead the outline is drawn on `.bead` 3px out while the button itself has none. A focused bin's glyph turns `--danger`. A mouse click draws no ring.
+  (1.0 text) trash then 7 day buttons per habit, `rgb(28, 37, 35)` rings.
 
-- **R23.** Reduced motion (brainstorm, Platform; system.md, Motion). With `prefers-reduced-motion: reduce`, every element, pseudo-element and the dialog's backdrop has no transition and no animation, so state changes and the dialog appear at once. Without it, a bead's `transition-duration` is `0.18s, 0.18s, 0.12s` and the dialog's `animation-name` is `dialog-in` while it opens.
+- **R23.** (v1.1.0 changed, S7) Motion (system.md Motion, Reduced motion). Without reduced motion. A Done today, Year, bin, tick or bead transition runs as `system.css` sets it (for example `.btn-done` has the computed `transition-duration` `0.17s, 0.17s, 0.17s, 0.12s`). An element with `pop` plays the `pop` animation (260 ms on a Done today dot, tick box and bead, 300 ms on a ring and on the Overview button's ring). A `bump` plays `bump` (280 ms). An opening popup's `div.dlg-box` plays `rise` (220 ms), P1's plays `sheet` (260 ms), and its `::backdrop` plays `fade` (180 ms). Each change replays its animation, also when the same element changes twice in a row. With `prefers-reduced-motion: reduce` every element, pseudo-element and backdrop has no transition and no animation (computed `transition-duration` `0s` and `animation-name` `none`), so every change and every popup appears at once. Nothing moves on load.
+  (1.0 text) bead transitions `0.18s, 0.18s, 0.12s` and the dialog's `dialog-in`.
 
-- **R24.** Names are text (threat model). A habit name is never interpreted as markup. A name such as `<img src=x onerror=alert(1)>` is stored and shown literally in the habit name, in the trash button's accessible name and in the dialog title; no element is created from it and no script runs. `src/` uses none of `innerHTML`, `outerHTML`, `insertAdjacentHTML`, `document.write`, `eval` or `new Function`.
+- **R24.** (v1.1.0 changed, S7) Names are text (threat model). A habit name is never read as markup. A name such as `<img src=x onerror=alert(1)>` is stored and shown literally in the row's `h3`, in the bin's, Year's and Done today's accessible names, in P1's tick, in P2's title and in M1's title, no element is created from it and no script runs. `src/` uses none of `innerHTML`, `outerHTML`, `insertAdjacentHTML`, `document.write`, `eval` or `new Function`.
 
-- **R25.** Nothing leaves the device (brainstorm: "This one keeps everything on the device"; CLAUDE.md: no network calls). Through any use of the app the only requests the page makes are same-origin `GET` requests for the page itself (`/` or `/index.html`), `src/styles.css` and the `src/*.js` modules (plus `/favicon.ico` if the browser asks for it), with no query string. The R1 CSP is present and in force (a `fetch` from the page is refused). No console error and no uncaught page error occurs in any qa.md flow.
-  Changed 2026-10-09 (security SEC-03, ORCH): R25 is about what the page sends. It does not mean that no other page on the shared origin can read the stored key (T9, Assets).
+- **R25.** (v1.1.0 changed, S6) Nothing leaves the device (brainstorm, CLAUDE.md no network calls). Through any use of the app the only requests the page makes are same-origin `GET` requests, with no query string, for the page itself (`/` or `/index.html`), `src/styles.css`, `src/icon.svg` (allowed, not required, research B8 item 5), the `src/*.js` modules, and `/favicon.ico` if the browser asks for it. The R1 CSP is present and in force (a `fetch` from the page is refused). No console error and no uncaught page error occurs in any qa.md flow, in either engine. R25 is about what the page sends, not who else on the origin can read the stored key (T9).
 
 - **R26.** No seed, no hooks, no globals (constitution, cold-boot rule). The shipped files (`index.html` and everything in `src/`) contain no habit data: none of the names in `sample-history.json` and no reference to that file. No code path writes habits other than the user's add, tick and delete, and the R17 reset. Query strings and fragments have no effect: `/?demo=1`, `/?seed` and `/#sample` boot exactly like `/`. The app adds no property to `window` and exposes no test hook.
 
-- **R27.** Cold-boot live-e2e gate (constitution, Definition of done). In a fresh headless Chromium context with empty storage and the real system clock, the app served from the project root by `python -m http.server <port> --bind 127.0.0.1` performs brainstorm flows 1 to 4 and survives a reload, driven only by real gestures (`click`, `keyboard.type`, `keyboard.press`), and writes an evidence artifact (screenshot sequence, step log, console log, network log) to `docs/modules/app/qa/live-e2e/<datetimestamp>/`. The exact steps are the `@R27` scenario in qa.md.
+### Engines and gates
 
-- **R28.** Looks right (constitution: 1-to-1 with the design). S1 (`today.html`), S2 (`today-empty.html`) and M1 (`delete-dialog.html`) render 1-to-1 with their goldens at 390 x 844 and 1280 x 800 under the Fidelity gate in qa.md, and every row of the FE element checklist, including each `states.html` specimen, matches.
+- **R30.** (v1.1.0 new, S5) Two engines (ledger S5 row 2, research webkit-testing sections 4 and 5). One browser suite and one live gate script, run once per engine.
+  - `tests/browser/conftest.py` adds the pytest option `--engine` with the choices `chromium` and `webkit`, default `chromium`, so `python -m pytest tests/browser -q` runs Chromium as before and `python -m pytest tests/browser -q --engine webkit` runs WebKit. A session `engine` fixture returns it. One helper, `launch(playwright, engine)`, is the only place a browser is launched (`getattr(playwright, engine).launch(headless=True, args=LAUNCH_ARGS[engine])`), with `--force-color-profile=srgb` for Chromium only and no argument for WebKit, and it refuses any other engine. `live_e2e.py` imports it.
+  - A registered marker `chromium_only(reason=...)` turns a test into a skip when the engine is not Chromium. Each such skip carries its written reason, is listed in the run's evidence and is counted, never reported as a pass.
+  - No context sets `is_mobile` (it breaks `mouse.wheel` in WebKit). Touch uses `has_touch` as in 1.0.
+  - `tests/browser/live_e2e.py` takes `--engine` (default `chromium`). Its `summary.json` records the engine and `browser.version`, never a hard-coded engine name.
+  - Evidence folder names carry the engine (`<datetimestamp>-chromium`, `<datetimestamp>-webkit`).
+  - The functional suite and the cold-boot live gate run green in both engines, and a WebKit failure blocks the seal. The fidelity pixel gate stays Chromium only (R28).
+  - Every 1.0 spec line that said "headless Chromium only" is replaced by this requirement. The same line in `CLAUDE.md` is the orchestrator's to amend (ledger S5 row 2).
+
+- **R27.** (v1.1.0 changed, S1 to S8) Cold-boot live-e2e gate (constitution, Definition of done). In a fresh headless context of the chosen engine, with empty storage and the real system clock, the app served from the project root by `python -m http.server <port> --bind 127.0.0.1` performs the v1.1.0 headline flows (first visit, add, Done today, a past day through the overview and the day editor, a past day through a habit's year view, the year of all habits, a delete kept and a delete done, a name error, the save survives reloads) at 390 x 844 and the desktop band at 1280 x 800, driven only by real gestures, and writes its evidence to `docs/modules/app/qa/live-e2e/<datetimestamp>-<engine>/`. It passes in Chromium and in WebKit (R30). The exact steps are the `@R27` scenario in qa.md.
+  The gate's control (constitution, Gates and evidence). The same script run with `--control seeded` in the same engine, against the same server, opens the app on storage that already holds the sample (seeded through the same-origin `__seed__` page before the app loads). It must fail at its first-visit step, on `stored(page)` being null and on `li.empty` with "No habits yet.", and its evidence is kept as a RED capture in `docs/modules/app/qa/live-e2e/<datetimestamp>-<engine>-control/` beside the green run. A control run that passes the first-visit step means the gate cannot tell a seeded start from a cold one, and the gate is not met. Added 2026-10-13 after the plan check (F5). The red-first rule cannot reach this gate, because task 27 writes the script after the app is built, so the control is its watched failure.
+  (1.0 text) Chromium only, flows 1 to 4 on the strip and heatmap.
+
+- **R28.** (v1.1.0 changed, S7) Looks right (constitution, 1-to-1 with the design). In Chromium, K1 (`today.html`), P1 (`day-editor.html`), P2 (`year-view.html`), P4 (`overview-year.html`), M1 (`delete-dialog.html`), S1 (`today-empty.html`) and S3 (`today-full.html`) render 1-to-1 with their goldens at 360 x 780, 390 x 844 and 1280 x 800, and P3 (`overview.html`) at 360 x 780 and 390 x 844 (MANIFEST, "Widths that matter", P3's 1280 render is reference only), under the Fidelity gate in qa.md. Every row of the FE element checklist matches, the `states.html` frames included.
+
+- **R42.** (v1.1.0 new, S7) Rings and the legend (system.md Ring and Legend, principle 1, rule 6, f2.html `ring` and `legendHTML`). A ring is an `svg` with `viewBox="0 0 40 40"` and `aria-hidden="true"`. In this order it holds `circle.c-today` (cx 20, cy 20, r 19.2) when the ring is today's in the band, P3 or P4. Then, for N habits and their flags in list order (`doneFlags`), the segments. N 0 gives one `circle.seg` (cx 20, cy 20, r 15). N 1 gives one `circle.seg` (r 15) with the class `on` when done. N 2 or more gives N `path.seg`, `on` when done, each with the `d` of the arc rule below. Then `circle.c-core` (cx 20, cy 20, r 11.5) when N is above 0 and every flag is true. Then, for a day cell, `text.c-num` (x 20, y 20, `dy=".352em"`) with the day number, with the class `on` when the core is drawn. The arc rule, for segment i of N. The step is 360/N degrees, the gap `min(22, 0.3 x step)`, the start angle `i x step + gap/2` and the end angle `(i + 1) x step - gap/2`, clockwise from 12 o'clock on radius 15 round (20, 20). Each point is `20 + 15 sin(a)`, `20 - 15 cos(a)`, rounded to 2 decimals (`Math.round(v * 100) / 100`, written as JavaScript writes the number). The `d` is `M<x1> <y1>A15 15 0 <large> 1 <x2> <y2>`, where `<large>` is 1 when `step - gap` is above 180 and 0 otherwise. This reproduces the goldens' `#a3-0` to `#a3-2` and `#a12-0` to `#a12-11` exactly. The legend (`div.legend[aria-hidden=true]`) holds `span` "None", then for N 0 one ring of one thin circle, and otherwise one ring for each distinct count of `[0, ceil(N/3), ceil(2N/3), N]` in that order, a ring for count c having its first c segments on (and the core when c equals N), then `span` "All". Legend, Overview button and P1 mini rings carry no number and no today circle. The pure part (arc `d`, legend counts) lives in `src/ring.js`.
+  Examples. N 3 gives the legend counts 0, 1, 2, 3. N 12 gives 0, 4, 8, 12 (today-full). N 1 gives 0, 1. N 2 gives 0, 1, 2. Segment 0 of 3 is `M22.86 5.28A15 15 0 0 1 34.18 24.88`, segment 0 of 12 is `M21.18 5.05A15 15 0 0 1 26.46 6.46`.
 
 ## Contracts
 
 ### Files
 | File | Owns |
 |---|---|
-| `index.html` | R1: head, CSP, icon sprite, static skeleton, dialog |
+| `index.html` | R1. Head, CSP, icon link, the sprite, the static skeleton, the five dialogs |
 | `src/styles.css` | R2 |
-| `src/app.js` | Composition root. Boot; `readToday()`; the state (habits array and shown `todayKey`); event handlers (tick, add submit, trash, dialog close, dismiss); the rollover interval and `visibilitychange` listener; focus rules. Calls `storage.js` and `view.js`. Exports nothing. |
-| `src/view.js` | All DOM building and updating from state: header date, list or empty message, rows, strips, streak lines, heatmap, add-form message and disabled state, note. No storage, no clock, no event registration. |
-| `src/storage.js` | The storage contract below. |
-| `tests/browser/` | Browser tests (pytest with Playwright, run by the CLAUDE.md command `python -m pytest tests/browser -q`), their `conftest.py`, the two fidelity state scripts in `tests/browser/fidelity/` (fed to the plugin harness, CG-2) and the cold-boot gate script `live_e2e.py` (qa.md). Not shipped. |
-| `tests/storage.test.js` | Node unit tests (`node --test "tests/**/*.test.js"`) of the pure exports of `src/storage.js` (`decodeState`, `encodeState`, `STORAGE_KEY`): the readable rule of the Storage contract and the rebuild of every habit. Not shipped. |
+| `src/icon.svg` (v1.1.0 new) | R29 |
+| `src/app.js` | Composition root. Boot, `readToday()`, the state (habits, shown `todayKey`, which popups are open for which habit or day, the opener of each), every event handler (Done today, Year, bin, band, P3 and P4 days, P1 ticks, P2 beads, Delete habit, Cancel, Close, backdrops, Esc, the composer, Dismiss, the frame's scroll), the guards of R13 and R14, the rollover. Calls `storage.js` and the view modules. Exports nothing |
+| `src/view.js` | DOM for K1. Header and Overview button, banners, rows and their stats, the frame's fade classes, the composer's states. No storage, no clock, no event registration |
+| `src/calendar.js` (v1.1.0 new) | DOM for every day grid. Day cells with rings for the band, P3 and P4, P2's beads with their threads, the month sections. No storage, no clock, no event registration |
+| `src/popups.js` (v1.1.0 new) | DOM for the popups' own parts. P1's head and ticks, P2's head and stats, M1's title, `showModal`, `close`, the `is-open` marks, the phone scroll of rule 4. No storage, no clock, no event registration |
+| `src/ring.js` (v1.1.0 new) | Pure. The arc `d` of R42 and the legend counts. No DOM |
+| `src/storage.js` | The storage contract below |
+| `tests/browser/` | The pytest suite, `conftest.py` (R30), the fidelity state scripts in `tests/browser/fidelity/`, the live gate `live_e2e.py`. Not shipped |
+| `tests/fixtures/design-v1.0.0/` (v1.1.0, tasks 11 and 12 only) | The four 1.0 goldens that the 1.0 browser tests read, restored byte for byte for task 11's baseline and removed at task 12 with their readers (task 11, task 12). Not shipped. Added 2026-10-13 after the plan check (B1) |
+| `tests/storage.test.js`, `tests/ring.test.js` (v1.1.0 new) | Node unit tests of the pure exports of `storage.js` and `ring.js`. Not shipped |
 
-Changed 2026-10-09 (code-review WR-03, ORCH): the row for `tests/storage.test.js` is new. A browser test can see what `decodeState` keeps only through a later save, and cannot see whether it returned the parsed objects themselves (T2), so the pure exports get a unit test file. No other file or contract changes.
-
-The split follows cohesion lines (composition and events, DOM, persistence), not speculative seams. There is no storage or clock abstraction: `localStorage` and `Date` are the only implementations the brief allows.
+v1.1.0. The split follows cohesion lines (composition and events, K1's DOM, the day grids, the popups' DOM, ring geometry, persistence). The 1.0 `view.js` held everything visible. In v1.1.0 that would be one file for five popups and four grids, so it is cut where the reasons to change differ. `ring.js` is pure so its geometry is proven by unit tests against the goldens' paths. There is still no storage or clock abstraction.
 
 ### Uses from habit-logic
-`localDateKey`, `isDateKey`, `dayParts`, `shortDate`, `longDate` (from `src/dates.js`); `MAX_HABITS`, `weekWindow`, `currentStreak`, `bestStreak`, `runContinues`, `toggleDay`, `heatmapCells`, `monthLabels`, `validateName`, `addHabit`, `deleteHabit` (from `src/habits.js`). The app re-implements none of these rules.
+`localDateKey`, `isDateKey`, `dayParts`, `shortDate`, `longDate`, `yearDate`, `monthTitle` (from `src/dates.js`). `MAX_HABITS`, `currentStreak`, `bestStreak`, `toggleDay`, `heatmapCells`, `monthLabels`, `doneFlags`, `yearStart`, `yearMonths`, `validateName`, `addHabit`, `deleteHabit` (from `src/habits.js`). The app re-implements none of these rules. P3's extra month label (R38) reads `dayParts(...).month` of the newest week's Monday.
+
+### Ring contract (`src/ring.js`, v1.1.0 new)
+| Export | Signature | Behaviour |
+|---|---|---|
+| `arcPath` | `(i: number, n: number) => string` | The `d` of segment `i` of `n` by R42's arc rule, for `n` 2 or more and `i` 0 to `n - 1`. For example `arcPath(0, 3)` is `M22.86 5.28A15 15 0 0 1 34.18 24.88` |
+| `legendCounts` | `(n: number) => number[]` | The distinct values of `[0, ceil(n/3), ceil(2n/3), n]` in that order, so `[0]` for `n` 0, `[0, 1]` for 1, `[0, 1, 2, 3]` for 3 and `[0, 4, 8, 12]` for 12 |
+
+Nothing else is exported. Changed 2026-10-13 (planner, solutions architect role). This table was missing. The Files table named `src/ring.js` but gave no export names or signatures, so its unit tests (qa.md `@R42`) had no surface to call.
 
 ### Storage contract (`src/storage.js`)
-- Key: `streaks.state`.
-- Value: compact JSON from `JSON.stringify`, for example `{"version":1,"habits":[{"name":"Read 20 pages","done":["2026-10-03","2026-10-04"]}]}`. `version` is the number 1. `habits` is in display order. Each habit has exactly `name` and `done`, with `done` ascending and without duplicates. A habit has the same shape as one in `sample-history.json`, so tests seed `{"version":1,"habits":<sample habits>}`.
-- Exports:
+- Key `streaks.state`. Value and readable rule unchanged from 1.0 (`{"version":1,"habits":[{"name":...,"done":[...]}]}`, CG-4 of 1.0, rules 1 to 5, at tag `v1.0.0`).
+- Exports.
   | Export | Signature | Behaviour |
   |---|---|---|
   | `STORAGE_KEY` | `"streaks.state"` | |
-  | `decodeState` | `(raw: string \| null) => { status: "absent" } \| { status: "ok", habits: Habit[] } \| { status: "unreadable" }` | Pure. The readable rule below. |
-  | `encodeState` | `(habits: Habit[]) => string` | Pure. `JSON.stringify({ version: 1, habits: habits.map(h => ({ name: h.name, done: h.done })) })`. |
-  | `loadHabits` | `() => { habits: Habit[], reset: boolean }` | Reads the key inside `try`. Absent, or storage not usable: `{ habits: [], reset: false }`. Unreadable: saves `encodeState([])` (errors ignored) and returns `{ habits: [], reset: true }`. Readable: the decoded habits and `reset: false`. Never throws. |
-  | `saveHabits` | `(habits: Habit[]) => void` | Writes `encodeState(habits)` inside `try`; ignores any exception (R18). |
-- Readable rule (CG-4). `decodeState` returns `absent` when `raw` is `null`. It returns `ok` only when all of these hold, and `unreadable` otherwise:
-  1. `raw` parses with `JSON.parse`;
-  2. the result is a non-null object that is not an array, and its `version` is the number `1`;
-  3. its `habits` is an array of 0 to 12 entries;
-  4. each entry is a non-null object that is not an array, whose `name` is a string for which `validateName(name, <names of earlier entries>)` is ok and returns exactly `name` (so it is already trimmed, 1 to 40 code points, and unique ignoring case);
-  5. each entry's `done` is an array whose every element satisfies `isDateKey`.
-  On `ok`: each `done` is sorted ascending and de-duplicated; dates after today are kept (a clock or time-zone change can create them; they are never shown and do not count for the current streak); properties other than `version`, `habits`, `name` and `done` are ignored and disappear at the next save; the habits are new objects built as `{ name, done: [...] }`, never the parsed objects and never through `Object.assign` from them.
+  | `decodeState` | `(raw: string \| null) => { status: "absent" } \| { status: "ok", habits: Habit[] } \| { status: "unreadable" }` | Pure, unchanged |
+  | `encodeState` | `(habits: Habit[]) => string` | Pure, unchanged |
+  | `loadHabits` (v1.1.0 changed) | `() => { habits: Habit[], reset: boolean, saveFailed: boolean }` | Reads the key, guarding only the storage access. A failed read gives `{ habits: [], reset: false, saveFailed: true }`. Absent gives `saveFailed: false`. Unreadable saves `encodeState([])` and gives `{ habits: [], reset: true, saveFailed: <that save failed> }`. Readable gives the habits, `reset: false`, `saveFailed: false`. Never throws |
+  | `saveHabits` (v1.1.0 changed) | `(habits: Habit[]) => boolean` | Reads `localStorage` and calls `setItem` inside `try`. Returns `true` when `setItem` returned, `false` on any exception. Never inspects the exception |
+- (1.0 text) `loadHabits` returned `{ habits, reset }` and `saveHabits` returned nothing (CG-5 of 1.0, retired with R18).
 
 ### Static skeleton (`index.html` body)
-In this order, with the classes, ids and attributes of the goldens:
+In this order, with the goldens' classes, ids and attributes. Static text shown here is the copy. Parts marked "filled" are built by the view modules.
 ```html
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-x" viewBox="0 0 256 256"><path d="..."/></symbol>
+  <symbol id="i-plus" viewBox="0 0 256 256"><path d="..."/></symbol>
   <symbol id="i-check" viewBox="0 0 256 256"><path d="..."/></symbol>
   <symbol id="i-trash" viewBox="0 0 256 256"><path d="..."/></symbol>
-  <symbol id="i-x" viewBox="0 0 256 256"><path d="..."/></symbol>
 </svg>
-<div class="page">
+<div class="app">
   <header class="top">
-    <h1 class="brand">Streaks</h1>
-    <p class="date"><time></time></p>
-  </header>
-  <main class="layout">
-    <div class="col-main">
-      <section aria-labelledby="habits-title">
-        <h2 id="habits-title" class="sr-only">Habits</h2>
-      </section>
-      <form class="add" novalidate>
-        <label class="add-label" for="new-habit">New habit</label>
-        <div class="add-row">
-          <input class="input" id="new-habit" name="name" type="text" autocomplete="off" aria-describedby="new-habit-msg">
-          <button class="btn btn-primary" type="submit">Add</button>
-        </div>
-        <p class="field-msg field-error" id="new-habit-msg" aria-live="polite"></p>
-      </form>
+    <div class="brand">
+      <svg class="mark" viewBox="0 0 28 28" aria-hidden="true" focusable="false"><path d="..."/></svg>
+      <h1 class="word">Streaky Habit</h1>
     </div>
-    <section class="heat" aria-labelledby="heat-title">
-      <h2 class="heat-title" id="heat-title">Last 12 weeks</h2>
-      <div class="heat-grid">
-        <div class="months" aria-hidden="true"></div>
-        <div class="wdays" aria-hidden="true"><span>Mon</span><span></span><span>Wed</span><span></span><span>Fri</span><span></span><span>Sun</span></div>
-        <div class="cells"></div>
+    <button type="button" class="ov-btn" aria-haspopup="dialog" aria-label="(filled)"><span class="ov-ring" aria-hidden="true">(filled)</span>Overview</button>
+    <time class="date" datetime="(filled)">(filled)</time>
+  </header>
+  <main class="main">
+    <section class="band" aria-labelledby="h-ov">
+      <div class="band-meta">
+        <div class="band-head"><h2 id="h-ov">Last 12 weeks</h2><button type="button" class="btn-all" aria-haspopup="dialog" aria-label="Year view, all habits">Year</button></div>
+        <p class="hint">Tap a day to change it.</p>
+        <div class="legend" aria-hidden="true">(filled)</div>
       </div>
-      <div class="legend" aria-hidden="true">
-        <span>None</span>
-        <span class="hc l0"></span><span class="hc l1"></span><span class="hc l2"></span><span class="hc l3"></span><span class="hc l4"></span>
-        <span>All</span>
-      </div>
+      <div class="ovg-cols" role="group" aria-labelledby="h-ov">(filled)</div>
     </section>
+    <div class="banners">(filled when R17 or R41 applies)</div>
+    <h2 id="h-habits" class="sr">Habits</h2>
+    <div class="frame-wrap">
+      <div class="frame">
+        <div class="sentinel" aria-hidden="true"></div>
+        <ul class="rows" aria-labelledby="h-habits">(filled)</ul>
+        <div class="sentinel" aria-hidden="true"></div>
+      </div>
+    </div>
+    <form class="composer" novalidate>
+      <p id="nh-msg" class="field-msg" aria-live="polite" hidden></p>
+      <div class="add-row">
+        <label for="nh" class="add-label">New habit</label>
+        <div class="add-ctl">
+          <input id="nh" class="input" type="text" autocomplete="off" spellcheck="false" aria-describedby="nh-msg">
+          <button id="add-btn" class="btn btn-primary" type="submit"><svg class="ph" aria-hidden="true"><use href="#i-plus"/></svg>Add</button>
+        </div>
+      </div>
+    </form>
   </main>
 </div>
-<dialog class="dialog" role="alertdialog" aria-modal="true" aria-labelledby="del-title" aria-describedby="del-body">
-  <h2 class="dialog-title" id="del-title"></h2>
-  <p class="dialog-body" id="del-body">Its history is deleted too.</p>
-  <form class="dialog-actions" method="dialog">
-    <button class="btn btn-secondary" type="submit" value="cancel">Cancel</button>
-    <button class="btn btn-danger" type="submit" value="delete">Delete habit</button>
-  </form>
+<dialog class="dlg-full dlg-ov" aria-modal="true" aria-labelledby="ov-title">
+  <div class="dlg-box">
+    <div class="sheet-head"><div class="ov-head">
+      <div><h2 id="ov-title">Last 12 weeks</h2><p class="hint">Tap a day to change it.</p></div>
+      <button type="button" class="btn-all" aria-haspopup="dialog" aria-label="Year view, all habits">Year</button>
+      <button type="button" class="icon-btn" aria-label="Close"><svg class="ph" aria-hidden="true"><use href="#i-x"/></svg></button>
+    </div></div>
+    <div class="sheet-body"><div class="ovg-rows" role="group" aria-labelledby="ov-title">(filled)</div><div class="legend" aria-hidden="true">(filled)</div></div>
+  </div>
+</dialog>
+<dialog class="dlg-full dlg-all" aria-modal="true" aria-labelledby="all-title" aria-describedby="all-sub">
+  <div class="dlg-box">
+    <div class="sheet-head">
+      <div class="head-top"><div><h2 id="all-title">All habits</h2><p id="all-sub" class="dlg-sub">The last 12 months</p></div>
+        <button type="button" class="icon-btn" aria-label="Close"><svg class="ph" aria-hidden="true"><use href="#i-x"/></svg></button></div>
+      <div class="yr-tools"><p class="hint">Tap a day to change it.</p><div class="legend" aria-hidden="true">(filled)</div></div>
+    </div>
+    <div class="sheet-body"><div class="months months-all">(filled)</div></div>
+  </div>
+</dialog>
+<dialog class="dlg-full dlg-year" aria-modal="true" aria-labelledby="yr-title" aria-describedby="yr-sub">
+  <div class="dlg-box">
+    <div class="sheet-head">
+      <div class="head-top"><div><h2 id="yr-title">(filled)</h2><p id="yr-sub" class="dlg-sub">The last 12 months</p></div>
+        <button type="button" class="icon-btn" aria-label="Close"><svg class="ph" aria-hidden="true"><use href="#i-x"/></svg></button></div>
+      <div class="yr-mid"><p class="yr-stats">(filled)</p><button type="button" class="btn-del"><svg class="ph" aria-hidden="true"><use href="#i-trash"/></svg>Delete habit</button></div>
+      <div class="yr-tools"><p class="hint">Tap a day to mark it done or not done.</p><p class="yr-legend" aria-hidden="true"><span class="mini on"></span><span>Done</span><span class="mini"></span><span>Not done</span></p></div>
+    </div>
+    <div class="sheet-body"><div class="months">(filled)</div></div>
+  </div>
+</dialog>
+<dialog class="dlg-day" aria-modal="true" aria-labelledby="day-title" aria-describedby="day-sub">
+  <div class="dlg-box">
+    <div class="day-head">
+      <div class="day-mini" aria-hidden="true">(filled)</div>
+      <div><h2 id="day-title">(filled)</h2><p id="day-sub" class="dlg-sub">(filled)</p></div>
+      <button type="button" class="icon-btn" aria-label="Close"><svg class="ph" aria-hidden="true"><use href="#i-x"/></svg></button>
+    </div>
+    <ul class="day-list">(filled)</ul>
+  </div>
+</dialog>
+<dialog class="dlg-del" role="alertdialog" aria-modal="true" aria-labelledby="del-title" aria-describedby="del-body">
+  <div class="dlg-box">
+    <h2 id="del-title">(filled)</h2>
+    <p id="del-body">Its history is deleted too.</p>
+    <div class="dlg-actions"><button type="button" class="btn btn-secondary">Cancel</button><button type="button" class="btn btn-danger">Delete habit</button></div>
+  </div>
 </dialog>
 ```
-- The three `path` values are copied exactly: `i-check` and `i-trash` from `today.html`, `i-x` from `states.html`. No other icon exists.
-- The sprite's inline `style` attribute and the month labels' inline `grid-column` are allowed by the CSP's `style-src 'unsafe-inline'` (the goldens use both).
-- The view fills: the `time` element; the list section after its `h2` (either `p.empty` or `ul.habits`); `div.months`; `div.cells`; the add form's message, `aria-invalid` and `disabled` states; the note, inserted as the first child of `div.col-main` when R17 applies. The dialog's title text is set before each `showModal()`.
+- The four symbol paths and the mark's path are copied exactly from `today.html`. No other icon exists. The goldens' ring `<defs>` (`#a3-*`, `#a12-*`) are not copied, because the app draws each segment as a `path` with R42's `d`, which renders the same.
+- Inner `svg` elements in buttons carry `aria-hidden="true"` and no `focusable` (the goldens dropped it, SELF-CRITIQUE). The sprite and the mark keep `focusable="false"` as the goldens do.
+- `svg`, `use`, `path`, `circle` and `text` are created with `document.createElementNS("http://www.w3.org/2000/svg", ...)`. Only in `src/` code, never as markup in `index.html` (R1, no `xmlns`).
 
-### Rendered markup (`src/view.js`), mirroring today.md "Markup contract"
-Habit row (whitespace between tags is free; elements, classes, ids, attributes and text are not):
+### Rendered markup (the view modules), mirroring the goldens
+Habit row (whitespace between tags is free. Elements, classes, ids, attributes and text are not):
 ```html
-<li class="habit">
-  <div class="habit-head">
-    <h3 class="habit-name" id="h1-name">Read 20 pages</h3>
-    <button class="icon-btn" type="button" aria-label="Delete Read 20 pages"><svg aria-hidden="true" focusable="false"><use href="#i-trash"/></svg></button>
+<li class="row">
+  <div class="r-head">
+    <h3 class="r-name" id="rn-1">Read 20 pages</h3>
+    <button type="button" class="btn-bin" aria-haspopup="dialog" aria-label="Delete &quot;Read 20 pages&quot;"><svg class="ph" aria-hidden="true"><use href="#i-trash"/></svg></button>
   </div>
-  <p class="streak" aria-live="polite"><span class="cur">6 days</span><span class="best">Best 14</span></p>
-  <div class="strip" role="group" aria-labelledby="h1-name">
-    <button class="day" type="button" data-date="2026-10-02" aria-pressed="false" aria-label="Mark Fri 2 Oct as done"><span class="day-label" aria-hidden="true"><span class="wd">Fri</span><span class="dm">2</span></span><span class="slot" aria-hidden="true"><span class="bead"><svg aria-hidden="true" focusable="false"><use href="#i-check"/></svg></span></span></button>
-    <!-- six more day buttons; the last (today) also has aria-current="date" -->
-  </div>
+  <p class="stats" id="rs-1"><span class="stat cur"><span class="lbl">Current</span><span class="val"><b class="num">4</b><span class="unit">days</span></span></span><span class="stat best"><span class="lbl">Best</span><span class="val"><b class="num">9</b></span></span></p>
+  <button type="button" class="btn-year" aria-haspopup="dialog" aria-label="Year view, Read 20 pages">Year</button>
+  <button type="button" class="btn-done" aria-pressed="true" aria-label="Done today, Read 20 pages" aria-describedby="rs-1"><span class="dot"><svg aria-hidden="true"><use href="#i-check"/></svg></span>Done today</button>
 </li>
 ```
-- No streak: `<span class="cur none">No streak yet</span>`, and no `span.best` when best is 0.
-- The check `svg` is always present; CSS shows it when `aria-pressed="true"`.
-- Empty list: `<p class="empty"><strong>No habits yet.</strong> Add one you want to do every day.</p>`.
-- Heat cell, past or today: `<span class="hc l2" data-date="2026-10-07" role="img" aria-label="Wed 7 Oct, 2 of 3 habits"></span>`. Today adds class `today` after the level class and `aria-current="date"`: `<span class="hc l2 today" data-date="2026-10-08" role="img" aria-current="date" aria-label="Thu 8 Oct, 2 of 3 habits"></span>`. Future: `<span class="hc future" data-date="2026-10-09" aria-hidden="true"></span>`.
-- Month label: `<span style="grid-column:3">Aug</span>` (set through `element.style.gridColumn` or the attribute).
-- Note: `<div class="note" role="status"><p class="note-text">Your saved habits could not be read, so the list was reset.</p><button class="icon-btn" type="button" aria-label="Dismiss note"><svg aria-hidden="true" focusable="false"><use href="#i-x"/></svg></button></div>`.
-- `svg` and `use` elements must be created in the SVG namespace with `document.createElementNS("http://www.w3.org/2000/svg", ...)`. An `svg` created with `document.createElement` is an HTML element and does not render. Changed 2026-10-08 (plan-check flag, ORCH): this note first also allowed `svg` elements "cloned from parsed markup such as a `<template>` in `index.html`". That option is removed. R1 fixes the head children and the Static skeleton fixes the body, so `index.html` carries no `<template>` or any other element beyond the skeleton, and `@R1` asserts that the body's element children are, in order, the sprite svg, `div.page` and `dialog.dialog`. Only `createElementNS` is allowed.
-- Message line states: empty with classes `field-msg field-error` (as in the goldens); an error with `field-msg field-error`; the 12-habit note with `field-msg field-note`.
+- No streak. `<span class="stat cur"><span class="lbl">Current</span><span class="none">No streak yet</span></span>`. No `span.stat.best` when Best is 0.
+- Empty list. `<li class="empty"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="e-orbit" cx="60" cy="60" r="50"/><circle class="e-core" cx="60" cy="60" r="18"/></svg><div><p class="lead">No habits yet.</p><p class="line">Add one you want to do every day.</p></div></li>`.
+- Day cell (band, P3, P4). `<button type="button" class="hc" data-key="2026-07-20" aria-haspopup="dialog" aria-label="Mon 20 Jul, 2 of 3 habits"><svg viewBox="0 0 40 40" aria-hidden="true">(R42 ring with the day number)</svg></button>`. Today adds `aria-current="date"` and the today circle. While its P1 is open it adds the class `is-open`.
+- Bead (P2). `<button type="button" class="yc on r" data-key="2025-10-10" aria-pressed="true" aria-label="Mark Fri 10 Oct 2025 as done"><span class="bead"><svg aria-hidden="true"><text x="50%" y="50%" dy=".352em">10</text></svg></span></button>`. Closed, `<span class="yc closed" aria-hidden="true"><span class="bead"><svg aria-hidden="true"><text x="50%" y="50%" dy=".352em">11</text></svg></span></span>`.
+- Tick (P1). `<li><button type="button" class="tick on" aria-pressed="true" aria-label="No phone after 11pm" aria-describedby="ts-3"><span class="tbox"><svg aria-hidden="true"><use href="#i-check"/></svg></span><span class="tname">No phone after 11pm</span><span class="tstat" id="ts-3"><span class="tcur none">No streak yet</span><span>Best 14</span></span></button></li>`. With a streak the first span is `<span class="tcur">Current 4 days</span>`.
+- Banners. `<div class="banner warn" role="status"><p>Your habits are not being saved on this device. Changes will be lost when you close this tab.</p></div>` and `<div class="banner note" role="status"><p>Your saved habits could not be read, so the list was reset.</p><button type="button" class="icon-btn" aria-label="Dismiss note"><svg class="ph" aria-hidden="true"><use href="#i-x"/></svg></button></div>`, in that order when both show.
+- Message line. Hidden and empty with the class `field-msg`. An error with `field-msg err`. The 12-habit note with `field-msg note`.
 
 ### Events and focus (`src/app.js`)
-- Delegated `click` listeners on stable containers (the list section, `div.col-main`), a `submit` listener on `form.add` (calls `preventDefault()`), and a `close` listener on the dialog.
-- The trash button and the `li` carry no index attribute; the habit index is the row's position in `ul.habits`. Day buttons are found by `data-date` within the row.
-- Dialog: before every `showModal()` set `dialog.returnValue = ""` and the title text (the title's copy of the name loses the bidi format characters listed in the R13 note of 2026-10-09, SEC-06; the stored name does not). On `close`, `returnValue === "delete"` deletes; anything else (Cancel, Esc, a backdrop click) keeps. The reset is required because `returnValue` persists between openings, so a later Esc would otherwise repeat the last "delete".
-- Backdrop click (CG-6, ruled 2026-10-08, ORCH): a `pointerdown` listener and a `click` listener on the dialog. A click closes the dialog with `dialog.close("cancel")`, which then runs the same keep path as Cancel, only when the click's target is the dialog element itself, its `clientX`/`clientY` fall outside `dialog.getBoundingClientRect()`, and the matching `pointerdown` also landed outside that box. Clicks on `::backdrop` are dispatched to the dialog element, and so are clicks on the dialog's own padding, so the target check alone is not enough; the `pointerdown` check keeps a drag that starts on the title and ends on the backdrop from closing it. The native `closedby="any"` attribute is not used because Safari and Firefox versions inside the floor lack it.
-- Guard window (SEC-01, ruled 2026-10-09, ORCH, extended the same day to the page behind the dialog): `DIALOG_GUARD_MS` (500) and one helper, `withinGuard(event, since)`, serve both guards. `askToDelete` records `dialogOpenedAt`, the opening click's `event.timeStamp`. A `click` listener on the dialog registered for the capture phase (`guardDialogClick`) records `dialogPressedAt` for every click with `event.detail` above 0 (mouse and touch) and calls `preventDefault()` on a click on `button.btn-danger` within the window of `dialogOpenedAt`; cancelling a submit button's click cancels the submit, so the dialog stays open. A `click` listener on `div.page` registered for the capture phase (`swallowTapThrough`) calls `preventDefault()` and `stopPropagation()` on a click within the window of `dialogPressedAt`; it sits on the page and not the document so it never holds a click inside the dialog. `timeStamp` is the browser's event time, so the windows need no timer and no clock read of the app's own, and Playwright's installed clock moves it (a fixed clock does not), which is how the tests pass the windows.
-- Focus targets: R8 (same day button), R11 (input), R14 (same habit's trash), R15 (next habit's trash, else the input), R17 (input after Dismiss), R19 (same element or same strip position).
-- Rollover: `setInterval(checkDay, 30000)` started at boot, and `document.addEventListener("visibilitychange", ...)` that calls `checkDay` when `document.visibilityState === "visible"`. `checkDay` compares `readToday()` with the shown key and re-renders on a change.
+- Delegated `click` listeners on stable containers (`div.app`, each dialog), a `submit` listener on `form.composer` (calls `preventDefault()`), an `input` listener on the field (R11), a `close` listener on each dialog, and a `scroll` listener on `div.frame` (R5).
+- No row, button or cell carries an index attribute. A row's habit is its position in `ul.rows`. A day is found by `data-key`, whose values are validated date keys.
+- Focus targets. R11 (field), R12 (unmoved), R13 (Cancel), R14 (the opener), R15 (rule 3), R17 (field), R19 (CG-14), R31, R34 and R37 (unmoved), R33, R38 and R39 (Close on open, the opener on close), R36 (first tick on open, the day on close).
+- Rollover. `setInterval(checkDay, 30000)` started at boot, and a `visibilitychange` listener that calls `checkDay` when visible.
 
 ### Copy (every user-facing string)
 | Where | Text | Source |
 |---|---|---|
-| `title`, `h1.brand` | Streaks | goldens |
-| header date | `longDate(today)`, e.g. Thursday 8 October | today.md, RULINGS |
-| hidden list heading | Habits | RULINGS |
-| empty list | **No habits yet.** Add one you want to do every day. | RULINGS |
-| field label | New habit | RULINGS |
-| submit button | Add | brainstorm flow 1 |
-| errors | "Name the habit first.", "Keep it to 40 characters or fewer.", "You already track this habit." | brainstorm |
+| `title` | Danial's Streaky Habit | brainstorm v1.1.0 Name, today.md |
+| `h1.word` | Streaky Habit | brainstorm v1.1.0 Name, today.md |
+| header date | `longDate(today)`, e.g. Saturday 10 October | today.md |
+| Overview button | Overview, named "Overview, today N of T habits done" | SELF-CRITIQUE copy |
+| band and P3 title, hint | Last 12 weeks, Tap a day to change it. | SELF-CRITIQUE copy |
+| Year on the overview | Year, named "Year view, all habits" | SELF-CRITIQUE copy |
+| legends | None, All. P2 Done, Not done | SELF-CRITIQUE copy |
+| weekday letters | M T W T F S S | goldens |
+| hidden list heading | Habits | today.md |
+| row | Current, Best, "1 day", "N days" (unit "day" or "days"), No streak yet, Year, Done today | SELF-CRITIQUE copy, brainstorm |
+| row names | `Delete "<name>"`, "Year view, <name>", "Done today, <name>" | SELF-CRITIQUE copy |
+| empty list | No habits yet. Add one you want to do every day. | today-empty.md |
+| field label, button | New habit, Add | today.md |
+| errors | Name the habit first. / Keep it to 40 characters or fewer. / You already track this habit. | brainstorm, states.md |
 | 12-habit note | You track 12 habits, the most this app holds. Delete one to add another. | brainstorm |
-| streak line | "1 day", "N days", "No streak yet", "Best N" | brainstorm |
-| day button name | Mark <Ddd D Mon> as done | brainstorm, RULINGS |
-| trash name | Delete <name> | RULINGS |
-| heatmap heading | Last 12 weeks | RULINGS |
-| axes | Jan to Dec short names from `monthLabels`; Mon, Wed, Fri, Sun | RULINGS |
-| legend | "None", "All" | RULINGS |
-| heat cell name | <Ddd D Mon>, <n> of <T> habits | brainstorm, RULINGS ("0 of 0 habits") |
-| dialog | `Delete "<name>"?` (with U+2068 before and U+2069 after the name, invisible, and the name shown without the bidi format characters of the R13 note of 2026-10-09, SEC-06), "Its history is deleted too.", "Cancel", "Delete habit" | brainstorm |
-| S5 note | Your saved habits could not be read, so the list was reset. | brainstorm |
-| dismiss name | Dismiss note | RULINGS |
+| day names | "Ddd D Mon, N of T habits", P4 "Ddd D Mon YYYY, N of T habits" | system.md |
+| P1 | `longDate(day)`, "N of T habits", "Current N days", "Current 1 day", "No streak yet", "Best N", Close. With no habits "No habits yet." (CG-12) | day-editor.md, CG-12 |
+| P2 | the habit's name, The last 12 months, Delete habit, Tap a day to mark it done or not done., month titles "October 2026", bead names "Mark Ddd D Mon YYYY as done" | year-view.md |
+| P4 | All habits, The last 12 months, Tap a day to change it. | overview-year.md |
+| M1 | `Delete "<name>"?` (with U+2068 and U+2069 round the name, SEC-02 and SEC-06), Its history is deleted too., Cancel, Delete habit | delete-dialog.md |
+| S4 warning | Your habits are not being saved on this device. Changes will be lost when you close this tab. | brainstorm v1.1.0, states.md |
+| S5 note | Your saved habits could not be read, so the list was reset. Dismiss note | brainstorm, states.md |
+| Close | Close | SELF-CRITIQUE copy |
 
 No other user-facing string exists.
 
 ## Tasks
-> Atomic, ordered, one commit each. Each commit carries the code and the browser tests that prove it (qa.md). Browser tests use pytest (the CLAUDE.md command) with Playwright's sync API and the fixtures in `tests/browser/conftest.py`. pytest-playwright is not installed and is not needed.
-1. [x] `index.html` (head, CSP, icon credit comment, sprite, static skeleton, dialog) and `src/styles.css` (R2), plus `tests/browser/conftest.py` (fixtures and helpers listed in qa.md) and the static checks of `tests/browser/test_entry.py`. → R1, R2
-2. [x] `src/storage.js`, `src/view.js` and `src/app.js` boot path: load, `readToday()`, render header, empty message or list, rows, streak lines, strips, heatmap, and the add form's 12-habit state at load; plus `tests/browser/test_render.py`. → R3, R4, R5, R6, R7, R9, R12, R16
-3. [x] Tick in place with focus kept, streak line and heat cell update, save; plus `tests/browser/test_tick.py`. → R8, R16
-4. [x] Add form: submit, `addHabit`, errors, message states, focus, 12-habit limit; plus `tests/browser/test_add.py`. → R10, R11, R12
-5. [x] Delete dialog: open, Cancel, Esc and a backdrop click as Cancel, Delete habit, focus targets; plus `tests/browser/test_delete.py`. → R13, R14, R15
-6. [x] Unreadable data note and dismiss, storage failures, reload persistence; plus `tests/browser/test_storage.py`. → R16, R17, R18
-7. [x] Rollover: 30 second check and `visibilitychange`, full re-render with form and focus kept; plus `tests/browser/test_rollover.py`. → R19, R20
-8. [x] Platform checks and anything they expose: `tests/browser/test_platform.py`. → R21, R22, R23, R24, R25, R26
-9. [x] The fidelity state scripts for the plugin harness (CG-2, ruled 2026-10-08, ORCH): `tests/browser/fidelity/seed-sample.js` (candidate init script that seeds the sample) and `tests/browser/fidelity/open-delete-dialog.js` (candidate after-load script that opens the M1 dialog), plus `tests/browser/test_fidelity_inputs.py` proving both (qa.md, Fidelity gate). → R28
-10. [x] `tests/browser/live_e2e.py`, the cold-boot live-e2e gate script (qa.md, `@R27`). → R27
+> Atomic, ordered, one commit each. Each commit carries the code and the tests that prove it (qa.md). Browser tests use pytest with Playwright's sync API. pytest-playwright is not installed and is not needed. Every UI task (12 and up except 14, 27 and 28) loads the design row (`taste-skill`, `frontend-design`) first and declares it in `BUILD.md`. Changed 2026-10-13 (planner, solutions architect role). This read "13 and up", which left out task 12 (the markup, the stylesheet and the icon), UI work by `docs/phase-skills.md`. Every new test is run once before its code lands and recorded RED against the property it asserts (constitution, Gates and evidence). For a new export of `src/` (`arcPath` and `legendCounts` in task 13) the RED comes from a throwaway stub, never from the import error (the method is stated once, in `../habit-logic/qa.md`, named data). The live gate's watched failure is its control run (R27, task 28). Added 2026-10-13 after the plan check (F5, F6).
+1. to 10. [x] The 1.0 tasks, done (`BUILD.md`, tag `v1.0.0`).
+11. [ ] The engine switch and the WebKit baseline (S5, first of all v1.1.0 work). The orchestrator installs WebKit before it (`python -m playwright install webkit`, owner approved). `conftest.py` gains `--engine`, `engine`, `launch`, the `chromium_only` marker and the engine in evidence folder names. `live_e2e.py` gains `--engine` and an engine-neutral summary. The `@R30` scenarios of the Feature "Two engines" go into the new file `tests/browser/test_engines.py`, except "Every context has the clipboard stand-in", which presses Done today and Year and so is written at task 19 (qa.md). The 1.0 suite is then made to run on the current tree, with no change to any 1.0 assertion, in two steps.
+    - The 1.0 sample. `conftest.py`'s `SAMPLE` (so `SAMPLE_HABITS`, `SAMPLE_LEVELS` and the state helpers built on it, under the same names) reads `tests/fixtures/sample-history-v1.0.0.json` (habit-logic task 6) instead of `docs/design/sample-history.json`.
+    - The 1.0 goldens. Four 1.0 browser tests read goldens that the design finalize of 2026-10-13 replaced in `docs/design/` (the v1.1.0 goldens have no `/* ---------- end components ---------- */` block, no `.page` and no `dialog.dialog`). The four files are restored as test fixtures, each byte for byte the output of `git show v1.0.0:<source>`, the same way habit-logic task 6 restores the sample.
+
+    | Fixture | Source in tag `v1.0.0` | Blob id of the source | Tests that read it |
+    |---|---|---|---|
+    | `tests/fixtures/design-v1.0.0/today.html` | `docs/design/today.html` | `40a3fdb648053a9902c4a6cc64592b73cf376c29` | `test_entry.py` `test_R2_golden_style_block_is_the_same_in_every_golden` and `test_R2_stylesheet_is_the_golden_css_with_the_listed_changes` (through `golden_style`), `test_render.py` `test_R28_the_rendered_page_has_the_markup_of_the_goldens` (through `canonical_pair`), `test_entry.py` `test_R1_static_skeleton` (through `golden_icon_paths`) |
+    | `tests/fixtures/design-v1.0.0/today-empty.html` | `docs/design/today-empty.html` | `9439584b7004012a6fbe56ec0f8ede496bba2298` | `test_R2_golden_style_block_is_the_same_in_every_golden`, `test_R28_the_rendered_page_has_the_markup_of_the_goldens` |
+    | `tests/fixtures/design-v1.0.0/delete-dialog.html` | `docs/design/delete-dialog.html` | `1d9fb01f28bfc0de9739ed0c33a748a76b12f7ed` | `test_R2_golden_style_block_is_the_same_in_every_golden`, `test_delete.py` `test_R28_the_open_dialog_has_the_markup_of_the_golden` (through `canonical_pair`) |
+    | `tests/fixtures/design-v1.0.0/states.html` | `docs/design/states.html` | `9258f8f3d079bb7c284b2745131d3804360be3fc` | `test_R2_golden_style_block_is_the_same_in_every_golden`, `test_R28_the_rendered_page_has_the_markup_of_the_goldens` (`symbol#i-x`), `test_R1_static_skeleton` (through `golden_icon_paths`) |
+
+    `conftest.py` gains `DESIGN_V10_DIR` (that folder), and the three helpers that read a 1.0 golden, `canonical_pair` in `conftest.py` and `golden_style` and `golden_icon_paths` in `test_entry.py`, read from it. `DESIGN_DIR` still names `docs/design/`. `test_R1_static_skeleton` passes on either folder (its three icon paths are equal in 1.0 and v1.1.0, plan check B1), and it reads the fixtures too, so no 1.0 test reads a v1.1.0 golden. The fixtures are test data under `tests/`, which is never published (CLAUDE.md, Publish), and `docs/design/` is only read.
+    - Proof, in Chromium with no `src/` change. (1) `git hash-object` of each of the four fixtures prints the blob id in the table, which `git rev-parse v1.0.0:<source>` gives. The blob id is the check because `core.autocrlf` is true on this machine, so a later checkout may change a fixture's line ends while its blob stays equal. (2) The nine 1.0 test files, run by name (`test_add.py`, `test_delete.py`, `test_entry.py`, `test_fidelity_inputs.py`, `test_platform.py`, `test_render.py`, `test_rollover.py`, `test_storage.py`, `test_tick.py`), give the sealed count, 179 passed, 0 failed, 0 skipped (`docs/v1.0.0/SEAL.md`). (3) `test_engines.py` passes.
+    - Changed 2026-10-13 after the plan check (B1). This task first named only the sample as the cause of the red state, so its 179 could not be reached. The plan check found the four golden reads. The fixture approach is the orchestrator's choice (ORCH, reversible, ledger off-scope row 9).
+
+    Then one WebKit run of the same nine 1.0 files and of the 1.0 live gate is recorded with its pass, fail and skip counts, every failure and the run time, in `docs/modules/app/qa/webkit-baseline/<datetimestamp>-webkit/`. The research probes run here (P1 `Object.defineProperty(window, "localStorage", ...)` in WebKit, P2 the quota fill time per engine, P3 the `.svg` type `http.server` sends, the click `detail` of two quick taps, `getComputedStyle(dialog, "::backdrop")`, the CSP console text, the computed `outline` string). Each WebKit failure is classed (a) an app defect Safari would show, (b) an engine difference written into qa.md with its measurement, or (c) Chromium-only tooling marked `chromium_only` with its reason. → R30
+12. [ ] `index.html` (head, icon link, sprite, skeleton, five dialogs), `src/styles.css` (R2), `src/icon.svg` (R29), and `tests/browser/test_entry.py` written again with the v1.1.0 `@R1`, `@R2` and `@R29` scenarios. → R1, R2, R29
+    The new skeleton and stylesheet break every 1.0 locator, and the 1.0 view code finds none of its elements, so from this task until task 15 the page renders no habit data. This task therefore also removes what only the 1.0 app needed. Each removed file stays at tag `v1.0.0`, and qa.md holds the scenarios that replace it.
+    - It removes the 1.0 browser test files that a later task writes again. `test_render.py` (written again at task 15), `test_add.py` (21), `test_delete.py` (22), `test_storage.py` (23), `test_rollover.py` (24), `test_platform.py` (25) and `test_fidelity_inputs.py` (26).
+    - It removes `test_tick.py`, which no task writes again. Done today (`test_today.py`, task 16), the day editor (`test_day_editor.py`, task 18) and the year view (`test_year.py`, task 19) replace ticking on the strip. Its six tests (four `@R8`, one `@R6`, one JC3) all drive the 1.0 strip, so none can run on the v1.1.0 page. Their scenarios are retired or replaced in qa.md the way its header says (a 1.0 scenario with no v1.1.0 form sits under Feature "Retired in v1.1.0").
+    - It removes `tests/fixtures/design-v1.0.0/` and `DESIGN_V10_DIR`, whose only readers are now gone.
+    - In `conftest.py`, `SAMPLE_HABITS`, `TWELVE`, `sample_state()` and `twelve_state()` switch to the v1.1.0 sample (qa.md, conftest table), and `SAMPLE_LEVELS`, the read of `tests/fixtures/sample-history-v1.0.0.json` and every helper that only a removed file used go. That fixture stays for habit-logic's unit tests.
+    - `live_e2e.py` (pytest does not collect it) and the 1.0 fidelity scripts `tests/browser/fidelity/seed-sample.js` and `open-delete-dialog.js` (no test reads them once `test_fidelity_inputs.py` is gone) stay as they are until task 27 and task 26 write them again. Nothing runs them in between.
+    - After this task the browser suite holds `test_entry.py` and `test_engines.py`. Two `test_entry.py` scenarios need a page that boots and adds, so they are written here and stay RED until those tasks land. "The page links the icon and the policy lets it load" turns green at task 15 (a boot with no page error), and "The app works from a sub-path" by task 21 at the latest (it adds a habit). Every other test of the suite is green at the end of this task.
+    - Changed 2026-10-13 after the plan check (F3). No task removed `test_tick.py`, none said what the 1.0 files do between this task and the task that writes each again, and the qa's conftest table gave `SAMPLE_HABITS` the v1.1.0 sample while task 11 needs the 1.0 one.
+13. [ ] `src/ring.js` and `tests/ring.test.js`. → R42
+14. [ ] `src/storage.js` results (`saveHabits` boolean, `loadHabits` with `saveFailed`), `tests/storage.test.js`. → R16, R41
+15. [ ] Boot render. Header, Overview button, band, rows, stats, frame fades, composer at load, S1. `tests/browser/test_render.py`. Its proof includes the `test_entry.py` scenario "The page links the icon and the policy lets it load" (task 12). → R3, R4, R5, R6, R12, R35, R42
+16. [ ] Done today and the every-view update with `pop` and `bump`. `tests/browser/test_today.py` (`test_tick.py` went at task 12). → R31, R32, R23
+17. [ ] Popup plumbing and P3. `tests/browser/test_popups.py`, `tests/browser/test_overview.py`. → R40, R38
+18. [ ] P1, opening and ticking, from the band and from P3. `tests/browser/test_day_editor.py`. → R36, R37, R32
+19. [ ] P2, opening and ticking. `tests/browser/test_year.py`, and the `@R30` scenario "Every context has the clipboard stand-in" in `test_engines.py`, because it presses Done today and Year (task 11). → R33, R34, R32, R30
+20. [ ] P4, from the band and from P3, and P1 over P4. Added to `test_overview.py` and `test_day_editor.py`. → R39, R36
+21. [ ] The composer. `tests/browser/test_add.py`. Its proof includes the `test_entry.py` scenario "The app works from a sub-path" (task 12). → R10, R11, R12
+22. [ ] Delete from a row and from P2, the time-free guard (CG-10), the tap-through guard (CG-11), focus (CG-18), all three ruled 2026-10-13. `tests/browser/test_delete.py`. → R13, R14, R15
+23. [ ] Persistence, the unreadable note, the save warning. `tests/browser/test_storage.py`. → R16, R17, R41
+24. [ ] Rollover with popups open (CG-14 and CG-19, ruled 2026-10-13). `tests/browser/test_rollover.py`. → R19, R20
+25. [ ] Platform checks and anything they expose. `tests/browser/test_platform.py`. → R21, R22, R23, R24, R25, R26
+26. [ ] The fidelity state scripts for the plugin harness, each seed script starting with the clipboard stand-in and each after-load script checking for it before it clicks, and `tests/browser/test_fidelity_inputs.py` (qa.md, Fidelity gate). → R28
+27. [ ] `tests/browser/live_e2e.py`, the v1.1.0 cold-boot gate in both engines, with its control mode `--control seeded` (qa.md, `@R27`, R27). → R27, R30
+28. [ ] Gates, run by the finders after the suite is green in both engines. Fidelity in Chromium (23 captures and the states check), then the cold-boot live gate in Chromium and in WebKit, each engine's green run with its control run, which must fail at the first-visit step (R27). → R28, R27
+Changed 2026-10-13 after the plan check (F1, F3, F4, F5, N3). Tasks 22 and 24 first waited on their clarify items, which are now ruled. Task 19 gained the clipboard scenario that task 11 cannot pass on the 1.0 app (F3). Task 26 names the stand-in (F4). Tasks 27 and 28 name the live gate's control (F5).
 
 ## Threat model
-> Feeds the security gate. A static page with no backend. The data is personal (habits can be sensitive, for example "No alcohol") and lives only in this browser.
+> Feeds the security gate. A static page with no backend. The data is personal (habits can be sensitive) and lives only in this browser. v1.1.0 changes are marked. Rows without a mark are 1.0's and still hold (their dated notes are at tag `v1.0.0`).
 
-**Assets.** The user's habit names and day history (privacy and integrity). The page's DOM and script context. The promise that nothing leaves the device.
-Changed 2026-10-09 (security SEC-03, ORCH): the privacy claim covers what this app sends (R25: nothing) and not who else on the shared origin can read the stored key. A script on another page of the same `github.io` origin can read every habit name and the history (T9). The claim, wherever it is made, should say "this app sends nothing", not "no one else can read it".
+**Assets.** The user's habit names and day history (privacy and integrity). The page's DOM and script context. The promise that this app sends nothing (R25).
 
-**Trust boundaries.** (1) `localStorage` into the app: untrusted, because any page on the same origin (all of one user's GitHub Pages sites share `<user>.github.io`), a browser extension, or a manual edit can write it. (2) Typed habit names into the DOM. (3) The page out to the network, which must stay closed. (4) The static host serving the files.
+**Trust boundaries.** (1) `localStorage` into the app, untrusted. (2) Typed habit names into the DOM. (3) The page out to the network, which must stay closed. (4) The static host serving the files. (5) v1.1.0. The same-origin hub that frames the app.
 
 | # | Threat | Required mitigation |
 |---|---|---|
-| T1 | Tampered or corrupt saved data crashes the app, breaks invariants, or smuggles values into code paths | `JSON.parse` inside `try`; the strict readable rule (Contracts); anything else resets with the S5 note (R17). Saved values are never used as HTML, selectors, property paths or code. |
-| T2 | Prototype pollution through parsed keys such as `__proto__` | Decoded habits are rebuilt as literal `{ name, done }` objects; no `Object.assign`, no merging of parsed objects. Tested with a `__proto__` key (qa.md). |
-| T3 | Script injection through a habit name (stored XSS, including a name planted in storage by another page on the origin) | Names reach the DOM only through `textContent` and `setAttribute`; `src/` has no `innerHTML`, `outerHTML`, `insertAdjacentHTML`, `document.write`, `eval` or `new Function` (R24). CSP `script-src 'self'` blocks inline scripts and inline event handlers as a second layer. |
-| T4 | Selector injection | No CSS selector is built from a name. Rows are found by position, day buttons by `data-date`, whose values are validated date keys. |
-| T5 | Data leaving the device (analytics, fetch, beacons, third-party assets, a native form submission putting the name in a URL if the script fails to load) | No network code and no third-party resources. CSP `default-src 'self'`, `connect-src 'none'` (blocks fetch, XHR, WebSocket, `sendBeacon`), `object-src 'none'`, `base-uri 'none'`, `form-action 'none'` (blocks a native GET submission of `name=`). The add form's submit is always `preventDefault()`ed. Measured 2026-10-08: `form-action 'none'` does not block the dialog's `method="dialog"` form, and `connect-src 'none'` refuses `fetch`. Verified by the request log (R25). |
-| T6 | Storage blocked or full | Every storage call inside `try`; the app keeps working in memory (R18). Losing changes on reload in that case is an accepted residual (CG-5, ruled 2026-10-08, ORCH). Growth is small: at most 12 habits x 365 days x about 13 bytes, about 57 KB a year, against a quota of about 5 MB. |
-| T7 | Accidental deletion | Focus opens on Cancel, so a stray Enter keeps the habit; Esc keeps it; a backdrop click keeps it (acts as Cancel, CG-6) (R13, R14). Changed 2026-10-09 (security SEC-01, ORCH): a pointer tap-through is a second vector, in two forms. (a) The dialog opens under the finger and "Delete habit" can overlap the trash button, so the second click of a double click or double tap confirmed the delete with no deliberate action (measured at 1440x900 and 412x915 on the three-habit sample). (b) The mirror: a click that closes the dialog (Cancel, the backdrop, Delete habit) sends the second click of the gesture to the page behind it, where it ticked a day bead or opened another dialog (measured at 390x844, 412x915, 1440x900, 375x667 and 360x640). Controls: "Delete habit" ignores an activation less than 500 ms after the opening click, and the page ignores clicks for 500 ms after a mouse or touch click in the dialog (R13 note). Verified by browser tests that double click and double tap the computed points and expect the habits and the stored text unchanged, and that keyboard closing is not held. Residual: a second, deliberate click 500 ms or more after opening deletes, as R15 says, and a deliberate click on the page less than 500 ms after a mouse or touch click in the dialog is lost. |
-| T8 | A huge value planted in storage slows parsing | Bounded by the origin quota (about 5 MB); parsing and validation are linear; only the linear date-key pattern runs on it. Accepted. |
-| T9 | Another app on the shared origin uses the same key | The key is specific (`streaks.state`). A foreign value there is unreadable and is reset with the note. Accepted residual. Changed 2026-10-09 (security SEC-03, ORCH): T9 covered a sibling page writing the key, not reading it. A script on any other page of the same `github.io` origin, or a third-party script such a page loads, can read the stored habit names and the whole history (measured: a sibling page read the stored text). `script-src 'self'` does not stop it, because `'self'` is the whole origin. No control exists and none is added. Accepted residual, reason (ORCH): the pages published on that origin are all the owner's own. It would stop being acceptable if the app were served from an origin that hosts someone else's pages; a custom domain or a repository that is the user site itself would avoid it. |
-| T10 | Clickjacking by framing the page | A meta CSP cannot set `frame-ancestors` and GitHub Pages cannot send headers. Current browsers partition storage for third-party frames, so a framed copy sees an empty, separate store. Accepted residual. |
-| T11 | Supply chain | Zero dependencies, no CDN, no web fonts. The three Phosphor paths (MIT) are inlined and credited in a comment. |
-| T12 | Stale tab overwrites newer data (two tabs) | Not mitigated in v0.1.0. Accepted residual (CG-9, ruled 2026-10-08, ORCH). |
+| T1 | Tampered or corrupt saved data crashes the app, breaks invariants, or smuggles values into code paths | `JSON.parse` inside `try`, the strict readable rule, anything else resets with the S5 note (R17). Saved values are never used as HTML, selectors, property paths or code. v1.1.0. Dates in `done` that lie before the year or after today are kept and never drawn as editable (R34, R39) |
+| T2 | Prototype pollution through parsed keys such as `__proto__` | Decoded habits are rebuilt as literal `{ name, done }` objects. Tested with a `__proto__` key |
+| T3 | Script injection through a habit name | Names reach the DOM only through `textContent` and `setAttribute` (R24), in every place v1.1.0 adds. CSP `script-src 'self'` as a second layer |
+| T4 | Selector injection | No CSS selector is built from a name. Rows are found by position, days by `data-key` |
+| T5 | Data leaving the device | No network code, no third-party resource, CSP unchanged (R1), the icon is a same-origin file (R29). Verified by the request log (R25) in both engines |
+| T6 | Storage blocked or full. v1.1.0 changed | Every storage call inside `try`. The app keeps working in memory and now says so (R41). Residual (part 1 CG-2). Private browsing, Safari's 7-day clean-up and cleared site data lose habits with no failure the page can see. Stated in the README |
+| T7 | Accidental deletion. v1.1.0 changed | Focus opens on Cancel. Esc and the backdrop keep. Delete habit ignores a pointer activation inside the opener's box or with `detail` above 1, with no time window (R13, CG-10). The layer behind a popup ignores clicks for 500 ms after a pointer click in the popup (R14, CG-11). Residual. A deliberate click on the part of Delete habit that lies over the opener's box does nothing, and the user clicks elsewhere on it. WebKit on Windows cannot prove an iPhone's double tap (`detail` of a tap), so UAT carries a double tap on a bin and then on Delete habit on the owner's iPhone (ledger S5 row 2) |
+| T8 | A huge value planted in storage slows parsing | Bounded by the origin quota. Linear parsing and validation. v1.1.0. Each render reads at most 367 days per habit (habit-logic threat model) |
+| T9 | Another page on the shared origin reads or writes the key | Unchanged, accepted residual (kept by the owner at the 1.0 seal) |
+| T10 | Framing. v1.1.0 changed | A meta CSP cannot set `frame-ancestors`. A cross-site framer gets a separate partitioned store. The showcase hub is same-origin and shares the store by design (research A4). It never writes `streaks.state` and never clears storage. Accepted |
+| T11 | Supply chain | Zero dependencies, no CDN, no web fonts. Four Phosphor paths (MIT) inlined and credited, the mark is the owner's own |
+| T12 | Two tabs, the last save wins | Unchanged, accepted residual (kept at the 1.0 seal) |
+| T13 | v1.1.0 new. The tab icon file is swapped or carries script | It is a static file under `src/`, compared byte for byte with the golden (R29). An SVG loaded as an icon or image runs no script. Same-origin only, CSP unchanged |
 
-Changed 2026-10-09 (security SEC-02, ORCH): a display spoof that T1 to T12 do not cover, touching T3 and T7. The list is safe (the `h3` isolates its text), but the delete dialog's title puts the name between two literal quotes in one text node, so an unterminated bidirectional override in a name reordered the dialog's own punctuation, on the one screen meant to prevent a wrong delete. Nothing is executable and the habit named in the title is still the habit deleted. Control: the name sits between U+2068 and U+2069 (R13 note), checked by browser tests that measure where the quotes and the name are drawn for five override names. Residual: combining marks overprint (accepted for v1.0, ORCH). Only the person typing, or a sibling page on the origin (T9), can plant such a name.
-
-Changed 2026-10-09 (security SEC-06, ORCH): the isolate alone did not hold for every name. A name that holds U+2069 or a paragraph separator closes the title's own isolate early, and a name that holds an isolate opener (U+2066 to U+2068) with no closer takes the title's U+2069 and, after a right-to-left letter, draws the closing quote and the question mark on the wrong side of the name (SEC-06, five name shapes that the title before SEC-02 displayed correctly). Control added: the title's copy of the name has the bidi format characters taken out (U+202A to U+202E, U+2066 to U+2069, U+0085, U+001C to U+001E, U+2029), so no override, embedding, isolate or paragraph break survives in it (R13 note). The stored name, the list row and the trash button's label are unchanged. This closes the R13 residual (b) that the SEC-02 note above called open, and SEC-06. Browser tests cover 16 names and every one of the 14 stripped characters, and a sweep of every code point of the Basic Multilingual Plane through the real dialog in three name shapes found none that still moves the quotes with the strip (evidence in `qa/security-solver/20261009T205500/`). The residual that remains is the combining-mark overprint.
-
-Changed 2026-10-09 (security SEC-05, ORCH), a variant of T1 (a reader and a writer that disagree): with the device clock at year 10000 or later (JavaScript dates reach year 275760), `localDateKey` returns a key with a five-digit year, `isDateKey` rejects it, the app saves a state that its own `decodeState` calls unreadable, and the next load resets every habit with the S5 note. Measured with the clock at 9999-12-31 23:59:30 UTC (local date 10000-01-01), adding a habit and ticking today. Years 0001, 1970 and 2100 behave. Accepted residual, not fixed (ORCH): it needs a device clock in the year 10000, so it is not reachable from outside and not a realistic use. No code change.
+The 1.0 notes SEC-02, SEC-05 and SEC-06 (the title's bidi isolates and strip, the year 10000 residual) still hold as written at tag `v1.0.0`. SEC-01's time window is replaced for Delete habit by the guard of R13 and kept for the layer behind by R14.
 
 ## Non-goals
 > Explicit "do NOT build". Building any of these is a defect.
-- From the brainstorm: reminders or notifications; accounts, login, sync between devices; weekly targets or any schedule other than daily; renaming or reordering habits; export or import; editing days older than the last 7; more than one tick per day, notes or amounts; stats beyond current streak, best streak and the heatmap; a theme switcher (one light theme only, no dark mode).
-- From the design: no flip or count-up animation on the streak number (a "Suggestion, not designed" in DECISION.md and SELF-CRITIQUE.md); no motion other than the system.md Motion table; no icons other than check, trash and x; no shadow other than the dialog's.
-- No undo after delete. No toast, banner or message other than the S3 errors, the S4 note and the S5 note.
-- No interaction on heatmap cells (they are images with names, not buttons), no per-habit heatmap, no tooltips.
-- No service worker, web app manifest, install prompt or offline cache. "Works offline" means it needs nothing beyond its own files.
-- No migration code for other storage versions; only `version` 1 exists.
-- No cross-tab sync (CG-9). No URL parameters or routes. No keyboard shortcuts beyond native button and form behaviour.
+- From the brainstorm. Reminders or notifications. Accounts, login, sync between devices. Weekly targets or any schedule other than daily. Renaming or reordering habits. Export or import. More than one tick per day, notes or amounts. Stats beyond Current, Best and the overview and year views. A theme switcher (v1.1.0 changed, one dark theme only). ~~Editing days older than the last 7~~ (removed in v1.1.0, brainstorm "v1.1.0 delta", USER). Editing a day after today or before the same date last year stays out.
+- From the design. No motion other than the system.md Motion table. No icons other than x, plus, trash and check, and the mark. No shadow other than the dialogs'. No streak count-up animation. No Undo bar after a delete (f2.md, "only an idea").
+- v1.1.0. No home-screen icon, no `apple-touch-icon`, no web app manifest, no install prompt (ledger off-scope row 7, DEFERRED). No `data:` URL anywhere and no CSP change (ledger S6 row 2).
+- v1.1.0. No start date per habit. No detection of private browsing or of Safari's clean-up. No `storage` event handling.
+- v1.1.0. No `.scrim` element, no `inert` attribute, no `<dialog open>` (golden stand-ins). No "Prototype states" tab or any review tooling of the prototypes. No screen for `today-warning.html` (today.md names it, no such golden exists, the warning is the S4 frame of `states.html`).
+- No undo after delete. No toast, banner or message other than the S2 errors, the S3 note, the S4 warning and the S5 note.
+- No service worker or offline cache. "Works offline" means it needs nothing beyond its own files.
+- No migration code for other storage versions. Only `version` 1 exists.
+- No cross-tab sync. No URL parameters or routes. No keyboard shortcuts beyond native button, dialog and form behaviour.
 - No analytics, logging, error reporting or any network request.
 - No demo data, seed, fixture or test hook in the shipped files.
-- No `inert` attribute on the page and no `.scrim` element (the goldens need them only because they have no script; the native modal provides both).
 
 ## Roadmap
-- **Build order:** 2 of 2. Depends on `habit-logic` (done first).
-- **Nature:** FE, live-composition module.
-- **Gates:** functional QA green (qa.md Gherkin against the running app), code review pass, security pass, fidelity 1-to-1 (after functional green), and the cold-boot live-e2e gate (`@R27`) with its evidence artifact. Then the module is done.
-- **Size note:** this is the larger module. If a builder approaches its context limit, it hands off at a task boundary; tasks 1 to 8 are each independently committable.
+- **Build order.** 2 of 2. Depends on `habit-logic` (its tasks 6 to 9 land before app task 15).
+- **Nature.** FE, live-composition module.
+- **Gates.** Functional QA green in Chromium and in WebKit (qa.md Gherkin against the running app), code review pass, security pass, fidelity 1-to-1 in Chromium (after functional green), and the cold-boot live-e2e gate (`@R27`) in both engines with its evidence. Then the module is done.
+- **Size note.** This is the larger module. A builder that nears its context limit hands off at a task boundary. Tasks 11 to 27 are each committable on their own.
