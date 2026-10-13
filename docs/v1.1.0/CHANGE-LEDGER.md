@@ -34,6 +34,7 @@
 ### S1 - Edit any past day
 **Status:** OPEN · **Opened:** 2026-10-10 · **Tag:** USER
 **Source:** UAT-02 and UAT-F2, owner: "a big limitation is that we cant input something that we did last week or change a specific date habit incase we input it wrong or want to add something we just remembered." Then: "For streaks, the missing previous dates is actually a big thing." Approved for 1.1.0: "3.  Yes."
+**Implements (plan 2026-10-13, docs/modules/ROADMAP.md scope trace):** habit-logic/R9, R17, R18, R19, R20 (R5 retired). app/R16, R19, R27, R31, R32, R33, R34, R36, R37, R39 (R7, R8 retired)
 
 The user can open an older day and tick or untick its habits, to fix a mistake or add something remembered late. Reverses the v1.0.0 non-goal "Editing days older than the last 7" (an ORCH call).
 
@@ -47,6 +48,7 @@ The user can open an older day and tick or untick its habits, to fix a mistake o
 ### S2 - The streak line says which is Current and which is Best
 **Status:** OPEN · **Opened:** 2026-10-10 · **Tag:** USER
 **Source:** UAT-03 and UAT-F4, owner: "I think it needs to show that left side is current and right is best". Approved for 1.1.0: "3.  Yes."
+**Implements (plan 2026-10-13, docs/modules/ROADMAP.md scope trace):** app/R6, R27, R32, R33
 
 Each habit's streak line names its two numbers, so nobody has to guess which is the current run.
 
@@ -57,6 +59,7 @@ Each habit's streak line names its two numbers, so nobody has to guess which is 
 ### S3 - A delete guard that does not depend on time
 **Status:** OPEN · **Opened:** 2026-10-10 · **Tag:** USER
 **Source:** the owner's v1.1.0 choice on 2026-10-09 ("Fix the v1.0 limits"). UAT-06 pauses kept for 1.0, owner: "very minor, i think just keep it unless its an easy change".
+**Implements (plan 2026-10-13, docs/modules/ROADMAP.md scope trace):** app/R13, R14, R15, R27, R33
 
 A slow double click can never delete a habit, and Delete habit no longer waits half a second.
 
@@ -68,6 +71,7 @@ A slow double click can never delete a habit, and Delete habit no longer waits h
 ### S4 - Habits that cannot be saved say so
 **Status:** OPEN · **Opened:** 2026-10-10 · **Tag:** ORCH
 **Source:** D-01, owner: "If its the same as split, then no need." Split's ruling (move into 1.1.0) applied by analogy.
+**Implements (plan 2026-10-13, docs/modules/ROADMAP.md scope trace):** app/R16, R17, R27, R41 (R18 retired)
 
 If the browser blocks or fills its storage, the page tells the user the habits are not being saved on this device.
 
@@ -80,6 +84,7 @@ If the browser blocks or fills its storage, the page tells the user the habits a
 ### S5 - Tested in Safari's engine too
 **Status:** OPEN · **Opened:** 2026-10-10 · **Tag:** ORCH
 **Source:** D-01, owner: "If its the same as split, then no need." Split's ruling (move into 1.1.0) applied by analogy.
+**Implements (plan 2026-10-13, docs/modules/ROADMAP.md scope trace):** app/R27, R30, and every functional scenario runs in both engines
 
 The browser tests and the gates also run in WebKit, the engine of Safari on iPhone.
 
@@ -91,6 +96,7 @@ The browser tests and the gates also run in WebKit, the engine of Safari on iPho
 ### S6 - The logo in the app
 **Status:** OPEN · **Opened:** 2026-10-10 · **Tag:** USER
 **Source:** owner: "Wheres the logo. I dont see it being used for both"
+**Implements (plan 2026-10-13, docs/modules/ROADMAP.md scope trace):** app/R1, R4, R25, R27, R29
 
 The logo shows in the app's header and as the browser tab icon.
 
@@ -102,6 +108,7 @@ The logo shows in the app's header and as the browser tab icon.
 ### S7 - A livelier look, chosen from five directions
 **Status:** OPEN · **Opened:** 2026-10-10 · **Tag:** USER
 **Source:** owner: "Both designs are great but is just that its so dull. Need to spice it up so it looks nicer" and "Propose 5 designs for both app. Doesnt need to be working, i just want the design part." Then: "as long as i can see the design. Including popups and modals or anything that requires a button click"
+**Implements (plan 2026-10-13, docs/modules/ROADMAP.md scope trace):** habit-logic/R10, R17, R19, R20 (R5, R8, R11 retired). app/R1 to R5, R10 to R15, R17, R19, R21 to R24, R27, R28, R31, R33, R35, R36, R38 to R40, R42 (R7, R9 retired)
 
 A new look the owner picks from five clickable static directions, then a new golden set.
 
@@ -124,6 +131,7 @@ A new look the owner picks from five clickable static directions, then a new gol
 ### S8 - A name that is free to use
 **Status:** OPEN · **Opened:** 2026-10-10 · **Tag:** USER
 **Source:** D-02, owner: "Streaky Habit", then "Check if its ok to be used... if both names cant be used, then add Danials [app name] Or if theres a better way to make it uniquely to me."
+**Implements (plan 2026-10-13, docs/modules/ROADMAP.md scope trace):** app/R1, R4, R27
 
 A product name no other habit app uses, shown in the new wordmark and the logo lockup.
 
@@ -147,6 +155,9 @@ A product name no other habit app uses, shown in the new wordmark and the logo l
 | 8 | Planner process note. One planner edited its own qa.md with one sed -i in the shell, against the Write-tool rule | 2026-10-13 21:15 plan | Only its own file inside the project changed, and it checked the result with grep. Later briefs forbid any shell write | ORCH (planner) | Noted |
 | 9 | Plan check (coverage gate) on the v1.1.0 contracts. BLOCK, 1 BLOCK, 11 FLAG, 7 NOTE (docs/modules/PLAN-CHECK.md). B1, task 11 expects the sealed 179 passed on the unchanged src, but four more 1.0 browser tests read goldens the finalize replaced. F1, the contracts still marked CG-10 to CG-19 pending after the owner ruled them. Others on an example figure, the 1.0 strip tests, the clipboard stand-in in fidelity scripts, a live gate control, the RED-first method for new exports, README items, prose colons, checklist rows, a retired scenario marker, a threat row | 2026-10-13 21:27 plan | Routed to one planner fix pass. B1 by restoring the four 1.0 goldens from tag v1.0.0 as test fixtures, the same approach as the 1.0 sample (ORCH, reversible). N4 was two wrong citations in this ledger, corrected in place with a dated note | ORCH (plan checker, routing) | Fix pass running, re-check next |
 | 10 | Plan check fix pass on B1, F1 to F11, N1 to N7 | 2026-10-13 21:55 plan | One planner pass with Edit only. B1, the four 1.0 goldens come back byte for byte from tag v1.0.0 into tests/fixtures/design-v1.0.0/ at app task 11 (blob ids named), task 12 removes them with their readers. F1, CG-10 to CG-19 marked ruled with ledger rows. F3, task 12 removes the 1.0 browser test files and names who rewrites each, @R30 moves to a new test_engines.py. F4, the clipboard stand-in loads before the page in every fidelity seed. F5, a live gate control run with --control seeded that must fail. F6, the RED-first method is a throwaway stub. F8, prose colons and the semicolon removed. App scenarios 165 live, checklist 139 rows | ORCH (planner) | Fixed per the planner, re-check running |
+| 11 | Removing 1.0 test files during the build. Streaks task 12 removes eight tracked 1.0 browser test files and the 1.0 fixture folder, Split removes its 1.0 fixture copies with their readers. The house rule says cleanups never delete, so the owner was asked (plan check F15 in Streaks) | 2026-10-13 22:20 plan | USER "git rm, kept in tag v1.0.0 (Recommended)", each file is removed in the build commit that rewrites or retires it and stays recoverable with git checkout v1.0.0 -- <path>. No archive copy. Corrected 2026-10-13 23:00 (planner touch-up, Streaks F15). That command restores the 1.0 test files only. The 1.0 fixture copies under tests/fixtures/design-v1.0.0/ never sat at that path in the tag, so they come back with git checkout <the fixture task's commit> -- tests/fixtures/design-v1.0.0/, or git show v1.0.0:docs/design/<file> checked against the blob ids the spec names. Never git checkout v1.0.0 -- docs/design/<file>, which would overwrite a v1.1.0 golden | USER | Ruled |
+| 12 | Plan re-check after the fix pass | 2026-10-13 22:16 plan | PASS, 0 BLOCK, 4 FLAG, 4 NOTE (docs/modules/PLAN-CHECK.md, the first verdict in 5dea5ae). B1 and F1 to F11 FIXED with evidence (blob ids equal tag v1.0.0, no pending CG left, stand-in in every clicking capture, live gate control). New FLAGs F12 sixteen scenarios sit in a task's file before the task that builds their feature, F13 the stub method does not reach test_engines.py, F14 two test_tick.py tests (the R6 check that Best back to 0 removes the Best block, and JC3) dropped with no scenario, F15 the deletions (ruled above). NOTEs N8 and N9 on a threat row and @R30 placement | ORCH (plan checker) | PASS. F12 to F14, N8, N9 go to a short planner touch-up before execute |
+| 13 | Plan touch-up after the PASS re-check, F12 to F15, N8, N9 | 2026-10-13 22:55 plan | One planner pass with Edit only. F12 one rule for tests that wait on a later task (xfail strict with the task, table W1 to W22). F13 the RED-first stub method extended to test_engines.py and new files. F14 two new scenarios replace the dropped 1.0 tick tests (Best back to 0 removes the Best block, Current moves alone). F15 the owner's deletion ruling written into task 12 and the ROADMAP. N8 the year-view threat row made true for an editable past year. N9 the @R30 finder checks placed. App scenarios 167 live, checklist 139, task to R# lists unchanged | ORCH (planner) | Closed. FLAG fixes after a PASS, task to R# map unchanged, so no further check |
 
 ---
 

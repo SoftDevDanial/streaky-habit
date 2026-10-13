@@ -5,6 +5,7 @@
 > Written by the solutions architect (sdlc planner), 2026-10-08 (1.0, sealed, full text at git tag `v1.0.0`).
 > v1.1.0 rewrite by the planner (solutions architect role), 2026-10-13. Scenario titles end with `(v1.1.0 new)` or `(v1.1.0 changed)`. A changed scenario replaces its 1.0 form, which stays at tag `v1.0.0`. Scenarios of retired requirements (R7, R8, R9, R18) and 1.0 scenarios with no v1.1.0 form are kept as text under "Feature: Retired in v1.1.0" at the end of the Gherkin, each with a `# Retired in v1.1.0` comment, and their tests are removed. A scenario that applies a clarify gate part 2 ruling names its item in its title ("CG-n ruled") and asserts the answer that `spec.md` applies. The owner ruled all ten items, CG-10 to CG-19, on 2026-10-13 with the recommended answers (ledger S1 row 4, S3 row 2, S4 row 3, S7 row 12, `../ROADMAP.md`, v1.1.0, Clarify gate). The coverage count per R# is at the end of this file.
 > Changed 2026-10-13 after the plan check (B1, F1, F3 to F6, F8, F9). The 21 titles that now read "CG-n ruled" first read "pending CG-n" (F1). Other changes carry their own dated note where they were made.
+> Changed 2026-10-13 after the plan re-check (F12, F13, F14, N9). The new section "Scenarios that wait on a later task" names, for W1 to W22, the task from which each is green (F12). "Controls are watched failing first" lists the stubs for names and files under test (F13). Two new scenarios (`@R6 @R32` and `@R32`) succeed two `test_tick.py` tests that had no scenario (F14). The Feature "Two engines" names its two finder checks (N9). Each change carries its own dated note.
 > Phase skills. The plan phase has none assigned. The builder of each UI task loads the design row of `docs/phase-skills.md` (`taste-skill`, `frontend-design`) before writing UI (spec, Tasks).
 
 ## How these scenarios run
@@ -53,8 +54,46 @@ Task 11's probe may add a row only for Chromium-only tooling (class (c) of spec 
 - **No context sets `is_mobile`** (it breaks `mouse.wheel` in WebKit). Touch uses `has_touch` (`open_app(touch=True)`).
 - **The page guard in ordinary scenarios** (R14, CG-11 ruled). For 500 ms after a mouse or touch click inside a popup (its backdrop included, since a backdrop click targets the dialog element), the page and any popup open beneath it ignore clicks. `Event.timeStamp` does not move under a fixed clock (measured in 1.0). So a scenario that clicks the page, or a popup that lay beneath, after a click inside a popup opens with `install_time=NOON` and calls `let_guard_pass(page)` before that click. Scenarios do not repeat this step in their text, except the guard scenarios themselves. Closing with Escape starts no window. A scenario that confirms a delete with the mouse uses `confirm_delete`, and one that confirms with the keyboard presses Tab and Enter from Cancel.
 - **Measured press points.** A scenario that presses a point to prove what lies behind a popup finds the point by measuring bounding boxes, and checks that a control of the named kind really lies under it (`document.elementFromPoint` after the popup closes, or before it opens). A layout change can then fail the precondition but never pass the scenario because nothing is there.
-- **Controls are watched failing first** (constitution, Gates and evidence). Each new or changed scenario's test runs once before its task's code lands, and is recorded RED on the assertion that states the property (never on an import error or a fixture error), in `docs/modules/app/qa/red-first/<datetimestamp>-<engine>/`. A Node test of a new export of `src/` (`arcPath` and `legendCounts` of the new `src/ring.js`, task 13) sees RED through the throwaway stub that `../habit-logic/qa.md` states once (named data, "The RED-first method for a new export"). The changed `storage.js` results (`saveHabits`, `loadHabits`, task 14) need no stub, because their 1.0 forms fail the new assertions. A browser test needs none either, because it reaches the app through the page, where a missing control fails a locator expectation on the property. The live gate is written after the app is built, so its watched failure is its control run (Cold-boot live-e2e gate). Added 2026-10-13 after the plan check (F5, F6).
+- **Controls are watched failing first** (constitution, Gates and evidence). Each new or changed scenario's test runs once before its task's code lands, and is recorded RED on the assertion that states the property (never on an import error or a fixture error), in `docs/modules/app/qa/red-first/<datetimestamp>-<engine>/`. A Node test of a new export of `src/` (`arcPath` and `legendCounts` of the new `src/ring.js`, task 13) sees RED through the throwaway stub that `../habit-logic/qa.md` states once (named data, "The RED-first method for a new export"). The changed `storage.js` results (`saveHabits`, `loadHabits`, task 14) need no stub, because their 1.0 forms fail the new assertions. A browser test that reaches the app through the page needs none either, because a missing control fails a locator expectation on the property. The live gate is written after the app is built, so its watched failure is its control run (Cold-boot live-e2e gate). Added 2026-10-13 after the plan check (F5, F6).
+  A helper that a task adds to `conftest.py` only to drive or read the app (a locator, a storage driver, a log) is test code written with its test before the RED run, so it needs no stub, and the RED comes from the app. A test whose subject is itself a name or a file that its own task creates would fail at import, on a missing fixture or on a missing file. It gets a throwaway stub by the method of `../habit-logic/qa.md`, of the right kind with a wrong value, run once with its RED kept and never committed. The table lists every such case in the plan. Added 2026-10-13 after the plan re-check (F13). The method first reached ES module exports only, so the three `test_engines.py` tests of task 11 would have failed at import or on a missing fixture.
+
+  | Task | Scenarios | Missing before the task's code | Throwaway stub, never committed | Seen RED on |
+  |---|---|---|---|---|
+  | 11 | "The run uses the engine it was asked for", "An unknown engine is refused before any browser starts", "One helper launches every browser" (`test_engines.py`) | the `--engine` option, the `engine` fixture, `launch`, `LAUNCH_ARGS`, the `-<engine>` end of `EVIDENCE_DIR` | in `conftest.py`, `--engine` added with no choices, an `engine` fixture that returns the option's value, a `launch(playwright, engine)` that launches Chromium for any engine and never raises, `LAUNCH_ARGS` set to `{"chromium": [], "webkit": []}`, `EVIDENCE_DIR` built as in 1.0, and the 1.0 `browser` fixture left as it is | one run with `--engine webkit` and `STREAKS_EVIDENCE_DIR` set. The browser type is "chromium", the evidence folder does not end with "-webkit", `--engine firefox --collect-only` exits 0 and names no choices, `launch(playwright, "firefox")` raises nothing, `.launch(` appears outside `launch`, `live_e2e.py` does not import `launch`, and `LAUNCH_ARGS["chromium"]` is `[]` |
+  | 12 | "The icon file is the goldens' icon, byte for byte" (`test_entry.py`) | `src/icon.svg` | an empty `src/icon.svg` | its bytes differ from the decoded href |
+  | 13 | the `@R42` Node scenarios (`tests/ring.test.js`) | `src/ring.js` | the stub that `../habit-logic/qa.md` states, with `new Date()` in it for "ring.js is pure" | each value, and the purity scan |
+  | 26 | "The fidelity state scripts are right" (`test_fidelity_inputs.py`) | each state script that task 26 adds (Fidelity gate) | an empty file of each new name | each script's text checks |
+
+- **A test that waits on a later task** follows the rule in spec, Tasks, and the next section names each one. Added 2026-10-13 after the plan re-check (F12).
 - `docs/design/` is read-only. Tests read the goldens and `sample-history.json` and never write there.
+
+### Scenarios that wait on a later task
+Each scenario below sits in a file whose task comes before the task that lands the last feature it uses. It follows the one rule of spec, Tasks ("A test that waits on a later task"). Its test is run once and recorded RED before the code of the task that writes it, and it is green from the task in the fifth column with no mark. Written before that task, it carries `pytest.mark.xfail(strict=True, reason="task N")`, in an Outline only on the rows that wait (`pytest.param(..., marks=...)`). That task removes the mark. A marked test that passes early fails the run, and the builder acts as the spec says. No mark is left after task 22. W21 and W22 are written at the task they wait on, so they carry no mark. Added 2026-10-13 after the plan re-check (F12). The plan first said how such a test behaves only for W1 and W2, as "stay RED".
+
+| # | Scenario | File, written at task | What waits (other rows are green at once) | Green from task (the mark's reason) | The feature that task lands |
+|---|---|---|---|---|---|
+| W1 | The page links the icon and the policy lets it load | `test_entry.py`, 12 | the scenario | 15 | a boot with no page error |
+| W2 | The app works from a sub-path | `test_entry.py`, 12 | the scenario | 21 | the add |
+| W3 | English under a German browser locale | `test_render.py`, 15 | the scenario | 19 | P2 |
+| W4 | A new habit shows no Best block | `test_render.py`, 15 | the scenario | 21 | the add |
+| W5 | The fades follow the rows and a resize | `test_render.py`, 15 | the scenario | 21 | the add |
+| W6 | Small rings carry no number and no today circle | `test_render.py`, 15 | the scenario | 18 | P1 (P3 lands at 17) |
+| W7 | One Done today updates every place at once, and only what changed moves | `test_today.py`, 16 | the scenario | 19 | P2 |
+| W8 | A tick in P1 over P3 updates P3 and the row, and leaves today's ring alone | `test_today.py`, 16 | the scenario | 18 | P1 ticks (P3 lands at 17) |
+| W9 | A tick in P1 over P4 updates P4 and P3 beneath it | `test_today.py`, 16 | the scenario | 20 | P4 and P1 over P4 |
+| W10 | A tick in P2 updates P2, the row and the band | `test_today.py`, 16 | the scenario | 19 | P2 |
+| W11 | Each edit saves once, and opening or closing a popup saves nothing | `test_today.py`, 16 | the scenario | 22 | the delete (P1 lands at 18, P2 at 19, P4 at 20, the add at 21) |
+| W12 | Best back to 0 removes the Best block in every place | `test_today.py`, 16 | the P1 row, the P2 row. The Done today row is green at 16 | 18, 19 | P1, P2 |
+| W13 | A tick that changes Current and leaves Best moves Current only | `test_today.py`, 16 | the P1 row, the P2 row | 18, 19 | P1, P2 |
+| W14 | Popups stack and Esc closes the top one only | `test_popups.py`, 17 | the scenario | 20 | P4 from P3's Year, P1 over P4 |
+| W15 | A backdrop click closes that popup only | `test_popups.py`, 17 | rows "P3, then P1" and "P1 from the band" (18), "P2 for Read" (19), "P4 from the band's Year" (20), the two M1 rows and "P2 for Read, then M1" (22). The 800x900 P3 row is green at 17 | 18, 19, 20, 22 by row | P1, P2, P4, M1 from a bin |
+| W16 | A click inside the box, or a drag that leaves it, closes nothing | `test_popups.py`, 17 | every row, P1 (18), P2 (19), P4 (20), M1 (22) | 18, 19, 20, 22 by row | P1, P2, P4, M1 from a bin |
+| W17 | Tab never reaches a control outside the top popup | `test_popups.py`, 17 | every row, "P3, then P1" (18), P2 (19), M1 (22) | 18, 19, 22 by row | P1, P2, M1 from a bin |
+| W18 | Every popup is modal and the page does not scroll under it | `test_popups.py`, 17 | rows P1 (18), P2 (19), "P3, then P4" (20), M1 (22). The P3 row is green at 17 | 18, 19, 20, 22 by row | P1, P2, P4, M1 from a bin |
+| W19 | A day before a habit was added can be ticked | `test_year.py`, 19 | the scenario | 21 | the add |
+| W20 | Deleting one of twelve opens the composer again | `test_add.py`, 21 | the scenario | 22 | the delete |
+| W21 | Every context has the clipboard stand-in | `test_engines.py` (task 11's file), written at 19 | nothing, no mark | 19 | Year (Done today lands at 16) |
+| W22 | On a phone the chosen day stays in sight above P1 | `test_day_editor.py`, the four P3 rows at 18, the two P4 rows written at 20 | nothing, no mark | 18 and 20 by row | P4 |
 
 ### Engine differences by design
 | Behaviour | Chromium | WebKit | Source |
@@ -111,6 +150,7 @@ Task 11's probe may add a row only for Chromium-only tooling (class (c) of spec 
 ```gherkin
 Feature: Shipped entry point, stylesheet and icon
   # tests/browser/test_entry.py (task 12), except where a scenario names another file
+  # W1 and W2 wait on a later task ("Scenarios that wait on a later task", added 2026-10-13 after the plan re-check, F12)
 
   @R1
   Scenario: Head, CSP, icon link and relative URLs (v1.1.0 changed)
@@ -219,9 +259,13 @@ Feature: Shipped entry point, stylesheet and icon
     Then every name present on the app page is also present on the "__seed__" page
 
 Feature: Two engines
-  # tests/browser/test_engines.py (task 11), except the last scenario (task 19). Changed 2026-10-13 after the plan check
-  # (F3). This Feature first went into the 1.0 file test_platform.py, which task 12 removes, and its last scenario
-  # presses Done today and Year, which the 1.0 app of task 11 does not have.
+  # tests/browser/test_engines.py holds the first three scenarios (task 11, seen RED through the conftest stubs of
+  # "Controls are watched failing first") and the last one (written at task 19, W21). The fourth and the fifth are
+  # finder checks on run output, and no test function holds them. The QA finder reads the fourth from the -rA output of
+  # its Chromium and WebKit runs, and the fifth is read from the evidence of the live gate's runs at task 28.
+  # Changed 2026-10-13 after the plan check (F3). This Feature first went into the 1.0 file test_platform.py, which
+  # task 12 removes, and its last scenario presses Done today and Year, which the 1.0 app of task 11 does not have.
+  # Changed 2026-10-13 after the plan re-check (N9, F13). Task 11 first put the two finder checks into test_engines.py.
 
   @R30
   Scenario: The run uses the engine it was asked for (v1.1.0 new)
@@ -274,6 +318,7 @@ Feature: Two engines
 
 Feature: First visit and header
   # tests/browser/test_render.py (task 15)
+  # W3 waits on a later task ("Scenarios that wait on a later task", added 2026-10-13 after the plan re-check, F12)
 
   @R3 @R35 @R42
   Scenario: The empty first screen (v1.1.0 changed)
@@ -332,6 +377,7 @@ Feature: First visit and header
 ```gherkin
 Feature: Rows, numbers and the list frame
   # tests/browser/test_render.py (task 15)
+  # W4 and W5 wait on a later task ("Scenarios that wait on a later task", added 2026-10-13 after the plan re-check, F12)
 
   @R5 @R6
   Scenario: Rows in stored order (v1.1.0 changed)
@@ -450,6 +496,7 @@ Feature: The overview band
 
 Feature: Rings and the legend
   # tests/ring.test.js (task 13) for the Node scenarios, tests/browser/test_render.py (task 15) for the rest
+  # W6 waits on a later task ("Scenarios that wait on a later task", added 2026-10-13 after the plan re-check, F12)
 
   @R42
   Scenario: arcPath reproduces the goldens' shared arcs (v1.1.0 new)
@@ -527,6 +574,7 @@ Feature: Rings and the legend
 
 Feature: Done today and every view at once
   # tests/browser/test_today.py (task 16)
+  # W7 to W13 wait on later tasks ("Scenarios that wait on a later task", added 2026-10-13 after the plan re-check, F12)
 
   @R31 @R16
   Scenario Outline: Done today presses and unpresses (v1.1.0 new)
@@ -613,8 +661,49 @@ Feature: Done today and every view at once
     When the user deletes "Drink water" with its bin and confirm_delete
     Then 5 writes were made in all, and stored(page) equals encode of the habits on screen
 
+  @R6 @R32
+  Scenario Outline: Best back to 0 removes the Best block in every place (v1.1.0 new)
+    # Succeeds test_R6_best_goes_back_to_zero_in_place_when_the_only_tick_is_undone of the 1.0 test_tick.py, which
+    # guarded a 1.0 defect. The tick path updated the stats in place and left behind the Best element it had added
+    # when Best fell back to 0. The P1 and P2 rows are W12. Added 2026-10-13 after the plan re-check (F14).
+    Given 1 plain habits (one habit "Habit 1" with no done day) at 1280 x 800, with <popup>
+    Then the row of "Habit 1" has p.stats holding only span.stat.cur, with span.lbl "Current" and span.none "No streak yet"
+    When the user clicks <control>
+    Then the row's p.stats holds span.stat.cur with span.val holding b.num "1" and span.unit "day", then span.stat.best with span.lbl "Best" and span.val holding b.num "1"
+    And <after a tick>
+    When the user clicks <control> again
+    Then the row's p.stats holds only span.stat.cur, with span.lbl "Current" and span.none "No streak yet", and no span.stat.best element
+    And <after an untick>
+
+    Examples:
+      | popup                                | control               | after a tick                                                                                                 | after an untick                                                                                       |
+      | no popup open                        | "Done today, Habit 1" | "Done today, Habit 1" has aria-pressed "true"                                                                | "Done today, Habit 1" has aria-pressed "false"                                                        |
+      | P1 open for 2026-10-10 from the band | the tick "Habit 1"    | the tick's span.tstat holds span.tcur "Current 1 day" and then a span "Best 1"                               | the tick's span.tstat holds only span.tcur.none "No streak yet", and no span "Best"                   |
+      | P2 open for "Habit 1"                | the bead 2026-10-10   | P2's p.yr-stats holds span.stat.cur with b.num "1" and span.unit "day", then span.stat.best with b.num "1"   | P2's p.yr-stats holds only span.stat.cur, with span.none "No streak yet", and no span.stat.best element |
+
+  @R32
+  Scenario Outline: A tick that changes Current and leaves Best moves Current only (v1.1.0 new)
+    # Succeeds test_JC3_a_tick_writes_only_the_text_that_changed of the 1.0 test_tick.py (BUILD.md item 3, JC3). JC3 kept
+    # a tick from writing a text again, because the 1.0 streak line was a live region (1.0 R6, aria-live polite) and a
+    # screen reader may read a rewritten text again. In every v1.1.0 golden only #nh-msg carries aria-live, so that
+    # reason lapses and no scenario counts text writes. What stays is R32's rule that an element whose value did not
+    # change carries no class from the edit. "One Done today updates every place at once, and only what changed moves"
+    # holds it for Done today, and the rows below hold it in P1 and P2. Both rows are W13. Added 2026-10-13 after the
+    # plan re-check (F14).
+    Given the sample day at 1280 x 800, with <popup>
+    When the user clicks <control>
+    Then the Stretch row reads "Current 3 days" and "Best 5", with "bump" on its Current span.val and not on its Best span.val
+    And no element of the Read row or the No phone row has the class "bump"
+    And <popup stats>
+
+    Examples:
+      | popup                                | control                       | popup stats                                                                                                       |
+      | P1 open for 2026-10-10 from the band | the tick "Stretch 10 minutes" | the tick's span.tstat reads "Current 3 days" and "Best 5"                                                         |
+      | P2 open for "Stretch 10 minutes"     | the bead 2026-10-10           | P2's p.yr-stats holds Current "3" "days" with "bump" on that span.val, and Best "5" without "bump" on its span.val |
+
 Feature: Popups
   # tests/browser/test_popups.py (task 17)
+  # W14 to W18 wait on later tasks ("Scenarios that wait on a later task", added 2026-10-13 after the plan re-check, F12)
 
   @R40
   Scenario: Popups stack and Esc closes the top one only (v1.1.0 new)
@@ -757,6 +846,8 @@ Feature: The overview popup and the year of all habits
 
 Feature: The day editor
   # tests/browser/test_day_editor.py (tasks 18 and 20)
+  # Task 20 writes the scenarios and rows that use P4, among them the two P4 rows of W22 ("Scenarios that wait on a
+  # later task", added 2026-10-13 after the plan re-check, F12)
 
   @R36 @R42
   Scenario: A band day opens P1 (v1.1.0 new)
@@ -848,6 +939,7 @@ Feature: The day editor
 
 Feature: A habit's year view
   # tests/browser/test_year.py (task 19)
+  # W19 waits on a later task ("Scenarios that wait on a later task", added 2026-10-13 after the plan re-check, F12)
 
   @R33 @R6
   Scenario: Year opens the habit's year view (v1.1.0 new)
@@ -936,6 +1028,7 @@ Feature: A habit's year view
 ```gherkin
 Feature: Add a habit
   # tests/browser/test_add.py (task 21)
+  # W20 waits on a later task ("Scenarios that wait on a later task", added 2026-10-13 after the plan re-check, F12)
 
   @R10 @R16 @R32
   Scenario: The first habit on a fresh day (v1.1.0 changed)
@@ -2455,7 +2548,7 @@ Feature: Looks right
 - Re-run the Node suite (`node --test "tests/**/*.test.js"`), the browser suite in Chromium and in WebKit (two runs, two evidence folders), the 23 fidelity captures with their controls and the states check in Chromium, and the `@R27` cold-boot gate in Chromium and in WebKit, in the final parallel all-modules pass. Each engine's pass, fail and skip counts and run time go into `docs/regression/REGRESSION.md`.
 
 ## Coverage by R#
-Counted from the Gherkin above on 2026-10-13 by the planner, recounted by script after the plan-check fixes. A scenario with two tags counts for both. An outline counts once. 165 live scenarios (90 new, 71 changed, 4 unchanged from 1.0), 18 retired scenarios kept as text, 1 Chromium-only scenario (CO-1). Every live R# has at least one scenario. Changed 2026-10-13 after the plan check (F5), the live gate's control scenario added one new `@R27` scenario (164 and 89 before).
+Counted from the Gherkin above on 2026-10-13 by the planner, recounted by script after the plan-check fixes. A scenario with two tags counts for both. An outline counts once. 167 live scenarios (92 new, 71 changed, 4 unchanged from 1.0), 18 retired scenarios kept as text, 1 Chromium-only scenario (CO-1). Every live R# has at least one scenario. Changed 2026-10-13 after the plan check (F5), the live gate's control scenario added one new `@R27` scenario (164 and 89 before). Changed 2026-10-13 after the plan re-check (F14), the two successors of the `test_tick.py` tests added one `@R6 @R32` and one `@R32` scenario (165 and 90 before, R6 5 and R32 12 before).
 
 | R# | Spec status | Live scenarios | Retired kept | R# | Spec status | Live scenarios | Retired kept |
 |---|---|---|---|---|---|---|---|
@@ -2464,12 +2557,12 @@ Counted from the Gherkin above on 2026-10-13 by the planner, recounted by script
 | R3 | changed | 3 | 0 | R24 | changed | 2 | 0 |
 | R4 | changed | 4 | 0 | R25 | changed | 3 | 0 |
 | R5 | changed | 4 | 0 | R26 | unchanged | 3 | 0 |
-| R6 | changed | 5 | 0 | R27 | changed | 2 (the live gate and its control, two engines each) | 0 |
+| R6 | changed | 6 | 0 | R27 | changed | 2 (the live gate and its control, two engines each) | 0 |
 | R7 | retired | 0 | 3 | R28 | changed | 4 | 0 |
 | R8 | retired | 0 | 4 | R29 | new | 4 | 0 |
 | R9 | retired | 0 | 2 | R30 | new | 7 | 0 |
 | R10 | changed | 6 | 0 | R31 | new | 5 | 0 |
-| R11 | changed | 5 | 0 | R32 | new | 12 | 0 |
+| R11 | changed | 5 | 0 | R32 | new | 14 | 0 |
 | R12 | changed | 3 | 0 | R33 | new | 6 | 0 |
 | R13 | changed | 13 | 3 | R34 | new | 6 | 0 |
 | R14 | changed | 13 | 1 | R35 | new | 6 | 0 |

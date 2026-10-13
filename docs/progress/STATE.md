@@ -4,8 +4,8 @@
 - **design-phase:** sdlc:design
 - **version:** 1.1.0 (1.0.0 sealed 2026-10-10, tag v1.0.0)
 - **mode:** greenfield
-- **phase:** v1.1.0 plan, step 3 plan re-check running after the fix pass (first check BLOCK, B1 and F1 to F11 fixed by the planner 2026-10-13 21:55). Clarify gate part 2 ruled 2026-10-13 21:15 (CG-10 to CG-19, all USER)
-- **next:** PLAN-CHECK.md verdict, then a planner pass flips the specs' pending CG-12 to CG-19 markers to ruled and fixes any BLOCK, then the ledger scope map and commit. The orchestrator installs WebKit (owner approved 2026-10-13) before app task 11 and amends the CLAUDE.md stack line
+- **phase:** v1.1.0 plan DONE 2026-10-13 23:00. PLAN-CHECK PASS (re-check 22:16, then a touch-up closed its four FLAGs and two NOTEs). Clarify gates parts 1 and 2 all ruled (USER). Ledger scopes S1 to S8 name their module R#s
+- **next:** sdlc:execute v1.1.0. Step 0, the orchestrator installs WebKit (python -m playwright install webkit, owner approved 2026-10-13, ledger S5 row 2) and records it in process-ledger.md. Then the ROADMAP v1.1.0 build order, habit-logic tasks 6 to 9 (task 6 restores the 1.0 sample fixture), app task 11 (1.0 golden fixtures, engine switch, WebKit baseline, 179 passed in Chromium on unchanged src), then tasks 12 to 28. UI tasks load taste-skill and frontend-design. Weekly usage was 76% at plan close, the owner decides when the build waves start
 - **last-regression:** PASS @ 2026-10-10 12:25 (docs/regression/REGRESSION.md)
 
 ## Modules
