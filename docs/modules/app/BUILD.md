@@ -251,7 +251,7 @@ Both read on disk before any UI code (no Skill tool). `taste-skill` (`taste-skil
 - `src/calendar.js` (new). `element` and `svgElement` (the element factories every view module shares), `ringSvg`, `drawRing` (R42, returns whether it redrew a ring drawn before, so callers can pop it), `flagChange` (adds a class only to what changed, and restarts it when the same element changes twice), `drawLegend` (R42, redrawn only when the number of habits changes) and `drawOverview` (the band's columns or P3's rows from `heatmapCells`, laid out once per day and renamed and redrawn in place after that). Month labels come from habit-logic `monthLabels`, and P3 also labels its newest week (CG-16).
 - `src/view.js` written again for K1. `renderDate`, `renderOverviewButton`, `renderBand`, `renderRows` (rows built again only when the habits change, otherwise updated in place), `renderStats` (exported for P2 at task 19), `renderComposerLimit` (R12 at load), `renderFrameFades` (R5) and `containers`. The 1.0 strip, heatmap, dialog and add-form code went with it.
 - `src/app.js` written again. `readToday`, `state`, `render(animate)` and `boot` (load, date, first render with `animate` false, the frame's `scroll` handler and window `resize`). The 1.0 handlers (tick, add, delete, dismiss, rollover) went, each comes back with its task (16, 21, 22, 23, 24).
-- `tests/browser/test_render.py` (new). The task 15 scenarios of qa.md, 38 tests. W3 (`reason="task 19"`), W4 and W5 (`"task 21"`) and W6 (`"task 18"`) carry strict xfail marks.
+- `tests/browser/test_render.py` (new). The task 15 scenarios of qa.md, 37 tests (corrected 2026-10-14 at task 17 by the frontend builder, this line and the commit message of `b5a2d0d` said 38, a miscount. The RED run's 38 failures were 36 of `test_render.py` and W1 and W2 of `test_entry.py`). W3 (`reason="task 19"`), W4 and W5 (`"task 21"`) and W6 (`"task 18"`) carry strict xfail marks.
 - `tests/browser/test_entry.py`. W1's mark removed, it passes (the page boots with no page error, the icon loads under the CSP). Its module text now names W2 only.
 - `tests/browser/conftest.py`. Locators `row`, `bin_btn`, `year_btn`, `done_btn`, `band_day`, `p3_day` and `focused` (qa.md conftest table).
 - `spec.md` task 15 ticked.
@@ -316,3 +316,42 @@ None. The R23 scenarios themselves are task 25's (`test_platform.py`).
 ### For the README reconcile
 - `src/app.js` gains `edit` and `onPageClick`. `src/view.js` gains `doneTodayIndexOf`, `containers()` returns `page` and `frame`.
 - The browser suite gains `test_today.py`. `conftest.py` gains `p4_day`, `bead`, `tick`, `confirm_delete`, `stats_tree`, `current_block`, `best_block`, `row_numbers`.
+
+---
+
+## v1.1.0 task 17, popup plumbing and P3 (2026-10-14)
+> Written by the frontend builder (senior frontend dev agent), 2026-10-14. Requirements R40, R38. The commit is the one whose message starts `feat(app): popup plumbing and the overview popup P3 (task 17`.
+
+### Phase skills
+The design row loaded for task 15 covers this task. Transferred, the popup's copy and markup are the golden's (copy self-audit, no new string), motion is the copied `rise` and `fade`, focus is set where rule 1 says. No look changed.
+
+### What changed
+- `src/popups.js` (new). `dialogs()` (the five dialogs by what each shows, their selectors live here only), `closeButtonOf`, `showPopup(dialog, focusTarget)` (`showModal`, the sheet body to its top, focus on the rule 1 target), `onBackdrop(dialog, event)` (the point lies outside `div.dlg-box`, since a backdrop press is dispatched to the dialog element) and `renderOverviewPopup` (P3's weeks newest first and its legend, drawn by `calendar.drawOverview` and `drawLegend` as the band is).
+- `src/app.js`. `openers` (each open popup and the control that opened it), `pressStartedOnBackdrop`, `openPopup`, `openOverview`, and the generic listeners on all five dialogs, `onPopupPointerDown`, `onPopupClick` (Close, or a press and release both on the backdrop, closes that popup only) and `onPopupClose` (every way out, Esc included, puts focus back on the opener by hand). `onPageClick` also opens P3 from the Overview button. `render` redraws P3 while it is open (R32). Esc is the native `cancel`.
+- `src/view.js`. `overviewButtonOf(target)`.
+- `tests/browser/test_popups.py` (new). The five `@R40` scenarios of qa.md, 21 tests. Green at task 17 are the "800x900 P3" row of the backdrop outline (W15) and the P3 row of the modal outline (W18). Every other row carries a strict xfail mark with its task, W14 `"task 20"`, the W15 rows 18, 18, 19, 20, 22, 22 and 22, the W16 rows 22, 18, 19 and 20, the W17 rows 18, 19 and 22, the W18 rows 20, 19, 18 and 22.
+- `tests/browser/test_overview.py` (new). The three P3 scenarios of qa.md, 4 tests, all green. Task 20 adds P4's.
+- `tests/browser/conftest.py`. The ring and grid readers moved here from `test_render.py` (`grid_children`, `legend_parts`, `ring_parts`, `golden_arcs`, `ARCS3`, `ARCS12`, the part strings and `seg`, `number`, `ring_of`), because `test_overview.py` compares P3's rings with the band's (DRY). `test_render.py` imports them. It gave 33 passed and 4 xfailed before and after the move.
+- `spec.md` task 17 ticked.
+
+### RED first
+The two files were written first and run once with `--runxfail` on the task 16 tree, which opens no popup. 24 failed on their property (no dialog opened) and 1 passed (`docs/modules/app/qa/red-first/20261014-144543-chromium/junit.xml`). The one that passed is `test_R38_R22_p3_cannot_be_reached_on_a_desktop`, whose property (Tab never lands on the Overview button at 1280) is task 12's CSS, which does not display the button from 1024 px.
+
+### Proof
+- Chromium, **54 passed, 33 xfailed**, 185.7 s (`docs/modules/app/qa/functional/20261014-145825-chromium/junit.xml`). The run is slower than before because each xfail test waits up to 5 s for its missing popup.
+- WebKit, **53 passed, 1 skipped (CO-1, counted with its reason), 33 xfailed**, 203.7 s (`.../functional/20261014-150134-webkit/junit.xml`). No WebKit failure.
+- Node 137 of 137.
+- With `--runxfail` all 33 marked tests fail, each at the popup its task lands (P1, P2, P4 or M1 not opening, or a P4 or P2 control not drawn), and none fails in a P3 step.
+- Builder self-check (scratch, nothing written). P3 opened with `element.click()` against `overview.html` at 360 x 780 and 390 x 844 gives 0 differing pixels in both. Its control, `today.html` against the app with P3 open at 390 x 844, gives 73783.
+
+### Judgment calls (named, for the orchestrator)
+1. **One set of popup listeners for all five dialogs now.** Close, the backdrop and the focus return are the same rule for every popup (R40), so they are wired at boot on every dialog. Only P3 can open at this commit. Each later task adds its own opener and contents, not its own closing.
+2. **The tap-through guard (R14, CG-11) is not built.** It is task 22's. No green scenario of task 17 clicks the page within 500 ms of a click in a popup.
+3. **Focus on opening** is set by hand on Close, since the native first focus of `showModal` differs by engine and would land on P3's Year.
+
+### Deviations
+None.
+
+### For the README reconcile
+- `src/popups.js` is new, exporting `dialogs`, `closeButtonOf`, `showPopup`, `onBackdrop`, `renderOverviewPopup`. `src/app.js` gains `openers`, `pressStartedOnBackdrop`, `openPopup`, `openOverview`, `onPopupPointerDown`, `onPopupClick`, `onPopupClose`. `src/view.js` gains `overviewButtonOf`.
+- The browser suite gains `test_popups.py` and `test_overview.py`. `conftest.py` now holds the ring and grid readers.

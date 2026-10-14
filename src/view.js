@@ -186,3 +186,5 @@ export function doneTodayIndexOf(target) {
   const button = target.closest("button.btn-done");
   return button ? rowsOf().indexOf(button.closest("li.row")) : -1;
 }
+
+export const overviewButtonOf = (target) => target.closest("button.ov-btn");

@@ -12,19 +12,30 @@ import pytest
 from playwright.sync_api import expect
 
 from conftest import (
-    DESIGN_DIR,
+    ARCS3,
+    ARCS12,
+    CIRCLE_SEG,
+    CIRCLE_SEG_ON,
+    CORE,
     SAMPLE_HABITS,
     TODAY,
+    TODAY_CIRCLE,
     TWELVE,
     add_habit,
     best_block,
     current_block,
     done_btn,
     encode,
+    grid_children,
+    legend_parts,
+    number,
     p3_day,
+    ring_of,
+    ring_parts,
     row,
     row_numbers,
     sample_state,
+    seg,
     short_date,
     stats_tree,
     stored,
@@ -32,87 +43,15 @@ from conftest import (
     year_btn,
 )
 
-
-def golden_arcs(golden, prefix, count):
-    """The `d` of the shared arc paths `<prefix>-0` to `<prefix>-<count - 1>` of a golden, which R42's rule reproduces."""
-    text = (DESIGN_DIR / golden).read_text(encoding="utf-8")
-    return [re.search(rf'<path id="{prefix}-{i}" d="([^"]+)"/>', text).group(1) for i in range(count)]
-
-
-ARCS3 = golden_arcs("today.html", "a3", 3)
-ARCS12 = golden_arcs("today-full.html", "a12", 12)
-
 # The band's 84 places, Monday 20 July to Sunday 11 October. Its weeks are columns of Monday to Sunday, oldest first,
 # so grid order is calendar order.
 BAND_KEYS = [(datetime.date(2026, 7, 20) + datetime.timedelta(days=i)).isoformat() for i in range(84)]
 OPEN_KEYS = BAND_KEYS[:83]
 
-# A ring's children as text, so a whole ring compares in one assert. The Python names below build the same strings.
-RING_PARTS = """const part = (node) => {
-  const classes = (node.getAttribute('class') || '').split(/\\s+/).filter(Boolean).map((name) => '.' + name).join('');
-  const names = { circle: ['cx', 'cy', 'r'], path: ['d'], text: ['x', 'y', 'dy'] }[node.localName] || [];
-  const attributes = names.map((name) => `${name}=${node.getAttribute(name)}`).join(' ');
-  const text = node.localName === 'text' ? ` "${node.textContent}"` : '';
-  return `${node.localName}${classes}${attributes ? ' ' + attributes : ''}${text}`;
-};
-const ring = (svg) => svg && {
-  viewBox: svg.getAttribute('viewBox'),
-  hidden: svg.getAttribute('aria-hidden'),
-  parts: Array.from(svg.children).map(part),
-};"""
-
-CIRCLE_SEG = "circle.seg cx=20 cy=20 r=15"
-CIRCLE_SEG_ON = "circle.seg.on cx=20 cy=20 r=15"
-TODAY_CIRCLE = "circle.c-today cx=20 cy=20 r=19.2"
-CORE = "circle.c-core cx=20 cy=20 r=11.5"
-
-
-def seg(d, on):
-    return f"path.seg{'.on' if on else ''} d={d}"
-
-
-def number(day, on=False):
-    return f'text.c-num{".on" if on else ""} x=20 y=20 dy=.352em "{day}"'
-
-
-def ring_of(parts):
-    return {"viewBox": "0 0 40 40", "hidden": "true", "parts": parts}
-
-
-GRID_JS = (
-    "(selector) => {\n"
-    + RING_PARTS
-    + """
-  return Array.from(document.querySelector(selector).children).map((node) => ({
-    tag: node.localName,
-    cls: node.getAttribute('class'),
-    hidden: node.getAttribute('aria-hidden'),
-    text: node.children.length ? null : node.textContent,
-    type: node.getAttribute('type'),
-    key: node.getAttribute('data-key'),
-    popup: node.getAttribute('aria-haspopup'),
-    label: node.getAttribute('aria-label'),
-    current: node.getAttribute('aria-current'),
-    ring: ring(node.querySelector(':scope > svg')),
-  }));
-}"""
-)
-
-LEGEND_JS = (
-    "(selector) => {\n"
-    + RING_PARTS
-    + """
-  return Array.from(document.querySelector(selector).children).map((node) =>
-    node.localName === 'svg' ? ring(node) : `${node.localName}:${node.textContent}`);
-}"""
-)
-
-RING_JS = "(selector) => {\n" + RING_PARTS + "\n  return ring(document.querySelector(selector));\n}"
-
 
 def band_grid(page):
     """The band grid's children: the corner, seven weekday letters, then per week its month label and 7 cells."""
-    return page.evaluate(GRID_JS, "section.band div.ovg-cols")
+    return grid_children(page, "section.band div.ovg-cols")
 
 
 def band_cells(grid):
@@ -126,7 +65,7 @@ def done_count(habits, key):
 
 
 def band_ring(page, key):
-    return page.evaluate(RING_JS, f'section.band button.hc[data-key="{key}"] > svg')
+    return ring_parts(page, f'section.band button.hc[data-key="{key}"] > svg')
 
 
 # ---------------------------------------------------------------------------------------------------------------
@@ -190,11 +129,11 @@ def test_R3_R35_R42_the_empty_first_screen(app):
         assert cell["ring"] == ring_of(([TODAY_CIRCLE] if today else []) + [CIRCLE_SEG, number(day)]), cell["key"]
         assert cell["current"] == ("date" if today else None), cell["key"]
 
-    assert page.evaluate(LEGEND_JS, "section.band div.legend") == ["span:None", ring_of([CIRCLE_SEG]), "span:All"]
+    assert legend_parts(page, "section.band div.legend") == ["span:None", ring_of([CIRCLE_SEG]), "span:All"]
     assert stored(page) is None
 
     page.set_viewport_size({"width": 390, "height": 844})
-    assert page.evaluate(RING_JS, "button.ov-btn > span.ov-ring > svg") == ring_of([CIRCLE_SEG])
+    assert ring_parts(page, "button.ov-btn > span.ov-ring > svg") == ring_of([CIRCLE_SEG])
     expect(page.locator("button.ov-btn")).to_have_attribute("aria-label", "Overview, today 0 of 0 habits done")
 
 
@@ -616,7 +555,7 @@ def test_R35_R42_the_band_on_a_desktop(app):
         assert parts[-1] == number(int(cell["key"][-2:]), on=full), cell["key"]
     assert tally == {0: 2, 1: 16, 2: 47, 3: 18}
 
-    legend = page.evaluate(LEGEND_JS, "section.band div.legend")
+    legend = legend_parts(page, "section.band div.legend")
     assert legend == [
         "span:None",
         ring_of([seg(ARCS3[0], False), seg(ARCS3[1], False), seg(ARCS3[2], False)]),
@@ -680,7 +619,7 @@ def test_R42_twelve_habits_draw_twelve_segments(app):
         flags = [key_done(habit, cell["key"]) for habit in TWELVE]
         assert segments == [seg(ARCS12[i], flags[i]) for i in range(12)], cell["key"]
 
-    legend = page.evaluate(LEGEND_JS, "section.band div.legend")
+    legend = legend_parts(page, "section.band div.legend")
     assert legend[0] == "span:None" and legend[-1] == "span:All"
     expected = []
     for count in (0, 4, 8, 12):
@@ -693,15 +632,12 @@ def key_done(habit, key):
     return key in habit["done"]
 
 
-OV_RING_JS = "() => {\n" + RING_PARTS + "\n  return ring(document.querySelector('button.ov-btn > span.ov-ring > svg'));\n}"
-
-
 @pytest.mark.xfail(strict=True, reason="task 18")
 def test_R42_small_rings_carry_no_number_and_no_today_circle(app):
     page = app(storage=sample_state())
     three = [seg(ARCS3[0], True), seg(ARCS3[1], False), seg(ARCS3[2], False)]
-    assert page.evaluate(OV_RING_JS) == ring_of(three)
+    assert ring_parts(page, "button.ov-btn > span.ov-ring > svg") == ring_of(three)
     page.locator("button.ov-btn").click()
     p3_day(page, TODAY).click()
     expect(page.locator("dialog.dlg-day")).to_have_attribute("open", "")
-    assert page.evaluate(RING_JS, "dialog.dlg-day div.day-mini > svg") == ring_of(three)
+    assert ring_parts(page, "dialog.dlg-day div.day-mini > svg") == ring_of(three)

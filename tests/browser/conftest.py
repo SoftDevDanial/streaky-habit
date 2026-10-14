@@ -13,6 +13,7 @@ import datetime
 import json
 import os
 import pathlib
+import re
 import socket
 import subprocess
 import sys
@@ -610,6 +611,93 @@ _ROW_NUMBERS_JS = """(row) => {
 def row_numbers(page, name):
     """{"current": "4 days" or "No streak yet", "best": "9" or None} as the row of `name` reads them."""
     return row(page, name).evaluate(_ROW_NUMBERS_JS)
+
+
+# Rings read as text, so a whole ring compares in one assert (spec R42). The JS turns each child of a ring svg into a
+# string, and the Python names below build the same strings from the spec's values.
+_RING_PARTS_JS = """const part = (node) => {
+  const classes = (node.getAttribute('class') || '').split(/\\s+/).filter(Boolean).map((name) => '.' + name).join('');
+  const names = { circle: ['cx', 'cy', 'r'], path: ['d'], text: ['x', 'y', 'dy'] }[node.localName] || [];
+  const attributes = names.map((name) => `${name}=${node.getAttribute(name)}`).join(' ');
+  const text = node.localName === 'text' ? ` "${node.textContent}"` : '';
+  return `${node.localName}${classes}${attributes ? ' ' + attributes : ''}${text}`;
+};
+const ring = (svg) => svg && {
+  viewBox: svg.getAttribute('viewBox'),
+  hidden: svg.getAttribute('aria-hidden'),
+  parts: Array.from(svg.children).map(part),
+};"""
+
+_GRID_JS = (
+    "(selector) => {\n"
+    + _RING_PARTS_JS
+    + """
+  return Array.from(document.querySelector(selector).children).map((node) => ({
+    tag: node.localName,
+    cls: node.getAttribute('class'),
+    hidden: node.getAttribute('aria-hidden'),
+    text: node.children.length ? null : node.textContent,
+    type: node.getAttribute('type'),
+    key: node.getAttribute('data-key'),
+    popup: node.getAttribute('aria-haspopup'),
+    label: node.getAttribute('aria-label'),
+    current: node.getAttribute('aria-current'),
+    ring: ring(node.querySelector(':scope > svg')),
+  }));
+}"""
+)
+
+_LEGEND_JS = (
+    "(selector) => {\n"
+    + _RING_PARTS_JS
+    + """
+  return Array.from(document.querySelector(selector).children).map((node) =>
+    node.localName === 'svg' ? ring(node) : `${node.localName}:${node.textContent}`);
+}"""
+)
+
+_RING_JS = "(selector) => {\n" + _RING_PARTS_JS + "\n  return ring(document.querySelector(selector));\n}"
+
+
+def grid_children(page, selector):
+    """Each child of an overview grid (div.ovg-cols, div.ovg-rows) with its attributes, text and ring."""
+    return page.evaluate(_GRID_JS, selector)
+
+
+def legend_parts(page, selector):
+    """A legend's children, "span:<text>" for a word and a `ring_of` dict for a ring."""
+    return page.evaluate(_LEGEND_JS, selector)
+
+
+def ring_parts(page, selector):
+    """The ring svg at `selector` as a `ring_of` dict, or None when there is none."""
+    return page.evaluate(_RING_JS, selector)
+
+
+def golden_arcs(golden, prefix, count):
+    """The `d` of the shared arc paths `<prefix>-0` to `<prefix>-<count - 1>` of a golden, which R42's rule reproduces."""
+    text = (DESIGN_DIR / golden).read_text(encoding="utf-8")
+    return [re.search(rf'<path id="{prefix}-{i}" d="([^"]+)"/>', text).group(1) for i in range(count)]
+
+
+ARCS3 = golden_arcs("today.html", "a3", 3)
+ARCS12 = golden_arcs("today-full.html", "a12", 12)
+CIRCLE_SEG = "circle.seg cx=20 cy=20 r=15"
+CIRCLE_SEG_ON = "circle.seg.on cx=20 cy=20 r=15"
+TODAY_CIRCLE = "circle.c-today cx=20 cy=20 r=19.2"
+CORE = "circle.c-core cx=20 cy=20 r=11.5"
+
+
+def seg(d, on):
+    return f"path.seg{'.on' if on else ''} d={d}"
+
+
+def number(day, on=False):
+    return f'text.c-num{".on" if on else ""} x=20 y=20 dy=.352em "{day}"'
+
+
+def ring_of(parts):
+    return {"viewBox": "0 0 40 40", "hidden": "true", "parts": parts}
 
 
 def focused(page):

@@ -2,11 +2,12 @@
  * The composition root (spec Contracts, Files): boots the page from the saved habits and today's date, and wires
  * the events. Why: the one place that joins habit-logic (the rules), storage.js (persistence) and the view modules
  * (the DOM), so none of them imports another's job. index.html loads this module and nothing else. It exports nothing.
- * State is the habits array and the shown day. Every change goes through a habit-logic function, then a save, then a
- * synchronous render inside the handler that caused it (spec Invariants).
+ * State is the habits array, the shown day and the open popups with their openers. Every change goes through a
+ * habit-logic function, then a save, then a synchronous render inside the handler that caused it (spec Invariants).
  */
 import { localDateKey } from "./dates.js";
 import { MAX_HABITS, doneFlags, heatmapCells, toggleDay } from "./habits.js";
+import * as popups from "./popups.js";
 import { loadHabits, saveHabits } from "./storage.js";
 import * as view from "./view.js";
 
@@ -17,14 +18,22 @@ function readToday() {
 
 const state = { habits: [], todayKey: "" };
 
+/** Each open popup and the control that opened it, so closing it puts focus back there (rule 1). */
+const openers = new Map();
+
+/** Whether the current press began on a popup's backdrop (R40). */
+let pressStartedOnBackdrop = false;
+
 /**
- * Draws every view of the habits for the shown day. `animate` is true when the render answers an edit, so what
- * the edit changed pops or bumps once (R32), and false at boot, where nothing moves (R23).
+ * Draws every view of the habits for the shown day, the open popups included. `animate` is true when the render
+ * answers an edit, so what the edit changed pops or bumps once (R32), and false at boot, where nothing moves (R23).
  */
 function render(animate) {
   const { habits, todayKey } = state;
+  const cells = heatmapCells(habits, todayKey);
   view.renderOverviewButton(doneFlags(habits, todayKey), animate);
-  view.renderBand(heatmapCells(habits, todayKey), todayKey, habits.length, animate);
+  view.renderBand(cells, todayKey, habits.length, animate);
+  if (popups.dialogs().overview.open) popups.renderOverviewPopup(cells, todayKey, habits.length, animate);
   view.renderRows(habits, todayKey, animate);
   view.renderComposerLimit(habits.length >= MAX_HABITS);
   view.renderFrameFades();
@@ -37,13 +46,56 @@ function edit(habits) {
   render(true);
 }
 
+function openPopup(dialog, opener, focusTarget) {
+  openers.set(dialog, opener);
+  popups.showPopup(dialog, focusTarget);
+}
+
+/** P3, the 12 weeks on a phone (R38), drawn fresh as it opens. */
+function openOverview(opener) {
+  const { overview } = popups.dialogs();
+  popups.renderOverviewPopup(heatmapCells(state.habits, state.todayKey), state.todayKey, state.habits.length, false);
+  openPopup(overview, opener, popups.closeButtonOf(overview));
+}
+
 /**
  * Done today ticks or unticks today (R31). The button is updated in place by the render, and focus is never moved,
- * so a keyboard user stays on it.
+ * so a keyboard user stays on it. The Overview button opens P3.
  */
 function onPageClick(event) {
   const index = view.doneTodayIndexOf(event.target);
-  if (index >= 0) edit(toggleDay(state.habits, index, state.todayKey, state.todayKey));
+  if (index >= 0) {
+    edit(toggleDay(state.habits, index, state.todayKey, state.todayKey));
+    return;
+  }
+  const overviewButton = view.overviewButtonOf(event.target);
+  if (overviewButton) openOverview(overviewButton);
+}
+
+function onPopupPointerDown(event) {
+  pressStartedOnBackdrop = popups.onBackdrop(event.currentTarget, event);
+}
+
+/**
+ * Close closes its popup, and so does a click whose press and release both land on the backdrop. A click inside the
+ * box, or a drag from the box to the backdrop, closes nothing (R40).
+ */
+function onPopupClick(event) {
+  const dialog = event.currentTarget;
+  const pressedOnBackdrop = pressStartedOnBackdrop;
+  pressStartedOnBackdrop = false;
+  const close = popups.closeButtonOf(dialog);
+  if ((close && close.contains(event.target)) || (pressedOnBackdrop && popups.onBackdrop(dialog, event))) dialog.close();
+}
+
+/**
+ * Every way out of a popup ends here (Close, Esc, the backdrop). Focus goes back to its opener by hand, because a
+ * clicked button never took focus in WebKit, so the native return has nothing to return to (R40).
+ */
+function onPopupClose(event) {
+  const opener = openers.get(event.currentTarget);
+  openers.delete(event.currentTarget);
+  opener?.focus();
 }
 
 function boot() {
@@ -55,6 +107,11 @@ function boot() {
   page.addEventListener("click", onPageClick);
   frame.addEventListener("scroll", view.renderFrameFades);
   window.addEventListener("resize", view.renderFrameFades);
+  for (const dialog of Object.values(popups.dialogs())) {
+    dialog.addEventListener("pointerdown", onPopupPointerDown);
+    dialog.addEventListener("click", onPopupClick);
+    dialog.addEventListener("close", onPopupClose);
+  }
 }
 
 boot();
