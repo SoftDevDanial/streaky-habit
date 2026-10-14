@@ -176,4 +176,13 @@ export function renderFrameFades() {
 }
 
 /** The elements app.js listens on. Their selectors live here only. */
-export const containers = () => ({ frame: $("div.frame") });
+export const containers = () => ({ page: $("div.app"), frame: $("div.frame") });
+
+/**
+ * The position of the habit whose Done today holds `target`, or -1. Rows carry no index attribute (spec Events and
+ * focus), so a row's habit is its place in the list.
+ */
+export function doneTodayIndexOf(target) {
+  const button = target.closest("button.btn-done");
+  return button ? rowsOf().indexOf(button.closest("li.row")) : -1;
+}

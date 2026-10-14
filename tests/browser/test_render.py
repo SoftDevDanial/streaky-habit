@@ -17,10 +17,16 @@ from conftest import (
     TODAY,
     TWELVE,
     add_habit,
+    best_block,
+    current_block,
+    done_btn,
     encode,
     p3_day,
+    row,
+    row_numbers,
     sample_state,
     short_date,
+    stats_tree,
     stored,
     twelve_state,
     year_btn,
@@ -357,24 +363,8 @@ def test_R5_R6_rows_in_stored_order(app):
     assert found["rows"] == expected
 
 
-# p.stats as a tree: an element is "tag.class.class", a leaf adds ":text", a parent is [name, [children]].
-STATS_JS = """(name) => {
-  const label = (node) => [node.localName, ...node.classList].join('.');
-  const tree = (node) => node.children.length ? [label(node), Array.from(node.children).map(tree)] : `${label(node)}:${node.textContent}`;
-  const row = Array.from(document.querySelectorAll('ul.rows > li.row'))
-    .find((candidate) => candidate.querySelector('h3.r-name').textContent === name);
-  return Array.from(row.querySelector(':scope > p.stats').children).map(tree);
-}"""
-
-
-def current_block(value, unit=None):
-    if unit is None:
-        return ["span.stat.cur", ["span.lbl:Current", "span.none:No streak yet"]]
-    return ["span.stat.cur", ["span.lbl:Current", ["span.val", [f"b.num:{value}", f"span.unit:{unit}"]]]]
-
-
-def best_block(value):
-    return ["span.stat.best", ["span.lbl:Best", ["span.val", [f"b.num:{value}"]]]]
+def row_stats(page, name):
+    return stats_tree(row(page, name).locator(":scope > p.stats"))
 
 
 @pytest.mark.parametrize(
@@ -382,27 +372,14 @@ def best_block(value):
     [
         ("Read 20 pages", current_block(4, "days"), 9),
         ("Stretch 10 minutes", current_block(2, "days"), 5),
-        ("No phone after 11pm", current_block(None), 14),
+        ("No phone after 11pm", current_block(), 14),
     ],
 )
 def test_R6_current_and_best_for_the_sample(app, habit, current, best):
     page = app(storage=sample_state())
     expect(page.locator("ul.rows > li.row")).to_have_count(3)
-    assert page.evaluate(STATS_JS, habit) == [current, best_block(best)]
+    assert row_stats(page, habit) == [current, best_block(best)]
 
-
-TWELVE_JS = """() => Array.from(document.querySelectorAll('ul.rows > li.row')).map((row) => {
-  const current = row.querySelector('.stat.cur');
-  const value = current.querySelector(':scope > span.val');
-  const best = row.querySelector('.stat.best .num');
-  return {
-    name: row.querySelector('h3.r-name').textContent,
-    current: value ? `${value.querySelector('b.num').textContent} ${value.querySelector('span.unit').textContent}`
-      : current.querySelector(':scope > span.none').textContent,
-    best: best && best.textContent,
-    pressed: row.querySelector('button.btn-done').getAttribute('aria-pressed'),
-  };
-})"""
 
 TWELVE_TABLE = [
     ("Read 20 pages", "4 days", "9", "true"),
@@ -423,12 +400,16 @@ TWELVE_TABLE = [
 def test_R6_R31_twelve_habits_show_the_goldens_numbers(app):
     page = app(storage=twelve_state())
     expect(page.locator("ul.rows > li.row")).to_have_count(12)
-    found = page.evaluate(TWELVE_JS)
-    assert [(row["name"], row["current"], row["best"], row["pressed"]) for row in found] == TWELVE_TABLE
-    for row in found:
-        if row["current"] != "No streak yet":
-            count, unit = row["current"].split(" ")
-            assert unit == ("day" if count == "1" else "days"), row
+    names = page.locator("ul.rows > li.row h3.r-name").all_text_contents()
+    found = []
+    for name in names:
+        numbers = row_numbers(page, name)
+        found.append((name, numbers["current"], numbers["best"], done_btn(page, name).get_attribute("aria-pressed")))
+    assert found == TWELVE_TABLE
+    for _, current, _, _ in found:
+        if current != "No streak yet":
+            count, unit = current.split(" ")
+            assert unit == ("day" if count == "1" else "days"), current
 
 
 @pytest.mark.xfail(strict=True, reason="task 21")
@@ -436,7 +417,7 @@ def test_R6_R10_a_new_habit_shows_no_best_block(app):
     page = app(storage=sample_state())
     add_habit(page, "Drink water")
     expect(page.locator("ul.rows > li.row")).to_have_count(4)
-    assert page.evaluate(STATS_JS, "Drink water") == [current_block(None)]
+    assert row_stats(page, "Drink water") == [current_block()]
 
 
 STATES = {"a fresh day": None, "the sample day": sample_state(), "twelve habits": twelve_state()}

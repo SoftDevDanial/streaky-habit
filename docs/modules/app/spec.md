@@ -479,7 +479,7 @@ No other user-facing string exists.
 13. [x] `src/ring.js` and `tests/ring.test.js`. → R42
 14. [x] `src/storage.js` results (`saveHabits` boolean, `loadHabits` with `saveFailed`), `tests/storage.test.js`. → R16, R41
 15. [x] Boot render. Header, Overview button, band, rows, stats, frame fades, composer at load, S1. `tests/browser/test_render.py`. Its proof includes the `test_entry.py` scenario "The page links the icon and the policy lets it load" (task 12), whose `xfail` mark it removes (W1). It writes W3 to W6 with their marks (qa.md, "Scenarios that wait on a later task"). → R3, R4, R5, R6, R12, R35, R42
-16. [ ] Done today and the every-view update with `pop` and `bump`. `tests/browser/test_today.py` (`test_tick.py` went at task 12). It writes W7 to W13 with their marks. → R31, R32, R23
+16. [x] Done today and the every-view update with `pop` and `bump`. `tests/browser/test_today.py` (`test_tick.py` went at task 12). It writes W7 to W13 with their marks. → R31, R32, R23
 17. [ ] Popup plumbing and P3. `tests/browser/test_popups.py`, `tests/browser/test_overview.py`. It writes W14 to W18 with their marks. → R40, R38
 18. [ ] P1, opening and ticking, from the band and from P3. `tests/browser/test_day_editor.py`. It removes the marks of task 18 (W6, W8, W12, W13 and W15 to W18). → R36, R37, R32
 19. [ ] P2, opening and ticking. `tests/browser/test_year.py`, and the `@R30` scenario "Every context has the clipboard stand-in" in `test_engines.py`, because it presses Done today and Year (task 11, W21). It removes the marks of task 19 (W3, W7, W10, W12, W13 and W15 to W18) and writes W19 with its mark. → R33, R34, R32, R30

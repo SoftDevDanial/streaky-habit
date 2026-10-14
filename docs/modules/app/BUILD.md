@@ -283,3 +283,36 @@ No stand-ins, no `inert`, no seed or hook, `window` gets no property. No observe
 ### For the README reconcile
 - `src/calendar.js` is new (rings, legends, the overview grids, the shared element factories). `src/view.js` exports `renderDate`, `renderOverviewButton`, `renderBand`, `renderRows`, `renderStats`, `renderComposerLimit`, `renderFrameFades`, `containers`. `src/app.js` holds `readToday`, `state`, `render`, `boot`.
 - The browser suite gains `test_render.py`. `conftest.py` gains `row`, `bin_btn`, `year_btn`, `done_btn`, `band_day`, `p3_day`, `focused`.
+
+---
+
+## v1.1.0 task 16, Done today and the every-view update (2026-10-14)
+> Written by the frontend builder (senior frontend dev agent), 2026-10-14. Requirements R31, R32, R23. The commit is the one whose message starts `feat(app): Done today, one save and every view at once (task 16`.
+
+### Phase skills
+The design row loaded for task 15 (same session, same files) covers this task. Transferred, motion only answers an action and shows what changed (frontend-design, "Motion that answers a person's action"), reduced motion from the copied CSS, no new copy. No look changed.
+
+### What changed
+- `src/app.js`. `edit(habits)` (state, one `saveHabits`, then `render(true)`), the one path every edit takes, and `onPageClick`, a delegated `click` on `div.app` that ticks or unticks today with `toggleDay(habits, index, today, today)` (R31). Focus is never moved. The boolean `saveHabits` returns is not read yet, the warning is task 23's.
+- `src/view.js`. `doneTodayIndexOf(target)` (a row's habit is its place in the list) and `containers()` returns `page` too. The in-place row update, `renderStats` with `bump`, the Done today `pop`, the band ring `pop` and the Overview ring `pop` were built at task 15 and run with `animate` true from here on.
+- `tests/browser/test_today.py` (new). The ten scenarios of qa.md, 15 tests. W7 and the P2 rows of W12 and W13 carry `xfail(strict=True, reason="task 19")`, W8 and the P1 rows of W12 and W13 `"task 18"`, W9 `"task 20"`, W10 `"task 19"`, W11 `"task 22"`. The Done today row of W12 is green.
+- `tests/browser/conftest.py`. `p4_day`, `bead`, `tick`, `confirm_delete` (the v1.1.0 form of the qa.md table, used by W11), `stats_tree` with `current_block` and `best_block`, and `row_numbers`. `stats_tree` leaves the motion class `bump` out of the tree, so a value reads the same while it rises.
+- `tests/browser/test_render.py`. Its own stats reader and the twelve-row reader were replaced by the conftest ones (DRY). The R6 tests were run before and after the move, 5 passed and 1 xfailed both times.
+- `spec.md` task 16 ticked.
+
+### RED first
+`test_today.py` was written first and run once with `--runxfail` on the task 15 tree, which has no Done today handler. 15 of 15 failed on their property (`docs/modules/app/qa/red-first/20261014-143109-chromium/junit.xml`). `aria-pressed` did not flip, no write was counted, and each popup scenario failed at its popup.
+
+### Proof
+- Chromium, **48 passed, 14 xfailed**, 83.5 s (`docs/modules/app/qa/functional/20261014-143742-chromium/junit.xml`).
+- WebKit, **47 passed, 1 skipped (CO-1, counted with its reason), 14 xfailed**, 94.3 s (`.../functional/20261014-143909-webkit/junit.xml`). No WebKit failure. The engine difference of a mouse click (Chromium focuses the button, WebKit leaves `body`) is asserted per engine in `test_R31_R16_done_today_presses_and_unpresses`, as qa.md says.
+- Node 137 of 137.
+- With `--runxfail` W7 passes all of its Done today checks (one write, `bump` on Stretch's Current only, `pop` on Stretch's button only, today's band ring the only band `pop`, the Overview ring's `pop` and name) and fails only at P2's bead. Every other marked test fails at the popup it waits for.
+- A builder probe (scratch, nothing written) logged `animationstart` over two presses of Done today in both engines at 1280 x 800. Each press started `pop` on the band cell's svg, `pop` on the Done today dot and `bump` on the Current value, the second press as well as the first (R23, "replays"). The Overview ring has no animation at 1280 because the button is not displayed there.
+
+### Deviations
+None. The R23 scenarios themselves are task 25's (`test_platform.py`).
+
+### For the README reconcile
+- `src/app.js` gains `edit` and `onPageClick`. `src/view.js` gains `doneTodayIndexOf`, `containers()` returns `page` and `frame`.
+- The browser suite gains `test_today.py`. `conftest.py` gains `p4_day`, `bead`, `tick`, `confirm_delete`, `stats_tree`, `current_block`, `best_block`, `row_numbers`.

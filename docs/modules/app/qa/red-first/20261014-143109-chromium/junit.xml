@@ -1,0 +1,749 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="15" skipped="0" tests="15" time="53.984" timestamp="2026-10-14T14:31:11.232213+08:00" hostname="{host}"><testcase classname="tests.browser.test_today" name="test_R31_R16_done_today_presses_and_unpresses[Stretch 10 minutes-true-3 days-5-2-True]" time="1.012"><failure message="AssertionError: assert 'false' == 'true'&#10;  &#10;  - true&#10;  + false">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001FA354557A0&gt;
+engine = 'chromium', habit = 'Stretch 10 minutes', pressed = 'true'
+current = '3 days', best = '5', count = 2, contained = True
+
+    @pytest.mark.parametrize(
+        "habit, pressed, current, best, count, contained",
+        [
+            ("Stretch 10 minutes", "true", "3 days", "5", 2, True),
+            ("Read 20 pages", "false", "3 days", "9", 0, False),
+            ("No phone after 11pm", "true", "1 day", "14", 2, True),
+        ],
+    )
+    def test_R31_R16_done_today_presses_and_unpresses(app, engine, habit, pressed, current, best, count, contained):
+        page = app(storage=sample_state())
+        handle = done_btn(page, habit).element_handle()
+        handle.click()
+        assert handle.evaluate("(button) =&gt; button.isConnected") is True
+&gt;       assert handle.get_attribute("aria-pressed") == pressed
+E       AssertionError: assert 'false' == 'true'
+E         
+E         - true
+E         + false
+
+tests\browser\test_today.py:79: AssertionError</failure></testcase><testcase classname="tests.browser.test_today" name="test_R31_R16_done_today_presses_and_unpresses[Read 20 pages-false-3 days-9-0-False]" time="0.157"><failure message="AssertionError: assert 'true' == 'false'&#10;  &#10;  - false&#10;  + true">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001FA3677BAB0&gt;
+engine = 'chromium', habit = 'Read 20 pages', pressed = 'false'
+current = '3 days', best = '9', count = 0, contained = False
+
+    @pytest.mark.parametrize(
+        "habit, pressed, current, best, count, contained",
+        [
+            ("Stretch 10 minutes", "true", "3 days", "5", 2, True),
+            ("Read 20 pages", "false", "3 days", "9", 0, False),
+            ("No phone after 11pm", "true", "1 day", "14", 2, True),
+        ],
+    )
+    def test_R31_R16_done_today_presses_and_unpresses(app, engine, habit, pressed, current, best, count, contained):
+        page = app(storage=sample_state())
+        handle = done_btn(page, habit).element_handle()
+        handle.click()
+        assert handle.evaluate("(button) =&gt; button.isConnected") is True
+&gt;       assert handle.get_attribute("aria-pressed") == pressed
+E       AssertionError: assert 'true' == 'false'
+E         
+E         - false
+E         + true
+
+tests\browser\test_today.py:79: AssertionError</failure></testcase><testcase classname="tests.browser.test_today" name="test_R31_R16_done_today_presses_and_unpresses[No phone after 11pm-true-1 day-14-2-True]" time="0.159"><failure message="AssertionError: assert 'false' == 'true'&#10;  &#10;  - true&#10;  + false">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001FA35400F60&gt;
+engine = 'chromium', habit = 'No phone after 11pm', pressed = 'true'
+current = '1 day', best = '14', count = 2, contained = True
+
+    @pytest.mark.parametrize(
+        "habit, pressed, current, best, count, contained",
+        [
+            ("Stretch 10 minutes", "true", "3 days", "5", 2, True),
+            ("Read 20 pages", "false", "3 days", "9", 0, False),
+            ("No phone after 11pm", "true", "1 day", "14", 2, True),
+        ],
+    )
+    def test_R31_R16_done_today_presses_and_unpresses(app, engine, habit, pressed, current, best, count, contained):
+        page = app(storage=sample_state())
+        handle = done_btn(page, habit).element_handle()
+        handle.click()
+        assert handle.evaluate("(button) =&gt; button.isConnected") is True
+&gt;       assert handle.get_attribute("aria-pressed") == pressed
+E       AssertionError: assert 'false' == 'true'
+E         
+E         - true
+E         + false
+
+tests\browser\test_today.py:79: AssertionError</failure></testcase><testcase classname="tests.browser.test_today" name="test_R31_keyboard_presses_keep_focus" time="5.205"><failure message="AssertionError: Locator expected to have attribute 'true'&#10;Actual value: false &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for get_by_role(&quot;button&quot;, name=&quot;Done today, Stretch 10 minutes&quot;, exact=True)&#10;    14 × locator resolved to &lt;button type=&quot;button&quot; class=&quot;btn-done&quot; aria-pressed=&quot;false&quot; aria-describedby=&quot;rs-2&quot; aria-label=&quot;Done today, Stretch 10 minutes&quot;&gt;…&lt;/button&gt;&#10;       - unexpected value &quot;false&quot;&#10;&#10;Aria snapshot:&#10;- button &quot;Done today, Stretch 10 minutes&quot;: Done today">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001FA35402AE0&gt;
+
+    def test_R31_keyboard_presses_keep_focus(app):
+        page = app(storage=sample_state())
+        button = done_btn(page, "Stretch 10 minutes")
+        expect(button).to_be_attached()
+        is_focused = "(button) =&gt; document.activeElement === button"
+        for _ in range(40):
+            if button.evaluate(is_focused):
+                break
+            page.keyboard.press("Tab")
+        assert button.evaluate(is_focused), "Tab never reached Done today, Stretch 10 minutes"
+    
+        page.keyboard.press("Space")
+&gt;       expect(button).to_have_attribute("aria-pressed", "true")
+E       AssertionError: Locator expected to have attribute 'true'
+E       Actual value: false 
+E       Call log:
+E         - Expect "to_have_attribute" with timeout 5000ms
+E         - waiting for get_by_role("button", name="Done today, Stretch 10 minutes", exact=True)
+E           14 × locator resolved to &lt;button type="button" class="btn-done" aria-pressed="false" aria-describedby="rs-2" aria-label="Done today, Stretch 10 minutes"&gt;…&lt;/button&gt;
+E              - unexpected value "false"
+E       
+E       Aria snapshot:
+E       - button "Done today, Stretch 10 minutes": Done today
+
+tests\browser\test_today.py:103: AssertionError</failure></testcase><testcase classname="tests.browser.test_today" name="test_R31_R16_pressing_twice_restores_the_saved_value" time="5.149"><failure message="AssertionError: Locator expected to have attribute 'true'&#10;Actual value: false &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for get_by_role(&quot;button&quot;, name=&quot;Done today, Stretch 10 minutes&quot;, exact=True)&#10;    14 × locator resolved to &lt;button type=&quot;button&quot; class=&quot;btn-done&quot; aria-pressed=&quot;false&quot; aria-describedby=&quot;rs-2&quot; aria-label=&quot;Done today, Stretch 10 minutes&quot;&gt;…&lt;/button&gt;&#10;       - unexpected value &quot;false&quot;&#10;&#10;Aria snapshot:&#10;- button &quot;Done today, Stretch 10 minutes&quot;: Done today">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001FA36996CF0&gt;
+
+    def test_R31_R16_pressing_twice_restores_the_saved_value(app):
+        text = sample_state()
+        page = app(storage=text)
+        button = done_btn(page, "Stretch 10 minutes")
+        button.click()
+&gt;       expect(button).to_have_attribute("aria-pressed", "true")
+E       AssertionError: Locator expected to have attribute 'true'
+E       Actual value: false 
+E       Call log:
+E         - Expect "to_have_attribute" with timeout 5000ms
+E         - waiting for get_by_role("button", name="Done today, Stretch 10 minutes", exact=True)
+E           14 × locator resolved to &lt;button type="button" class="btn-done" aria-pressed="false" aria-describedby="rs-2" aria-label="Done today, Stretch 10 minutes"&gt;…&lt;/button&gt;
+E              - unexpected value "false"
+E       
+E       Aria snapshot:
+E       - button "Done today, Stretch 10 minutes": Done today
+
+tests\browser\test_today.py:118: AssertionError</failure></testcase><testcase classname="tests.browser.test_today" name="test_R32_R16_one_done_today_updates_every_place_at_once_and_only_what_changed_moves" time="0.154"><failure message="AssertionError: assert 0 == 1&#10; +  where 0 = write_count(&lt;Page url='http://127.0.0.1:32044/'&gt;)">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001FA36997CC0&gt;
+
+    @pytest.mark.xfail(strict=True, reason="task 19")
+    def test_R32_R16_one_done_today_updates_every_place_at_once_and_only_what_changed_moves(app):
+        page = app(viewport=DESKTOP, storage=sample_state(), count_writes=True)
+        expect(page.locator("ul.rows &gt; li.row")).to_have_count(3)
+        done_btn(page, "Stretch 10 minutes").click()
+&gt;       assert write_count(page) == 1
+E       AssertionError: assert 0 == 1
+E        +  where 0 = write_count(&lt;Page url='http://127.0.0.1:32044/'&gt;)
+
+tests\browser\test_today.py:129: AssertionError</failure></testcase><testcase classname="tests.browser.test_today" name="test_R32_R37_a_tick_in_p1_over_p3_updates_p3_and_the_row_and_leaves_todays_ring_alone" time="5.158"><failure message="playwright._impl._errors.TimeoutError: Locator.click: Timeout 5000ms exceeded.&#10;Call log:&#10;  - waiting for locator(&quot;dialog.dlg-ov&quot;).get_by_role(&quot;button&quot;, name=&quot;Tue 22 Sep, 1 of 3 habits&quot;, exact=True)">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001FA35402CF0&gt;
+
+    @pytest.mark.xfail(strict=True, reason="task 18")
+    def test_R32_R37_a_tick_in_p1_over_p3_updates_p3_and_the_row_and_leaves_todays_ring_alone(app):
+        page = app(storage=sample_state())
+        page.locator("button.ov-btn").click()
+&gt;       page.locator("dialog.dlg-ov").get_by_role("button", name="Tue 22 Sep, 1 of 3 habits", exact=True).click()
+
+tests\browser\test_today.py:162: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\sync_api\_generated.py:17672: in click
+    self._sync(
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_locator.py:163: in click
+    return await self._frame._click(self._selector, strict=True, **params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_frame.py:591: in _click
+    await self._channel.send("click", self._timeout, locals_to_params(locals()))
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;playwright._impl._connection.Connection object at 0x000001FA3549A3C0&gt;
+cb = &lt;function Channel.send.&lt;locals&gt;.&lt;lambda&gt; at 0x000001FA36A1B480&gt;
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -&gt; Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+&gt;           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.TimeoutError: Locator.click: Timeout 5000ms exceeded.
+E           Call log:
+E             - waiting for locator("dialog.dlg-ov").get_by_role("button", name="Tue 22 Sep, 1 of 3 habits", exact=True)
+
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py:563: TimeoutError</failure></testcase><testcase classname="tests.browser.test_today" name="test_R32_R39_a_tick_in_p1_over_p4_updates_p4_and_p3_beneath_it" time="5.136"><failure message="playwright._impl._errors.TimeoutError: Locator.click: Timeout 5000ms exceeded.&#10;Call log:&#10;  - waiting for locator(&quot;dialog.dlg-ov button.btn-all&quot;)&#10;    - locator resolved to &lt;button type=&quot;button&quot; class=&quot;btn-all&quot; aria-haspopup=&quot;dialog&quot; aria-label=&quot;Year view, all habits&quot;&gt;Year&lt;/button&gt;&#10;  - attempting click action&#10;    2 × waiting for element to be visible, enabled and stable&#10;      - element is not visible&#10;    - retrying click action&#10;    - waiting 20ms&#10;    2 × waiting for element to be visible, enabled and stable&#10;      - element is not visible&#10;    - retrying click action&#10;      - waiting 100ms&#10;    9 × waiting for element to be visible, enabled and stable&#10;      - element is not visible&#10;    - retrying click action&#10;      - waiting 500ms">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001FA36B26980&gt;
+
+    @pytest.mark.xfail(strict=True, reason="task 20")
+    def test_R32_R39_a_tick_in_p1_over_p4_updates_p4_and_p3_beneath_it(app):
+        page = app(storage=sample_state())
+        page.locator("button.ov-btn").click()
+&gt;       page.locator("dialog.dlg-ov button.btn-all").click()
+
+tests\browser\test_today.py:182: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\sync_api\_generated.py:17672: in click
+    self._sync(
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_locator.py:163: in click
+    return await self._frame._click(self._selector, strict=True, **params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_frame.py:591: in _click
+    await self._channel.send("click", self._timeout, locals_to_params(locals()))
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;playwright._impl._connection.Connection object at 0x000001FA3549A3C0&gt;
+cb = &lt;function Channel.send.&lt;locals&gt;.&lt;lambda&gt; at 0x000001FA36A1ADA0&gt;
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -&gt; Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+&gt;           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.TimeoutError: Locator.click: Timeout 5000ms exceeded.
+E           Call log:
+E             - waiting for locator("dialog.dlg-ov button.btn-all")
+E               - locator resolved to &lt;button type="button" class="btn-all" aria-haspopup="dialog" aria-label="Year view, all habits"&gt;Year&lt;/button&gt;
+E             - attempting click action
+E               2 × waiting for element to be visible, enabled and stable
+E                 - element is not visible
+E               - retrying click action
+E               - waiting 20ms
+E               2 × waiting for element to be visible, enabled and stable
+E                 - element is not visible
+E               - retrying click action
+E                 - waiting 100ms
+E               9 × waiting for element to be visible, enabled and stable
+E                 - element is not visible
+E               - retrying click action
+E                 - waiting 500ms
+
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py:563: TimeoutError</failure></testcase><testcase classname="tests.browser.test_today" name="test_R32_R34_a_tick_in_p2_updates_p2_the_row_and_the_band" time="5.157"><failure message="playwright._impl._errors.TimeoutError: Locator.click: Timeout 5000ms exceeded.&#10;Call log:&#10;  - waiting for locator(&quot;dialog.dlg-year div.months button.yc[data-key=\&quot;2026-10-09\&quot;]&quot;)">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001FA36B273D0&gt;
+
+    @pytest.mark.xfail(strict=True, reason="task 19")
+    def test_R32_R34_a_tick_in_p2_updates_p2_the_row_and_the_band(app):
+        page = app(viewport=DESKTOP, storage=sample_state())
+        year_btn(page, "No phone after 11pm").click()
+&gt;       bead(page, "2026-10-09").click()
+
+tests\browser\test_today.py:197: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\sync_api\_generated.py:17672: in click
+    self._sync(
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_locator.py:163: in click
+    return await self._frame._click(self._selector, strict=True, **params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_frame.py:591: in _click
+    await self._channel.send("click", self._timeout, locals_to_params(locals()))
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;playwright._impl._connection.Connection object at 0x000001FA3549A3C0&gt;
+cb = &lt;function Channel.send.&lt;locals&gt;.&lt;lambda&gt; at 0x000001FA36B6B530&gt;
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -&gt; Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+&gt;           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.TimeoutError: Locator.click: Timeout 5000ms exceeded.
+E           Call log:
+E             - waiting for locator("dialog.dlg-year div.months button.yc[data-key=\"2026-10-09\"]")
+
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py:563: TimeoutError</failure></testcase><testcase classname="tests.browser.test_today" name="test_R32_R16_each_edit_saves_once_and_opening_or_closing_a_popup_saves_nothing" time="5.157"><failure message="playwright._impl._errors.TimeoutError: Locator.click: Timeout 5000ms exceeded.&#10;Call log:&#10;  - waiting for locator(&quot;dialog.dlg-year button.icon-btn[aria-label='Close']&quot;)&#10;    - locator resolved to &lt;button type=&quot;button&quot; class=&quot;icon-btn&quot; aria-label=&quot;Close&quot;&gt;…&lt;/button&gt;&#10;  - attempting click action&#10;    2 × waiting for element to be visible, enabled and stable&#10;      - element is not visible&#10;    - retrying click action&#10;    - waiting 20ms&#10;    2 × waiting for element to be visible, enabled and stable&#10;      - element is not visible&#10;    - retrying click action&#10;      - waiting 100ms&#10;    9 × waiting for element to be visible, enabled and stable&#10;      - element is not visible&#10;    - retrying click action&#10;      - waiting 500ms">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001FA36B69BC0&gt;
+
+    @pytest.mark.xfail(strict=True, reason="task 22")
+    def test_R32_R16_each_edit_saves_once_and_opening_or_closing_a_popup_saves_nothing(app):
+        page = app(viewport=DESKTOP, storage=sample_state(), count_writes=True, install_time=NOON)
+        expect(page.locator("ul.rows &gt; li.row")).to_have_count(3)
+        close = "button.icon-btn[aria-label='Close']"
+        year_btn(page, "Read 20 pages").click()
+&gt;       page.locator(f"dialog.dlg-year {close}").click()
+
+tests\browser\test_today.py:216: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\sync_api\_generated.py:17672: in click
+    self._sync(
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_locator.py:163: in click
+    return await self._frame._click(self._selector, strict=True, **params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_frame.py:591: in _click
+    await self._channel.send("click", self._timeout, locals_to_params(locals()))
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;playwright._impl._connection.Connection object at 0x000001FA3549A3C0&gt;
+cb = &lt;function Channel.send.&lt;locals&gt;.&lt;lambda&gt; at 0x000001FA36B694E0&gt;
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -&gt; Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+&gt;           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.TimeoutError: Locator.click: Timeout 5000ms exceeded.
+E           Call log:
+E             - waiting for locator("dialog.dlg-year button.icon-btn[aria-label='Close']")
+E               - locator resolved to &lt;button type="button" class="icon-btn" aria-label="Close"&gt;…&lt;/button&gt;
+E             - attempting click action
+E               2 × waiting for element to be visible, enabled and stable
+E                 - element is not visible
+E               - retrying click action
+E               - waiting 20ms
+E               2 × waiting for element to be visible, enabled and stable
+E                 - element is not visible
+E               - retrying click action
+E                 - waiting 100ms
+E               9 × waiting for element to be visible, enabled and stable
+E                 - element is not visible
+E               - retrying click action
+E                 - waiting 500ms
+
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py:563: TimeoutError</failure></testcase><testcase classname="tests.browser.test_today" name="test_R6_R32_best_back_to_0_removes_the_best_block_in_every_place[none]" time="0.138"><failure message="AssertionError: assert [['span.stat....streak yet']]] == [['span.stat....'b.num:1']]]]]&#10;  &#10;  At index 0 diff: ['span.stat.cur', ['span.lbl:Current', 'span.none:No streak yet']] != ['span.stat.cur', ['span.lbl:Current', ['span.val', ['b.num:1', 'span.unit:day']]]]&#10;  Right contains one more item: ['span.stat.best', ['span.lbl:Best', ['span.val', ['b.num:1']]]]&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001FA36F338A0&gt;, popup = 'none'
+
+    @pytest.mark.parametrize(
+        "popup",
+        [
+            "none",
+            pytest.param("P1", marks=pytest.mark.xfail(strict=True, reason="task 18")),
+            pytest.param("P2", marks=pytest.mark.xfail(strict=True, reason="task 19")),
+        ],
+    )
+    def test_R6_R32_best_back_to_0_removes_the_best_block_in_every_place(app, popup):
+        page = app(viewport=DESKTOP, storage=ONE_HABIT)
+        stats = row(page, "Habit 1").locator(":scope &gt; p.stats")
+        expect(stats).to_be_attached()
+        open_for_habit_1(page, popup)
+        assert stats_tree(stats) == [current_block()]
+    
+        control_for_habit_1(page, popup).click()
+&gt;       assert stats_tree(stats) == [current_block(1, "day"), best_block(1)]
+E       AssertionError: assert [['span.stat....streak yet']]] == [['span.stat....'b.num:1']]]]]
+E         
+E         At index 0 diff: ['span.stat.cur', ['span.lbl:Current', 'span.none:No streak yet']] != ['span.stat.cur', ['span.lbl:Current', ['span.val', ['b.num:1', 'span.unit:day']]]]
+E         Right contains one more item: ['span.stat.best', ['span.lbl:Best', ['span.val', ['b.num:1']]]]
+E         Use -v to get more diff
+
+tests\browser\test_today.py:302: AssertionError</failure></testcase><testcase classname="tests.browser.test_today" name="test_R6_R32_best_back_to_0_removes_the_best_block_in_every_place[P1]" time="5.169"><failure message="AssertionError: Locator expected to have attribute ''&#10;Actual value: None &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-day&quot;)&#10;    14 × locator resolved to &lt;dialog class=&quot;dlg-day&quot; aria-modal=&quot;true&quot; aria-describedby=&quot;day-sub&quot; aria-labelledby=&quot;day-title&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;null&quot;&#10;&#10;Aria snapshot:&#10;- banner:&#10;  - heading &quot;Streaky Habit&quot; [level=1]&#10;  - time: Saturday 10 October&#10;- main:&#10;  - region &quot;Last 12 weeks&quot;:&#10;    - heading &quot;Last 12 weeks&quot; [level=2]&#10;    - button &quot;Year view, all habits&quot;: Year&#10;    - paragraph: Tap a day to change it.&#10;    - group &quot;Last 12 weeks&quot;:&#10;      - button &quot;Mon 20 Jul, 0 of 1 habits&quot;&#10;      - button &quot;Tue 21 Jul, 0 of 1 habits&quot;&#10;      - button &quot;Wed 22 Jul, 0 of 1 habits&quot;&#10;      - button &quot;Thu 23 Jul, 0 of 1 habits&quot;&#10;      - button &quot;Fri 24 Jul, 0 of 1 habits&quot;&#10;      - button &quot;Sat 25 Jul, 0 of 1 habits&quot;&#10;      - button &quot;Sun 26 Jul, 0 of 1 habits&quot;&#10;      - button &quot;Mon 27 Jul, 0 of 1 habits&quot;&#10;      - button &quot;Tue 28 Jul, 0 of 1 habits&quot;&#10;      - button &quot;Wed 29 Jul, 0 of 1 habits&quot;&#10;      - button &quot;Thu 30 Jul, 0 of 1 habits&quot;&#10;      - button &quot;Fri 31 Jul, 0 of 1 habits&quot;&#10;      - button &quot;Sat 1 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Sun 2 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Mon 3 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Tue 4 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Wed 5 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Thu 6 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Fri 7 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Sat 8 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Sun 9 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Mon 10 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Tue 11 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Wed 12 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Thu 13 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Fri 14 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Sat 15 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Sun 16 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Mon 17 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Tue 18 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Wed 19 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Thu 20 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Fri 21 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Sat 22 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Sun 23 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Mon 24 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Tue 25 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Wed 26 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Thu 27 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Fri 28 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Sat 29 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Sun 30 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Mon 31 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Tue 1 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Wed 2 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Thu 3 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Fri 4 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Sat 5 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Sun 6 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Mon 7 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Tue 8 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Wed 9 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Thu 10 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Fri 11 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Sat 12 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Sun 13 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Mon 14 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Tue 15 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Wed 16 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Thu 17 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Fri 18 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Sat 19 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Sun 20 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Mon 21 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Tue 22 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Wed 23 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Thu 24 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Fri 25 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Sat 26 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Sun 27 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Mon 28 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Tue 29 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Wed 30 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Thu 1 Oct, 0 of 1 habits&quot;&#10;      - button &quot;Fri 2 Oct, 0 of 1 habits&quot;&#10;      - button &quot;Sat 3 Oct, 0 of 1 habits&quot;&#10;      - button &quot;Sun 4 Oct, 0 of 1 habits&quot;&#10;      - button &quot;Mon 5 Oct, 0 of 1 habits&quot;&#10;      - button &quot;Tue 6 Oct, 0 of 1 habits&quot;&#10;      - button &quot;Wed 7 Oct, 0 of 1 habits&quot;&#10;      - button &quot;Thu 8 Oct, 0 of 1 habits&quot;&#10;      - button &quot;Fri 9 Oct, 0 of 1 habits&quot;&#10;      - button &quot;Sat 10 Oct, 0 of 1 habits&quot;&#10;  - heading &quot;Habits&quot; [level=2]&#10;  - list &quot;Habits&quot;:&#10;    - listitem:&#10;      - heading &quot;Habit 1&quot; [level=3]&#10;      - button &quot;Delete \&quot;Habit 1\&quot;&quot;&#10;      - paragraph: Current No streak yet&#10;      - button &quot;Year view, Habit 1&quot;: Year&#10;      - button &quot;Done today, Habit 1&quot;: Done today&#10;  - text: New habit&#10;  - textbox &quot;New habit&quot;&#10;  - button &quot;Add&quot;">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001FA36F1B8A0&gt;, popup = 'P1'
+
+    @pytest.mark.parametrize(
+        "popup",
+        [
+            "none",
+            pytest.param("P1", marks=pytest.mark.xfail(strict=True, reason="task 18")),
+            pytest.param("P2", marks=pytest.mark.xfail(strict=True, reason="task 19")),
+        ],
+    )
+    def test_R6_R32_best_back_to_0_removes_the_best_block_in_every_place(app, popup):
+        page = app(viewport=DESKTOP, storage=ONE_HABIT)
+        stats = row(page, "Habit 1").locator(":scope &gt; p.stats")
+        expect(stats).to_be_attached()
+&gt;       open_for_habit_1(page, popup)
+
+tests\browser\test_today.py:298: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+page = &lt;Page url='http://127.0.0.1:32044/'&gt;, popup = 'P1'
+
+    def open_for_habit_1(page, popup):
+        if popup == "P1":
+            band_day(page, TODAY).click()
+&gt;           expect(page.locator("dialog.dlg-day")).to_have_attribute("open", "")
+E           AssertionError: Locator expected to have attribute ''
+E           Actual value: None 
+E           Call log:
+E             - Expect "to_have_attribute" with timeout 5000ms
+E             - waiting for locator("dialog.dlg-day")
+E               14 × locator resolved to &lt;dialog class="dlg-day" aria-modal="true" aria-describedby="day-sub" aria-labelledby="day-title"&gt;…&lt;/dialog&gt;
+E                  - unexpected value "null"
+E           
+E           Aria snapshot:
+E           - banner:
+E             - heading "Streaky Habit" [level=1]
+E             - time: Saturday 10 October
+E           - main:
+E             - region "Last 12 weeks":
+E               - heading "Last 12 weeks" [level=2]
+E               - button "Year view, all habits": Year
+E               - paragraph: Tap a day to change it.
+E               - group "Last 12 weeks":
+E                 - button "Mon 20 Jul, 0 of 1 habits"
+E                 - button "Tue 21 Jul, 0 of 1 habits"
+E                 - button "Wed 22 Jul, 0 of 1 habits"
+E                 - button "Thu 23 Jul, 0 of 1 habits"
+E                 - button "Fri 24 Jul, 0 of 1 habits"
+E                 - button "Sat 25 Jul, 0 of 1 habits"
+E                 - button "Sun 26 Jul, 0 of 1 habits"
+E                 - button "Mon 27 Jul, 0 of 1 habits"
+E                 - button "Tue 28 Jul, 0 of 1 habits"
+E                 - button "Wed 29 Jul, 0 of 1 habits"
+E                 - button "Thu 30 Jul, 0 of 1 habits"
+E                 - button "Fri 31 Jul, 0 of 1 habits"
+E                 - button "Sat 1 Aug, 0 of 1 habits"
+E                 - button "Sun 2 Aug, 0 of 1 habits"
+E                 - button "Mon 3 Aug, 0 of 1 habits"
+E                 - button "Tue 4 Aug, 0 of 1 habits"
+E                 - button "Wed 5 Aug, 0 of 1 habits"
+E                 - button "Thu 6 Aug, 0 of 1 habits"
+E                 - button "Fri 7 Aug, 0 of 1 habits"
+E                 - button "Sat 8 Aug, 0 of 1 habits"
+E                 - button "Sun 9 Aug, 0 of 1 habits"
+E                 - button "Mon 10 Aug, 0 of 1 habits"
+E                 - button "Tue 11 Aug, 0 of 1 habits"
+E                 - button "Wed 12 Aug, 0 of 1 habits"
+E                 - button "Thu 13 Aug, 0 of 1 habits"
+E                 - button "Fri 14 Aug, 0 of 1 habits"
+E                 - button "Sat 15 Aug, 0 of 1 habits"
+E                 - button "Sun 16 Aug, 0 of 1 habits"
+E                 - button "Mon 17 Aug, 0 of 1 habits"
+E                 - button "Tue 18 Aug, 0 of 1 habits"
+E                 - button "Wed 19 Aug, 0 of 1 habits"
+E                 - button "Thu 20 Aug, 0 of 1 habits"
+E                 - button "Fri 21 Aug, 0 of 1 habits"
+E                 - button "Sat 22 Aug, 0 of 1 habits"
+E                 - button "Sun 23 Aug, 0 of 1 habits"
+E                 - button "Mon 24 Aug, 0 of 1 habits"
+E                 - button "Tue 25 Aug, 0 of 1 habits"
+E                 - button "Wed 26 Aug, 0 of 1 habits"
+E                 - button "Thu 27 Aug, 0 of 1 habits"
+E                 - button "Fri 28 Aug, 0 of 1 habits"
+E                 - button "Sat 29 Aug, 0 of 1 habits"
+E                 - button "Sun 30 Aug, 0 of 1 habits"
+E                 - button "Mon 31 Aug, 0 of 1 habits"
+E                 - button "Tue 1 Sep, 0 of 1 habits"
+E                 - button "Wed 2 Sep, 0 of 1 habits"
+E                 - button "Thu 3 Sep, 0 of 1 habits"
+E                 - button "Fri 4 Sep, 0 of 1 habits"
+E                 - button "Sat 5 Sep, 0 of 1 habits"
+E                 - button "Sun 6 Sep, 0 of 1 habits"
+E                 - button "Mon 7 Sep, 0 of 1 habits"
+E                 - button "Tue 8 Sep, 0 of 1 habits"
+E                 - button "Wed 9 Sep, 0 of 1 habits"
+E                 - button "Thu 10 Sep, 0 of 1 habits"
+E                 - button "Fri 11 Sep, 0 of 1 habits"
+E                 - button "Sat 12 Sep, 0 of 1 habits"
+E                 - button "Sun 13 Sep, 0 of 1 habits"
+E                 - button "Mon 14 Sep, 0 of 1 habits"
+E                 - button "Tue 15 Sep, 0 of 1 habits"
+E                 - button "Wed 16 Sep, 0 of 1 habits"
+E                 - button "Thu 17 Sep, 0 of 1 habits"
+E                 - button "Fri 18 Sep, 0 of 1 habits"
+E                 - button "Sat 19 Sep, 0 of 1 habits"
+E                 - button "Sun 20 Sep, 0 of 1 habits"
+E                 - button "Mon 21 Sep, 0 of 1 habits"
+E                 - button "Tue 22 Sep, 0 of 1 habits"
+E                 - button "Wed 23 Sep, 0 of 1 habits"
+E                 - button "Thu 24 Sep, 0 of 1 habits"
+E                 - button "Fri 25 Sep, 0 of 1 habits"
+E                 - button "Sat 26 Sep, 0 of 1 habits"
+E                 - button "Sun 27 Sep, 0 of 1 habits"
+E                 - button "Mon 28 Sep, 0 of 1 habits"
+E                 - button "Tue 29 Sep, 0 of 1 habits"
+E                 - button "Wed 30 Sep, 0 of 1 habits"
+E                 - button "Thu 1 Oct, 0 of 1 habits"
+E                 - button "Fri 2 Oct, 0 of 1 habits"
+E                 - button "Sat 3 Oct, 0 of 1 habits"
+E                 - button "Sun 4 Oct, 0 of 1 habits"
+E                 - button "Mon 5 Oct, 0 of 1 habits"
+E                 - button "Tue 6 Oct, 0 of 1 habits"
+E                 - button "Wed 7 Oct, 0 of 1 habits"
+E                 - button "Thu 8 Oct, 0 of 1 habits"
+E                 - button "Fri 9 Oct, 0 of 1 habits"
+E                 - button "Sat 10 Oct, 0 of 1 habits"
+E             - heading "Habits" [level=2]
+E             - list "Habits":
+E               - listitem:
+E                 - heading "Habit 1" [level=3]
+E                 - button "Delete \"Habit 1\""
+E                 - paragraph: Current No streak yet
+E                 - button "Year view, Habit 1": Year
+E                 - button "Done today, Habit 1": Done today
+E             - text: New habit
+E             - textbox "New habit"
+E             - button "Add"
+
+tests\browser\test_today.py:261: AssertionError</failure></testcase><testcase classname="tests.browser.test_today" name="test_R6_R32_best_back_to_0_removes_the_best_block_in_every_place[P2]" time="5.159"><failure message="AssertionError: Locator expected to have attribute ''&#10;Actual value: None &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-year&quot;)&#10;    14 × locator resolved to &lt;dialog aria-modal=&quot;true&quot; class=&quot;dlg-full dlg-year&quot; aria-describedby=&quot;yr-sub&quot; aria-labelledby=&quot;yr-title&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;null&quot;&#10;&#10;Aria snapshot:&#10;- banner:&#10;  - heading &quot;Streaky Habit&quot; [level=1]&#10;  - time: Saturday 10 October&#10;- main:&#10;  - region &quot;Last 12 weeks&quot;:&#10;    - heading &quot;Last 12 weeks&quot; [level=2]&#10;    - button &quot;Year view, all habits&quot;: Year&#10;    - paragraph: Tap a day to change it.&#10;    - group &quot;Last 12 weeks&quot;:&#10;      - button &quot;Mon 20 Jul, 0 of 1 habits&quot;&#10;      - button &quot;Tue 21 Jul, 0 of 1 habits&quot;&#10;      - button &quot;Wed 22 Jul, 0 of 1 habits&quot;&#10;      - button &quot;Thu 23 Jul, 0 of 1 habits&quot;&#10;      - button &quot;Fri 24 Jul, 0 of 1 habits&quot;&#10;      - button &quot;Sat 25 Jul, 0 of 1 habits&quot;&#10;      - button &quot;Sun 26 Jul, 0 of 1 habits&quot;&#10;      - button &quot;Mon 27 Jul, 0 of 1 habits&quot;&#10;      - button &quot;Tue 28 Jul, 0 of 1 habits&quot;&#10;      - button &quot;Wed 29 Jul, 0 of 1 habits&quot;&#10;      - button &quot;Thu 30 Jul, 0 of 1 habits&quot;&#10;      - button &quot;Fri 31 Jul, 0 of 1 habits&quot;&#10;      - button &quot;Sat 1 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Sun 2 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Mon 3 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Tue 4 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Wed 5 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Thu 6 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Fri 7 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Sat 8 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Sun 9 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Mon 10 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Tue 11 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Wed 12 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Thu 13 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Fri 14 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Sat 15 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Sun 16 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Mon 17 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Tue 18 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Wed 19 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Thu 20 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Fri 21 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Sat 22 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Sun 23 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Mon 24 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Tue 25 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Wed 26 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Thu 27 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Fri 28 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Sat 29 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Sun 30 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Mon 31 Aug, 0 of 1 habits&quot;&#10;      - button &quot;Tue 1 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Wed 2 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Thu 3 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Fri 4 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Sat 5 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Sun 6 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Mon 7 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Tue 8 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Wed 9 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Thu 10 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Fri 11 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Sat 12 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Sun 13 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Mon 14 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Tue 15 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Wed 16 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Thu 17 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Fri 18 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Sat 19 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Sun 20 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Mon 21 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Tue 22 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Wed 23 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Thu 24 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Fri 25 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Sat 26 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Sun 27 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Mon 28 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Tue 29 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Wed 30 Sep, 0 of 1 habits&quot;&#10;      - button &quot;Thu 1 Oct, 0 of 1 habits&quot;&#10;      - button &quot;Fri 2 Oct, 0 of 1 habits&quot;&#10;      - button &quot;Sat 3 Oct, 0 of 1 habits&quot;&#10;      - button &quot;Sun 4 Oct, 0 of 1 habits&quot;&#10;      - button &quot;Mon 5 Oct, 0 of 1 habits&quot;&#10;      - button &quot;Tue 6 Oct, 0 of 1 habits&quot;&#10;      - button &quot;Wed 7 Oct, 0 of 1 habits&quot;&#10;      - button &quot;Thu 8 Oct, 0 of 1 habits&quot;&#10;      - button &quot;Fri 9 Oct, 0 of 1 habits&quot;&#10;      - button &quot;Sat 10 Oct, 0 of 1 habits&quot;&#10;  - heading &quot;Habits&quot; [level=2]&#10;  - list &quot;Habits&quot;:&#10;    - listitem:&#10;      - heading &quot;Habit 1&quot; [level=3]&#10;      - button &quot;Delete \&quot;Habit 1\&quot;&quot;&#10;      - paragraph: Current No streak yet&#10;      - button &quot;Year view, Habit 1&quot;: Year&#10;      - button &quot;Done today, Habit 1&quot;: Done today&#10;  - text: New habit&#10;  - textbox &quot;New habit&quot;&#10;  - button &quot;Add&quot;">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001FA36F18F60&gt;, popup = 'P2'
+
+    @pytest.mark.parametrize(
+        "popup",
+        [
+            "none",
+            pytest.param("P1", marks=pytest.mark.xfail(strict=True, reason="task 18")),
+            pytest.param("P2", marks=pytest.mark.xfail(strict=True, reason="task 19")),
+        ],
+    )
+    def test_R6_R32_best_back_to_0_removes_the_best_block_in_every_place(app, popup):
+        page = app(viewport=DESKTOP, storage=ONE_HABIT)
+        stats = row(page, "Habit 1").locator(":scope &gt; p.stats")
+        expect(stats).to_be_attached()
+&gt;       open_for_habit_1(page, popup)
+
+tests\browser\test_today.py:298: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+page = &lt;Page url='http://127.0.0.1:32044/'&gt;, popup = 'P2'
+
+    def open_for_habit_1(page, popup):
+        if popup == "P1":
+            band_day(page, TODAY).click()
+            expect(page.locator("dialog.dlg-day")).to_have_attribute("open", "")
+        elif popup == "P2":
+            year_btn(page, "Habit 1").click()
+&gt;           expect(page.locator("dialog.dlg-year")).to_have_attribute("open", "")
+E           AssertionError: Locator expected to have attribute ''
+E           Actual value: None 
+E           Call log:
+E             - Expect "to_have_attribute" with timeout 5000ms
+E             - waiting for locator("dialog.dlg-year")
+E               14 × locator resolved to &lt;dialog aria-modal="true" class="dlg-full dlg-year" aria-describedby="yr-sub" aria-labelledby="yr-title"&gt;…&lt;/dialog&gt;
+E                  - unexpected value "null"
+E           
+E           Aria snapshot:
+E           - banner:
+E             - heading "Streaky Habit" [level=1]
+E             - time: Saturday 10 October
+E           - main:
+E             - region "Last 12 weeks":
+E               - heading "Last 12 weeks" [level=2]
+E               - button "Year view, all habits": Year
+E               - paragraph: Tap a day to change it.
+E               - group "Last 12 weeks":
+E                 - button "Mon 20 Jul, 0 of 1 habits"
+E                 - button "Tue 21 Jul, 0 of 1 habits"
+E                 - button "Wed 22 Jul, 0 of 1 habits"
+E                 - button "Thu 23 Jul, 0 of 1 habits"
+E                 - button "Fri 24 Jul, 0 of 1 habits"
+E                 - button "Sat 25 Jul, 0 of 1 habits"
+E                 - button "Sun 26 Jul, 0 of 1 habits"
+E                 - button "Mon 27 Jul, 0 of 1 habits"
+E                 - button "Tue 28 Jul, 0 of 1 habits"
+E                 - button "Wed 29 Jul, 0 of 1 habits"
+E                 - button "Thu 30 Jul, 0 of 1 habits"
+E                 - button "Fri 31 Jul, 0 of 1 habits"
+E                 - button "Sat 1 Aug, 0 of 1 habits"
+E                 - button "Sun 2 Aug, 0 of 1 habits"
+E                 - button "Mon 3 Aug, 0 of 1 habits"
+E                 - button "Tue 4 Aug, 0 of 1 habits"
+E                 - button "Wed 5 Aug, 0 of 1 habits"
+E                 - button "Thu 6 Aug, 0 of 1 habits"
+E                 - button "Fri 7 Aug, 0 of 1 habits"
+E                 - button "Sat 8 Aug, 0 of 1 habits"
+E                 - button "Sun 9 Aug, 0 of 1 habits"
+E                 - button "Mon 10 Aug, 0 of 1 habits"
+E                 - button "Tue 11 Aug, 0 of 1 habits"
+E                 - button "Wed 12 Aug, 0 of 1 habits"
+E                 - button "Thu 13 Aug, 0 of 1 habits"
+E                 - button "Fri 14 Aug, 0 of 1 habits"
+E                 - button "Sat 15 Aug, 0 of 1 habits"
+E                 - button "Sun 16 Aug, 0 of 1 habits"
+E                 - button "Mon 17 Aug, 0 of 1 habits"
+E                 - button "Tue 18 Aug, 0 of 1 habits"
+E                 - button "Wed 19 Aug, 0 of 1 habits"
+E                 - button "Thu 20 Aug, 0 of 1 habits"
+E                 - button "Fri 21 Aug, 0 of 1 habits"
+E                 - button "Sat 22 Aug, 0 of 1 habits"
+E                 - button "Sun 23 Aug, 0 of 1 habits"
+E                 - button "Mon 24 Aug, 0 of 1 habits"
+E                 - button "Tue 25 Aug, 0 of 1 habits"
+E                 - button "Wed 26 Aug, 0 of 1 habits"
+E                 - button "Thu 27 Aug, 0 of 1 habits"
+E                 - button "Fri 28 Aug, 0 of 1 habits"
+E                 - button "Sat 29 Aug, 0 of 1 habits"
+E                 - button "Sun 30 Aug, 0 of 1 habits"
+E                 - button "Mon 31 Aug, 0 of 1 habits"
+E                 - button "Tue 1 Sep, 0 of 1 habits"
+E                 - button "Wed 2 Sep, 0 of 1 habits"
+E                 - button "Thu 3 Sep, 0 of 1 habits"
+E                 - button "Fri 4 Sep, 0 of 1 habits"
+E                 - button "Sat 5 Sep, 0 of 1 habits"
+E                 - button "Sun 6 Sep, 0 of 1 habits"
+E                 - button "Mon 7 Sep, 0 of 1 habits"
+E                 - button "Tue 8 Sep, 0 of 1 habits"
+E                 - button "Wed 9 Sep, 0 of 1 habits"
+E                 - button "Thu 10 Sep, 0 of 1 habits"
+E                 - button "Fri 11 Sep, 0 of 1 habits"
+E                 - button "Sat 12 Sep, 0 of 1 habits"
+E                 - button "Sun 13 Sep, 0 of 1 habits"
+E                 - button "Mon 14 Sep, 0 of 1 habits"
+E                 - button "Tue 15 Sep, 0 of 1 habits"
+E                 - button "Wed 16 Sep, 0 of 1 habits"
+E                 - button "Thu 17 Sep, 0 of 1 habits"
+E                 - button "Fri 18 Sep, 0 of 1 habits"
+E                 - button "Sat 19 Sep, 0 of 1 habits"
+E                 - button "Sun 20 Sep, 0 of 1 habits"
+E                 - button "Mon 21 Sep, 0 of 1 habits"
+E                 - button "Tue 22 Sep, 0 of 1 habits"
+E                 - button "Wed 23 Sep, 0 of 1 habits"
+E                 - button "Thu 24 Sep, 0 of 1 habits"
+E                 - button "Fri 25 Sep, 0 of 1 habits"
+E                 - button "Sat 26 Sep, 0 of 1 habits"
+E                 - button "Sun 27 Sep, 0 of 1 habits"
+E                 - button "Mon 28 Sep, 0 of 1 habits"
+E                 - button "Tue 29 Sep, 0 of 1 habits"
+E                 - button "Wed 30 Sep, 0 of 1 habits"
+E                 - button "Thu 1 Oct, 0 of 1 habits"
+E                 - button "Fri 2 Oct, 0 of 1 habits"
+E                 - button "Sat 3 Oct, 0 of 1 habits"
+E                 - button "Sun 4 Oct, 0 of 1 habits"
+E                 - button "Mon 5 Oct, 0 of 1 habits"
+E                 - button "Tue 6 Oct, 0 of 1 habits"
+E                 - button "Wed 7 Oct, 0 of 1 habits"
+E                 - button "Thu 8 Oct, 0 of 1 habits"
+E                 - button "Fri 9 Oct, 0 of 1 habits"
+E                 - button "Sat 10 Oct, 0 of 1 habits"
+E             - heading "Habits" [level=2]
+E             - list "Habits":
+E               - listitem:
+E                 - heading "Habit 1" [level=3]
+E                 - button "Delete \"Habit 1\""
+E                 - paragraph: Current No streak yet
+E                 - button "Year view, Habit 1": Year
+E                 - button "Done today, Habit 1": Done today
+E             - text: New habit
+E             - textbox "New habit"
+E             - button "Add"
+
+tests\browser\test_today.py:264: AssertionError</failure></testcase><testcase classname="tests.browser.test_today" name="test_R32_a_tick_that_changes_current_and_leaves_best_moves_current_only[P1]" time="5.163"><failure message="playwright._impl._errors.TimeoutError: Locator.click: Timeout 5000ms exceeded.&#10;Call log:&#10;  - waiting for locator(&quot;dialog.dlg-day ul.day-list&quot;).get_by_role(&quot;button&quot;, name=&quot;Stretch 10 minutes&quot;, exact=True)">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001FA36D7E140&gt;, popup = 'P1'
+
+    @pytest.mark.parametrize(
+        "popup",
+        [
+            pytest.param("P1", marks=pytest.mark.xfail(strict=True, reason="task 18")),
+            pytest.param("P2", marks=pytest.mark.xfail(strict=True, reason="task 19")),
+        ],
+    )
+    def test_R32_a_tick_that_changes_current_and_leaves_best_moves_current_only(app, popup):
+        page = app(viewport=DESKTOP, storage=sample_state())
+        expect(page.locator("ul.rows &gt; li.row")).to_have_count(3)
+        if popup == "P1":
+            band_day(page, TODAY).click()
+&gt;           tick(page, "Stretch 10 minutes").click()
+
+tests\browser\test_today.py:322: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\sync_api\_generated.py:17672: in click
+    self._sync(
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_locator.py:163: in click
+    return await self._frame._click(self._selector, strict=True, **params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_frame.py:591: in _click
+    await self._channel.send("click", self._timeout, locals_to_params(locals()))
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;playwright._impl._connection.Connection object at 0x000001FA3549A3C0&gt;
+cb = &lt;function Channel.send.&lt;locals&gt;.&lt;lambda&gt; at 0x000001FA36D7DD20&gt;
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -&gt; Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+&gt;           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.TimeoutError: Locator.click: Timeout 5000ms exceeded.
+E           Call log:
+E             - waiting for locator("dialog.dlg-day ul.day-list").get_by_role("button", name="Stretch 10 minutes", exact=True)
+
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py:563: TimeoutError</failure></testcase><testcase classname="tests.browser.test_today" name="test_R32_a_tick_that_changes_current_and_leaves_best_moves_current_only[P2]" time="5.194"><failure message="playwright._impl._errors.TimeoutError: Locator.click: Timeout 5000ms exceeded.&#10;Call log:&#10;  - waiting for locator(&quot;dialog.dlg-year div.months button.yc[data-key=\&quot;2026-10-10\&quot;]&quot;)">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001FA36D22980&gt;, popup = 'P2'
+
+    @pytest.mark.parametrize(
+        "popup",
+        [
+            pytest.param("P1", marks=pytest.mark.xfail(strict=True, reason="task 18")),
+            pytest.param("P2", marks=pytest.mark.xfail(strict=True, reason="task 19")),
+        ],
+    )
+    def test_R32_a_tick_that_changes_current_and_leaves_best_moves_current_only(app, popup):
+        page = app(viewport=DESKTOP, storage=sample_state())
+        expect(page.locator("ul.rows &gt; li.row")).to_have_count(3)
+        if popup == "P1":
+            band_day(page, TODAY).click()
+            tick(page, "Stretch 10 minutes").click()
+        else:
+            year_btn(page, "Stretch 10 minutes").click()
+&gt;           bead(page, TODAY).click()
+
+tests\browser\test_today.py:325: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\sync_api\_generated.py:17672: in click
+    self._sync(
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_locator.py:163: in click
+    return await self._frame._click(self._selector, strict=True, **params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_frame.py:591: in _click
+    await self._channel.send("click", self._timeout, locals_to_params(locals()))
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;playwright._impl._connection.Connection object at 0x000001FA3549A3C0&gt;
+cb = &lt;function Channel.send.&lt;locals&gt;.&lt;lambda&gt; at 0x000001FA36D23690&gt;
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -&gt; Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+&gt;           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.TimeoutError: Locator.click: Timeout 5000ms exceeded.
+E           Call log:
+E             - waiting for locator("dialog.dlg-year div.months button.yc[data-key=\"2026-10-10\"]")
+
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py:563: TimeoutError</failure></testcase></testsuite></testsuites>

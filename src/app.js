@@ -6,8 +6,8 @@
  * synchronous render inside the handler that caused it (spec Invariants).
  */
 import { localDateKey } from "./dates.js";
-import { MAX_HABITS, doneFlags, heatmapCells } from "./habits.js";
-import { loadHabits } from "./storage.js";
+import { MAX_HABITS, doneFlags, heatmapCells, toggleDay } from "./habits.js";
+import { loadHabits, saveHabits } from "./storage.js";
 import * as view from "./view.js";
 
 /** The only clock read in the app, so tests move time with Playwright's clock alone (spec Invariants). */
@@ -30,12 +30,30 @@ function render(animate) {
   view.renderFrameFades();
 }
 
+/** Every edit takes this path, so each saves once and then shows the new habits everywhere at once (R16, R32). */
+function edit(habits) {
+  state.habits = habits;
+  saveHabits(habits);
+  render(true);
+}
+
+/**
+ * Done today ticks or unticks today (R31). The button is updated in place by the render, and focus is never moved,
+ * so a keyboard user stays on it.
+ */
+function onPageClick(event) {
+  const index = view.doneTodayIndexOf(event.target);
+  if (index >= 0) edit(toggleDay(state.habits, index, state.todayKey, state.todayKey));
+}
+
 function boot() {
   state.habits = loadHabits().habits;
   state.todayKey = readToday();
   view.renderDate(state.todayKey);
   render(false);
-  view.containers().frame.addEventListener("scroll", view.renderFrameFades);
+  const { page, frame } = view.containers();
+  page.addEventListener("click", onPageClick);
+  frame.addEventListener("scroll", view.renderFrameFades);
   window.addEventListener("resize", view.renderFrameFades);
 }
 

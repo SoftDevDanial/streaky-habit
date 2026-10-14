@@ -531,6 +531,87 @@ def p3_day(page, key):
     return page.locator(f'dialog.dlg-ov div.ovg-rows button.hc[data-key="{key}"]')
 
 
+def p4_day(page, key):
+    return page.locator(f'dialog.dlg-all div.months button.hc[data-key="{key}"]')
+
+
+def bead(page, key):
+    """P2's day button for the date key."""
+    return page.locator(f'dialog.dlg-year div.months button.yc[data-key="{key}"]')
+
+
+def tick(page, name):
+    """P1's tick for a habit, named by the habit's name."""
+    return page.locator("dialog.dlg-day ul.day-list").get_by_role("button", name=name, exact=True)
+
+
+def confirm_delete(page, opener):
+    """Click M1's Delete habit at the centre of the largest part of its box that lies outside the opener's box.
+
+    The guard of spec R13 ignores a pointer click inside the box of the control that opened M1 (CG-10), so a
+    deliberate click lands beside it. Fails at once when Delete habit lies wholly inside the opener's box.
+    """
+    target = page.locator("dialog.dlg-del button.btn-danger").bounding_box()
+    avoid = opener.bounding_box()
+    left, top = target["x"], target["y"]
+    right, bottom = left + target["width"], top + target["height"]
+    a_left, a_top = avoid["x"], avoid["y"]
+    a_right, a_bottom = a_left + avoid["width"], a_top + avoid["height"]
+    parts = [
+        (left, top, min(right, a_left), bottom),
+        (max(left, a_right), top, right, bottom),
+        (left, top, right, min(bottom, a_top)),
+        (left, max(top, a_bottom), right, bottom),
+    ]
+    parts = [part for part in parts if part[2] > part[0] and part[3] > part[1]]
+    if not parts:
+        pytest.fail(f"Delete habit {target} lies wholly inside its opener {avoid}")
+    x0, y0, x1, y1 = max(parts, key=lambda part: (part[2] - part[0]) * (part[3] - part[1]))
+    page.mouse.click((x0 + x1) / 2, (y0 + y1) / 2)
+
+
+# p.stats or p.yr-stats as a tree. An element is "tag.class.class", a leaf adds ":text", a parent is [name, [children]].
+# The motion class "bump" (spec R32) is left out, so a tree reads the same during and after a number's rise.
+_STATS_TREE_JS = """(stats) => {
+  const label = (node) => [node.localName, ...Array.from(node.classList).filter((name) => name !== 'bump')].join('.');
+  const tree = (node) => node.children.length ? [label(node), Array.from(node.children).map(tree)] : `${label(node)}:${node.textContent}`;
+  return Array.from(stats.children).map(tree);
+}"""
+
+
+def stats_tree(stats):
+    """The tree of a `p.stats` or `p.yr-stats` locator, to compare with `current_block` and `best_block`."""
+    return stats.evaluate(_STATS_TREE_JS)
+
+
+def current_block(value=None, unit=None):
+    """span.stat.cur as `stats_tree` gives it: with no value, "No streak yet"."""
+    if value is None:
+        return ["span.stat.cur", ["span.lbl:Current", "span.none:No streak yet"]]
+    return ["span.stat.cur", ["span.lbl:Current", ["span.val", [f"b.num:{value}", f"span.unit:{unit}"]]]]
+
+
+def best_block(value):
+    return ["span.stat.best", ["span.lbl:Best", ["span.val", [f"b.num:{value}"]]]]
+
+
+_ROW_NUMBERS_JS = """(row) => {
+  const current = row.querySelector('.stat.cur');
+  const value = current.querySelector(':scope > span.val');
+  const best = row.querySelector('.stat.best .num');
+  return {
+    current: value ? `${value.querySelector('b.num').textContent} ${value.querySelector('span.unit').textContent}`
+      : current.querySelector(':scope > span.none').textContent,
+    best: best && best.textContent,
+  };
+}"""
+
+
+def row_numbers(page, name):
+    """{"current": "4 days" or "No streak yet", "best": "9" or None} as the row of `name` reads them."""
+    return row(page, name).evaluate(_ROW_NUMBERS_JS)
+
+
 def focused(page):
     """The accessible name of document.activeElement (its aria-label, else its text), or "body"."""
     return page.evaluate(
