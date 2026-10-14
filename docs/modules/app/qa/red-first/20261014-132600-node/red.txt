@@ -1,0 +1,9 @@
+RED first, app task 13 (R42), tests/ring.test.js against the throwaway stub of src/ring.js
+Stub (never committed): arcPath = () => (new Date(), ""), legendCounts = () => []
+Command, from the project root:
+node --test --test-reporter=spec --test-reporter-destination=stdout --test-reporter=junit --test-reporter-destination=docs/modules/app/qa/red-first/20261014-132600-node/junit.xml tests/ring.test.js
+junit.xml in this folder is the run's own output.
+Result (2026-10-14 13:25), 16 tests, 0 pass, 16 fail, each on its property.
+- arcPath, the shared arcs and the seven other counts. actual '' against the expected d, for example 'M22.86 5.28A15 15 0 0 1 34.18 24.88'.
+- legendCounts, the seven rows. actual [] against the expected counts, for example [ 0 ] for 0 and [ 0, 4, 8, 12 ] for 12.
+- ring.js is pure. ring.js contains "Date" (the stub's clock read). The export check alone would pass on the stub.

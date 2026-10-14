@@ -1,0 +1,587 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuites>
+	<testcase name="@R42 arcPath reproduces the goldens' shared arcs" time="0.001442" classname="test" file="{workspace}\examples\streaks\tests\ring.test.js" failure="a3-0+ actual - expected+ ''- 'M22.86 5.28A15 15 0 0 1 34.18 24.88'">
+		<failure type="testCodeFailure" message="a3-0+ actual - expected+ ''- 'M22.86 5.28A15 15 0 0 1 34.18 24.88'">
+[Error [ERR_TEST_FAILURE]: a3-0
++ actual - expected
+
++ ''
+- 'M22.86 5.28A15 15 0 0 1 34.18 24.88'
+] {
+  code: 'ERR_TEST_FAILURE',
+  failureType: 'testCodeFailure',
+  cause: AssertionError [ERR_ASSERTION]: a3-0
+  + actual - expected
+  
+  + ''
+  - 'M22.86 5.28A15 15 0 0 1 34.18 24.88'
+  
+      at file:///{workspace}/examples/streaks/tests/ring.test.js:22:68
+      at Array.forEach (&lt;anonymous>)
+      at TestContext.&lt;anonymous> (file:///{workspace}/examples/streaks/tests/ring.test.js:22:43)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.start (node:internal/test_runner/test:1003:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:358:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '',
+    expected: 'M22.86 5.28A15 15 0 0 1 34.18 24.88',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+}
+		</failure>
+	</testcase>
+	<testcase name="@R42 arcPath(0, 2) for other numbers of habits" time="0.000157" classname="test" file="{workspace}\examples\streaks\tests\ring.test.js" failure="Expected values to be strictly equal:+ actual - expected+ ''- 'M22.86 5.28A15 15 0 0 1 22.86 34.72'">
+		<failure type="testCodeFailure" message="Expected values to be strictly equal:+ actual - expected+ ''- 'M22.86 5.28A15 15 0 0 1 22.86 34.72'">
+[Error [ERR_TEST_FAILURE]: Expected values to be strictly equal:
++ actual - expected
+
++ ''
+- 'M22.86 5.28A15 15 0 0 1 22.86 34.72'
+] {
+  code: 'ERR_TEST_FAILURE',
+  failureType: 'testCodeFailure',
+  cause: AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + ''
+  - 'M22.86 5.28A15 15 0 0 1 22.86 34.72'
+  
+      at TestContext.&lt;anonymous> (file:///{workspace}/examples/streaks/tests/ring.test.js:39:12)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '',
+    expected: 'M22.86 5.28A15 15 0 0 1 22.86 34.72',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+}
+		</failure>
+	</testcase>
+	<testcase name="@R42 arcPath(1, 2) for other numbers of habits" time="0.000092" classname="test" file="{workspace}\examples\streaks\tests\ring.test.js" failure="Expected values to be strictly equal:+ actual - expected+ ''- 'M17.14 34.72A15 15 0 0 1 17.14 5.28'">
+		<failure type="testCodeFailure" message="Expected values to be strictly equal:+ actual - expected+ ''- 'M17.14 34.72A15 15 0 0 1 17.14 5.28'">
+[Error [ERR_TEST_FAILURE]: Expected values to be strictly equal:
++ actual - expected
+
++ ''
+- 'M17.14 34.72A15 15 0 0 1 17.14 5.28'
+] {
+  code: 'ERR_TEST_FAILURE',
+  failureType: 'testCodeFailure',
+  cause: AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + ''
+  - 'M17.14 34.72A15 15 0 0 1 17.14 5.28'
+  
+      at TestContext.&lt;anonymous> (file:///{workspace}/examples/streaks/tests/ring.test.js:39:12)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '',
+    expected: 'M17.14 34.72A15 15 0 0 1 17.14 5.28',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+}
+		</failure>
+	</testcase>
+	<testcase name="@R42 arcPath(0, 5) for other numbers of habits" time="0.000078" classname="test" file="{workspace}\examples\streaks\tests\ring.test.js" failure="Expected values to be strictly equal:+ actual - expected+ ''- 'M22.81 5.27A15 15 0 0 1 33.14 12.77'">
+		<failure type="testCodeFailure" message="Expected values to be strictly equal:+ actual - expected+ ''- 'M22.81 5.27A15 15 0 0 1 33.14 12.77'">
+[Error [ERR_TEST_FAILURE]: Expected values to be strictly equal:
++ actual - expected
+
++ ''
+- 'M22.81 5.27A15 15 0 0 1 33.14 12.77'
+] {
+  code: 'ERR_TEST_FAILURE',
+  failureType: 'testCodeFailure',
+  cause: AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + ''
+  - 'M22.81 5.27A15 15 0 0 1 33.14 12.77'
+  
+      at TestContext.&lt;anonymous> (file:///{workspace}/examples/streaks/tests/ring.test.js:39:12)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '',
+    expected: 'M22.81 5.27A15 15 0 0 1 33.14 12.77',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+}
+		</failure>
+	</testcase>
+	<testcase name="@R42 arcPath(1, 5) for other numbers of habits" time="0.000084" classname="test" file="{workspace}\examples\streaks\tests\ring.test.js" failure="Expected values to be strictly equal:+ actual - expected+ ''- 'M34.88 18.12A15 15 0 0 1 30.93 30.27'">
+		<failure type="testCodeFailure" message="Expected values to be strictly equal:+ actual - expected+ ''- 'M34.88 18.12A15 15 0 0 1 30.93 30.27'">
+[Error [ERR_TEST_FAILURE]: Expected values to be strictly equal:
++ actual - expected
+
++ ''
+- 'M34.88 18.12A15 15 0 0 1 30.93 30.27'
+] {
+  code: 'ERR_TEST_FAILURE',
+  failureType: 'testCodeFailure',
+  cause: AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + ''
+  - 'M34.88 18.12A15 15 0 0 1 30.93 30.27'
+  
+      at TestContext.&lt;anonymous> (file:///{workspace}/examples/streaks/tests/ring.test.js:39:12)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '',
+    expected: 'M34.88 18.12A15 15 0 0 1 30.93 30.27',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+}
+		</failure>
+	</testcase>
+	<testcase name="@R42 arcPath(2, 5) for other numbers of habits" time="0.000075" classname="test" file="{workspace}\examples\streaks\tests\ring.test.js" failure="Expected values to be strictly equal:+ actual - expected+ ''- 'M26.39 33.57A15 15 0 0 1 13.61 33.57'">
+		<failure type="testCodeFailure" message="Expected values to be strictly equal:+ actual - expected+ ''- 'M26.39 33.57A15 15 0 0 1 13.61 33.57'">
+[Error [ERR_TEST_FAILURE]: Expected values to be strictly equal:
++ actual - expected
+
++ ''
+- 'M26.39 33.57A15 15 0 0 1 13.61 33.57'
+] {
+  code: 'ERR_TEST_FAILURE',
+  failureType: 'testCodeFailure',
+  cause: AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + ''
+  - 'M26.39 33.57A15 15 0 0 1 13.61 33.57'
+  
+      at TestContext.&lt;anonymous> (file:///{workspace}/examples/streaks/tests/ring.test.js:39:12)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '',
+    expected: 'M26.39 33.57A15 15 0 0 1 13.61 33.57',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+}
+		</failure>
+	</testcase>
+	<testcase name="@R42 arcPath(3, 5) for other numbers of habits" time="0.000078" classname="test" file="{workspace}\examples\streaks\tests\ring.test.js" failure="Expected values to be strictly equal:+ actual - expected+ ''- 'M9.07 30.27A15 15 0 0 1 5.12 18.12'">
+		<failure type="testCodeFailure" message="Expected values to be strictly equal:+ actual - expected+ ''- 'M9.07 30.27A15 15 0 0 1 5.12 18.12'">
+[Error [ERR_TEST_FAILURE]: Expected values to be strictly equal:
++ actual - expected
+
++ ''
+- 'M9.07 30.27A15 15 0 0 1 5.12 18.12'
+] {
+  code: 'ERR_TEST_FAILURE',
+  failureType: 'testCodeFailure',
+  cause: AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + ''
+  - 'M9.07 30.27A15 15 0 0 1 5.12 18.12'
+  
+      at TestContext.&lt;anonymous> (file:///{workspace}/examples/streaks/tests/ring.test.js:39:12)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '',
+    expected: 'M9.07 30.27A15 15 0 0 1 5.12 18.12',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+}
+		</failure>
+	</testcase>
+	<testcase name="@R42 arcPath(4, 5) for other numbers of habits" time="0.000064" classname="test" file="{workspace}\examples\streaks\tests\ring.test.js" failure="Expected values to be strictly equal:+ actual - expected+ ''- 'M6.86 12.77A15 15 0 0 1 17.19 5.27'">
+		<failure type="testCodeFailure" message="Expected values to be strictly equal:+ actual - expected+ ''- 'M6.86 12.77A15 15 0 0 1 17.19 5.27'">
+[Error [ERR_TEST_FAILURE]: Expected values to be strictly equal:
++ actual - expected
+
++ ''
+- 'M6.86 12.77A15 15 0 0 1 17.19 5.27'
+] {
+  code: 'ERR_TEST_FAILURE',
+  failureType: 'testCodeFailure',
+  cause: AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + ''
+  - 'M6.86 12.77A15 15 0 0 1 17.19 5.27'
+  
+      at TestContext.&lt;anonymous> (file:///{workspace}/examples/streaks/tests/ring.test.js:39:12)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '',
+    expected: 'M6.86 12.77A15 15 0 0 1 17.19 5.27',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+}
+		</failure>
+	</testcase>
+	<testcase name="@R42 legendCounts(0)" time="0.000608" classname="test" file="{workspace}\examples\streaks\tests\ring.test.js" failure="Expected values to be strictly deep-equal:+ actual - expected+ []- [-   0- ]">
+		<failure type="testCodeFailure" message="Expected values to be strictly deep-equal:+ actual - expected+ []- [-   0- ]">
+[Error [ERR_TEST_FAILURE]: Expected values to be strictly deep-equal:
++ actual - expected
+
++ []
+- [
+-   0
+- ]
+] {
+  code: 'ERR_TEST_FAILURE',
+  failureType: 'testCodeFailure',
+  cause: AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   0
+  - ]
+  
+      at TestContext.&lt;anonymous> (file:///{workspace}/examples/streaks/tests/ring.test.js:55:12)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 0 ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+}
+		</failure>
+	</testcase>
+	<testcase name="@R42 legendCounts(1)" time="0.000204" classname="test" file="{workspace}\examples\streaks\tests\ring.test.js" failure="Expected values to be strictly deep-equal:+ actual - expected+ []- [-   0,-   1- ]">
+		<failure type="testCodeFailure" message="Expected values to be strictly deep-equal:+ actual - expected+ []- [-   0,-   1- ]">
+[Error [ERR_TEST_FAILURE]: Expected values to be strictly deep-equal:
++ actual - expected
+
++ []
+- [
+-   0,
+-   1
+- ]
+] {
+  code: 'ERR_TEST_FAILURE',
+  failureType: 'testCodeFailure',
+  cause: AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   0,
+  -   1
+  - ]
+  
+      at TestContext.&lt;anonymous> (file:///{workspace}/examples/streaks/tests/ring.test.js:55:12)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 0, 1 ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+}
+		</failure>
+	</testcase>
+	<testcase name="@R42 legendCounts(2)" time="0.000118" classname="test" file="{workspace}\examples\streaks\tests\ring.test.js" failure="Expected values to be strictly deep-equal:+ actual - expected+ []- [-   0,-   1,-   2- ]">
+		<failure type="testCodeFailure" message="Expected values to be strictly deep-equal:+ actual - expected+ []- [-   0,-   1,-   2- ]">
+[Error [ERR_TEST_FAILURE]: Expected values to be strictly deep-equal:
++ actual - expected
+
++ []
+- [
+-   0,
+-   1,
+-   2
+- ]
+] {
+  code: 'ERR_TEST_FAILURE',
+  failureType: 'testCodeFailure',
+  cause: AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   0,
+  -   1,
+  -   2
+  - ]
+  
+      at TestContext.&lt;anonymous> (file:///{workspace}/examples/streaks/tests/ring.test.js:55:12)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 0, 1, 2 ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+}
+		</failure>
+	</testcase>
+	<testcase name="@R42 legendCounts(3)" time="0.000107" classname="test" file="{workspace}\examples\streaks\tests\ring.test.js" failure="Expected values to be strictly deep-equal:+ actual - expected+ []- [-   0,-   1,-   2,-   3- ]">
+		<failure type="testCodeFailure" message="Expected values to be strictly deep-equal:+ actual - expected+ []- [-   0,-   1,-   2,-   3- ]">
+[Error [ERR_TEST_FAILURE]: Expected values to be strictly deep-equal:
++ actual - expected
+
++ []
+- [
+-   0,
+-   1,
+-   2,
+-   3
+- ]
+] {
+  code: 'ERR_TEST_FAILURE',
+  failureType: 'testCodeFailure',
+  cause: AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   0,
+  -   1,
+  -   2,
+  -   3
+  - ]
+  
+      at TestContext.&lt;anonymous> (file:///{workspace}/examples/streaks/tests/ring.test.js:55:12)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 0, 1, 2, 3 ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+}
+		</failure>
+	</testcase>
+	<testcase name="@R42 legendCounts(4)" time="0.000083" classname="test" file="{workspace}\examples\streaks\tests\ring.test.js" failure="Expected values to be strictly deep-equal:+ actual - expected+ []- [-   0,-   2,-   3,-   4- ]">
+		<failure type="testCodeFailure" message="Expected values to be strictly deep-equal:+ actual - expected+ []- [-   0,-   2,-   3,-   4- ]">
+[Error [ERR_TEST_FAILURE]: Expected values to be strictly deep-equal:
++ actual - expected
+
++ []
+- [
+-   0,
+-   2,
+-   3,
+-   4
+- ]
+] {
+  code: 'ERR_TEST_FAILURE',
+  failureType: 'testCodeFailure',
+  cause: AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   0,
+  -   2,
+  -   3,
+  -   4
+  - ]
+  
+      at TestContext.&lt;anonymous> (file:///{workspace}/examples/streaks/tests/ring.test.js:55:12)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 0, 2, 3, 4 ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+}
+		</failure>
+	</testcase>
+	<testcase name="@R42 legendCounts(5)" time="0.000489" classname="test" file="{workspace}\examples\streaks\tests\ring.test.js" failure="Expected values to be strictly deep-equal:+ actual - expected+ []- [-   0,-   2,-   4,-   5- ]">
+		<failure type="testCodeFailure" message="Expected values to be strictly deep-equal:+ actual - expected+ []- [-   0,-   2,-   4,-   5- ]">
+[Error [ERR_TEST_FAILURE]: Expected values to be strictly deep-equal:
++ actual - expected
+
++ []
+- [
+-   0,
+-   2,
+-   4,
+-   5
+- ]
+] {
+  code: 'ERR_TEST_FAILURE',
+  failureType: 'testCodeFailure',
+  cause: AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   0,
+  -   2,
+  -   4,
+  -   5
+  - ]
+  
+      at TestContext.&lt;anonymous> (file:///{workspace}/examples/streaks/tests/ring.test.js:55:12)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 0, 2, 4, 5 ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+}
+		</failure>
+	</testcase>
+	<testcase name="@R42 legendCounts(12)" time="0.000090" classname="test" file="{workspace}\examples\streaks\tests\ring.test.js" failure="Expected values to be strictly deep-equal:+ actual - expected+ []- [-   0,-   4,-   8,-   12- ]">
+		<failure type="testCodeFailure" message="Expected values to be strictly deep-equal:+ actual - expected+ []- [-   0,-   4,-   8,-   12- ]">
+[Error [ERR_TEST_FAILURE]: Expected values to be strictly deep-equal:
++ actual - expected
+
++ []
+- [
+-   0,
+-   4,
+-   8,
+-   12
+- ]
+] {
+  code: 'ERR_TEST_FAILURE',
+  failureType: 'testCodeFailure',
+  cause: AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   0,
+  -   4,
+  -   8,
+  -   12
+  - ]
+  
+      at TestContext.&lt;anonymous> (file:///{workspace}/examples/streaks/tests/ring.test.js:55:12)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 0, 4, 8, 12 ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+}
+		</failure>
+	</testcase>
+	<testcase name="@R42 ring.js is pure" time="0.000319" classname="test" file="{workspace}\examples\streaks\tests\ring.test.js" failure="ring.js contains &amp;quot;Date&amp;quot;">
+		<failure type="testCodeFailure" message="ring.js contains &amp;quot;Date&amp;quot;">
+[Error [ERR_TEST_FAILURE]: ring.js contains "Date"] {
+  code: 'ERR_TEST_FAILURE',
+  failureType: 'testCodeFailure',
+  cause: AssertionError [ERR_ASSERTION]: ring.js contains "Date"
+      at TestContext.&lt;anonymous> (file:///{workspace}/examples/streaks/tests/ring.test.js:64:12)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+}
+		</failure>
+	</testcase>
+	<!-- tests 16 -->
+	<!-- suites 0 -->
+	<!-- pass 0 -->
+	<!-- fail 16 -->
+	<!-- cancelled 0 -->
+	<!-- skipped 0 -->
+	<!-- todo 0 -->
+	<!-- duration_ms 60.8755 -->
+</testsuites>

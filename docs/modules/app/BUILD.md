@@ -181,3 +181,29 @@ The static parts of K1, S1 and the five dialogs are in the DOM with the goldens'
 ### For the README reconcile
 - `index.html` is the v1.1.0 skeleton (title "Danial's Streaky Habit", viewport with `viewport-fit=cover`, the tab icon link, the sprite with four icons, `div.app`, five dialogs). `src/styles.css` is `system.css` without its stand-ins and with three marked changes. `src/icon.svg` is the tab icon.
 - The browser suite now holds `test_engines.py` and `test_entry.py` only. `conftest.py` exports `SAMPLE_HABITS`, `TWELVE`, `sample_state`, `twelve_state`, `encode`, `TODAY`, `NOON` and `PAUSE_AT` on the v1.1.0 sample.
+
+---
+
+## v1.1.0 task 13, ring geometry (2026-10-14)
+> Written by the frontend builder (senior frontend dev agent), 2026-10-14. Requirement R42. The commit is the one whose message starts `feat(app): ring geometry, arcPath and legendCounts (task 13, R42)`.
+
+### Phase skills
+The design row loaded for task 12 (same session, same files) covers this task, which the spec counts as UI work. Nothing in it changed `ring.js`, a pure module whose output is fixed by the goldens' path data. Transferred, no em or en dash, names over comments.
+
+### What changed
+- `src/ring.js` (new). `arcPath(i, n)` draws R42's arc rule (step 360/n, gap `min(22, 0.3 x step)`, points on radius 15 round (20, 20) rounded to 2 decimals, the large-arc flag when `step - gap` is above 180). `legendCounts(n)` is the distinct values of `[0, ceil(n/3), ceil(2n/3), n]`. Nothing else is exported, no import, no page or clock access.
+- `tests/ring.test.js` (new). The four Node scenarios of qa.md, 16 tests. The shared arcs `a3-0` to `a3-2` read from `today.html` and `a12-0` to `a12-11` from `today-full.html`, the seven other arcs, the seven legend rows, and the purity scan (no import statement, none of the five words, exports exactly the two names).
+- `spec.md` task 13 ticked.
+
+### RED first
+The stub of habit-logic qa.md (`arcPath` returning `""` after a `new Date()`, `legendCounts` returning `[]`) gave 16 of 16 failing on their values and the purity scan failing on "Date" (`docs/modules/app/qa/red-first/20261014-132600-node/`, `junit.xml` written by the run and `red.txt`). The folder's name was chosen just before the run, which happened at 13:25. The stub was replaced before the commit.
+
+### Proof
+- Node, `node --test "tests/**/*.test.js"`, 118 of 118 (102 before, 16 new).
+- Chromium 8 passed, 2 xfailed (`docs/modules/app/qa/functional/20261014-132537-chromium/junit.xml`). WebKit 7 passed, 1 skipped (CO-1), 2 xfailed (`.../functional/20261014-132549-webkit/junit.xml`). Unchanged from task 12, as expected, since no page code uses `ring.js` until task 15. No WebKit failure.
+
+### Deviations
+None. `arcPath` has no guard for `n` below 2, because the spec defines it for 2 or more and the view draws a circle for 0 and 1 (R42).
+
+### For the README reconcile
+- `src/ring.js` exports `arcPath` and `legendCounts` (pure, the Ring contract). `tests/ring.test.js` is new.
