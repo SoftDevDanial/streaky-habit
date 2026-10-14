@@ -1,8 +1,9 @@
 """Shared fixtures and helpers for the Streaks browser tests (app qa.md, "conftest.py").
 
-Why: every test opens the running app the same way (one headless Chromium, a fixed time zone, a
-controlled clock, optional seeded storage), so that setup lives here once.
-Input: STREAKS_BASE_URL (ends with "/"), STREAKS_SUBPATH_URL and STREAKS_EVIDENCE_DIR, all optional. When
+Why: every test opens the running app the same way (one headless browser of the run's engine, a fixed time
+zone, a controlled clock, optional seeded storage, the clipboard stand-in), so that setup lives here once.
+Input: the pytest option --engine (chromium, the default, or webkit), and STREAKS_BASE_URL (ends with "/"),
+STREAKS_SUBPATH_URL and STREAKS_EVIDENCE_DIR, all optional. When
 STREAKS_BASE_URL is absent this module serves the app itself for the run (see `pytest_configure`), so
 `python -m pytest tests/browser -q` works with nothing set. Output: fixtures and helpers; nothing here
 touches the app's code, and tests only ever reach the app through real gestures and by seeding
@@ -25,12 +26,20 @@ from playwright.sync_api import expect, sync_playwright
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 DESIGN_DIR = ROOT / "docs" / "design"
+# v1.1.0 tasks 11 and 12 only. The four 1.0 goldens the 1.0 tests read, restored byte for byte from tag v1.0.0
+# (the design finalize of 2026-10-13 replaced them in DESIGN_DIR). Task 12 removes it with its readers.
+DESIGN_V10_DIR = ROOT / "tests" / "fixtures" / "design-v1.0.0"
+SAMPLE_V10_FILE = ROOT / "tests" / "fixtures" / "sample-history-v1.0.0.json"
 
-# Rebound by `pytest_configure` when the run serves the app itself. Test modules read them with
-# `from conftest import ...` at import, which pytest does only after that hook has run.
+# Rebound by `pytest_configure`: the two URLs when the run serves the app itself, EVIDENCE_DIR to end with the
+# engine. Test modules read them with `from conftest import ...` at import, which pytest does only after that hook.
 BASE_URL = os.environ.get("STREAKS_BASE_URL", "")
 SUBPATH_URL = os.environ.get("STREAKS_SUBPATH_URL", "")
 EVIDENCE_DIR = os.environ.get("STREAKS_EVIDENCE_DIR", "")
+
+ENGINES = ("chromium", "webkit")
+# Chromium switches must never reach WebKit. srgb keeps Chromium's colours equal to the Chromium renders of the goldens.
+LAUNCH_ARGS = {"chromium": ["--force-color-profile=srgb"], "webkit": []}
 
 SERVER_READY_SECONDS = 10  # qa.md: poll every 250 ms and give up after 10 seconds
 SERVER_POLL_SECONDS = 0.25
@@ -50,7 +59,8 @@ PAUSE_AT = "2026-10-08T12:00:20+08:00"
 GUARD_WINDOW_MS = 500
 DEFAULT_TIMEOUT_MS = 5000
 
-SAMPLE = json.loads((DESIGN_DIR / "sample-history.json").read_text(encoding="utf-8"))
+# The 1.0 sample (habit-logic task 6), so the 1.0 tests keep their 1.0 meaning until task 12 switches to v1.1.0.
+SAMPLE = json.loads(SAMPLE_V10_FILE.read_text(encoding="utf-8"))
 SAMPLE_HABITS = SAMPLE["habits"]
 SAMPLE_LEVELS = SAMPLE["heatmapLevels"]
 # Written out, not read from the sample, so a test that compares the page with them is not comparing a file with itself.
@@ -158,14 +168,30 @@ class _StaticServer:
         self.process = None
 
 
+def with_engine(folder, engine):
+    """`folder` with its last part ending in "-<engine>", so the evidence of two engines never shares a folder.
+
+    Used for STREAKS_EVIDENCE_DIR here and for the live gate's --out (app spec R30). An empty folder stays empty.
+    """
+    if not folder:
+        return folder
+    path = pathlib.PurePath(folder)
+    return folder if path.name.endswith(f"-{engine}") else str(path.with_name(f"{path.name}-{engine}"))
+
+
 def pytest_configure(config):
     """Serve the app for the run when no server is named, so `python -m pytest tests/browser -q` works alone.
 
     STREAKS_BASE_URL names a server somebody else runs (the mutation runner, a QA finder) and wins.
     Otherwise this starts two: the project root, and its parent folder for the sub-path scenario
     (STREAKS_SUBPATH_URL still wins for the second). Each is registered for cleanup before it starts.
+    It also registers the chromium_only marker and gives the evidence folder its engine (app spec R30).
     """
-    global BASE_URL, SUBPATH_URL
+    global BASE_URL, SUBPATH_URL, EVIDENCE_DIR
+    config.addinivalue_line(
+        "markers", "chromium_only(reason): a counted skip with that reason when the engine is not Chromium (app spec R30)"
+    )
+    EVIDENCE_DIR = with_engine(EVIDENCE_DIR, config.getoption("--engine"))
     if BASE_URL:
         return
     root = _StaticServer(ROOT)
@@ -187,12 +213,65 @@ def _require_base_url():
         )
 
 
+def pytest_addoption(parser):
+    parser.addoption(
+        "--engine", choices=ENGINES, default="chromium", help="browser engine of this run, chromium or webkit (app spec R30)"
+    )
+
+
+def pytest_collection_modifyitems(config, items):
+    """Turn every `chromium_only(reason=...)` test into a skip that carries its reason when the engine is not Chromium."""
+    if config.getoption("--engine") == "chromium":
+        return
+    for item in items:
+        marker = item.get_closest_marker("chromium_only")
+        if marker is None:
+            continue
+        reason = marker.kwargs.get("reason", "")
+        if not reason:
+            raise pytest.UsageError(f"{item.nodeid}: chromium_only needs reason=... (app spec R30)")
+        item.add_marker(pytest.mark.skip(reason=f"chromium_only: {reason}"))
+
+
+def pytest_terminal_summary(terminalreporter, config):
+    """Count and list the chromium_only skips, so a WebKit run never reports them as passes (app spec R30)."""
+    skips = [
+        report for report in terminalreporter.stats.get("skipped", [])
+        if isinstance(report.longrepr, tuple) and "chromium_only: " in report.longrepr[2]
+    ]
+    terminalreporter.write_line(f"engine {config.getoption('--engine')}: {len(skips)} chromium_only skip(s)")
+    for report in skips:
+        terminalreporter.write_line(f"  {report.nodeid}: {report.longrepr[2]}")
+
+
 @pytest.fixture(scope="session")
-def browser():
-    with sync_playwright() as playwright:
-        chromium = playwright.chromium.launch(headless=True, args=["--force-color-profile=srgb"])
-        yield chromium
-        chromium.close()
+def engine(pytestconfig):
+    return pytestconfig.getoption("--engine")
+
+
+def launch(playwright, engine):
+    """Start one headless browser of `engine` ("chromium" or "webkit") and return it.
+
+    The only place in tests/browser that launches a browser (app spec R30, checked by test_engines.py), so each
+    engine gets only its own arguments. Any other engine raises ValueError before anything starts.
+    """
+    if engine not in ENGINES:
+        raise ValueError(f"unknown engine {engine!r}, expected one of {', '.join(ENGINES)}")
+    return getattr(playwright, engine).launch(headless=True, args=LAUNCH_ARGS[engine])
+
+
+@pytest.fixture(scope="session")
+def playwright():
+    """The one Playwright driver of the run, shared by `browser` and by tests that call `launch` themselves."""
+    with sync_playwright() as driver:
+        yield driver
+
+
+@pytest.fixture(scope="session")
+def browser(playwright, engine):
+    started = launch(playwright, engine)
+    yield started
+    started.close()
 
 
 class PageLog:
@@ -254,6 +333,24 @@ _WRITE_COUNTER_SCRIPT = """(() => {
 _COUNTING = weakref.WeakSet()
 _CLOCK_INSTALLED = weakref.WeakSet()
 
+# Never touch the system clipboard (constitution, Browser gates). Every context gets this before anything else:
+# when the page can reach a clipboard, its four methods log the marker "test:clipboard:<method>" and resolve
+# instead. The app has no copy feature, so any marker in a run is a finding. It adds no property to window.
+CLIPBOARD_STANDIN = """(() => {
+  if (!navigator.clipboard || typeof Clipboard !== 'function') return;
+  for (const method of ['writeText', 'write', 'readText', 'read']) {
+    if (!(method in Clipboard.prototype)) continue;
+    Object.defineProperty(Clipboard.prototype, method, {
+      configurable: true,
+      writable: true,
+      value: function () {
+        console.log('test:clipboard:' + method);
+        return Promise.resolve(method === 'readText' ? '' : method === 'read' ? [] : undefined);
+      },
+    });
+  }
+})();"""
+
 
 def open_app(
     browser,
@@ -292,6 +389,7 @@ def open_app(
         reduced_motion=reduced_motion,
         has_touch=touch,
     )
+    context.add_init_script(CLIPBOARD_STANDIN)
     context.set_default_timeout(DEFAULT_TIMEOUT_MS)
     context.set_default_navigation_timeout(2 * DEFAULT_TIMEOUT_MS)
     if install_time is not None:
@@ -542,8 +640,8 @@ _CANONICAL_PAIR_JS = """([goldenHtml, selector, ignore]) => {
 
 
 def canonical_pair(page, screen, selector, ignore=()):
-    """(live, golden) canonical text of the element `selector` in the running page and in docs/design/<screen>."""
-    golden = (DESIGN_DIR / screen).read_text(encoding="utf-8")
+    """(live, golden) canonical text of the element `selector` in the running page and in the 1.0 golden <screen>."""
+    golden = (DESIGN_V10_DIR / screen).read_text(encoding="utf-8")
     return page.evaluate(_CANONICAL_PAIR_JS, [golden, selector, list(ignore)])
 
 

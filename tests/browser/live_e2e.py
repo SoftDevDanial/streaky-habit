@@ -2,9 +2,12 @@
 
 Why: it proves the shipped page works from nothing, on the real clock, driven only by real gestures
 (click, keyboard.type, keyboard.press, reload), and leaves the evidence the Definition of done asks for.
-Run: python tests/browser/live_e2e.py --base-url http://127.0.0.1:<port>/ --out docs/modules/app/qa/live-e2e/<datetimestamp>/
-Input: the URL of the app, already served (this script starts nothing). Output: one full-page screenshot
-per step, steps.json, console.json, network.json and summary.json in --out; exit 0 only when every step passed.
+Run: python tests/browser/live_e2e.py --engine <engine> --base-url http://127.0.0.1:<port>/ --out docs/modules/app/qa/live-e2e/<datetimestamp>-<engine>/
+Input: the engine (the conftest's ENGINES, default the first), the URL of the app, already served (this script
+starts nothing), and --out, whose last part is made to end with -<engine>. Output: one full-page screenshot
+per step, steps.json, console.json, network.json and summary.json (with the engine and the browser version
+Playwright reports) in that folder; exit 0 only when every step passed.
+v1.1.0 task 11 added only the engine switch and the clipboard stand-in; the steps are still 1.0's (task 27 writes them again).
 """
 import argparse
 import datetime
@@ -16,7 +19,8 @@ from urllib.parse import urlsplit
 
 from playwright.sync_api import sync_playwright
 
-from conftest import GUARD_WINDOW_MS, dialog_title, short_date  # the same calendar table, guard window and title the pytest suite uses
+# The same calendar table, guard window, title, clipboard stand-in and browser launch the pytest suite uses.
+from conftest import CLIPBOARD_STANDIN, ENGINES, GUARD_WINDOW_MS, dialog_title, launch, short_date, with_engine
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 READ, STRETCH = "Read 20 pages", "Stretch 10 minutes"
@@ -268,12 +272,13 @@ class Scenario:
         )
 
 
-def run(base_url, out):
+def run(engine, base_url, out):
     out.mkdir(parents=True, exist_ok=True)
     requests, console, errors = [], [], []
     with sync_playwright() as playwright:
-        browser = playwright.chromium.launch(headless=True, args=["--force-color-profile=srgb"])
+        browser = launch(playwright, engine)
         context = browser.new_context(viewport={"width": 390, "height": 844}, device_scale_factor=1, color_scheme="light")
+        context.add_init_script(CLIPBOARD_STANDIN)
         context.set_default_timeout(STEP_TIMEOUT_SECONDS * 1000)
         page = context.new_page()
         page.goto("about:blank")
@@ -303,7 +308,8 @@ def run(base_url, out):
     save("console.json", {"console": console, "page_errors": errors})
     save("network.json", {"requests": requests, "outside_the_rule": outside})
     save("summary.json", {
-        "base_url": base_url, "start_date": start.isoformat(), "end_date": end.isoformat(), "browser": f"Chromium {browser_version}",
+        "base_url": base_url, "start_date": start.isoformat(), "end_date": end.isoformat(),
+        "engine": engine, "browser_version": browser_version,
         "steps": len(gate.steps), "steps_passed": sum(s["pass"] for s in gate.steps),
         "requests": len(requests), "requests_outside_the_rule": len(outside),
         "console_errors": len(console_errors), "page_errors": len(errors),
@@ -315,10 +321,11 @@ def run(base_url, out):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    parser.add_argument("--engine", choices=ENGINES, default=ENGINES[0])
     parser.add_argument("--base-url", required=True)
-    parser.add_argument("--out", required=True, help="a folder inside the project, normally docs/modules/app/qa/live-e2e/<datetimestamp>/")
+    parser.add_argument("--out", required=True, help="a folder inside the project, normally docs/modules/app/qa/live-e2e/<datetimestamp>-<engine>/")
     arguments = parser.parse_args()
-    destination = (ROOT / arguments.out).resolve()
+    destination = (ROOT / with_engine(arguments.out, arguments.engine)).resolve()
     if ROOT not in destination.parents:
         sys.exit(f"--out must be inside the project: {destination}")
-    sys.exit(run(arguments.base_url, destination))
+    sys.exit(run(arguments.engine, arguments.base_url, destination))

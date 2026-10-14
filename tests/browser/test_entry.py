@@ -4,7 +4,7 @@ from html.parser import HTMLParser
 
 import pytest
 
-from conftest import DESIGN_DIR, ROOT, SUBPATH_URL, add_habit, open_app
+from conftest import DESIGN_V10_DIR, ROOT, SUBPATH_URL, add_habit, open_app
 
 INDEX_HTML = (ROOT / "index.html").read_text(encoding="utf-8")
 SRC_DIR = ROOT / "src"
@@ -90,7 +90,7 @@ def golden_icon_paths():
     """Path data of the three sprite symbols: i-check and i-trash from today.html, i-x from states.html."""
     paths = {}
     for screen, symbols in (("today.html", ("i-check", "i-trash")), ("states.html", ("i-x",))):
-        golden = (DESIGN_DIR / screen).read_text(encoding="utf-8")
+        golden = (DESIGN_V10_DIR / screen).read_text(encoding="utf-8")
         for symbol in symbols:
             found = re.search(rf'<symbol id="{symbol}" viewBox="0 0 256 256"><path d="([^"]+)"/></symbol>', golden)
             assert found, f"{symbol} in {screen}"
@@ -166,7 +166,7 @@ R2_CHANGES = [
 
 
 def golden_style(screen):
-    golden = (DESIGN_DIR / screen).read_text(encoding="utf-8")
+    golden = (DESIGN_V10_DIR / screen).read_text(encoding="utf-8")
     found = STYLE_BLOCK.search(golden)
     assert found, f"{screen} has the golden style block"
     return found.group(0)

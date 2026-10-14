@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="3" time="2.198" timestamp="2026-10-14T12:51:08.825057+08:00" hostname="{host}"><testcase classname="tests.browser.test_engines" name="test_R30_the_run_uses_the_engine_it_was_asked_for" time="1.359"><failure message="AssertionError: ['the session browser is chromium, the run asked for webkit', &quot;the evidence folder 'evidence' does not end with -webkit&quot;]&#10;assert not ['the session browser is chromium, the run asked for webkit', &quot;the evidence folder 'evidence' does not end with -webkit&quot;]">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+pytestconfig = &lt;_pytest.config.Config object at 0x000001CF44756A50&gt;
+
+    def test_R30_the_run_uses_the_engine_it_was_asked_for(browser, pytestconfig):
+        asked = pytestconfig.getoption("--engine")
+        problems = []
+        if browser.browser_type.name != asked:
+            problems.append(f"the session browser is {browser.browser_type.name}, the run asked for {asked}")
+        if not engine_on_command_line(pytestconfig) and asked != "chromium":
+            problems.append(f"with no --engine on the command line the run uses {asked}, not chromium")
+        if os.environ.get("STREAKS_EVIDENCE_DIR"):
+            folder = pathlib.PurePath(conftest.EVIDENCE_DIR).name
+            if not folder.endswith("-" + asked):
+                problems.append(f"the evidence folder {folder!r} does not end with -{asked}")
+&gt;       assert not problems, problems
+E       AssertionError: ['the session browser is chromium, the run asked for webkit', "the evidence folder 'evidence' does not end with -webkit"]
+E       assert not ['the session browser is chromium, the run asked for webkit', "the evidence folder 'evidence' does not end with -webkit"]
+
+tests\browser\test_engines.py:41: AssertionError</failure></testcase><testcase classname="tests.browser.test_engines" name="test_R30_an_unknown_engine_is_refused_before_any_browser_starts" time="0.764"><failure message="AssertionError: ['--engine firefox --collect-only exited 0, not 4', &quot;its error output does not name the choices chromium and webkit: ''&quot;, &quot;launch(playwright, 'firefox') raised no ValueError&quot;]&#10;assert not ['--engine firefox --collect-only exited 0, not 4', &quot;its error output does not name the choices chromium and webkit: ''&quot;, &quot;launch(playwright, 'firefox') raised no ValueError&quot;]">playwright = &lt;playwright._impl._playwright.Playwright object at 0x000001CF46943770&gt;
+
+    def test_R30_an_unknown_engine_is_refused_before_any_browser_starts(playwright):
+        environment = dict(os.environ, STREAKS_BASE_URL=conftest.BASE_URL, STREAKS_SUBPATH_URL=conftest.SUBPATH_URL)
+        run = subprocess.run(
+            [sys.executable, "-m", "pytest", "tests/browser", "--engine", "firefox", "--collect-only", "-q"],
+            cwd=ROOT,
+            env=environment,
+            stdin=subprocess.DEVNULL,
+            capture_output=True,
+            text=True,
+            timeout=COLLECT_ONLY_SECONDS,
+            creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
+        )
+        problems = []
+        if run.returncode != 4:
+            problems.append(f"--engine firefox --collect-only exited {run.returncode}, not 4")
+        if not ("chromium" in run.stderr and "webkit" in run.stderr):
+            problems.append(f"its error output does not name the choices chromium and webkit: {run.stderr.strip()!r}")
+        try:
+            started = launch(playwright, "firefox")
+        except ValueError:
+            pass
+        else:
+            started.close()
+            problems.append("launch(playwright, 'firefox') raised no ValueError")
+&gt;       assert not problems, problems
+E       AssertionError: ['--engine firefox --collect-only exited 0, not 4', "its error output does not name the choices chromium and webkit: ''", "launch(playwright, 'firefox') raised no ValueError"]
+E       assert not ['--engine firefox --collect-only exited 0, not 4', "its error output does not name the choices chromium and webkit: ''", "launch(playwright, 'firefox') raised no ValueError"]
+
+tests\browser\test_engines.py:68: AssertionError</failure></testcase><testcase classname="tests.browser.test_engines" name="test_R30_one_helper_launches_every_browser" time="0.053"><failure message="AssertionError: ['tests/browser/conftest.py line 220 launches a browser outside conftest.launch', 'tests/browser/live_e2e.py line 275 ... conftest.launch', 'live_e2e.py does not import launch from conftest', &quot;LAUNCH_ARGS is {'chromium': [], 'webkit': []}&quot;]&#10;assert not ['tests/browser/conftest.py line 220 launches a browser outside conftest.launch', 'tests/browser/live_e2e.py line 275 ... conftest.launch', 'live_e2e.py does not import launch from conftest', &quot;LAUNCH_ARGS is {'chromium': [], 'webkit': []}&quot;]">def test_R30_one_helper_launches_every_browser():
+        conftest_source = (BROWSER_TESTS / "conftest.py").read_text(encoding="utf-8")
+        helper = next(
+            node for node in ast.parse(conftest_source).body if isinstance(node, ast.FunctionDef) and node.name == "launch"
+        )
+        inside_helper = range(helper.lineno, helper.end_lineno + 1)
+        problems = []
+        for path in sorted(BROWSER_TESTS.rglob("*")):
+            if not path.is_file() or any(part in GENERATED_DIRS for part in path.parts):
+                continue
+            name = path.relative_to(ROOT).as_posix()
+            for number, line in enumerate(path.read_text(encoding="utf-8", errors="replace").splitlines(), 1):
+                if LAUNCH_CALL in line and not (path.name == "conftest.py" and number in inside_helper):
+                    problems.append(f"{name} line {number} launches a browser outside conftest.launch")
+                problems += [f"{name} line {number} uses {word}" for word in NEVER_USED if word in line]
+    
+        live_gate = ast.parse((BROWSER_TESTS / "live_e2e.py").read_text(encoding="utf-8"))
+        if not any(
+            isinstance(node, ast.ImportFrom) and node.module == "conftest" and any(alias.name == "launch" for alias in node.names)
+            for node in ast.walk(live_gate)
+        ):
+            problems.append("live_e2e.py does not import launch from conftest")
+        if LAUNCH_ARGS != {"chromium": ["--force-color-profile=srgb"], "webkit": []}:
+            problems.append(f"LAUNCH_ARGS is {LAUNCH_ARGS}")
+&gt;       assert not problems, problems
+E       AssertionError: ['tests/browser/conftest.py line 220 launches a browser outside conftest.launch', 'tests/browser/live_e2e.py line 275 ... conftest.launch', 'live_e2e.py does not import launch from conftest', "LAUNCH_ARGS is {'chromium': [], 'webkit': []}"]
+E       assert not ['tests/browser/conftest.py line 220 launches a browser outside conftest.launch', 'tests/browser/live_e2e.py line 275 ... conftest.launch', 'live_e2e.py does not import launch from conftest', "LAUNCH_ARGS is {'chromium': [], 'webkit': []}"]
+
+tests\browser\test_engines.py:95: AssertionError</failure></testcase></testsuite></testsuites>

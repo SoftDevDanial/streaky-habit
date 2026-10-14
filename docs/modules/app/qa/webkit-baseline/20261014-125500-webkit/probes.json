@@ -1,0 +1,91 @@
+{
+ "run": "2026-10-14T12:58:32+0800, app task 11 probes, printed by the scratchpad script probes.py and copied here with the same values",
+ "server": {"pid": 8440, "port": 62506, "stop": "pid 8440 stopped, 127.0.0.1:62506 refuses connections"},
+ "P3": {"served_for_an_svg_file": "image/svg+xml", "python_mimetypes_guess": "image/svg+xml"},
+ "chromium": {
+  "browser_version": "149.0.7827.55",
+  "P1_localStorage_redefined_by_init_script": {
+   "while_failing": "SecurityError: test denied",
+   "after_switch_off": "round trip 1",
+   "app_boots_with_it": {"empty_list_shown": true, "page_errors": []},
+   "console": [
+    ["error", "Failed to load resource: the server responded with a status of 404 (File not found)"],
+    ["log", "p1-setup http://127.0.0.1:62506/__seed__ {\"own\":{\"configurable\":true,\"getter\":\"function\"},\"proto\":null,\"defined\":\"ok\"}"],
+    ["log", "p1-setup http://127.0.0.1:62506/ {\"own\":{\"configurable\":true,\"getter\":\"function\"},\"proto\":null,\"defined\":\"ok\"}"]
+   ]
+  },
+  "P2_quota_fill": {"ms": 10, "keys": 18, "chars": 5242672, "refusal": "QuotaExceededError (code 22)", "one_more_character": "refused QuotaExceededError", "gave_up": false, "left_after_clear": 0, "wall_seconds": 0.03},
+  "taps_and_double_click": {
+   "touch": ["pointerdown", "touchstart", "pointerup", "touchend", "mousedown:1", "mouseup:1", "click:1", "pointerdown", "touchstart", "pointerup", "touchend", "mousedown:2", "mouseup:2", "click:2", "dblclick:2"],
+   "mouse": ["pointerdown", "mousedown:1", "pointerup", "mouseup:1", "click:1", "pointerdown", "mousedown:2", "pointerup", "mouseup:2", "click:2", "dblclick:2"]
+  },
+  "focus_after_click_and_keys": {"mouse_click_on_button_nothing_focused": "b", "mouse_click_on_button_after_typing_in_field": "b", "tab_from_field": "b", "after_enter_on_button": "b", "after_space_on_button": "b", "app_1_0_click_add_after_typing": "Add", "app_1_0_rows_after_add": 1},
+  "backdrop_computed_style": {
+   "no-preference": {"open": true, "animationName": "scrim-in", "animationDuration": "0.18s", "backgroundColor": "rgba(28, 37, 35, 0.5)", "position": "fixed", "display": "block"},
+   "reduce": {"open": true, "animationName": "none", "animationDuration": "0s", "backgroundColor": "rgba(28, 37, 35, 0.5)", "position": "fixed", "display": "block"}
+  },
+  "csp_refusal": {
+   "fetch": "TypeError: Failed to fetch",
+   "violations": [{"violatedDirective": "connect-src", "effectiveDirective": "connect-src", "blockedURI": "http://127.0.0.1:62506/probe-csp"}],
+   "console": [
+    ["error", "Connecting to 'http://127.0.0.1:62506/probe-csp' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."],
+    ["error", "Fetch API cannot load http://127.0.0.1:62506/probe-csp. Refused to connect because it violates the document's Content Security Policy."]
+   ]
+  },
+  "outline_on_keyboard_focus": {
+   "icon button (trash)": {"matchesFocusVisible": true, "outline": "rgb(28, 37, 35) solid 2px", "outlineWidth": "2px", "outlineStyle": "solid", "outlineColor": "rgb(28, 37, 35)", "outlineOffset": "-2px"},
+   "day button": {"matchesFocusVisible": true, "outline": "rgb(28, 37, 35) solid 2px", "outlineWidth": "2px", "outlineStyle": "solid", "outlineColor": "rgb(28, 37, 35)", "outlineOffset": "0px"},
+   "input": {"matchesFocusVisible": true, "outline": "rgb(28, 37, 35) solid 2px", "outlineWidth": "2px", "outlineStyle": "solid", "outlineColor": "rgb(28, 37, 35)", "outlineOffset": "2px"},
+   "Add button": {"matchesFocusVisible": true, "outline": "rgb(28, 37, 35) solid 2px", "outlineWidth": "2px", "outlineStyle": "solid", "outlineColor": "rgb(28, 37, 35)", "outlineOffset": "3px"}
+  },
+  "CO1_icon_colour": {"dark": {"rgba": [255, 176, 32, 255]}, "light": {"rgba": [154, 91, 0, 255]}, "note": "the golden's data: href drawn as an image on about:blank; R29's file is written at task 12"},
+  "clipboard_on_127_0_0_1": {
+   "without_standin": {"isSecureContext": true, "navigatorClipboard": "object", "ClipboardInterface": "function", "writeTextIsNative": true},
+   "with_standin": {"isSecureContext": true, "navigatorClipboard": "object", "ClipboardInterface": "function", "writeTextIsNative": false}
+  }
+ },
+ "webkit": {
+  "browser_version": "26.5",
+  "P1_localStorage_redefined_by_init_script": {
+   "while_failing": "SecurityError: test denied",
+   "after_switch_off": "round trip 1",
+   "app_boots_with_it": {"empty_list_shown": true, "page_errors": []},
+   "console": [
+    ["log", "p1-setup about:blank {\"own\":{\"configurable\":true,\"getter\":\"function\"},\"proto\":null,\"defined\":\"ok\"}"],
+    ["error", "Failed to load resource: the server responded with a status of 404 (File not found)"],
+    ["log", "p1-setup http://127.0.0.1:62506/__seed__ {\"own\":{\"configurable\":true,\"getter\":\"function\"},\"proto\":null,\"defined\":\"ok\"}"],
+    ["log", "p1-setup about:blank {\"own\":{\"configurable\":true,\"getter\":\"function\"},\"proto\":null,\"defined\":\"ok\"}"],
+    ["log", "p1-setup http://127.0.0.1:62506/ {\"own\":{\"configurable\":true,\"getter\":\"function\"},\"proto\":null,\"defined\":\"ok\"}"]
+   ]
+  },
+  "P2_quota_fill": {"ms": 3, "keys": 18, "chars": 5242672, "refusal": "QuotaExceededError (code 22)", "one_more_character": "refused QuotaExceededError", "gave_up": false, "left_after_clear": 0, "wall_seconds": 0.01},
+  "taps_and_double_click": {
+   "touch": ["pointerdown", "touchstart", "pointerup", "touchend", "mousedown:1", "mouseup:1", "click:1", "pointerdown", "touchstart", "pointerup", "touchend", "mousedown:1", "mouseup:1", "click:1"],
+   "mouse": ["pointerdown", "mousedown:1", "pointerup", "mouseup:1", "click:1", "pointerdown", "mousedown:2", "pointerup", "mouseup:2", "click:2", "dblclick:2"]
+  },
+  "focus_after_click_and_keys": {"mouse_click_on_button_nothing_focused": "body", "mouse_click_on_button_after_typing_in_field": "body", "tab_from_field": "b", "after_enter_on_button": "b", "after_space_on_button": "b", "app_1_0_click_add_after_typing": "body", "app_1_0_rows_after_add": 1},
+  "backdrop_computed_style": {
+   "no-preference": {"open": true, "animationName": "scrim-in", "animationDuration": "0.18s", "backgroundColor": "rgba(28, 37, 35, 0.5)", "position": "fixed", "display": "block"},
+   "reduce": {"open": true, "animationName": "none", "animationDuration": "0s", "backgroundColor": "rgba(28, 37, 35, 0.5)", "position": "fixed", "display": "block"}
+  },
+  "csp_refusal": {
+   "fetch": "TypeError: Load failed",
+   "violations": [{"violatedDirective": "connect-src", "effectiveDirective": "connect-src", "blockedURI": "http://127.0.0.1:62506/probe-csp"}],
+   "console": [
+    ["error", "Refused to connect to http://127.0.0.1:62506/probe-csp because it does not appear in the connect-src directive of the Content Security Policy."]
+   ]
+  },
+  "outline_on_keyboard_focus": {
+   "icon button (trash)": {"matchesFocusVisible": true, "outline": "2px solid rgb(28, 37, 35)", "outlineWidth": "2px", "outlineStyle": "solid", "outlineColor": "rgb(28, 37, 35)", "outlineOffset": "-2px"},
+   "day button": {"matchesFocusVisible": true, "outline": "2px solid rgb(28, 37, 35)", "outlineWidth": "2px", "outlineStyle": "solid", "outlineColor": "rgb(28, 37, 35)", "outlineOffset": "0px"},
+   "input": {"matchesFocusVisible": true, "outline": "2px solid rgb(28, 37, 35)", "outlineWidth": "2px", "outlineStyle": "solid", "outlineColor": "rgb(28, 37, 35)", "outlineOffset": "2px"},
+   "Add button": {"matchesFocusVisible": true, "outline": "2px solid rgb(28, 37, 35)", "outlineWidth": "2px", "outlineStyle": "solid", "outlineColor": "rgb(28, 37, 35)", "outlineOffset": "3px"}
+  },
+  "CO1_icon_colour": {"dark": {"rgba": [154, 91, 0, 255]}, "light": {"rgba": [154, 91, 0, 255]}, "note": "the golden's data: href drawn as an image on about:blank; R29's file is written at task 12"},
+  "clipboard_on_127_0_0_1": {
+   "without_standin": {"isSecureContext": true, "navigatorClipboard": "object", "ClipboardInterface": "function", "writeTextIsNative": true},
+   "with_standin": {"isSecureContext": true, "navigatorClipboard": "object", "ClipboardInterface": "function", "writeTextIsNative": false}
+  }
+ },
+ "probe_script": "scratchpad probes.py of app task 11 (not kept in the project)"
+}

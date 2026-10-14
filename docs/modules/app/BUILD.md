@@ -77,3 +77,56 @@ No reminders, accounts, sync, targets, rename or reorder, export or import, olde
 
 ## Handoff
 Nothing is open. A fresh agent only needs the finders' findings to start a solver round. Gotchas for a solver: the delete result arrives in a queued `close` task (wait with `expect`); write files with the Write and Edit tools and avoid `\u` escape text in an Edit (use `chr(0x...)` in Python and `\u{...}` in JS); the harness's `--candidate-after-load` text is inserted raw into an async function body, so the script must end its comment lines with a newline.
+
+---
+
+## v1.1.0 task 11, the engine switch and the WebKit baseline (2026-10-14)
+> Written by the frontend builder (senior frontend dev agent), 2026-10-14. Requirement R30. The commit is the one whose message starts `test(app): engine switch, 1.0 golden fixtures and the WebKit baseline (task 11, R30)` (its hash is in the builder's return and `git log`).
+
+### Phase skills
+None loaded. Task 11 writes no UI (test code, test fixtures and records only, `src/` and `index.html` unchanged), so the design row of `docs/phase-skills.md` does not apply (spec, Tasks, "Every UI task (12 and up except 14, 27 and 28)").
+
+### What changed
+- `tests/fixtures/design-v1.0.0/` (new). `today.html`, `today-empty.html`, `delete-dialog.html`, `states.html`, each the bytes of `git show v1.0.0:docs/design/<file>`, written with the Write tool. Proof with `git hash-object --no-filters` (core.autocrlf is true here) against `git rev-parse v1.0.0:docs/design/<file>`. All four equal, `40a3fdb648053a9902c4a6cc64592b73cf376c29`, `9439584b7004012a6fbe56ec0f8ede496bba2298`, `1d9fb01f28bfc0de9739ed0c33a748a76b12f7ed`, `9258f8f3d079bb7c284b2745131d3804360be3fc`, the spec's table. `docs/design/` was only read (`git status docs/design` empty).
+- `tests/browser/conftest.py`. `DESIGN_V10_DIR` and `SAMPLE_V10_FILE`. `SAMPLE` (so `SAMPLE_HABITS`, `SAMPLE_LEVELS` and the state helpers, same names) reads `tests/fixtures/sample-history-v1.0.0.json`. `canonical_pair` reads `DESIGN_V10_DIR`. `DESIGN_DIR` still names `docs/design/` (no reader left at task 11). The engine switch is `ENGINES`, `LAUNCH_ARGS`, `pytest_addoption` (`--engine`, choices `chromium` and `webkit`, default `chromium`), the session fixture `engine`, `launch(playwright, engine)` (the only `.launch` call in `tests/browser/`, `ValueError` for any other engine), the session fixture `playwright` (the run's one driver), `browser` from `launch`, the `chromium_only(reason=...)` marker registered in `pytest_configure` and turned into a skip by `pytest_collection_modifyitems` (a marker without a reason stops the run), `pytest_terminal_summary` (prints the engine and the count and list of chromium_only skips), `with_engine` (makes the last part of `STREAKS_EVIDENCE_DIR` end with `-<engine>`), and `CLIPBOARD_STANDIN`, added first to every `open_app` context.
+- `tests/browser/test_entry.py`. `golden_icon_paths` and `golden_style` read `DESIGN_V10_DIR`. No assertion changed.
+- `tests/browser/live_e2e.py`. `--engine` (choices `ENGINES`, default the first, so the file names no engine), the browser from `conftest.launch`, `CLIPBOARD_STANDIN` first in its context, `--out` passed through `with_engine`, and `summary.json` records `engine` and `browser_version` in place of the hard-coded "Chromium ...". The 11 steps are still 1.0's (task 27 writes them again).
+- `tests/browser/test_engines.py` (new). The three `@R30` scenarios of task 11, `test_R30_the_run_uses_the_engine_it_was_asked_for`, `test_R30_an_unknown_engine_is_refused_before_any_browser_starts` and `test_R30_one_helper_launches_every_browser`. Each gathers every broken property before it fails, so one RED run shows all of them.
+- `docs/modules/app/qa.md`. The Engine differences table gains the measured values and one row (the `outline` shorthand), and a dated "Task 11 measurements (2026-10-14)" list (spec task 11 asks for class (b) and the probe values there).
+
+### RED first (qa.md, "Controls are watched failing first")
+`test_engines.py` was written first, then `conftest.py` held the stubs of the qa.md table (`--engine` with no choices, `engine` returning the option, `launch` launching Chromium for any engine and never raising, `LAUNCH_ARGS` `{"chromium": [], "webkit": []}`, `EVIDENCE_DIR` as in 1.0, the 1.0 browser fixture's launch line unchanged), and `live_e2e.py` was still 1.0's. One run with `--engine webkit` and `STREAKS_EVIDENCE_DIR=.../evidence` gave 3 failed, each on its property. The browser type was chromium, the folder `evidence` did not end with `-webkit`, `--engine firefox --collect-only` exited 0 with empty error output, `launch(playwright, "firefox")` raised nothing, `.launch(` sat in `conftest.py` outside `launch` and in `live_e2e.py`, `live_e2e.py` did not import `launch`, and `LAUNCH_ARGS["chromium"]` was `[]`. The capture is `docs/modules/app/qa/red-first/20261014-125102-webkit/junit.xml`. The stubs were replaced before any commit. One plumbing difference from "the 1.0 browser fixture left as it is". Its `with sync_playwright()` moved into the shared `playwright` fixture (two drivers cannot run in one thread), and its launch line stayed the 1.0 one.
+
+### Proof (Chromium, `src/` unchanged)
+1. The four blob ids above.
+2. The nine 1.0 test files run by name give **179 passed, 0 failed, 0 skipped** (42.18 s), the sealed count. Capture `docs/modules/app/qa/chromium-baseline/20261014-125323-chromium/junit.xml` with the suite's screenshots.
+3. `test_engines.py` gives 3 passed in Chromium and 3 passed in WebKit. The bare `python -m pytest tests/browser -q` gives 182 passed (179 + 3) in Chromium. `node --test "tests/**/*.test.js"` 99 of 99.
+
+### WebKit baseline
+Folder `docs/modules/app/qa/webkit-baseline/20261014-125500-webkit/` (`baseline.md` is the record, with `junit.xml`, `probes.json`, the suite's screenshots and `live-e2e-webkit/`).
+- The nine 1.0 files give **174 passed, 5 failed, 0 skipped**, 74.17 s (77 s wall, 20-minute cap). `test_R10_the_first_habit_on_a_fresh_day` (a mouse-clicked button takes no focus in WebKit, `body`) and the four rows of `test_R22_focus_rings_on_keyboard_focus` (the computed `outline` shorthand reads `2px solid rgb(28, 37, 35)` in WebKit, the longhands are equal). All five are class (b), written into qa.md with the measurement. No class (a), no class (c), so no test is marked `chromium_only` at task 11, and no 1.0 assertion changed.
+- The 1.0 live gate gives 11 of 11 steps, 0 requests outside the rule, 0 console errors, 0 page errors, pass, in WebKit 26.5 (`live-e2e-webkit/`) and in Chromium 149 (`chromium-baseline/.../live-e2e-chromium/`).
+- Probes in both engines. P1 honoured by both (no Chromium-only row needed for D-b), P2 5242672 characters in 18 keys in both (10 ms and 3 ms), P3 `image/svg+xml`, two quick taps give `detail` 2 in Chromium and 1 in WebKit, `getComputedStyle(dialog, "::backdrop")` the same in both, the CSP text per engine, the `outline` serialisation, CO-1 (WebKit draws the light colour in both schemes, information only), the clipboard (127.0.0.1 is a secure context in both, the stand-in replaces `writeText`).
+
+### Judgment calls and deviations (named, for the orchestrator)
+1. **`CLIPBOARD_STANDIN` lands at task 11.** qa.md's conftest table lists it as a v1.1.0 change of `open_app` without naming a task. The constitution (Browser gates) and the build brief require a stand-in in every context that clicks, and the 1.0 suite and live gate click, so it went in before the first WebKit run. It adds no property to `window` (the 1.0 `test_R26_no_globals_and_no_hooks` stays green in both engines) and changes no assertion. Its scenario (W21) is still written at task 19.
+2. **`playwright` session fixture.** Not in the qa.md table. It is plumbing. The browser fixture and `test_R30_an_unknown_engine_is_refused_before_any_browser_starts` share one driver, because a second `sync_playwright()` cannot start while the session's driver runs.
+3. **How `EVIDENCE_DIR` ends with `-<engine>`.** A folder whose last part already ends with it is kept, any other gets `-<engine>` appended (`with_engine`), so two engines can never write into one folder. `live_e2e.py --out` goes through the same helper (DRY, one rule for both).
+4. **`pytest_terminal_summary`** prints the chromium_only skip count and list, so "is listed and counted" is in every run's output beside `-rA` and junit.
+5. **Generated folders skipped by the scan** of `test_R30_one_helper_launches_every_browser`. `__pycache__` and `.pytest_cache` are written by Python and pytest, not source. The test builds its search words from parts so it does not match itself.
+6. **The spec's proof (1) says `git hash-object`.** It was run with `--no-filters`, as the spec's own reason (core.autocrlf) and the brief require.
+7. **Process notes.** One `mkdir -p` made the empty WebKit evidence folder before its run (pytest's junit writer makes it too). `probes.json` is the probe script's stdout, laid out compactly with the same values and written with the Write tool. Every other write went through the Write and Edit tools or was output the tests and gates produce themselves.
+8. **Not done here, on purpose.** No test is marked `chromium_only` (CO-1's marker comes with task 12's `test_entry.py`). The README and `CLAUDE.md` are the orchestrator's.
+
+### Non-goals honoured
+No change in `src/` or `index.html`, no UI, no install, nothing written under `docs/design/`, no network beyond 127.0.0.1, browsers headless, no clipboard touched (stand-in in every context that clicks).
+
+### How to run
+- Chromium (the default) `python -m pytest tests/browser -q`. WebKit `python -m pytest tests/browser -q --engine webkit`. With evidence `STREAKS_EVIDENCE_DIR=docs/modules/app/qa/functional/<datetimestamp>-<engine>/ timeout 1200 python -m pytest tests/browser -q -rA --engine <engine>`.
+- Live gate, on a served app, `python tests/browser/live_e2e.py --engine <engine> --base-url http://127.0.0.1:<port>/ --out docs/modules/app/qa/live-e2e/<datetimestamp>-<engine>/`.
+
+### For the README reconcile
+- `tests/browser/conftest.py` new names are `ENGINES`, `LAUNCH_ARGS`, `launch`, `with_engine`, `CLIPBOARD_STANDIN`, `DESIGN_V10_DIR`, `SAMPLE_V10_FILE`, the fixtures `engine` and `playwright`, the hooks `pytest_addoption`, `pytest_collection_modifyitems`, `pytest_terminal_summary`, and the `chromium_only` marker. `browser` now comes from `launch`.
+- `tests/browser/live_e2e.py` takes `--engine` and its `summary.json` has `engine` and `browser_version` (no `browser` key).
+- `tests/browser/test_engines.py` is new. `tests/fixtures/design-v1.0.0/` holds the four 1.0 goldens until task 12 removes them.
+- The test command gains `--engine webkit`.
