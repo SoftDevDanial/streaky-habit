@@ -3,8 +3,8 @@ stylesheet and icon").
 
 These three files are copied from the goldens, so each test compares a file with the golden text it must equal, or
 opens the page and reads what the skeleton and the icon link give. They read index.html, src/, docs/design/ (read
-only) and the running app, and pass or fail. Two scenarios need a page that boots and adds, so they wait on a later
-task with a strict xfail mark (qa.md, "Scenarios that wait on a later task", W1 and W2).
+only) and the running app, and pass or fail. The sub-path scenario adds a habit, so it waits on a later task with a
+strict xfail mark (qa.md, "Scenarios that wait on a later task", W2).
 """
 import io
 import re
@@ -290,7 +290,6 @@ _LOAD_ICON_JS = """(href) => new Promise((resolve) => {
 })"""
 
 
-@pytest.mark.xfail(strict=True, reason="task 15")
 def test_R29_R25_the_page_links_the_icon_and_the_policy_lets_it_load(app):
     page = app(storage=sample_state(), record=True)
     icon_links = page.evaluate(

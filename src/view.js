@@ -1,340 +1,179 @@
 /**
- * Everything the user sees: builds the page's DOM from the habits and the shown day, and updates it.
- * Why: one module owns the markup of the golden designs, so app.js never builds or styles an element.
- * Input: habits and `todayKey` (never read from a clock here). Output: changes to the page.
- * Data reaches the DOM only through textContent and setAttribute, never as markup (spec R24).
+ * K1, the main screen: the header date, the Overview button, the band, the rows and their numbers, the list
+ * frame's fades and the composer's 12-habit state (spec R3 to R6, R12, R35, R38).
+ * Why: one module owns K1's markup and selectors, so app.js never builds or looks up an element of K1 itself.
+ * Input: habits, heatmap cells and `todayKey` (never a clock), and `animate`, true when a render answers an edit
+ * (R32). Output: changes to the page. Data reaches the DOM only through textContent and setAttribute (R24).
  * It stores nothing and registers no event listener.
  */
-import { dayParts, longDate, shortDate } from "./dates.js";
-import { bestStreak, currentStreak, heatmapCells, monthLabels, runContinues, weekWindow } from "./habits.js";
+import { longDate } from "./dates.js";
+import { bestStreak, currentStreak } from "./habits.js";
+import { drawLegend, drawOverview, drawRing, element, flagChange, ringSvg, svgElement } from "./calendar.js";
 
-const SVG_NAMESPACE = "http://www.w3.org/2000/svg";
-
-const NAME_ERRORS = {
-  empty: "Name the habit first.",
-  "too-long": "Keep it to 40 characters or fewer.",
-  duplicate: "You already track this habit.",
-};
 const LIMIT_NOTE = "You track 12 habits, the most this app holds. Delete one to add another.";
-const RESET_NOTE = "Your saved habits could not be read, so the list was reset.";
 
 const $ = (selector) => document.querySelector(selector);
-const $$ = (selector) => Array.from(document.querySelectorAll(selector));
+const rowsOf = () => Array.from(document.querySelectorAll("ul.rows > li.row"));
 
-const LIST_SECTION = 'section[aria-labelledby="habits-title"]';
-const rows = () => $$(".habits > .habit");
-
-function element(tag, className, attributes = {}) {
-  const node = document.createElement(tag);
-  if (className) node.className = className;
-  for (const [name, value] of Object.entries(attributes)) node.setAttribute(name, value);
-  return node;
-}
-
-/**
- * Created with createElementNS: an svg made by createElement is an HTML element and does not render.
- * @param {string} symbolId a symbol of the sprite in index.html
- */
-function icon(symbolId) {
-  const svg = document.createElementNS(SVG_NAMESPACE, "svg");
-  svg.setAttribute("aria-hidden", "true");
-  svg.setAttribute("focusable", "false");
-  const use = document.createElementNS(SVG_NAMESPACE, "use");
-  use.setAttribute("href", `#${symbolId}`);
-  svg.append(use);
+/** A sprite glyph. Inner svgs carry no `focusable`, as the goldens draw them. */
+function icon(symbolId, className = "") {
+  const svg = svgElement("svg", className ? { class: className, "aria-hidden": "true" } : { "aria-hidden": "true" });
+  svg.append(svgElement("use", { href: `#${symbolId}` }));
   return svg;
 }
 
+export function renderDate(todayKey) {
+  const date = $("header.top > time.date");
+  date.setAttribute("datetime", todayKey);
+  date.textContent = longDate(todayKey);
+}
+
+/** Today's ring and count on the Overview button (R38), which pops its ring when an edit changes today. */
+export function renderOverviewButton(todayFlags, animate) {
+  const button = $("button.ov-btn");
+  const done = todayFlags.filter(Boolean).length;
+  button.setAttribute("aria-label", `Overview, today ${done} of ${todayFlags.length} habits done`);
+  const holder = button.querySelector(":scope > span.ov-ring");
+  if (!holder.firstElementChild) holder.append(ringSvg());
+  const changed = drawRing(holder.firstElementChild, todayFlags);
+  flagChange(holder, "pop", animate && changed);
+}
+
+export function renderBand(cells, todayKey, habitCount, animate) {
+  drawOverview($("section.band div.ovg-cols"), cells, todayKey, { newestFirst: false, animate });
+  drawLegend($("section.band div.legend"), habitCount);
+}
+
 /**
- * Only writes a changed text. Replacing a text node with an identical one still makes screen readers
- * repeat the whole live region, so a tick must not touch the lines that did not change.
+ * One row per habit, or the empty list (R3, R5). The rows are built again only when the habits themselves change
+ * (an add or a delete). Otherwise each row is updated in place, so a pressed Done today stays the same element
+ * with its focus (R31) and only what changed animates (R32).
  */
-function setText(node, text) {
-  if (node.textContent !== text) node.textContent = text;
+export function renderRows(habits, todayKey, animate) {
+  const list = $("ul.rows");
+  if (habits.length === 0) {
+    if (!list.querySelector(":scope > li.empty")) list.replaceChildren(emptyList());
+    return;
+  }
+  const shown = rowsOf().map((row) => row.querySelector(":scope > div.r-head > h3").textContent);
+  const same = shown.length === habits.length && habits.every((habit, index) => habit.name === shown[index]);
+  if (!same) list.replaceChildren(...habits.map((habit, index) => createRow(habit.name, index + 1)));
+  rowsOf().forEach((row, index) => syncRow(row, habits[index].done, todayKey, animate));
 }
 
-// ---------------------------------------------------------------------------------------------
-// Header, list and rows
-
-export function renderHeader(todayKey) {
-  const time = $(".date time");
-  time.setAttribute("datetime", todayKey);
-  setText(time, longDate(todayKey));
+function emptyList() {
+  const art = svgElement("svg", { viewBox: "0 0 120 120", "aria-hidden": "true" });
+  art.append(
+    svgElement("circle", { class: "e-orbit", cx: "60", cy: "60", r: "50" }),
+    svgElement("circle", { class: "e-core", cx: "60", cy: "60", r: "18" }),
+  );
+  const words = element("div");
+  words.append(element("p", "lead", {}, "No habits yet."), element("p", "line", {}, "Add one you want to do every day."));
+  const empty = element("li", "empty");
+  empty.append(art, words);
+  return empty;
 }
 
-function createDayButton() {
-  const label = element("span", "day-label", { "aria-hidden": "true" });
-  label.append(element("span", "wd"), element("span", "dm"));
-  const bead = element("span", "bead");
-  bead.append(icon("i-check"));
-  const slot = element("span", "slot", { "aria-hidden": "true" });
-  slot.append(bead);
-  const button = element("button", "day", { type: "button" });
-  button.append(label, slot);
-  return button;
-}
-
-/** The row for one habit; its name, streak line and beads are filled by `fillRow` and `syncProgress`. */
-function createRow(position, todayKey) {
-  const nameId = `h${position + 1}-name`;
-  const head = element("div", "habit-head");
-  const deleteButton = element("button", "icon-btn", { type: "button" });
-  deleteButton.append(icon("i-trash"));
-  head.append(element("h3", "habit-name", { id: nameId }), deleteButton);
-  const streak = element("p", "streak", { "aria-live": "polite" });
-  streak.append(element("span", "cur"));
-  const strip = element("div", "strip", { role: "group", "aria-labelledby": nameId });
-  strip.append(...weekWindow(todayKey).map(createDayButton));
-  const row = element("li", "habit");
-  row.append(head, streak, strip);
+/** The habit-row markup of the spec's Contracts. Position N gives the ids rn-N and rs-N. */
+function createRow(name, position) {
+  const bin = element("button", "btn-bin", { type: "button", "aria-haspopup": "dialog", "aria-label": `Delete "${name}"` });
+  bin.append(icon("i-trash", "ph"));
+  const head = element("div", "r-head");
+  head.append(element("h3", "r-name", { id: `rn-${position}` }, name), bin);
+  const year = element("button", "btn-year", { type: "button", "aria-haspopup": "dialog", "aria-label": `Year view, ${name}` }, "Year");
+  const dot = element("span", "dot");
+  dot.append(icon("i-check"));
+  const done = element("button", "btn-done", { type: "button", "aria-label": `Done today, ${name}`, "aria-describedby": `rs-${position}` });
+  done.append(dot, "Done today");
+  const row = element("li", "row");
+  row.append(head, element("p", "stats", { id: `rs-${position}` }), year, done);
   return row;
 }
 
-function fillRow(row, habit) {
-  row.querySelector(".habit-name").textContent = habit.name;
-  row.querySelector(".icon-btn").setAttribute("aria-label", `Delete ${habit.name}`);
+function syncRow(row, done, todayKey, animate) {
+  renderStats(row.querySelector(":scope > p.stats"), currentStreak(done, todayKey), bestStreak(done), animate);
+  const button = row.querySelector(":scope > button.btn-done");
+  const before = button.getAttribute("aria-pressed");
+  const pressed = String(done.includes(todayKey));
+  button.setAttribute("aria-pressed", pressed);
+  flagChange(button, "pop", animate && before !== null && before !== pressed);
 }
 
-function streakLabel(current) {
-  if (current === 0) return "No streak yet";
-  return current === 1 ? "1 day" : `${current} days`;
-}
-
-function syncStreak(streak, done, todayKey) {
-  const current = currentStreak(done, todayKey);
-  const best = bestStreak(done);
-  const currentNode = streak.querySelector(".cur");
-  currentNode.className = current === 0 ? "cur none" : "cur";
-  setText(currentNode, streakLabel(current));
-  let bestNode = streak.querySelector(".best");
+/**
+ * Current and Best (R6) into a row's `p.stats` (and P2's `p.yr-stats`). A value whose text changed is replaced by
+ * a new element, which carries `bump` when `animate` is set, so the rise plays (R32) and plays again on the next
+ * change because the element is new. An unchanged value keeps its element and loses `bump`. Filling an empty
+ * `stats` animates nothing. When Best is 0 its block is not drawn.
+ */
+export function renderStats(stats, current, best, animate) {
+  const bump = animate && stats.firstElementChild !== null;
+  const currentStat = stats.querySelector(":scope > .stat.cur") ?? stats.appendChild(statBlock("cur", "Current"));
+  const currentValue = current > 0 ? valueOf(current, current === 1 ? "day" : "days") : element("span", "none", {}, "No streak yet");
+  setValue(currentStat, currentValue, bump);
+  const bestStat = stats.querySelector(":scope > .stat.best");
   if (best === 0) {
-    bestNode?.remove();
+    bestStat?.remove();
     return;
   }
-  if (!bestNode) {
-    bestNode = element("span", "best");
-    streak.append(bestNode);
+  setValue(bestStat ?? stats.appendChild(statBlock("best", "Best")), valueOf(best), bump);
+}
+
+function statBlock(kind, label) {
+  const stat = element("span", `stat ${kind}`);
+  stat.append(element("span", "lbl", {}, label));
+  return stat;
+}
+
+function valueOf(number, unit = "") {
+  const value = element("span", "val");
+  value.append(element("b", "num", {}, String(number)));
+  if (unit) value.append(element("span", "unit", {}, unit));
+  return value;
+}
+
+/** Puts `next` after the stat's label unless the value shown there already reads the same. */
+function setValue(stat, next, bump) {
+  const shown = stat.children[1];
+  if (shown && shown.classList.contains(next.className) && shown.textContent === next.textContent) {
+    shown.classList.remove("bump");
+    return;
   }
-  setText(bestNode, `Best ${best}`);
+  if (bump) next.classList.add("bump");
+  if (shown) shown.replaceWith(next);
+  else stat.append(next);
 }
 
 /**
- * Sets the button for `key` in place, so the same element (and its focus and transitions) lives on
- * when a tick or a new day changes what it shows. The window always ends today, so only the last
- * button is ever today and aria-current is set here and never has to be removed.
+ * At 12 habits the composer closes and says why (R12). Below 12 that state is undone, and a message that is not
+ * the 12-habit note (a name error) is left as it is.
  */
-function syncDay(button, key, isDone, isToday) {
-  const { weekday, day } = dayParts(key);
-  button.setAttribute("data-date", key);
-  button.setAttribute("aria-pressed", String(isDone));
-  button.setAttribute("aria-label", `Mark ${shortDate(key)} as done`);
-  if (isToday) button.setAttribute("aria-current", "date");
-  setText(button.querySelector(".wd"), weekday);
-  setText(button.querySelector(".dm"), String(day));
-}
-
-function syncStrip(strip, done, todayKey) {
-  const doneDays = new Set(done);
-  const days = weekWindow(todayKey);
-  strip.querySelectorAll(".day").forEach((button, position) => {
-    syncDay(button, days[position], doneDays.has(days[position]), days[position] === todayKey);
-  });
-  strip.toggleAttribute("data-run-continues", runContinues(done, todayKey));
-}
-
-function syncProgress(row, habit, todayKey) {
-  syncStreak(row.querySelector(".streak"), habit.done, todayKey);
-  syncStrip(row.querySelector(".strip"), habit.done, todayKey);
-}
-
-function emptyMessage() {
-  const message = element("p", "empty");
-  const lead = element("strong");
-  lead.textContent = "No habits yet.";
-  message.append(lead, " Add one you want to do every day.");
-  return message;
-}
-
-/** Replaces the list (or the empty message) with fresh rows, for a first load, an add or a delete. */
-export function renderList(habits, todayKey) {
-  const section = $(LIST_SECTION);
-  section.querySelectorAll(":scope > .empty, :scope > .habits").forEach((node) => node.remove());
-  if (habits.length === 0) {
-    section.append(emptyMessage());
-    return;
-  }
-  const list = element("ul", "habits");
-  habits.forEach((habit, position) => {
-    const row = createRow(position, todayKey);
-    fillRow(row, habit);
-    syncProgress(row, habit, todayKey);
-    list.append(row);
-  });
-  section.append(list);
-}
-
-/** After a tick: updates one existing row in place. */
-export function syncHabit(index, habit, todayKey) {
-  syncProgress(rows()[index], habit, todayKey);
-}
-
-/** After a new day: updates every existing row in place. */
-export function syncHabits(habits, todayKey) {
-  habits.forEach((habit, index) => syncHabit(index, habit, todayKey));
-}
-
-/** Rows carry no index attribute (spec Events and focus), so the index is the row's place in the list. */
-export function habitIndexOf(node) {
-  return rows().indexOf(node.closest(".habit"));
-}
-
-// ---------------------------------------------------------------------------------------------
-// Heatmap
-
-/** The month labels depend on the day alone, so app.js draws them at boot and on a new day, not on every change. */
-export function renderMonths(todayKey) {
-  $(".months").replaceChildren(
-    ...monthLabels(todayKey).map(({ column, month }) => {
-      const label = element("span");
-      label.style.gridColumn = String(column);
-      label.textContent = month;
-      return label;
-    }),
-  );
-}
-
-function fillCell(node, cell) {
-  node.setAttribute("data-date", cell.key);
-  if (cell.future) {
-    node.className = "hc future";
-    node.setAttribute("aria-hidden", "true");
-    for (const name of ["role", "aria-label", "aria-current"]) node.removeAttribute(name);
-    return;
-  }
-  node.className = `hc l${cell.level}${cell.today ? " today" : ""}`;
-  node.removeAttribute("aria-hidden");
-  node.setAttribute("role", "img");
-  node.setAttribute("aria-label", `${shortDate(cell.key)}, ${cell.count} of ${cell.total} habits`);
-  if (cell.today) node.setAttribute("aria-current", "date");
-  else node.removeAttribute("aria-current");
-}
-
-/**
- * The 84 cells are created once and then set in place, so a changed level plays the dot's size
- * transition (system.md Motion) and an unchanged cell is left alone. A first render fills each cell
- * before it is first drawn, so nothing animates on load.
- */
-export function renderHeatmap(habits, todayKey) {
-  const grid = $(".cells");
-  const cells = heatmapCells(habits, todayKey);
-  while (grid.children.length < cells.length) grid.append(element("span"));
-  cells.forEach((cell, position) => fillCell(grid.children[position], cell));
-}
-
-// ---------------------------------------------------------------------------------------------
-// Add form
-
-/** Back to the empty error line the goldens start with: no text, no note class, no aria-invalid. */
-export function resetMessage() {
-  const message = $("#new-habit-msg");
-  message.className = "field-msg field-error";
-  message.textContent = "";
-  $("#new-habit").removeAttribute("aria-invalid");
-}
-
-/** @param {"empty" | "too-long" | "duplicate"} error */
-export function showNameError(error) {
-  resetMessage();
-  $("#new-habit-msg").textContent = NAME_ERRORS[error];
-  $("#new-habit").setAttribute("aria-invalid", "true");
-}
-
-export const nameFieldValue = () => $("#new-habit").value;
-
-export function clearNameField() {
-  $("#new-habit").value = "";
-}
-
-/** Has no effect while the field is disabled. */
-export function focusNameField() {
-  $("#new-habit").focus();
-}
-
-/** At the limit the field and Add are disabled and the message line holds the note; below it the note goes. */
-export function setAddLimit(full) {
-  $("#new-habit").disabled = full;
-  $(".add .btn").disabled = full;
-  const message = $("#new-habit-msg");
+export function renderComposerLimit(full) {
+  const form = $("form.composer");
+  const field = $("#nh");
+  const message = $("#nh-msg");
   if (full) {
-    resetMessage();
-    message.className = "field-msg field-note";
+    form.classList.add("is-full");
+    field.removeAttribute("aria-invalid");
+    message.className = "field-msg note";
     message.textContent = LIMIT_NOTE;
-  } else if (message.classList.contains("field-note")) {
-    resetMessage();
+    message.hidden = false;
+  } else if (form.classList.contains("is-full")) {
+    form.classList.remove("is-full");
+    message.className = "field-msg";
+    message.textContent = "";
+    message.hidden = true;
   }
+  field.disabled = full;
+  $("#add-btn").disabled = full;
 }
 
-// ---------------------------------------------------------------------------------------------
-// Note shown after unreadable saved data
-
-export function showNote() {
-  const dismiss = element("button", "icon-btn", { type: "button", "aria-label": "Dismiss note" });
-  dismiss.append(icon("i-x"));
-  const text = element("p", "note-text");
-  text.textContent = RESET_NOTE;
-  const note = element("div", "note", { role: "status" });
-  note.append(text, dismiss);
-  $(".col-main").prepend(note);
+/** The fades show which edges of the list frame have more rows behind them (R5). */
+export function renderFrameFades() {
+  const frame = $("div.frame");
+  const wrap = frame.parentElement;
+  wrap.classList.toggle("more-above", frame.scrollTop > 0);
+  wrap.classList.toggle("more-below", frame.scrollTop + frame.clientHeight < frame.scrollHeight);
 }
 
-export function removeNote() {
-  $(".note")?.remove();
-}
-
-// ---------------------------------------------------------------------------------------------
-// Delete dialog
-
-/**
- * What the delete dialog's title leaves out of its copy of the name, written as escapes so that this file holds no
- * invisible character: U+202A to U+202E (embeddings and overrides, and their end), U+2066 to U+2069 (isolates, and
- * their end) and the paragraph separators U+0085, U+001C to U+001E and U+2029. Why: the isolate round the name only holds
- * while the name cannot close it or leave one open. A U+2069 or a separator inside the name closes the title's own
- * isolate early. An isolate opener with no closer inside the name takes the title's U+2069 instead, so the title's
- * isolate runs to the end of the line, and after a right-to-left letter it draws the closing quote and the question
- * mark on the wrong side of the name (spec R13 note, SEC-06).
- */
-const TITLE_STRIPPED = /[\u{202A}-\u{202E}\u{2066}-\u{2069}\u{0085}\u{001C}-\u{001E}\u{2029}]/gu;
-
-/**
- * `returnValue` is reset because it persists between openings: a later Esc would repeat the last "delete".
- * The name sits between FIRST STRONG ISOLATE and POP DIRECTIONAL ISOLATE, two invisible characters, so that a
- * bidirectional override in it cannot reorder the quotes and the question mark that follow it (spec R13 note),
- * and its copy in the title has `TITLE_STRIPPED` taken out first. The stored name, the list row and the trash
- * button's label keep the name as it was typed.
- */
-export function openDeleteDialog(habitName) {
-  const dialog = $(".dialog");
-  dialog.returnValue = "";
-  $("#del-title").textContent = `Delete "\u{2068}${habitName.replace(TITLE_STRIPPED, "")}\u{2069}"?`;
-  dialog.showModal();
-}
-
-export function focusDeleteButton(index) {
-  rows()[index].querySelector(".icon-btn").focus();
-}
-
-// ---------------------------------------------------------------------------------------------
-// Where app.js listens and what it asks about a click: its selectors live in this file only (JC5)
-
-export const containers = () => ({
-  page: $(".page"),
-  list: $(LIST_SECTION),
-  mainColumn: $(".col-main"),
-  addForm: $(".add"),
-  dialog: $(".dialog"),
-});
-
-export const dayButtonOf = (node) => node.closest("button.day");
-export const deleteButtonOf = (node) => node.closest(".habit-head .icon-btn");
-export const confirmButtonOf = (node) => node.closest(".dialog .btn-danger");
-export const dismissButtonOf = (node) => node.closest(".note .icon-btn");
+/** The elements app.js listens on. Their selectors live here only. */
+export const containers = () => ({ frame: $("div.frame") });

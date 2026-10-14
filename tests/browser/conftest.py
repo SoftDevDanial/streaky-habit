@@ -505,6 +505,43 @@ def let_guard_pass(page):
     page.clock.run_for(GUARD_WINDOW_MS + 100)
 
 
+def row(page, name):
+    """The `li.row` whose `h3` reads `name` exactly."""
+    return page.locator("ul.rows > li.row").filter(has=page.locator("h3.r-name").get_by_text(name, exact=True))
+
+
+def bin_btn(page, name):
+    return page.get_by_role("button", name=f'Delete "{name}"', exact=True)
+
+
+def year_btn(page, name):
+    return page.get_by_role("button", name=f"Year view, {name}", exact=True)
+
+
+def done_btn(page, name):
+    return page.get_by_role("button", name=f"Done today, {name}", exact=True)
+
+
+def band_day(page, key):
+    """The band's day button for the date key (in the DOM at every width, displayed from 1024 px)."""
+    return page.locator(f'section.band div.ovg-cols button.hc[data-key="{key}"]')
+
+
+def p3_day(page, key):
+    return page.locator(f'dialog.dlg-ov div.ovg-rows button.hc[data-key="{key}"]')
+
+
+def focused(page):
+    """The accessible name of document.activeElement (its aria-label, else its text), or "body"."""
+    return page.evaluate(
+        """() => {
+  const active = document.activeElement;
+  if (!active || active === document.body) return 'body';
+  return active.getAttribute('aria-label') || active.textContent.trim();
+}"""
+    )
+
+
 _WEEKDAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 _MONTHS = [
     "January", "February", "March", "April", "May", "June",

@@ -234,3 +234,52 @@ None.
 
 ### For the README reconcile
 - `saveHabits` now returns a boolean and `loadHabits` returns `saveFailed` beside `habits` and `reset` (Storage contract, v1.1.0). A failed save is no longer silent at the storage level. The banner that shows it comes with task 23.
+
+---
+
+## v1.1.0 task 15, the boot render (2026-10-14)
+> Written by the frontend builder (senior frontend dev agent), 2026-10-14. Requirements R3, R4, R5, R6, R12, R35, R42. The commit is the one whose message starts `feat(app): boot render, header, band, rows and the list frame (task 15`.
+
+### Phase skills (design row of `docs/phase-skills.md`)
+Both read on disk before any UI code (no Skill tool). `taste-skill` (`taste-skill/1.0.0/skills/taste-skill/SKILL.md`) and `frontend-design` (`claude-plugins-official/frontend-design/8d392c816966/skills/frontend-design/SKILL.md`).
+- **Design read.** A one-screen daily tool for one owner, the locked v1.1.0 Streaky Habit system, copied 1-to-1 from the goldens. Nothing re-decided, no dials set (the design phase did that).
+- **What they changed.** Nothing in the look. The markup is the goldens' and the CSS is task 12's copy of `system.css`.
+- **Transferred and checked.** No em or en dash in any file written. Phosphor glyphs only through the sprite (`use href`), no hand-drawn icon. Every visible string is a row of the spec's Copy table (copy self-audit). Ring and bead numbers as SVG text, as the goldens do. Motion only answers an action (the `pop` and `bump` plumbing exists, and boot passes `animate` false, so nothing moves on load). Empty state composed as the golden draws it.
+- **Not transferred, and why.** React, Tailwind, Motion, web fonts and image rules (locked stack). Taste-skill's ban on scroll listeners (spec R5 asks for a `scroll` handler on `div.frame`, and it only toggles two classes, no scroll-linked animation). Hero, landing and bento rules (not a landing page).
+
+### What changed
+- `src/calendar.js` (new). `element` and `svgElement` (the element factories every view module shares), `ringSvg`, `drawRing` (R42, returns whether it redrew a ring drawn before, so callers can pop it), `flagChange` (adds a class only to what changed, and restarts it when the same element changes twice), `drawLegend` (R42, redrawn only when the number of habits changes) and `drawOverview` (the band's columns or P3's rows from `heatmapCells`, laid out once per day and renamed and redrawn in place after that). Month labels come from habit-logic `monthLabels`, and P3 also labels its newest week (CG-16).
+- `src/view.js` written again for K1. `renderDate`, `renderOverviewButton`, `renderBand`, `renderRows` (rows built again only when the habits change, otherwise updated in place), `renderStats` (exported for P2 at task 19), `renderComposerLimit` (R12 at load), `renderFrameFades` (R5) and `containers`. The 1.0 strip, heatmap, dialog and add-form code went with it.
+- `src/app.js` written again. `readToday`, `state`, `render(animate)` and `boot` (load, date, first render with `animate` false, the frame's `scroll` handler and window `resize`). The 1.0 handlers (tick, add, delete, dismiss, rollover) went, each comes back with its task (16, 21, 22, 23, 24).
+- `tests/browser/test_render.py` (new). The task 15 scenarios of qa.md, 38 tests. W3 (`reason="task 19"`), W4 and W5 (`"task 21"`) and W6 (`"task 18"`) carry strict xfail marks.
+- `tests/browser/test_entry.py`. W1's mark removed, it passes (the page boots with no page error, the icon loads under the CSP). Its module text now names W2 only.
+- `tests/browser/conftest.py`. Locators `row`, `bin_btn`, `year_btn`, `done_btn`, `band_day`, `p3_day` and `focused` (qa.md conftest table).
+- `spec.md` task 15 ticked.
+
+### RED first
+The tests were written before any `src/` change and run once in Chromium with `--runxfail` on the task 14 tree, whose page renders the bare skeleton (the 1.0 `view.js` fails to link). 38 failed and 6 passed (`docs/modules/app/qa/red-first/20261014-141807-chromium/junit.xml`). Each failure was on its property, a missing `li.empty`, row, band button, date attribute or dialog, the header's `display` value, or W1's page error. The one task 15 test that passed was `test_R4_R38_the_header_on_a_phone_and_on_a_desktop[1280x800]`, whose property (the Overview button hidden and the date at the right end) is CSS that task 12 already shipped.
+
+### Proof
+- Chromium, `python -m pytest tests/browser -q -rA`, **42 passed, 5 xfailed** (W2, W3, W4, W5, W6), 34.8 s (`docs/modules/app/qa/functional/20261014-142530-chromium/junit.xml`).
+- WebKit, the same with `--engine webkit`, **41 passed, 1 skipped (CO-1, counted with its reason), 5 xfailed**, 41.3 s (`.../functional/20261014-142607-webkit/junit.xml`). No WebKit failure, so nothing to class.
+- With `--runxfail` each marked test fails at its named feature and passes every step before it. W3 at P2's first month title, W4 and W5 at the add (W5's resize steps pass), W6 at P3's day button, W2 at the add.
+- Node, `node --test "tests/**/*.test.js"`, 137 of 137 (no change).
+- A builder self-check (scratch, not the fidelity gate, no file written). K1, S1 and S3 against `today.html`, `today-empty.html` and `today-full.html` at 360 x 780, 390 x 844 and 1280 x 800 in headless Chromium, both sides at 09:00 with reduced motion, give 0 pixels differing by more than 25 in any channel in all nine pairs. Its control, `today.html` against the app with no habits at 390 x 844, gives 16815.
+
+### Deviations and open questions (named, for the orchestrator)
+1. **Q1, the composer box with twelve habits (qa.md `@R5 @R21` "The page never scrolls and the composer stays put", rows "twelve habits").** The scenario says the bounding box of `form.composer` equals its box on a fresh day. In the goldens it does not. The 12-habit note grows the composer upward (`today-full.html`, checklist S3-07 and S3-08), measured in Chromium on the goldens themselves, top 622 against 670 at 360 x 780, 686 against 734 at 390 x 844 and 686 against 714 at 1280 x 800, while the field's box is equal at every width. The build follows the golden. The test asserts the page height, the width, the field's box at every row and the composer's box at the six rows without the note. The three twelve rows do not assert the composer's box. qa.md needs the orchestrator's ruling (likely "the field's box" for those rows, as S3-08 says). Until then the QA finder will read those rows as weaker than the scenario.
+2. **Q2, the Overview button's `display` (qa.md `@R4 @R38` "The header on a phone and on a desktop").** The scenario expects `inline-flex` below 1024 px. `system.css` writes `inline-flex`, but the button is a grid item of `header.top`, so the browser blockifies it, and `today.html` itself computes `flex` at 360 and 390 in Chromium and in WebKit (measured). The test asserts `flex`, with a comment. qa.md needs the orchestrator's ruling to read `flex`.
+3. **Element factories in `calendar.js`.** The spec's Files table has no shared DOM helper file, and `view.js` and the future `popups.js` both draw rings, so the factories and the ring live in `calendar.js`, the lowest DOM module, and the others import from it (no cycle). No new file.
+4. **Built only for this task.** No banner (R17, R41 at task 23), no Done today handler (16), no popups (17 on), no add or delete (21, 22), no rollover (24). A submit of the composer at this commit navigates and is refused by the CSP `form-action 'none'`, until task 21 adds the submit handler (W2, W4 and W5 wait on it).
+5. **R12 at load is built, its test is task 21's** (`@R12` "Twelve habits at load" lives in `test_add.py`). `test_R6_R31_twelve_habits_show_the_goldens_numbers` and the S3 self-check above cover the full composer's look meanwhile.
+
+### Non-goals honoured
+No stand-ins, no `inert`, no seed or hook, `window` gets no property. No observer callback and no deferred render (the fades are set in the `scroll` and `resize` handlers and after each render). No `innerHTML` or the like in `src/`.
+
+### How to run and view
+- `python -m pytest tests/browser -q` (Chromium) and `python -m pytest tests/browser -q --engine webkit`.
+- Serve the root with `python -m http.server <port> --bind 127.0.0.1` and open `http://127.0.0.1:<port>/` (route `/`). It shows K1 or S1 from the saved habits. Nothing can be pressed yet.
+
+### For the README reconcile
+- `src/calendar.js` is new (rings, legends, the overview grids, the shared element factories). `src/view.js` exports `renderDate`, `renderOverviewButton`, `renderBand`, `renderRows`, `renderStats`, `renderComposerLimit`, `renderFrameFades`, `containers`. `src/app.js` holds `readToday`, `state`, `render`, `boot`.
+- The browser suite gains `test_render.py`. `conftest.py` gains `row`, `bin_btn`, `year_btn`, `done_btn`, `band_day`, `p3_day`, `focused`.
