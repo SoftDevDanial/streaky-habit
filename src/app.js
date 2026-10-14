@@ -40,6 +40,7 @@ function render(animate) {
   view.renderBand(cells, todayKey, habits.length, animate);
   const open = popups.dialogs();
   if (open.overview.open) popups.renderOverviewPopup(cells, todayKey, habits.length, animate);
+  if (open.allHabits.open) popups.renderAllHabitsYear(habits, todayKey, animate);
   if (open.day.open) popups.renderDayEditor(state.day, habits, todayKey, animate);
   if (open.habitYear.open) popups.renderHabitYear(habits[state.year], todayKey, animate);
   view.renderRows(habits, todayKey, animate);
@@ -66,6 +67,13 @@ function openOverview(opener) {
   openPopup(overview, opener, popups.closeButtonOf(overview));
 }
 
+/** P4, the year of all habits (R39), from the band's Year (over K1) or P3's Year (over P3), drawn fresh as it opens. */
+function openAllHabits(opener) {
+  const { allHabits } = popups.dialogs();
+  popups.renderAllHabitsYear(state.habits, state.todayKey, false);
+  openPopup(allHabits, opener, popups.closeButtonOf(allHabits));
+}
+
 /** P1 for the day of `dayButton` (R36), over K1, P3 or P4, which marks that day open everywhere it shows. */
 function openDay(dayButton) {
   state.day = dayButton.getAttribute("data-key");
@@ -86,7 +94,8 @@ function openYear(yearButton) {
 
 /**
  * Done today ticks or unticks today (R31). The button is updated in place by the render, and focus is never moved,
- * so a keyboard user stays on it. The Overview button opens P3, a row's Year opens P2, a band day opens P1.
+ * so a keyboard user stays on it. The Overview button opens P3, the band's Year opens P4, a row's Year opens P2, a
+ * band day opens P1.
  */
 function onPageClick(event) {
   const index = view.doneTodayIndexOf(event.target);
@@ -97,6 +106,11 @@ function onPageClick(event) {
   const overviewButton = view.overviewButtonOf(event.target);
   if (overviewButton) {
     openOverview(overviewButton);
+    return;
+  }
+  const allHabitsButton = view.allHabitsButtonOf(event.target);
+  if (allHabitsButton) {
+    openAllHabits(allHabitsButton);
     return;
   }
   const yearButton = view.yearButtonOf(event.target);
@@ -114,9 +128,9 @@ function onPopupPointerDown(event) {
 
 /**
  * Close closes its popup, and so does a click whose press and release both land on the backdrop. A click inside the
- * box, or a drag from the box to the backdrop, closes nothing (R40). Inside the box a day button opens P1 over this
- * popup, a tick in P1 ticks or unticks P1's day for its habit (R37), and a bead in P2 its day for P2's habit (R34),
- * with focus left where it is.
+ * box, or a drag from the box to the backdrop, closes nothing (R40). Inside the box P3's Year opens P4 over P3, a day
+ * button opens P1 over this popup, a tick in P1 ticks or unticks P1's day for its habit (R37), and a bead in P2 its
+ * day for P2's habit (R34), with focus left where it is.
  */
 function onPopupClick(event) {
   const dialog = event.currentTarget;
@@ -125,6 +139,11 @@ function onPopupClick(event) {
   const close = popups.closeButtonOf(dialog);
   if ((close && close.contains(event.target)) || (pressedOnBackdrop && popups.onBackdrop(dialog, event))) {
     dialog.close();
+    return;
+  }
+  const allHabitsButton = view.allHabitsButtonOf(event.target);
+  if (allHabitsButton) {
+    openAllHabits(allHabitsButton);
     return;
   }
   const dayButton = dayButtonOf(event.target);
@@ -151,6 +170,7 @@ function onPopupClose(event) {
   if (dialog === day) {
     state.day = null;
     popups.markOpenDay(null);
+    popups.clearDayRoom();
   }
   if (dialog === habitYear) state.year = null;
   const opener = openers.get(dialog);

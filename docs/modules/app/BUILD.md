@@ -473,3 +473,78 @@ Delete habit in P2 opens nothing at this commit (M1 and the guards are task 22's
 - `src/popups.js` gains `renderHabitYear`. `src/view.js` gains `habitIndexOf` and `yearButtonOf`.
 - `src/app.js` gains `state.year` and `openYear`. `onPageClick` opens P2 from a row's Year, `onPopupClick` ticks a bead, `render` redraws P2 while it is open, `onPopupClose` clears P2's habit.
 - The browser suite gains `test_year.py` and the clipboard scenario in `test_engines.py`. `conftest.py` gains `year_date`, `month_title`, `canon_tree`, `first_difference` and `focus_after_a_click_in_a_popup`.
+
+---
+
+## v1.1.0 task 20, P4, P1 over P4 and the room of rule 4 (2026-10-14)
+> Written by the frontend builder (senior frontend dev agent), 2026-10-14. Requirements R39 and R36 (rule 4 with the owner's rulings H-03 of 16:05 "Fix, give P3 room" and 16:32 "Same fix for P4", and the ORCH ruling "A gap smaller than a day"). The commit is the one whose message starts `feat(app): P4, P1 over P4 and the room of rule 4 (task 20`.
+
+### Phase skills (design row of `docs/phase-skills.md`)
+Both read on disk in this session before any UI code (no Skill tool). `taste-skill` (`taste-skill/1.0.0/skills/taste-skill/SKILL.md`, all 1207 lines) and `frontend-design` (`claude-plugins-official/frontend-design/8d392c816966/skills/frontend-design/SKILL.md`).
+- **What they changed.** Nothing in the look. P4's markup, copy and CSS are the golden's (`overview-year.html`, `system.css`), and `src/styles.css` is unchanged, so R2's three changes still hold.
+- **Transferred and checked.** No em or en dash in any file written (checked with Python). No hand-drawn icon. Copy self-audit, every P4 string is a row of the spec's Copy table ("All habits", "The last 12 months", "Tap a day to change it.", "None", "All", the month titles, "Ddd D Mon YYYY, N of T habits"). Ring numbers are SVG text (rule 6). Motion only answers an action (a P4 day pops when an edit changes its ring, the box rises on opening from the copied CSS). The room is space under the last day, with nothing drawn in it.
+- **Not transferred, and why.** React, Tailwind, Motion, fonts and image rules (locked stack). Landing and hero rules (a tool, not a landing page).
+
+### What changed
+- `src/calendar.js`. `drawAllHabitsYear(months, habits, todayKey, animate)` lays P4's 13 months out once per day through the shared `layOutMonths` (`idPrefix` "amo", `cellClass` "hc") and then names and draws every day button in place. `syncDayButton` (the name "<date>, N of T habits", the ring with its number, `pop` when the ring changed) now serves the band, P3 and P4, and `dayButton` (the day cell of the spec's Contracts) serves `dayCell` and P4. `closedDayCell` draws P4's closed day (`text.c-num.dim` alone). `dayNumber` takes its class. `laidOutFor` also holds P4's container. The module imports `doneFlags`.
+- `src/popups.js`. `renderAllHabitsYear(habits, todayKey, animate)`, P4's months and its legend (`div.yr-tools > div.legend`). `keepDayInSight` first gives the host's `div.sheet-body` an inline `padding-bottom` of the distance from P1's top edge to the viewport's bottom, rounded up, then scrolls. When the gap between the host's head and P1 is smaller than the day, the day's top goes to the head's bottom. `clearDayRoom()` removes the room from P3's and P4's bodies.
+- `src/view.js`. `allHabitsButtonOf(target)`, the Year named "Year view, all habits" (the same control in the band and in P3's head).
+- `src/app.js`. `openAllHabits(opener)` (P4 drawn fresh, Close focused, the opener kept for the focus return). The band's Year in `onPageClick`, P3's Year in `onPopupClick`. `render` redraws P4 while it is open (R32). `onPopupClose` calls `popups.clearDayRoom()` in the branch that clears the `is-open` marks, before focus goes back to the day. A P4 day already opened P1 through `dayButtonOf`, and `markOpenDay` already marks every `button.hc`.
+- `tests/browser/test_overview.py`. The three P4 scenarios, 7 tests. "The band's Year opens P4" also compares P4's head and every month, cell by cell, with `overview-year.html` parsed by `DOMParser` (read only), reading a ring as its sequence of parts, because the golden draws a segment as `<use>` and the app as `<path>`. Ring geometry is checked apart with `ring_parts`.
+- `tests/browser/test_day_editor.py`. W22 reads any host (P3 or P4) and gains its two P4 rows. New, with no mark, "On a phone the host of P1 gets room while P1 is open over it, and loses it when P1 closes" (6 rows), "With twelve habits on a phone the chosen day's top meets the host's head" (2 rows) and "A P4 day opens P1 over P4 on a desktop".
+- Marks. The two `BLOCKED_B1` marks of W22 ("390x844 P3 2026-07-20", "360x780 P3 2026-07-20") were first changed to `xfail(strict=True, reason="task 20")`, as the spec says. Removed at this commit, each test read against its scenario first and every feature it uses now exists. They are those two, W9 `test_R32_R39_a_tick_in_p1_over_p4_updates_p4_and_p3_beneath_it`, W14 `test_R40_popups_stack_and_esc_closes_the_top_one_only`, and the rows "1280x800 P4" of W15 and W16 and "390x844 P3 then P4" of W18. Seven marks in all, none added. Blocker B1 of task 18 is closed by the room.
+- `spec.md` task 20 ticked.
+
+### RED first
+1. On the task 19 tree (HEAD `caa5d23`), the new tests and the seven marked tests with `--runxfail` in Chromium. 24 failed, each on its property, and 15 passed (`docs/modules/app/qa/red-first/20261014-201624-chromium/junit.xml`). P4 never opened, P3's room read 24px against P1's 293 px, and P3's 20 July lay under P1 (bottom 690 against P1's top 551). The 15 are rows green since task 18 and the 800x900 room row, whose property (no room from 768 px) already held.
+2. The measurement the spec asks for, with P4 and P1 over P4 built and no room (`docs/modules/app/qa/red-first/20261014-202139-chromium/`, `measurements.json` from a scratch probe and `junit.xml`). 10 failed, exactly the rows that need the room, each on its property, and 29 passed.
+   An earlier run of the same step, `docs/modules/app/qa/red-first/20261014-202020-chromium/`, holds a tree with my own slip in `syncDayButton` (`animate && drawRing(...)` drew no ring when `animate` was false, so no ring at boot). Its `junit.xml` shows the P3 scenario and two P4 tests failing on it. Kept as written, not cited as the RED. Its measurements are the same numbers.
+
+### P4's oldest month and the twelve-habit gap, against the spec's worked-out numbers
+Measured in Chromium before the room, `measurements.json` of the RED run above. The spec's numbers were calculated from `system.css`, not measured.
+
+| Case | Spec | Measured |
+|---|---|---|
+| P4, 2025-10-10, sample, 390 x 844 | about 125 px under P1's top edge at P4's largest scroll | day 628 to 676, P1's top 551, `scrollTop` 3332 equal to the largest scroll 3332, 125 px under |
+| P4, 2025-10-10, sample, 360 x 780 | stays under P1 | day 572 to 618, P1's top 487, `scrollTop` 3262 equal to the largest scroll 3262, 131 px under |
+| P3, twelve habits, 390 x 844 | gap about 47 px at 10 habits, cells of 48 | P1 at its 85dvh cap (top 126.6), P3's head ends at 82, gap 44.6 px, cell 48 |
+| P3, twelve habits, 360 x 780 | gap about 37 px at 9 habits, cells of 46 | P1's top 117, gap 35 px, cell 46 |
+| P4, twelve habits, 390 x 844 | less than P3 (taller head) | P4's head ends at 112, gap 14.6 px, cell 48 |
+| P4, twelve habits, 360 x 780 | less than P3 | gap 5 px, cell 46 |
+
+No contradiction. With twelve habits P4 at 360 x 780 shows a 5 px strip of the chosen day above P1, as the ORCH ruling allows ("as far as the gap allows").
+
+### Proof
+- Chromium, **120 passed, 11 xfailed**, 106.3 s (`docs/modules/app/qa/functional/20261014-202919-chromium/junit.xml`). 95 of task 19, plus 18 new tests and the 7 that lost their mark. The 11 xfails are the 18 of task 19 less 7.
+- WebKit, **119 passed, 1 skipped (CO-1, counted with its reason), 11 xfailed**, 139.6 s (`docs/modules/app/qa/functional/20261014-203132-webkit/junit.xml`). No WebKit failure.
+- The first pair of full runs, before one test change (`.../functional/20261014-202432-chromium/junit.xml`, 120 and 11, and `.../functional/20261014-202628-webkit/junit.xml`). WebKit failed one test, `test_overview.py::test_R39_p4_on_a_phone_covers_p3`, at P4's box height 843.984375 against 844. WebKit lays `100dvh` out in 1/64 px units. A test reading, not an app defect, so the test now compares the box within 0.5 px, as `test_year.py` reads P2's box. Not an engine difference by design, so qa.md is not changed.
+- Before the marks went, the new tests and the seven marked tests ran with `--runxfail` in Chromium, 39 of 39 passed.
+- Node, `node --test "tests/**/*.test.js"`, 137 of 137.
+- Builder self-check (scratch, not the fidelity gate, nothing written). With `element.click()`, headless Chromium and reduced motion, P4 (from P3's Year below 1024, from the band's Year at 1280) against `overview-year.html` gives 0 pixels differing by more than 25 in any channel at 360 x 780, 390 x 844 and 1280 x 800, and P1 on 22 September against `day-editor.html` gives 0 at all three sizes with P3's room in place on a phone (inline `padding-bottom` 293px). The controls, the app with nothing open, give 54915, 59810, 164841 and 60001, 66447, 70493.
+
+### Judgment calls (named, for the orchestrator)
+1. **One helper names and draws every day button.** `syncDayButton` and `dayButton` serve the band, P3 and P4 (DRY). The count now comes from the day's flags, not from `heatmapCells`' `count` and `total`, which hold the same numbers. Behaviour checked on both. The band and P3 tests were green at task 19, and they are green now. While I merged, my slip above broke them, and `test_R38_R42_the_overview_button_opens_p3` caught it.
+2. **`clearDayRoom` clears both hosts' bodies**, P3's and P4's, so it needs no record of which host P1 came from (a rollover may have redrawn the day button, CG-19). Only the host ever gets room, so clearing the other changes nothing. An emptied `style` attribute is removed too, so the body's markup is the golden's again.
+3. **The room's size** is the distance from P1's dialog element's top edge to `window.innerHeight`, rounded up, as R36 words it. It equals P1's height because P1 sits at the bottom (the room scenario checks both).
+4. **A gap smaller than a day** scrolls by the day's top less the head's bottom with no rounding, so the browser rounds the scroll offset and the day's top lands within 1 px of the head. The test reads within 1 px, as the scenario says.
+5. **P4's Year is found by `view.allHabitsButtonOf` in both handlers**, because it is the same control in the band (K1) and in P3's head, so its selector has one home.
+6. **The P4 scenario compares the whole of P4's months with the golden**, cell by cell, beside the scenario's own counts (366, 21, 9, 39, the lead counts and 18, 96, 153, 99), as task 19 did for P2.
+
+### Deviations
+- None in the code.
+- One process slip that wrote nothing. A first chained command for the full Chromium run ended in a shell redirection into `/tmp`, which the brief forbids. The chain stopped at an earlier step, so pytest never ran and no file was written (the `grep` that followed found none). Every later run wrote only its `junit.xml` into its evidence folder.
+
+### Non-goals honoured
+No new copy, icon, motion or shadow. `src/styles.css` unchanged. No `inert`, no `.scrim`, no `<dialog open>`, no observer callback, no deferred render (the room and the scroll run in the click handler after `showModal`). No tap-through guard (R14, CG-11, task 22). No rollover work (task 24).
+
+### How to run and view
+- `python -m pytest tests/browser -q` (Chromium) and `python -m pytest tests/browser -q --engine webkit`.
+- Serve the root with `python -m http.server <port> --bind 127.0.0.1` and open `http://127.0.0.1:<port>/`. At 1280 px the band's Year opens P4, and a P4 day opens P1 over it. Below 1024 px open Overview, then Year, then a day. Below 768 px P1 is a bottom sheet and the host scrolls the day above it.
+
+### For the README reconcile
+- `src/calendar.js` gains `drawAllHabitsYear` and the private `syncDayButton`, `dayButton` and `closedDayCell`. `drawOverview` names and draws its buttons through `syncDayButton`.
+- `src/popups.js` gains `renderAllHabitsYear` and `clearDayRoom`. `keepDayInSight` now gives P1's host (P3 or P4) an inline `padding-bottom` as tall as P1 before it scrolls, and puts the day's top at the head when the gap is smaller than a day.
+- `src/view.js` gains `allHabitsButtonOf`.
+- `src/app.js` gains `openAllHabits`. `onPageClick` opens P4 from the band's Year, `onPopupClick` from P3's Year, `render` redraws P4 while it is open, and `onPopupClose` calls `clearDayRoom` when P1 closes.
+- Known limit for the README (planner contradiction 3, accepted ORCH). In a desktop browser window narrower than 768 px with classic scrollbars, P3 shows a thin scrollbar while P1 is open over it, because the room makes its body scroll.
+- The browser suite gains P4's scenarios in `test_overview.py`, and the room and twelve-habit scenarios in `test_day_editor.py`.

@@ -185,5 +185,8 @@ export function doneTodayIndexOf(target) {
 
 export const overviewButtonOf = (target) => target.closest("button.ov-btn");
 
+/** The Year named "Year view, all habits" that holds `target`, or null. It is the same control in the band and in P3. */
+export const allHabitsButtonOf = (target) => target.closest("button.btn-all");
+
 /** A row's Year that holds `target`, or null. */
 export const yearButtonOf = (target) => target.closest("button.btn-year");

@@ -1,14 +1,14 @@
 /**
- * The rings and the day grids (spec R33 to R35, R38, R42, Contracts "Files").
+ * The rings and the day grids (spec R33 to R35, R38, R39, R42, Contracts "Files").
  * Why: a day must read the same wherever it shows (system.md principle 1), so every ring (the band, P3, P4, P1's
  * mini ring, the Overview button) and every legend is drawn here from habit-logic's cells and done flags, and so are
- * the months of the year views and P2's beads with their threads.
- * Input: cells, flags and date keys, never a clock or storage. Output: new elements, and changes to the containers
- * it is given. It registers no event listener. As the lowest DOM module it also owns the two element factories the
- * other view modules share. Data reaches the DOM only through textContent and setAttribute (R24).
+ * the months of the year views, P2's beads with their threads and P4's day buttons.
+ * Input: cells, habits, flags and date keys, never a clock or storage. Output: new elements, and changes to the
+ * containers it is given. It registers no event listener. As the lowest DOM module it also owns the two element
+ * factories the other view modules share. Data reaches the DOM only through textContent and setAttribute (R24).
  */
 import { dayParts, shortDate, yearDate } from "./dates.js";
-import { monthLabels, yearMonths } from "./habits.js";
+import { doneFlags, monthLabels, yearMonths } from "./habits.js";
 import { arcPath, legendCounts } from "./ring.js";
 
 const SVG_NAMESPACE = "http://www.w3.org/2000/svg";
@@ -100,13 +100,13 @@ function ringParts(flags, today, day) {
   if (today) parts.push(circle("c-today", TODAY_RADIUS));
   parts.push(...segments(flags));
   if (full) parts.push(circle("c-core", CORE_RADIUS));
-  if (day !== undefined) parts.push(dayNumber(day, full));
+  if (day !== undefined) parts.push(dayNumber(day, full ? "c-num on" : "c-num"));
   return parts;
 }
 
 /** SVG text on the baseline at the ring's centre, dropped .352em, so the figures centre by their ink (rule 6). */
-function dayNumber(day, onCore) {
-  const text = svgElement("text", { class: onCore ? "c-num on" : "c-num", x: RING_CENTRE, y: RING_CENTRE, dy: ".352em" });
+function dayNumber(day, className) {
+  const text = svgElement("text", { class: className, x: RING_CENTRE, y: RING_CENTRE, dy: ".352em" });
   text.textContent = String(day);
   return text;
 }
@@ -135,7 +135,7 @@ export function drawLegend(legend, habitCount) {
   legend.replaceChildren(element("span", "", {}, "None"), ...rings, element("span", "", {}, "All"));
 }
 
-const laidOutFor = new WeakMap(); // overview grid -> the today key its weeks were laid out for
+const laidOutFor = new WeakMap(); // a day grid (the band's, P3's or P4's) -> the today key it was laid out for
 
 /**
  * The 12 weeks of `heatmapCells`, as the band's columns (`newestFirst` false, R35) or P3's rows (true, R38).
@@ -154,10 +154,40 @@ export function drawOverview(grid, cells, todayKey, { newestFirst, animate }) {
   const cellOf = new Map(cells.map((cell) => [cell.key, cell]));
   for (const button of grid.querySelectorAll(DAY_BUTTON)) {
     const cell = cellOf.get(button.getAttribute("data-key"));
-    button.setAttribute("aria-label", `${shortDate(cell.key)}, ${cell.count} of ${cell.total} habits`);
-    const changed = drawRing(button.firstElementChild, cell.done, { today: cell.today, day: dayParts(cell.key).day });
-    flagChange(button, "pop", animate && changed);
+    syncDayButton(button, shortDate(cell.key), cell.done, cell.today, animate);
   }
+}
+
+/**
+ * P4, the year of all habits (R39): the months of `yearMonths`, newest first, each open day a day button named with
+ * its year ("Fri 10 Oct 2025, 3 of 3 habits", P4 holds two Octobers). Laid out again only for a new day, and every
+ * other render renames and redraws the day buttons in place, as `drawOverview` does (R32).
+ * @param {HTMLElement} months P4's div.months
+ * @param {readonly import("./habits.js").Habit[]} habits
+ * @param {string} todayKey
+ * @param {boolean} animate
+ */
+export function drawAllHabitsYear(months, habits, todayKey, animate) {
+  if (laidOutFor.get(months) !== todayKey) {
+    laidOutFor.set(months, todayKey);
+    const openCell = (day) => dayButton(day.key, day.key === todayKey);
+    layOutMonths(months, todayKey, { idPrefix: "amo", cellClass: "hc", openCell, closedCell: closedDayCell });
+  }
+  for (const button of months.querySelectorAll(DAY_BUTTON)) {
+    const key = button.getAttribute("data-key");
+    syncDayButton(button, yearDate(key), doneFlags(habits, key), key === todayKey, animate);
+  }
+}
+
+/**
+ * A day button's name, "<date>, <count> of <total> habits", and its ring with the day's number (R35, R38, R39). The
+ * button pops when `animate` is set and its ring changed (R32).
+ */
+function syncDayButton(button, dateText, flags, today, animate) {
+  button.setAttribute("aria-label", `${dateText}, ${flags.filter(Boolean).length} of ${flags.length} habits`);
+  const day = dayParts(button.getAttribute("data-key")).day;
+  const changed = drawRing(button.firstElementChild, flags, { today, day });
+  flagChange(button, "pop", animate && changed);
 }
 
 function layOutWeeks(grid, cells, todayKey, newestFirst) {
@@ -188,10 +218,24 @@ function weekMonths(weeks, todayKey, newestFirst) {
 /** A day after today is an empty cell, any other day a button that opens it (named and drawn by `drawOverview`). */
 function dayCell(cell) {
   if (cell.future) return element("span", "hc", { "aria-hidden": "true" });
-  const button = element("button", "hc", { type: "button", "data-key": cell.key, "aria-haspopup": "dialog" });
-  if (cell.today) button.setAttribute("aria-current", "date");
+  return dayButton(cell.key, cell.today);
+}
+
+/** The day cell of the spec's Contracts, which opens P1 for its day. `syncDayButton` names it and draws its ring. */
+function dayButton(key, today) {
+  const button = element("button", "hc", { type: "button", "data-key": key, "aria-haspopup": "dialog" });
+  if (today) button.setAttribute("aria-current", "date");
   button.append(ringSvg());
   return button;
+}
+
+/** A P4 day after today, its number alone in the ring's place and not a control (R39). */
+function closedDayCell(day) {
+  const svg = ringSvg();
+  svg.append(dayNumber(day.day, "c-num dim"));
+  const cell = element("span", "hc closed", { "aria-hidden": "true" });
+  cell.append(svg);
+  return cell;
 }
 
 /**

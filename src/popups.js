@@ -1,7 +1,7 @@
 /**
- * The popups' own parts (spec R33, R36 to R38, R40, Contracts "Files"): opening a dialog in the top layer, telling its
- * backdrop from its box, P3's grid and legend, P1's head and ticks, P2's head and year, the `is-open` marks and the
- * phone scroll of rule 4.
+ * The popups' own parts (spec R33, R36 to R40, Contracts "Files"): opening a dialog in the top layer, telling its
+ * backdrop from its box, P3's grid and legend, P4's months and legend, P1's head and ticks, P2's head and year, the
+ * `is-open` marks, and the phone scroll of rule 4 with the room it gives P1's host.
  * Why: the five dialogs open, focus and close one way, so app.js keeps only which popups are open, for what, and who
  * opened them. Input: dialogs, habits, heatmap cells and date keys, never a clock or storage. Output: changes to the
  * dialogs and their day buttons. It registers no event listener. Data reaches the DOM only through textContent and
@@ -9,7 +9,19 @@
  */
 import { longDate } from "./dates.js";
 import { bestStreak, currentStreak, doneFlags } from "./habits.js";
-import { DAY_BUTTON, dayUnit, drawHabitYear, drawLegend, drawOverview, drawRing, element, flagChange, icon, ringSvg } from "./calendar.js";
+import {
+  DAY_BUTTON,
+  dayUnit,
+  drawAllHabitsYear,
+  drawHabitYear,
+  drawLegend,
+  drawOverview,
+  drawRing,
+  element,
+  flagChange,
+  icon,
+  ringSvg,
+} from "./calendar.js";
 import { renderStats } from "./view.js";
 
 /** Below 768 px P1 is a bottom sheet over its host (system.css breakpoint), where rule 4 applies. */
@@ -66,6 +78,13 @@ export function renderOverviewPopup(cells, todayKey, habitCount, animate) {
   const { overview } = dialogs();
   drawOverview(overview.querySelector("div.ovg-rows"), cells, todayKey, { newestFirst: true, animate });
   drawLegend(overview.querySelector("div.sheet-body > div.legend"), habitCount);
+}
+
+/** P4's months, newest first, and its legend (R39), drawn as P4 opens and after every edit while it is open (R32). */
+export function renderAllHabitsYear(habits, todayKey, animate) {
+  const { allHabits } = dialogs();
+  drawAllHabitsYear(allHabits.querySelector("div.months"), habits, todayKey, animate);
+  drawLegend(allHabits.querySelector("div.yr-tools > div.legend"), habits.length);
 }
 
 /**
@@ -138,17 +157,35 @@ export function markOpenDay(dayKey) {
 }
 
 /**
- * Rule 4: on a phone P1 is a bottom sheet over P3 or P4, so the host's body scrolls until the chosen day lies between
- * the host's head and P1's top edge. Run after P1 is shown, so its height is known.
+ * Rule 4 (R36, owner ruling H-03): on a phone P1 is a bottom sheet over its host, P3 or P4. The host's body gets room
+ * below its last day as tall as P1, so any day can scroll above P1, and then scrolls until the chosen day lies between
+ * the host's head and P1's top edge. When that gap is smaller than a day, the day's top meets the head instead, so it
+ * shows as far as the gap allows. Run after P1 is shown, so its height is known. `clearDayRoom` undoes the room.
  */
 export function keepDayInSight(dayButton) {
   const host = dayButton.closest("dialog");
   if (!host || !window.matchMedia(PHONE_SHEET).matches) return;
   const body = host.querySelector(".sheet-body");
-  const headBottom = host.querySelector(".sheet-head").getBoundingClientRect().bottom;
   // The dialog element, not its box: the box is still sliding up (the `sheet` animation), the dialog is where it rests.
   const sheetTop = dialogs().day.getBoundingClientRect().top;
+  // Inline, not a style rule, because P1's height depends on how many habits it lists and how long their names are.
+  body.style.paddingBottom = `${Math.ceil(window.innerHeight - sheetTop)}px`;
+  const headBottom = host.querySelector(".sheet-head").getBoundingClientRect().bottom;
   const { top, bottom } = dayButton.getBoundingClientRect();
-  if (bottom > sheetTop) body.scrollTop += Math.ceil(bottom - sheetTop);
+  if (bottom - top > sheetTop - headBottom) body.scrollTop += top - headBottom;
+  else if (bottom > sheetTop) body.scrollTop += Math.ceil(bottom - sheetTop);
   else if (top < headBottom) body.scrollTop -= Math.ceil(headBottom - top);
+}
+
+/**
+ * P1 has closed, so its host loses the room `keepDayInSight` gave it (R36). The browser clamps the host's scroll to
+ * the smaller range, and the focus going back to the day brings it into view where needed.
+ */
+export function clearDayRoom() {
+  const { overview, allHabits } = dialogs();
+  for (const body of [overview, allHabits].map((host) => host.querySelector(".sheet-body"))) {
+    body.style.removeProperty("padding-bottom");
+    // An emptied style attribute goes too, so the body's markup is the golden's again.
+    if (!body.getAttribute("style")) body.removeAttribute("style");
+  }
 }

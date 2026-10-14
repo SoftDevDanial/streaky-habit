@@ -173,7 +173,6 @@ def test_R32_R37_a_tick_in_p1_over_p3_updates_p3_and_the_row_and_leaves_todays_r
     assert not has_class(page.locator("button.ov-btn > span.ov-ring"), "pop")
 
 
-@pytest.mark.xfail(strict=True, reason="task 20")
 def test_R32_R39_a_tick_in_p1_over_p4_updates_p4_and_p3_beneath_it(app):
     page = app(storage=sample_state())
     page.locator("button.ov-btn").click()

@@ -1,0 +1,210 @@
+{
+  "engine": "chromium",
+  "browser_version": "149.0.7827.55",
+  "rows": [
+    {
+      "habits": "sample",
+      "viewport": [
+        390,
+        844
+      ],
+      "host": "P4",
+      "day": "2025-10-10",
+      "after_rule4": {
+        "head_bottom": 112,
+        "day_top_bottom_height": [
+          628,
+          676,
+          48
+        ],
+        "p1_top": 551,
+        "p1_height": 293,
+        "scroll_top": 3332,
+        "largest_scroll": 3332,
+        "padding_bottom": "24px",
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      "at_largest_scroll": {
+        "scroll_top": 3332,
+        "day_top": 628,
+        "day_bottom": 676,
+        "p1_top": 551,
+        "under_p1_by": 125
+      },
+      "gap_head_to_p1": 439
+    },
+    {
+      "habits": "sample",
+      "viewport": [
+        360,
+        780
+      ],
+      "host": "P4",
+      "day": "2025-10-10",
+      "after_rule4": {
+        "head_bottom": 112,
+        "day_top_bottom_height": [
+          572,
+          618,
+          46
+        ],
+        "p1_top": 487,
+        "p1_height": 293,
+        "scroll_top": 3262,
+        "largest_scroll": 3262,
+        "padding_bottom": "24px",
+        "viewport": [
+          360,
+          780
+        ]
+      },
+      "at_largest_scroll": {
+        "scroll_top": 3262,
+        "day_top": 572,
+        "day_bottom": 618,
+        "p1_top": 487,
+        "under_p1_by": 131
+      },
+      "gap_head_to_p1": 375
+    },
+    {
+      "habits": "twelve",
+      "viewport": [
+        390,
+        844
+      ],
+      "host": "P3",
+      "day": "2026-07-20",
+      "after_rule4": {
+        "head_bottom": 82,
+        "day_top_bottom_height": [
+          642,
+          690,
+          48
+        ],
+        "p1_top": 126.609375,
+        "p1_height": 717.390625,
+        "scroll_top": 0,
+        "largest_scroll": 0,
+        "padding_bottom": "24px",
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      "at_largest_scroll": {
+        "scroll_top": 0,
+        "day_top": 642,
+        "day_bottom": 690,
+        "p1_top": 126.609375,
+        "under_p1_by": 563.390625
+      },
+      "gap_head_to_p1": 44.609375
+    },
+    {
+      "habits": "twelve",
+      "viewport": [
+        360,
+        780
+      ],
+      "host": "P3",
+      "day": "2026-07-20",
+      "after_rule4": {
+        "head_bottom": 82,
+        "day_top_bottom_height": [
+          620,
+          666,
+          46
+        ],
+        "p1_top": 117,
+        "p1_height": 663,
+        "scroll_top": 0,
+        "largest_scroll": 0,
+        "padding_bottom": "24px",
+        "viewport": [
+          360,
+          780
+        ]
+      },
+      "at_largest_scroll": {
+        "scroll_top": 0,
+        "day_top": 620,
+        "day_bottom": 666,
+        "p1_top": 117,
+        "under_p1_by": 549
+      },
+      "gap_head_to_p1": 35
+    },
+    {
+      "habits": "twelve",
+      "viewport": [
+        390,
+        844
+      ],
+      "host": "P4",
+      "day": "2025-10-10",
+      "after_rule4": {
+        "head_bottom": 112,
+        "day_top_bottom_height": [
+          628,
+          676,
+          48
+        ],
+        "p1_top": 126.609375,
+        "p1_height": 717.390625,
+        "scroll_top": 3332,
+        "largest_scroll": 3332,
+        "padding_bottom": "24px",
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      "at_largest_scroll": {
+        "scroll_top": 3332,
+        "day_top": 628,
+        "day_bottom": 676,
+        "p1_top": 126.609375,
+        "under_p1_by": 549.390625
+      },
+      "gap_head_to_p1": 14.609375
+    },
+    {
+      "habits": "twelve",
+      "viewport": [
+        360,
+        780
+      ],
+      "host": "P4",
+      "day": "2025-10-10",
+      "after_rule4": {
+        "head_bottom": 112,
+        "day_top_bottom_height": [
+          572,
+          618,
+          46
+        ],
+        "p1_top": 117,
+        "p1_height": 663,
+        "scroll_top": 3262,
+        "largest_scroll": 3262,
+        "padding_bottom": "24px",
+        "viewport": [
+          360,
+          780
+        ]
+      },
+      "at_largest_scroll": {
+        "scroll_top": 3262,
+        "day_top": 572,
+        "day_bottom": 618,
+        "p1_top": 117,
+        "under_p1_by": 501
+      },
+      "gap_head_to_p1": 5
+    }
+  ]
+}

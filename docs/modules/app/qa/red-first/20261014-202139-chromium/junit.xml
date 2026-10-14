@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="10" skipped="0" tests="39" time="23.011" timestamp="2026-10-14T20:21:47.479692+08:00" hostname="{host}"><testcase classname="tests.browser.test_overview" name="test_R38_R42_the_overview_button_opens_p3" time="0.590" /><testcase classname="tests.browser.test_overview" name="test_R38_R40_p3_closes_and_gives_focus_back_to_overview[clicks Close]" time="0.415" /><testcase classname="tests.browser.test_overview" name="test_R38_R40_p3_closes_and_gives_focus_back_to_overview[presses Escape]" time="0.163" /><testcase classname="tests.browser.test_overview" name="test_R38_R22_p3_cannot_be_reached_on_a_desktop" time="0.647" /><testcase classname="tests.browser.test_overview" name="test_R39_R42_the_bands_year_opens_p4" time="0.309" /><testcase classname="tests.browser.test_overview" name="test_R39_p4_on_a_phone_covers_p3" time="0.679" /><testcase classname="tests.browser.test_overview" name="test_R39_R40_p4_closes_and_gives_focus_back_to_the_year_that_opened_it[1280x800 band Close]" time="0.472" /><testcase classname="tests.browser.test_overview" name="test_R39_R40_p4_closes_and_gives_focus_back_to_the_year_that_opened_it[1280x800 band Escape]" time="0.216" /><testcase classname="tests.browser.test_overview" name="test_R39_R40_p4_closes_and_gives_focus_back_to_the_year_that_opened_it[1280x800 band backdrop]" time="0.229" /><testcase classname="tests.browser.test_overview" name="test_R39_R40_p4_closes_and_gives_focus_back_to_the_year_that_opened_it[390x844 P3 Close]" time="0.740" /><testcase classname="tests.browser.test_overview" name="test_R39_R40_p4_closes_and_gives_focus_back_to_the_year_that_opened_it[390x844 P3 Escape]" time="0.480" /><testcase classname="tests.browser.test_day_editor" name="test_R36_R42_a_band_day_opens_p1" time="0.195" /><testcase classname="tests.browser.test_day_editor" name="test_R36_R40_p1_closes_and_gives_focus_back_to_its_day[clicks Close]" time="0.569" /><testcase classname="tests.browser.test_day_editor" name="test_R36_R40_p1_closes_and_gives_focus_back_to_its_day[presses Escape]" time="0.183" /><testcase classname="tests.browser.test_day_editor" name="test_R36_R40_p1_closes_and_gives_focus_back_to_its_day[clicks the viewport point (5, 5)]" time="0.184" /><testcase classname="tests.browser.test_day_editor" name="test_R36_on_a_phone_the_chosen_day_stays_in_sight_above_p1[390x844 P3 2026-09-22]" time="0.694" /><testcase classname="tests.browser.test_day_editor" name="test_R36_on_a_phone_the_chosen_day_stays_in_sight_above_p1[360x780 P3 2026-09-22]" time="0.683" /><testcase classname="tests.browser.test_day_editor" name="test_R36_on_a_phone_the_chosen_day_stays_in_sight_above_p1[390x844 P3 2026-07-20]" time="0.702"><failure message="AssertionError: {'hostOpen': True, 'p1Open': True, 'head': {'top': 0, 'bottom': 82, 'left': 0, 'right': 390, ...}, 'body': {'top': 82, 'bottom': 844, 'left': 0, 'right': 390, ...}, ...}&#10;assert (82 &lt;= 642 and 690 &lt;= 551)">app = &lt;function app.&lt;locals&gt;.open_page at 0x00000203D61A2770&gt;
+viewport = (390, 844), host = 'P3', key = '2026-07-20', scroll = 'above 0'
+
+    @pytest.mark.parametrize(
+        "viewport, host, key, scroll",
+        [
+            pytest.param(PHONE, "P3", SEP_22, "0", id="390x844 P3 2026-09-22"),
+            pytest.param((360, 780), "P3", SEP_22, "0", id="360x780 P3 2026-09-22"),
+            pytest.param(PHONE, "P3", "2026-07-20", "above 0", marks=TASK_20, id="390x844 P3 2026-07-20"),
+            pytest.param((360, 780), "P3", "2026-07-20", "above 0", marks=TASK_20, id="360x780 P3 2026-07-20"),
+            pytest.param(PHONE, "P4", SEP_22, "any value", id="390x844 P4 2026-09-22"),
+            pytest.param(PHONE, "P4", "2025-10-10", "above 0", id="390x844 P4 2025-10-10"),
+        ],
+    )
+    def test_R36_on_a_phone_the_chosen_day_stays_in_sight_above_p1(app, viewport, host, key, scroll):
+        page = app(viewport=viewport, storage=sample_state())
+        cls = open_host(page, host)
+        host_day(page, host, key).click()
+        expect(day_dialog(page)).to_have_attribute("open", "")
+        settle(page)
+        found = page.evaluate(SIGHT_JS, [cls, key])
+        assert_p1_is_a_bottom_sheet(found)
+&gt;       assert found["head"]["bottom"] &lt;= found["day"]["top"] and found["day"]["bottom"] &lt;= found["sheet"]["top"], found
+E       AssertionError: {'hostOpen': True, 'p1Open': True, 'head': {'top': 0, 'bottom': 82, 'left': 0, 'right': 390, ...}, 'body': {'top': 82, 'bottom': 844, 'left': 0, 'right': 390, ...}, ...}
+E       assert (82 &lt;= 642 and 690 &lt;= 551)
+
+tests\browser\test_day_editor.py:221: AssertionError</failure></testcase><testcase classname="tests.browser.test_day_editor" name="test_R36_on_a_phone_the_chosen_day_stays_in_sight_above_p1[360x780 P3 2026-07-20]" time="0.692"><failure message="AssertionError: {'hostOpen': True, 'p1Open': True, 'head': {'top': 0, 'bottom': 82, 'left': 0, 'right': 360, ...}, 'body': {'top': 82, 'bottom': 780, 'left': 0, 'right': 360, ...}, ...}&#10;assert (82 &lt;= 620 and 666 &lt;= 487)">app = &lt;function app.&lt;locals&gt;.open_page at 0x00000203D626F110&gt;
+viewport = (360, 780), host = 'P3', key = '2026-07-20', scroll = 'above 0'
+
+    @pytest.mark.parametrize(
+        "viewport, host, key, scroll",
+        [
+            pytest.param(PHONE, "P3", SEP_22, "0", id="390x844 P3 2026-09-22"),
+            pytest.param((360, 780), "P3", SEP_22, "0", id="360x780 P3 2026-09-22"),
+            pytest.param(PHONE, "P3", "2026-07-20", "above 0", marks=TASK_20, id="390x844 P3 2026-07-20"),
+            pytest.param((360, 780), "P3", "2026-07-20", "above 0", marks=TASK_20, id="360x780 P3 2026-07-20"),
+            pytest.param(PHONE, "P4", SEP_22, "any value", id="390x844 P4 2026-09-22"),
+            pytest.param(PHONE, "P4", "2025-10-10", "above 0", id="390x844 P4 2025-10-10"),
+        ],
+    )
+    def test_R36_on_a_phone_the_chosen_day_stays_in_sight_above_p1(app, viewport, host, key, scroll):
+        page = app(viewport=viewport, storage=sample_state())
+        cls = open_host(page, host)
+        host_day(page, host, key).click()
+        expect(day_dialog(page)).to_have_attribute("open", "")
+        settle(page)
+        found = page.evaluate(SIGHT_JS, [cls, key])
+        assert_p1_is_a_bottom_sheet(found)
+&gt;       assert found["head"]["bottom"] &lt;= found["day"]["top"] and found["day"]["bottom"] &lt;= found["sheet"]["top"], found
+E       AssertionError: {'hostOpen': True, 'p1Open': True, 'head': {'top': 0, 'bottom': 82, 'left': 0, 'right': 360, ...}, 'body': {'top': 82, 'bottom': 780, 'left': 0, 'right': 360, ...}, ...}
+E       assert (82 &lt;= 620 and 666 &lt;= 487)
+
+tests\browser\test_day_editor.py:221: AssertionError</failure></testcase><testcase classname="tests.browser.test_day_editor" name="test_R36_on_a_phone_the_chosen_day_stays_in_sight_above_p1[390x844 P4 2026-09-22]" time="0.977" /><testcase classname="tests.browser.test_day_editor" name="test_R36_on_a_phone_the_chosen_day_stays_in_sight_above_p1[390x844 P4 2025-10-10]" time="0.967"><failure message="AssertionError: {'hostOpen': True, 'p1Open': True, 'head': {'top': 0, 'bottom': 112, 'left': 0, 'right': 390, ...}, 'body': {'top': 112, 'bottom': 844, 'left': 0, 'right': 390, ...}, ...}&#10;assert (112 &lt;= 628 and 676 &lt;= 551)">app = &lt;function app.&lt;locals&gt;.open_page at 0x00000203D62F2DA0&gt;
+viewport = (390, 844), host = 'P4', key = '2025-10-10', scroll = 'above 0'
+
+    @pytest.mark.parametrize(
+        "viewport, host, key, scroll",
+        [
+            pytest.param(PHONE, "P3", SEP_22, "0", id="390x844 P3 2026-09-22"),
+            pytest.param((360, 780), "P3", SEP_22, "0", id="360x780 P3 2026-09-22"),
+            pytest.param(PHONE, "P3", "2026-07-20", "above 0", marks=TASK_20, id="390x844 P3 2026-07-20"),
+            pytest.param((360, 780), "P3", "2026-07-20", "above 0", marks=TASK_20, id="360x780 P3 2026-07-20"),
+            pytest.param(PHONE, "P4", SEP_22, "any value", id="390x844 P4 2026-09-22"),
+            pytest.param(PHONE, "P4", "2025-10-10", "above 0", id="390x844 P4 2025-10-10"),
+        ],
+    )
+    def test_R36_on_a_phone_the_chosen_day_stays_in_sight_above_p1(app, viewport, host, key, scroll):
+        page = app(viewport=viewport, storage=sample_state())
+        cls = open_host(page, host)
+        host_day(page, host, key).click()
+        expect(day_dialog(page)).to_have_attribute("open", "")
+        settle(page)
+        found = page.evaluate(SIGHT_JS, [cls, key])
+        assert_p1_is_a_bottom_sheet(found)
+&gt;       assert found["head"]["bottom"] &lt;= found["day"]["top"] and found["day"]["bottom"] &lt;= found["sheet"]["top"], found
+E       AssertionError: {'hostOpen': True, 'p1Open': True, 'head': {'top': 0, 'bottom': 112, 'left': 0, 'right': 390, ...}, 'body': {'top': 112, 'bottom': 844, 'left': 0, 'right': 390, ...}, ...}
+E       assert (112 &lt;= 628 and 676 &lt;= 551)
+
+tests\browser\test_day_editor.py:221: AssertionError</failure></testcase><testcase classname="tests.browser.test_day_editor" name="test_R36_on_a_phone_the_host_of_p1_gets_room_while_p1_is_open_over_it_and_loses_it_when_p1_closes[390x844 P3 2026-07-20]" time="0.708"><failure message="AssertionError: {'hostOpen': True, 'p1Open': True, 'head': {'top': 0, 'bottom': 82, 'left': 0, 'right': 390, ...}, 'body': {'top': 82, 'bottom': 844, 'left': 0, 'right': 390, ...}, ...}&#10;assert 269.0 &lt;= 1&#10; +  where 269.0 = abs((24.0 - 293))&#10; +    where 24.0 = px('24px')">app = &lt;function app.&lt;locals&gt;.open_page at 0x00000203D626C300&gt;
+viewport = (390, 844), host = 'P3', key = '2026-07-20'
+action = 'presses Escape', room = "P1's height"
+
+    @pytest.mark.parametrize(
+        "viewport, host, key, action, room",
+        [
+            pytest.param(PHONE, "P3", "2026-07-20", "presses Escape", "P1's height", id="390x844 P3 2026-07-20"),
+            pytest.param((360, 780), "P3", "2026-07-20", "clicks Close", "P1's height", id="360x780 P3 2026-07-20"),
+            pytest.param(PHONE, "P3", SEP_22, "clicks the viewport point (5, 5)", "P1's height", id="390x844 P3 2026-09-22"),
+            pytest.param((800, 900), "P3", "2026-07-20", "presses Escape", "none", id="800x900 P3 2026-07-20"),
+            pytest.param(PHONE, "P4", "2025-10-10", "presses Escape", "P1's height", id="390x844 P4 2025-10-10"),
+            pytest.param((360, 780), "P4", "2025-10-10", "clicks Close", "P1's height", id="360x780 P4 2025-10-10"),
+        ],
+    )
+    def test_R36_on_a_phone_the_host_of_p1_gets_room_while_p1_is_open_over_it_and_loses_it_when_p1_closes(
+        app, viewport, host, key, action, room
+    ):
+        page = app(viewport=viewport, storage=sample_state())
+        cls = open_host(page, host)
+        assert page.evaluate(PADDING_JS, cls) == ["24px", ""]
+    
+        host_day(page, host, key).click()
+        expect(day_dialog(page)).to_have_attribute("open", "")
+        settle(page)
+        found = page.evaluate(SIGHT_JS, [cls, key])
+        assert found["hostOpen"] is True and found["p1Open"] is True, found
+        if room == "none":
+            assert found["padding"] == ["24px", ""], found
+        else:
+            # P1 sits at the bottom, so its height is the distance from its top edge to the viewport's bottom.
+            assert abs(found["p1"]["bottom"] - found["viewport"][1]) &lt;= 1, found
+&gt;           assert abs(px(found["padding"][0]) - found["p1"]["height"]) &lt;= 1, found
+E           AssertionError: {'hostOpen': True, 'p1Open': True, 'head': {'top': 0, 'bottom': 82, 'left': 0, 'right': 390, ...}, 'body': {'top': 82, 'bottom': 844, 'left': 0, 'right': 390, ...}, ...}
+E           assert 269.0 &lt;= 1
+E            +  where 269.0 = abs((24.0 - 293))
+E            +    where 24.0 = px('24px')
+
+tests\browser\test_day_editor.py:263: AssertionError</failure></testcase><testcase classname="tests.browser.test_day_editor" name="test_R36_on_a_phone_the_host_of_p1_gets_room_while_p1_is_open_over_it_and_loses_it_when_p1_closes[360x780 P3 2026-07-20]" time="0.693"><failure message="AssertionError: {'hostOpen': True, 'p1Open': True, 'head': {'top': 0, 'bottom': 82, 'left': 0, 'right': 360, ...}, 'body': {'top': 82, 'bottom': 780, 'left': 0, 'right': 360, ...}, ...}&#10;assert 269.0 &lt;= 1&#10; +  where 269.0 = abs((24.0 - 293))&#10; +    where 24.0 = px('24px')">app = &lt;function app.&lt;locals&gt;.open_page at 0x00000203D6373ED0&gt;
+viewport = (360, 780), host = 'P3', key = '2026-07-20', action = 'clicks Close'
+room = "P1's height"
+
+    @pytest.mark.parametrize(
+        "viewport, host, key, action, room",
+        [
+            pytest.param(PHONE, "P3", "2026-07-20", "presses Escape", "P1's height", id="390x844 P3 2026-07-20"),
+            pytest.param((360, 780), "P3", "2026-07-20", "clicks Close", "P1's height", id="360x780 P3 2026-07-20"),
+            pytest.param(PHONE, "P3", SEP_22, "clicks the viewport point (5, 5)", "P1's height", id="390x844 P3 2026-09-22"),
+            pytest.param((800, 900), "P3", "2026-07-20", "presses Escape", "none", id="800x900 P3 2026-07-20"),
+            pytest.param(PHONE, "P4", "2025-10-10", "presses Escape", "P1's height", id="390x844 P4 2025-10-10"),
+            pytest.param((360, 780), "P4", "2025-10-10", "clicks Close", "P1's height", id="360x780 P4 2025-10-10"),
+        ],
+    )
+    def test_R36_on_a_phone_the_host_of_p1_gets_room_while_p1_is_open_over_it_and_loses_it_when_p1_closes(
+        app, viewport, host, key, action, room
+    ):
+        page = app(viewport=viewport, storage=sample_state())
+        cls = open_host(page, host)
+        assert page.evaluate(PADDING_JS, cls) == ["24px", ""]
+    
+        host_day(page, host, key).click()
+        expect(day_dialog(page)).to_have_attribute("open", "")
+        settle(page)
+        found = page.evaluate(SIGHT_JS, [cls, key])
+        assert found["hostOpen"] is True and found["p1Open"] is True, found
+        if room == "none":
+            assert found["padding"] == ["24px", ""], found
+        else:
+            # P1 sits at the bottom, so its height is the distance from its top edge to the viewport's bottom.
+            assert abs(found["p1"]["bottom"] - found["viewport"][1]) &lt;= 1, found
+&gt;           assert abs(px(found["padding"][0]) - found["p1"]["height"]) &lt;= 1, found
+E           AssertionError: {'hostOpen': True, 'p1Open': True, 'head': {'top': 0, 'bottom': 82, 'left': 0, 'right': 360, ...}, 'body': {'top': 82, 'bottom': 780, 'left': 0, 'right': 360, ...}, ...}
+E           assert 269.0 &lt;= 1
+E            +  where 269.0 = abs((24.0 - 293))
+E            +    where 24.0 = px('24px')
+
+tests\browser\test_day_editor.py:263: AssertionError</failure></testcase><testcase classname="tests.browser.test_day_editor" name="test_R36_on_a_phone_the_host_of_p1_gets_room_while_p1_is_open_over_it_and_loses_it_when_p1_closes[390x844 P3 2026-09-22]" time="0.709"><failure message="AssertionError: {'hostOpen': True, 'p1Open': True, 'head': {'top': 0, 'bottom': 82, 'left': 0, 'right': 390, ...}, 'body': {'top': 82, 'bottom': 844, 'left': 0, 'right': 390, ...}, ...}&#10;assert 269.0 &lt;= 1&#10; +  where 269.0 = abs((24.0 - 293))&#10; +    where 24.0 = px('24px')">app = &lt;function app.&lt;locals&gt;.open_page at 0x00000203D646F060&gt;
+viewport = (390, 844), host = 'P3', key = '2026-09-22'
+action = 'clicks the viewport point (5, 5)', room = "P1's height"
+
+    @pytest.mark.parametrize(
+        "viewport, host, key, action, room",
+        [
+            pytest.param(PHONE, "P3", "2026-07-20", "presses Escape", "P1's height", id="390x844 P3 2026-07-20"),
+            pytest.param((360, 780), "P3", "2026-07-20", "clicks Close", "P1's height", id="360x780 P3 2026-07-20"),
+            pytest.param(PHONE, "P3", SEP_22, "clicks the viewport point (5, 5)", "P1's height", id="390x844 P3 2026-09-22"),
+            pytest.param((800, 900), "P3", "2026-07-20", "presses Escape", "none", id="800x900 P3 2026-07-20"),
+            pytest.param(PHONE, "P4", "2025-10-10", "presses Escape", "P1's height", id="390x844 P4 2025-10-10"),
+            pytest.param((360, 780), "P4", "2025-10-10", "clicks Close", "P1's height", id="360x780 P4 2025-10-10"),
+        ],
+    )
+    def test_R36_on_a_phone_the_host_of_p1_gets_room_while_p1_is_open_over_it_and_loses_it_when_p1_closes(
+        app, viewport, host, key, action, room
+    ):
+        page = app(viewport=viewport, storage=sample_state())
+        cls = open_host(page, host)
+        assert page.evaluate(PADDING_JS, cls) == ["24px", ""]
+    
+        host_day(page, host, key).click()
+        expect(day_dialog(page)).to_have_attribute("open", "")
+        settle(page)
+        found = page.evaluate(SIGHT_JS, [cls, key])
+        assert found["hostOpen"] is True and found["p1Open"] is True, found
+        if room == "none":
+            assert found["padding"] == ["24px", ""], found
+        else:
+            # P1 sits at the bottom, so its height is the distance from its top edge to the viewport's bottom.
+            assert abs(found["p1"]["bottom"] - found["viewport"][1]) &lt;= 1, found
+&gt;           assert abs(px(found["padding"][0]) - found["p1"]["height"]) &lt;= 1, found
+E           AssertionError: {'hostOpen': True, 'p1Open': True, 'head': {'top': 0, 'bottom': 82, 'left': 0, 'right': 390, ...}, 'body': {'top': 82, 'bottom': 844, 'left': 0, 'right': 390, ...}, ...}
+E           assert 269.0 &lt;= 1
+E            +  where 269.0 = abs((24.0 - 293))
+E            +    where 24.0 = px('24px')
+
+tests\browser\test_day_editor.py:263: AssertionError</failure></testcase><testcase classname="tests.browser.test_day_editor" name="test_R36_on_a_phone_the_host_of_p1_gets_room_while_p1_is_open_over_it_and_loses_it_when_p1_closes[800x900 P3 2026-07-20]" time="0.710" /><testcase classname="tests.browser.test_day_editor" name="test_R36_on_a_phone_the_host_of_p1_gets_room_while_p1_is_open_over_it_and_loses_it_when_p1_closes[390x844 P4 2025-10-10]" time="0.985"><failure message="AssertionError: {'hostOpen': True, 'p1Open': True, 'head': {'top': 0, 'bottom': 112, 'left': 0, 'right': 390, ...}, 'body': {'top': 112, 'bottom': 844, 'left': 0, 'right': 390, ...}, ...}&#10;assert 269.0 &lt;= 1&#10; +  where 269.0 = abs((24.0 - 293))&#10; +    where 24.0 = px('24px')">app = &lt;function app.&lt;locals&gt;.open_page at 0x00000203D65F8670&gt;
+viewport = (390, 844), host = 'P4', key = '2025-10-10'
+action = 'presses Escape', room = "P1's height"
+
+    @pytest.mark.parametrize(
+        "viewport, host, key, action, room",
+        [
+            pytest.param(PHONE, "P3", "2026-07-20", "presses Escape", "P1's height", id="390x844 P3 2026-07-20"),
+            pytest.param((360, 780), "P3", "2026-07-20", "clicks Close", "P1's height", id="360x780 P3 2026-07-20"),
+            pytest.param(PHONE, "P3", SEP_22, "clicks the viewport point (5, 5)", "P1's height", id="390x844 P3 2026-09-22"),
+            pytest.param((800, 900), "P3", "2026-07-20", "presses Escape", "none", id="800x900 P3 2026-07-20"),
+            pytest.param(PHONE, "P4", "2025-10-10", "presses Escape", "P1's height", id="390x844 P4 2025-10-10"),
+            pytest.param((360, 780), "P4", "2025-10-10", "clicks Close", "P1's height", id="360x780 P4 2025-10-10"),
+        ],
+    )
+    def test_R36_on_a_phone_the_host_of_p1_gets_room_while_p1_is_open_over_it_and_loses_it_when_p1_closes(
+        app, viewport, host, key, action, room
+    ):
+        page = app(viewport=viewport, storage=sample_state())
+        cls = open_host(page, host)
+        assert page.evaluate(PADDING_JS, cls) == ["24px", ""]
+    
+        host_day(page, host, key).click()
+        expect(day_dialog(page)).to_have_attribute("open", "")
+        settle(page)
+        found = page.evaluate(SIGHT_JS, [cls, key])
+        assert found["hostOpen"] is True and found["p1Open"] is True, found
+        if room == "none":
+            assert found["padding"] == ["24px", ""], found
+        else:
+            # P1 sits at the bottom, so its height is the distance from its top edge to the viewport's bottom.
+            assert abs(found["p1"]["bottom"] - found["viewport"][1]) &lt;= 1, found
+&gt;           assert abs(px(found["padding"][0]) - found["p1"]["height"]) &lt;= 1, found
+E           AssertionError: {'hostOpen': True, 'p1Open': True, 'head': {'top': 0, 'bottom': 112, 'left': 0, 'right': 390, ...}, 'body': {'top': 112, 'bottom': 844, 'left': 0, 'right': 390, ...}, ...}
+E           assert 269.0 &lt;= 1
+E            +  where 269.0 = abs((24.0 - 293))
+E            +    where 24.0 = px('24px')
+
+tests\browser\test_day_editor.py:263: AssertionError</failure></testcase><testcase classname="tests.browser.test_day_editor" name="test_R36_on_a_phone_the_host_of_p1_gets_room_while_p1_is_open_over_it_and_loses_it_when_p1_closes[360x780 P4 2025-10-10]" time="0.975"><failure message="AssertionError: {'hostOpen': True, 'p1Open': True, 'head': {'top': 0, 'bottom': 112, 'left': 0, 'right': 360, ...}, 'body': {'top': 112, 'bottom': 780, 'left': 0, 'right': 360, ...}, ...}&#10;assert 269.0 &lt;= 1&#10; +  where 269.0 = abs((24.0 - 293))&#10; +    where 24.0 = px('24px')">app = &lt;function app.&lt;locals&gt;.open_page at 0x00000203D646EB90&gt;
+viewport = (360, 780), host = 'P4', key = '2025-10-10', action = 'clicks Close'
+room = "P1's height"
+
+    @pytest.mark.parametrize(
+        "viewport, host, key, action, room",
+        [
+            pytest.param(PHONE, "P3", "2026-07-20", "presses Escape", "P1's height", id="390x844 P3 2026-07-20"),
+            pytest.param((360, 780), "P3", "2026-07-20", "clicks Close", "P1's height", id="360x780 P3 2026-07-20"),
+            pytest.param(PHONE, "P3", SEP_22, "clicks the viewport point (5, 5)", "P1's height", id="390x844 P3 2026-09-22"),
+            pytest.param((800, 900), "P3", "2026-07-20", "presses Escape", "none", id="800x900 P3 2026-07-20"),
+            pytest.param(PHONE, "P4", "2025-10-10", "presses Escape", "P1's height", id="390x844 P4 2025-10-10"),
+            pytest.param((360, 780), "P4", "2025-10-10", "clicks Close", "P1's height", id="360x780 P4 2025-10-10"),
+        ],
+    )
+    def test_R36_on_a_phone_the_host_of_p1_gets_room_while_p1_is_open_over_it_and_loses_it_when_p1_closes(
+        app, viewport, host, key, action, room
+    ):
+        page = app(viewport=viewport, storage=sample_state())
+        cls = open_host(page, host)
+        assert page.evaluate(PADDING_JS, cls) == ["24px", ""]
+    
+        host_day(page, host, key).click()
+        expect(day_dialog(page)).to_have_attribute("open", "")
+        settle(page)
+        found = page.evaluate(SIGHT_JS, [cls, key])
+        assert found["hostOpen"] is True and found["p1Open"] is True, found
+        if room == "none":
+            assert found["padding"] == ["24px", ""], found
+        else:
+            # P1 sits at the bottom, so its height is the distance from its top edge to the viewport's bottom.
+            assert abs(found["p1"]["bottom"] - found["viewport"][1]) &lt;= 1, found
+&gt;           assert abs(px(found["padding"][0]) - found["p1"]["height"]) &lt;= 1, found
+E           AssertionError: {'hostOpen': True, 'p1Open': True, 'head': {'top': 0, 'bottom': 112, 'left': 0, 'right': 360, ...}, 'body': {'top': 112, 'bottom': 780, 'left': 0, 'right': 360, ...}, ...}
+E           assert 269.0 &lt;= 1
+E            +  where 269.0 = abs((24.0 - 293))
+E            +    where 24.0 = px('24px')
+
+tests\browser\test_day_editor.py:263: AssertionError</failure></testcase><testcase classname="tests.browser.test_day_editor" name="test_R36_with_twelve_habits_on_a_phone_the_chosen_days_top_meets_the_hosts_head[390x844 P3 2026-07-20]" time="0.692"><failure message="AssertionError: {'hostOpen': True, 'p1Open': True, 'head': {'top': 0, 'bottom': 82, 'left': 0, 'right': 390, ...}, 'body': {'top': 82, 'bottom': 844, 'left': 0, 'right': 390, ...}, ...}&#10;assert 560 &lt;= 1&#10; +  where 560 = abs((642 - 82))">app = &lt;function app.&lt;locals&gt;.open_page at 0x00000203D66B2CF0&gt;
+viewport = (390, 844), host = 'P3', key = '2026-07-20'
+
+    @pytest.mark.parametrize(
+        "viewport, host, key",
+        [
+            pytest.param(PHONE, "P3", "2026-07-20", id="390x844 P3 2026-07-20"),
+            pytest.param((360, 780), "P4", "2025-10-10", id="360x780 P4 2025-10-10"),
+        ],
+    )
+    def test_R36_with_twelve_habits_on_a_phone_the_chosen_days_top_meets_the_hosts_head(app, viewport, host, key):
+        page = app(viewport=viewport, storage=twelve_state())
+        cls = open_host(page, host)
+        host_day(page, host, key).click()
+        expect(day_dialog(page)).to_have_attribute("open", "")
+        settle(page)
+        found = page.evaluate(SIGHT_JS, [cls, key])
+        assert_p1_is_a_bottom_sheet(found)
+        gap = found["sheet"]["top"] - found["head"]["bottom"]
+        assert gap &lt; found["day"]["height"], f"precondition, the whole day fits in the gap of {gap} px: {found}"
+&gt;       assert abs(found["day"]["top"] - found["head"]["bottom"]) &lt;= 1, found
+E       AssertionError: {'hostOpen': True, 'p1Open': True, 'head': {'top': 0, 'bottom': 82, 'left': 0, 'right': 390, ...}, 'body': {'top': 82, 'bottom': 844, 'left': 0, 'right': 390, ...}, ...}
+E       assert 560 &lt;= 1
+E        +  where 560 = abs((642 - 82))
+
+tests\browser\test_day_editor.py:303: AssertionError</failure></testcase><testcase classname="tests.browser.test_day_editor" name="test_R36_with_twelve_habits_on_a_phone_the_chosen_days_top_meets_the_hosts_head[360x780 P4 2025-10-10]" time="1.126"><failure message="AssertionError: {'hostOpen': True, 'p1Open': True, 'head': {'top': 0, 'bottom': 112, 'left': 0, 'right': 360, ...}, 'body': {'top': 112, 'bottom': 780, 'left': 0, 'right': 360, ...}, ...}&#10;assert 460 &lt;= 1&#10; +  where 460 = abs((572 - 112))">app = &lt;function app.&lt;locals&gt;.open_page at 0x00000203D66B3ED0&gt;
+viewport = (360, 780), host = 'P4', key = '2025-10-10'
+
+    @pytest.mark.parametrize(
+        "viewport, host, key",
+        [
+            pytest.param(PHONE, "P3", "2026-07-20", id="390x844 P3 2026-07-20"),
+            pytest.param((360, 780), "P4", "2025-10-10", id="360x780 P4 2025-10-10"),
+        ],
+    )
+    def test_R36_with_twelve_habits_on_a_phone_the_chosen_days_top_meets_the_hosts_head(app, viewport, host, key):
+        page = app(viewport=viewport, storage=twelve_state())
+        cls = open_host(page, host)
+        host_day(page, host, key).click()
+        expect(day_dialog(page)).to_have_attribute("open", "")
+        settle(page)
+        found = page.evaluate(SIGHT_JS, [cls, key])
+        assert_p1_is_a_bottom_sheet(found)
+        gap = found["sheet"]["top"] - found["head"]["bottom"]
+        assert gap &lt; found["day"]["height"], f"precondition, the whole day fits in the gap of {gap} px: {found}"
+&gt;       assert abs(found["day"]["top"] - found["head"]["bottom"]) &lt;= 1, found
+E       AssertionError: {'hostOpen': True, 'p1Open': True, 'head': {'top': 0, 'bottom': 112, 'left': 0, 'right': 360, ...}, 'body': {'top': 112, 'bottom': 780, 'left': 0, 'right': 360, ...}, ...}
+E       assert 460 &lt;= 1
+E        +  where 460 = abs((572 - 112))
+
+tests\browser\test_day_editor.py:303: AssertionError</failure></testcase><testcase classname="tests.browser.test_day_editor" name="test_R36_R39_a_p4_day_opens_p1_over_p4_on_a_desktop" time="0.481" /><testcase classname="tests.browser.test_day_editor" name="test_R36_R3_a_day_opens_p1_when_there_are_no_habits" time="0.161" /><testcase classname="tests.browser.test_day_editor" name="test_R37_R32_ticking_a_past_day_in_p1" time="0.583" /><testcase classname="tests.browser.test_day_editor" name="test_R37_keyboard_ticks_keep_focus_and_a_second_tick_restores_the_saved_value" time="0.746" /><testcase classname="tests.browser.test_day_editor" name="test_R37_R31_ticking_today_in_p1_presses_done_today" time="0.580" /><testcase classname="tests.browser.test_today" name="test_R32_R39_a_tick_in_p1_over_p4_updates_p4_and_p3_beneath_it" time="1.128" /><testcase classname="tests.browser.test_popups" name="test_R40_popups_stack_and_esc_closes_the_top_one_only" time="0.791" /><testcase classname="tests.browser.test_popups" name="test_R40_R14_a_backdrop_click_closes_that_popup_only[1280x800 P4]" time="0.198" /><testcase classname="tests.browser.test_popups" name="test_R40_R14_a_click_inside_the_box_or_a_drag_that_leaves_it_closes_nothing[1280x800 P4]" time="0.226" /><testcase classname="tests.browser.test_popups" name="test_R40_every_popup_is_modal_and_the_page_does_not_scroll_under_it[390x844 P3 then P4]" time="0.566" /></testsuite></testsuites>
