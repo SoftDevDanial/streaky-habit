@@ -780,6 +780,7 @@ Every stub and defect was removed through the Edit tool before the code, and `gi
 ### Deviations
 - None in the code.
 - Process. One green check of the new file alone named a red-first folder in `STREAKS_EVIDENCE_DIR` and wrote its `junit.xml` to the scratchpad. No test in that file writes evidence, so no folder was made, which a listing after the run confirmed.
+- Process, added after the task 24 commit. One read-only `grep` of qa.md for the task 25 handoff ended a pipeline part with `> /dev/null`, a redirection the brief rules out. It wrote no file.
 
 ### Non-goals honoured
 No new copy, icon, motion or shadow. `src/styles.css` unchanged. No timer other than the 30 second check, no `storage` event, nothing added to `window`. No platform work (task 25).
