@@ -1,0 +1,28 @@
+habit-logic v1.1.0 task 9, RED first run, 2026-10-14 14:14 (local), by the backend builder.
+
+Why mutants and not a missing export. The code under test landed in task 8, so the new tests in
+tests/sample-history.test.js pass on the real src/habits.js. To see each assertion fail, src/habits.js was
+changed by hand in three throwaway ways, never committed, and restored (git diff on src/ was empty after).
+Command, from the project root: node --test tests/sample-history.test.js
+
+Run 1, three mutants at once. doneFlags returned all false, yearStart returned todayKey, currentStreak always
+started counting at yesterday.  Result: tests 14, pass 6, fail 8.
+  Failing:
+    @R10 @R19 the v1.1.0 sample's band of 12 weeks
+    @R10 the 1.0 sample's 12 weeks
+    @R19 @R6 @R7 the goldens' Current and Best come from the v1.1.0 sample
+    @R19 all twelve habits on 2026-10-10 give the golden's 7 done, and none on an empty list
+    @R19 which habits are done on a day, for the v1.1.0 sample's first three habits
+    @R20 @R19 the v1.1.0 sample's year has 366 open days and each one reads the file's own character
+    @R6 @R7 the sample's streaks on the 1.0 key screen
+    @R9 @R6 @R7 ticks on the v1.1.0 sample move Current and Best
+  Passing: the two fixture checks, "the edges of the v1.1.0 year" (a start that is too late still refuses the
+  two edge days, which is why run 2 exists), "the same sample one day later", "the best runs" and the month axis.
+
+Run 2, yearStart mutated to be one day too early (addDays(todayKey, -366)). doneFlags and currentStreak restored.
+  Result: tests 14, pass 5, fail 9. The edge test failed here, with the ticks test and the year test.
+    @R9 the edges of the v1.1.0 year: the day before the start and the day after today change nothing
+    @R9 @R6 @R7 ticks on the v1.1.0 sample move Current and Best
+    @R20 @R19 the v1.1.0 sample's year has 366 open days and each one reads the file's own character
+
+Final tree: src/habits.js as committed in task 8, node --test "tests/**/*.test.js" gives 137 tests, 137 pass.

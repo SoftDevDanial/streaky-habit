@@ -99,3 +99,21 @@ RED first. The tests were written before the code. `src/habits.js` kept its 1.0 
 Proof. `node --test "tests/**/*.test.js"` gives 129 tests, 129 pass (dates 18, habits 43, sample-history 6, purity 6, ring 16, storage 40). Chromium browser suite (`python -m pytest tests/browser -q`), 8 passed, 2 xfailed (strict), nothing red. The 1.0 `src/view.js` still imports `weekWindow` and `runContinues`, so the page's module graph no longer links until app task 15 replaces it (expected, ordered by the orchestrator). The 8 passing browser tests do not depend on it.
 
 Deviations: none. Non-goals honored: no clock, no `Intl`, no start date per habit, no caching, no ring geometry.
+Commit: `9a79991`.
+
+## v1.1.0 task 9, the v1.1.0 sample checks (2026-10-14)
+
+`tests/sample-history.test.js` gains eight tests that read `docs/design/sample-history.json` (read-only) through `sampleHabits` from `tests/fixtures/sample.js`. No `src/` change.
+
+- Fixture check: today 2026-10-10, 12 habits, 366 characters each, valid ascending unique days inside `from` to `to`.
+- `@R19`: `doneFlags` for the first three habits on four days, and all twelve habits on 2026-10-10 (7 true, in the qa order).
+- `@R19 @R6 @R7`: Current and Best for all twelve habits, the table of today-full.md.
+- `@R10 @R19`: the band of 12 weeks for the first three habits, 2026-07-20 to 2026-10-11, today at column 12 row 6, the only future cell 2026-10-11, and over the 83 days 2 at count 0, 16 at 1, 47 at 2, 18 at 3.
+- `@R9 @R6 @R7`: five ticks with the resulting Current and Best, and the two edges (2025-10-09, 2026-10-11) that change nothing.
+- `@R20 @R19`: `yearMonths("2026-10-10")` has 366 open, 21 closed, 9 empty days, the open days are 366 in a row from `from` to `to`, and `doneFlags` of every open day equals the file's own character at that position. The file is read a second time raw for that, so the helper's conversion is checked against the data and not against itself.
+
+RED first. The code under test landed in task 8, so a missing export could not be used. Three throwaway changes to `src/habits.js` (`doneFlags` all false, `yearStart` returning today, `currentStreak` always counting from yesterday) failed 8 of 14, and a fourth run with `yearStart` one day too early failed the edge test too (9 of 14). All restored, `git diff src/` empty. Capture: `docs/modules/habit-logic/qa/red-first/20261014T141400-task9/red.txt`.
+
+Proof. `node --test "tests/**/*.test.js"` gives 137 tests, 137 pass (dates 18, habits 43, sample-history 14, purity 6, ring 16, storage 40). Chromium browser suite, 8 passed, 2 xfailed (strict).
+
+Deviations: none. Non-goals honored: `docs/design/` read only, nothing written there.
