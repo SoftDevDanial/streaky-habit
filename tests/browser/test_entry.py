@@ -3,8 +3,7 @@ stylesheet and icon").
 
 These three files are copied from the goldens, so each test compares a file with the golden text it must equal, or
 opens the page and reads what the skeleton and the icon link give. They read index.html, src/, docs/design/ (read
-only) and the running app, and pass or fail. The sub-path scenario adds a habit, so it waits on a later task with a
-strict xfail mark (qa.md, "Scenarios that wait on a later task", W2).
+only) and the running app, and pass or fail.
 """
 import io
 import re
@@ -118,7 +117,6 @@ def test_R1_head_csp_icon_link_and_relative_urls():
     assert checked >= 1, "the specifier pattern finds the import in habits.js"
 
 
-@pytest.mark.xfail(strict=True, reason="task 21")
 def test_R1_R29_the_app_works_from_a_sub_path(app):
     if not conftest.SUBPATH_URL:
         pytest.skip("BLOCKED: STREAKS_BASE_URL names a server but STREAKS_SUBPATH_URL is not set (serve the project's parent folder)")

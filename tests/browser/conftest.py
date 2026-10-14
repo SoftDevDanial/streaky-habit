@@ -92,6 +92,11 @@ def twelve_state():
     return encode(TWELVE)
 
 
+def plain_state(count):
+    """qa.md's named state "N plain habits", "Habit 1" to "Habit N" with no done day."""
+    return encode([{"name": f"Habit {n}", "done": []} for n in range(1, count + 1)])
+
+
 def _free_port():
     with socket.socket() as probe:
         probe.bind(("127.0.0.1", 0))

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="3" time="1.388" timestamp="2026-10-14T20:52:56.921850+08:00" hostname="{host}"><testcase classname="tests.browser.test_add" name="test_R11_no_message_while_typing" time="1.042"><failure message="AssertionError: {'full': False, 'fieldDisabled': False, 'addDisabled': False, 'value': 'Walk to the end of the street and back after dinner', ...}&#10;assert ('Walk to the...er.'}, 'true') == ('Walk to the...t': ''}, None)&#10;  &#10;  At index 1 diff: {'hidden': False, 'classes': 'field-msg err', 'text': 'Keep it to 40 characters or fewer.'} != {'hidden': True, 'classes': 'field-msg', 'text': ''}&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x00000261E652F7F0&gt;
+
+    def test_R11_no_message_while_typing(app):
+        page = app(storage=sample_state())
+        typed = "Walk to the end of the street and back after dinner"
+        type_name(page, typed)
+        state = composer(page)
+&gt;       assert (state["value"], state["message"], state["invalid"]) == (typed, QUIET, None), state
+E       AssertionError: {'full': False, 'fieldDisabled': False, 'addDisabled': False, 'value': 'Walk to the end of the street and back after dinner', ...}
+E       assert ('Walk to the...er.'}, 'true') == ('Walk to the...t': ''}, None)
+E         
+E         At index 1 diff: {'hidden': False, 'classes': 'field-msg err', 'text': 'Keep it to 40 characters or fewer.'} != {'hidden': True, 'classes': 'field-msg', 'text': ''}
+E         Use -v to get more diff
+
+tests\browser\test_add.py:234: AssertionError</failure></testcase><testcase classname="tests.browser.test_add" name="test_R12_twelve_habits_at_load[390x844]" time="0.123"><failure message="AssertionError: {'full': False, 'fieldDisabled': False, 'addDisabled': False, 'value': '', ...}&#10;assert (False, False..., 'text': ''}) == (True, True, ...dd another.'})&#10;  &#10;  At index 0 diff: False != True&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x00000261E7C55FE0&gt;
+viewport = (390, 844)
+
+    @pytest.mark.parametrize("viewport", [pytest.param(PHONE, id="390x844"), pytest.param(DESKTOP, id="1280x800")])
+    def test_R12_twelve_habits_at_load(app, viewport):
+        page = app(viewport=viewport, storage=twelve_state())
+        expect(page.locator("ul.rows &gt; li.row")).to_have_count(12)
+        state = composer(page)
+&gt;       assert (state["full"], state["fieldDisabled"], state["addDisabled"], state["message"]) == (True, True, True, NOTE), state
+E       AssertionError: {'full': False, 'fieldDisabled': False, 'addDisabled': False, 'value': '', ...}
+E       assert (False, False..., 'text': ''}) == (True, True, ...dd another.'})
+E         
+E         At index 0 diff: False != True
+E         Use -v to get more diff
+
+tests\browser\test_add.py:284: AssertionError</failure></testcase><testcase classname="tests.browser.test_add" name="test_R12_twelve_habits_at_load[1280x800]" time="0.174"><failure message="AssertionError: {'full': False, 'fieldDisabled': False, 'addDisabled': False, 'value': '', ...}&#10;assert (False, False..., 'text': ''}) == (True, True, ...dd another.'})&#10;  &#10;  At index 0 diff: False != True&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x00000261E7C57950&gt;
+viewport = (1280, 800)
+
+    @pytest.mark.parametrize("viewport", [pytest.param(PHONE, id="390x844"), pytest.param(DESKTOP, id="1280x800")])
+    def test_R12_twelve_habits_at_load(app, viewport):
+        page = app(viewport=viewport, storage=twelve_state())
+        expect(page.locator("ul.rows &gt; li.row")).to_have_count(12)
+        state = composer(page)
+&gt;       assert (state["full"], state["fieldDisabled"], state["addDisabled"], state["message"]) == (True, True, True, NOTE), state
+E       AssertionError: {'full': False, 'fieldDisabled': False, 'addDisabled': False, 'value': '', ...}
+E       assert (False, False..., 'text': ''}) == (True, True, ...dd another.'})
+E         
+E         At index 0 diff: False != True
+E         Use -v to get more diff
+
+tests\browser\test_add.py:284: AssertionError</failure></testcase></testsuite></testsuites>

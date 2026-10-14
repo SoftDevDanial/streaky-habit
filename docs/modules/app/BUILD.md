@@ -548,3 +548,59 @@ No new copy, icon, motion or shadow. `src/styles.css` unchanged. No `inert`, no 
 - `src/app.js` gains `openAllHabits`. `onPageClick` opens P4 from the band's Year, `onPopupClick` from P3's Year, `render` redraws P4 while it is open, and `onPopupClose` calls `clearDayRoom` when P1 closes.
 - Known limit for the README (planner contradiction 3, accepted ORCH). In a desktop browser window narrower than 768 px with classic scrollbars, P3 shows a thin scrollbar while P1 is open over it, because the room makes its body scroll.
 - The browser suite gains P4's scenarios in `test_overview.py`, and the room and twelve-habit scenarios in `test_day_editor.py`.
+
+---
+
+## v1.1.0 task 21, the composer (2026-10-14)
+> Written by the frontend builder (senior frontend dev agent), 2026-10-14. Requirements R10, R11 and R12 (CG-15 ruled). The commit is the one whose message starts `feat(app): the composer, an add, the name errors and twelve habits (task 21`.
+
+### Phase skills (design row of `docs/phase-skills.md`)
+Both read on disk in this session before any UI code (no Skill tool). `taste-skill` (`taste-skill/1.0.0/skills/taste-skill/SKILL.md`, all 1206 lines) and `frontend-design` (`claude-plugins-official/frontend-design/8d392c816966/skills/frontend-design/SKILL.md`).
+- **What they changed.** Nothing in the look. The composer's markup, copy and CSS are the goldens' (`today.html`, the S2 frames of `states.html`, `today-full.html`), and `src/styles.css` is unchanged, so R2's three changes still hold.
+- **Transferred and checked.** No em or en dash in any file written (checked with Python). Copy self-audit, the three error messages and the 12-habit note are rows of the spec's Copy table, each written once in `view.js`. Error states inline at the form (taste-skill 4.5), with the approved copy that says what is wrong (frontend-design, "never vague"). Label above the field and no placeholder as a label (taste-skill 4.6), already the golden's. Motion only answers an action, and the add adds none of its own (the band and Overview rings pop through R32's existing rule).
+- **Not transferred, and why.** taste-skill 4.6 puts error text below the input. The golden and R11 put it above, so the field never moves. React, Tailwind, Motion, fonts and image rules (locked stack). Landing and hero rules (a tool, not a landing page).
+
+### What changed
+- `src/app.js`. `onComposerSubmit` calls `preventDefault()`, runs `addHabit` on the text as typed, and on success empties the composer, goes through `edit` (one save, R32) and scrolls the frame to the new row. On a refusal it shows the name error. `boot` listens for `submit` on `form.composer` and for `input` on the field. It imports `addHabit`.
+- `src/view.js`. `composerText`, `showNameError` (the message, `aria-invalid` and focus on the field), `clearNameError` (only when an error shows), `emptyComposer`, `showLastRow` (scroll to the end, then the fades at once), and the private `setMessage` and `NAME_ERRORS`. `renderComposerLimit` now writes only when the 12-habit state changes, through `setMessage`. `containers` gains `composer` and `field`. The module comment names R10 to R12.
+- `tests/browser/test_add.py` (new). The eleven scenarios of qa.md's Feature "Add a habit", 18 tests. W20 ("Deleting one of twelve opens the composer again") carries `xfail(strict=True, reason="task 22")` and first checks that M1 opened, so it fails on that until task 22.
+- `tests/browser/conftest.py`. `plain_state(count)`, qa.md's named state "N plain habits", moved here from `test_render.py`, which now imports it.
+- Marks removed, each test read against its scenario first and every feature it uses now exists. W2 `test_entry.py::test_R1_R29_the_app_works_from_a_sub_path`, W4 `test_render.py::test_R6_R10_a_new_habit_shows_no_best_block`, W5 `test_render.py::test_R5_the_fades_follow_the_rows_and_a_resize`, W19 `test_year.py::test_R34_R10_a_day_before_a_habit_was_added_can_be_ticked`. Four marks, one added (W20).
+- W4 now reads the fourth row, as its scenario says ("the fourth row's p.stats"). It found the row by its name only.
+- The module docstrings of `test_entry.py`, `test_render.py` and `test_year.py` no longer say a mark is there.
+- `spec.md` task 21 ticked.
+
+### RED first
+1. **The stub run.** At HEAD a click on Add starts a form submission that the CSP's `form-action 'none'` blocks, and Playwright's click waits for that navigation until it times out (W19's RED at task 19 shows it as a TimeoutError). That is an exception, not the property. So a throwaway stub, never committed, gave `form.composer` a `submit` listener that only calls `preventDefault()` (the right kind with a wrong value, it adds nothing and shows nothing). The 18 new tests and the four marked tests ran once in Chromium with `--runxfail`. 19 failed, each with an AssertionError on its property (no row added, no message shown, M1 not open for W20), and 3 passed (`docs/modules/app/qa/red-first/20261014-205140-chromium/junit.xml`).
+2. **The mutant run.** The three that passed hold properties that are true before any composer code, "No message while typing" and the two rows of "Twelve habits at load" (task 15 drew that state). A second throwaway stub planted the defect each guards against, an `input` listener that shows the too-long error while typing, and the 12-habit state never drawn. All 3 failed on their assertions (`docs/modules/app/qa/red-first/20261014-205255-chromium/junit.xml`). Both stubs were removed and `src/` was back at HEAD (`git diff` empty) before the code was written, the same method as task 12.
+
+### Proof
+- Chromium, **141 passed, 8 xfailed**, 91.0 s (`docs/modules/app/qa/functional/20261014-210239-chromium/junit.xml`). 120 of task 20, plus 17 of `test_add.py` and the 4 that lost their mark. The 8 xfails are the 11 of task 20 less 4, plus W20, all with `reason="task 22"`.
+- WebKit, **140 passed, 1 skipped (CO-1, counted with its reason), 8 xfailed**, 128.3 s (`docs/modules/app/qa/functional/20261014-210417-webkit/junit.xml`). No WebKit failure. After a rejected name the field has focus in both engines, also after a mouse click on Add, which leaves `body` in WebKit before the app moves focus.
+- An earlier pair of runs gave the same counts (`.../functional/20261014-205709-chromium/junit.xml`, `.../functional/20261014-205849-webkit/junit.xml`), before four comments lost their colons. The runs above are of the committed tree.
+- Node, `node --test "tests/**/*.test.js"`, 137 of 137.
+- Before the marks went, the new tests and the four marked tests ran with `--runxfail` in Chromium and in WebKit. 21 passed in each, and W20 failed at M1 not opening (task 22).
+- Builder self-check (a scratch probe, not the fidelity gate, nothing written). The app's three S2 states (Add with no name, a 50 character name, "read 20 pages") against the S2 specimens of `states.html`, by computed style of the form, message, field, label and Add, at 360 x 780 and 1280 x 800, in Chromium and WebKit. Equal in class list, text, `aria-invalid`, the kept value, colours, edges, margins, type, grid placement, the 8 px gap above the field and the insets. The one difference is the form's `margin-top`, `auto` in both, which resolves to the free space above the composer in K1 (pinned to the bottom) and to 0 in the sheet's section (sheet chrome, ST-06, not built).
+
+### Judgment calls (named, for the orchestrator)
+1. **The RED came from two throwaway stubs**, as described above, because the unstubbed page fails by a timeout and three properties hold before the code.
+2. **`renderComposerLimit` writes only on a change of state.** Before, every render wrote the 12-habit note into `#nh-msg`, a polite live region, so with twelve habits each Done today could make a screen reader read the note again. The visible result is the same, and the R12 tests and task 15's tests are green.
+3. **A name error is cleared only when one shows** (`clearNameError` returns when `#nh-msg` has no `err`), as F2's `input` listener does. Typing then never writes the live region for nothing and can never clear the 12-habit note.
+4. **No branch for `addHabit`'s `limit` refusal.** At 12 habits the field and Add are disabled (R12), so the form cannot be submitted. The comment of `onComposerSubmit` says so.
+5. **The frame scrolls to its end after an add** (`scrollTop = scrollHeight`), F2's way, which CG-15 names. The new row is the last, so its whole box is then in the visible part. The fades are set in the same handler, because the frame's `scroll` event comes after it (R5, Invariants).
+6. **No focus move after an add**, as R10 says. F2 focuses the field after every submit, which the spec does not take.
+
+### Deviations
+None.
+
+### Non-goals honoured
+No message while typing, no message other than the three S2 errors and the S3 note. No new copy, icon, motion or shadow. `src/styles.css` unchanged. No delete (task 22), no storage work (task 23), no rollover work (task 24).
+
+### How to run and view
+- `python -m pytest tests/browser -q` (Chromium) and `python -m pytest tests/browser -q --engine webkit`.
+- Serve the root with `python -m http.server <port> --bind 127.0.0.1` and open `http://127.0.0.1:<port>/`. Type a name and press Add or Enter. Add with no name, a name over 40 characters or a name already tracked shows its message above the field, and typing clears it. The twelfth habit closes the composer with the note.
+
+### For the README reconcile
+- `src/view.js` gains `composerText`, `showNameError`, `clearNameError`, `emptyComposer` and `showLastRow`. `renderComposerLimit` writes only when the 12-habit state changes. `containers` gains `composer` and `field`.
+- `src/app.js` gains `onComposerSubmit`. `boot` listens for `submit` on `form.composer` and `input` on the field.
+- The browser suite gains `test_add.py`. `conftest.py` gains `plain_state`.

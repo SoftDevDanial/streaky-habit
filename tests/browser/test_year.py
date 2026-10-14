@@ -3,8 +3,8 @@ year view").
 
 Each test opens P2 with real gestures and reads the DOM, the focus, boxes and the saved text. The expected days come
 from a test-side calendar (conftest `year_date`, `month_title`), and the whole popup is also compared with the golden
-`year-view.html` (read only). "A day before a habit was added can be ticked" adds a habit, which task 21 lands, so it
-carries a strict xfail mark (qa.md, "Scenarios that wait on a later task", W19).
+`year-view.html` (read only). "A day before a habit was added can be ticked" also adds a habit (qa.md, "Scenarios
+that wait on a later task", W19).
 """
 import calendar
 import datetime
@@ -322,7 +322,6 @@ def test_R34_R16_untick_and_tick_again(app):
     assert json.loads(stored(page)) == json.loads(text)
 
 
-@pytest.mark.xfail(strict=True, reason="task 21")
 def test_R34_R10_a_day_before_a_habit_was_added_can_be_ticked(app):
     page = app(viewport=DESKTOP, storage=sample_state())
     add_habit(page, "Drink water")

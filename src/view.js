@@ -1,6 +1,7 @@
 /**
  * K1, the main screen: the header date, the Overview button, the band, the rows and their numbers, the list
- * frame's fades and the composer's 12-habit state (spec R3 to R6, R12, R35, R38).
+ * frame's fades and scroll, and the composer's states, its name errors and its 12-habit state (spec R3 to R6, R10
+ * to R12, R35, R38).
  * Why: one module owns K1's markup and selectors, so app.js never builds or looks up an element of K1 itself.
  * Input: habits, heatmap cells and `todayKey` (never a clock), and `animate`, true when a render answers an edit
  * (R32). Output: changes to the page. Data reaches the DOM only through textContent and setAttribute (R24).
@@ -11,6 +12,12 @@ import { bestStreak, currentStreak } from "./habits.js";
 import { dayUnit, drawLegend, drawOverview, drawRing, element, flagChange, icon, ringSvg, svgElement } from "./calendar.js";
 
 const LIMIT_NOTE = "You track 12 habits, the most this app holds. Delete one to add another.";
+/** The message of each name error `addHabit` gives (R11). */
+const NAME_ERRORS = {
+  empty: "Name the habit first.",
+  "too-long": "Keep it to 40 characters or fewer.",
+  duplicate: "You already track this habit.",
+};
 
 const $ = (selector) => document.querySelector(selector);
 const rowsOf = () => Array.from(document.querySelectorAll("ul.rows > li.row"));
@@ -137,27 +144,58 @@ function setValue(stat, next, bump) {
 }
 
 /**
- * At 12 habits the composer closes and says why (R12). Below 12 that state is undone, and a message that is not
- * the 12-habit note (a name error) is left as it is.
+ * At 12 habits the composer closes and says why (R12), and below 12 it opens again. It writes only when the state
+ * changes, so the note is not written again into the live region `#nh-msg` by every render. Below 12 a name error
+ * is left as it is.
  */
 export function renderComposerLimit(full) {
   const form = $("form.composer");
+  if (form.classList.contains("is-full") === full) return;
+  form.classList.toggle("is-full", full);
   const field = $("#nh");
-  const message = $("#nh-msg");
-  if (full) {
-    form.classList.add("is-full");
-    field.removeAttribute("aria-invalid");
-    message.className = "field-msg note";
-    message.textContent = LIMIT_NOTE;
-    message.hidden = false;
-  } else if (form.classList.contains("is-full")) {
-    form.classList.remove("is-full");
-    message.className = "field-msg";
-    message.textContent = "";
-    message.hidden = true;
-  }
   field.disabled = full;
   $("#add-btn").disabled = full;
+  if (full) {
+    field.removeAttribute("aria-invalid");
+    setMessage("field-msg note", LIMIT_NOTE);
+  } else {
+    setMessage("field-msg", "");
+  }
+}
+
+/** The text in the field exactly as typed. `addHabit` trims it, and a rejected name leaves it as it is (R11). */
+export const composerText = () => $("#nh").value;
+
+/**
+ * A rejected name (R11) shows its one message above the field, marks the field invalid and puts focus on it. The
+ * app sets that focus because a click on Add leaves focus on no element in WebKit (spec Invariants, engine note).
+ */
+export function showNameError(error) {
+  setMessage("field-msg err", NAME_ERRORS[error]);
+  const field = $("#nh");
+  field.setAttribute("aria-invalid", "true");
+  field.focus();
+}
+
+/** Typing clears a name error at once (R11, rule 7). The 12-habit note is no error and stays. */
+export function clearNameError() {
+  if (!$("#nh-msg").classList.contains("err")) return;
+  setMessage("field-msg", "");
+  $("#nh").removeAttribute("aria-invalid");
+}
+
+/** After an add the field empties and any name error clears (R10). */
+export function emptyComposer() {
+  $("#nh").value = "";
+  clearNameError();
+}
+
+/** The line above the field (spec Contracts, Message line), shown exactly when it holds a text. */
+function setMessage(className, text) {
+  const message = $("#nh-msg");
+  message.className = className;
+  message.textContent = text;
+  message.hidden = text === "";
 }
 
 /** The fades show which edges of the list frame have more rows behind them (R5). */
@@ -168,8 +206,18 @@ export function renderFrameFades() {
   wrap.classList.toggle("more-below", frame.scrollTop + frame.clientHeight < frame.scrollHeight);
 }
 
+/**
+ * After an add the frame scrolls to its end, so the new last row lies fully in its visible part (R10, CG-15, as F2
+ * does). The fades follow at once, because the frame's `scroll` event comes only after this handler (R5).
+ */
+export function showLastRow() {
+  const frame = $("div.frame");
+  frame.scrollTop = frame.scrollHeight;
+  renderFrameFades();
+}
+
 /** The elements app.js listens on. Their selectors live here only. */
-export const containers = () => ({ page: $("div.app"), frame: $("div.frame") });
+export const containers = () => ({ page: $("div.app"), frame: $("div.frame"), composer: $("form.composer"), field: $("#nh") });
 
 /**
  * The position of the habit whose row holds `control`. Rows carry no index attribute (spec Events and focus), so a

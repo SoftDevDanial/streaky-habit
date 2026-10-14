@@ -1,0 +1,536 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="19" skipped="0" tests="22" time="55.505" timestamp="2026-10-14T20:51:42.336885+08:00" hostname="{host}"><testcase classname="tests.browser.test_add" name="test_R10_R16_R32_the_first_habit_on_a_fresh_day" time="6.058"><failure message="AssertionError: Locator expected to have count '0'&#10;Actual value: 1 &#10;Call log:&#10;  - Expect &quot;to_have_count&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;ul.rows &gt; li.empty&quot;)&#10;    14 × locator resolved to 1 element&#10;       - unexpected value &quot;1&quot;">app = &lt;function app.&lt;locals&gt;.open_page at 0x00000178363DD590&gt;
+engine = 'chromium'
+
+    def test_R10_R16_R32_the_first_habit_on_a_fresh_day(app, engine):
+        page = app(viewport=PHONE)
+        expect(page.locator("ul.rows &gt; li.empty")).to_have_count(1)
+        add_habit(page, "Read 20 pages")
+&gt;       expect(page.locator("ul.rows &gt; li.empty")).to_have_count(0)
+E       AssertionError: Locator expected to have count '0'
+E       Actual value: 1 
+E       Call log:
+E         - Expect "to_have_count" with timeout 5000ms
+E         - waiting for locator("ul.rows &gt; li.empty")
+E           14 × locator resolved to 1 element
+E              - unexpected value "1"
+
+tests\browser\test_add.py:135: AssertionError</failure></testcase><testcase classname="tests.browser.test_add" name="test_R10_R32_enter_adds_at_the_bottom_trimmed_and_the_band_recounts" time="5.192"><failure message="AssertionError: Locator expected to have count '4'&#10;Actual value: 3 &#10;Call log:&#10;  - Expect &quot;to_have_count&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;ul.rows &gt; li.row&quot;)&#10;    14 × locator resolved to 3 elements&#10;       - unexpected value &quot;3&quot;">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000017836787D70&gt;
+
+    def test_R10_R32_enter_adds_at_the_bottom_trimmed_and_the_band_recounts(app):
+        # The arc rule written here reproduces the goldens' arcs first, so its four-segment paths can be trusted below.
+        assert [arc_path(i, 3) for i in range(3)] == ARCS3
+        assert [arc_path(i, 12) for i in range(12)] == ARCS12
+        page = app(viewport=DESKTOP, storage=sample_state())
+        expect(page.locator("ul.rows &gt; li.row")).to_have_count(3)
+        add_habit(page, "  Drink water  ", enter=True)
+        rows = page.locator("ul.rows &gt; li.row")
+&gt;       expect(rows).to_have_count(4)
+E       AssertionError: Locator expected to have count '4'
+E       Actual value: 3 
+E       Call log:
+E         - Expect "to_have_count" with timeout 5000ms
+E         - waiting for locator("ul.rows &gt; li.row")
+E           14 × locator resolved to 3 elements
+E              - unexpected value "3"
+
+tests\browser\test_add.py:159: AssertionError</failure></testcase><testcase classname="tests.browser.test_add" name="test_R10_the_frame_scrolls_to_show_the_new_row_cg15" time="5.160"><failure message="AssertionError: Locator expected to have count '7'&#10;Actual value: 6 &#10;Call log:&#10;  - Expect &quot;to_have_count&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;ul.rows &gt; li.row&quot;)&#10;    14 × locator resolved to 6 elements&#10;       - unexpected value &quot;6&quot;">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001783686B3D0&gt;
+
+    def test_R10_the_frame_scrolls_to_show_the_new_row_cg15(app):
+        page = app(viewport=PHONE, storage=plain_state(6))
+        rows = page.locator("ul.rows &gt; li.row")
+        expect(rows).to_have_count(6)
+        assert page.evaluate(FRAME_JS)["scrollTop"] == 0
+        add_habit(page, "Habit 7", enter=True)
+&gt;       expect(rows).to_have_count(7)
+E       AssertionError: Locator expected to have count '7'
+E       Actual value: 6 
+E       Call log:
+E         - Expect "to_have_count" with timeout 5000ms
+E         - waiting for locator("ul.rows &gt; li.row")
+E           14 × locator resolved to 6 elements
+E              - unexpected value "6"
+
+tests\browser\test_add.py:177: AssertionError</failure></testcase><testcase classname="tests.browser.test_add" name="test_R11_rejected_names_keep_the_text_and_show_one_message_above_the_field[390x844-nothing]" time="0.181"><failure message="AssertionError: {'full': False, 'fieldDisabled': False, 'addDisabled': False, 'value': '', ...}&#10;assert {'hidden': Tr...', 'text': ''} == {'hidden': Fa...habit first.'}&#10;  &#10;  Differing items:&#10;  {'hidden': True} != {'hidden': False}&#10;  {'classes': 'field-msg'} != {'classes': 'field-msg err'}&#10;  {'text': ''} != {'text': 'Name the habit first.'}&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001783686BCC0&gt;
+viewport = (390, 844), typed = '', message = 'Name the habit first.'
+
+    @pytest.mark.parametrize(
+        "viewport, typed, message",
+        [
+            pytest.param(PHONE, "", EMPTY, id="390x844-nothing"),
+            pytest.param(PHONE, "   ", EMPTY, id="390x844-three-spaces"),
+            pytest.param(PHONE, "Walk to the end of the street and back after dinner", TOO_LONG, id="390x844-51-characters"),
+            pytest.param(PHONE, "Read twenty pages before bed every night.", TOO_LONG, id="390x844-41-characters"),
+            pytest.param(PHONE, "read 20 pages", DUPLICATE, id="390x844-other-case"),
+            pytest.param(PHONE, " STRETCH 10 MINUTES ", DUPLICATE, id="390x844-spaces-and-capitals"),
+            pytest.param(DESKTOP, "", EMPTY, id="1280x800-nothing"),
+        ],
+    )
+    def test_R11_rejected_names_keep_the_text_and_show_one_message_above_the_field(app, viewport, typed, message):
+        page = app(viewport=viewport, storage=sample_state())
+        rows = page.locator("ul.rows &gt; li.row")
+        expect(rows).to_have_count(3)
+        saved = stored(page)
+        top = field_top(page)
+        add_habit(page, typed)
+        state = composer(page)
+&gt;       assert state["message"] == error(message), state
+E       AssertionError: {'full': False, 'fieldDisabled': False, 'addDisabled': False, 'value': '', ...}
+E       assert {'hidden': Tr...', 'text': ''} == {'hidden': Fa...habit first.'}
+E         
+E         Differing items:
+E         {'hidden': True} != {'hidden': False}
+E         {'classes': 'field-msg'} != {'classes': 'field-msg err'}
+E         {'text': ''} != {'text': 'Name the habit first.'}
+E         Use -v to get more diff
+
+tests\browser\test_add.py:206: AssertionError</failure></testcase><testcase classname="tests.browser.test_add" name="test_R11_rejected_names_keep_the_text_and_show_one_message_above_the_field[390x844-three-spaces]" time="0.177"><failure message="AssertionError: {'full': False, 'fieldDisabled': False, 'addDisabled': False, 'value': '   ', ...}&#10;assert {'hidden': Tr...', 'text': ''} == {'hidden': Fa...habit first.'}&#10;  &#10;  Differing items:&#10;  {'hidden': True} != {'hidden': False}&#10;  {'classes': 'field-msg'} != {'classes': 'field-msg err'}&#10;  {'text': ''} != {'text': 'Name the habit first.'}&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001783686B950&gt;
+viewport = (390, 844), typed = '   ', message = 'Name the habit first.'
+
+    @pytest.mark.parametrize(
+        "viewport, typed, message",
+        [
+            pytest.param(PHONE, "", EMPTY, id="390x844-nothing"),
+            pytest.param(PHONE, "   ", EMPTY, id="390x844-three-spaces"),
+            pytest.param(PHONE, "Walk to the end of the street and back after dinner", TOO_LONG, id="390x844-51-characters"),
+            pytest.param(PHONE, "Read twenty pages before bed every night.", TOO_LONG, id="390x844-41-characters"),
+            pytest.param(PHONE, "read 20 pages", DUPLICATE, id="390x844-other-case"),
+            pytest.param(PHONE, " STRETCH 10 MINUTES ", DUPLICATE, id="390x844-spaces-and-capitals"),
+            pytest.param(DESKTOP, "", EMPTY, id="1280x800-nothing"),
+        ],
+    )
+    def test_R11_rejected_names_keep_the_text_and_show_one_message_above_the_field(app, viewport, typed, message):
+        page = app(viewport=viewport, storage=sample_state())
+        rows = page.locator("ul.rows &gt; li.row")
+        expect(rows).to_have_count(3)
+        saved = stored(page)
+        top = field_top(page)
+        add_habit(page, typed)
+        state = composer(page)
+&gt;       assert state["message"] == error(message), state
+E       AssertionError: {'full': False, 'fieldDisabled': False, 'addDisabled': False, 'value': '   ', ...}
+E       assert {'hidden': Tr...', 'text': ''} == {'hidden': Fa...habit first.'}
+E         
+E         Differing items:
+E         {'hidden': True} != {'hidden': False}
+E         {'classes': 'field-msg'} != {'classes': 'field-msg err'}
+E         {'text': ''} != {'text': 'Name the habit first.'}
+E         Use -v to get more diff
+
+tests\browser\test_add.py:206: AssertionError</failure></testcase><testcase classname="tests.browser.test_add" name="test_R11_rejected_names_keep_the_text_and_show_one_message_above_the_field[390x844-51-characters]" time="0.228"><failure message="AssertionError: {'full': False, 'fieldDisabled': False, 'addDisabled': False, 'value': 'Walk to the end of the street and back after dinner', ...}&#10;assert {'hidden': Tr...', 'text': ''} == {'hidden': Fa...rs or fewer.'}&#10;  &#10;  Differing items:&#10;  {'hidden': True} != {'hidden': False}&#10;  {'classes': 'field-msg'} != {'classes': 'field-msg err'}&#10;  {'text': ''} != {'text': 'Keep it to 40 characters or fewer.'}&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x00000178369B2820&gt;
+viewport = (390, 844)
+typed = 'Walk to the end of the street and back after dinner'
+message = 'Keep it to 40 characters or fewer.'
+
+    @pytest.mark.parametrize(
+        "viewport, typed, message",
+        [
+            pytest.param(PHONE, "", EMPTY, id="390x844-nothing"),
+            pytest.param(PHONE, "   ", EMPTY, id="390x844-three-spaces"),
+            pytest.param(PHONE, "Walk to the end of the street and back after dinner", TOO_LONG, id="390x844-51-characters"),
+            pytest.param(PHONE, "Read twenty pages before bed every night.", TOO_LONG, id="390x844-41-characters"),
+            pytest.param(PHONE, "read 20 pages", DUPLICATE, id="390x844-other-case"),
+            pytest.param(PHONE, " STRETCH 10 MINUTES ", DUPLICATE, id="390x844-spaces-and-capitals"),
+            pytest.param(DESKTOP, "", EMPTY, id="1280x800-nothing"),
+        ],
+    )
+    def test_R11_rejected_names_keep_the_text_and_show_one_message_above_the_field(app, viewport, typed, message):
+        page = app(viewport=viewport, storage=sample_state())
+        rows = page.locator("ul.rows &gt; li.row")
+        expect(rows).to_have_count(3)
+        saved = stored(page)
+        top = field_top(page)
+        add_habit(page, typed)
+        state = composer(page)
+&gt;       assert state["message"] == error(message), state
+E       AssertionError: {'full': False, 'fieldDisabled': False, 'addDisabled': False, 'value': 'Walk to the end of the street and back after dinner', ...}
+E       assert {'hidden': Tr...', 'text': ''} == {'hidden': Fa...rs or fewer.'}
+E         
+E         Differing items:
+E         {'hidden': True} != {'hidden': False}
+E         {'classes': 'field-msg'} != {'classes': 'field-msg err'}
+E         {'text': ''} != {'text': 'Keep it to 40 characters or fewer.'}
+E         Use -v to get more diff
+
+tests\browser\test_add.py:206: AssertionError</failure></testcase><testcase classname="tests.browser.test_add" name="test_R11_rejected_names_keep_the_text_and_show_one_message_above_the_field[390x844-41-characters]" time="0.228"><failure message="AssertionError: {'full': False, 'fieldDisabled': False, 'addDisabled': False, 'value': 'Read twenty pages before bed every night.', ...}&#10;assert {'hidden': Tr...', 'text': ''} == {'hidden': Fa...rs or fewer.'}&#10;  &#10;  Differing items:&#10;  {'hidden': True} != {'hidden': False}&#10;  {'classes': 'field-msg'} != {'classes': 'field-msg err'}&#10;  {'text': ''} != {'text': 'Keep it to 40 characters or fewer.'}&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x00000178369B2DA0&gt;
+viewport = (390, 844), typed = 'Read twenty pages before bed every night.'
+message = 'Keep it to 40 characters or fewer.'
+
+    @pytest.mark.parametrize(
+        "viewport, typed, message",
+        [
+            pytest.param(PHONE, "", EMPTY, id="390x844-nothing"),
+            pytest.param(PHONE, "   ", EMPTY, id="390x844-three-spaces"),
+            pytest.param(PHONE, "Walk to the end of the street and back after dinner", TOO_LONG, id="390x844-51-characters"),
+            pytest.param(PHONE, "Read twenty pages before bed every night.", TOO_LONG, id="390x844-41-characters"),
+            pytest.param(PHONE, "read 20 pages", DUPLICATE, id="390x844-other-case"),
+            pytest.param(PHONE, " STRETCH 10 MINUTES ", DUPLICATE, id="390x844-spaces-and-capitals"),
+            pytest.param(DESKTOP, "", EMPTY, id="1280x800-nothing"),
+        ],
+    )
+    def test_R11_rejected_names_keep_the_text_and_show_one_message_above_the_field(app, viewport, typed, message):
+        page = app(viewport=viewport, storage=sample_state())
+        rows = page.locator("ul.rows &gt; li.row")
+        expect(rows).to_have_count(3)
+        saved = stored(page)
+        top = field_top(page)
+        add_habit(page, typed)
+        state = composer(page)
+&gt;       assert state["message"] == error(message), state
+E       AssertionError: {'full': False, 'fieldDisabled': False, 'addDisabled': False, 'value': 'Read twenty pages before bed every night.', ...}
+E       assert {'hidden': Tr...', 'text': ''} == {'hidden': Fa...rs or fewer.'}
+E         
+E         Differing items:
+E         {'hidden': True} != {'hidden': False}
+E         {'classes': 'field-msg'} != {'classes': 'field-msg err'}
+E         {'text': ''} != {'text': 'Keep it to 40 characters or fewer.'}
+E         Use -v to get more diff
+
+tests\browser\test_add.py:206: AssertionError</failure></testcase><testcase classname="tests.browser.test_add" name="test_R11_rejected_names_keep_the_text_and_show_one_message_above_the_field[390x844-other-case]" time="0.194"><failure message="AssertionError: {'full': False, 'fieldDisabled': False, 'addDisabled': False, 'value': 'read 20 pages', ...}&#10;assert {'hidden': Tr...', 'text': ''} == {'hidden': Fa... this habit.'}&#10;  &#10;  Differing items:&#10;  {'hidden': True} != {'hidden': False}&#10;  {'classes': 'field-msg'} != {'classes': 'field-msg err'}&#10;  {'text': ''} != {'text': 'You already track this habit.'}&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000017836A76820&gt;
+viewport = (390, 844), typed = 'read 20 pages'
+message = 'You already track this habit.'
+
+    @pytest.mark.parametrize(
+        "viewport, typed, message",
+        [
+            pytest.param(PHONE, "", EMPTY, id="390x844-nothing"),
+            pytest.param(PHONE, "   ", EMPTY, id="390x844-three-spaces"),
+            pytest.param(PHONE, "Walk to the end of the street and back after dinner", TOO_LONG, id="390x844-51-characters"),
+            pytest.param(PHONE, "Read twenty pages before bed every night.", TOO_LONG, id="390x844-41-characters"),
+            pytest.param(PHONE, "read 20 pages", DUPLICATE, id="390x844-other-case"),
+            pytest.param(PHONE, " STRETCH 10 MINUTES ", DUPLICATE, id="390x844-spaces-and-capitals"),
+            pytest.param(DESKTOP, "", EMPTY, id="1280x800-nothing"),
+        ],
+    )
+    def test_R11_rejected_names_keep_the_text_and_show_one_message_above_the_field(app, viewport, typed, message):
+        page = app(viewport=viewport, storage=sample_state())
+        rows = page.locator("ul.rows &gt; li.row")
+        expect(rows).to_have_count(3)
+        saved = stored(page)
+        top = field_top(page)
+        add_habit(page, typed)
+        state = composer(page)
+&gt;       assert state["message"] == error(message), state
+E       AssertionError: {'full': False, 'fieldDisabled': False, 'addDisabled': False, 'value': 'read 20 pages', ...}
+E       assert {'hidden': Tr...', 'text': ''} == {'hidden': Fa... this habit.'}
+E         
+E         Differing items:
+E         {'hidden': True} != {'hidden': False}
+E         {'classes': 'field-msg'} != {'classes': 'field-msg err'}
+E         {'text': ''} != {'text': 'You already track this habit.'}
+E         Use -v to get more diff
+
+tests\browser\test_add.py:206: AssertionError</failure></testcase><testcase classname="tests.browser.test_add" name="test_R11_rejected_names_keep_the_text_and_show_one_message_above_the_field[390x844-spaces-and-capitals]" time="0.211"><failure message="AssertionError: {'full': False, 'fieldDisabled': False, 'addDisabled': False, 'value': ' STRETCH 10 MINUTES ', ...}&#10;assert {'hidden': Tr...', 'text': ''} == {'hidden': Fa... this habit.'}&#10;  &#10;  Differing items:&#10;  {'hidden': True} != {'hidden': False}&#10;  {'classes': 'field-msg'} != {'classes': 'field-msg err'}&#10;  {'text': ''} != {'text': 'You already track this habit.'}&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000017836A762A0&gt;
+viewport = (390, 844), typed = ' STRETCH 10 MINUTES '
+message = 'You already track this habit.'
+
+    @pytest.mark.parametrize(
+        "viewport, typed, message",
+        [
+            pytest.param(PHONE, "", EMPTY, id="390x844-nothing"),
+            pytest.param(PHONE, "   ", EMPTY, id="390x844-three-spaces"),
+            pytest.param(PHONE, "Walk to the end of the street and back after dinner", TOO_LONG, id="390x844-51-characters"),
+            pytest.param(PHONE, "Read twenty pages before bed every night.", TOO_LONG, id="390x844-41-characters"),
+            pytest.param(PHONE, "read 20 pages", DUPLICATE, id="390x844-other-case"),
+            pytest.param(PHONE, " STRETCH 10 MINUTES ", DUPLICATE, id="390x844-spaces-and-capitals"),
+            pytest.param(DESKTOP, "", EMPTY, id="1280x800-nothing"),
+        ],
+    )
+    def test_R11_rejected_names_keep_the_text_and_show_one_message_above_the_field(app, viewport, typed, message):
+        page = app(viewport=viewport, storage=sample_state())
+        rows = page.locator("ul.rows &gt; li.row")
+        expect(rows).to_have_count(3)
+        saved = stored(page)
+        top = field_top(page)
+        add_habit(page, typed)
+        state = composer(page)
+&gt;       assert state["message"] == error(message), state
+E       AssertionError: {'full': False, 'fieldDisabled': False, 'addDisabled': False, 'value': ' STRETCH 10 MINUTES ', ...}
+E       assert {'hidden': Tr...', 'text': ''} == {'hidden': Fa... this habit.'}
+E         
+E         Differing items:
+E         {'hidden': True} != {'hidden': False}
+E         {'classes': 'field-msg'} != {'classes': 'field-msg err'}
+E         {'text': ''} != {'text': 'You already track this habit.'}
+E         Use -v to get more diff
+
+tests\browser\test_add.py:206: AssertionError</failure></testcase><testcase classname="tests.browser.test_add" name="test_R11_rejected_names_keep_the_text_and_show_one_message_above_the_field[1280x800-nothing]" time="0.195"><failure message="AssertionError: {'full': False, 'fieldDisabled': False, 'addDisabled': False, 'value': '', ...}&#10;assert {'hidden': Tr...', 'text': ''} == {'hidden': Fa...habit first.'}&#10;  &#10;  Differing items:&#10;  {'hidden': True} != {'hidden': False}&#10;  {'classes': 'field-msg'} != {'classes': 'field-msg err'}&#10;  {'text': ''} != {'text': 'Name the habit first.'}&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000017836AFFC10&gt;
+viewport = (1280, 800), typed = '', message = 'Name the habit first.'
+
+    @pytest.mark.parametrize(
+        "viewport, typed, message",
+        [
+            pytest.param(PHONE, "", EMPTY, id="390x844-nothing"),
+            pytest.param(PHONE, "   ", EMPTY, id="390x844-three-spaces"),
+            pytest.param(PHONE, "Walk to the end of the street and back after dinner", TOO_LONG, id="390x844-51-characters"),
+            pytest.param(PHONE, "Read twenty pages before bed every night.", TOO_LONG, id="390x844-41-characters"),
+            pytest.param(PHONE, "read 20 pages", DUPLICATE, id="390x844-other-case"),
+            pytest.param(PHONE, " STRETCH 10 MINUTES ", DUPLICATE, id="390x844-spaces-and-capitals"),
+            pytest.param(DESKTOP, "", EMPTY, id="1280x800-nothing"),
+        ],
+    )
+    def test_R11_rejected_names_keep_the_text_and_show_one_message_above_the_field(app, viewport, typed, message):
+        page = app(viewport=viewport, storage=sample_state())
+        rows = page.locator("ul.rows &gt; li.row")
+        expect(rows).to_have_count(3)
+        saved = stored(page)
+        top = field_top(page)
+        add_habit(page, typed)
+        state = composer(page)
+&gt;       assert state["message"] == error(message), state
+E       AssertionError: {'full': False, 'fieldDisabled': False, 'addDisabled': False, 'value': '', ...}
+E       assert {'hidden': Tr...', 'text': ''} == {'hidden': Fa...habit first.'}
+E         
+E         Differing items:
+E         {'hidden': True} != {'hidden': False}
+E         {'classes': 'field-msg'} != {'classes': 'field-msg err'}
+E         {'text': ''} != {'text': 'Name the habit first.'}
+E         Use -v to get more diff
+
+tests\browser\test_add.py:206: AssertionError</failure></testcase><testcase classname="tests.browser.test_add" name="test_R11_exactly_40_characters_is_accepted" time="5.209"><failure message="AssertionError: Locator expected to have count '4'&#10;Actual value: 3 &#10;Call log:&#10;  - Expect &quot;to_have_count&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;ul.rows &gt; li.row&quot;)&#10;    14 × locator resolved to 3 elements&#10;       - unexpected value &quot;3&quot;">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000017836BD1FE0&gt;
+
+    def test_R11_exactly_40_characters_is_accepted(app):
+        name = "Read twenty pages before bed every night"
+        assert len(name) == 40
+        page = app(storage=sample_state())
+        add_habit(page, name)
+        rows = page.locator("ul.rows &gt; li.row")
+&gt;       expect(rows).to_have_count(4)
+E       AssertionError: Locator expected to have count '4'
+E       Actual value: 3 
+E       Call log:
+E         - Expect "to_have_count" with timeout 5000ms
+E         - waiting for locator("ul.rows &gt; li.row")
+E           14 × locator resolved to 3 elements
+E              - unexpected value "3"
+
+tests\browser\test_add.py:224: AssertionError</failure></testcase><testcase classname="tests.browser.test_add" name="test_R11_no_message_while_typing" time="0.178" /><testcase classname="tests.browser.test_add" name="test_R11_typing_clears_a_message_at_once" time="0.151"><failure message="AssertionError: {'full': False, 'fieldDisabled': False, 'addDisabled': False, 'value': '', ...}&#10;assert ({'hidden': T...t': ''}, None) == ({'hidden': F...st.'}, 'true')&#10;  &#10;  At index 0 diff: {'hidden': True, 'classes': 'field-msg', 'text': ''} != {'hidden': False, 'classes': 'field-msg err', 'text': 'Name the habit first.'}&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000017836BD28D0&gt;
+
+    def test_R11_typing_clears_a_message_at_once(app):
+        page = app(storage=sample_state())
+        add_button(page).click()
+        state = composer(page)
+&gt;       assert (state["message"], state["invalid"]) == (error(EMPTY), "true"), state
+E       AssertionError: {'full': False, 'fieldDisabled': False, 'addDisabled': False, 'value': '', ...}
+E       assert ({'hidden': T...t': ''}, None) == ({'hidden': F...st.'}, 'true')
+E         
+E         At index 0 diff: {'hidden': True, 'classes': 'field-msg', 'text': ''} != {'hidden': False, 'classes': 'field-msg err', 'text': 'Name the habit first.'}
+E         Use -v to get more diff
+
+tests\browser\test_add.py:241: AssertionError</failure></testcase><testcase classname="tests.browser.test_add" name="test_R11_one_message_at_a_time_replaced_then_cleared_on_success" time="0.146"><failure message="AssertionError: assert {'hidden': Tr...', 'text': ''} == {'hidden': Fa...habit first.'}&#10;  &#10;  Differing items:&#10;  {'hidden': True} != {'hidden': False}&#10;  {'classes': 'field-msg'} != {'classes': 'field-msg err'}&#10;  {'text': ''} != {'text': 'Name the habit first.'}&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000017836D103B0&gt;
+
+    def test_R11_one_message_at_a_time_replaced_then_cleared_on_success(app):
+        page = app(storage=sample_state())
+        add_button(page).click()
+&gt;       assert composer(page)["message"] == error(EMPTY)
+E       AssertionError: assert {'hidden': Tr...', 'text': ''} == {'hidden': Fa...habit first.'}
+E         
+E         Differing items:
+E         {'hidden': True} != {'hidden': False}
+E         {'classes': 'field-msg'} != {'classes': 'field-msg err'}
+E         {'text': ''} != {'text': 'Name the habit first.'}
+E         Use -v to get more diff
+
+tests\browser\test_add.py:251: AssertionError</failure></testcase><testcase classname="tests.browser.test_add" name="test_R12_the_twelfth_habit_closes_the_composer" time="5.217"><failure message="AssertionError: Locator expected to have count '12'&#10;Actual value: 11 &#10;Call log:&#10;  - Expect &quot;to_have_count&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;ul.rows &gt; li.row&quot;)&#10;    14 × locator resolved to 11 elements&#10;       - unexpected value &quot;11&quot;">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000017836D97320&gt;
+
+    def test_R12_the_twelfth_habit_closes_the_composer(app):
+        page = app(storage=plain_state(11))
+        rows = page.locator("ul.rows &gt; li.row")
+        expect(rows).to_have_count(11)
+        add_habit(page, "Habit 12")
+&gt;       expect(rows).to_have_count(12)
+E       AssertionError: Locator expected to have count '12'
+E       Actual value: 11 
+E       Call log:
+E         - Expect "to_have_count" with timeout 5000ms
+E         - waiting for locator("ul.rows &gt; li.row")
+E           14 × locator resolved to 11 elements
+E              - unexpected value "11"
+
+tests\browser\test_add.py:269: AssertionError</failure></testcase><testcase classname="tests.browser.test_add" name="test_R12_twelve_habits_at_load[390x844]" time="0.128" /><testcase classname="tests.browser.test_add" name="test_R12_twelve_habits_at_load[1280x800]" time="0.129" /><testcase classname="tests.browser.test_add" name="test_R12_R15_deleting_one_of_twelve_opens_the_composer_again" time="5.162"><failure message="AssertionError: Locator expected to have attribute ''&#10;Actual value: None &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-del&quot;)&#10;    14 × locator resolved to &lt;dialog class=&quot;dlg-del&quot; aria-modal=&quot;true&quot; role=&quot;alertdialog&quot; aria-labelledby=&quot;del-title&quot; aria-describedby=&quot;del-body&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;null&quot;&#10;&#10;Aria snapshot:&#10;- banner:&#10;  - heading &quot;Streaky Habit&quot; [level=1]&#10;  - button &quot;Overview, today 7 of 12 habits done&quot;: Overview&#10;  - time: Saturday 10 October&#10;- main:&#10;  - heading &quot;Habits&quot; [level=2]&#10;  - list &quot;Habits&quot;:&#10;    - listitem:&#10;      - heading &quot;Read 20 pages&quot; [level=3]&#10;      - button &quot;Delete \&quot;Read 20 pages\&quot;&quot;&#10;      - paragraph: Current 4 days Best 9&#10;      - button &quot;Year view, Read 20 pages&quot;: Year&#10;      - button &quot;Done today, Read 20 pages&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Stretch 10 minutes&quot; [level=3]&#10;      - button &quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;&#10;      - paragraph: Current 2 days Best 5&#10;      - button &quot;Year view, Stretch 10 minutes&quot;: Year&#10;      - button &quot;Done today, Stretch 10 minutes&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;No phone after 11pm&quot; [level=3]&#10;      - button &quot;Delete \&quot;No phone after 11pm\&quot;&quot;&#10;      - paragraph: Current No streak yet Best 14&#10;      - button &quot;Year view, No phone after 11pm&quot;: Year&#10;      - button &quot;Done today, No phone after 11pm&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;Drink 2 litres of water&quot; [level=3]&#10;      - button &quot;Delete \&quot;Drink 2 litres of water\&quot;&quot;&#10;      - paragraph: Current 1 day Best 11&#10;      - button &quot;Year view, Drink 2 litres of water&quot;: Year&#10;      - button &quot;Done today, Drink 2 litres of water&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Walk 8,000 steps&quot; [level=3]&#10;      - button &quot;Delete \&quot;Walk 8,000 steps\&quot;&quot;&#10;      - paragraph: Current 1 day Best 11&#10;      - button &quot;Year view, Walk 8,000 steps&quot;: Year&#10;      - button &quot;Done today, Walk 8,000 steps&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;Journal one page&quot; [level=3]&#10;      - button &quot;Delete \&quot;Journal one page\&quot;&quot;&#10;      - paragraph: Current 8 days Best 11&#10;      - button &quot;Year view, Journal one page&quot;: Year&#10;      - button &quot;Done today, Journal one page&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Practise guitar&quot; [level=3]&#10;      - button &quot;Delete \&quot;Practise guitar\&quot;&quot;&#10;      - paragraph: Current 1 day Best 11&#10;      - button &quot;Year view, Practise guitar&quot;: Year&#10;      - button &quot;Done today, Practise guitar&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Cook dinner at home&quot; [level=3]&#10;      - button &quot;Delete \&quot;Cook dinner at home\&quot;&quot;&#10;      - paragraph: Current 5 days Best 11&#10;      - button &quot;Year view, Cook dinner at home&quot;: Year&#10;      - button &quot;Done today, Cook dinner at home&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Lights out by midnight&quot; [level=3]&#10;      - button &quot;Delete \&quot;Lights out by midnight\&quot;&quot;&#10;      - paragraph: Current 2 days Best 11&#10;      - button &quot;Year view, Lights out by midnight&quot;: Year&#10;      - button &quot;Done today, Lights out by midnight&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;Meditate 5 minutes&quot; [level=3]&#10;      - button &quot;Delete \&quot;Meditate 5 minutes\&quot;&quot;&#10;      - paragraph: Current 2 days Best 11&#10;      - button &quot;Year view, Meditate 5 minutes&quot;: Year&#10;      - button &quot;Done today, Meditate 5 minutes&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Floss&quot; [level=3]&#10;      - button &quot;Delete \&quot;Floss\&quot;&quot;&#10;      - paragraph: Current 1 day Best 11&#10;      - button &quot;Year view, Floss&quot;: Year&#10;      - button &quot;Done today, Floss&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Learn 10 Malay words&quot; [level=3]&#10;      - button &quot;Delete \&quot;Learn 10 Malay words\&quot;&quot;&#10;      - paragraph: Current 1 day Best 11&#10;      - button &quot;Year view, Learn 10 Malay words&quot;: Year&#10;      - button &quot;Done today, Learn 10 Malay words&quot;: Done today&#10;  - paragraph: You track 12 habits, the most this app holds. Delete one to add another.&#10;  - text: New habit&#10;  - textbox &quot;New habit&quot; [disabled]&#10;  - button &quot;Add&quot; [disabled]">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000017836E77060&gt;
+
+    @pytest.mark.xfail(strict=True, reason="task 22")
+    def test_R12_R15_deleting_one_of_twelve_opens_the_composer_again(app):
+        page = app(storage=twelve_state())
+        rows = page.locator("ul.rows &gt; li.row")
+        expect(rows).to_have_count(12)
+        opener = bin_btn(page, "Floss")
+        opener.click()
+&gt;       expect(page.locator("dialog.dlg-del")).to_have_attribute("open", "")
+E       AssertionError: Locator expected to have attribute ''
+E       Actual value: None 
+E       Call log:
+E         - Expect "to_have_attribute" with timeout 5000ms
+E         - waiting for locator("dialog.dlg-del")
+E           14 × locator resolved to &lt;dialog class="dlg-del" aria-modal="true" role="alertdialog" aria-labelledby="del-title" aria-describedby="del-body"&gt;…&lt;/dialog&gt;
+E              - unexpected value "null"
+E       
+E       Aria snapshot:
+E       - banner:
+E         - heading "Streaky Habit" [level=1]
+E         - button "Overview, today 7 of 12 habits done": Overview
+E         - time: Saturday 10 October
+E       - main:
+E         - heading "Habits" [level=2]
+E         - list "Habits":
+E           - listitem:
+E             - heading "Read 20 pages" [level=3]
+E             - button "Delete \"Read 20 pages\""
+E             - paragraph: Current 4 days Best 9
+E             - button "Year view, Read 20 pages": Year
+E             - button "Done today, Read 20 pages" [pressed]: Done today
+E           - listitem:
+E             - heading "Stretch 10 minutes" [level=3]
+E             - button "Delete \"Stretch 10 minutes\""
+E             - paragraph: Current 2 days Best 5
+E             - button "Year view, Stretch 10 minutes": Year
+E             - button "Done today, Stretch 10 minutes": Done today
+E           - listitem:
+E             - heading "No phone after 11pm" [level=3]
+E             - button "Delete \"No phone after 11pm\""
+E             - paragraph: Current No streak yet Best 14
+E             - button "Year view, No phone after 11pm": Year
+E             - button "Done today, No phone after 11pm": Done today
+E           - listitem:
+E             - heading "Drink 2 litres of water" [level=3]
+E             - button "Delete \"Drink 2 litres of water\""
+E             - paragraph: Current 1 day Best 11
+E             - button "Year view, Drink 2 litres of water": Year
+E             - button "Done today, Drink 2 litres of water" [pressed]: Done today
+E           - listitem:
+E             - heading "Walk 8,000 steps" [level=3]
+E             - button "Delete \"Walk 8,000 steps\""
+E             - paragraph: Current 1 day Best 11
+E             - button "Year view, Walk 8,000 steps": Year
+E             - button "Done today, Walk 8,000 steps": Done today
+E           - listitem:
+E             - heading "Journal one page" [level=3]
+E             - button "Delete \"Journal one page\""
+E             - paragraph: Current 8 days Best 11
+E             - button "Year view, Journal one page": Year
+E             - button "Done today, Journal one page" [pressed]: Done today
+E           - listitem:
+E             - heading "Practise guitar" [level=3]
+E             - button "Delete \"Practise guitar\""
+E             - paragraph: Current 1 day Best 11
+E             - button "Year view, Practise guitar": Year
+E             - button "Done today, Practise guitar" [pressed]: Done today
+E           - listitem:
+E             - heading "Cook dinner at home" [level=3]
+E             - button "Delete \"Cook dinner at home\""
+E             - paragraph: Current 5 days Best 11
+E             - button "Year view, Cook dinner at home": Year
+E             - button "Done today, Cook dinner at home" [pressed]: Done today
+E           - listitem:
+E             - heading "Lights out by midnight" [level=3]
+E             - button "Delete \"Lights out by midnight\""
+E             - paragraph: Current 2 days Best 11
+E             - button "Year view, Lights out by midnight": Year
+E             - button "Done today, Lights out by midnight": Done today
+E           - listitem:
+E             - heading "Meditate 5 minutes" [level=3]
+E             - button "Delete \"Meditate 5 minutes\""
+E             - paragraph: Current 2 days Best 11
+E             - button "Year view, Meditate 5 minutes": Year
+E             - button "Done today, Meditate 5 minutes" [pressed]: Done today
+E           - listitem:
+E             - heading "Floss" [level=3]
+E             - button "Delete \"Floss\""
+E             - paragraph: Current 1 day Best 11
+E             - button "Year view, Floss": Year
+E             - button "Done today, Floss" [pressed]: Done today
+E           - listitem:
+E             - heading "Learn 10 Malay words" [level=3]
+E             - button "Delete \"Learn 10 Malay words\""
+E             - paragraph: Current 1 day Best 11
+E             - button "Year view, Learn 10 Malay words": Year
+E             - button "Done today, Learn 10 Malay words": Done today
+E         - paragraph: You track 12 habits, the most this app holds. Delete one to add another.
+E         - text: New habit
+E         - textbox "New habit" [disabled]
+E         - button "Add" [disabled]
+
+tests\browser\test_add.py:294: AssertionError</failure></testcase><testcase classname="tests.browser.test_entry" name="test_R1_R29_the_app_works_from_a_sub_path" time="5.256"><failure message="AssertionError: Locator expected to have count '1'&#10;Actual value: 0 &#10;Call log:&#10;  - Expect &quot;to_have_count&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;ul.rows &gt; li.row&quot;)&#10;    14 × locator resolved to 0 elements&#10;       - unexpected value &quot;0&quot;">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000017836E74A90&gt;
+
+    @pytest.mark.xfail(strict=True, reason="task 21")
+    def test_R1_R29_the_app_works_from_a_sub_path(app):
+        if not conftest.SUBPATH_URL:
+            pytest.skip("BLOCKED: STREAKS_BASE_URL names a server but STREAKS_SUBPATH_URL is not set (serve the project's parent folder)")
+        page = app(base_url=conftest.SUBPATH_URL)
+        expect(page.locator("ul.rows &gt; *")).to_have_count(1)
+        expect(page.locator("ul.rows &gt; li.empty")).to_have_count(1)
+        expect(page.locator("div.ovg-cols button.hc")).to_have_count(83)
+        icon_href = page.evaluate("() =&gt; document.querySelector('link[rel~=\"icon\"]').href")
+        assert icon_href == conftest.SUBPATH_URL + "src/icon.svg"
+        add_habit(page, "Read 20 pages")
+&gt;       expect(page.locator("ul.rows &gt; li.row")).to_have_count(1)
+E       AssertionError: Locator expected to have count '1'
+E       Actual value: 0 
+E       Call log:
+E         - Expect "to_have_count" with timeout 5000ms
+E         - waiting for locator("ul.rows &gt; li.row")
+E           14 × locator resolved to 0 elements
+E              - unexpected value "0"
+
+tests\browser\test_entry.py:132: AssertionError</failure></testcase><testcase classname="tests.browser.test_render" name="test_R6_R10_a_new_habit_shows_no_best_block" time="5.199"><failure message="AssertionError: Locator expected to have count '4'&#10;Actual value: 3 &#10;Call log:&#10;  - Expect &quot;to_have_count&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;ul.rows &gt; li.row&quot;)&#10;    14 × locator resolved to 3 elements&#10;       - unexpected value &quot;3&quot;">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000017836F38B40&gt;
+
+    @pytest.mark.xfail(strict=True, reason="task 21")
+    def test_R6_R10_a_new_habit_shows_no_best_block(app):
+        page = app(storage=sample_state())
+        add_habit(page, "Drink water")
+        rows = page.locator("ul.rows &gt; li.row")
+&gt;       expect(rows).to_have_count(4)
+E       AssertionError: Locator expected to have count '4'
+E       Actual value: 3 
+E       Call log:
+E         - Expect "to_have_count" with timeout 5000ms
+E         - waiting for locator("ul.rows &gt; li.row")
+E           14 × locator resolved to 3 elements
+E              - unexpected value "3"
+
+tests\browser\test_render.py:358: AssertionError</failure></testcase><testcase classname="tests.browser.test_render" name="test_R5_the_fades_follow_the_rows_and_a_resize" time="5.396"><failure message="AssertionError: Locator expected to have count '7'&#10;Actual value: 4 &#10;Call log:&#10;  - Expect &quot;to_have_count&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;ul.rows &gt; li.row&quot;)&#10;    14 × locator resolved to 4 elements&#10;       - unexpected value &quot;4&quot;">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000017836F7B480&gt;
+
+    @pytest.mark.xfail(strict=True, reason="task 21")
+    def test_R5_the_fades_follow_the_rows_and_a_resize(app):
+        page = app(storage=plain_state(4))
+        wrap = page.locator("div.frame-wrap")
+        expect(page.locator("ul.rows &gt; li.row")).to_have_count(4)
+        found = frame_state(page)
+        assert found["scrollHeight"] == found["clientHeight"], found
+        expect(wrap).to_have_class("frame-wrap")
+    
+        page.set_viewport_size({"width": 390, "height": 520})
+        page.wait_for_function(
+            "() =&gt; { const f = document.querySelector('div.frame'); return f.scrollHeight &gt; f.clientHeight; }", timeout=5000
+        )
+        expect(wrap).to_have_class(re.compile(r"\bmore-below\b"))
+    
+        page.set_viewport_size({"width": 390, "height": 844})
+        expect(wrap).to_have_class("frame-wrap")
+    
+        for name in ("Habit 5", "Habit 6", "Habit 7"):
+            add_habit(page, name)
+&gt;       expect(page.locator("ul.rows &gt; li.row")).to_have_count(7)
+E       AssertionError: Locator expected to have count '7'
+E       Actual value: 4 
+E       Call log:
+E         - Expect "to_have_count" with timeout 5000ms
+E         - waiting for locator("ul.rows &gt; li.row")
+E           14 × locator resolved to 4 elements
+E              - unexpected value "4"
+
+tests\browser\test_render.py:465: AssertionError</failure></testcase><testcase classname="tests.browser.test_year" name="test_R34_R10_a_day_before_a_habit_was_added_can_be_ticked" time="5.271"><failure message="AssertionError: Locator expected to have count '1'&#10;Actual value: 0 &#10;Call log:&#10;  - Expect &quot;to_have_count&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;ul.rows &gt; li.row&quot;).filter(has=locator(&quot;h3.r-name&quot;).get_by_text(&quot;Drink water&quot;, exact=True))&#10;    14 × locator resolved to 0 elements&#10;       - unexpected value &quot;0&quot;">app = &lt;function app.&lt;locals&gt;.open_page at 0x00000178370A8460&gt;
+
+    @pytest.mark.xfail(strict=True, reason="task 21")
+    def test_R34_R10_a_day_before_a_habit_was_added_can_be_ticked(app):
+        page = app(viewport=DESKTOP, storage=sample_state())
+        add_habit(page, "Drink water")
+&gt;       expect(row(page, "Drink water")).to_have_count(1)
+E       AssertionError: Locator expected to have count '1'
+E       Actual value: 0 
+E       Call log:
+E         - Expect "to_have_count" with timeout 5000ms
+E         - waiting for locator("ul.rows &gt; li.row").filter(has=locator("h3.r-name").get_by_text("Drink water", exact=True))
+E           14 × locator resolved to 0 elements
+E              - unexpected value "0"
+
+tests\browser\test_year.py:329: AssertionError</failure></testcase></testsuite></testsuites>

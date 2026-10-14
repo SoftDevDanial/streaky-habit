@@ -1,9 +1,8 @@
 """R3, R4, R5, R6, R35 and R42: what the page draws when it loads (app qa.md, Features "First visit and header",
 "Rows, numbers and the list frame", "The overview band", and the browser half of "Rings and the legend").
 
-Each test opens the running app on a named starting state and reads the DOM, computed styles and boxes. A scenario
-that uses a feature of a later task carries a strict xfail mark naming that task until it lands (qa.md, "Scenarios
-that wait on a later task", W3 to W6).
+Each test opens the running app on a named starting state and reads the DOM, computed styles and boxes. Four of them
+also add a habit or open a popup (qa.md, "Scenarios that wait on a later task", W3 to W6).
 """
 import datetime
 import re
@@ -25,11 +24,11 @@ from conftest import (
     best_block,
     current_block,
     done_btn,
-    encode,
     grid_children,
     legend_parts,
     number,
     p3_day,
+    plain_state,
     ring_of,
     ring_parts,
     row,
@@ -350,12 +349,14 @@ def test_R6_R31_twelve_habits_show_the_goldens_numbers(app):
             assert unit == ("day" if count == "1" else "days"), current
 
 
-@pytest.mark.xfail(strict=True, reason="task 21")
 def test_R6_R10_a_new_habit_shows_no_best_block(app):
     page = app(storage=sample_state())
     add_habit(page, "Drink water")
-    expect(page.locator("ul.rows > li.row")).to_have_count(4)
-    assert row_stats(page, "Drink water") == [current_block()]
+    rows = page.locator("ul.rows > li.row")
+    expect(rows).to_have_count(4)
+    fourth = rows.nth(3)
+    expect(fourth.locator(":scope > div.r-head > h3.r-name")).to_have_text("Drink water")
+    assert stats_tree(fourth.locator(":scope > p.stats")) == [current_block()]
 
 
 STATES = {"a fresh day": None, "the sample day": sample_state(), "twelve habits": twelve_state()}
@@ -439,11 +440,6 @@ def test_R5_the_list_scrolls_inside_its_frame_and_shows_where_more_lies(app):
     expect(wrap).not_to_have_class(re.compile(r"\bmore-above\b"))
 
 
-def plain_state(count):
-    return encode([{"name": f"Habit {n}", "done": []} for n in range(1, count + 1)])
-
-
-@pytest.mark.xfail(strict=True, reason="task 21")
 def test_R5_the_fades_follow_the_rows_and_a_resize(app):
     page = app(storage=plain_state(4))
     wrap = page.locator("div.frame-wrap")

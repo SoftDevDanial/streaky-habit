@@ -7,7 +7,7 @@
  */
 import { beadOf, dayButtonOf } from "./calendar.js";
 import { localDateKey } from "./dates.js";
-import { MAX_HABITS, doneFlags, heatmapCells, toggleDay } from "./habits.js";
+import { MAX_HABITS, addHabit, doneFlags, heatmapCells, toggleDay } from "./habits.js";
 import * as popups from "./popups.js";
 import { loadHabits, saveHabits } from "./storage.js";
 import * as view from "./view.js";
@@ -122,6 +122,24 @@ function onPageClick(event) {
   if (dayButton) openDay(dayButton);
 }
 
+/**
+ * Add or Enter in the composer (R10, R11). An accepted name goes through `edit`, so it saves once and shows
+ * everywhere (R32), and then the frame shows the new last row (CG-15). Focus stays where the user left it. A
+ * rejected name shows its message and moves focus to the field. At 12 habits R12 disables the field and Add, so
+ * the form cannot be submitted and every refusal here is a name error. The page never navigates.
+ */
+function onComposerSubmit(event) {
+  event.preventDefault();
+  const result = addHabit(state.habits, view.composerText());
+  if (!result.ok) {
+    view.showNameError(result.error);
+    return;
+  }
+  view.emptyComposer();
+  edit(result.habits);
+  view.showLastRow();
+}
+
 function onPopupPointerDown(event) {
   pressStartedOnBackdrop = popups.onBackdrop(event.currentTarget, event);
 }
@@ -183,8 +201,10 @@ function boot() {
   state.todayKey = readToday();
   view.renderDate(state.todayKey);
   render(false);
-  const { page, frame } = view.containers();
+  const { page, frame, composer, field } = view.containers();
   page.addEventListener("click", onPageClick);
+  composer.addEventListener("submit", onComposerSubmit);
+  field.addEventListener("input", view.clearNameError);
   frame.addEventListener("scroll", view.renderFrameFades);
   window.addEventListener("resize", view.renderFrameFades);
   for (const dialog of Object.values(popups.dialogs())) {
