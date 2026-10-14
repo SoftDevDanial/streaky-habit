@@ -2,7 +2,8 @@
  * The rings and the day grids (spec R33 to R35, R38, R39, R42, Contracts "Files").
  * Why: a day must read the same wherever it shows (system.md principle 1), so every ring (the band, P3, P4, P1's
  * mini ring, the Overview button) and every legend is drawn here from habit-logic's cells and done flags, and so are
- * the months of the year views, P2's beads with their threads and P4's day buttons.
+ * the months of the year views, P2's beads with their threads and P4's day buttons. A new day lays the grids out
+ * again, so this module also finds a day's control again by its date (R19).
  * Input: cells, habits, flags and date keys, never a clock or storage. Output: new elements, and changes to the
  * containers it is given. It registers no event listener. As the lowest DOM module it also owns the two element
  * factories the other view modules share. Data reaches the DOM only through textContent and setAttribute (R24).
@@ -30,6 +31,31 @@ const BEAD = "button.yc";
 
 /** The bead a click landed on, or null. */
 export const beadOf = (target) => target.closest(BEAD);
+
+/** A control for one day, which a new day replaces when it lays its grid out again. */
+const DAY_CONTROL = `${DAY_BUTTON}, ${BEAD}`;
+
+/** The grids a new day lays out again, the band's, P3's, and the months of P2 and P4. Each keeps its own element. */
+const DAY_GRID = "div.ovg-cols, div.ovg-rows, div.months";
+
+/**
+ * Where `control` sits when it is a day button or a bead, its grid and its date, so that `dayControlAt` finds the
+ * control for the same day once a new day has laid that grid out again (R19). Null for any other control, and for
+ * no control, because a new day leaves every other control in place.
+ */
+export function dayPlace(control) {
+  if (!control?.matches(DAY_CONTROL)) return null;
+  return { control, grid: control.closest(DAY_GRID), key: control.getAttribute("data-key") };
+}
+
+/**
+ * The control a `dayPlace` names. The same element while it is still in the page, else the control for the same date
+ * in the same grid (in P2, the same habit), else null when the new day left that date out.
+ */
+export function dayControlAt({ control, grid, key }) {
+  if (control.isConnected) return control;
+  return Array.from(grid.querySelectorAll(DAY_CONTROL)).find((day) => day.getAttribute("data-key") === key) ?? null;
+}
 
 /** The unit after a streak's number, "1 day" and "2 days" (spec Copy). */
 export const dayUnit = (count) => (count === 1 ? "day" : "days");

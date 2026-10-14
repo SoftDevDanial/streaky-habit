@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="2" time="1.248" timestamp="2026-10-14T22:37:52.232364+08:00" hostname="{host}"><testcase classname="tests.browser.test_rollover" name="test_R19_the_composer_keeps_its_text_and_its_focus" time="0.966"><failure message="AssertionError: the field holds '' after the rollover&#10;assert '' == 'Drink'&#10;  &#10;  - Drink">app = &lt;function app.&lt;locals&gt;.open_page at 0x000002913A22C250&gt;
+
+    def test_R19_the_composer_keeps_its_text_and_its_focus(app):
+        page = open_paused(app, SATURDAY_2359, storage=sample_state())
+        field = page.locator("#nh")
+        press(page, field)
+        page.keyboard.type("Drink")
+        page.clock.run_for(PAST_MIDNIGHT_MS)
+    
+        assert shown_date(page)[1] == "Sunday 11 October", f"the header shows {shown_date(page)}"
+&gt;       assert field.input_value() == "Drink", f"the field holds {field.input_value()!r} after the rollover"
+E       AssertionError: the field holds '' after the rollover
+E       assert '' == 'Drink'
+E         
+E         - Drink
+
+tests\browser\test_rollover.py:271: AssertionError</failure></testcase><testcase classname="tests.browser.test_rollover" name="test_R19_an_error_message_survives_the_rollover" time="0.235"><failure message="AssertionError: the error did not survive the rollover, ['', 'field-msg', True]&#10;assert ['', 'field-msg', True] == ['Name the ha...g err', False]&#10;  &#10;  At index 0 diff: '' != 'Name the habit first.'&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x000002913B53ECF0&gt;
+
+    def test_R19_an_error_message_survives_the_rollover(app):
+        page = open_paused(app, SATURDAY_2359, storage=sample_state())
+        press(page, page.locator("#add-btn"))
+        message = page.locator("#nh-msg")
+        assert message.evaluate(MESSAGE_JS) == EMPTY_ERROR, "precondition, Add with an empty field shows the empty name error"
+        page.clock.run_for(PAST_MIDNIGHT_MS)
+    
+        assert shown_date(page)[1] == "Sunday 11 October", f"precondition, the rollover happened, the header shows {shown_date(page)}"
+&gt;       assert message.evaluate(MESSAGE_JS) == EMPTY_ERROR, f"the error did not survive the rollover, {message.evaluate(MESSAGE_JS)}"
+E       AssertionError: the error did not survive the rollover, ['', 'field-msg', True]
+E       assert ['', 'field-msg', True] == ['Name the ha...g err', False]
+E         
+E         At index 0 diff: '' != 'Name the habit first.'
+E         Use -v to get more diff
+
+tests\browser\test_rollover.py:287: AssertionError</failure></testcase></testsuite></testsuites>

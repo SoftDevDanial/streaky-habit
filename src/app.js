@@ -6,7 +6,7 @@
  * Every change goes through a habit-logic function, then a save, then a synchronous render inside the handler that
  * caused it (spec Invariants).
  */
-import { beadOf, dayButtonOf } from "./calendar.js";
+import { beadOf, dayButtonOf, dayControlAt, dayPlace } from "./calendar.js";
 import { localDateKey } from "./dates.js";
 import { MAX_HABITS, addHabit, deleteHabit, doneFlags, heatmapCells, toggleDay } from "./habits.js";
 import * as popups from "./popups.js";
@@ -15,6 +15,9 @@ import * as view from "./view.js";
 
 /** For this long after a mouse or touch click inside a popup, in event time, the layers beneath it ignore clicks (R14). */
 const TAP_THROUGH_MS = 500;
+
+/** How often the open page compares the device's date with the shown day (R19). */
+const DAY_CHECK_MS = 30000;
 
 /** The only clock read in the app, so tests move time with Playwright's clock alone (spec Invariants). */
 function readToday() {
@@ -71,23 +74,32 @@ function edit(habits) {
   render(true);
 }
 
-function openPopup(dialog, opener, focusTarget) {
+/**
+ * Ticks or unticks `dayKey` for the habit at `index`, from Done today, a P1 tick or a P2 bead (R31, R34, R37).
+ * `toggleDay` refuses a day outside the editable year, where a rollover can leave P1 open (CG-19). A refused tick
+ * is no change, so nothing is saved and nothing is drawn (R16).
+ */
+function tickDay(index, dayKey) {
+  const habits = toggleDay(state.habits, index, dayKey, state.todayKey);
+  if (doneFlags(habits, dayKey)[index] !== doneFlags(state.habits, dayKey)[index]) edit(habits);
+}
+
+/** Opens `dialog` over what is open, with focus on its first control (rule 1), and keeps `opener` for its close. */
+function openPopup(dialog, opener) {
   openers.set(dialog, opener);
-  popups.showPopup(dialog, focusTarget);
+  popups.showPopup(dialog, popups.openFocusOf(dialog));
 }
 
 /** P3, the 12 weeks on a phone (R38), drawn fresh as it opens. */
 function openOverview(opener) {
-  const { overview } = popups.dialogs();
   popups.renderOverviewPopup(heatmapCells(state.habits, state.todayKey), state.todayKey, state.habits.length, false);
-  openPopup(overview, opener, popups.closeButtonOf(overview));
+  openPopup(popups.dialogs().overview, opener);
 }
 
 /** P4, the year of all habits (R39), from the band's Year (over K1) or P3's Year (over P3), drawn fresh as it opens. */
 function openAllHabits(opener) {
-  const { allHabits } = popups.dialogs();
   popups.renderAllHabitsYear(state.habits, state.todayKey, false);
-  openPopup(allHabits, opener, popups.closeButtonOf(allHabits));
+  openPopup(popups.dialogs().allHabits, opener);
 }
 
 /** P1 for the day of `dayButton` (R36), over K1, P3 or P4, which marks that day open everywhere it shows. */
@@ -96,7 +108,7 @@ function openDay(dayButton) {
   popups.buildDayList(state.habits);
   popups.renderDayEditor(state.day, state.habits, state.todayKey, false);
   popups.markOpenDay(state.day);
-  openPopup(popups.dialogs().day, dayButton, popups.dayEditorFocus());
+  openPopup(popups.dialogs().day, dayButton);
   popups.keepDayInSight(dayButton);
 }
 
@@ -104,8 +116,7 @@ function openDay(dayButton) {
 function openYear(yearButton) {
   state.year = view.habitIndexOf(yearButton);
   popups.renderHabitYear(state.habits[state.year], state.todayKey, false);
-  const { habitYear } = popups.dialogs();
-  openPopup(habitYear, yearButton, popups.closeButtonOf(habitYear));
+  openPopup(popups.dialogs().habitYear, yearButton);
 }
 
 /**
@@ -116,7 +127,7 @@ function openDelete(opener, index) {
   const { remove, habitYear } = popups.dialogs();
   state.remove = { index, fromYear: habitYear.contains(opener), openerBox: opener.getBoundingClientRect() };
   popups.renderDeleteTitle(state.habits[index].name);
-  openPopup(remove, opener, popups.closeButtonOf(remove));
+  openPopup(remove, opener);
 }
 
 /**
@@ -162,7 +173,7 @@ function onPageClick(event) {
   }
   const index = view.doneTodayIndexOf(event.target);
   if (index >= 0) {
-    edit(toggleDay(state.habits, index, state.todayKey, state.todayKey));
+    tickDay(index, state.todayKey);
     return;
   }
   const bin = view.binOf(event.target);
@@ -247,11 +258,11 @@ function onPopupClick(event) {
   }
   const tickIndex = popups.tickIndexOf(event.target);
   if (tickIndex >= 0) {
-    edit(toggleDay(state.habits, tickIndex, state.day, state.todayKey));
+    tickDay(tickIndex, state.day);
     return;
   }
   const bead = beadOf(event.target);
-  if (bead) edit(toggleDay(state.habits, state.year, bead.getAttribute("data-key"), state.todayKey));
+  if (bead) tickDay(state.year, bead.getAttribute("data-key"));
 }
 
 /** The layers beneath `popup`, the page and then the popups that opened before it and are still open, bottom first. */
@@ -281,6 +292,8 @@ function guardTapThrough(event) {
 /**
  * Every way out of a popup ends here (Close, Cancel, Esc, the backdrop, a delete). Focus goes back to its opener by
  * hand, because a clicked button never took focus in WebKit, so the native return has nothing to return to (R40).
+ * An opener that has left the page is P1's day button after a rollover took its day away, and then focus goes as it
+ * does for a day that left the view (CG-19). A delete leaves no opener, because it sets focus itself (R15).
  */
 function onPopupClose(event) {
   const dialog = event.currentTarget;
@@ -294,13 +307,49 @@ function onPopupClose(event) {
   if (dialog === remove) state.remove = null;
   const opener = openers.get(dialog);
   openers.delete(dialog);
-  opener?.focus();
+  if (opener) (opener.isConnected ? opener : firstFocusOfTopLayer()).focus();
+}
+
+/**
+ * Where focus goes when the day that held it is no longer shown (CG-14, CG-19). The first focus of the top open
+ * popup (rule 1), or with no popup open the page's first control.
+ */
+function firstFocusOfTopLayer() {
+  const top = [...openers.keys()].at(-1);
+  return top ? popups.openFocusOf(top) : view.firstControl();
+}
+
+/**
+ * The rollover (R19, R20). When the device's date is no longer the shown day, everything drawn from today is drawn
+ * for the new day in this same handler, the open popups included, with no motion because nothing was edited. P1
+ * keeps its day. A new day lays the day grids out again, so focus on a day, P1's opener and P1's `is-open` marks are
+ * found again by date (`dayPlace`). Focus whose day left the view goes as CG-14 says. The composer is left as it is.
+ */
+function checkDay() {
+  const todayKey = readToday();
+  if (todayKey === state.todayKey) return;
+  const { day } = popups.dialogs();
+  const focusedDay = dayPlace(document.activeElement);
+  const dayOpener = dayPlace(openers.get(day));
+  state.todayKey = todayKey;
+  view.renderDate(todayKey);
+  render(false);
+  if (state.day) popups.markOpenDay(state.day);
+  // A day that left the view keeps its old, detached button as P1's opener, which onPopupClose takes as gone.
+  const opener = dayOpener && dayControlAt(dayOpener);
+  if (opener) openers.set(day, opener);
+  if (focusedDay) (dayControlAt(focusedDay) ?? firstFocusOfTopLayer()).focus();
+}
+
+/** A tab shown again checks the day at once, not at the next 30 second check (R20). */
+function onVisibilityChange() {
+  if (document.visibilityState === "visible") checkDay();
 }
 
 /**
  * Loads the saved habits, saving nothing unless the saved text was unreadable (R16, R17), draws the page once, and
- * registers every listener. A failed read or a failed reset save shows the warning from this first render, and a
- * reset shows the note below it (R41, CG-17).
+ * registers every listener and the day check of the rollover (R19, R20). A failed read or a failed reset save shows
+ * the warning from this first render, and a reset shows the note below it (R41, CG-17).
  */
 function boot() {
   const loaded = loadHabits();
@@ -324,6 +373,8 @@ function boot() {
     dialog.addEventListener("click", onPopupClick);
     dialog.addEventListener("close", onPopupClose);
   }
+  setInterval(checkDay, DAY_CHECK_MS);
+  document.addEventListener("visibilitychange", onVisibilityChange);
 }
 
 boot();

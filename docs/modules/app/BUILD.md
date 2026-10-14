@@ -731,3 +731,66 @@ No toast and no message other than the S2 errors, the S3 note, the S4 warning an
 - `src/view.js` gains `renderSaveWarning`, `showResetNote`, `dismissOf` and `dismissNote`, with the private `banner`, `SAVE_WARNING` and `RESET_NOTE`.
 - The browser suite gains `test_storage.py`. `conftest.py` gains `FAIL_SETITEM`, `FAIL_GETTER`, `FAIL_GETITEM`, `FAIL_SETITEM_PROBE`, `STORAGE_READ_MARK`, `storage_switch`, `fill_quota`, `FILL_SECONDS`, `clear_fill`, `mutation_log`, `mutations` and `write_evidence` (moved from `test_delete.py`). `open_app`'s `init_script` also takes a list.
 - The README's known limit (R41, part 1 CG-2, SW8). Private browsing, Safari's 7-day clean-up and the user clearing site data lose habits with no failure the page can see. That README line is the orchestrator's.
+
+---
+
+## v1.1.0 task 24, the rollover with popups open (2026-10-14)
+> Written by the frontend builder (senior frontend dev agent), 2026-10-14. Requirements R19 and R20 (CG-14 and CG-19 ruled). The commit is the one whose message starts `feat(app): the rollover redraws every view for the new day`.
+
+### Phase skills (design row of `docs/phase-skills.md`)
+Both read on disk in this session before any UI code (no Skill tool). `taste-skill` (`taste-skill/1.0.0/skills/taste-skill/SKILL.md`, all 1206 lines) and `frontend-design` (`claude-plugins-official/frontend-design/8d392c816966/skills/frontend-design/SKILL.md`).
+- **What they changed.** Nothing in the look. The rollover draws the markup of tasks 15 to 23 for the new day and adds no element, copy, icon or style. `src/styles.css` is unchanged, so R2's three changes still hold.
+- **Transferred and checked.** No em or en dash in any file written (checked with Python). Motion only answers a person's action (frontend-design), so a rollover, which nobody caused, draws the new day with no `pop` and no `bump`. Visible keyboard focus is part of the quality floor, so focus on a day that a new day replaces moves to that day's new control, and focus whose day left the view goes to a named control (CG-14), never to `body`. No new copy.
+- **Not transferred, and why.** React, Tailwind, Motion, fonts and image rules (locked stack). Landing and hero rules (a tool, not a landing page).
+
+### What changed
+- `src/app.js`. `checkDay` (the rollover, R19) and `onVisibilityChange` (R20), both registered by `boot`, with `DAY_CHECK_MS` 30000. `firstFocusOfTopLayer` (CG-14). `onPopupClose` sends focus there when P1's opener has left the page (CG-19). `tickDay`, one path for Done today, P1's ticks and P2's beads, which neither saves nor draws a tick that `toggleDay` refused (CG-19). `openPopup` takes the open focus from `popups.openFocusOf`, so the five open functions no longer pass one.
+- `src/calendar.js`. `dayPlace` and `dayControlAt`, which find a day control again by its grid and date after a new day laid the grid out again, with the private `DAY_CONTROL` and `DAY_GRID`.
+- `src/popups.js`. `openFocusOf` (rule 1's open focus of every popup, in one place) replaces `dayEditorFocus`.
+- `src/view.js`. `firstControl` (the page's first shown control, CG-14).
+- `tests/browser/test_rollover.py` (new). Every scenario of qa.md's Feature "Rolling over midnight", 14 tests (the Outline gives four).
+- `tests/browser/conftest.py`. `tab_to`, moved from `test_delete.py`, which now imports it.
+- `spec.md` task 24 ticked.
+
+### RED first
+All runs are Chromium, in `docs/modules/app/qa/red-first/`.
+1. `20261014-223550-chromium`, HEAD with no `src/` change. 14 of 14 failed, 13 on their properties (the header still Saturday, the band from 20 July after a Monday, no bead for 11 October, Stretch's tick at "Current 2 days", Done today still pressed, the bead of 10 October still today, focus left on the day in each Outline row, P4 still holding 10 October 2025, R20's header). The error message test failed on its precondition (the header still Saturday), because its property holds at HEAD.
+2. `20261014-223629-chromium`, throwaway stub S, never committed. S redrew the page for the new day (the date and `render`) from a 30 second interval and a visibility listener, with no focus handling, no `is-open` re-mark, no opener lookup and no guard for a refused tick. 7 failed on their properties (P1's band day lost `is-open`, focus on `body` in the bead test and in all four Outline rows, and the refused tick saved once).
+3. Planted defects on S, each run on its target tests only. D1 `20261014-223710` (the day read 30 seconds ahead) failed on "the view changed day before local midnight". D2 `20261014-223723` (the page drawn for the new day with the shown day left behind) failed on P3's first row. D4 `20261014-223735` (P1 moved to the new day) failed on "P1 did not keep its day". D5a `20261014-223750` (the composer emptied) failed on the field holding '' and on the error gone. D5b `20261014-223807` (focus blurred) failed on focus on `body` for the field and for Done today. D6b and D7 `20261014-223824` (only `aria-invalid` removed, and the rows rebuilt with focus on the new Done today) failed on "the field lost aria-invalid" and on focus on a replacement Done today rather than the button it was on. S2 `20261014-223839` (S with the `is-open` re-mark and the refused tick guard) failed on focus on `body` after P1 closed, in the P1 test and in CG-19. D10 `20261014-223906` (a refused tick flipped in the DOM) failed on "the tick flipped on a day the year no longer holds". D3 `20261014-223921` (the rollover closed the popups) failed on "P2 closed at the rollover".
+4. Not seen failing on an app property, R20's step "the date still reads Saturday" after `set_system_time`. It is a precondition on the test's own mechanism (Playwright's `set_system_time` fires no timer), and no app code runs between the hide and that read.
+Every stub and defect was removed through the Edit tool before the code, and `git diff --quiet src/` then gave exit 0.
+
+### Proof
+- Chromium, **278 passed**, 122.3 s (`docs/modules/app/qa/functional/20261014-224134-chromium/junit.xml`). 264 of task 23, plus 14 new.
+- WebKit, **277 passed, 1 skipped (CO-1, counted with its reason)**, 217.3 s (`docs/modules/app/qa/functional/20261014-224344-webkit/junit.xml`). No WebKit failure.
+- Node, `node --test "tests/**/*.test.js"`, 137 of 137.
+- Not run, a pixel check. The rollover adds no markup or style, and the fidelity gate is task 28's.
+
+### Judgment calls (named, for the orchestrator)
+1. **A rollover draws with no motion** (`render(false)`). R32 and R23 tie `pop` and `bump` to an edit, and nobody edited anything, so nothing on the page moves at midnight.
+2. **One tick path, `tickDay`.** `toggleDay` returns a copy of the habits when it refuses a day, so the earlier path would have saved once on P1's refused tick after a rollover. `tickDay` compares the day's done flag before and after, and saves and draws only a change. Done today and P2's beads go through it too. Every tick there is accepted, so their behaviour is unchanged.
+3. **`openFocusOf` is rule 1's open focus for every popup.** `openPopup` and CG-14 both use it, so the five open functions stop passing a focus target, and `dayEditorFocus` folded into it.
+4. **The page's first control is found, not named.** It is the first shown, enabled button or input in `div.app`, which is the Overview button below 1024 px and the band's Year from 1024 px.
+5. **P1's opener after a rollover** is the control for the same date in the same grid when the new day keeps that date. When the new day left it out, the old detached button stays as the opener, and `onPopupClose` reads a detached opener as gone (CG-19). A delete still leaves no opener, as before.
+6. **Two checks beyond the P1 scenario's Then lines.** The band's new 22 September button carries `is-open`, and Escape puts focus back on it. Both are R36 rules that a band laid out again would break, as the task 24 handoff warned.
+7. **The error message test first asserts that the header moved to Sunday**, as a precondition, because its Then lines hold at HEAD with no rollover at all.
+8. **`tab_to` moved to `conftest.py`**, because `test_delete.py` and `test_rollover.py` both use it (DRY). `test_delete.py` is green after the move in both engines.
+9. **Rule 4 does not run again after a rollover** (ledger S1 row 10 item 4, accepted ORCH). A Monday rollover can move P1's day under P1 on a phone. Not built.
+
+### Deviations
+- None in the code.
+- Process. One green check of the new file alone named a red-first folder in `STREAKS_EVIDENCE_DIR` and wrote its `junit.xml` to the scratchpad. No test in that file writes evidence, so no folder was made, which a listing after the run confirmed.
+
+### Non-goals honoured
+No new copy, icon, motion or shadow. `src/styles.css` unchanged. No timer other than the 30 second check, no `storage` event, nothing added to `window`. No platform work (task 25).
+
+### How to run and view
+- `python -m pytest tests/browser/test_rollover.py -q` (Chromium) and `python -m pytest tests/browser/test_rollover.py -q --engine webkit`.
+- Serve the root with `python -m http.server <port> --bind 127.0.0.1` and open `http://127.0.0.1:<port>/`. Leave the page open over local midnight, or set the device's clock past midnight and switch back to the tab. The header, the rows, the band and every open popup show the new day within 30 seconds, or at once when the tab is shown again, and an open day editor keeps its day.
+
+### For the README reconcile
+- `src/app.js` gains `checkDay`, `onVisibilityChange`, `DAY_CHECK_MS`, `firstFocusOfTopLayer` and `tickDay`. `boot` starts `setInterval(checkDay, 30000)` and a `visibilitychange` listener. `openPopup` takes no focus target. `onPopupClose` sends focus to `firstFocusOfTopLayer` when the opener has left the page.
+- `src/calendar.js` gains `dayPlace` and `dayControlAt`.
+- `src/popups.js` gains `openFocusOf`, and `dayEditorFocus` is gone.
+- `src/view.js` gains `firstControl`.
+- The browser suite gains `test_rollover.py`. `conftest.py` gains `tab_to` (moved from `test_delete.py`).

@@ -259,6 +259,14 @@ export function dismissNote() {
   $("#nh").focus();
 }
 
+/**
+ * The page's first control that can take focus, where focus goes when a new day took away the day that held it and
+ * no popup is open (CG-14). It is the Overview button below 1024 px and the band's Year from 1024 px, where the CSS
+ * hides the Overview button, so it is the first shown control in page order.
+ */
+export const firstControl = () =>
+  Array.from(document.querySelectorAll("div.app button, div.app input")).find((control) => !control.disabled && control.getClientRects().length > 0);
+
 /** The elements app.js listens on. Their selectors live here only. */
 export const containers = () => ({ page: $("div.app"), frame: $("div.frame"), composer: $("form.composer"), field: $("#nh") });
 

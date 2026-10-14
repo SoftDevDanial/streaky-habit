@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="1.093" timestamp="2026-10-14T22:37:25.109330+08:00" hostname="{host}"><testcase classname="tests.browser.test_rollover" name="test_R19_R35_R38_the_band_and_p3_move_when_a_new_week_starts" time="1.055"><failure message="AssertionError: P3's first row is not Monday 12 October and six empty cells&#10;assert [('button', '...-10-10'), ...] == [('button', '...', None), ...]&#10;  &#10;  At index 0 diff: ('button', 'hc', '2026-10-05') != ('button', 'hc', '2026-10-12')&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x000002B0BB098250&gt;
+
+    def test_R19_R35_R38_the_band_and_p3_move_when_a_new_week_starts(app):
+        page = open_paused(app, SUNDAY_2359, viewport=DESKTOP, storage=sample_state())
+        page.clock.run_for(PAST_MIDNIGHT_MS)
+    
+        band = weeks(page, BAND)
+        cells = [cell for _, week in band for cell in week]
+        assert cell_kinds(cells) == [("button", "hc", key) for key in days("2026-07-27", 78)] + [("span", "hc", None)] * 6, (
+            "the band does not run from 27 July to 18 October with 13 to 18 October empty"
+        )
+        assert [month for month, _ in band] == ["Jul", "Aug", "", "", "", "", "Sep", "", "", "", "Oct", ""]
+        monday = {cell["key"]: cell for cell in cells}["2026-10-12"]
+        assert (monday["label"], monday["current"]) == ("Mon 12 Oct, 0 of 3 habits", "date"), monday
+        assert numbers(page) == [{"current": "No streak yet", "best": best} for best in ("9", "5", "14")]
+    
+        page.set_viewport_size({"width": PHONE[0], "height": PHONE[1]})
+        press(page, page.locator("button.ov-btn"))
+        expect(page.locator("dialog.dlg-ov")).to_have_attribute("open", "")
+        rows = weeks(page, P3_GRID)
+&gt;       assert cell_kinds(rows[0][1]) == [("button", "hc", "2026-10-12")] + [("span", "hc", None)] * 6, (
+            "P3's first row is not Monday 12 October and six empty cells"
+        )
+E       AssertionError: P3's first row is not Monday 12 October and six empty cells
+E       assert [('button', '...-10-10'), ...] == [('button', '...', None), ...]
+E         
+E         At index 0 diff: ('button', 'hc', '2026-10-05') != ('button', 'hc', '2026-10-12')
+E         Use -v to get more diff
+
+tests\browser\test_rollover.py:188: AssertionError</failure></testcase></testsuite></testsuites>

@@ -693,6 +693,16 @@ def tick(page, name):
     return page.locator("dialog.dlg-day ul.day-list").get_by_role("button", name=name, exact=True)
 
 
+def tab_to(page, target, limit=200):
+    """Press Tab until the locator `target` has focus. Fails after `limit` presses. Raw keys, so it works under a
+    paused clock."""
+    for _ in range(limit):
+        if target.evaluate("(node) => node === document.activeElement"):
+            return
+        page.keyboard.press("Tab")
+    pytest.fail(f"{target} did not take focus in {limit} presses of Tab")
+
+
 def point_beside(target, avoid):
     """The centre of the largest part of the box of the locator `target` that lies outside the box of `avoid`.
 

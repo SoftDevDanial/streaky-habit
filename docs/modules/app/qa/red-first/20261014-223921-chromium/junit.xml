@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="1.135" timestamp="2026-10-14T22:39:23.439478+08:00" hostname="{host}"><testcase classname="tests.browser.test_rollover" name="test_R19_R33_an_open_year_view_moves_to_the_new_year" time="1.093"><failure message="AssertionError: P2 closed at the rollover&#10;assert False is True">app = &lt;function app.&lt;locals&gt;.open_page at 0x00000226913DC250&gt;
+
+    def test_R19_R33_an_open_year_view_moves_to_the_new_year(app):
+        page = open_paused(app, SATURDAY_2359, viewport=PHONE, storage=sample_state())
+        press(page, year_btn(page, "Read 20 pages"))
+        expect(page.locator("dialog.dlg-year")).to_have_attribute("open", "")
+        page.clock.run_for(PAST_MIDNIGHT_MS)
+    
+        year = page.evaluate(P2_JS)
+&gt;       assert year["open"] is True, "P2 closed at the rollover"
+E       AssertionError: P2 closed at the rollover
+E       assert False is True
+
+tests\browser\test_rollover.py:222: AssertionError</failure></testcase></testsuite></testsuites>

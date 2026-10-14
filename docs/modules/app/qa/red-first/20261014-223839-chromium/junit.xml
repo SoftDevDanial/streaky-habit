@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="2" time="4.834" timestamp="2026-10-14T22:38:41.463642+08:00" hostname="{host}"><testcase classname="tests.browser.test_rollover" name="test_R19_R36_an_open_day_editor_keeps_its_day_and_shows_todays_numbers" time="0.957"><failure message="AssertionError: focus is not on the band's 22 September, the day that opened P1 but on body&#10;assert False&#10; +  where False = evaluate('(node) =&gt; node === document.activeElement')&#10; +    where evaluate = &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:43545/'&gt; selector='section.band div.ovg-cols button.hc[data-key=&quot;2026-09-22&quot;]'&gt;.evaluate">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001D72B4BC250&gt;
+
+    def test_R19_R36_an_open_day_editor_keeps_its_day_and_shows_todays_numbers(app):
+        page = open_paused(app, SATURDAY_2359, viewport=DESKTOP, storage=sample_state())
+        press(page, band_day(page, SEP_22))
+        p1 = page.locator("dialog.dlg-day")
+        expect(p1).to_have_attribute("open", "")
+        page.clock.run_for(PAST_MIDNIGHT_MS)
+    
+        assert p1.evaluate(P1_HEAD_JS) == [True, "Tuesday 22 September", "1 of 3 habits"], "P1 did not keep its day"
+        assert [tick(page, name).evaluate(TICK_STAT_JS) for name in NAMES] == [
+            [["span.tcur", "Current 4 days"], ["span", "Best 9"]],
+            [["span.tcur.none", "No streak yet"], ["span", "Best 5"]],
+            [["span.tcur.none", "No streak yet"], ["span", "Best 14"]],
+        ], "P1's ticks do not show Sunday's numbers"
+        assert band_today(page) == "2026-10-11", "the band's today is not Sunday"
+        # R36. While P1 is open its day is marked open, and on its close focus goes back to that day in its host. The new
+        # day laid the band out again, so both now concern the band's new button for 22 September.
+        assert band_day(page, SEP_22).evaluate("(day) =&gt; day.classList.contains('is-open')"), "the band's 22 September lost is-open"
+        watch = watch_close(page, "dialog.dlg-day")
+        page.keyboard.press("Escape")
+        wait_for_close(watch)
+&gt;       assert_focus_on(page, band_day(page, SEP_22), "the band's 22 September, the day that opened P1")
+
+tests\browser\test_rollover.py:260: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+page = &lt;Page url='http://127.0.0.1:43545/'&gt;
+locator = &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:43545/'&gt; selector='section.band div.ovg-cols button.hc[data-key="2026-09-22"]'&gt;
+what = "the band's 22 September, the day that opened P1"
+
+    def assert_focus_on(page, locator, what):
+        """The element of `locator` is document.activeElement, else the message says what has focus instead."""
+&gt;       assert locator.evaluate("(node) =&gt; node === document.activeElement"), f"focus is not on {what} but on {page.evaluate(ACTIVE_JS)}"
+E       AssertionError: focus is not on the band's 22 September, the day that opened P1 but on body
+E       assert False
+E        +  where False = evaluate('(node) =&gt; node === document.activeElement')
+E        +    where evaluate = &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:43545/'&gt; selector='section.band div.ovg-cols button.hc[data-key="2026-09-22"]'&gt;.evaluate
+
+tests\browser\test_rollover.py:113: AssertionError</failure></testcase><testcase classname="tests.browser.test_rollover" name="test_R19_R37_p1_open_on_the_oldest_day_of_the_year_when_midnight_passes" time="3.826"><failure message="AssertionError: focus is not on P4's Close but on body&#10;assert False&#10; +  where False = evaluate('(node) =&gt; node === document.activeElement')&#10; +    where evaluate = &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:43545/'&gt; selector='dialog.dlg-all button.icon-btn'&gt;.evaluate">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001D72C883480&gt;
+
+    def test_R19_R37_p1_open_on_the_oldest_day_of_the_year_when_midnight_passes(app):
+        page = open_paused(app, SATURDAY_2359, viewport=DESKTOP, storage=sample_state(), count_writes=True)
+        press(page, page.locator("section.band button.btn-all"))
+        expect(page.locator("dialog.dlg-all")).to_have_attribute("open", "")
+        tab_to(page, p4_day(page, YEAR_START), limit=400)
+        page.keyboard.press("Enter")
+        p1 = page.locator("dialog.dlg-day")
+        expect(p1).to_have_attribute("open", "")
+        text = stored(page)
+        page.clock.run_for(PAST_MIDNIGHT_MS)
+    
+        assert p1.evaluate(P1_HEAD_JS) == [True, "Friday 10 October", "3 of 3 habits"], "P1 did not stay open on its day"
+        assert p4_day(page, YEAR_START).count() == 0, "P4 still holds a button for 10 October 2025"
+    
+        read = tick(page, "Read 20 pages")
+        settle(page)
+        press(page, read)
+        assert read.get_attribute("aria-pressed") == "true", "the tick flipped on a day the year no longer holds"
+        assert write_count(page) == 0, "a tick on a day outside the year was saved"
+        assert stored(page) == text
+    
+        watch = watch_close(page, "dialog.dlg-day")
+        page.keyboard.press("Escape")
+        wait_for_close(watch)
+        assert page.evaluate("() =&gt; ['dlg-day', 'dlg-all'].map((name) =&gt; document.querySelector(`dialog.${name}`).open)") == [False, True]
+&gt;       assert_focus_on(page, page.locator("dialog.dlg-all button.icon-btn"), "P4's Close")
+
+tests\browser\test_rollover.py:379: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+page = &lt;Page url='http://127.0.0.1:43545/'&gt;
+locator = &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:43545/'&gt; selector='dialog.dlg-all button.icon-btn'&gt;
+what = "P4's Close"
+
+    def assert_focus_on(page, locator, what):
+        """The element of `locator` is document.activeElement, else the message says what has focus instead."""
+&gt;       assert locator.evaluate("(node) =&gt; node === document.activeElement"), f"focus is not on {what} but on {page.evaluate(ACTIVE_JS)}"
+E       AssertionError: focus is not on P4's Close but on body
+E       assert False
+E        +  where False = evaluate('(node) =&gt; node === document.activeElement')
+E        +    where evaluate = &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:43545/'&gt; selector='dialog.dlg-all button.icon-btn'&gt;.evaluate
+
+tests\browser\test_rollover.py:113: AssertionError</failure></testcase></testsuite></testsuites>

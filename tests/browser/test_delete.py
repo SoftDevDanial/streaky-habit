@@ -43,6 +43,7 @@ from conftest import (
     sample_state,
     stats_tree,
     stored,
+    tab_to,
     twelve_state,
     wait_for_close,
     watch_close,
@@ -155,15 +156,6 @@ def press(page, point, how):
         page.touchscreen.tap(*point)
     else:
         page.mouse.click(*point)
-
-
-def tab_to(page, target, limit=200):
-    """Press Tab until the locator `target` has focus. Fails after `limit` presses."""
-    for _ in range(limit):
-        if target.evaluate("(node) => node === document.activeElement"):
-            return
-        page.keyboard.press("Tab")
-    pytest.fail(f"{target} did not take focus in {limit} presses of Tab")
 
 
 FRAME_BOX_JS = """() => {

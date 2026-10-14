@@ -167,10 +167,12 @@ function renderTickStats(stat, current, best) {
   stat.replaceChildren(...parts);
 }
 
-/** P1's first focus (rule 1): the first tick, or Close when there is no habit (CG-12). */
-export function dayEditorFocus() {
-  const { day } = dialogs();
-  return day.querySelector("ul.day-list button.tick") ?? closeButtonOf(day);
+/**
+ * The control that takes focus as `dialog` opens (rule 1). In P1 the first tick, or Close when it lists no habit
+ * (CG-12). In the others Close, or Cancel in M1. Focus whose day a rollover took away goes here too (CG-14).
+ */
+export function openFocusOf(dialog) {
+  return dialog.querySelector("ul.day-list button.tick") ?? closeButtonOf(dialog);
 }
 
 /** The position of the habit whose tick holds `target`, or -1. A tick's habit is its place in P1's list. */

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="1.039" timestamp="2026-10-14T22:37:37.099111+08:00" hostname="{host}"><testcase classname="tests.browser.test_rollover" name="test_R19_R36_an_open_day_editor_keeps_its_day_and_shows_todays_numbers" time="1.002"><failure message="AssertionError: P1 did not keep its day&#10;assert [True, 'Sunda... of 3 habits'] == [True, 'Tuesd... of 3 habits']&#10;  &#10;  At index 1 diff: 'Sunday 11 October' != 'Tuesday 22 September'&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001E63D738250&gt;
+
+    def test_R19_R36_an_open_day_editor_keeps_its_day_and_shows_todays_numbers(app):
+        page = open_paused(app, SATURDAY_2359, viewport=DESKTOP, storage=sample_state())
+        press(page, band_day(page, SEP_22))
+        p1 = page.locator("dialog.dlg-day")
+        expect(p1).to_have_attribute("open", "")
+        page.clock.run_for(PAST_MIDNIGHT_MS)
+    
+&gt;       assert p1.evaluate(P1_HEAD_JS) == [True, "Tuesday 22 September", "1 of 3 habits"], "P1 did not keep its day"
+E       AssertionError: P1 did not keep its day
+E       assert [True, 'Sunda... of 3 habits'] == [True, 'Tuesd... of 3 habits']
+E         
+E         At index 1 diff: 'Sunday 11 October' != 'Tuesday 22 September'
+E         Use -v to get more diff
+
+tests\browser\test_rollover.py:247: AssertionError</failure></testcase></testsuite></testsuites>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="1.008" timestamp="2026-10-14T22:37:12.381116+08:00" hostname="{host}"><testcase classname="tests.browser.test_rollover" name="test_R19_R35_the_view_moves_to_the_new_day_within_a_minute_while_visible" time="0.968"><failure message="AssertionError: the view changed day before local midnight, ['2026-10-11', 'Sunday 11 October']&#10;assert ['2026-10-11'...y 11 October'] == ['2026-10-10'...y 10 October']&#10;  &#10;  At index 0 diff: '2026-10-11' != '2026-10-10'&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001BB95958250&gt;
+
+    def test_R19_R35_the_view_moves_to_the_new_day_within_a_minute_while_visible(app):
+        page = open_paused(app, SATURDAY_2359, viewport=DESKTOP, storage=sample_state())
+        page.clock.run_for(29_000)
+&gt;       assert shown_date(page) == [TODAY, "Saturday 10 October"], f"the view changed day before local midnight, {shown_date(page)}"
+E       AssertionError: the view changed day before local midnight, ['2026-10-11', 'Sunday 11 October']
+E       assert ['2026-10-11'...y 11 October'] == ['2026-10-10'...y 10 October']
+E         
+E         At index 0 diff: '2026-10-11' != '2026-10-10'
+E         Use -v to get more diff
+
+tests\browser\test_rollover.py:163: AssertionError</failure></testcase></testsuite></testsuites>

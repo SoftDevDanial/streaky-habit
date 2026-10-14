@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="2" time="1.296" timestamp="2026-10-14T22:38:09.236096+08:00" hostname="{host}"><testcase classname="tests.browser.test_rollover" name="test_R19_the_composer_keeps_its_text_and_its_focus" time="0.994"><failure message="AssertionError: focus is not on the field but on body&#10;assert False&#10; +  where False = evaluate('(node) =&gt; node === document.activeElement')&#10; +    where evaluate = &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:57686/'&gt; selector='#nh'&gt;.evaluate">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001A6180D8250&gt;
+
+    def test_R19_the_composer_keeps_its_text_and_its_focus(app):
+        page = open_paused(app, SATURDAY_2359, storage=sample_state())
+        field = page.locator("#nh")
+        press(page, field)
+        page.keyboard.type("Drink")
+        page.clock.run_for(PAST_MIDNIGHT_MS)
+    
+        assert shown_date(page)[1] == "Sunday 11 October", f"the header shows {shown_date(page)}"
+        assert field.input_value() == "Drink", f"the field holds {field.input_value()!r} after the rollover"
+&gt;       assert_focus_on(page, field, "the field")
+
+tests\browser\test_rollover.py:272: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+page = &lt;Page url='http://127.0.0.1:57686/'&gt;
+locator = &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:57686/'&gt; selector='#nh'&gt;
+what = 'the field'
+
+    def assert_focus_on(page, locator, what):
+        """The element of `locator` is document.activeElement, else the message says what has focus instead."""
+&gt;       assert locator.evaluate("(node) =&gt; node === document.activeElement"), f"focus is not on {what} but on {page.evaluate(ACTIVE_JS)}"
+E       AssertionError: focus is not on the field but on body
+E       assert False
+E        +  where False = evaluate('(node) =&gt; node === document.activeElement')
+E        +    where evaluate = &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:57686/'&gt; selector='#nh'&gt;.evaluate
+
+tests\browser\test_rollover.py:113: AssertionError</failure></testcase><testcase classname="tests.browser.test_rollover" name="test_R19_R22_focus_on_a_done_today_button_stays_on_it" time="0.258"><failure message="AssertionError: focus is not on the Done today button it was on but on body&#10;assert False&#10; +  where False = evaluate('(button) =&gt; button === document.activeElement')&#10; +    where evaluate = &lt;JSHandle preview=JSHandle@&lt;button type=&quot;button&quot; class=&quot;btn-done&quot; aria-pressed=&quot;true&quot; aria-describedby=&quot;rs-1&quot; aria-label=&quot;Done today, Read 20 pages&quot;&gt;…&lt;/button&gt;&gt;.evaluate">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001A6193EACF0&gt;
+
+    def test_R19_R22_focus_on_a_done_today_button_stays_on_it(app):
+        page = open_paused(app, SATURDAY_2359, storage=sample_state())
+        done = done_btn(page, "Read 20 pages")
+        tab_to(page, done)
+        handle = done.element_handle()
+        page.clock.run_for(PAST_MIDNIGHT_MS)
+    
+&gt;       assert handle.evaluate("(button) =&gt; button === document.activeElement"), (
+            f"focus is not on the Done today button it was on but on {page.evaluate(ACTIVE_JS)}"
+        )
+E       AssertionError: focus is not on the Done today button it was on but on body
+E       assert False
+E        +  where False = evaluate('(button) =&gt; button === document.activeElement')
+E        +    where evaluate = &lt;JSHandle preview=JSHandle@&lt;button type="button" class="btn-done" aria-pressed="true" aria-describedby="rs-1" aria-label="Done today, Read 20 pages"&gt;…&lt;/button&gt;&gt;.evaluate
+
+tests\browser\test_rollover.py:298: AssertionError</failure></testcase></testsuite></testsuites>

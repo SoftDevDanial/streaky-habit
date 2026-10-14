@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="14" skipped="0" tests="14" time="17.084" timestamp="2026-10-14T22:35:52.264345+08:00" hostname="{host}"><testcase classname="tests.browser.test_rollover" name="test_R19_R35_the_view_moves_to_the_new_day_within_a_minute_while_visible" time="0.958"><failure message="AssertionError: the header shows ['2026-10-10', 'Saturday 10 October']&#10;assert ['2026-10-10'...y 10 October'] == ['2026-10-11'...y 11 October']&#10;  &#10;  At index 0 diff: '2026-10-10' != '2026-10-11'&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000011F30EBC1A0&gt;
+
+    def test_R19_R35_the_view_moves_to_the_new_day_within_a_minute_while_visible(app):
+        page = open_paused(app, SATURDAY_2359, viewport=DESKTOP, storage=sample_state())
+        page.clock.run_for(29_000)
+        assert shown_date(page) == [TODAY, "Saturday 10 October"], f"the view changed day before local midnight, {shown_date(page)}"
+        assert band_today(page) == TODAY, "the band's today moved before local midnight"
+    
+        page.clock.run_for(61_000)
+&gt;       assert_the_page_shows_sunday(page)
+
+tests\browser\test_rollover.py:167: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+page = &lt;Page url='http://127.0.0.1:62343/'&gt;
+
+    def assert_the_page_shows_sunday(page):
+        """K1 after the rollover from Saturday 10 to Sunday 11 October 2026, spec R19's worked example."""
+&gt;       assert shown_date(page) == ["2026-10-11", "Sunday 11 October"], f"the header shows {shown_date(page)}"
+E       AssertionError: the header shows ['2026-10-10', 'Saturday 10 October']
+E       assert ['2026-10-10'...y 10 October'] == ['2026-10-11'...y 11 October']
+E         
+E         At index 0 diff: '2026-10-10' != '2026-10-11'
+E         Use -v to get more diff
+
+tests\browser\test_rollover.py:143: AssertionError</failure></testcase><testcase classname="tests.browser.test_rollover" name="test_R19_R35_R38_the_band_and_p3_move_when_a_new_week_starts" time="0.137"><failure message="AssertionError: the band does not run from 27 July to 18 October with 13 to 18 October empty&#10;assert [('button', '...-07-25'), ...] == [('button', '...-08-01'), ...]&#10;  &#10;  At index 0 diff: ('button', 'hc', '2026-07-20') != ('button', 'hc', '2026-07-27')&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000011F321CECF0&gt;
+
+    def test_R19_R35_R38_the_band_and_p3_move_when_a_new_week_starts(app):
+        page = open_paused(app, SUNDAY_2359, viewport=DESKTOP, storage=sample_state())
+        page.clock.run_for(PAST_MIDNIGHT_MS)
+    
+        band = weeks(page, BAND)
+        cells = [cell for _, week in band for cell in week]
+&gt;       assert cell_kinds(cells) == [("button", "hc", key) for key in days("2026-07-27", 78)] + [("span", "hc", None)] * 6, (
+            "the band does not run from 27 July to 18 October with 13 to 18 October empty"
+        )
+E       AssertionError: the band does not run from 27 July to 18 October with 13 to 18 October empty
+E       assert [('button', '...-07-25'), ...] == [('button', '...-08-01'), ...]
+E         
+E         At index 0 diff: ('button', 'hc', '2026-07-20') != ('button', 'hc', '2026-07-27')
+E         Use -v to get more diff
+
+tests\browser\test_rollover.py:176: AssertionError</failure></testcase><testcase classname="tests.browser.test_rollover" name="test_R19_R33_an_open_year_view_moves_to_the_new_year" time="0.190"><failure message="AssertionError: the 2026-10-11 cell is not today's open bead, None&#10;assert None == ['button', 'today yc', 'Mark Sun 11 Oct 2026 as done', 'false', 'date']">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000011F3227ADA0&gt;
+
+    def test_R19_R33_an_open_year_view_moves_to_the_new_year(app):
+        page = open_paused(app, SATURDAY_2359, viewport=PHONE, storage=sample_state())
+        press(page, year_btn(page, "Read 20 pages"))
+        expect(page.locator("dialog.dlg-year")).to_have_attribute("open", "")
+        page.clock.run_for(PAST_MIDNIGHT_MS)
+    
+        year = page.evaluate(P2_JS)
+        assert year["open"] is True, "P2 closed at the rollover"
+&gt;       assert year["sunday"] == ["button", "today yc", "Mark Sun 11 Oct 2026 as done", "false", "date"], (
+            f"the 2026-10-11 cell is not today's open bead, {year['sunday']}"
+        )
+E       AssertionError: the 2026-10-11 cell is not today's open bead, None
+E       assert None == ['button', 'today yc', 'Mark Sun 11 Oct 2026 as done', 'false', 'date']
+
+tests\browser\test_rollover.py:223: AssertionError</failure></testcase><testcase classname="tests.browser.test_rollover" name="test_R19_R36_an_open_day_editor_keeps_its_day_and_shows_todays_numbers" time="0.221"><failure message="AssertionError: P1's ticks do not show Sunday's numbers&#10;assert [[['span.tcur..., 'Best 14']]] == [[['span.tcur..., 'Best 14']]]&#10;  &#10;  At index 1 diff: [['span.tcur', 'Current 2 days'], ['span', 'Best 5']] != [['span.tcur.none', 'No streak yet'], ['span', 'Best 5']]&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000011F32279850&gt;
+
+    def test_R19_R36_an_open_day_editor_keeps_its_day_and_shows_todays_numbers(app):
+        page = open_paused(app, SATURDAY_2359, viewport=DESKTOP, storage=sample_state())
+        press(page, band_day(page, SEP_22))
+        p1 = page.locator("dialog.dlg-day")
+        expect(p1).to_have_attribute("open", "")
+        page.clock.run_for(PAST_MIDNIGHT_MS)
+    
+        assert p1.evaluate(P1_HEAD_JS) == [True, "Tuesday 22 September", "1 of 3 habits"], "P1 did not keep its day"
+&gt;       assert [tick(page, name).evaluate(TICK_STAT_JS) for name in NAMES] == [
+            [["span.tcur", "Current 4 days"], ["span", "Best 9"]],
+            [["span.tcur.none", "No streak yet"], ["span", "Best 5"]],
+            [["span.tcur.none", "No streak yet"], ["span", "Best 14"]],
+        ], "P1's ticks do not show Sunday's numbers"
+E       AssertionError: P1's ticks do not show Sunday's numbers
+E       assert [[['span.tcur..., 'Best 14']]] == [[['span.tcur..., 'Best 14']]]
+E         
+E         At index 1 diff: [['span.tcur', 'Current 2 days'], ['span', 'Best 5']] != [['span.tcur.none', 'No streak yet'], ['span', 'Best 5']]
+E         Use -v to get more diff
+
+tests\browser\test_rollover.py:248: AssertionError</failure></testcase><testcase classname="tests.browser.test_rollover" name="test_R19_the_composer_keeps_its_text_and_its_focus" time="0.175"><failure message="AssertionError: the header shows ['2026-10-10', 'Saturday 10 October']&#10;assert 'Saturday 10 October' == 'Sunday 11 October'&#10;  &#10;  - Sunday 11 October&#10;  ?   ^     ^&#10;  + Saturday 10 October&#10;  ?  ++ ^     ^">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000011F324CBAB0&gt;
+
+    def test_R19_the_composer_keeps_its_text_and_its_focus(app):
+        page = open_paused(app, SATURDAY_2359, storage=sample_state())
+        field = page.locator("#nh")
+        press(page, field)
+        page.keyboard.type("Drink")
+        page.clock.run_for(PAST_MIDNIGHT_MS)
+    
+&gt;       assert shown_date(page)[1] == "Sunday 11 October", f"the header shows {shown_date(page)}"
+E       AssertionError: the header shows ['2026-10-10', 'Saturday 10 October']
+E       assert 'Saturday 10 October' == 'Sunday 11 October'
+E         
+E         - Sunday 11 October
+E         ?   ^     ^
+E         + Saturday 10 October
+E         ?  ++ ^     ^
+
+tests\browser\test_rollover.py:270: AssertionError</failure></testcase><testcase classname="tests.browser.test_rollover" name="test_R19_an_error_message_survives_the_rollover" time="0.161"><failure message="AssertionError: precondition, the rollover happened, the header shows ['2026-10-10', 'Saturday 10 October']&#10;assert 'Saturday 10 October' == 'Sunday 11 October'&#10;  &#10;  - Sunday 11 October&#10;  ?   ^     ^&#10;  + Saturday 10 October&#10;  ?  ++ ^     ^">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000011F324C9640&gt;
+
+    def test_R19_an_error_message_survives_the_rollover(app):
+        page = open_paused(app, SATURDAY_2359, storage=sample_state())
+        press(page, page.locator("#add-btn"))
+        message = page.locator("#nh-msg")
+        assert message.evaluate(MESSAGE_JS) == EMPTY_ERROR, "precondition, Add with an empty field shows the empty name error"
+        page.clock.run_for(PAST_MIDNIGHT_MS)
+    
+&gt;       assert shown_date(page)[1] == "Sunday 11 October", f"precondition, the rollover happened, the header shows {shown_date(page)}"
+E       AssertionError: precondition, the rollover happened, the header shows ['2026-10-10', 'Saturday 10 October']
+E       assert 'Saturday 10 October' == 'Sunday 11 October'
+E         
+E         - Sunday 11 October
+E         ?   ^     ^
+E         + Saturday 10 October
+E         ?  ++ ^     ^
+
+tests\browser\test_rollover.py:286: AssertionError</failure></testcase><testcase classname="tests.browser.test_rollover" name="test_R19_R22_focus_on_a_done_today_button_stays_on_it" time="0.199"><failure message="AssertionError: Done today still means Saturday&#10;assert 'true' == 'false'&#10;  &#10;  - false&#10;  + true">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000011F3260F740&gt;
+
+    def test_R19_R22_focus_on_a_done_today_button_stays_on_it(app):
+        page = open_paused(app, SATURDAY_2359, storage=sample_state())
+        done = done_btn(page, "Read 20 pages")
+        tab_to(page, done)
+        handle = done.element_handle()
+        page.clock.run_for(PAST_MIDNIGHT_MS)
+    
+        assert handle.evaluate("(button) =&gt; button === document.activeElement"), (
+            f"focus is not on the Done today button it was on but on {page.evaluate(ACTIVE_JS)}"
+        )
+&gt;       assert handle.get_attribute("aria-pressed") == "false", "Done today still means Saturday"
+E       AssertionError: Done today still means Saturday
+E       assert 'true' == 'false'
+E         
+E         - false
+E         + true
+
+tests\browser\test_rollover.py:301: AssertionError</failure></testcase><testcase classname="tests.browser.test_rollover" name="test_R19_R22_focus_on_a_day_that_stays_in_view_stays_on_that_day" time="0.426"><failure message="AssertionError: the bead of 10 October is still today, [True, 'date']&#10;assert [True, 'date'] == [False, None]&#10;  &#10;  At index 0 diff: True != False&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000011F3260C300&gt;
+
+    def test_R19_R22_focus_on_a_day_that_stays_in_view_stays_on_that_day(app):
+        page = open_paused(app, SATURDAY_2359, viewport=PHONE, storage=sample_state())
+        tab_to(page, year_btn(page, "Read 20 pages"))
+        page.keyboard.press("Enter")
+        expect(page.locator("dialog.dlg-year")).to_have_attribute("open", "")
+        tab_to(page, bead(page, TODAY))
+        page.clock.run_for(PAST_MIDNIGHT_MS)
+    
+        saturday = bead(page, TODAY)
+        assert_focus_on(page, saturday, "the bead of 10 October")
+        marks = saturday.evaluate("(day) =&gt; [day.classList.contains('today'), day.getAttribute('aria-current')]")
+&gt;       assert marks == [False, None], f"the bead of 10 October is still today, {marks}"
+E       AssertionError: the bead of 10 October is still today, [True, 'date']
+E       assert [True, 'date'] == [False, None]
+E         
+E         At index 0 diff: True != False
+E         Use -v to get more diff
+
+tests\browser\test_rollover.py:315: AssertionError</failure></testcase><testcase classname="tests.browser.test_rollover" name="test_R19_R22_focus_whose_day_leaves_the_view_goes_to_the_top_popups_first_focus_or_the_pages_first_control[1280x800 no popup, the band's 20 July]" time="0.186"><failure message="AssertionError: focus is not on the band's Year but on button.hc &quot;Mon 20 Jul, 2 of 3 habits&quot; in div.app&#10;assert False&#10; +  where False = evaluate('(node) =&gt; node === document.activeElement')&#10; +    where evaluate = &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:62343/'&gt; selector='section.band button.btn-all'&gt;.evaluate">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000011F32680BF0&gt;
+viewport = (1280, 800), installed = '2026-10-11T23:59:00+08:00', opener = None
+focused = &lt;function &lt;lambda&gt; at 0x0000011F30B06610&gt;
+name = 'Mon 20 Jul, 2 of 3 habits', target = 'section.band button.btn-all'
+what = "the band's Year"
+
+    @pytest.mark.parametrize(
+        "viewport, installed, opener, focused, name, target, what",
+        [
+            pytest.param(
+                DESKTOP, SUNDAY_2359, None, lambda page: band_day(page, "2026-07-20"), "Mon 20 Jul, 2 of 3 habits",
+                "section.band button.btn-all", "the band's Year", id="1280x800 no popup, the band's 20 July",
+            ),
+            pytest.param(
+                DESKTOP, SATURDAY_2359, "section.band button.btn-all", lambda page: p4_day(page, YEAR_START),
+                "Fri 10 Oct 2025, 3 of 3 habits", "dialog.dlg-all button.icon-btn", "P4's Close", id="1280x800 P4, 10 Oct 2025",
+            ),
+            pytest.param(
+                PHONE, SATURDAY_2359, "ul.rows &gt; li.row:first-child button.btn-year", lambda page: bead(page, YEAR_START),
+                "Mark Fri 10 Oct 2025 as done", "dialog.dlg-year button.icon-btn", "P2's Close", id="390x844 P2, 10 Oct 2025",
+            ),
+            pytest.param(
+                PHONE, SUNDAY_2359, "button.ov-btn", lambda page: p3_day(page, "2026-07-20"), "Mon 20 Jul, 2 of 3 habits",
+                "dialog.dlg-ov button.icon-btn", "P3's Close", id="390x844 P3, 20 July",
+            ),
+        ],
+    )
+    def test_R19_R22_focus_whose_day_leaves_the_view_goes_to_the_top_popups_first_focus_or_the_pages_first_control(
+        app, viewport, installed, opener, focused, name, target, what
+    ):
+        page = open_paused(app, installed, viewport=viewport, storage=sample_state())
+        if opener:
+            press(page, page.locator(opener))
+            expect(page.locator("dialog[open]")).to_have_count(1)
+        day = focused(page)
+        tab_to(page, day, limit=400)
+        assert day.get_attribute("aria-label") == name, "precondition, Tab reached the day the scenario names"
+        page.clock.run_for(PAST_MIDNIGHT_MS)
+    
+&gt;       assert_focus_on(page, page.locator(target), what)
+
+tests\browser\test_rollover.py:351: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+page = &lt;Page url='http://127.0.0.1:62343/'&gt;
+locator = &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:62343/'&gt; selector='section.band button.btn-all'&gt;
+what = "the band's Year"
+
+    def assert_focus_on(page, locator, what):
+        """The element of `locator` is document.activeElement, else the message says what has focus instead."""
+&gt;       assert locator.evaluate("(node) =&gt; node === document.activeElement"), f"focus is not on {what} but on {page.evaluate(ACTIVE_JS)}"
+E       AssertionError: focus is not on the band's Year but on button.hc "Mon 20 Jul, 2 of 3 habits" in div.app
+E       assert False
+E        +  where False = evaluate('(node) =&gt; node === document.activeElement')
+E        +    where evaluate = &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:62343/'&gt; selector='section.band button.btn-all'&gt;.evaluate
+
+tests\browser\test_rollover.py:113: AssertionError</failure></testcase><testcase classname="tests.browser.test_rollover" name="test_R19_R22_focus_whose_day_leaves_the_view_goes_to_the_top_popups_first_focus_or_the_pages_first_control[1280x800 P4, 10 Oct 2025]" time="4.575"><failure message="AssertionError: focus is not on P4's Close but on button.hc &quot;Fri 10 Oct 2025, 3 of 3 habits&quot; in dialog.dlg-full.dlg-all&#10;assert False&#10; +  where False = evaluate('(node) =&gt; node === document.activeElement')&#10; +    where evaluate = &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:62343/'&gt; selector='dialog.dlg-all button.icon-btn'&gt;.evaluate">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000011F327D19B0&gt;
+viewport = (1280, 800), installed = '2026-10-10T23:59:00+08:00'
+opener = 'section.band button.btn-all'
+focused = &lt;function &lt;lambda&gt; at 0x0000011F30B066C0&gt;
+name = 'Fri 10 Oct 2025, 3 of 3 habits'
+target = 'dialog.dlg-all button.icon-btn', what = "P4's Close"
+
+    @pytest.mark.parametrize(
+        "viewport, installed, opener, focused, name, target, what",
+        [
+            pytest.param(
+                DESKTOP, SUNDAY_2359, None, lambda page: band_day(page, "2026-07-20"), "Mon 20 Jul, 2 of 3 habits",
+                "section.band button.btn-all", "the band's Year", id="1280x800 no popup, the band's 20 July",
+            ),
+            pytest.param(
+                DESKTOP, SATURDAY_2359, "section.band button.btn-all", lambda page: p4_day(page, YEAR_START),
+                "Fri 10 Oct 2025, 3 of 3 habits", "dialog.dlg-all button.icon-btn", "P4's Close", id="1280x800 P4, 10 Oct 2025",
+            ),
+            pytest.param(
+                PHONE, SATURDAY_2359, "ul.rows &gt; li.row:first-child button.btn-year", lambda page: bead(page, YEAR_START),
+                "Mark Fri 10 Oct 2025 as done", "dialog.dlg-year button.icon-btn", "P2's Close", id="390x844 P2, 10 Oct 2025",
+            ),
+            pytest.param(
+                PHONE, SUNDAY_2359, "button.ov-btn", lambda page: p3_day(page, "2026-07-20"), "Mon 20 Jul, 2 of 3 habits",
+                "dialog.dlg-ov button.icon-btn", "P3's Close", id="390x844 P3, 20 July",
+            ),
+        ],
+    )
+    def test_R19_R22_focus_whose_day_leaves_the_view_goes_to_the_top_popups_first_focus_or_the_pages_first_control(
+        app, viewport, installed, opener, focused, name, target, what
+    ):
+        page = open_paused(app, installed, viewport=viewport, storage=sample_state())
+        if opener:
+            press(page, page.locator(opener))
+            expect(page.locator("dialog[open]")).to_have_count(1)
+        day = focused(page)
+        tab_to(page, day, limit=400)
+        assert day.get_attribute("aria-label") == name, "precondition, Tab reached the day the scenario names"
+        page.clock.run_for(PAST_MIDNIGHT_MS)
+    
+&gt;       assert_focus_on(page, page.locator(target), what)
+
+tests\browser\test_rollover.py:351: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+page = &lt;Page url='http://127.0.0.1:62343/'&gt;
+locator = &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:62343/'&gt; selector='dialog.dlg-all button.icon-btn'&gt;
+what = "P4's Close"
+
+    def assert_focus_on(page, locator, what):
+        """The element of `locator` is document.activeElement, else the message says what has focus instead."""
+&gt;       assert locator.evaluate("(node) =&gt; node === document.activeElement"), f"focus is not on {what} but on {page.evaluate(ACTIVE_JS)}"
+E       AssertionError: focus is not on P4's Close but on button.hc "Fri 10 Oct 2025, 3 of 3 habits" in dialog.dlg-full.dlg-all
+E       assert False
+E        +  where False = evaluate('(node) =&gt; node === document.activeElement')
+E        +    where evaluate = &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:62343/'&gt; selector='dialog.dlg-all button.icon-btn'&gt;.evaluate
+
+tests\browser\test_rollover.py:113: AssertionError</failure></testcase><testcase classname="tests.browser.test_rollover" name="test_R19_R22_focus_whose_day_leaves_the_view_goes_to_the_top_popups_first_focus_or_the_pages_first_control[390x844 P2, 10 Oct 2025]" time="4.285"><failure message="AssertionError: focus is not on P2's Close but on button.yc.on.r &quot;Mark Fri 10 Oct 2025 as done&quot; in dialog.dlg-full.dlg-year&#10;assert False&#10; +  where False = evaluate('(node) =&gt; node === document.activeElement')&#10; +    where evaluate = &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:62343/'&gt; selector='dialog.dlg-year button.icon-btn'&gt;.evaluate">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000011F329B3690&gt;
+viewport = (390, 844), installed = '2026-10-10T23:59:00+08:00'
+opener = 'ul.rows &gt; li.row:first-child button.btn-year'
+focused = &lt;function &lt;lambda&gt; at 0x0000011F30B06770&gt;
+name = 'Mark Fri 10 Oct 2025 as done'
+target = 'dialog.dlg-year button.icon-btn', what = "P2's Close"
+
+    @pytest.mark.parametrize(
+        "viewport, installed, opener, focused, name, target, what",
+        [
+            pytest.param(
+                DESKTOP, SUNDAY_2359, None, lambda page: band_day(page, "2026-07-20"), "Mon 20 Jul, 2 of 3 habits",
+                "section.band button.btn-all", "the band's Year", id="1280x800 no popup, the band's 20 July",
+            ),
+            pytest.param(
+                DESKTOP, SATURDAY_2359, "section.band button.btn-all", lambda page: p4_day(page, YEAR_START),
+                "Fri 10 Oct 2025, 3 of 3 habits", "dialog.dlg-all button.icon-btn", "P4's Close", id="1280x800 P4, 10 Oct 2025",
+            ),
+            pytest.param(
+                PHONE, SATURDAY_2359, "ul.rows &gt; li.row:first-child button.btn-year", lambda page: bead(page, YEAR_START),
+                "Mark Fri 10 Oct 2025 as done", "dialog.dlg-year button.icon-btn", "P2's Close", id="390x844 P2, 10 Oct 2025",
+            ),
+            pytest.param(
+                PHONE, SUNDAY_2359, "button.ov-btn", lambda page: p3_day(page, "2026-07-20"), "Mon 20 Jul, 2 of 3 habits",
+                "dialog.dlg-ov button.icon-btn", "P3's Close", id="390x844 P3, 20 July",
+            ),
+        ],
+    )
+    def test_R19_R22_focus_whose_day_leaves_the_view_goes_to_the_top_popups_first_focus_or_the_pages_first_control(
+        app, viewport, installed, opener, focused, name, target, what
+    ):
+        page = open_paused(app, installed, viewport=viewport, storage=sample_state())
+        if opener:
+            press(page, page.locator(opener))
+            expect(page.locator("dialog[open]")).to_have_count(1)
+        day = focused(page)
+        tab_to(page, day, limit=400)
+        assert day.get_attribute("aria-label") == name, "precondition, Tab reached the day the scenario names"
+        page.clock.run_for(PAST_MIDNIGHT_MS)
+    
+&gt;       assert_focus_on(page, page.locator(target), what)
+
+tests\browser\test_rollover.py:351: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+page = &lt;Page url='http://127.0.0.1:62343/'&gt;
+locator = &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:62343/'&gt; selector='dialog.dlg-year button.icon-btn'&gt;
+what = "P2's Close"
+
+    def assert_focus_on(page, locator, what):
+        """The element of `locator` is document.activeElement, else the message says what has focus instead."""
+&gt;       assert locator.evaluate("(node) =&gt; node === document.activeElement"), f"focus is not on {what} but on {page.evaluate(ACTIVE_JS)}"
+E       AssertionError: focus is not on P2's Close but on button.yc.on.r "Mark Fri 10 Oct 2025 as done" in dialog.dlg-full.dlg-year
+E       assert False
+E        +  where False = evaluate('(node) =&gt; node === document.activeElement')
+E        +    where evaluate = &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:62343/'&gt; selector='dialog.dlg-year button.icon-btn'&gt;.evaluate
+
+tests\browser\test_rollover.py:113: AssertionError</failure></testcase><testcase classname="tests.browser.test_rollover" name="test_R19_R22_focus_whose_day_leaves_the_view_goes_to_the_top_popups_first_focus_or_the_pages_first_control[390x844 P3, 20 July]" time="0.962"><failure message="AssertionError: focus is not on P3's Close but on button.hc &quot;Mon 20 Jul, 2 of 3 habits&quot; in dialog.dlg-full.dlg-ov&#10;assert False&#10; +  where False = evaluate('(node) =&gt; node === document.activeElement')&#10; +    where evaluate = &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:62343/'&gt; selector='dialog.dlg-ov button.icon-btn'&gt;.evaluate">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000011F329B2CF0&gt;
+viewport = (390, 844), installed = '2026-10-11T23:59:00+08:00'
+opener = 'button.ov-btn', focused = &lt;function &lt;lambda&gt; at 0x0000011F30B06820&gt;
+name = 'Mon 20 Jul, 2 of 3 habits', target = 'dialog.dlg-ov button.icon-btn'
+what = "P3's Close"
+
+    @pytest.mark.parametrize(
+        "viewport, installed, opener, focused, name, target, what",
+        [
+            pytest.param(
+                DESKTOP, SUNDAY_2359, None, lambda page: band_day(page, "2026-07-20"), "Mon 20 Jul, 2 of 3 habits",
+                "section.band button.btn-all", "the band's Year", id="1280x800 no popup, the band's 20 July",
+            ),
+            pytest.param(
+                DESKTOP, SATURDAY_2359, "section.band button.btn-all", lambda page: p4_day(page, YEAR_START),
+                "Fri 10 Oct 2025, 3 of 3 habits", "dialog.dlg-all button.icon-btn", "P4's Close", id="1280x800 P4, 10 Oct 2025",
+            ),
+            pytest.param(
+                PHONE, SATURDAY_2359, "ul.rows &gt; li.row:first-child button.btn-year", lambda page: bead(page, YEAR_START),
+                "Mark Fri 10 Oct 2025 as done", "dialog.dlg-year button.icon-btn", "P2's Close", id="390x844 P2, 10 Oct 2025",
+            ),
+            pytest.param(
+                PHONE, SUNDAY_2359, "button.ov-btn", lambda page: p3_day(page, "2026-07-20"), "Mon 20 Jul, 2 of 3 habits",
+                "dialog.dlg-ov button.icon-btn", "P3's Close", id="390x844 P3, 20 July",
+            ),
+        ],
+    )
+    def test_R19_R22_focus_whose_day_leaves_the_view_goes_to_the_top_popups_first_focus_or_the_pages_first_control(
+        app, viewport, installed, opener, focused, name, target, what
+    ):
+        page = open_paused(app, installed, viewport=viewport, storage=sample_state())
+        if opener:
+            press(page, page.locator(opener))
+            expect(page.locator("dialog[open]")).to_have_count(1)
+        day = focused(page)
+        tab_to(page, day, limit=400)
+        assert day.get_attribute("aria-label") == name, "precondition, Tab reached the day the scenario names"
+        page.clock.run_for(PAST_MIDNIGHT_MS)
+    
+&gt;       assert_focus_on(page, page.locator(target), what)
+
+tests\browser\test_rollover.py:351: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+page = &lt;Page url='http://127.0.0.1:62343/'&gt;
+locator = &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:62343/'&gt; selector='dialog.dlg-ov button.icon-btn'&gt;
+what = "P3's Close"
+
+    def assert_focus_on(page, locator, what):
+        """The element of `locator` is document.activeElement, else the message says what has focus instead."""
+&gt;       assert locator.evaluate("(node) =&gt; node === document.activeElement"), f"focus is not on {what} but on {page.evaluate(ACTIVE_JS)}"
+E       AssertionError: focus is not on P3's Close but on button.hc "Mon 20 Jul, 2 of 3 habits" in dialog.dlg-full.dlg-ov
+E       assert False
+E        +  where False = evaluate('(node) =&gt; node === document.activeElement')
+E        +    where evaluate = &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:62343/'&gt; selector='dialog.dlg-ov button.icon-btn'&gt;.evaluate
+
+tests\browser\test_rollover.py:113: AssertionError</failure></testcase><testcase classname="tests.browser.test_rollover" name="test_R19_R37_p1_open_on_the_oldest_day_of_the_year_when_midnight_passes" time="4.246"><failure message="AssertionError: P4 still holds a button for 10 October 2025&#10;assert 1 == 0&#10; +  where 1 = count()&#10; +    where count = &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:62343/'&gt; selector='dialog.dlg-all div.months button.hc[data-key=&quot;2025-10-10&quot;]'&gt;.count&#10; +      where &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:62343/'&gt; selector='dialog.dlg-all div.months button.hc[data-key=&quot;2025-10-10&quot;]'&gt; = p4_day(&lt;Page url='http://127.0.0.1:62343/'&gt;, '2025-10-10')">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000011F329B1430&gt;
+
+    def test_R19_R37_p1_open_on_the_oldest_day_of_the_year_when_midnight_passes(app):
+        page = open_paused(app, SATURDAY_2359, viewport=DESKTOP, storage=sample_state(), count_writes=True)
+        press(page, page.locator("section.band button.btn-all"))
+        expect(page.locator("dialog.dlg-all")).to_have_attribute("open", "")
+        tab_to(page, p4_day(page, YEAR_START), limit=400)
+        page.keyboard.press("Enter")
+        p1 = page.locator("dialog.dlg-day")
+        expect(p1).to_have_attribute("open", "")
+        text = stored(page)
+        page.clock.run_for(PAST_MIDNIGHT_MS)
+    
+        assert p1.evaluate(P1_HEAD_JS) == [True, "Friday 10 October", "3 of 3 habits"], "P1 did not stay open on its day"
+&gt;       assert p4_day(page, YEAR_START).count() == 0, "P4 still holds a button for 10 October 2025"
+E       AssertionError: P4 still holds a button for 10 October 2025
+E       assert 1 == 0
+E        +  where 1 = count()
+E        +    where count = &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:62343/'&gt; selector='dialog.dlg-all div.months button.hc[data-key="2025-10-10"]'&gt;.count
+E        +      where &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:62343/'&gt; selector='dialog.dlg-all div.months button.hc[data-key="2025-10-10"]'&gt; = p4_day(&lt;Page url='http://127.0.0.1:62343/'&gt;, '2025-10-10')
+
+tests\browser\test_rollover.py:366: AssertionError</failure></testcase><testcase classname="tests.browser.test_rollover" name="test_R20_the_view_moves_at_once_when_the_tab_is_shown_again" time="0.222"><failure message="AssertionError: the header shows ['2026-10-10', 'Saturday 10 October']&#10;assert ['2026-10-10'...y 10 October'] == ['2026-10-11'...y 11 October']&#10;  &#10;  At index 0 diff: '2026-10-10' != '2026-10-11'&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000011F35088BF0&gt;
+
+    def test_R20_the_view_moves_at_once_when_the_tab_is_shown_again(app):
+        page = app(install_time="2026-10-10T23:58:00+08:00", viewport=DESKTOP, storage=sample_state())
+        page.clock.pause_at("2026-10-10T23:59:00+08:00")
+        hide_tab(page)
+        page.clock.set_system_time("2026-10-11T07:30:00+08:00")
+        assert shown_date(page)[1] == "Saturday 10 October", "precondition, setting the system time fired no check"
+    
+        show_tab(page)
+&gt;       assert_the_page_shows_sunday(page)
+
+tests\browser\test_rollover.py:390: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+page = &lt;Page url='http://127.0.0.1:62343/'&gt;
+
+    def assert_the_page_shows_sunday(page):
+        """K1 after the rollover from Saturday 10 to Sunday 11 October 2026, spec R19's worked example."""
+&gt;       assert shown_date(page) == ["2026-10-11", "Sunday 11 October"], f"the header shows {shown_date(page)}"
+E       AssertionError: the header shows ['2026-10-10', 'Saturday 10 October']
+E       assert ['2026-10-10'...y 10 October'] == ['2026-10-11'...y 11 October']
+E         
+E         At index 0 diff: '2026-10-10' != '2026-10-11'
+E         Use -v to get more diff
+
+tests\browser\test_rollover.py:143: AssertionError</failure></testcase></testsuite></testsuites>

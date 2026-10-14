@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="4.831" timestamp="2026-10-14T22:39:08.218829+08:00" hostname="{host}"><testcase classname="tests.browser.test_rollover" name="test_R19_R37_p1_open_on_the_oldest_day_of_the_year_when_midnight_passes" time="4.794"><failure message="AssertionError: the tick flipped on a day the year no longer holds&#10;assert 'false' == 'true'&#10;  &#10;  - true&#10;  + false">app = &lt;function app.&lt;locals&gt;.open_page at 0x00000224F02C8250&gt;
+
+    def test_R19_R37_p1_open_on_the_oldest_day_of_the_year_when_midnight_passes(app):
+        page = open_paused(app, SATURDAY_2359, viewport=DESKTOP, storage=sample_state(), count_writes=True)
+        press(page, page.locator("section.band button.btn-all"))
+        expect(page.locator("dialog.dlg-all")).to_have_attribute("open", "")
+        tab_to(page, p4_day(page, YEAR_START), limit=400)
+        page.keyboard.press("Enter")
+        p1 = page.locator("dialog.dlg-day")
+        expect(p1).to_have_attribute("open", "")
+        text = stored(page)
+        page.clock.run_for(PAST_MIDNIGHT_MS)
+    
+        assert p1.evaluate(P1_HEAD_JS) == [True, "Friday 10 October", "3 of 3 habits"], "P1 did not stay open on its day"
+        assert p4_day(page, YEAR_START).count() == 0, "P4 still holds a button for 10 October 2025"
+    
+        read = tick(page, "Read 20 pages")
+        settle(page)
+        press(page, read)
+&gt;       assert read.get_attribute("aria-pressed") == "true", "the tick flipped on a day the year no longer holds"
+E       AssertionError: the tick flipped on a day the year no longer holds
+E       assert 'false' == 'true'
+E         
+E         - true
+E         + false
+
+tests\browser\test_rollover.py:371: AssertionError</failure></testcase></testsuite></testsuites>
