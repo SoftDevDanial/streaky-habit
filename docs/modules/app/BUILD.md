@@ -858,3 +858,56 @@ No `src/` or `index.html` change, so no new copy, icon, motion, shadow or keyboa
 ### For the README reconcile
 - No `src/` change.
 - The browser suite gains `test_platform.py`. `conftest.py` gains `animation_log` and `animations`.
+
+## v1.1.0 task 26, the fidelity state scripts (2026-10-14)
+> Written by the frontend builder (senior frontend dev agent), 2026-10-14. Requirement R28. The commit is the one whose message starts `test(app): the fidelity state scripts`.
+
+### Phase skills (design row of `docs/phase-skills.md`)
+Read on disk in this session (no Skill tool). `frontend-design` (`claude-plugins-official/frontend-design/8d392c816966/skills/frontend-design/SKILL.md`, all 71 lines). `taste-skill` (`taste-skill/1.0.0/skills/taste-skill/SKILL.md`) by its heading index of 1206 lines only, because of the deadline of this run. Its full text was read at task 25.
+- **What they changed.** Nothing. Task 26 writes test-side scripts that put the app into the states the goldens draw, and changes no file in `src/` and not `index.html`.
+- **Transferred and checked.** "1-to-1 with the design" through the scripts themselves. Each after-load script reaches exactly the state its golden draws (the `@R28` table) and ends with no focus, because the goldens draw no focus ring. No em or en dash in any file written (checked with Python).
+- **Not transferred, and why.** Every look, type, colour and motion rule. Nothing visible is built in this task.
+
+### What changed
+- `tests/browser/fidelity/seed-sample.js` and `seed-twelve.js`. Each is the exact text of `CLIPBOARD_STANDIN`, then one `localStorage.setItem("streaks.state", ...)` with the first three or all twelve v1.1.0 sample habits (`seed-sample.js` rewritten from its 1.0 form, `seed-twelve.js` new).
+- `tests/browser/fidelity/open-day-editor.js`, `open-year-view.js`, `open-overview.js`, `open-overview-year.js` (new) and `open-delete-dialog.js` (rewritten, it now opens M1 for "Stretch 10 minutes"). Each first refuses to click when `navigator.clipboard` exists and `Clipboard.prototype.writeText` is native, clicks with `element.click()`, throws an `Error` starting `fidelity:` unless its state of the `@R28` table is reached, and ends with `document.activeElement.blur()`.
+- `tests/browser/test_fidelity_inputs.py` (written again, task 12 removed its 1.0 form in `3e1db38`). 26 tests. The two seed texts, the 14 table rows by script and width, a throw check per after-load script, and the control per after-load script.
+- `spec.md` task 26 ticked.
+
+### The WebKit measurement the spec asked for first
+Each after-load script opens its popup with `element.click()` (no pointer event), then blurs. `document.activeElement` after the blur was recorded for all 14 rows in each engine (`fidelity-blur-*.json` in each proof folder). It is `body` in Chromium and `body` in WebKit for every row, with P1, P2, P3, P4 or M1 open. The mouse click case of the engine table (focus left on the popup's `dialog`) does not arise, because the scripts send no mouse event. So qa.md's engine table needs no new line, and the scenario's "document.activeElement is body" holds in both engines as written.
+
+### RED first
+Both runs are Chromium, in `docs/modules/app/qa/red-first/`.
+1. `20261014-233305-chromium`. The five new names as empty files (qa.md "Controls are watched failing first", row 26), and `seed-sample.js` and `open-delete-dialog.js` in their 1.0 forms. 26 failed, all on assertions. Both seed texts do not start with `CLIPBOARD_STANDIN`. The 14 table rows and the 5 throw checks fail on "Clipboard.prototype.writeText is native before the after-load script", because the 1.0 seed brings no stand-in. The 5 controls fail on "did not refuse to click without the stand-in".
+2. `20261014-233428-chromium`. The new `seed-sample.js`, the other names as before. 25 failed, 1 passed (the new sample seed). `seed-twelve.js` fails its text check. The 11 table rows of the four empty scripts fail on "left [] open, the table names ...". The four throw checks fail on "returned although no dialog opened", the five controls on "did not refuse to click". The 1.0 `open-delete-dialog.js` fails its 3 table rows by its own `TypeError` (its 1.0 selector finds no bin), so the test now catches any throw and asserts "threw on a page where its state can be reached", and its throw check fails on "failed by something other than its own state check".
+
+### Proof
+- Chromium, **348 passed**, 145.0 s (`docs/modules/app/qa/functional/20261014-233936-chromium/junit.xml`). 322 of task 25, plus 26 new.
+- WebKit, **347 passed, 1 skipped (CO-1, counted with its reason)**, 228.7 s (`docs/modules/app/qa/functional/20261014-234211-webkit/junit.xml`). No WebKit failure. The WebKit control line records `navigator.clipboard` present for all five scripts (`fidelity-control-*.json`) and asserts nothing more, as qa.md says.
+- Node, `node --test "tests/**/*.test.js"`, 137 of 137.
+
+### Judgment calls (named, for the orchestrator)
+1. **The test context is built like the harness, not through `open_app`.** `open_app` adds `CLIPBOARD_STANDIN` itself, which would hide a seed without a stand-in. `harness_page` gives the context only the seed script, then a second stand-in on the navigator object, so no context of this file can reach the system clipboard while `Clipboard.prototype` still shows only what the seed did.
+2. **The throw check plants a dead `showModal`** (a test-side init script, never committed to `src/`). With it no script can reach its state, and each must throw its own `fidelity:` error, not a `TypeError`.
+3. **The control counts clicks with a capture listener** on the document, held in a returned object, so it adds no property to `window`.
+4. **The seed scripts carry no comment.** The scenario allows the stand-in and then one statement, so the header comment of the 1.0 seed is gone. The test asserts the text after the stand-in is exactly one `setItem` call and runs it against a stand-in store.
+5. **P3 under P4 is not checked for scroll.** The table names P4's `scrollTop` only for that row.
+
+### Open questions (for the planner, not decided)
+None.
+
+### Deviations
+- None in the code.
+- Process. The `taste-skill` read was its heading index only, named above.
+
+### Non-goals honoured
+No `src/` or `index.html` change. No test hook in the app. The scripts are test-side and never loaded by the app.
+
+### How to run and view
+- `python -m pytest tests/browser/test_fidelity_inputs.py -q` (Chromium) and `python -m pytest tests/browser/test_fidelity_inputs.py -q --engine webkit`.
+- The fidelity gate itself is task 28, run by the finders with the command of qa.md "Fidelity gate".
+
+### For the README reconcile
+- No `src/` change.
+- `tests/browser/fidelity/` now holds the two v1.1.0 seed scripts and the five after-load scripts the fidelity harness takes.

@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="26" skipped="0" tests="26" time="4.045" timestamp="2026-10-14T23:33:07.192711+08:00" hostname="{host}"><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_seed_script_is_the_standin_then_one_setItem_of_the_sample[seed-sample.js]" time="0.356"><failure message="AssertionError: seed-sample.js does not start with the exact text of CLIPBOARD_STANDIN&#10;assert False&#10; +  where False = &lt;built-in method startswith of str object at 0x000001ED5CFB9150&gt;(&quot;(() =&gt; {\n  if (!navigator.clipboard || typeof Clipboard !== 'function') return;\n  for (const method of ['writeText'...eturn Promise.resolve(method === 'readText' ? '' : method === 'read' ? [] : undefined);\n      },\n    });\n  }\n})();&quot;)&#10; +    where &lt;built-in method startswith of str object at 0x000001ED5CFB9150&gt; = '// Candidate init script for the plugin fidelity harness (--candidate-init-script). Test-side only, never shipped.\n/...9-22\\&quot;,\\&quot;2026-09-26\\&quot;,\\&quot;2026-09-30\\&quot;,\\&quot;2026-10-01\\&quot;,\\&quot;2026-10-03\\&quot;,\\&quot;2026-10-06\\&quot;,\\&quot;2026-10-08\\&quot;]}]}&quot;);\n'.startswith">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+name = 'seed-sample.js'
+
+    @pytest.mark.parametrize("name", SEEDS)
+    def test_R28_each_seed_script_is_the_standin_then_one_setItem_of_the_sample(browser, name):
+        text = script(name)
+&gt;       assert text.startswith(CLIPBOARD_STANDIN), f"{name} does not start with the exact text of CLIPBOARD_STANDIN"
+E       AssertionError: seed-sample.js does not start with the exact text of CLIPBOARD_STANDIN
+E       assert False
+E        +  where False = &lt;built-in method startswith of str object at 0x000001ED5CFB9150&gt;("(() =&gt; {\n  if (!navigator.clipboard || typeof Clipboard !== 'function') return;\n  for (const method of ['writeText'...eturn Promise.resolve(method === 'readText' ? '' : method === 'read' ? [] : undefined);\n      },\n    });\n  }\n})();")
+E        +    where &lt;built-in method startswith of str object at 0x000001ED5CFB9150&gt; = '// Candidate init script for the plugin fidelity harness (--candidate-init-script). Test-side only, never shipped.\n/...9-22\\",\\"2026-09-26\\",\\"2026-09-30\\",\\"2026-10-01\\",\\"2026-10-03\\",\\"2026-10-06\\",\\"2026-10-08\\"]}]}");\n'.startswith
+
+tests\browser\test_fidelity_inputs.py:100: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_seed_script_is_the_standin_then_one_setItem_of_the_sample[seed-twelve.js]" time="0.001"><failure message="AssertionError: seed-twelve.js does not start with the exact text of CLIPBOARD_STANDIN&#10;assert False&#10; +  where False = &lt;built-in method startswith of str object at 0x00007FFAFE01F790&gt;(&quot;(() =&gt; {\n  if (!navigator.clipboard || typeof Clipboard !== 'function') return;\n  for (const method of ['writeText'...eturn Promise.resolve(method === 'readText' ? '' : method === 'read' ? [] : undefined);\n      },\n    });\n  }\n})();&quot;)&#10; +    where &lt;built-in method startswith of str object at 0x00007FFAFE01F790&gt; = ''.startswith">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+name = 'seed-twelve.js'
+
+    @pytest.mark.parametrize("name", SEEDS)
+    def test_R28_each_seed_script_is_the_standin_then_one_setItem_of_the_sample(browser, name):
+        text = script(name)
+&gt;       assert text.startswith(CLIPBOARD_STANDIN), f"{name} does not start with the exact text of CLIPBOARD_STANDIN"
+E       AssertionError: seed-twelve.js does not start with the exact text of CLIPBOARD_STANDIN
+E       assert False
+E        +  where False = &lt;built-in method startswith of str object at 0x00007FFAFE01F790&gt;("(() =&gt; {\n  if (!navigator.clipboard || typeof Clipboard !== 'function') return;\n  for (const method of ['writeText'...eturn Promise.resolve(method === 'readText' ? '' : method === 'read' ? [] : undefined);\n      },\n    });\n  }\n})();")
+E        +    where &lt;built-in method startswith of str object at 0x00007FFAFE01F790&gt; = ''.startswith
+
+tests\browser\test_fidelity_inputs.py:100: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_leaves_its_state_with_nothing_focused[open-day-editor.js-360x780]" time="0.147"><failure message="AssertionError: Clipboard.prototype.writeText is native before the after-load script&#10;assert False&#10; +  where False = evaluate(&quot;() =&gt; !navigator.clipboard\n  || !Function.prototype.toString.call(Clipboard.prototype.writeText).includes('[native code]')&quot;)&#10; +    where evaluate = &lt;Page url='http://127.0.0.1:8104/'&gt;.evaluate">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+engine = 'chromium', name = 'open-day-editor.js', viewport = (360, 780)
+dialogs = {'dlg-day', 'dlg-ov'}
+
+    @pytest.mark.parametrize("name, viewport, dialogs", PARAMS)
+    def test_R28_each_after_load_script_leaves_its_state_with_nothing_focused(browser, engine, name, viewport, dialogs):
+        context, page = harness_page(browser, viewport, [script("seed-sample.js"), NAVIGATOR_STANDIN])
+        try:
+            assert page.locator("ul.rows &gt; li.row").count() == 3, "the seed did not give the app the three sample habits"
+&gt;           assert page.evaluate(STANDIN_IN_PLACE_JS), "Clipboard.prototype.writeText is native before the after-load script"
+E           AssertionError: Clipboard.prototype.writeText is native before the after-load script
+E           assert False
+E            +  where False = evaluate("() =&gt; !navigator.clipboard\n  || !Function.prototype.toString.call(Clipboard.prototype.writeText).includes('[native code]')")
+E            +    where evaluate = &lt;Page url='http://127.0.0.1:8104/'&gt;.evaluate
+
+tests\browser\test_fidelity_inputs.py:148: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_leaves_its_state_with_nothing_focused[open-day-editor.js-390x844]" time="0.119"><failure message="AssertionError: Clipboard.prototype.writeText is native before the after-load script&#10;assert False&#10; +  where False = evaluate(&quot;() =&gt; !navigator.clipboard\n  || !Function.prototype.toString.call(Clipboard.prototype.writeText).includes('[native code]')&quot;)&#10; +    where evaluate = &lt;Page url='http://127.0.0.1:8104/'&gt;.evaluate">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+engine = 'chromium', name = 'open-day-editor.js', viewport = (390, 844)
+dialogs = {'dlg-day', 'dlg-ov'}
+
+    @pytest.mark.parametrize("name, viewport, dialogs", PARAMS)
+    def test_R28_each_after_load_script_leaves_its_state_with_nothing_focused(browser, engine, name, viewport, dialogs):
+        context, page = harness_page(browser, viewport, [script("seed-sample.js"), NAVIGATOR_STANDIN])
+        try:
+            assert page.locator("ul.rows &gt; li.row").count() == 3, "the seed did not give the app the three sample habits"
+&gt;           assert page.evaluate(STANDIN_IN_PLACE_JS), "Clipboard.prototype.writeText is native before the after-load script"
+E           AssertionError: Clipboard.prototype.writeText is native before the after-load script
+E           assert False
+E            +  where False = evaluate("() =&gt; !navigator.clipboard\n  || !Function.prototype.toString.call(Clipboard.prototype.writeText).includes('[native code]')")
+E            +    where evaluate = &lt;Page url='http://127.0.0.1:8104/'&gt;.evaluate
+
+tests\browser\test_fidelity_inputs.py:148: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_leaves_its_state_with_nothing_focused[open-day-editor.js-1280x800]" time="0.112"><failure message="AssertionError: Clipboard.prototype.writeText is native before the after-load script&#10;assert False&#10; +  where False = evaluate(&quot;() =&gt; !navigator.clipboard\n  || !Function.prototype.toString.call(Clipboard.prototype.writeText).includes('[native code]')&quot;)&#10; +    where evaluate = &lt;Page url='http://127.0.0.1:8104/'&gt;.evaluate">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+engine = 'chromium', name = 'open-day-editor.js', viewport = (1280, 800)
+dialogs = {'dlg-day'}
+
+    @pytest.mark.parametrize("name, viewport, dialogs", PARAMS)
+    def test_R28_each_after_load_script_leaves_its_state_with_nothing_focused(browser, engine, name, viewport, dialogs):
+        context, page = harness_page(browser, viewport, [script("seed-sample.js"), NAVIGATOR_STANDIN])
+        try:
+            assert page.locator("ul.rows &gt; li.row").count() == 3, "the seed did not give the app the three sample habits"
+&gt;           assert page.evaluate(STANDIN_IN_PLACE_JS), "Clipboard.prototype.writeText is native before the after-load script"
+E           AssertionError: Clipboard.prototype.writeText is native before the after-load script
+E           assert False
+E            +  where False = evaluate("() =&gt; !navigator.clipboard\n  || !Function.prototype.toString.call(Clipboard.prototype.writeText).includes('[native code]')")
+E            +    where evaluate = &lt;Page url='http://127.0.0.1:8104/'&gt;.evaluate
+
+tests\browser\test_fidelity_inputs.py:148: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_leaves_its_state_with_nothing_focused[open-year-view.js-360x780]" time="0.110"><failure message="AssertionError: Clipboard.prototype.writeText is native before the after-load script&#10;assert False&#10; +  where False = evaluate(&quot;() =&gt; !navigator.clipboard\n  || !Function.prototype.toString.call(Clipboard.prototype.writeText).includes('[native code]')&quot;)&#10; +    where evaluate = &lt;Page url='http://127.0.0.1:8104/'&gt;.evaluate">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+engine = 'chromium', name = 'open-year-view.js', viewport = (360, 780)
+dialogs = {'dlg-year'}
+
+    @pytest.mark.parametrize("name, viewport, dialogs", PARAMS)
+    def test_R28_each_after_load_script_leaves_its_state_with_nothing_focused(browser, engine, name, viewport, dialogs):
+        context, page = harness_page(browser, viewport, [script("seed-sample.js"), NAVIGATOR_STANDIN])
+        try:
+            assert page.locator("ul.rows &gt; li.row").count() == 3, "the seed did not give the app the three sample habits"
+&gt;           assert page.evaluate(STANDIN_IN_PLACE_JS), "Clipboard.prototype.writeText is native before the after-load script"
+E           AssertionError: Clipboard.prototype.writeText is native before the after-load script
+E           assert False
+E            +  where False = evaluate("() =&gt; !navigator.clipboard\n  || !Function.prototype.toString.call(Clipboard.prototype.writeText).includes('[native code]')")
+E            +    where evaluate = &lt;Page url='http://127.0.0.1:8104/'&gt;.evaluate
+
+tests\browser\test_fidelity_inputs.py:148: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_leaves_its_state_with_nothing_focused[open-year-view.js-390x844]" time="0.108"><failure message="AssertionError: Clipboard.prototype.writeText is native before the after-load script&#10;assert False&#10; +  where False = evaluate(&quot;() =&gt; !navigator.clipboard\n  || !Function.prototype.toString.call(Clipboard.prototype.writeText).includes('[native code]')&quot;)&#10; +    where evaluate = &lt;Page url='http://127.0.0.1:8104/'&gt;.evaluate">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+engine = 'chromium', name = 'open-year-view.js', viewport = (390, 844)
+dialogs = {'dlg-year'}
+
+    @pytest.mark.parametrize("name, viewport, dialogs", PARAMS)
+    def test_R28_each_after_load_script_leaves_its_state_with_nothing_focused(browser, engine, name, viewport, dialogs):
+        context, page = harness_page(browser, viewport, [script("seed-sample.js"), NAVIGATOR_STANDIN])
+        try:
+            assert page.locator("ul.rows &gt; li.row").count() == 3, "the seed did not give the app the three sample habits"
+&gt;           assert page.evaluate(STANDIN_IN_PLACE_JS), "Clipboard.prototype.writeText is native before the after-load script"
+E           AssertionError: Clipboard.prototype.writeText is native before the after-load script
+E           assert False
+E            +  where False = evaluate("() =&gt; !navigator.clipboard\n  || !Function.prototype.toString.call(Clipboard.prototype.writeText).includes('[native code]')")
+E            +    where evaluate = &lt;Page url='http://127.0.0.1:8104/'&gt;.evaluate
+
+tests\browser\test_fidelity_inputs.py:148: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_leaves_its_state_with_nothing_focused[open-year-view.js-1280x800]" time="0.118"><failure message="AssertionError: Clipboard.prototype.writeText is native before the after-load script&#10;assert False&#10; +  where False = evaluate(&quot;() =&gt; !navigator.clipboard\n  || !Function.prototype.toString.call(Clipboard.prototype.writeText).includes('[native code]')&quot;)&#10; +    where evaluate = &lt;Page url='http://127.0.0.1:8104/'&gt;.evaluate">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+engine = 'chromium', name = 'open-year-view.js', viewport = (1280, 800)
+dialogs = {'dlg-year'}
+
+    @pytest.mark.parametrize("name, viewport, dialogs", PARAMS)
+    def test_R28_each_after_load_script_leaves_its_state_with_nothing_focused(browser, engine, name, viewport, dialogs):
+        context, page = harness_page(browser, viewport, [script("seed-sample.js"), NAVIGATOR_STANDIN])
+        try:
+            assert page.locator("ul.rows &gt; li.row").count() == 3, "the seed did not give the app the three sample habits"
+&gt;           assert page.evaluate(STANDIN_IN_PLACE_JS), "Clipboard.prototype.writeText is native before the after-load script"
+E           AssertionError: Clipboard.prototype.writeText is native before the after-load script
+E           assert False
+E            +  where False = evaluate("() =&gt; !navigator.clipboard\n  || !Function.prototype.toString.call(Clipboard.prototype.writeText).includes('[native code]')")
+E            +    where evaluate = &lt;Page url='http://127.0.0.1:8104/'&gt;.evaluate
+
+tests\browser\test_fidelity_inputs.py:148: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_leaves_its_state_with_nothing_focused[open-overview.js-360x780]" time="0.123"><failure message="AssertionError: Clipboard.prototype.writeText is native before the after-load script&#10;assert False&#10; +  where False = evaluate(&quot;() =&gt; !navigator.clipboard\n  || !Function.prototype.toString.call(Clipboard.prototype.writeText).includes('[native code]')&quot;)&#10; +    where evaluate = &lt;Page url='http://127.0.0.1:8104/'&gt;.evaluate">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+engine = 'chromium', name = 'open-overview.js', viewport = (360, 780)
+dialogs = {'dlg-ov'}
+
+    @pytest.mark.parametrize("name, viewport, dialogs", PARAMS)
+    def test_R28_each_after_load_script_leaves_its_state_with_nothing_focused(browser, engine, name, viewport, dialogs):
+        context, page = harness_page(browser, viewport, [script("seed-sample.js"), NAVIGATOR_STANDIN])
+        try:
+            assert page.locator("ul.rows &gt; li.row").count() == 3, "the seed did not give the app the three sample habits"
+&gt;           assert page.evaluate(STANDIN_IN_PLACE_JS), "Clipboard.prototype.writeText is native before the after-load script"
+E           AssertionError: Clipboard.prototype.writeText is native before the after-load script
+E           assert False
+E            +  where False = evaluate("() =&gt; !navigator.clipboard\n  || !Function.prototype.toString.call(Clipboard.prototype.writeText).includes('[native code]')")
+E            +    where evaluate = &lt;Page url='http://127.0.0.1:8104/'&gt;.evaluate
+
+tests\browser\test_fidelity_inputs.py:148: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_leaves_its_state_with_nothing_focused[open-overview.js-390x844]" time="0.116"><failure message="AssertionError: Clipboard.prototype.writeText is native before the after-load script&#10;assert False&#10; +  where False = evaluate(&quot;() =&gt; !navigator.clipboard\n  || !Function.prototype.toString.call(Clipboard.prototype.writeText).includes('[native code]')&quot;)&#10; +    where evaluate = &lt;Page url='http://127.0.0.1:8104/'&gt;.evaluate">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+engine = 'chromium', name = 'open-overview.js', viewport = (390, 844)
+dialogs = {'dlg-ov'}
+
+    @pytest.mark.parametrize("name, viewport, dialogs", PARAMS)
+    def test_R28_each_after_load_script_leaves_its_state_with_nothing_focused(browser, engine, name, viewport, dialogs):
+        context, page = harness_page(browser, viewport, [script("seed-sample.js"), NAVIGATOR_STANDIN])
+        try:
+            assert page.locator("ul.rows &gt; li.row").count() == 3, "the seed did not give the app the three sample habits"
+&gt;           assert page.evaluate(STANDIN_IN_PLACE_JS), "Clipboard.prototype.writeText is native before the after-load script"
+E           AssertionError: Clipboard.prototype.writeText is native before the after-load script
+E           assert False
+E            +  where False = evaluate("() =&gt; !navigator.clipboard\n  || !Function.prototype.toString.call(Clipboard.prototype.writeText).includes('[native code]')")
+E            +    where evaluate = &lt;Page url='http://127.0.0.1:8104/'&gt;.evaluate
+
+tests\browser\test_fidelity_inputs.py:148: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_leaves_its_state_with_nothing_focused[open-overview-year.js-360x780]" time="0.136"><failure message="AssertionError: Clipboard.prototype.writeText is native before the after-load script&#10;assert False&#10; +  where False = evaluate(&quot;() =&gt; !navigator.clipboard\n  || !Function.prototype.toString.call(Clipboard.prototype.writeText).includes('[native code]')&quot;)&#10; +    where evaluate = &lt;Page url='http://127.0.0.1:8104/'&gt;.evaluate">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+engine = 'chromium', name = 'open-overview-year.js', viewport = (360, 780)
+dialogs = {'dlg-all', 'dlg-ov'}
+
+    @pytest.mark.parametrize("name, viewport, dialogs", PARAMS)
+    def test_R28_each_after_load_script_leaves_its_state_with_nothing_focused(browser, engine, name, viewport, dialogs):
+        context, page = harness_page(browser, viewport, [script("seed-sample.js"), NAVIGATOR_STANDIN])
+        try:
+            assert page.locator("ul.rows &gt; li.row").count() == 3, "the seed did not give the app the three sample habits"
+&gt;           assert page.evaluate(STANDIN_IN_PLACE_JS), "Clipboard.prototype.writeText is native before the after-load script"
+E           AssertionError: Clipboard.prototype.writeText is native before the after-load script
+E           assert False
+E            +  where False = evaluate("() =&gt; !navigator.clipboard\n  || !Function.prototype.toString.call(Clipboard.prototype.writeText).includes('[native code]')")
+E            +    where evaluate = &lt;Page url='http://127.0.0.1:8104/'&gt;.evaluate
+
+tests\browser\test_fidelity_inputs.py:148: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_leaves_its_state_with_nothing_focused[open-overview-year.js-390x844]" time="0.143"><failure message="AssertionError: Clipboard.prototype.writeText is native before the after-load script&#10;assert False&#10; +  where False = evaluate(&quot;() =&gt; !navigator.clipboard\n  || !Function.prototype.toString.call(Clipboard.prototype.writeText).includes('[native code]')&quot;)&#10; +    where evaluate = &lt;Page url='http://127.0.0.1:8104/'&gt;.evaluate">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+engine = 'chromium', name = 'open-overview-year.js', viewport = (390, 844)
+dialogs = {'dlg-all', 'dlg-ov'}
+
+    @pytest.mark.parametrize("name, viewport, dialogs", PARAMS)
+    def test_R28_each_after_load_script_leaves_its_state_with_nothing_focused(browser, engine, name, viewport, dialogs):
+        context, page = harness_page(browser, viewport, [script("seed-sample.js"), NAVIGATOR_STANDIN])
+        try:
+            assert page.locator("ul.rows &gt; li.row").count() == 3, "the seed did not give the app the three sample habits"
+&gt;           assert page.evaluate(STANDIN_IN_PLACE_JS), "Clipboard.prototype.writeText is native before the after-load script"
+E           AssertionError: Clipboard.prototype.writeText is native before the after-load script
+E           assert False
+E            +  where False = evaluate("() =&gt; !navigator.clipboard\n  || !Function.prototype.toString.call(Clipboard.prototype.writeText).includes('[native code]')")
+E            +    where evaluate = &lt;Page url='http://127.0.0.1:8104/'&gt;.evaluate
+
+tests\browser\test_fidelity_inputs.py:148: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_leaves_its_state_with_nothing_focused[open-overview-year.js-1280x800]" time="0.149"><failure message="AssertionError: Clipboard.prototype.writeText is native before the after-load script&#10;assert False&#10; +  where False = evaluate(&quot;() =&gt; !navigator.clipboard\n  || !Function.prototype.toString.call(Clipboard.prototype.writeText).includes('[native code]')&quot;)&#10; +    where evaluate = &lt;Page url='http://127.0.0.1:8104/'&gt;.evaluate">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+engine = 'chromium', name = 'open-overview-year.js', viewport = (1280, 800)
+dialogs = {'dlg-all'}
+
+    @pytest.mark.parametrize("name, viewport, dialogs", PARAMS)
+    def test_R28_each_after_load_script_leaves_its_state_with_nothing_focused(browser, engine, name, viewport, dialogs):
+        context, page = harness_page(browser, viewport, [script("seed-sample.js"), NAVIGATOR_STANDIN])
+        try:
+            assert page.locator("ul.rows &gt; li.row").count() == 3, "the seed did not give the app the three sample habits"
+&gt;           assert page.evaluate(STANDIN_IN_PLACE_JS), "Clipboard.prototype.writeText is native before the after-load script"
+E           AssertionError: Clipboard.prototype.writeText is native before the after-load script
+E           assert False
+E            +  where False = evaluate("() =&gt; !navigator.clipboard\n  || !Function.prototype.toString.call(Clipboard.prototype.writeText).includes('[native code]')")
+E            +    where evaluate = &lt;Page url='http://127.0.0.1:8104/'&gt;.evaluate
+
+tests\browser\test_fidelity_inputs.py:148: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_leaves_its_state_with_nothing_focused[open-delete-dialog.js-360x780]" time="0.130"><failure message="AssertionError: Clipboard.prototype.writeText is native before the after-load script&#10;assert False&#10; +  where False = evaluate(&quot;() =&gt; !navigator.clipboard\n  || !Function.prototype.toString.call(Clipboard.prototype.writeText).includes('[native code]')&quot;)&#10; +    where evaluate = &lt;Page url='http://127.0.0.1:8104/'&gt;.evaluate">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+engine = 'chromium', name = 'open-delete-dialog.js', viewport = (360, 780)
+dialogs = {'dlg-del'}
+
+    @pytest.mark.parametrize("name, viewport, dialogs", PARAMS)
+    def test_R28_each_after_load_script_leaves_its_state_with_nothing_focused(browser, engine, name, viewport, dialogs):
+        context, page = harness_page(browser, viewport, [script("seed-sample.js"), NAVIGATOR_STANDIN])
+        try:
+            assert page.locator("ul.rows &gt; li.row").count() == 3, "the seed did not give the app the three sample habits"
+&gt;           assert page.evaluate(STANDIN_IN_PLACE_JS), "Clipboard.prototype.writeText is native before the after-load script"
+E           AssertionError: Clipboard.prototype.writeText is native before the after-load script
+E           assert False
+E            +  where False = evaluate("() =&gt; !navigator.clipboard\n  || !Function.prototype.toString.call(Clipboard.prototype.writeText).includes('[native code]')")
+E            +    where evaluate = &lt;Page url='http://127.0.0.1:8104/'&gt;.evaluate
+
+tests\browser\test_fidelity_inputs.py:148: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_leaves_its_state_with_nothing_focused[open-delete-dialog.js-390x844]" time="0.128"><failure message="AssertionError: Clipboard.prototype.writeText is native before the after-load script&#10;assert False&#10; +  where False = evaluate(&quot;() =&gt; !navigator.clipboard\n  || !Function.prototype.toString.call(Clipboard.prototype.writeText).includes('[native code]')&quot;)&#10; +    where evaluate = &lt;Page url='http://127.0.0.1:8104/'&gt;.evaluate">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+engine = 'chromium', name = 'open-delete-dialog.js', viewport = (390, 844)
+dialogs = {'dlg-del'}
+
+    @pytest.mark.parametrize("name, viewport, dialogs", PARAMS)
+    def test_R28_each_after_load_script_leaves_its_state_with_nothing_focused(browser, engine, name, viewport, dialogs):
+        context, page = harness_page(browser, viewport, [script("seed-sample.js"), NAVIGATOR_STANDIN])
+        try:
+            assert page.locator("ul.rows &gt; li.row").count() == 3, "the seed did not give the app the three sample habits"
+&gt;           assert page.evaluate(STANDIN_IN_PLACE_JS), "Clipboard.prototype.writeText is native before the after-load script"
+E           AssertionError: Clipboard.prototype.writeText is native before the after-load script
+E           assert False
+E            +  where False = evaluate("() =&gt; !navigator.clipboard\n  || !Function.prototype.toString.call(Clipboard.prototype.writeText).includes('[native code]')")
+E            +    where evaluate = &lt;Page url='http://127.0.0.1:8104/'&gt;.evaluate
+
+tests\browser\test_fidelity_inputs.py:148: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_leaves_its_state_with_nothing_focused[open-delete-dialog.js-1280x800]" time="0.124"><failure message="AssertionError: Clipboard.prototype.writeText is native before the after-load script&#10;assert False&#10; +  where False = evaluate(&quot;() =&gt; !navigator.clipboard\n  || !Function.prototype.toString.call(Clipboard.prototype.writeText).includes('[native code]')&quot;)&#10; +    where evaluate = &lt;Page url='http://127.0.0.1:8104/'&gt;.evaluate">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+engine = 'chromium', name = 'open-delete-dialog.js', viewport = (1280, 800)
+dialogs = {'dlg-del'}
+
+    @pytest.mark.parametrize("name, viewport, dialogs", PARAMS)
+    def test_R28_each_after_load_script_leaves_its_state_with_nothing_focused(browser, engine, name, viewport, dialogs):
+        context, page = harness_page(browser, viewport, [script("seed-sample.js"), NAVIGATOR_STANDIN])
+        try:
+            assert page.locator("ul.rows &gt; li.row").count() == 3, "the seed did not give the app the three sample habits"
+&gt;           assert page.evaluate(STANDIN_IN_PLACE_JS), "Clipboard.prototype.writeText is native before the after-load script"
+E           AssertionError: Clipboard.prototype.writeText is native before the after-load script
+E           assert False
+E            +  where False = evaluate("() =&gt; !navigator.clipboard\n  || !Function.prototype.toString.call(Clipboard.prototype.writeText).includes('[native code]')")
+E            +    where evaluate = &lt;Page url='http://127.0.0.1:8104/'&gt;.evaluate
+
+tests\browser\test_fidelity_inputs.py:148: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_throws_when_its_state_is_not_reached[open-day-editor.js]" time="0.113"><failure message="AssertionError: Clipboard.prototype.writeText is native before the after-load script&#10;assert False&#10; +  where False = evaluate(&quot;() =&gt; !navigator.clipboard\n  || !Function.prototype.toString.call(Clipboard.prototype.writeText).includes('[native code]')&quot;)&#10; +    where evaluate = &lt;Page url='http://127.0.0.1:8104/'&gt;.evaluate">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+name = 'open-day-editor.js'
+
+    @pytest.mark.parametrize("name", AFTER_LOAD)
+    def test_R28_each_after_load_script_throws_when_its_state_is_not_reached(browser, name):
+        context, page = harness_page(browser, (390, 844), [script("seed-sample.js"), NAVIGATOR_STANDIN, DEAD_SHOWMODAL])
+        try:
+&gt;           assert page.evaluate(STANDIN_IN_PLACE_JS), "Clipboard.prototype.writeText is native before the after-load script"
+E           AssertionError: Clipboard.prototype.writeText is native before the after-load script
+E           assert False
+E            +  where False = evaluate("() =&gt; !navigator.clipboard\n  || !Function.prototype.toString.call(Clipboard.prototype.writeText).includes('[native code]')")
+E            +    where evaluate = &lt;Page url='http://127.0.0.1:8104/'&gt;.evaluate
+
+tests\browser\test_fidelity_inputs.py:188: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_throws_when_its_state_is_not_reached[open-year-view.js]" time="0.126"><failure message="AssertionError: Clipboard.prototype.writeText is native before the after-load script&#10;assert False&#10; +  where False = evaluate(&quot;() =&gt; !navigator.clipboard\n  || !Function.prototype.toString.call(Clipboard.prototype.writeText).includes('[native code]')&quot;)&#10; +    where evaluate = &lt;Page url='http://127.0.0.1:8104/'&gt;.evaluate">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+name = 'open-year-view.js'
+
+    @pytest.mark.parametrize("name", AFTER_LOAD)
+    def test_R28_each_after_load_script_throws_when_its_state_is_not_reached(browser, name):
+        context, page = harness_page(browser, (390, 844), [script("seed-sample.js"), NAVIGATOR_STANDIN, DEAD_SHOWMODAL])
+        try:
+&gt;           assert page.evaluate(STANDIN_IN_PLACE_JS), "Clipboard.prototype.writeText is native before the after-load script"
+E           AssertionError: Clipboard.prototype.writeText is native before the after-load script
+E           assert False
+E            +  where False = evaluate("() =&gt; !navigator.clipboard\n  || !Function.prototype.toString.call(Clipboard.prototype.writeText).includes('[native code]')")
+E            +    where evaluate = &lt;Page url='http://127.0.0.1:8104/'&gt;.evaluate
+
+tests\browser\test_fidelity_inputs.py:188: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_throws_when_its_state_is_not_reached[open-overview.js]" time="0.127"><failure message="AssertionError: Clipboard.prototype.writeText is native before the after-load script&#10;assert False&#10; +  where False = evaluate(&quot;() =&gt; !navigator.clipboard\n  || !Function.prototype.toString.call(Clipboard.prototype.writeText).includes('[native code]')&quot;)&#10; +    where evaluate = &lt;Page url='http://127.0.0.1:8104/'&gt;.evaluate">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+name = 'open-overview.js'
+
+    @pytest.mark.parametrize("name", AFTER_LOAD)
+    def test_R28_each_after_load_script_throws_when_its_state_is_not_reached(browser, name):
+        context, page = harness_page(browser, (390, 844), [script("seed-sample.js"), NAVIGATOR_STANDIN, DEAD_SHOWMODAL])
+        try:
+&gt;           assert page.evaluate(STANDIN_IN_PLACE_JS), "Clipboard.prototype.writeText is native before the after-load script"
+E           AssertionError: Clipboard.prototype.writeText is native before the after-load script
+E           assert False
+E            +  where False = evaluate("() =&gt; !navigator.clipboard\n  || !Function.prototype.toString.call(Clipboard.prototype.writeText).includes('[native code]')")
+E            +    where evaluate = &lt;Page url='http://127.0.0.1:8104/'&gt;.evaluate
+
+tests\browser\test_fidelity_inputs.py:188: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_throws_when_its_state_is_not_reached[open-overview-year.js]" time="0.135"><failure message="AssertionError: Clipboard.prototype.writeText is native before the after-load script&#10;assert False&#10; +  where False = evaluate(&quot;() =&gt; !navigator.clipboard\n  || !Function.prototype.toString.call(Clipboard.prototype.writeText).includes('[native code]')&quot;)&#10; +    where evaluate = &lt;Page url='http://127.0.0.1:8104/'&gt;.evaluate">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+name = 'open-overview-year.js'
+
+    @pytest.mark.parametrize("name", AFTER_LOAD)
+    def test_R28_each_after_load_script_throws_when_its_state_is_not_reached(browser, name):
+        context, page = harness_page(browser, (390, 844), [script("seed-sample.js"), NAVIGATOR_STANDIN, DEAD_SHOWMODAL])
+        try:
+&gt;           assert page.evaluate(STANDIN_IN_PLACE_JS), "Clipboard.prototype.writeText is native before the after-load script"
+E           AssertionError: Clipboard.prototype.writeText is native before the after-load script
+E           assert False
+E            +  where False = evaluate("() =&gt; !navigator.clipboard\n  || !Function.prototype.toString.call(Clipboard.prototype.writeText).includes('[native code]')")
+E            +    where evaluate = &lt;Page url='http://127.0.0.1:8104/'&gt;.evaluate
+
+tests\browser\test_fidelity_inputs.py:188: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_throws_when_its_state_is_not_reached[open-delete-dialog.js]" time="0.146"><failure message="AssertionError: Clipboard.prototype.writeText is native before the after-load script&#10;assert False&#10; +  where False = evaluate(&quot;() =&gt; !navigator.clipboard\n  || !Function.prototype.toString.call(Clipboard.prototype.writeText).includes('[native code]')&quot;)&#10; +    where evaluate = &lt;Page url='http://127.0.0.1:8104/'&gt;.evaluate">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+name = 'open-delete-dialog.js'
+
+    @pytest.mark.parametrize("name", AFTER_LOAD)
+    def test_R28_each_after_load_script_throws_when_its_state_is_not_reached(browser, name):
+        context, page = harness_page(browser, (390, 844), [script("seed-sample.js"), NAVIGATOR_STANDIN, DEAD_SHOWMODAL])
+        try:
+&gt;           assert page.evaluate(STANDIN_IN_PLACE_JS), "Clipboard.prototype.writeText is native before the after-load script"
+E           AssertionError: Clipboard.prototype.writeText is native before the after-load script
+E           assert False
+E            +  where False = evaluate("() =&gt; !navigator.clipboard\n  || !Function.prototype.toString.call(Clipboard.prototype.writeText).includes('[native code]')")
+E            +    where evaluate = &lt;Page url='http://127.0.0.1:8104/'&gt;.evaluate
+
+tests\browser\test_fidelity_inputs.py:188: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_refuses_to_click_without_the_standin[open-day-editor.js]" time="0.150"><failure message="AssertionError: open-day-editor.js did not refuse to click without the stand-in, None&#10;assert (None is not None)">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+engine = 'chromium', name = 'open-day-editor.js'
+
+    @pytest.mark.parametrize("name", AFTER_LOAD)
+    def test_R28_each_after_load_script_refuses_to_click_without_the_standin(browser, engine, name):
+        seed = seed_statement("seed-sample.js")
+        context, page = harness_page(browser, (390, 844), [seed, NAVIGATOR_STANDIN])
+        try:
+            has_clipboard = page.evaluate("() =&gt; Boolean(navigator.clipboard)")
+            if engine != "chromium":
+                # The fidelity gate never runs in WebKit, so this line only records what the engine has (qa.md).
+                write_evidence(f"fidelity-control-{name[:-3]}", {"engine": engine, "navigator.clipboard": has_clipboard})
+                return
+            assert has_clipboard and not page.evaluate(STANDIN_IN_PLACE_JS), "the control page has the prototype stand-in"
+            clicks = page.evaluate_handle(
+                """() =&gt; {
+                  const seen = { count: 0 };
+                  document.addEventListener('click', () =&gt; { seen.count += 1; }, { capture: true });
+                  return seen;
+                }"""
+            )
+            error = None
+            try:
+                run_after_load(page, script(name))
+            except Exception as caught:
+                error = str(caught)
+&gt;           assert error is not None and "stand-in" in error, f"{name} did not refuse to click without the stand-in, {error}"
+E           AssertionError: open-day-editor.js did not refuse to click without the stand-in, None
+E           assert (None is not None)
+
+tests\browser\test_fidelity_inputs.py:224: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_refuses_to_click_without_the_standin[open-year-view.js]" time="0.226"><failure message="AssertionError: open-year-view.js did not refuse to click without the stand-in, None&#10;assert (None is not None)">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+engine = 'chromium', name = 'open-year-view.js'
+
+    @pytest.mark.parametrize("name", AFTER_LOAD)
+    def test_R28_each_after_load_script_refuses_to_click_without_the_standin(browser, engine, name):
+        seed = seed_statement("seed-sample.js")
+        context, page = harness_page(browser, (390, 844), [seed, NAVIGATOR_STANDIN])
+        try:
+            has_clipboard = page.evaluate("() =&gt; Boolean(navigator.clipboard)")
+            if engine != "chromium":
+                # The fidelity gate never runs in WebKit, so this line only records what the engine has (qa.md).
+                write_evidence(f"fidelity-control-{name[:-3]}", {"engine": engine, "navigator.clipboard": has_clipboard})
+                return
+            assert has_clipboard and not page.evaluate(STANDIN_IN_PLACE_JS), "the control page has the prototype stand-in"
+            clicks = page.evaluate_handle(
+                """() =&gt; {
+                  const seen = { count: 0 };
+                  document.addEventListener('click', () =&gt; { seen.count += 1; }, { capture: true });
+                  return seen;
+                }"""
+            )
+            error = None
+            try:
+                run_after_load(page, script(name))
+            except Exception as caught:
+                error = str(caught)
+&gt;           assert error is not None and "stand-in" in error, f"{name} did not refuse to click without the stand-in, {error}"
+E           AssertionError: open-year-view.js did not refuse to click without the stand-in, None
+E           assert (None is not None)
+
+tests\browser\test_fidelity_inputs.py:224: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_refuses_to_click_without_the_standin[open-overview.js]" time="0.151"><failure message="AssertionError: open-overview.js did not refuse to click without the stand-in, None&#10;assert (None is not None)">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+engine = 'chromium', name = 'open-overview.js'
+
+    @pytest.mark.parametrize("name", AFTER_LOAD)
+    def test_R28_each_after_load_script_refuses_to_click_without_the_standin(browser, engine, name):
+        seed = seed_statement("seed-sample.js")
+        context, page = harness_page(browser, (390, 844), [seed, NAVIGATOR_STANDIN])
+        try:
+            has_clipboard = page.evaluate("() =&gt; Boolean(navigator.clipboard)")
+            if engine != "chromium":
+                # The fidelity gate never runs in WebKit, so this line only records what the engine has (qa.md).
+                write_evidence(f"fidelity-control-{name[:-3]}", {"engine": engine, "navigator.clipboard": has_clipboard})
+                return
+            assert has_clipboard and not page.evaluate(STANDIN_IN_PLACE_JS), "the control page has the prototype stand-in"
+            clicks = page.evaluate_handle(
+                """() =&gt; {
+                  const seen = { count: 0 };
+                  document.addEventListener('click', () =&gt; { seen.count += 1; }, { capture: true });
+                  return seen;
+                }"""
+            )
+            error = None
+            try:
+                run_after_load(page, script(name))
+            except Exception as caught:
+                error = str(caught)
+&gt;           assert error is not None and "stand-in" in error, f"{name} did not refuse to click without the stand-in, {error}"
+E           AssertionError: open-overview.js did not refuse to click without the stand-in, None
+E           assert (None is not None)
+
+tests\browser\test_fidelity_inputs.py:224: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_refuses_to_click_without_the_standin[open-overview-year.js]" time="0.154"><failure message="AssertionError: open-overview-year.js did not refuse to click without the stand-in, None&#10;assert (None is not None)">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+engine = 'chromium', name = 'open-overview-year.js'
+
+    @pytest.mark.parametrize("name", AFTER_LOAD)
+    def test_R28_each_after_load_script_refuses_to_click_without_the_standin(browser, engine, name):
+        seed = seed_statement("seed-sample.js")
+        context, page = harness_page(browser, (390, 844), [seed, NAVIGATOR_STANDIN])
+        try:
+            has_clipboard = page.evaluate("() =&gt; Boolean(navigator.clipboard)")
+            if engine != "chromium":
+                # The fidelity gate never runs in WebKit, so this line only records what the engine has (qa.md).
+                write_evidence(f"fidelity-control-{name[:-3]}", {"engine": engine, "navigator.clipboard": has_clipboard})
+                return
+            assert has_clipboard and not page.evaluate(STANDIN_IN_PLACE_JS), "the control page has the prototype stand-in"
+            clicks = page.evaluate_handle(
+                """() =&gt; {
+                  const seen = { count: 0 };
+                  document.addEventListener('click', () =&gt; { seen.count += 1; }, { capture: true });
+                  return seen;
+                }"""
+            )
+            error = None
+            try:
+                run_after_load(page, script(name))
+            except Exception as caught:
+                error = str(caught)
+&gt;           assert error is not None and "stand-in" in error, f"{name} did not refuse to click without the stand-in, {error}"
+E           AssertionError: open-overview-year.js did not refuse to click without the stand-in, None
+E           assert (None is not None)
+
+tests\browser\test_fidelity_inputs.py:224: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_refuses_to_click_without_the_standin[open-delete-dialog.js]" time="0.400"><failure message="AssertionError: open-delete-dialog.js did not refuse to click without the stand-in, Page.evaluate: TypeError: Cannot read properties of null (reading 'click')&#10;      at eval (eval at evaluate (:303:30), &lt;anonymous&gt;:5:68)&#10;      at UtilityScript.evaluate (&lt;anonymous&gt;:310:18)&#10;      at UtilityScript.&lt;anonymous&gt; (&lt;anonymous&gt;:1:44)&#10;assert (&quot;Page.evaluate: TypeError: Cannot read properties of null (reading 'click')\n    at eval (eval at evaluate (:303:30), ...nymous&gt;:5:68)\n    at UtilityScript.evaluate (&lt;anonymous&gt;:310:18)\n    at UtilityScript.&lt;anonymous&gt; (&lt;anonymous&gt;:1:44)&quot; is not None and 'stand-in' in &quot;Page.evaluate: TypeError: Cannot read properties of null (reading 'click')\n    at eval (eval at evaluate (:303:30), ...nymous&gt;:5:68)\n    at UtilityScript.evaluate (&lt;anonymous&gt;:310:18)\n    at UtilityScript.&lt;anonymous&gt; (&lt;anonymous&gt;:1:44)&quot;)">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+engine = 'chromium', name = 'open-delete-dialog.js'
+
+    @pytest.mark.parametrize("name", AFTER_LOAD)
+    def test_R28_each_after_load_script_refuses_to_click_without_the_standin(browser, engine, name):
+        seed = seed_statement("seed-sample.js")
+        context, page = harness_page(browser, (390, 844), [seed, NAVIGATOR_STANDIN])
+        try:
+            has_clipboard = page.evaluate("() =&gt; Boolean(navigator.clipboard)")
+            if engine != "chromium":
+                # The fidelity gate never runs in WebKit, so this line only records what the engine has (qa.md).
+                write_evidence(f"fidelity-control-{name[:-3]}", {"engine": engine, "navigator.clipboard": has_clipboard})
+                return
+            assert has_clipboard and not page.evaluate(STANDIN_IN_PLACE_JS), "the control page has the prototype stand-in"
+            clicks = page.evaluate_handle(
+                """() =&gt; {
+                  const seen = { count: 0 };
+                  document.addEventListener('click', () =&gt; { seen.count += 1; }, { capture: true });
+                  return seen;
+                }"""
+            )
+            error = None
+            try:
+                run_after_load(page, script(name))
+            except Exception as caught:
+                error = str(caught)
+&gt;           assert error is not None and "stand-in" in error, f"{name} did not refuse to click without the stand-in, {error}"
+E           AssertionError: open-delete-dialog.js did not refuse to click without the stand-in, Page.evaluate: TypeError: Cannot read properties of null (reading 'click')
+E                 at eval (eval at evaluate (:303:30), &lt;anonymous&gt;:5:68)
+E                 at UtilityScript.evaluate (&lt;anonymous&gt;:310:18)
+E                 at UtilityScript.&lt;anonymous&gt; (&lt;anonymous&gt;:1:44)
+E           assert ("Page.evaluate: TypeError: Cannot read properties of null (reading 'click')\n    at eval (eval at evaluate (:303:30), ...nymous&gt;:5:68)\n    at UtilityScript.evaluate (&lt;anonymous&gt;:310:18)\n    at UtilityScript.&lt;anonymous&gt; (&lt;anonymous&gt;:1:44)" is not None and 'stand-in' in "Page.evaluate: TypeError: Cannot read properties of null (reading 'click')\n    at eval (eval at evaluate (:303:30), ...nymous&gt;:5:68)\n    at UtilityScript.evaluate (&lt;anonymous&gt;:310:18)\n    at UtilityScript.&lt;anonymous&gt; (&lt;anonymous&gt;:1:44)")
+
+tests\browser\test_fidelity_inputs.py:224: AssertionError</failure></testcase></testsuite></testsuites>

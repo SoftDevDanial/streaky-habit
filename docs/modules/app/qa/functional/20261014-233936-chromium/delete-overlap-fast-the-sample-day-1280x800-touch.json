@@ -1,0 +1,63 @@
+{
+ "frame": {
+  "x": 145,
+  "y": 423,
+  "width": 990,
+  "height": 208
+ },
+ "rows": [
+  {
+   "name": "Read 20 pages",
+   "bin": {
+    "x": 644.96875,
+    "y": 436,
+    "width": 44,
+    "height": 44
+   },
+   "deleteHabit": {
+    "x": 646,
+    "y": 415,
+    "width": 173,
+    "height": 48
+   },
+   "overlap": {
+    "x": 646,
+    "y": 436,
+    "width": 42.96875,
+    "height": 27
+   }
+  },
+  {
+   "name": "Stretch 10 minutes",
+   "bin": {
+    "x": 644.96875,
+    "y": 505,
+    "width": 44,
+    "height": 44
+   },
+   "deleteHabit": {
+    "x": 646,
+    "y": 415,
+    "width": 173,
+    "height": 48
+   },
+   "overlap": null
+  },
+  {
+   "name": "No phone after 11pm",
+   "bin": {
+    "x": 644.96875,
+    "y": 574,
+    "width": 44,
+    "height": 44
+   },
+   "deleteHabit": {
+    "x": 646,
+    "y": 415,
+    "width": 173,
+    "height": 48
+   },
+   "overlap": null
+  }
+ ]
+}

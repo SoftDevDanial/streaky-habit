@@ -1,0 +1,674 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="25" skipped="0" tests="26" time="3.946" timestamp="2026-10-14T23:34:29.926722+08:00" hostname="{host}"><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_seed_script_is_the_standin_then_one_setItem_of_the_sample[seed-sample.js]" time="0.461" /><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_seed_script_is_the_standin_then_one_setItem_of_the_sample[seed-twelve.js]" time="0.001"><failure message="AssertionError: seed-twelve.js does not start with the exact text of CLIPBOARD_STANDIN&#10;assert False&#10; +  where False = &lt;built-in method startswith of str object at 0x00007FFAFE01F790&gt;(&quot;(() =&gt; {\n  if (!navigator.clipboard || typeof Clipboard !== 'function') return;\n  for (const method of ['writeText'...eturn Promise.resolve(method === 'readText' ? '' : method === 'read' ? [] : undefined);\n      },\n    });\n  }\n})();&quot;)&#10; +    where &lt;built-in method startswith of str object at 0x00007FFAFE01F790&gt; = ''.startswith">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+name = 'seed-twelve.js'
+
+    @pytest.mark.parametrize("name", SEEDS)
+    def test_R28_each_seed_script_is_the_standin_then_one_setItem_of_the_sample(browser, name):
+        text = script(name)
+&gt;       assert text.startswith(CLIPBOARD_STANDIN), f"{name} does not start with the exact text of CLIPBOARD_STANDIN"
+E       AssertionError: seed-twelve.js does not start with the exact text of CLIPBOARD_STANDIN
+E       assert False
+E        +  where False = &lt;built-in method startswith of str object at 0x00007FFAFE01F790&gt;("(() =&gt; {\n  if (!navigator.clipboard || typeof Clipboard !== 'function') return;\n  for (const method of ['writeText'...eturn Promise.resolve(method === 'readText' ? '' : method === 'read' ? [] : undefined);\n      },\n    });\n  }\n})();")
+E        +    where &lt;built-in method startswith of str object at 0x00007FFAFE01F790&gt; = ''.startswith
+
+tests\browser\test_fidelity_inputs.py:100: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_leaves_its_state_with_nothing_focused[open-day-editor.js-360x780]" time="0.137"><failure message="AssertionError: open-day-editor.js left [] open, the table names ['dlg-day', 'dlg-ov']&#10;assert set() == {'dlg-day', 'dlg-ov'}&#10;  &#10;  Extra items in the right set:&#10;  'dlg-day'&#10;  'dlg-ov'&#10;  Use -v to get more diff">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+engine = 'chromium', name = 'open-day-editor.js', viewport = (360, 780)
+dialogs = {'dlg-day', 'dlg-ov'}
+
+    @pytest.mark.parametrize("name, viewport, dialogs", PARAMS)
+    def test_R28_each_after_load_script_leaves_its_state_with_nothing_focused(browser, engine, name, viewport, dialogs):
+        context, page = harness_page(browser, viewport, [script("seed-sample.js"), NAVIGATOR_STANDIN])
+        try:
+            assert page.locator("ul.rows &gt; li.row").count() == 3, "the seed did not give the app the three sample habits"
+            assert page.evaluate(STANDIN_IN_PLACE_JS), "Clipboard.prototype.writeText is native before the after-load script"
+            assert open_dialogs(page) == {}, "a dialog is open before the after-load script"
+    
+            run_after_load(page, script(name))
+    
+            shown = open_dialogs(page)
+&gt;           assert set(shown) == dialogs, f"{name} left {sorted(shown)} open, the table names {sorted(dialogs)}"
+E           AssertionError: open-day-editor.js left [] open, the table names ['dlg-day', 'dlg-ov']
+E           assert set() == {'dlg-day', 'dlg-ov'}
+E             
+E             Extra items in the right set:
+E             'dlg-day'
+E             'dlg-ov'
+E             Use -v to get more diff
+
+tests\browser\test_fidelity_inputs.py:154: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_leaves_its_state_with_nothing_focused[open-day-editor.js-390x844]" time="0.124"><failure message="AssertionError: open-day-editor.js left [] open, the table names ['dlg-day', 'dlg-ov']&#10;assert set() == {'dlg-day', 'dlg-ov'}&#10;  &#10;  Extra items in the right set:&#10;  'dlg-day'&#10;  'dlg-ov'&#10;  Use -v to get more diff">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+engine = 'chromium', name = 'open-day-editor.js', viewport = (390, 844)
+dialogs = {'dlg-day', 'dlg-ov'}
+
+    @pytest.mark.parametrize("name, viewport, dialogs", PARAMS)
+    def test_R28_each_after_load_script_leaves_its_state_with_nothing_focused(browser, engine, name, viewport, dialogs):
+        context, page = harness_page(browser, viewport, [script("seed-sample.js"), NAVIGATOR_STANDIN])
+        try:
+            assert page.locator("ul.rows &gt; li.row").count() == 3, "the seed did not give the app the three sample habits"
+            assert page.evaluate(STANDIN_IN_PLACE_JS), "Clipboard.prototype.writeText is native before the after-load script"
+            assert open_dialogs(page) == {}, "a dialog is open before the after-load script"
+    
+            run_after_load(page, script(name))
+    
+            shown = open_dialogs(page)
+&gt;           assert set(shown) == dialogs, f"{name} left {sorted(shown)} open, the table names {sorted(dialogs)}"
+E           AssertionError: open-day-editor.js left [] open, the table names ['dlg-day', 'dlg-ov']
+E           assert set() == {'dlg-day', 'dlg-ov'}
+E             
+E             Extra items in the right set:
+E             'dlg-day'
+E             'dlg-ov'
+E             Use -v to get more diff
+
+tests\browser\test_fidelity_inputs.py:154: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_leaves_its_state_with_nothing_focused[open-day-editor.js-1280x800]" time="0.130"><failure message="AssertionError: open-day-editor.js left [] open, the table names ['dlg-day']&#10;assert set() == {'dlg-day'}&#10;  &#10;  Extra items in the right set:&#10;  'dlg-day'&#10;  Use -v to get more diff">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+engine = 'chromium', name = 'open-day-editor.js', viewport = (1280, 800)
+dialogs = {'dlg-day'}
+
+    @pytest.mark.parametrize("name, viewport, dialogs", PARAMS)
+    def test_R28_each_after_load_script_leaves_its_state_with_nothing_focused(browser, engine, name, viewport, dialogs):
+        context, page = harness_page(browser, viewport, [script("seed-sample.js"), NAVIGATOR_STANDIN])
+        try:
+            assert page.locator("ul.rows &gt; li.row").count() == 3, "the seed did not give the app the three sample habits"
+            assert page.evaluate(STANDIN_IN_PLACE_JS), "Clipboard.prototype.writeText is native before the after-load script"
+            assert open_dialogs(page) == {}, "a dialog is open before the after-load script"
+    
+            run_after_load(page, script(name))
+    
+            shown = open_dialogs(page)
+&gt;           assert set(shown) == dialogs, f"{name} left {sorted(shown)} open, the table names {sorted(dialogs)}"
+E           AssertionError: open-day-editor.js left [] open, the table names ['dlg-day']
+E           assert set() == {'dlg-day'}
+E             
+E             Extra items in the right set:
+E             'dlg-day'
+E             Use -v to get more diff
+
+tests\browser\test_fidelity_inputs.py:154: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_leaves_its_state_with_nothing_focused[open-year-view.js-360x780]" time="0.121"><failure message="AssertionError: open-year-view.js left [] open, the table names ['dlg-year']&#10;assert set() == {'dlg-year'}&#10;  &#10;  Extra items in the right set:&#10;  'dlg-year'&#10;  Use -v to get more diff">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+engine = 'chromium', name = 'open-year-view.js', viewport = (360, 780)
+dialogs = {'dlg-year'}
+
+    @pytest.mark.parametrize("name, viewport, dialogs", PARAMS)
+    def test_R28_each_after_load_script_leaves_its_state_with_nothing_focused(browser, engine, name, viewport, dialogs):
+        context, page = harness_page(browser, viewport, [script("seed-sample.js"), NAVIGATOR_STANDIN])
+        try:
+            assert page.locator("ul.rows &gt; li.row").count() == 3, "the seed did not give the app the three sample habits"
+            assert page.evaluate(STANDIN_IN_PLACE_JS), "Clipboard.prototype.writeText is native before the after-load script"
+            assert open_dialogs(page) == {}, "a dialog is open before the after-load script"
+    
+            run_after_load(page, script(name))
+    
+            shown = open_dialogs(page)
+&gt;           assert set(shown) == dialogs, f"{name} left {sorted(shown)} open, the table names {sorted(dialogs)}"
+E           AssertionError: open-year-view.js left [] open, the table names ['dlg-year']
+E           assert set() == {'dlg-year'}
+E             
+E             Extra items in the right set:
+E             'dlg-year'
+E             Use -v to get more diff
+
+tests\browser\test_fidelity_inputs.py:154: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_leaves_its_state_with_nothing_focused[open-year-view.js-390x844]" time="0.119"><failure message="AssertionError: open-year-view.js left [] open, the table names ['dlg-year']&#10;assert set() == {'dlg-year'}&#10;  &#10;  Extra items in the right set:&#10;  'dlg-year'&#10;  Use -v to get more diff">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+engine = 'chromium', name = 'open-year-view.js', viewport = (390, 844)
+dialogs = {'dlg-year'}
+
+    @pytest.mark.parametrize("name, viewport, dialogs", PARAMS)
+    def test_R28_each_after_load_script_leaves_its_state_with_nothing_focused(browser, engine, name, viewport, dialogs):
+        context, page = harness_page(browser, viewport, [script("seed-sample.js"), NAVIGATOR_STANDIN])
+        try:
+            assert page.locator("ul.rows &gt; li.row").count() == 3, "the seed did not give the app the three sample habits"
+            assert page.evaluate(STANDIN_IN_PLACE_JS), "Clipboard.prototype.writeText is native before the after-load script"
+            assert open_dialogs(page) == {}, "a dialog is open before the after-load script"
+    
+            run_after_load(page, script(name))
+    
+            shown = open_dialogs(page)
+&gt;           assert set(shown) == dialogs, f"{name} left {sorted(shown)} open, the table names {sorted(dialogs)}"
+E           AssertionError: open-year-view.js left [] open, the table names ['dlg-year']
+E           assert set() == {'dlg-year'}
+E             
+E             Extra items in the right set:
+E             'dlg-year'
+E             Use -v to get more diff
+
+tests\browser\test_fidelity_inputs.py:154: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_leaves_its_state_with_nothing_focused[open-year-view.js-1280x800]" time="0.134"><failure message="AssertionError: open-year-view.js left [] open, the table names ['dlg-year']&#10;assert set() == {'dlg-year'}&#10;  &#10;  Extra items in the right set:&#10;  'dlg-year'&#10;  Use -v to get more diff">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+engine = 'chromium', name = 'open-year-view.js', viewport = (1280, 800)
+dialogs = {'dlg-year'}
+
+    @pytest.mark.parametrize("name, viewport, dialogs", PARAMS)
+    def test_R28_each_after_load_script_leaves_its_state_with_nothing_focused(browser, engine, name, viewport, dialogs):
+        context, page = harness_page(browser, viewport, [script("seed-sample.js"), NAVIGATOR_STANDIN])
+        try:
+            assert page.locator("ul.rows &gt; li.row").count() == 3, "the seed did not give the app the three sample habits"
+            assert page.evaluate(STANDIN_IN_PLACE_JS), "Clipboard.prototype.writeText is native before the after-load script"
+            assert open_dialogs(page) == {}, "a dialog is open before the after-load script"
+    
+            run_after_load(page, script(name))
+    
+            shown = open_dialogs(page)
+&gt;           assert set(shown) == dialogs, f"{name} left {sorted(shown)} open, the table names {sorted(dialogs)}"
+E           AssertionError: open-year-view.js left [] open, the table names ['dlg-year']
+E           assert set() == {'dlg-year'}
+E             
+E             Extra items in the right set:
+E             'dlg-year'
+E             Use -v to get more diff
+
+tests\browser\test_fidelity_inputs.py:154: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_leaves_its_state_with_nothing_focused[open-overview.js-360x780]" time="0.123"><failure message="AssertionError: open-overview.js left [] open, the table names ['dlg-ov']&#10;assert set() == {'dlg-ov'}&#10;  &#10;  Extra items in the right set:&#10;  'dlg-ov'&#10;  Use -v to get more diff">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+engine = 'chromium', name = 'open-overview.js', viewport = (360, 780)
+dialogs = {'dlg-ov'}
+
+    @pytest.mark.parametrize("name, viewport, dialogs", PARAMS)
+    def test_R28_each_after_load_script_leaves_its_state_with_nothing_focused(browser, engine, name, viewport, dialogs):
+        context, page = harness_page(browser, viewport, [script("seed-sample.js"), NAVIGATOR_STANDIN])
+        try:
+            assert page.locator("ul.rows &gt; li.row").count() == 3, "the seed did not give the app the three sample habits"
+            assert page.evaluate(STANDIN_IN_PLACE_JS), "Clipboard.prototype.writeText is native before the after-load script"
+            assert open_dialogs(page) == {}, "a dialog is open before the after-load script"
+    
+            run_after_load(page, script(name))
+    
+            shown = open_dialogs(page)
+&gt;           assert set(shown) == dialogs, f"{name} left {sorted(shown)} open, the table names {sorted(dialogs)}"
+E           AssertionError: open-overview.js left [] open, the table names ['dlg-ov']
+E           assert set() == {'dlg-ov'}
+E             
+E             Extra items in the right set:
+E             'dlg-ov'
+E             Use -v to get more diff
+
+tests\browser\test_fidelity_inputs.py:154: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_leaves_its_state_with_nothing_focused[open-overview.js-390x844]" time="0.140"><failure message="AssertionError: open-overview.js left [] open, the table names ['dlg-ov']&#10;assert set() == {'dlg-ov'}&#10;  &#10;  Extra items in the right set:&#10;  'dlg-ov'&#10;  Use -v to get more diff">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+engine = 'chromium', name = 'open-overview.js', viewport = (390, 844)
+dialogs = {'dlg-ov'}
+
+    @pytest.mark.parametrize("name, viewport, dialogs", PARAMS)
+    def test_R28_each_after_load_script_leaves_its_state_with_nothing_focused(browser, engine, name, viewport, dialogs):
+        context, page = harness_page(browser, viewport, [script("seed-sample.js"), NAVIGATOR_STANDIN])
+        try:
+            assert page.locator("ul.rows &gt; li.row").count() == 3, "the seed did not give the app the three sample habits"
+            assert page.evaluate(STANDIN_IN_PLACE_JS), "Clipboard.prototype.writeText is native before the after-load script"
+            assert open_dialogs(page) == {}, "a dialog is open before the after-load script"
+    
+            run_after_load(page, script(name))
+    
+            shown = open_dialogs(page)
+&gt;           assert set(shown) == dialogs, f"{name} left {sorted(shown)} open, the table names {sorted(dialogs)}"
+E           AssertionError: open-overview.js left [] open, the table names ['dlg-ov']
+E           assert set() == {'dlg-ov'}
+E             
+E             Extra items in the right set:
+E             'dlg-ov'
+E             Use -v to get more diff
+
+tests\browser\test_fidelity_inputs.py:154: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_leaves_its_state_with_nothing_focused[open-overview-year.js-360x780]" time="0.129"><failure message="AssertionError: open-overview-year.js left [] open, the table names ['dlg-all', 'dlg-ov']&#10;assert set() == {'dlg-all', 'dlg-ov'}&#10;  &#10;  Extra items in the right set:&#10;  'dlg-ov'&#10;  'dlg-all'&#10;  Use -v to get more diff">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+engine = 'chromium', name = 'open-overview-year.js', viewport = (360, 780)
+dialogs = {'dlg-all', 'dlg-ov'}
+
+    @pytest.mark.parametrize("name, viewport, dialogs", PARAMS)
+    def test_R28_each_after_load_script_leaves_its_state_with_nothing_focused(browser, engine, name, viewport, dialogs):
+        context, page = harness_page(browser, viewport, [script("seed-sample.js"), NAVIGATOR_STANDIN])
+        try:
+            assert page.locator("ul.rows &gt; li.row").count() == 3, "the seed did not give the app the three sample habits"
+            assert page.evaluate(STANDIN_IN_PLACE_JS), "Clipboard.prototype.writeText is native before the after-load script"
+            assert open_dialogs(page) == {}, "a dialog is open before the after-load script"
+    
+            run_after_load(page, script(name))
+    
+            shown = open_dialogs(page)
+&gt;           assert set(shown) == dialogs, f"{name} left {sorted(shown)} open, the table names {sorted(dialogs)}"
+E           AssertionError: open-overview-year.js left [] open, the table names ['dlg-all', 'dlg-ov']
+E           assert set() == {'dlg-all', 'dlg-ov'}
+E             
+E             Extra items in the right set:
+E             'dlg-ov'
+E             'dlg-all'
+E             Use -v to get more diff
+
+tests\browser\test_fidelity_inputs.py:154: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_leaves_its_state_with_nothing_focused[open-overview-year.js-390x844]" time="0.131"><failure message="AssertionError: open-overview-year.js left [] open, the table names ['dlg-all', 'dlg-ov']&#10;assert set() == {'dlg-all', 'dlg-ov'}&#10;  &#10;  Extra items in the right set:&#10;  'dlg-ov'&#10;  'dlg-all'&#10;  Use -v to get more diff">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+engine = 'chromium', name = 'open-overview-year.js', viewport = (390, 844)
+dialogs = {'dlg-all', 'dlg-ov'}
+
+    @pytest.mark.parametrize("name, viewport, dialogs", PARAMS)
+    def test_R28_each_after_load_script_leaves_its_state_with_nothing_focused(browser, engine, name, viewport, dialogs):
+        context, page = harness_page(browser, viewport, [script("seed-sample.js"), NAVIGATOR_STANDIN])
+        try:
+            assert page.locator("ul.rows &gt; li.row").count() == 3, "the seed did not give the app the three sample habits"
+            assert page.evaluate(STANDIN_IN_PLACE_JS), "Clipboard.prototype.writeText is native before the after-load script"
+            assert open_dialogs(page) == {}, "a dialog is open before the after-load script"
+    
+            run_after_load(page, script(name))
+    
+            shown = open_dialogs(page)
+&gt;           assert set(shown) == dialogs, f"{name} left {sorted(shown)} open, the table names {sorted(dialogs)}"
+E           AssertionError: open-overview-year.js left [] open, the table names ['dlg-all', 'dlg-ov']
+E           assert set() == {'dlg-all', 'dlg-ov'}
+E             
+E             Extra items in the right set:
+E             'dlg-ov'
+E             'dlg-all'
+E             Use -v to get more diff
+
+tests\browser\test_fidelity_inputs.py:154: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_leaves_its_state_with_nothing_focused[open-overview-year.js-1280x800]" time="0.128"><failure message="AssertionError: open-overview-year.js left [] open, the table names ['dlg-all']&#10;assert set() == {'dlg-all'}&#10;  &#10;  Extra items in the right set:&#10;  'dlg-all'&#10;  Use -v to get more diff">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+engine = 'chromium', name = 'open-overview-year.js', viewport = (1280, 800)
+dialogs = {'dlg-all'}
+
+    @pytest.mark.parametrize("name, viewport, dialogs", PARAMS)
+    def test_R28_each_after_load_script_leaves_its_state_with_nothing_focused(browser, engine, name, viewport, dialogs):
+        context, page = harness_page(browser, viewport, [script("seed-sample.js"), NAVIGATOR_STANDIN])
+        try:
+            assert page.locator("ul.rows &gt; li.row").count() == 3, "the seed did not give the app the three sample habits"
+            assert page.evaluate(STANDIN_IN_PLACE_JS), "Clipboard.prototype.writeText is native before the after-load script"
+            assert open_dialogs(page) == {}, "a dialog is open before the after-load script"
+    
+            run_after_load(page, script(name))
+    
+            shown = open_dialogs(page)
+&gt;           assert set(shown) == dialogs, f"{name} left {sorted(shown)} open, the table names {sorted(dialogs)}"
+E           AssertionError: open-overview-year.js left [] open, the table names ['dlg-all']
+E           assert set() == {'dlg-all'}
+E             
+E             Extra items in the right set:
+E             'dlg-all'
+E             Use -v to get more diff
+
+tests\browser\test_fidelity_inputs.py:154: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_leaves_its_state_with_nothing_focused[open-delete-dialog.js-360x780]" time="0.123"><failure message="playwright._impl._errors.Error: Page.evaluate: TypeError: Cannot read properties of null (reading 'click')&#10;    at eval (eval at evaluate (:303:30), &lt;anonymous&gt;:5:68)&#10;    at UtilityScript.evaluate (&lt;anonymous&gt;:310:18)&#10;    at UtilityScript.&lt;anonymous&gt; (&lt;anonymous&gt;:1:44)">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+engine = 'chromium', name = 'open-delete-dialog.js', viewport = (360, 780)
+dialogs = {'dlg-del'}
+
+    @pytest.mark.parametrize("name, viewport, dialogs", PARAMS)
+    def test_R28_each_after_load_script_leaves_its_state_with_nothing_focused(browser, engine, name, viewport, dialogs):
+        context, page = harness_page(browser, viewport, [script("seed-sample.js"), NAVIGATOR_STANDIN])
+        try:
+            assert page.locator("ul.rows &gt; li.row").count() == 3, "the seed did not give the app the three sample habits"
+            assert page.evaluate(STANDIN_IN_PLACE_JS), "Clipboard.prototype.writeText is native before the after-load script"
+            assert open_dialogs(page) == {}, "a dialog is open before the after-load script"
+    
+&gt;           run_after_load(page, script(name))
+
+tests\browser\test_fidelity_inputs.py:151: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\browser\test_fidelity_inputs.py:86: in run_after_load
+    page.evaluate(f"async () =&gt; {{ {source}\n }}")
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\sync_api\_generated.py:9280: in evaluate
+    self._sync(
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_page.py:472: in evaluate
+    return await self._main_frame.evaluate(expression, arg)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_frame.py:345: in evaluate
+    await self._channel.send(
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;playwright._impl._connection.Connection object at 0x000002A5BCD0DD30&gt;
+cb = &lt;function Channel.send.&lt;locals&gt;.&lt;lambda&gt; at 0x000002A5BE9D78A0&gt;
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -&gt; Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+&gt;           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.Error: Page.evaluate: TypeError: Cannot read properties of null (reading 'click')
+E               at eval (eval at evaluate (:303:30), &lt;anonymous&gt;:5:68)
+E               at UtilityScript.evaluate (&lt;anonymous&gt;:310:18)
+E               at UtilityScript.&lt;anonymous&gt; (&lt;anonymous&gt;:1:44)
+
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py:563: Error</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_leaves_its_state_with_nothing_focused[open-delete-dialog.js-390x844]" time="0.118"><failure message="playwright._impl._errors.Error: Page.evaluate: TypeError: Cannot read properties of null (reading 'click')&#10;    at eval (eval at evaluate (:303:30), &lt;anonymous&gt;:5:68)&#10;    at UtilityScript.evaluate (&lt;anonymous&gt;:310:18)&#10;    at UtilityScript.&lt;anonymous&gt; (&lt;anonymous&gt;:1:44)">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+engine = 'chromium', name = 'open-delete-dialog.js', viewport = (390, 844)
+dialogs = {'dlg-del'}
+
+    @pytest.mark.parametrize("name, viewport, dialogs", PARAMS)
+    def test_R28_each_after_load_script_leaves_its_state_with_nothing_focused(browser, engine, name, viewport, dialogs):
+        context, page = harness_page(browser, viewport, [script("seed-sample.js"), NAVIGATOR_STANDIN])
+        try:
+            assert page.locator("ul.rows &gt; li.row").count() == 3, "the seed did not give the app the three sample habits"
+            assert page.evaluate(STANDIN_IN_PLACE_JS), "Clipboard.prototype.writeText is native before the after-load script"
+            assert open_dialogs(page) == {}, "a dialog is open before the after-load script"
+    
+&gt;           run_after_load(page, script(name))
+
+tests\browser\test_fidelity_inputs.py:151: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\browser\test_fidelity_inputs.py:86: in run_after_load
+    page.evaluate(f"async () =&gt; {{ {source}\n }}")
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\sync_api\_generated.py:9280: in evaluate
+    self._sync(
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_page.py:472: in evaluate
+    return await self._main_frame.evaluate(expression, arg)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_frame.py:345: in evaluate
+    await self._channel.send(
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;playwright._impl._connection.Connection object at 0x000002A5BCD0DD30&gt;
+cb = &lt;function Channel.send.&lt;locals&gt;.&lt;lambda&gt; at 0x000002A5BEA6B320&gt;
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -&gt; Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+&gt;           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.Error: Page.evaluate: TypeError: Cannot read properties of null (reading 'click')
+E               at eval (eval at evaluate (:303:30), &lt;anonymous&gt;:5:68)
+E               at UtilityScript.evaluate (&lt;anonymous&gt;:310:18)
+E               at UtilityScript.&lt;anonymous&gt; (&lt;anonymous&gt;:1:44)
+
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py:563: Error</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_leaves_its_state_with_nothing_focused[open-delete-dialog.js-1280x800]" time="0.122"><failure message="playwright._impl._errors.Error: Page.evaluate: TypeError: Cannot read properties of null (reading 'click')&#10;    at eval (eval at evaluate (:303:30), &lt;anonymous&gt;:5:68)&#10;    at UtilityScript.evaluate (&lt;anonymous&gt;:310:18)&#10;    at UtilityScript.&lt;anonymous&gt; (&lt;anonymous&gt;:1:44)">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+engine = 'chromium', name = 'open-delete-dialog.js', viewport = (1280, 800)
+dialogs = {'dlg-del'}
+
+    @pytest.mark.parametrize("name, viewport, dialogs", PARAMS)
+    def test_R28_each_after_load_script_leaves_its_state_with_nothing_focused(browser, engine, name, viewport, dialogs):
+        context, page = harness_page(browser, viewport, [script("seed-sample.js"), NAVIGATOR_STANDIN])
+        try:
+            assert page.locator("ul.rows &gt; li.row").count() == 3, "the seed did not give the app the three sample habits"
+            assert page.evaluate(STANDIN_IN_PLACE_JS), "Clipboard.prototype.writeText is native before the after-load script"
+            assert open_dialogs(page) == {}, "a dialog is open before the after-load script"
+    
+&gt;           run_after_load(page, script(name))
+
+tests\browser\test_fidelity_inputs.py:151: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\browser\test_fidelity_inputs.py:86: in run_after_load
+    page.evaluate(f"async () =&gt; {{ {source}\n }}")
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\sync_api\_generated.py:9280: in evaluate
+    self._sync(
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_page.py:472: in evaluate
+    return await self._main_frame.evaluate(expression, arg)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_frame.py:345: in evaluate
+    await self._channel.send(
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;playwright._impl._connection.Connection object at 0x000002A5BCD0DD30&gt;
+cb = &lt;function Channel.send.&lt;locals&gt;.&lt;lambda&gt; at 0x000002A5BEB178A0&gt;
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -&gt; Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+&gt;           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.Error: Page.evaluate: TypeError: Cannot read properties of null (reading 'click')
+E               at eval (eval at evaluate (:303:30), &lt;anonymous&gt;:5:68)
+E               at UtilityScript.evaluate (&lt;anonymous&gt;:310:18)
+E               at UtilityScript.&lt;anonymous&gt; (&lt;anonymous&gt;:1:44)
+
+{home}\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py:563: Error</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_throws_when_its_state_is_not_reached[open-day-editor.js]" time="0.112"><failure message="AssertionError: open-day-editor.js returned although no dialog opened&#10;assert None is not None">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+name = 'open-day-editor.js'
+
+    @pytest.mark.parametrize("name", AFTER_LOAD)
+    def test_R28_each_after_load_script_throws_when_its_state_is_not_reached(browser, name):
+        context, page = harness_page(browser, (390, 844), [script("seed-sample.js"), NAVIGATOR_STANDIN, DEAD_SHOWMODAL])
+        try:
+            assert page.evaluate(STANDIN_IN_PLACE_JS), "Clipboard.prototype.writeText is native before the after-load script"
+            error = None
+            try:
+                run_after_load(page, script(name))
+            except Exception as caught:  # Playwright's Error carries the script's own message
+                error = str(caught)
+&gt;           assert error is not None, f"{name} returned although no dialog opened"
+E           AssertionError: open-day-editor.js returned although no dialog opened
+E           assert None is not None
+
+tests\browser\test_fidelity_inputs.py:194: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_throws_when_its_state_is_not_reached[open-year-view.js]" time="0.104"><failure message="AssertionError: open-year-view.js returned although no dialog opened&#10;assert None is not None">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+name = 'open-year-view.js'
+
+    @pytest.mark.parametrize("name", AFTER_LOAD)
+    def test_R28_each_after_load_script_throws_when_its_state_is_not_reached(browser, name):
+        context, page = harness_page(browser, (390, 844), [script("seed-sample.js"), NAVIGATOR_STANDIN, DEAD_SHOWMODAL])
+        try:
+            assert page.evaluate(STANDIN_IN_PLACE_JS), "Clipboard.prototype.writeText is native before the after-load script"
+            error = None
+            try:
+                run_after_load(page, script(name))
+            except Exception as caught:  # Playwright's Error carries the script's own message
+                error = str(caught)
+&gt;           assert error is not None, f"{name} returned although no dialog opened"
+E           AssertionError: open-year-view.js returned although no dialog opened
+E           assert None is not None
+
+tests\browser\test_fidelity_inputs.py:194: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_throws_when_its_state_is_not_reached[open-overview.js]" time="0.114"><failure message="AssertionError: open-overview.js returned although no dialog opened&#10;assert None is not None">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+name = 'open-overview.js'
+
+    @pytest.mark.parametrize("name", AFTER_LOAD)
+    def test_R28_each_after_load_script_throws_when_its_state_is_not_reached(browser, name):
+        context, page = harness_page(browser, (390, 844), [script("seed-sample.js"), NAVIGATOR_STANDIN, DEAD_SHOWMODAL])
+        try:
+            assert page.evaluate(STANDIN_IN_PLACE_JS), "Clipboard.prototype.writeText is native before the after-load script"
+            error = None
+            try:
+                run_after_load(page, script(name))
+            except Exception as caught:  # Playwright's Error carries the script's own message
+                error = str(caught)
+&gt;           assert error is not None, f"{name} returned although no dialog opened"
+E           AssertionError: open-overview.js returned although no dialog opened
+E           assert None is not None
+
+tests\browser\test_fidelity_inputs.py:194: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_throws_when_its_state_is_not_reached[open-overview-year.js]" time="0.103"><failure message="AssertionError: open-overview-year.js returned although no dialog opened&#10;assert None is not None">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+name = 'open-overview-year.js'
+
+    @pytest.mark.parametrize("name", AFTER_LOAD)
+    def test_R28_each_after_load_script_throws_when_its_state_is_not_reached(browser, name):
+        context, page = harness_page(browser, (390, 844), [script("seed-sample.js"), NAVIGATOR_STANDIN, DEAD_SHOWMODAL])
+        try:
+            assert page.evaluate(STANDIN_IN_PLACE_JS), "Clipboard.prototype.writeText is native before the after-load script"
+            error = None
+            try:
+                run_after_load(page, script(name))
+            except Exception as caught:  # Playwright's Error carries the script's own message
+                error = str(caught)
+&gt;           assert error is not None, f"{name} returned although no dialog opened"
+E           AssertionError: open-overview-year.js returned although no dialog opened
+E           assert None is not None
+
+tests\browser\test_fidelity_inputs.py:194: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_throws_when_its_state_is_not_reached[open-delete-dialog.js]" time="0.112"><failure message="AssertionError: open-delete-dialog.js failed by something other than its own state check, Page.evaluate: TypeError: Cannot read properties of null (reading 'click')&#10;      at eval (eval at evaluate (:303:30), &lt;anonymous&gt;:5:68)&#10;      at UtilityScript.evaluate (&lt;anonymous&gt;:310:18)&#10;      at UtilityScript.&lt;anonymous&gt; (&lt;anonymous&gt;:1:44)&#10;assert 'fidelity:' in &quot;Page.evaluate: TypeError: Cannot read properties of null (reading 'click')\n    at eval (eval at evaluate (:303:30), ...nymous&gt;:5:68)\n    at UtilityScript.evaluate (&lt;anonymous&gt;:310:18)\n    at UtilityScript.&lt;anonymous&gt; (&lt;anonymous&gt;:1:44)&quot;">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+name = 'open-delete-dialog.js'
+
+    @pytest.mark.parametrize("name", AFTER_LOAD)
+    def test_R28_each_after_load_script_throws_when_its_state_is_not_reached(browser, name):
+        context, page = harness_page(browser, (390, 844), [script("seed-sample.js"), NAVIGATOR_STANDIN, DEAD_SHOWMODAL])
+        try:
+            assert page.evaluate(STANDIN_IN_PLACE_JS), "Clipboard.prototype.writeText is native before the after-load script"
+            error = None
+            try:
+                run_after_load(page, script(name))
+            except Exception as caught:  # Playwright's Error carries the script's own message
+                error = str(caught)
+            assert error is not None, f"{name} returned although no dialog opened"
+&gt;           assert "fidelity:" in error, f"{name} failed by something other than its own state check, {error}"
+E           AssertionError: open-delete-dialog.js failed by something other than its own state check, Page.evaluate: TypeError: Cannot read properties of null (reading 'click')
+E                 at eval (eval at evaluate (:303:30), &lt;anonymous&gt;:5:68)
+E                 at UtilityScript.evaluate (&lt;anonymous&gt;:310:18)
+E                 at UtilityScript.&lt;anonymous&gt; (&lt;anonymous&gt;:1:44)
+E           assert 'fidelity:' in "Page.evaluate: TypeError: Cannot read properties of null (reading 'click')\n    at eval (eval at evaluate (:303:30), ...nymous&gt;:5:68)\n    at UtilityScript.evaluate (&lt;anonymous&gt;:310:18)\n    at UtilityScript.&lt;anonymous&gt; (&lt;anonymous&gt;:1:44)"
+
+tests\browser\test_fidelity_inputs.py:195: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_refuses_to_click_without_the_standin[open-day-editor.js]" time="0.115"><failure message="AssertionError: open-day-editor.js did not refuse to click without the stand-in, None&#10;assert (None is not None)">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+engine = 'chromium', name = 'open-day-editor.js'
+
+    @pytest.mark.parametrize("name", AFTER_LOAD)
+    def test_R28_each_after_load_script_refuses_to_click_without_the_standin(browser, engine, name):
+        seed = seed_statement("seed-sample.js")
+        context, page = harness_page(browser, (390, 844), [seed, NAVIGATOR_STANDIN])
+        try:
+            has_clipboard = page.evaluate("() =&gt; Boolean(navigator.clipboard)")
+            if engine != "chromium":
+                # The fidelity gate never runs in WebKit, so this line only records what the engine has (qa.md).
+                write_evidence(f"fidelity-control-{name[:-3]}", {"engine": engine, "navigator.clipboard": has_clipboard})
+                return
+            assert has_clipboard and not page.evaluate(STANDIN_IN_PLACE_JS), "the control page has the prototype stand-in"
+            clicks = page.evaluate_handle(
+                """() =&gt; {
+                  const seen = { count: 0 };
+                  document.addEventListener('click', () =&gt; { seen.count += 1; }, { capture: true });
+                  return seen;
+                }"""
+            )
+            error = None
+            try:
+                run_after_load(page, script(name))
+            except Exception as caught:
+                error = str(caught)
+&gt;           assert error is not None and "stand-in" in error, f"{name} did not refuse to click without the stand-in, {error}"
+E           AssertionError: open-day-editor.js did not refuse to click without the stand-in, None
+E           assert (None is not None)
+
+tests\browser\test_fidelity_inputs.py:224: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_refuses_to_click_without_the_standin[open-year-view.js]" time="0.110"><failure message="AssertionError: open-year-view.js did not refuse to click without the stand-in, None&#10;assert (None is not None)">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+engine = 'chromium', name = 'open-year-view.js'
+
+    @pytest.mark.parametrize("name", AFTER_LOAD)
+    def test_R28_each_after_load_script_refuses_to_click_without_the_standin(browser, engine, name):
+        seed = seed_statement("seed-sample.js")
+        context, page = harness_page(browser, (390, 844), [seed, NAVIGATOR_STANDIN])
+        try:
+            has_clipboard = page.evaluate("() =&gt; Boolean(navigator.clipboard)")
+            if engine != "chromium":
+                # The fidelity gate never runs in WebKit, so this line only records what the engine has (qa.md).
+                write_evidence(f"fidelity-control-{name[:-3]}", {"engine": engine, "navigator.clipboard": has_clipboard})
+                return
+            assert has_clipboard and not page.evaluate(STANDIN_IN_PLACE_JS), "the control page has the prototype stand-in"
+            clicks = page.evaluate_handle(
+                """() =&gt; {
+                  const seen = { count: 0 };
+                  document.addEventListener('click', () =&gt; { seen.count += 1; }, { capture: true });
+                  return seen;
+                }"""
+            )
+            error = None
+            try:
+                run_after_load(page, script(name))
+            except Exception as caught:
+                error = str(caught)
+&gt;           assert error is not None and "stand-in" in error, f"{name} did not refuse to click without the stand-in, {error}"
+E           AssertionError: open-year-view.js did not refuse to click without the stand-in, None
+E           assert (None is not None)
+
+tests\browser\test_fidelity_inputs.py:224: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_refuses_to_click_without_the_standin[open-overview.js]" time="0.135"><failure message="AssertionError: open-overview.js did not refuse to click without the stand-in, None&#10;assert (None is not None)">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+engine = 'chromium', name = 'open-overview.js'
+
+    @pytest.mark.parametrize("name", AFTER_LOAD)
+    def test_R28_each_after_load_script_refuses_to_click_without_the_standin(browser, engine, name):
+        seed = seed_statement("seed-sample.js")
+        context, page = harness_page(browser, (390, 844), [seed, NAVIGATOR_STANDIN])
+        try:
+            has_clipboard = page.evaluate("() =&gt; Boolean(navigator.clipboard)")
+            if engine != "chromium":
+                # The fidelity gate never runs in WebKit, so this line only records what the engine has (qa.md).
+                write_evidence(f"fidelity-control-{name[:-3]}", {"engine": engine, "navigator.clipboard": has_clipboard})
+                return
+            assert has_clipboard and not page.evaluate(STANDIN_IN_PLACE_JS), "the control page has the prototype stand-in"
+            clicks = page.evaluate_handle(
+                """() =&gt; {
+                  const seen = { count: 0 };
+                  document.addEventListener('click', () =&gt; { seen.count += 1; }, { capture: true });
+                  return seen;
+                }"""
+            )
+            error = None
+            try:
+                run_after_load(page, script(name))
+            except Exception as caught:
+                error = str(caught)
+&gt;           assert error is not None and "stand-in" in error, f"{name} did not refuse to click without the stand-in, {error}"
+E           AssertionError: open-overview.js did not refuse to click without the stand-in, None
+E           assert (None is not None)
+
+tests\browser\test_fidelity_inputs.py:224: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_refuses_to_click_without_the_standin[open-overview-year.js]" time="0.130"><failure message="AssertionError: open-overview-year.js did not refuse to click without the stand-in, None&#10;assert (None is not None)">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+engine = 'chromium', name = 'open-overview-year.js'
+
+    @pytest.mark.parametrize("name", AFTER_LOAD)
+    def test_R28_each_after_load_script_refuses_to_click_without_the_standin(browser, engine, name):
+        seed = seed_statement("seed-sample.js")
+        context, page = harness_page(browser, (390, 844), [seed, NAVIGATOR_STANDIN])
+        try:
+            has_clipboard = page.evaluate("() =&gt; Boolean(navigator.clipboard)")
+            if engine != "chromium":
+                # The fidelity gate never runs in WebKit, so this line only records what the engine has (qa.md).
+                write_evidence(f"fidelity-control-{name[:-3]}", {"engine": engine, "navigator.clipboard": has_clipboard})
+                return
+            assert has_clipboard and not page.evaluate(STANDIN_IN_PLACE_JS), "the control page has the prototype stand-in"
+            clicks = page.evaluate_handle(
+                """() =&gt; {
+                  const seen = { count: 0 };
+                  document.addEventListener('click', () =&gt; { seen.count += 1; }, { capture: true });
+                  return seen;
+                }"""
+            )
+            error = None
+            try:
+                run_after_load(page, script(name))
+            except Exception as caught:
+                error = str(caught)
+&gt;           assert error is not None and "stand-in" in error, f"{name} did not refuse to click without the stand-in, {error}"
+E           AssertionError: open-overview-year.js did not refuse to click without the stand-in, None
+E           assert (None is not None)
+
+tests\browser\test_fidelity_inputs.py:224: AssertionError</failure></testcase><testcase classname="tests.browser.test_fidelity_inputs" name="test_R28_each_after_load_script_refuses_to_click_without_the_standin[open-delete-dialog.js]" time="0.164"><failure message="AssertionError: open-delete-dialog.js did not refuse to click without the stand-in, Page.evaluate: TypeError: Cannot read properties of null (reading 'click')&#10;      at eval (eval at evaluate (:303:30), &lt;anonymous&gt;:5:68)&#10;      at UtilityScript.evaluate (&lt;anonymous&gt;:310:18)&#10;      at UtilityScript.&lt;anonymous&gt; (&lt;anonymous&gt;:1:44)&#10;assert (&quot;Page.evaluate: TypeError: Cannot read properties of null (reading 'click')\n    at eval (eval at evaluate (:303:30), ...nymous&gt;:5:68)\n    at UtilityScript.evaluate (&lt;anonymous&gt;:310:18)\n    at UtilityScript.&lt;anonymous&gt; (&lt;anonymous&gt;:1:44)&quot; is not None and 'stand-in' in &quot;Page.evaluate: TypeError: Cannot read properties of null (reading 'click')\n    at eval (eval at evaluate (:303:30), ...nymous&gt;:5:68)\n    at UtilityScript.evaluate (&lt;anonymous&gt;:310:18)\n    at UtilityScript.&lt;anonymous&gt; (&lt;anonymous&gt;:1:44)&quot;)">browser = &lt;Browser type=&lt;BrowserType name=chromium executable_path={home}\AppData\Local\ms-playwright\chromium-1228\chrome-win64\chrome.exe&gt; version=149.0.7827.55&gt;
+engine = 'chromium', name = 'open-delete-dialog.js'
+
+    @pytest.mark.parametrize("name", AFTER_LOAD)
+    def test_R28_each_after_load_script_refuses_to_click_without_the_standin(browser, engine, name):
+        seed = seed_statement("seed-sample.js")
+        context, page = harness_page(browser, (390, 844), [seed, NAVIGATOR_STANDIN])
+        try:
+            has_clipboard = page.evaluate("() =&gt; Boolean(navigator.clipboard)")
+            if engine != "chromium":
+                # The fidelity gate never runs in WebKit, so this line only records what the engine has (qa.md).
+                write_evidence(f"fidelity-control-{name[:-3]}", {"engine": engine, "navigator.clipboard": has_clipboard})
+                return
+            assert has_clipboard and not page.evaluate(STANDIN_IN_PLACE_JS), "the control page has the prototype stand-in"
+            clicks = page.evaluate_handle(
+                """() =&gt; {
+                  const seen = { count: 0 };
+                  document.addEventListener('click', () =&gt; { seen.count += 1; }, { capture: true });
+                  return seen;
+                }"""
+            )
+            error = None
+            try:
+                run_after_load(page, script(name))
+            except Exception as caught:
+                error = str(caught)
+&gt;           assert error is not None and "stand-in" in error, f"{name} did not refuse to click without the stand-in, {error}"
+E           AssertionError: open-delete-dialog.js did not refuse to click without the stand-in, Page.evaluate: TypeError: Cannot read properties of null (reading 'click')
+E                 at eval (eval at evaluate (:303:30), &lt;anonymous&gt;:5:68)
+E                 at UtilityScript.evaluate (&lt;anonymous&gt;:310:18)
+E                 at UtilityScript.&lt;anonymous&gt; (&lt;anonymous&gt;:1:44)
+E           assert ("Page.evaluate: TypeError: Cannot read properties of null (reading 'click')\n    at eval (eval at evaluate (:303:30), ...nymous&gt;:5:68)\n    at UtilityScript.evaluate (&lt;anonymous&gt;:310:18)\n    at UtilityScript.&lt;anonymous&gt; (&lt;anonymous&gt;:1:44)" is not None and 'stand-in' in "Page.evaluate: TypeError: Cannot read properties of null (reading 'click')\n    at eval (eval at evaluate (:303:30), ...nymous&gt;:5:68)\n    at UtilityScript.evaluate (&lt;anonymous&gt;:310:18)\n    at UtilityScript.&lt;anonymous&gt; (&lt;anonymous&gt;:1:44)")
+
+tests\browser\test_fidelity_inputs.py:224: AssertionError</failure></testcase></testsuite></testsuites>
