@@ -151,3 +151,21 @@ export function shortDate(key) {
 export function longDate(key) {
   return joinLabel(namesOf(key));
 }
+
+/**
+ * The short date with its year, for the places that show two Octobers at once (the year views).
+ * @param {DateKey} key
+ * @returns {string} for example "Fri 10 Oct 2025"
+ */
+export function yearDate(key) {
+  return `${shortDate(key)} ${pad(parseKey(key).year, 4)}`;
+}
+
+/**
+ * @param {DateKey} key
+ * @returns {string} the full month name and the year, for example "October 2026"
+ */
+export function monthTitle(key) {
+  const { year, month } = parseKey(key);
+  return `${MONTHS[month - 1]} ${pad(year, 4)}`;
+}

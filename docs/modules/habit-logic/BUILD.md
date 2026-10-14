@@ -70,3 +70,16 @@ The design finalize of 2026-10-13 replaced `docs/design/sample-history.json`, so
 Proof. `node --test "tests/**/*.test.js"` gives 99 tests, 99 pass, 0 fail on the unchanged `src/`. Blob id check, byte exact with `git hash-object --no-filters` (`core.autocrlf` is true here): the fixture gives `62620300113514b9712d0cbdfea2b15534e6d326`, and `git rev-parse v1.0.0:docs/design/sample-history.json` gives the same.
 
 Deviations: none. Non-goals honored: `docs/design/` untouched, no `src/` change.
+
+## v1.1.0 task 7, the year labels (2026-10-14)
+
+`src/dates.js` gains `yearDate(key)` ("Fri 10 Oct 2025", the R4 `shortDate` plus a 4-digit year) and `monthTitle(key)` ("October 2026"), both from the existing tables, so they are the same in every locale (R17).
+
+- `tests/dates.test.js`: three `@R17` tests (five qa rows, a year before 1000 to prove the 4-digit pad, and the German-default child). The child code of the `@R4` locale test moved into the helper `labelsInGermanChild(calls)` so both locale tests share it (DRY). The `@R4` test asserts the same values as before.
+- `tests/purity.test.js`: the export list and the frozen-input calls gain the two names.
+
+RED first. A throwaway stub (`() => ""`, never committed) made the three `@R17` tests fail on the label value, 99 pass, 3 fail of 102. Capture: `docs/modules/habit-logic/qa/red-first/20261014T130716-task7/red.txt`. One of my expected values was wrong (0999-01-01 is a Tuesday) and was corrected against Python's calendar, not against the code's output.
+
+Proof. `node --test "tests/**/*.test.js"` gives 102 tests, 102 pass. Chromium browser suite (`python -m pytest tests/browser -q`), 182 passed.
+
+Deviations: none. Non-goals honored: no clock, no `Intl`, no copy beyond the labels.

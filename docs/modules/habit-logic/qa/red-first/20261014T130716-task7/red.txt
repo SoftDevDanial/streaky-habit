@@ -1,0 +1,17 @@
+RED-first, task 7 (R17), 2026-10-14 13:07 local.
+Stub (never committed) in src/dates.js: export const yearDate = () => ""; export const monthTitle = () => "";
+Command: node --test --test-reporter=spec "tests/**/*.test.js"   (exit 1)
+
+ℹ tests 102
+ℹ pass 99
+ℹ fail 3
+✖ @R17 labels with the year
+    actual '' expected 'Fri 10 Oct 2025'
+✖ @R17 the year is four digits, also before the year 1000
+    actual '' expected 'Mon 1 Jan 0999'  (my expected weekday was wrong, 0999-01-01 is a Tuesday per Python's
+    proleptic calendar. Corrected to 'Tue 1 Jan 0999' after the real function showed the mismatch.)
+✖ @R17 year labels do not follow the runtime locale
+    actual [ '', '' ] expected [ 'Sat 10 Oct 2026', 'October 2026' ]
+    (the German-default precondition in the child passed, so the labels were really read)
+
+The 99 sealed tests stay green. The three new tests fail on the asserted label, not on a missing import.

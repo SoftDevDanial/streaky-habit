@@ -1,7 +1,17 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
-import { localDateKey, isDateKey, addDays, dayParts, shortDate, longDate, weekdayIndex } from "../src/dates.js";
+import {
+  localDateKey,
+  isDateKey,
+  addDays,
+  dayParts,
+  shortDate,
+  longDate,
+  weekdayIndex,
+  yearDate,
+  monthTitle,
+} from "../src/dates.js";
 
 const KUALA_LUMPUR = "Asia/Kuala_Lumpur";
 const NEW_YORK = "America/New_York";
@@ -228,10 +238,11 @@ test("@R4 weekday names and indexes agree with a UTC reference for every day 190
   }
 });
 
-test("@R4 labels do not follow the runtime locale", () => {
-  // ICU fixes its default locale at start-up and ignores LANG on Windows, so the child also makes German
-  // the default of Intl.DateTimeFormat and Date's toLocale* before dates.js loads. The probes prove the
-  // German default took effect, so the label check cannot pass without having run.
+// Runs label calls in a child whose default locale is German. ICU fixes its default locale at start-up and
+// ignores LANG on Windows, so the child also makes German the default of Intl.DateTimeFormat and Date's
+// toLocale* before dates.js loads. The probes prove the German default took effect, so a label check
+// cannot pass without having run. `calls` are source snippets that use `dates`, the module namespace.
+function labelsInGermanChild(calls) {
   const datesUrl = new URL("../src/dates.js", import.meta.url).href;
   const program = `
     const german = (locales) => (locales === undefined || locales.length === 0 ? "de-DE" : locales);
@@ -252,15 +263,44 @@ test("@R4 labels do not follow the runtime locale", () => {
       thursday.toLocaleDateString(undefined, { weekday: "long" }),
       new Intl.DateTimeFormat(undefined, { weekday: "long" }).format(thursday),
     ];
-    const { longDate, shortDate } = await import(${JSON.stringify(datesUrl)});
-    process.stdout.write(JSON.stringify([probes, longDate("2026-10-08"), shortDate("2026-10-06")]));
+    const dates = await import(${JSON.stringify(datesUrl)});
+    process.stdout.write(JSON.stringify([probes, [${calls.join(", ")}]]));
   `;
   const output = execFileSync(process.execPath, ["--input-type=module", "--eval", program], {
     env: { ...process.env, LANG: "de_DE.UTF-8", LC_ALL: "de_DE.UTF-8" },
     encoding: "utf8",
     timeout: 15_000,
   });
-  const [probes, long, short] = JSON.parse(output);
+  const [probes, labels] = JSON.parse(output);
   assert.deepEqual(probes, ["Donnerstag", "Donnerstag"], "precondition: the child's default locale is German");
-  assert.deepEqual([long, short], ["Thursday 8 October", "Tue 6 Oct"]);
+  return labels;
+}
+
+test("@R4 labels do not follow the runtime locale", () => {
+  const labels = labelsInGermanChild(['dates.longDate("2026-10-08")', 'dates.shortDate("2026-10-06")']);
+  assert.deepEqual(labels, ["Thursday 8 October", "Tue 6 Oct"]);
+});
+
+test("@R17 labels with the year", () => {
+  const rows = [
+    ["2025-10-10", "Fri 10 Oct 2025", "October 2025"],
+    ["2026-10-10", "Sat 10 Oct 2026", "October 2026"],
+    ["2026-09-22", "Tue 22 Sep 2026", "September 2026"],
+    ["2025-12-01", "Mon 1 Dec 2025", "December 2025"],
+    ["2028-02-29", "Tue 29 Feb 2028", "February 2028"],
+  ];
+  for (const [key, yearLabel, title] of rows) {
+    assert.equal(yearDate(key), yearLabel, key);
+    assert.equal(monthTitle(key), title, key);
+  }
+});
+
+test("@R17 the year is four digits, also before the year 1000", () => {
+  assert.equal(yearDate("0999-01-01"), "Tue 1 Jan 0999");
+  assert.equal(monthTitle("0001-03-05"), "March 0001");
+});
+
+test("@R17 year labels do not follow the runtime locale", () => {
+  const labels = labelsInGermanChild(['dates.yearDate("2026-10-10")', 'dates.monthTitle("2026-10-10")']);
+  assert.deepEqual(labels, ["Sat 10 Oct 2026", "October 2026"]);
 });

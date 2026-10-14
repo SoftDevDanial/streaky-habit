@@ -86,8 +86,10 @@ test("@R16 only the contracted names are exported", () => {
     "isDateKey",
     "localDateKey",
     "longDate",
+    "monthTitle",
     "shortDate",
     "weekdayIndex",
+    "yearDate",
   ]);
   assert.deepEqual(Object.keys(habits).sort(), [
     "MAX_HABITS",
@@ -128,6 +130,8 @@ function callsWith(frozenHabits) {
     shortDate: () => dates.shortDate(TODAY),
     longDate: () => dates.longDate(TODAY),
     weekdayIndex: () => dates.weekdayIndex(TODAY),
+    yearDate: () => dates.yearDate(TODAY),
+    monthTitle: () => dates.monthTitle(TODAY),
     weekWindow: () => habits.weekWindow(TODAY),
     currentStreak: () => habits.currentStreak(frozenDone, TODAY),
     bestStreak: () => habits.bestStreak(frozenDone),
