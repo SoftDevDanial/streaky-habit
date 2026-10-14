@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="2" time="0.818" timestamp="2026-10-14T13:18:47.276259+08:00" hostname="{host}"><testcase classname="tests.browser.test_entry" name="test_R29_the_icon_is_amber_in_a_dark_theme_and_dark_amber_in_a_light_theme" time="0.629"><failure message="AssertionError: assert {'dark': (0, ...t': (0, 0, 0)} == {'dark': (255... (154, 91, 0)}&#10;  &#10;  Differing items:&#10;  {'light': (0, 0, 0)} != {'light': (154, 91, 0)}&#10;  {'dark': (0, 0, 0)} != {'dark': (255, 176, 32)}&#10;  Use -v to get more diff">E   AssertionError: assert {'dark': (0, ...t': (0, 0, 0)} == {'dark': (255... (154, 91, 0)}
+      
+      Differing items:
+      {'light': (0, 0, 0)} != {'light': (154, 91, 0)}
+      {'dark': (0, 0, 0)} != {'dark': (255, 176, 32)}
+      Use -v to get more diff</failure></testcase><testcase classname="tests.browser.test_entry" name="test_R29_the_icon_file_is_the_goldens_icon_byte_for_byte" time="0.136"><failure message="assert b&quot;&lt;svg xmlns=...8.5Z'/&gt;&lt;/svg&gt;&quot; == b&quot;&lt;svg xmlns=...3 7Z'/&gt;&lt;/svg&gt;&quot;&#10;  &#10;  At index 61 diff: b'p' != b's'&#10;  Use -v to get more diff">E   assert b"&lt;svg xmlns=...8.5Z'/&gt;&lt;/svg&gt;" == b"&lt;svg xmlns=...3 7Z'/&gt;&lt;/svg&gt;"
+      
+      At index 61 diff: b'p' != b's'
+      Use -v to get more diff</failure></testcase></testsuite></testsuites>

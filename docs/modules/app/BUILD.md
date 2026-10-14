@@ -130,3 +130,54 @@ No change in `src/` or `index.html`, no UI, no install, nothing written under `d
 - `tests/browser/live_e2e.py` takes `--engine` and its `summary.json` has `engine` and `browser_version` (no `browser` key).
 - `tests/browser/test_engines.py` is new. `tests/fixtures/design-v1.0.0/` holds the four 1.0 goldens until task 12 removes them.
 - The test command gains `--engine webkit`.
+
+---
+
+## v1.1.0 task 12, the entry point, the stylesheet and the tab icon (2026-10-14)
+> Written by the frontend builder (senior frontend dev agent), 2026-10-14. Requirements R1, R2, R29. The commit is the one whose message starts `feat(app): v1.1.0 entry point, stylesheet and tab icon (task 12, R1, R2, R29)`.
+
+### Phase skills (design row of `docs/phase-skills.md`)
+Both were read on disk before any UI file was written (the builder has no Skill tool). `taste-skill` from `taste-skill/1.0.0/skills/taste-skill/SKILL.md` and `frontend-design` from the newest copy, `claude-plugins-official/frontend-design/8d392c816966/skills/frontend-design/SKILL.md` (four of the six cached copies have the same bytes).
+- **What they changed.** Nothing in the look. The goldens already apply both skills (`docs/design/system.md`, "Skills loaded"), and this task copies them 1-to-1 (spec, Phase skills).
+- **Transferred and checked.** No em or en dash in any file written. Phosphor icons only, four paths copied from `today.html`, no hand-drawn icon (the mark is the owner's, copied). Label above the field, no placeholder as a label (markup copied). Focus rings on `:focus-visible` only, reduced motion and press feedback, one radius scale and one accent all come from the copied CSS, untouched. Copy self-audit, every visible string in `index.html` is a row of the spec's Copy table.
+- **Not transferred, and why.** React, Tailwind, Motion, web fonts, image generation and the light theme (locked stack, one dark theme by the brainstorm). Hero, landing, bento and logo-wall rules (a one-screen tool). The design read and the dials (the design phase did them).
+
+### What changed
+- `index.html` written again. The head of R1 in the spec's order with the icon credit comment, then the body skeleton of the Contracts (sprite, `div.app`, the five dialogs), every part copied from the goldens (`today.html` for the sprite, the mark, the header, the band, the frame and the composer, `overview.html`, `overview-year.html`, `year-view.html`, `day-editor.html` and `delete-dialog.html` for the dialogs, without `open`, `.scrim`, `.below-desktop` or `inert`). The parts the spec marks "filled" are left empty for the view modules. `button.ov-btn` has no `aria-label` and `time.date` no `datetime` until the view sets them (an empty `aria-label` would name nothing). `div.banners` holds no whitespace, so `.banners:empty` hides it.
+- `src/styles.css` written again. `docs/design/system.css` from `:root{` to the stand-ins comment, byte for byte with its comments, and only the three R2 changes. A line diff against the golden slice shows exactly those three lines and the header comment.
+- `src/icon.svg` (new). 458 bytes, the percent-decoded payload of the goldens' icon href, no newline.
+- `tests/browser/test_entry.py` written again with the seven `@R1`, `@R2` and `@R29` scenarios of qa.md. `test_R1_R29_the_app_works_from_a_sub_path` carries `xfail(strict=True, reason="task 21")` (W2) and `test_R29_R25_the_page_links_the_icon_and_the_policy_lets_it_load` carries `xfail(strict=True, reason="task 15")` (W1). `test_R29_the_icon_is_amber_in_a_dark_theme_and_dark_amber_in_a_light_theme` carries `chromium_only` with the CO-1 reason. It reads one pixel from a screenshot with Pillow, which the plugin fidelity harness uses too.
+- `tests/browser/conftest.py`. `SAMPLE_HABITS` (the first three) and `TWELVE` (all twelve) come from `docs/design/sample-history.json` converted from its done strings, `sample_state()` and the new `twelve_state()` write them with `encode` (the qa.md table's name, `ensure_ascii=False`, replacing `state_text`). `TODAY`, `NOON` and `PAUSE_AT` move to 2026-10-10. `open_app` uses `color_scheme="dark"` (qa.md, open_app). `type_name` types into `#nh`. Gone with their readers are `DESIGN_V10_DIR`, `SAMPLE_V10_FILE`, `SAMPLE`, `SAMPLE_LEVELS`, `SAMPLE_NAMES`, `pretty_sample_state`, `plain_state`, `row`, `day`, `cell`, `level_classes`, `heat_cells`, `is_focused`, `trash`, `open_delete_dialog`, `confirm_delete` (1.0 form), `center`, `tab_until`, `pattern`, `streak`, `long_date`, `add_days`, `canonical_pair` and `shot`.
+- Removed with `git rm` as the owner ruled (ledger off-scope row 11). `test_render.py`, `test_add.py`, `test_delete.py`, `test_storage.py`, `test_rollover.py`, `test_platform.py`, `test_fidelity_inputs.py`, `test_tick.py` (each recoverable with `git checkout v1.0.0 -- tests/browser/<file>`) and `tests/fixtures/design-v1.0.0/` (recoverable with `git checkout 42b64c3 -- tests/fixtures/design-v1.0.0/`). `tests/fixtures/sample-history-v1.0.0.json` stays for habit-logic's unit tests. `live_e2e.py` and the two 1.0 fidelity scripts stay, unrun, until tasks 27 and 26.
+- `spec.md` task 12 ticked.
+
+### RED first (qa.md, "Controls are watched failing first")
+`test_entry.py` and the conftest changes were written first, with the qa.md stub for task 12 (an empty `src/icon.svg`), on the 1.0 `index.html` and `styles.css`. One Chromium run with `--runxfail` gave 7 failed, each on its property (`docs/modules/app/qa/red-first/20261014-131821-chromium/junit.xml`). The head list differed at the viewport meta and had no icon link, the body children read `div.page`, the stylesheet text differed from the golden slice, the icon bytes were empty, the sub-path page had no `li.empty`, the page had no icon link, and the colour test failed because the empty icon did not load. That last one is not the colour property, so a second throwaway stub (a valid SVG with a black fill) ran the colour and bytes tests once more, and the colour test failed on its assertion, `(0, 0, 0)` in both schemes (`.../red-first/20261014-131845-chromium/junit.xml`). Both stubs were replaced by the real file before any commit.
+
+### Proof
+- Chromium, `python -m pytest tests/browser -q -rA`, **8 passed, 2 xfailed** (W1 task 15, W2 task 21), 8.6 s (`docs/modules/app/qa/functional/20261014-132138-chromium/junit.xml`).
+- WebKit, the same with `--engine webkit`, **7 passed, 1 skipped (CO-1, chromium_only, counted with its reason), 2 xfailed**, 8.7 s (`.../functional/20261014-132156-webkit/junit.xml`). No WebKit failure, so nothing to class.
+- With `--runxfail`, W1 fails in both engines only on the page error of the 1.0 app (`view.renderHeader` finds no `.date time`), its icon link, load and policy assertions already pass. W2 fails on `ul.rows` being empty. Both are the reasons their marks name.
+- Node, `node --test "tests/**/*.test.js"`, 102 of 102 (unchanged).
+- A headless look at 390 x 844 and 1280 x 800 (scratch, not evidence) shows the header, mark, Overview button, band frame and composer drawn as in `today-empty.html`, with the filled parts empty, which is what the spec expects until task 15.
+
+### Judgment calls (named, for the orchestrator)
+1. **Which conftest helpers went.** The spec says every helper that only a removed file used goes, and qa.md's conftest table names helpers the v1.1.0 suite keeps "as 1.0". Read together, a helper the table names stays (`stored`, `record`, `write_count`, `hide_tab`, `show_tab`, `let_guard_pass`, `dialog_title`, `GUARD_WINDOW_MS`), and every other helper with no reader left went. `add_habit`, `type_name` and `add_button` stay because W2 uses them, `short_date` because `live_e2e.py` imports it.
+2. **`state_text` became `encode`**, the qa.md table's name and form (`ensure_ascii=False`, as `JSON.stringify` writes). Its only other reader was a removed file.
+3. **`color_scheme="dark"` in `open_app` now**, the qa.md table's v1.1.0 value. The 1.0 reason for "light" (the 1.0 goldens) left with the 1.0 tests.
+4. **The head comment names the tab icon too** ("drawn in one inline svg in the header and as the tab icon src/icon.svg"), so the comment covers both places the mark lives.
+5. **No sprite comment.** The goldens credit the icons once in the head and once inside the sprite. The spec puts the credit in the head, so the sprite holds only the four symbols as the Contracts draw it.
+
+### Non-goals honoured
+No `.scrim`, `inert`, `<dialog open>` or `.below-desktop`. No apple-touch-icon, manifest or `data:` URL. No CSP change. No habit data in `index.html` or `src/`. No change in `src/app.js`, `src/view.js` or `src/storage.js` (task 15 and later build the rendering, task 14 the storage results).
+
+### FE element checklist status vs the goldens
+The static parts of K1, S1 and the five dialogs are in the DOM with the goldens' classes, ids, attributes and copy, checked by `test_R1_static_skeleton_and_the_five_dialogs` and by hand against each golden. Every row that depends on data (dates, rings, rows, stats, grids) waits for tasks 15 to 22. The fidelity gate is task 28.
+
+### How to run and view
+- `python -m pytest tests/browser -q` (Chromium) and `python -m pytest tests/browser -q --engine webkit`.
+- Serve the root with `python -m http.server <port> --bind 127.0.0.1` and open `http://127.0.0.1:<port>/` (route `/`). Until task 15 it shows the skeleton with no data and logs one page error from the 1.0 view code.
+
+### For the README reconcile
+- `index.html` is the v1.1.0 skeleton (title "Danial's Streaky Habit", viewport with `viewport-fit=cover`, the tab icon link, the sprite with four icons, `div.app`, five dialogs). `src/styles.css` is `system.css` without its stand-ins and with three marked changes. `src/icon.svg` is the tab icon.
+- The browser suite now holds `test_engines.py` and `test_entry.py` only. `conftest.py` exports `SAMPLE_HABITS`, `TWELVE`, `sample_state`, `twelve_state`, `encode`, `TODAY`, `NOON` and `PAUSE_AT` on the v1.1.0 sample.

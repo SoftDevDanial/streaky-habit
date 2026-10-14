@@ -22,14 +22,11 @@ import weakref
 from urllib.parse import urlsplit
 
 import pytest
-from playwright.sync_api import expect, sync_playwright
+from playwright.sync_api import sync_playwright
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 DESIGN_DIR = ROOT / "docs" / "design"
-# v1.1.0 tasks 11 and 12 only. The four 1.0 goldens the 1.0 tests read, restored byte for byte from tag v1.0.0
-# (the design finalize of 2026-10-13 replaced them in DESIGN_DIR). Task 12 removes it with its readers.
-DESIGN_V10_DIR = ROOT / "tests" / "fixtures" / "design-v1.0.0"
-SAMPLE_V10_FILE = ROOT / "tests" / "fixtures" / "sample-history-v1.0.0.json"
+SAMPLE_FILE = DESIGN_DIR / "sample-history.json"  # read-only, like every file in DESIGN_DIR
 
 # Rebound by `pytest_configure`: the two URLs when the run serves the app itself, EVIDENCE_DIR to end with the
 # engine. Test modules read them with `from conftest import ...` at import, which pytest does only after that hook.
@@ -48,46 +45,50 @@ SERVER_STOP_SECONDS = 10
 STORAGE_KEY = "streaks.state"
 # UTC+8 all year, no DST, so a result never depends on the machine's own zone (ROADMAP D5).
 TZ = "Asia/Kuala_Lumpur"
-NOON = "2026-10-08T12:00:00+08:00"
+TODAY = "2026-10-10"  # the sample's today, Saturday 10 October 2026
+NOON = "2026-10-10T12:00:00+08:00"
 # A test that freezes an installed clock pauses here, 20 seconds after NOON: later than a page needs to
 # load, earlier than the app's first 30 second rollover check.
-PAUSE_AT = "2026-10-08T12:00:20+08:00"
-# The second click of a double click or double tap is ignored for this long (spec R13, T7): on "Delete habit"
-# after the click that opened the dialog, and on the page after a mouse or touch click in the dialog.
-# The spec's number, written out and not read from src/ on purpose: the two edge tests of test_delete.py press at
-# this value minus 1 ms (ignored) and at this value (acts), so they fail for any other DIALOG_GUARD_MS in src/app.js.
+PAUSE_AT = "2026-10-10T12:00:20+08:00"
+# The page guard of spec R14 (CG-11). For this long after a mouse or touch click inside a popup, the page and any
+# popup open beneath it ignore clicks. The spec's number, written out and not read from src/ on purpose, so the
+# edge scenarios (pressed at this value minus 1 ms and at this value) fail for any other window in src/app.js.
 GUARD_WINDOW_MS = 500
 DEFAULT_TIMEOUT_MS = 5000
 
-# The 1.0 sample (habit-logic task 6), so the 1.0 tests keep their 1.0 meaning until task 12 switches to v1.1.0.
-SAMPLE = json.loads(SAMPLE_V10_FILE.read_text(encoding="utf-8"))
-SAMPLE_HABITS = SAMPLE["habits"]
-SAMPLE_LEVELS = SAMPLE["heatmapLevels"]
-# Written out, not read from the sample, so a test that compares the page with them is not comparing a file with itself.
-SAMPLE_NAMES = ["Read 20 pages", "Stretch 10 minutes", "No phone after 11pm"]
+
+def _sample_habits():
+    """Every habit of the v1.1.0 design sample as `{ name, done }`, in the sample's order.
+
+    Each `done` there is one character a day from the sample's `from`, "1" for a done day, so position i
+    becomes the date key `from` plus i days (qa.md, conftest table).
+    """
+    sample = json.loads(SAMPLE_FILE.read_text(encoding="utf-8"))
+    start = datetime.date.fromisoformat(sample["from"])
+    return [
+        {
+            "name": habit["name"],
+            "done": [(start + datetime.timedelta(days=i)).isoformat() for i, flag in enumerate(habit["done"]) if flag == "1"],
+        }
+        for habit in sample["habits"]
+    ]
 
 
-def state_text(habits):
-    """The text the app stores for a list of habits, in the same compact form."""
-    return json.dumps({"version": 1, "habits": habits}, separators=(",", ":"))
+TWELVE = _sample_habits()  # the S3 golden's twelve habits
+SAMPLE_HABITS = TWELVE[:3]  # K1, P1 to P4 and M1 use the first three
+
+
+def encode(habits):
+    """The text `encodeState` writes for a list of habits: compact JSON, non-ASCII kept as is."""
+    return json.dumps({"version": 1, "habits": habits}, separators=(",", ":"), ensure_ascii=False)
 
 
 def sample_state():
-    return state_text(SAMPLE_HABITS)
+    return encode(SAMPLE_HABITS)
 
 
-def pretty_sample_state():
-    """The sample as indented JSON. The app writes compact JSON, so any save changes this text.
-
-    Seed with it wherever a test says "saves nothing": with `sample_state()` a re-save of the unchanged
-    habits would produce the very same text and the check could not fail.
-    """
-    return json.dumps({"version": 1, "habits": SAMPLE_HABITS}, indent=2)
-
-
-def plain_state(count):
-    """N plain habits named "Habit 1" to "Habit N" with no done days."""
-    return state_text([{"name": f"Habit {number}", "done": []} for number in range(1, count + 1)])
+def twelve_state():
+    return encode(TWELVE)
 
 
 def _free_port():
@@ -383,7 +384,7 @@ def open_app(
     context = browser.new_context(
         viewport={"width": viewport[0], "height": viewport[1]},
         device_scale_factor=1,
-        color_scheme="light",
+        color_scheme="dark",  # the app has one dark theme and no rule reads the scheme (qa.md, open_app)
         timezone_id=TZ,
         locale=locale,
         reduced_motion=reduced_motion,
@@ -460,41 +461,13 @@ def write_count(page):
     return sum(message["text"] == WRITE_MARK for message in _LOGS[page].console)
 
 
-def row(page, name):
-    return page.locator("li.habit").filter(has=page.get_by_text(name, exact=True))
-
-
-def day(page, name, date):
-    return row(page, name).locator(f'button.day[data-date="{date}"]')
-
-
-def cell(page, date):
-    return page.locator(f'.cells .hc[data-date="{date}"]')
-
-
-def level_classes(locator):
-    """The heat level classes of one cell ('l0' to 'l4'), for example ['l2']."""
-    return [c for c in locator.get_attribute("class").split() if c[0] == "l" and c[1:].isdigit()]
-
-
-_HEAT_CELL_FIELDS = (
-    "(els) => els.map((e) => [e.className, e.getAttribute('data-date'), e.getAttribute('role'),"
-    " e.getAttribute('aria-hidden'), e.getAttribute('aria-label'), e.getAttribute('aria-current')])"
-)
-
-
-def heat_cells(page):
-    """Every heat cell as (class, data-date, role, aria-hidden, aria-label, aria-current)."""
-    return page.locator(".cells > span").evaluate_all(_HEAT_CELL_FIELDS)
-
-
 def add_button(page):
     return page.get_by_role("button", name="Add", exact=True)
 
 
 def type_name(page, text):
     """Click the 'New habit' field and type into it, without submitting."""
-    page.locator("#new-habit").click()
+    page.locator("#nh").click()
     page.keyboard.type(text)
 
 
@@ -505,15 +478,6 @@ def add_habit(page, text, enter=False):
         page.keyboard.press("Enter")
     else:
         add_button(page).click()
-
-
-def is_focused(locator):
-    return locator.evaluate("(element) => element === document.activeElement")
-
-
-def trash(page, name):
-    """The delete button of the habit called `name`."""
-    return page.get_by_role("button", name=f"Delete {name}", exact=True)
 
 
 # U+2068 FIRST STRONG ISOLATE and U+2069 POP DIRECTIONAL ISOLATE wrap the name in the dialog title, so a
@@ -531,66 +495,14 @@ def dialog_title(name):
     return f'Delete "{FSI}{name}{PDI}"?'
 
 
-def open_delete_dialog(page, name):
-    trash(page, name).click()
-    expect(page.locator("dialog.dialog")).to_have_attribute("open", "")
-
-
 def let_guard_pass(page):
-    """Let the dialog's guard window (GUARD_WINDOW_MS) pass, as the time between two deliberate clicks does.
+    """Let the page guard's window (GUARD_WINDOW_MS) pass, as the time between two deliberate clicks does.
 
     Needs a page opened with `install_time`. Event timestamps follow Playwright's installed clock
     (a fixed one does not move them), so `run_for` passes the window at once and without a sleep.
     """
     assert page in _CLOCK_INSTALLED, "open the page with open_app(install_time=...)"
     page.clock.run_for(GUARD_WINDOW_MS + 100)
-
-
-def confirm_delete(page):
-    """Click 'Delete habit' the way a person who means it does, then let the page listen again.
-
-    'Delete habit' ignores a click that comes too soon after the one that opened the dialog, and the page
-    ignores clicks that come too soon after a click in the dialog, so the window passes before and after.
-    """
-    let_guard_pass(page)
-    page.get_by_role("button", name="Delete habit", exact=True).click()
-    let_guard_pass(page)
-
-
-def center(locator):
-    box = locator.bounding_box()
-    return box["x"] + box["width"] / 2, box["y"] + box["height"] / 2
-
-
-def tab_until(page, locator, limit=60):
-    """Press Tab (at most `limit` times) until `locator` has focus, as a keyboard user would."""
-    for _ in range(limit):
-        page.keyboard.press("Tab")
-        if is_focused(locator):
-            return
-    pytest.fail(f"focus did not reach the target within {limit} Tab presses")
-
-
-def pattern(page, name):
-    """The row's strip as 'D' (done) and '.' (not done), oldest day first, for example '. D D D D D D'."""
-    return row(page, name).locator("button.day").evaluate_all(
-        "(buttons) => buttons.map((b) => (b.getAttribute('aria-pressed') === 'true' ? 'D' : '.')).join(' ')"
-    )
-
-
-def streak(page, name):
-    """The row's streak line as {'cur', 'cur_class', 'best', 'children'}; 'best' is None without a span.best."""
-    return row(page, name).locator("p.streak").evaluate(
-        """(line) => {
-          const best = line.querySelector('.best');
-          return {
-            cur: line.querySelector('.cur').textContent,
-            cur_class: line.querySelector('.cur').className,
-            best: best ? best.textContent : null,
-            children: line.children.length,
-          };
-        }"""
-    )
 
 
 _WEEKDAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
@@ -604,53 +516,3 @@ def short_date(key):
     """'Tue 6 Oct' for '2026-10-06', worked out here from the calendar so tests do not reuse the app's code."""
     moment = datetime.date.fromisoformat(key)
     return f"{_WEEKDAYS[moment.weekday()][:3]} {moment.day} {_MONTHS[moment.month - 1][:3]}"
-
-
-def long_date(key):
-    """'Tuesday 6 October' for '2026-10-06'."""
-    moment = datetime.date.fromisoformat(key)
-    return f"{_WEEKDAYS[moment.weekday()]} {moment.day} {_MONTHS[moment.month - 1]}"
-
-
-def add_days(key, days):
-    return (datetime.date.fromisoformat(key) + datetime.timedelta(days=days)).isoformat()
-
-
-# Both sides are reduced to the same text: namespace and element name (an `svg` made with createElement
-# is an HTML element that never draws, so the namespace is part of the markup), attributes sorted by
-# name, the style attribute as the browser normalises it, and text with the whitespace-only nodes between
-# tags dropped. `ignore` lists selectors of live-side parts the golden does not have, removed from a clone.
-_CANONICAL_PAIR_JS = """([goldenHtml, selector, ignore]) => {
-  const canon = (node) => {
-    if (node.nodeType === Node.TEXT_NODE) return node.textContent.trim() === '' ? '' : node.textContent;
-    if (node.nodeType !== Node.ELEMENT_NODE) return '';
-    const attributes = Array.from(node.attributes)
-      .map((a) => a.name + '="' + (a.name === 'style' ? node.style.cssText : a.value) + '"')
-      .sort()
-      .join(' ');
-    const inner = Array.from(node.childNodes).map(canon).join('');
-    const name = node.namespaceURI + ' ' + node.localName;
-    return '<' + name + ' ' + attributes + '>' + inner + '</' + name + '>';
-  };
-  const live = document.querySelector(selector).cloneNode(true);
-  for (const part of ignore) live.querySelectorAll(part).forEach((node) => node.remove());
-  const golden = new DOMParser().parseFromString(goldenHtml, 'text/html');
-  return [canon(live), canon(golden.querySelector(selector))];
-}"""
-
-
-def canonical_pair(page, screen, selector, ignore=()):
-    """(live, golden) canonical text of the element `selector` in the running page and in the 1.0 golden <screen>."""
-    golden = (DESIGN_V10_DIR / screen).read_text(encoding="utf-8")
-    return page.evaluate(_CANONICAL_PAIR_JS, [golden, selector, list(ignore)])
-
-
-def shot(page, name):
-    """Save a full-page screenshot under STREAKS_EVIDENCE_DIR when it is set, and do nothing otherwise."""
-    if not EVIDENCE_DIR:
-        return
-    folder = pathlib.Path(EVIDENCE_DIR)
-    if not folder.is_absolute():
-        folder = ROOT / folder
-    folder.mkdir(parents=True, exist_ok=True)
-    page.screenshot(path=str(folder / f"{name}.png"), full_page=True)

@@ -3,68 +3,160 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Streaks</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Danial's Streaky Habit</title>
 <!--
-  Icons: Phosphor Icons (MIT), "check" bold, "trash" regular and "x" regular, paths inlined.
+  Icons: Phosphor Icons (MIT), "x", "plus" and "trash" regular and "check" bold, paths inlined.
+  The mark is the app's own, drawn in one inline svg in the header and as the tab icon src/icon.svg.
 -->
+<link rel="icon" type="image/svg+xml" href="src/icon.svg">
 <link rel="stylesheet" href="src/styles.css">
 <script type="module" src="src/app.js"></script>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-x" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/></symbol>
   <symbol id="i-check" viewBox="0 0 256 256"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></symbol>
   <symbol id="i-trash" viewBox="0 0 256 256"><path d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"/></symbol>
-  <symbol id="i-x" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></symbol>
 </svg>
 
-<div class="page">
+<div class="app">
   <header class="top">
-    <h1 class="brand">Streaks</h1>
-    <p class="date"><time></time></p>
+    <div class="brand">
+      <!-- the mark, recoloured through currentColor. Swap this one svg when the logo is redrawn -->
+      <svg class="mark" viewBox="0 0 28 28" aria-hidden="true" focusable="false"><path d="M13.24 7H18.76A4.5 4.5 0 1 1 18.76 12H13.24A4.5 4.5 0 0 1 12 13.24V18.76A4.5 4.5 0 1 1 7 18.76V13.24A4.5 4.5 0 1 1 13.24 7ZM22.5 18A4.5 4.5 0 0 1 22.5 27A4.5 4.5 0 0 1 22.5 18ZM22.5 20A2.5 2.5 0 0 0 22.5 25A2.5 2.5 0 0 0 22.5 20ZM0.013 10A9.5 9.5 0 0 1 10 0.013V3.019A6.5 6.5 0 0 0 3.019 10Z"/></svg>
+      <h1 class="word">Streaky Habit</h1>
+    </div>
+    <button type="button" class="ov-btn" aria-haspopup="dialog"><span class="ov-ring" aria-hidden="true"></span>Overview</button>
+    <time class="date"></time>
   </header>
 
-  <main class="layout">
-    <div class="col-main">
-      <section aria-labelledby="habits-title">
-        <h2 id="habits-title" class="sr-only">Habits</h2>
-      </section>
-
-      <form class="add" novalidate>
-        <label class="add-label" for="new-habit">New habit</label>
-        <div class="add-row">
-          <input class="input" id="new-habit" name="name" type="text" autocomplete="off" aria-describedby="new-habit-msg">
-          <button class="btn btn-primary" type="submit">Add</button>
+  <main class="main">
+    <section class="band" aria-labelledby="h-ov">
+      <div class="band-meta">
+        <div class="band-head">
+          <h2 id="h-ov">Last 12 weeks</h2>
+          <button type="button" class="btn-all" aria-haspopup="dialog" aria-label="Year view, all habits">Year</button>
         </div>
-        <p class="field-msg field-error" id="new-habit-msg" aria-live="polite"></p>
-      </form>
+        <p class="hint">Tap a day to change it.</p>
+        <div class="legend" aria-hidden="true"></div>
+      </div>
+      <div class="ovg-cols" role="group" aria-labelledby="h-ov"></div>
+    </section>
+
+    <div class="banners"></div>
+
+    <h2 id="h-habits" class="sr">Habits</h2>
+    <div class="frame-wrap">
+      <div class="frame">
+        <div class="sentinel" aria-hidden="true"></div>
+        <ul class="rows" aria-labelledby="h-habits"></ul>
+        <div class="sentinel" aria-hidden="true"></div>
+      </div>
     </div>
 
-    <section class="heat" aria-labelledby="heat-title">
-      <h2 class="heat-title" id="heat-title">Last 12 weeks</h2>
-      <div class="heat-grid">
-        <div class="months" aria-hidden="true"></div>
-        <div class="wdays" aria-hidden="true">
-          <span>Mon</span><span></span><span>Wed</span><span></span><span>Fri</span><span></span><span>Sun</span>
+    <form class="composer" novalidate>
+      <p id="nh-msg" class="field-msg" aria-live="polite" hidden></p>
+      <div class="add-row">
+        <label for="nh" class="add-label">New habit</label>
+        <div class="add-ctl">
+          <input id="nh" class="input" type="text" autocomplete="off" spellcheck="false" aria-describedby="nh-msg">
+          <button id="add-btn" class="btn btn-primary" type="submit"><svg class="ph" aria-hidden="true"><use href="#i-plus"/></svg>Add</button>
         </div>
-        <div class="cells"></div>
       </div>
-      <div class="legend" aria-hidden="true">
-        <span>None</span>
-        <span class="hc l0"></span><span class="hc l1"></span><span class="hc l2"></span><span class="hc l3"></span><span class="hc l4"></span>
-        <span>All</span>
-      </div>
-    </section>
+    </form>
   </main>
 </div>
 
-<dialog class="dialog" role="alertdialog" aria-modal="true" aria-labelledby="del-title" aria-describedby="del-body">
-  <h2 class="dialog-title" id="del-title"></h2>
-  <p class="dialog-body" id="del-body">Its history is deleted too.</p>
-  <form class="dialog-actions" method="dialog">
-    <button class="btn btn-secondary" type="submit" value="cancel">Cancel</button>
-    <button class="btn btn-danger" type="submit" value="delete">Delete habit</button>
-  </form>
+<dialog class="dlg-full dlg-ov" aria-modal="true" aria-labelledby="ov-title">
+  <div class="dlg-box">
+    <div class="sheet-head">
+      <div class="ov-head">
+        <div>
+          <h2 id="ov-title">Last 12 weeks</h2>
+          <p class="hint">Tap a day to change it.</p>
+        </div>
+        <button type="button" class="btn-all" aria-haspopup="dialog" aria-label="Year view, all habits">Year</button>
+        <button type="button" class="icon-btn" aria-label="Close"><svg class="ph" aria-hidden="true"><use href="#i-x"/></svg></button>
+      </div>
+    </div>
+    <div class="sheet-body">
+      <div class="ovg-rows" role="group" aria-labelledby="ov-title"></div>
+      <div class="legend" aria-hidden="true"></div>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="dlg-full dlg-all" aria-modal="true" aria-labelledby="all-title" aria-describedby="all-sub">
+  <div class="dlg-box">
+    <div class="sheet-head">
+      <div class="head-top">
+        <div>
+          <h2 id="all-title">All habits</h2>
+          <p id="all-sub" class="dlg-sub">The last 12 months</p>
+        </div>
+        <button type="button" class="icon-btn" aria-label="Close"><svg class="ph" aria-hidden="true"><use href="#i-x"/></svg></button>
+      </div>
+      <div class="yr-tools">
+        <p class="hint">Tap a day to change it.</p>
+        <div class="legend" aria-hidden="true"></div>
+      </div>
+    </div>
+    <div class="sheet-body">
+      <div class="months months-all"></div>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="dlg-full dlg-year" aria-modal="true" aria-labelledby="yr-title" aria-describedby="yr-sub">
+  <div class="dlg-box">
+    <div class="sheet-head">
+      <div class="head-top">
+        <div>
+          <h2 id="yr-title"></h2>
+          <p id="yr-sub" class="dlg-sub">The last 12 months</p>
+        </div>
+        <button type="button" class="icon-btn" aria-label="Close"><svg class="ph" aria-hidden="true"><use href="#i-x"/></svg></button>
+      </div>
+      <div class="yr-mid">
+        <p class="yr-stats"></p>
+        <button type="button" class="btn-del"><svg class="ph" aria-hidden="true"><use href="#i-trash"/></svg>Delete habit</button>
+      </div>
+      <div class="yr-tools">
+        <p class="hint">Tap a day to mark it done or not done.</p>
+        <p class="yr-legend" aria-hidden="true"><span class="mini on"></span><span>Done</span><span class="mini"></span><span>Not done</span></p>
+      </div>
+    </div>
+    <div class="sheet-body">
+      <div class="months"></div>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="dlg-day" aria-modal="true" aria-labelledby="day-title" aria-describedby="day-sub">
+  <div class="dlg-box">
+    <div class="day-head">
+      <div class="day-mini" aria-hidden="true"></div>
+      <div>
+        <h2 id="day-title"></h2>
+        <p id="day-sub" class="dlg-sub"></p>
+      </div>
+      <button type="button" class="icon-btn" aria-label="Close"><svg class="ph" aria-hidden="true"><use href="#i-x"/></svg></button>
+    </div>
+    <ul class="day-list"></ul>
+  </div>
+</dialog>
+
+<dialog class="dlg-del" role="alertdialog" aria-modal="true" aria-labelledby="del-title" aria-describedby="del-body">
+  <div class="dlg-box">
+    <h2 id="del-title"></h2>
+    <p id="del-body">Its history is deleted too.</p>
+    <div class="dlg-actions">
+      <button type="button" class="btn btn-secondary">Cancel</button>
+      <button type="button" class="btn btn-danger">Delete habit</button>
+    </div>
+  </div>
 </dialog>
 </body>
 </html>
