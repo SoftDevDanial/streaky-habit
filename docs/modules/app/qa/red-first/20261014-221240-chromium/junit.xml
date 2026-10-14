@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="1.095" timestamp="2026-10-14T22:12:42.139843+08:00" hostname="{host}"><testcase classname="tests.browser.test_storage" name="test_R41_the_app_never_reads_the_error_it_catches" time="1.053"><failure message="AssertionError: the app read the error it caught&#10;assert ['test:storage-read:name'] == []&#10;  &#10;  Left contains one more item: 'test:storage-read:name'&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000026A43A85D20&gt;
+
+    def test_R41_the_app_never_reads_the_error_it_catches(app):
+        page = app(storage=sample_state(), init_script=FAIL_SETITEM_PROBE, record=True)
+        done_btn(page, "Stretch 10 minutes").click()
+        assert banners(page) == [WARN_TREE], "a failed save did not show the warning"
+&gt;       assert console_markers(page, STORAGE_READ_MARK) == [], "the app read the error it caught"
+E       AssertionError: the app read the error it caught
+E       assert ['test:storage-read:name'] == []
+E         
+E         Left contains one more item: 'test:storage-read:name'
+E         Use -v to get more diff
+
+tests\browser\test_storage.py:427: AssertionError</failure></testcase></testsuite></testsuites>

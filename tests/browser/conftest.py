@@ -382,7 +382,7 @@ def open_app(
     installed clock lets a test advance time with `page.clock`, a fixed one only pins the date.
     `base_url` replaces STREAKS_BASE_URL, for the sub-path scenario. `count_writes` makes
     `write_count(page)` work: it adds the counter after seeding, so the seed is not counted, and records.
-    `touch` gives the context a touch screen, so `page.touchscreen.tap` works.
+    `touch` gives the context a touch screen, so `page.touchscreen.tap` works. `init_script` is one script or a list.
     """
     if base_url is None:
         _require_base_url()
@@ -409,8 +409,9 @@ def open_app(
     if storage is not None:
         page.goto(base_url + "__seed__")
         page.evaluate("(text) => localStorage.setItem('streaks.state', text)", storage)
-    if init_script is not None:
-        context.add_init_script(init_script)
+    scripts = init_script if isinstance(init_script, list) else [] if init_script is None else [init_script]
+    for script in scripts:
+        context.add_init_script(script)
     if count_writes:
         context.add_init_script(_WRITE_COUNTER_SCRIPT)
         _COUNTING.add(page)
@@ -465,6 +466,147 @@ def write_count(page):
     assert page in _COUNTING, "open the page with open_app(count_writes=True)"
     page.evaluate("() => 0")
     return sum(message["text"] == WRITE_MARK for message in _LOGS[page].console)
+
+
+# The storage drivers of qa.md ("Storage failures are driven from the test side only"), D-a, D-b, D-c and D-e. Each is
+# an init script for `open_app(init_script=...)`, which adds it after seeding. Each starts failing and follows
+# `storage_switch`. None touches localStorage at its top level, because an init script also runs in the blank first
+# document, where storage access is denied. Test code only, never shipped.
+_DRIVER = """(() => {
+  let failing = true;
+  window.addEventListener('test:storage', (event) => { failing = event.detail; });
+%s
+})();"""
+
+# D-a, setItem throws a quota error while failing.
+FAIL_SETITEM = _DRIVER % """  const setItem = Storage.prototype.setItem;
+  Storage.prototype.setItem = function (...args) {
+    if (failing) throw new DOMException('test quota', 'QuotaExceededError');
+    return setItem.apply(this, args);
+  };"""
+
+# D-b, reading window.localStorage throws while failing (honoured by both engines, task 11 probe P1).
+FAIL_GETTER = _DRIVER % """  const store = Object.getOwnPropertyDescriptor(window, 'localStorage');
+  Object.defineProperty(window, 'localStorage', {
+    configurable: true,
+    enumerable: store.enumerable,
+    get() {
+      if (failing) throw new DOMException('test denied', 'SecurityError');
+      return store.get.call(window);
+    },
+  });"""
+
+# D-c, getItem throws while failing.
+FAIL_GETITEM = _DRIVER % """  const getItem = Storage.prototype.getItem;
+  Storage.prototype.getItem = function (...args) {
+    if (failing) throw new DOMException('test read', 'SecurityError');
+    return getItem.apply(this, args);
+  };"""
+
+# D-e, D-a whose thrown value logs "test:storage-read:<property>" when its name, code or message is read.
+STORAGE_READ_MARK = "test:storage-read:"
+FAIL_SETITEM_PROBE = _DRIVER % ("""  const setItem = Storage.prototype.setItem;
+  const watched = () => {
+    const thrown = {};
+    for (const property of ['name', 'code', 'message']) {
+      Object.defineProperty(thrown, property, {
+        get() {
+          console.log('%s' + property);
+          return property === 'code' ? 22 : 'test quota';
+        },
+      });
+    }
+    return thrown;
+  };
+  Storage.prototype.setItem = function (...args) {
+    if (failing) throw watched();
+    return setItem.apply(this, args);
+  };""" % STORAGE_READ_MARK)
+
+
+def storage_switch(page, failing):
+    """Turn the page's storage driver to failing (True) or working (False), through the event every driver listens for."""
+    page.evaluate("(failing) => window.dispatchEvent(new CustomEvent('test:storage', { detail: failing }))", failing)
+
+
+FILL_SECONDS = 60  # qa.md's cap for driver D-d. Task 11 measured the fill at 0.03 s or less in both engines.
+# Driver D-d. New test.fill.<n> keys of halving sizes, then the last key grown in halving steps, until even one more
+# character is refused. Bounded by its count of writes, so it cannot spin.
+_FILL_JS = """() => {
+  const write = (key, value) => { try { localStorage.setItem(key, value); return true; } catch { return false; } };
+  let keys = 0;
+  let writes = 0;
+  for (let size = 1 << 20; size >= 1 && writes < 1000; writes += 1) {
+    if (write('test.fill.' + keys, 'x'.repeat(size))) keys += 1;
+    else size = Math.floor(size / 2);
+  }
+  const last = 'test.fill.' + (keys - 1);
+  for (let size = 64; size >= 1 && writes < 2000; writes += 1) {
+    if (!write(last, localStorage.getItem(last) + 'x'.repeat(size))) size = Math.floor(size / 2);
+  }
+  const full = keys > 0 && !write(last, localStorage.getItem(last) + 'x');
+  let characters = 0;
+  for (let n = 0; n < keys; n += 1) characters += localStorage.getItem('test.fill.' + n).length;
+  return { keys, characters, writes, full };
+}"""
+
+
+def fill_quota(page):
+    """Driver D-d, a real full quota. Fills the origin's storage until even one more character is refused, and returns
+    what it wrote. Fails when the store still takes a character, or when the fill took longer than FILL_SECONDS."""
+    started = time.monotonic()
+    fill = page.evaluate(_FILL_JS)
+    fill["seconds"] = round(time.monotonic() - started, 3)
+    assert fill["full"], f"the store still takes a character after the fill: {fill}"
+    assert fill["seconds"] < FILL_SECONDS, f"the fill took longer than {FILL_SECONDS} seconds: {fill}"
+    return fill
+
+
+def clear_fill(page):
+    """Remove the keys `fill_quota` wrote, and return how many there were."""
+    return page.evaluate(
+        """() => {
+  const keys = Array.from({ length: localStorage.length }, (_, n) => localStorage.key(n)).filter((key) => key.startsWith('test.fill.'));
+  keys.forEach((key) => localStorage.removeItem(key));
+  return keys.length;
+}"""
+    )
+
+
+_MUTATION_LOG_JS = """(node) => {
+  const log = { added: 0, removed: 0 };
+  const count = (records) => records.forEach((record) => {
+    log.added += record.addedNodes.length;
+    log.removed += record.removedNodes.length;
+  });
+  const observer = new MutationObserver(count);
+  observer.observe(node, { childList: true });
+  log.read = () => {
+    count(observer.takeRecords());
+    return { added: log.added, removed: log.removed };
+  };
+  return log;
+}"""
+
+
+def mutation_log(page, selector):
+    """A test-side handle on the child additions and removals a MutationObserver sees on the element at `selector` from
+    now on, read with `mutations`. It adds no property to window."""
+    return page.locator(selector).evaluate_handle(_MUTATION_LOG_JS)
+
+
+def mutations(log):
+    """{"added": n, "removed": m}, the children `log` saw added and removed so far, records not yet delivered included."""
+    return log.evaluate("(log) => log.read()")
+
+
+def write_evidence(name, data):
+    """Write `data` as JSON into the run's evidence folder (STREAKS_EVIDENCE_DIR, ending with the engine), when set."""
+    if not EVIDENCE_DIR:
+        return
+    folder = pathlib.Path(EVIDENCE_DIR)
+    folder.mkdir(parents=True, exist_ok=True)
+    (folder / f"{name}.json").write_text(json.dumps(data, indent=1), encoding="utf-8")
 
 
 def add_button(page):

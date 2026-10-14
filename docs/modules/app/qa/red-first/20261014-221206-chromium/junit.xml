@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="5" time="1.688" timestamp="2026-10-14T22:12:07.842445+08:00" hostname="{host}"><testcase classname="tests.browser.test_storage" name="test_R17_readable_edge_cases_load_without_a_note[no habits]" time="0.976" /><testcase classname="tests.browser.test_storage" name="test_R17_readable_edge_cases_load_without_a_note[extra fields]" time="0.161"><failure message="AssertionError: {&quot;version&quot;:1,&quot;habits&quot;:[{&quot;name&quot;:&quot;Read&quot;,&quot;done&quot;:[]}],&quot;theme&quot;:&quot;dark&quot;}&#10;assert ('color' not in '{&quot;version&quot;:...eme&quot;:&quot;dark&quot;}'&#10;  &#10;  'color' is contained here:&#10;    me&quot;:&quot;dark&quot;} and 'theme' not in '{&quot;version&quot;:...eme&quot;:&quot;dark&quot;}'&#10;  &#10;  'theme' is contained here:&#10;    ne&quot;:[]}],&quot;theme&quot;:&quot;dark&quot;}&#10;  ?           +++++)">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000021ADFA00F60&gt;
+raw = '{"version":1,"habits":[{"name":"Read","done":["2026-10-10"],"color":"red"}],"theme":"dark"}'
+result = &lt;function drops_fields_it_does_not_know at 0x0000021ADE2E5BC0&gt;
+
+    @pytest.mark.parametrize(
+        "raw, result",
+        [
+            pytest.param('{"version":1,"habits":[]}', shows_the_empty_list, id="no habits"),
+            pytest.param(
+                '{"version":1,"habits":[{"name":"Read","done":["2026-10-10"],"color":"red"}],"theme":"dark"}',
+                drops_fields_it_does_not_know,
+                id="extra fields",
+            ),
+            pytest.param('{"version":1,"habits":[{"name":"Read","done":["2026-10-10","2026-10-09","2026-10-10"]}]}', counts_a_repeated_day_once, id="a repeated day"),
+            pytest.param('{"version":1,"habits":[{"name":"Read","done":["2026-10-11"]}]}', draws_no_day_after_today, id="a day after today"),
+            pytest.param('{"version":1,"habits":[{"name":"Read","done":[],"__proto__":{"polluted":true}}]}', lets_no_key_reach_the_prototype, id="__proto__ key"),
+        ],
+    )
+    def test_R17_readable_edge_cases_load_without_a_note(app, raw, result):
+        page = app(storage=raw)
+        assert banners(page) == [], "div.banners has a child for a readable value"
+&gt;       result(page)
+
+tests\browser\test_storage.py:244: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+page = &lt;Page url='http://127.0.0.1:44398/'&gt;
+
+    def drops_fields_it_does_not_know(page):
+        assert rows_shown(page) == [("Read", "1 day", "1", "true")]
+        done_btn(page, "Read").click()
+        expect(done_btn(page, "Read")).to_have_attribute("aria-pressed", "false")
+        saved = stored(page)
+&gt;       assert "color" not in saved and "theme" not in saved, saved
+E       AssertionError: {"version":1,"habits":[{"name":"Read","done":[]}],"theme":"dark"}
+E       assert ('color' not in '{"version":...eme":"dark"}'
+E         
+E         'color' is contained here:
+E           me":"dark"} and 'theme' not in '{"version":...eme":"dark"}'
+E         
+E         'theme' is contained here:
+E           ne":[]}],"theme":"dark"}
+E         ?           +++++)
+
+tests\browser\test_storage.py:210: AssertionError</failure></testcase><testcase classname="tests.browser.test_storage" name="test_R17_readable_edge_cases_load_without_a_note[a repeated day]" time="0.141" /><testcase classname="tests.browser.test_storage" name="test_R17_readable_edge_cases_load_without_a_note[a day after today]" time="0.152" /><testcase classname="tests.browser.test_storage" name="test_R17_readable_edge_cases_load_without_a_note[__proto__ key]" time="0.199"><failure message="AssertionError: assert 'boolean' == 'undefined'&#10;  &#10;  - undefined&#10;  + boolean">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000021ADFAD1B10&gt;
+raw = '{"version":1,"habits":[{"name":"Read","done":[],"__proto__":{"polluted":true}}]}'
+result = &lt;function lets_no_key_reach_the_prototype at 0x0000021ADE2E5DD0&gt;
+
+    @pytest.mark.parametrize(
+        "raw, result",
+        [
+            pytest.param('{"version":1,"habits":[]}', shows_the_empty_list, id="no habits"),
+            pytest.param(
+                '{"version":1,"habits":[{"name":"Read","done":["2026-10-10"],"color":"red"}],"theme":"dark"}',
+                drops_fields_it_does_not_know,
+                id="extra fields",
+            ),
+            pytest.param('{"version":1,"habits":[{"name":"Read","done":["2026-10-10","2026-10-09","2026-10-10"]}]}', counts_a_repeated_day_once, id="a repeated day"),
+            pytest.param('{"version":1,"habits":[{"name":"Read","done":["2026-10-11"]}]}', draws_no_day_after_today, id="a day after today"),
+            pytest.param('{"version":1,"habits":[{"name":"Read","done":[],"__proto__":{"polluted":true}}]}', lets_no_key_reach_the_prototype, id="__proto__ key"),
+        ],
+    )
+    def test_R17_readable_edge_cases_load_without_a_note(app, raw, result):
+        page = app(storage=raw)
+        assert banners(page) == [], "div.banners has a child for a readable value"
+&gt;       result(page)
+
+tests\browser\test_storage.py:244: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+page = &lt;Page url='http://127.0.0.1:44398/'&gt;
+
+    def lets_no_key_reach_the_prototype(page):
+        assert [name for name, *_ in rows_shown(page)] == ["Read"]
+&gt;       assert page.evaluate("() =&gt; typeof ({}).polluted") == "undefined"
+E       AssertionError: assert 'boolean' == 'undefined'
+E         
+E         - undefined
+E         + boolean
+
+tests\browser\test_storage.py:224: AssertionError</failure></testcase></testsuite></testsuites>

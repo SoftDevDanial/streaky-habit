@@ -2,8 +2,9 @@
  * The composition root (spec Contracts, Files): boots the page from the saved habits and today's date, and wires
  * the events. Why: the one place that joins habit-logic (the rules), storage.js (persistence) and the view modules
  * (the DOM), so none of them imports another's job. index.html loads this module and nothing else. It exports nothing.
- * State is the habits array, the shown day and the open popups with their openers. Every change goes through a
- * habit-logic function, then a save, then a synchronous render inside the handler that caused it (spec Invariants).
+ * State is the habits array, the shown day, whether the latest save failed, and the open popups with their openers.
+ * Every change goes through a habit-logic function, then a save, then a synchronous render inside the handler that
+ * caused it (spec Invariants).
  */
 import { beadOf, dayButtonOf } from "./calendar.js";
 import { localDateKey } from "./dates.js";
@@ -21,12 +22,12 @@ function readToday() {
 }
 
 /**
- * `day` is the date P1 is open for, `year` the position of the habit P2 is open for, `remove` what M1 is open for
- * (the habit's position, whether M1 came from P2, and the box of the control that opened it), each null while its
- * popup is closed. A position stays right while its popup is open, because popups are modal and nothing adds or
- * deletes behind them.
+ * `saveFailed` is whether the latest save attempt failed, which the save warning shows (R41). `day` is the date P1 is
+ * open for, `year` the position of the habit P2 is open for, `remove` what M1 is open for (the habit's position,
+ * whether M1 came from P2, and the box of the control that opened it), each null while its popup is closed. A
+ * position stays right while its popup is open, because popups are modal and nothing adds or deletes behind them.
  */
-const state = { habits: [], todayKey: "", day: null, year: null, remove: null };
+const state = { habits: [], todayKey: "", saveFailed: false, day: null, year: null, remove: null };
 
 /**
  * Each open popup and the control that opened it, so closing it puts focus back there (rule 1). A Map keeps the order
@@ -47,6 +48,7 @@ let lastPopupPress = null;
 function render(animate) {
   const { habits, todayKey } = state;
   const cells = heatmapCells(habits, todayKey);
+  view.renderSaveWarning(state.saveFailed);
   view.renderOverviewButton(doneFlags(habits, todayKey), animate);
   view.renderBand(cells, todayKey, habits.length, animate);
   const open = popups.dialogs();
@@ -59,10 +61,13 @@ function render(animate) {
   view.renderFrameFades();
 }
 
-/** Every edit takes this path, so each saves once and then shows the new habits everywhere at once (R16, R32). */
+/**
+ * Every edit takes this path, so each saves once and then shows the new habits everywhere at once (R16, R32). The
+ * latest save decides the warning (R41, SW4). A failed save keeps the change in memory and on screen.
+ */
 function edit(habits) {
   state.habits = habits;
-  saveHabits(habits);
+  state.saveFailed = !saveHabits(habits);
   render(true);
 }
 
@@ -148,9 +153,13 @@ function closeWithoutReturn(dialog) {
 /**
  * Done today ticks or unticks today (R31). The button is updated in place by the render, and focus is never moved,
  * so a keyboard user stays on it. A row's bin opens M1, the Overview button opens P3, the band's Year opens P4, a
- * row's Year opens P2, a band day opens P1.
+ * row's Year opens P2, a band day opens P1, and the note's Dismiss removes the note (R17).
  */
 function onPageClick(event) {
+  if (view.dismissOf(event.target)) {
+    view.dismissNote();
+    return;
+  }
   const index = view.doneTodayIndexOf(event.target);
   if (index >= 0) {
     edit(toggleDay(state.habits, index, state.todayKey, state.todayKey));
@@ -288,11 +297,19 @@ function onPopupClose(event) {
   opener?.focus();
 }
 
+/**
+ * Loads the saved habits, saving nothing unless the saved text was unreadable (R16, R17), draws the page once, and
+ * registers every listener. A failed read or a failed reset save shows the warning from this first render, and a
+ * reset shows the note below it (R41, CG-17).
+ */
 function boot() {
-  state.habits = loadHabits().habits;
+  const loaded = loadHabits();
+  state.habits = loaded.habits;
+  state.saveFailed = loaded.saveFailed;
   state.todayKey = readToday();
   view.renderDate(state.todayKey);
   render(false);
+  if (loaded.reset) view.showResetNote();
   const { page, frame, composer, field } = view.containers();
   // The guard listens in the capture phase and first, so a held click reaches no other listener (R14).
   page.addEventListener("click", guardTapThrough, true);

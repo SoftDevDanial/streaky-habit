@@ -669,3 +669,65 @@ No undo after a delete, no toast, no message. No new copy, icon, motion or shado
 - `src/popups.js` gains `confirmDeleteOf`, `yearDeleteOf`, `renderDeleteTitle` and `TITLE_STRIPPED`. `closeButtonOf` also finds M1's Cancel.
 - `src/view.js` gains `binOf` and `focusAfterDelete`.
 - The browser suite gains `test_delete.py`. `conftest.py` gains `press_twice`, `point_beside`, `watch_close` and `wait_for_close`. No `xfail` mark is left in the suite.
+
+---
+
+## v1.1.0 task 23, persistence, the unreadable note and the save warning (2026-10-14)
+> Written by the frontend builder (senior frontend dev agent), 2026-10-14. Requirements R16, R17 and R41 (CG-17 ruled). The commit is the one whose message starts `feat(app): the save warning, the unreadable note and saves that survive a reload (task 23`.
+
+### Phase skills (design row of `docs/phase-skills.md`)
+Both read on disk in this session before any UI code (no Skill tool). `taste-skill` (`taste-skill/1.0.0/skills/taste-skill/SKILL.md`, all 1206 lines) and `frontend-design` (`claude-plugins-official/frontend-design/8d392c816966/skills/frontend-design/SKILL.md`).
+- **What they changed.** Nothing in the look. The banners' markup and copy are the S4 and S5 frames of `states.html`, compared node for node by `test_R17_R41_R28_the_banners_have_the_markup_of_the_golden`, and `src/styles.css` is unchanged, so R2's three changes still hold.
+- **Transferred and checked.** No em or en dash in any file written (checked with Python). Copy self-audit, the warning, the note and "Dismiss note" are rows of the spec's Copy table, each written once in `view.js`. Failure as direction, not mood (frontend-design), the approved copy says what happened and what it means, and the warning shows only while saving fails. Error states in context (taste-skill 4.5), the banners sit between the header or band and the list as the golden draws them. Motion only answers an action, and the banners add none (`system.css` gives them none). The glyph is the sprite's Phosphor x, nothing hand-drawn.
+- **Not transferred, and why.** React, Tailwind, Motion, fonts and image rules (locked stack). Toasts (the golden draws banners). Landing and hero rules (a tool, not a landing page).
+
+### What changed
+- `src/app.js`. `state.saveFailed` holds whether the latest save failed, and `edit` stores `saveHabits`' result there (SW4). `render` draws the warning from it, so the first render at boot shows it after a failed read or a failed reset save (R41, CG-17). `boot` reads `loadHabits()` whole and draws the note after the first render when it reset (R17). `onPageClick` runs Dismiss.
+- `src/view.js`. `renderSaveWarning` (inserts or removes the warning only on a change of state, SW7, always as the first banner), `showResetNote`, the private `banner`, `dismissOf` and `dismissNote` (the note goes and focus moves to the field, rule 7). The module comment names R17 and R41.
+- `src/storage.js` unchanged. Task 14 built `saveHabits`' boolean and `loadHabits`' `saveFailed`.
+- `tests/browser/test_storage.py` (new). Every browser scenario of qa.md's Feature "Kept on the device", 37 tests, plus `test_R17_R41_R28_the_banners_have_the_markup_of_the_golden`. The quota scenario writes its fill to the evidence (`quota-fill.json`).
+- `tests/browser/conftest.py`. The drivers `FAIL_SETITEM` (D-a), `FAIL_GETTER` (D-b), `FAIL_GETITEM` (D-c) and `FAIL_SETITEM_PROBE` (D-e) with `STORAGE_READ_MARK`, then `storage_switch`, `fill_quota` (D-d) with `FILL_SECONDS`, `clear_fill`, `mutation_log` and `mutations`, and `write_evidence`, moved here from `test_delete.py`, which now imports it. `open_app`'s `init_script` also takes a list (qa.md's conftest table). `animation_log` is not added, because no task 23 scenario uses it.
+- `spec.md` task 23 ticked.
+
+### RED first
+All runs are Chromium, in `docs/modules/app/qa/red-first/`.
+1. `20261014-220834-chromium`, HEAD with no `src/` change. 38 tests, 28 failed, 10 passed. 24 failed on their properties (the 16 unreadable rows on "div.banners does not hold exactly the note", the warning above the note, the golden markup, the first failing save, the next working save on "div.banners did not lose exactly one child", the boot read refused (D-b) and throwing (D-c), the full quota, and the error never read, on its warning). Four could not reach their property at HEAD. Dismiss and the warning handle stopped at a 5 second timeout (no such element), and the two note position rows at "no div.banner.note to measure".
+2. `20261014-220942-chromium`, throwaway stub S, never committed. S drew both banners with the golden's markup but with wrong values (Dismiss removed the note without moving focus, each failed save drew a new warning element, a working save kept the warning, and boot ignored `saveFailed`). 8 failed on their properties, among them Dismiss ("Dismiss did not move focus to the field") and the warning that must stay one element ("the warning was replaced while saves kept failing"), with the next working save, the warning above the note, the golden markup, D-b, D-c and the full quota.
+3. Planted defects on S, each run on its target tests only. P-a `20261014-221009` (an add not saved), the reload scenario failed on "the reload did not show the edited habits in order". P-a2 `20261014-221026` (a delete not saved), it failed on "the reload after the delete did not show the three habits". P-b `20261014-221040` (boot saves what it loaded), "Loading writes nothing" and the three cold boot rows failed, 4 of 4. P-b2 `20261014-221059` (a warning at every boot), the three cold boot rows failed on "a warning showed at a boot that saved nothing". P-c `20261014-221116` (the note at every boot), the five readable rows failed on "div.banners has a child for a readable value". P-c2 `20261014-221136` (decoded habits keep unknown fields and repeated days) passed all five, kept as written (judgment call 3). P-c3 and P-c4 `20261014-221206` (the save carries the loaded top-level object forward, and a deep merge of each saved habit) failed the rows "extra fields" (`"theme":"dark"` was stored) and "__proto__ key" (`typeof ({}).polluted` gave "boolean"). P-e `20261014-221227` (the note drawn after the list frame), both position rows failed on the gaps (156 px for 12). P-g `20261014-221240` (`saveHabits` reads the caught error's `name`) failed on "the app read the error it caught" with the marker `test:storage-read:name`. P-h `20261014-221255` (a failed save rolls the change back) failed on Current "2 days" for "3 days".
+Every stub and defect was removed through the Edit tool before the code, and `git diff --quiet src/` then gave exit 0.
+
+### Proof
+- Chromium, **264 passed**, 106.3 s (`docs/modules/app/qa/functional/20261014-221528-chromium/junit.xml`). 226 of task 22, plus 38 new.
+- WebKit, **263 passed, 1 skipped (CO-1, counted with its reason)**, 170.2 s (`docs/modules/app/qa/functional/20261014-221722-webkit/junit.xml`). No WebKit failure.
+- Node, `node --test "tests/**/*.test.js"`, 137 of 137.
+- The quota fill (`quota-fill.json` in each run folder). 15 keys and 5233473 characters of values in 44 writes, full to the last character, 0.02 s in Chromium and 0.009 s in WebKit, far inside the 60 second cap.
+- Builder self-check (a scratch probe, not the fidelity gate, nothing written). The computed style of the app's warning and note (box, text, button and glyph) against the S4 and S5 frames of `states.html`, at 360 x 780 and 1280 x 800, in Chromium and WebKit. Equal at 1280. At 360 the only difference is the width of each banner's text, and so its line count in WebKit, because the states sheet sets its specimens in a wider column than the page has at 360 (the sheet's own chrome, as task 21 found for the composer).
+
+### Judgment calls (named, for the orchestrator)
+1. **The warning is drawn by `render` from `state.saveFailed`**, so the first render at boot shows it, and so does every later render (the rollover of task 24 too). `renderSaveWarning` writes only when the state changes, so SW7 holds however often it runs.
+2. **The RED came from a run at HEAD, a throwaway stub S and planted defects**, because four tests could not reach their property at HEAD and ten held there.
+3. **Two readable rows were not seen failing on their result.** "a repeated day" (Current 2 days, Best 2) and "a day after today" (no button for 11 October, No streak yet, Best 1) were seen failing only on their first check (P-c). P-c2 showed why for the first. habit-logic counts a day once and `toggleDay` rebuilds a habit as `{ name, done }`, so those properties are held outside `storage.js` too. No day after today is the band's rule (R35, `test_render.py`).
+4. **`write_evidence` moved to `conftest.py`**, because `test_delete.py` and `test_storage.py` both write evidence (DRY). Both files are green after the move.
+5. **`fill_quota`'s 60 second cap is checked after the fill**, because a Playwright `evaluate` takes no timeout. The fill itself is bounded by 2000 writes, so it cannot spin.
+6. **The note position rows allow 0.5 px round 12 px**, the handoff's tolerance for boxes that follow WebKit's 100dvh layout.
+7. **An extra test** compares the two banners together node for node with the S4 and S5 frames of `states.html`, as tasks 19, 20 and 22 did for their popups.
+
+### Open question (for the planner, not decided)
+1. **Dismiss with twelve habits.** The note stays until Dismiss, so after a reset a user can add habits up to twelve with the note still showing. At twelve the field is disabled (R12) and cannot take focus, so Dismiss then leaves focus on `body`, and R17's "moves focus to the field" cannot hold. The code calls `focus()` on the field as R17 says. No scenario covers it.
+
+### Deviations
+- None in the code.
+- Process. One check ended with `2>/dev/null` (`git diff --stat src/`), a redirection the brief rules out. It wrote no file. Every other command piped to `grep` or `tail`.
+
+### Non-goals honoured
+No toast and no message other than the S2 errors, the S3 note, the S4 warning and the S5 note. No detection of private browsing or of Safari's clean-up, no `storage` event, no probe write and no read back (SW4). No migration code. No new copy, icon, motion or shadow. `src/styles.css` unchanged. No rollover work (task 24).
+
+### How to run and view
+- `python -m pytest tests/browser -q` (Chromium) and `python -m pytest tests/browser -q --engine webkit`.
+- Serve the root with `python -m http.server <port> --bind 127.0.0.1` and open `http://127.0.0.1:<port>/`. To see the note, set `streaks.state` to `{` in the browser's storage and reload. Dismiss removes it and puts focus in the field. To see the warning, block site data for the page in the browser's settings and reload. The warning shows at once and goes after the first save that works.
+
+### For the README reconcile
+- `src/app.js` gains `state.saveFailed`. `edit` keeps `saveHabits`' result, `render` draws the warning from it, `boot` reads `loadHabits()` whole and shows the note after a reset, and `onPageClick` runs Dismiss.
+- `src/view.js` gains `renderSaveWarning`, `showResetNote`, `dismissOf` and `dismissNote`, with the private `banner`, `SAVE_WARNING` and `RESET_NOTE`.
+- The browser suite gains `test_storage.py`. `conftest.py` gains `FAIL_SETITEM`, `FAIL_GETTER`, `FAIL_GETITEM`, `FAIL_SETITEM_PROBE`, `STORAGE_READ_MARK`, `storage_switch`, `fill_quota`, `FILL_SECONDS`, `clear_fill`, `mutation_log`, `mutations` and `write_evidence` (moved from `test_delete.py`). `open_app`'s `init_script` also takes a list.
+- The README's known limit (R41, part 1 CG-2, SW8). Private browsing, Safari's 7-day clean-up and the user clearing site data lose habits with no failure the page can see. That README line is the orchestrator's.

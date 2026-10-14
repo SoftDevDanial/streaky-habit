@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="2" time="1.199" timestamp="2026-10-14T22:12:28.721725+08:00" hostname="{host}"><testcase classname="tests.browser.test_storage" name="test_R17_the_note_sits_between_the_top_of_the_page_and_the_list[390x844]" time="0.994"><failure message="AssertionError: {'noteBelowAbove': 156, 'frameBelowBanners': 94}&#10;assert (144 &lt;= 0.5)&#10; +  where 144 = abs((156 - 12))">app = &lt;function app.&lt;locals&gt;.open_page at 0x00000186023B1D20&gt;
+viewport = (390, 844), above = 'header.top'
+
+    @pytest.mark.parametrize(
+        "viewport, above",
+        [
+            pytest.param(PHONE, "header.top", id="390x844"),
+            pytest.param(DESKTOP, "section.band", id="1280x800"),
+        ],
+    )
+    def test_R17_the_note_sits_between_the_top_of_the_page_and_the_list(app, viewport, above):
+        page = app(viewport=viewport, storage="{")
+        gaps = page.evaluate(GAPS_JS, above)
+        assert gaps is not None, "no div.banner.note to measure"
+        # Within half a pixel, because WebKit lays 100dvh out in 1/64 px units and the boxes below the header follow it.
+&gt;       assert abs(gaps["noteBelowAbove"] - 12) &lt;= 0.5 and abs(gaps["frameBelowBanners"] - 12) &lt;= 0.5, gaps
+E       AssertionError: {'noteBelowAbove': 156, 'frameBelowBanners': 94}
+E       assert (144 &lt;= 0.5)
+E        +  where 144 = abs((156 - 12))
+
+tests\browser\test_storage.py:283: AssertionError</failure></testcase><testcase classname="tests.browser.test_storage" name="test_R17_the_note_sits_between_the_top_of_the_page_and_the_list[1280x800]" time="0.150"><failure message="AssertionError: {'noteBelowAbove': 156, 'frameBelowBanners': 422}&#10;assert (144 &lt;= 0.5)&#10; +  where 144 = abs((156 - 12))">app = &lt;function app.&lt;locals&gt;.open_page at 0x00000186036FEF00&gt;
+viewport = (1280, 800), above = 'section.band'
+
+    @pytest.mark.parametrize(
+        "viewport, above",
+        [
+            pytest.param(PHONE, "header.top", id="390x844"),
+            pytest.param(DESKTOP, "section.band", id="1280x800"),
+        ],
+    )
+    def test_R17_the_note_sits_between_the_top_of_the_page_and_the_list(app, viewport, above):
+        page = app(viewport=viewport, storage="{")
+        gaps = page.evaluate(GAPS_JS, above)
+        assert gaps is not None, "no div.banner.note to measure"
+        # Within half a pixel, because WebKit lays 100dvh out in 1/64 px units and the boxes below the header follow it.
+&gt;       assert abs(gaps["noteBelowAbove"] - 12) &lt;= 0.5 and abs(gaps["frameBelowBanners"] - 12) &lt;= 0.5, gaps
+E       AssertionError: {'noteBelowAbove': 156, 'frameBelowBanners': 422}
+E       assert (144 &lt;= 0.5)
+E        +  where 144 = abs((156 - 12))
+
+tests\browser\test_storage.py:283: AssertionError</failure></testcase></testsuite></testsuites>

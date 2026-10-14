@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="2.240" timestamp="2026-10-14T22:10:28.274918+08:00" hostname="{host}"><testcase classname="tests.browser.test_storage" name="test_R16_R32_changes_survive_a_reload_and_a_closed_tab" time="2.198"><failure message="AssertionError: the reload after the delete did not show the three habits&#10;assert [('Read 20 pa...one, 'false')] == [('Read 20 pa...14', 'false')]&#10;  &#10;  Left contains one more item: ('Drink water', 'No streak yet', None, 'false')&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000025ADF0EDD20&gt;
+
+    def test_R16_R32_changes_survive_a_reload_and_a_closed_tab(app):
+        page = app(viewport=DESKTOP, storage=sample_state(), install_time=NOON)
+        expect(page.locator("ul.rows &gt; li.row")).to_have_count(3)
+        done_btn(page, "Stretch 10 minutes").click()
+        band_day(page, "2026-09-22").click()
+        tick(page, "Read 20 pages").click()
+        page.locator(f"dialog.dlg-day {CLOSE}").click()
+        let_guard_pass(page)
+        year_btn(page, "No phone after 11pm").click()
+        bead(page, "2026-10-09").click()
+        page.locator(f"dialog.dlg-year {CLOSE}").click()
+        let_guard_pass(page)
+        add_habit(page, "Drink water")
+        expect(page.locator("ul.rows &gt; li.row")).to_have_count(4)
+    
+        page.reload()
+        kept = [
+            ("Read 20 pages", "4 days", "13", "true"),
+            ("Stretch 10 minutes", "3 days", "5", "true"),
+            ("No phone after 11pm", "8 days", "14", "false"),
+        ]
+        drink = ("Drink water", "No streak yet", None, "false")
+        assert rows_shown(page) == kept + [drink], "the reload did not show the edited habits in order"
+        edited = with_days({"Read 20 pages": "2026-09-22", "Stretch 10 minutes": TODAY, "No phone after 11pm": "2026-10-09"})
+        assert stored(page) == encode(edited + [{"name": "Drink water", "done": []}])
+    
+        bin_btn(page, "Drink water").click()
+        confirm_delete(page, bin_btn(page, "Drink water"))
+        expect(page.locator("ul.rows &gt; li.row")).to_have_count(3)
+        page.reload()
+&gt;       assert rows_shown(page) == kept, "the reload after the delete did not show the three habits"
+E       AssertionError: the reload after the delete did not show the three habits
+E       assert [('Read 20 pa...one, 'false')] == [('Read 20 pa...14', 'false')]
+E         
+E         Left contains one more item: ('Drink water', 'No streak yet', None, 'false')
+E         Use -v to get more diff
+
+tests\browser\test_storage.py:147: AssertionError</failure></testcase></testsuite></testsuites>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="5" skipped="0" tests="5" time="1.434" timestamp="2026-10-14T22:11:18.211035+08:00" hostname="{host}"><testcase classname="tests.browser.test_storage" name="test_R17_readable_edge_cases_load_without_a_note[no habits]" time="0.929"><failure message="AssertionError: div.banners has a child for a readable value&#10;assert [['div', ['cl...', [...]]]]]]] == []&#10;  &#10;  Left contains one more item: ['div', ['class=banner note', 'role=status'], '', [['p', [], 'Your saved habits could not be read, so the list was res...-label=Dismiss note', 'class=icon-btn', 'type=button'], '', [['svg', ['aria-hidden=true', 'class=ph'], '', [[...]]]]]]]&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001DED0AF1D20&gt;
+raw = '{"version":1,"habits":[]}'
+result = &lt;function shows_the_empty_list at 0x000001DED0725B10&gt;
+
+    @pytest.mark.parametrize(
+        "raw, result",
+        [
+            pytest.param('{"version":1,"habits":[]}', shows_the_empty_list, id="no habits"),
+            pytest.param(
+                '{"version":1,"habits":[{"name":"Read","done":["2026-10-10"],"color":"red"}],"theme":"dark"}',
+                drops_fields_it_does_not_know,
+                id="extra fields",
+            ),
+            pytest.param('{"version":1,"habits":[{"name":"Read","done":["2026-10-10","2026-10-09","2026-10-10"]}]}', counts_a_repeated_day_once, id="a repeated day"),
+            pytest.param('{"version":1,"habits":[{"name":"Read","done":["2026-10-11"]}]}', draws_no_day_after_today, id="a day after today"),
+            pytest.param('{"version":1,"habits":[{"name":"Read","done":[],"__proto__":{"polluted":true}}]}', lets_no_key_reach_the_prototype, id="__proto__ key"),
+        ],
+    )
+    def test_R17_readable_edge_cases_load_without_a_note(app, raw, result):
+        page = app(storage=raw)
+&gt;       assert banners(page) == [], "div.banners has a child for a readable value"
+E       AssertionError: div.banners has a child for a readable value
+E       assert [['div', ['cl...', [...]]]]]]] == []
+E         
+E         Left contains one more item: ['div', ['class=banner note', 'role=status'], '', [['p', [], 'Your saved habits could not be read, so the list was res...-label=Dismiss note', 'class=icon-btn', 'type=button'], '', [['svg', ['aria-hidden=true', 'class=ph'], '', [[...]]]]]]]
+E         Use -v to get more diff
+
+tests\browser\test_storage.py:243: AssertionError</failure></testcase><testcase classname="tests.browser.test_storage" name="test_R17_readable_edge_cases_load_without_a_note[extra fields]" time="0.101"><failure message="AssertionError: div.banners has a child for a readable value&#10;assert [['div', ['cl...', [...]]]]]]] == []&#10;  &#10;  Left contains one more item: ['div', ['class=banner note', 'role=status'], '', [['p', [], 'Your saved habits could not be read, so the list was res...-label=Dismiss note', 'class=icon-btn', 'type=button'], '', [['svg', ['aria-hidden=true', 'class=ph'], '', [[...]]]]]]]&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001DED1E35010&gt;
+raw = '{"version":1,"habits":[{"name":"Read","done":["2026-10-10"],"color":"red"}],"theme":"dark"}'
+result = &lt;function drops_fields_it_does_not_know at 0x000001DED0725BC0&gt;
+
+    @pytest.mark.parametrize(
+        "raw, result",
+        [
+            pytest.param('{"version":1,"habits":[]}', shows_the_empty_list, id="no habits"),
+            pytest.param(
+                '{"version":1,"habits":[{"name":"Read","done":["2026-10-10"],"color":"red"}],"theme":"dark"}',
+                drops_fields_it_does_not_know,
+                id="extra fields",
+            ),
+            pytest.param('{"version":1,"habits":[{"name":"Read","done":["2026-10-10","2026-10-09","2026-10-10"]}]}', counts_a_repeated_day_once, id="a repeated day"),
+            pytest.param('{"version":1,"habits":[{"name":"Read","done":["2026-10-11"]}]}', draws_no_day_after_today, id="a day after today"),
+            pytest.param('{"version":1,"habits":[{"name":"Read","done":[],"__proto__":{"polluted":true}}]}', lets_no_key_reach_the_prototype, id="__proto__ key"),
+        ],
+    )
+    def test_R17_readable_edge_cases_load_without_a_note(app, raw, result):
+        page = app(storage=raw)
+&gt;       assert banners(page) == [], "div.banners has a child for a readable value"
+E       AssertionError: div.banners has a child for a readable value
+E       assert [['div', ['cl...', [...]]]]]]] == []
+E         
+E         Left contains one more item: ['div', ['class=banner note', 'role=status'], '', [['p', [], 'Your saved habits could not be read, so the list was res...-label=Dismiss note', 'class=icon-btn', 'type=button'], '', [['svg', ['aria-hidden=true', 'class=ph'], '', [[...]]]]]]]
+E         Use -v to get more diff
+
+tests\browser\test_storage.py:243: AssertionError</failure></testcase><testcase classname="tests.browser.test_storage" name="test_R17_readable_edge_cases_load_without_a_note[a repeated day]" time="0.098"><failure message="AssertionError: div.banners has a child for a readable value&#10;assert [['div', ['cl...', [...]]]]]]] == []&#10;  &#10;  Left contains one more item: ['div', ['class=banner note', 'role=status'], '', [['p', [], 'Your saved habits could not be read, so the list was res...-label=Dismiss note', 'class=icon-btn', 'type=button'], '', [['svg', ['aria-hidden=true', 'class=ph'], '', [[...]]]]]]]&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001DED1F07530&gt;
+raw = '{"version":1,"habits":[{"name":"Read","done":["2026-10-10","2026-10-09","2026-10-10"]}]}'
+result = &lt;function counts_a_repeated_day_once at 0x000001DED0725C70&gt;
+
+    @pytest.mark.parametrize(
+        "raw, result",
+        [
+            pytest.param('{"version":1,"habits":[]}', shows_the_empty_list, id="no habits"),
+            pytest.param(
+                '{"version":1,"habits":[{"name":"Read","done":["2026-10-10"],"color":"red"}],"theme":"dark"}',
+                drops_fields_it_does_not_know,
+                id="extra fields",
+            ),
+            pytest.param('{"version":1,"habits":[{"name":"Read","done":["2026-10-10","2026-10-09","2026-10-10"]}]}', counts_a_repeated_day_once, id="a repeated day"),
+            pytest.param('{"version":1,"habits":[{"name":"Read","done":["2026-10-11"]}]}', draws_no_day_after_today, id="a day after today"),
+            pytest.param('{"version":1,"habits":[{"name":"Read","done":[],"__proto__":{"polluted":true}}]}', lets_no_key_reach_the_prototype, id="__proto__ key"),
+        ],
+    )
+    def test_R17_readable_edge_cases_load_without_a_note(app, raw, result):
+        page = app(storage=raw)
+&gt;       assert banners(page) == [], "div.banners has a child for a readable value"
+E       AssertionError: div.banners has a child for a readable value
+E       assert [['div', ['cl...', [...]]]]]]] == []
+E         
+E         Left contains one more item: ['div', ['class=banner note', 'role=status'], '', [['p', [], 'Your saved habits could not be read, so the list was res...-label=Dismiss note', 'class=icon-btn', 'type=button'], '', [['svg', ['aria-hidden=true', 'class=ph'], '', [[...]]]]]]]
+E         Use -v to get more diff
+
+tests\browser\test_storage.py:243: AssertionError</failure></testcase><testcase classname="tests.browser.test_storage" name="test_R17_readable_edge_cases_load_without_a_note[a day after today]" time="0.099"><failure message="AssertionError: div.banners has a child for a readable value&#10;assert [['div', ['cl...', [...]]]]]]] == []&#10;  &#10;  Left contains one more item: ['div', ['class=banner note', 'role=status'], '', [['p', [], 'Your saved habits could not be read, so the list was res...-label=Dismiss note', 'class=icon-btn', 'type=button'], '', [['svg', ['aria-hidden=true', 'class=ph'], '', [[...]]]]]]]&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001DED1F07480&gt;
+raw = '{"version":1,"habits":[{"name":"Read","done":["2026-10-11"]}]}'
+result = &lt;function draws_no_day_after_today at 0x000001DED0725D20&gt;
+
+    @pytest.mark.parametrize(
+        "raw, result",
+        [
+            pytest.param('{"version":1,"habits":[]}', shows_the_empty_list, id="no habits"),
+            pytest.param(
+                '{"version":1,"habits":[{"name":"Read","done":["2026-10-10"],"color":"red"}],"theme":"dark"}',
+                drops_fields_it_does_not_know,
+                id="extra fields",
+            ),
+            pytest.param('{"version":1,"habits":[{"name":"Read","done":["2026-10-10","2026-10-09","2026-10-10"]}]}', counts_a_repeated_day_once, id="a repeated day"),
+            pytest.param('{"version":1,"habits":[{"name":"Read","done":["2026-10-11"]}]}', draws_no_day_after_today, id="a day after today"),
+            pytest.param('{"version":1,"habits":[{"name":"Read","done":[],"__proto__":{"polluted":true}}]}', lets_no_key_reach_the_prototype, id="__proto__ key"),
+        ],
+    )
+    def test_R17_readable_edge_cases_load_without_a_note(app, raw, result):
+        page = app(storage=raw)
+&gt;       assert banners(page) == [], "div.banners has a child for a readable value"
+E       AssertionError: div.banners has a child for a readable value
+E       assert [['div', ['cl...', [...]]]]]]] == []
+E         
+E         Left contains one more item: ['div', ['class=banner note', 'role=status'], '', [['p', [], 'Your saved habits could not be read, so the list was res...-label=Dismiss note', 'class=icon-btn', 'type=button'], '', [['svg', ['aria-hidden=true', 'class=ph'], '', [[...]]]]]]]
+E         Use -v to get more diff
+
+tests\browser\test_storage.py:243: AssertionError</failure></testcase><testcase classname="tests.browser.test_storage" name="test_R17_readable_edge_cases_load_without_a_note[__proto__ key]" time="0.141"><failure message="AssertionError: div.banners has a child for a readable value&#10;assert [['div', ['cl...', [...]]]]]]] == []&#10;  &#10;  Left contains one more item: ['div', ['class=banner note', 'role=status'], '', [['p', [], 'Your saved habits could not be read, so the list was res...-label=Dismiss note', 'class=icon-btn', 'type=button'], '', [['svg', ['aria-hidden=true', 'class=ph'], '', [[...]]]]]]]&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001DED1FB4250&gt;
+raw = '{"version":1,"habits":[{"name":"Read","done":[],"__proto__":{"polluted":true}}]}'
+result = &lt;function lets_no_key_reach_the_prototype at 0x000001DED0725DD0&gt;
+
+    @pytest.mark.parametrize(
+        "raw, result",
+        [
+            pytest.param('{"version":1,"habits":[]}', shows_the_empty_list, id="no habits"),
+            pytest.param(
+                '{"version":1,"habits":[{"name":"Read","done":["2026-10-10"],"color":"red"}],"theme":"dark"}',
+                drops_fields_it_does_not_know,
+                id="extra fields",
+            ),
+            pytest.param('{"version":1,"habits":[{"name":"Read","done":["2026-10-10","2026-10-09","2026-10-10"]}]}', counts_a_repeated_day_once, id="a repeated day"),
+            pytest.param('{"version":1,"habits":[{"name":"Read","done":["2026-10-11"]}]}', draws_no_day_after_today, id="a day after today"),
+            pytest.param('{"version":1,"habits":[{"name":"Read","done":[],"__proto__":{"polluted":true}}]}', lets_no_key_reach_the_prototype, id="__proto__ key"),
+        ],
+    )
+    def test_R17_readable_edge_cases_load_without_a_note(app, raw, result):
+        page = app(storage=raw)
+&gt;       assert banners(page) == [], "div.banners has a child for a readable value"
+E       AssertionError: div.banners has a child for a readable value
+E       assert [['div', ['cl...', [...]]]]]]] == []
+E         
+E         Left contains one more item: ['div', ['class=banner note', 'role=status'], '', [['p', [], 'Your saved habits could not be read, so the list was res...-label=Dismiss note', 'class=icon-btn', 'type=button'], '', [['svg', ['aria-hidden=true', 'class=ph'], '', [[...]]]]]]]
+E         Use -v to get more diff
+
+tests\browser\test_storage.py:243: AssertionError</failure></testcase></testsuite></testsuites>

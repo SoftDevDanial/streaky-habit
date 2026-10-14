@@ -1,7 +1,7 @@
 /**
- * K1, the main screen: the header date, the Overview button, the band, the rows and their numbers, the list
- * frame's fades and scroll, the composer's states, its name errors and its 12-habit state, and focus after a delete
- * (spec R3 to R6, R10 to R12, R15, R35, R38).
+ * K1, the main screen. The header date, the Overview button, the band, the banners (the save warning and the note
+ * after a reset), the rows and their numbers, the list frame's fades and scroll, the composer's states, its name
+ * errors and its 12-habit state, and focus after a delete (spec R3 to R6, R10 to R12, R15, R17, R35, R38, R41).
  * Why: one module owns K1's markup and selectors, so app.js never builds or looks up an element of K1 itself.
  * Input: habits, heatmap cells and `todayKey` (never a clock), and `animate`, true when a render answers an edit
  * (R32). Output: changes to the page. Data reaches the DOM only through textContent and setAttribute (R24).
@@ -12,6 +12,8 @@ import { bestStreak, currentStreak } from "./habits.js";
 import { dayUnit, drawLegend, drawOverview, drawRing, element, flagChange, icon, ringSvg, svgElement } from "./calendar.js";
 
 const LIMIT_NOTE = "You track 12 habits, the most this app holds. Delete one to add another.";
+const SAVE_WARNING = "Your habits are not being saved on this device. Changes will be lost when you close this tab.";
+const RESET_NOTE = "Your saved habits could not be read, so the list was reset.";
 /** The message of each name error `addHabit` gives (R11). */
 const NAME_ERRORS = {
   empty: "Name the habit first.",
@@ -214,6 +216,47 @@ export function showLastRow() {
   const frame = $("div.frame");
   frame.scrollTop = frame.scrollHeight;
   renderFrameFades();
+}
+
+/**
+ * The save warning (R41) shows while the latest save failed, as the first banner. It is inserted only when saving
+ * turns to failing and removed only when it turns to working, so the live region is left alone while saves keep
+ * failing (SW7).
+ */
+export function renderSaveWarning(failing) {
+  const banners = $("div.banners");
+  const warning = banners.querySelector(":scope > div.banner.warn");
+  if (failing === (warning !== null)) return;
+  if (failing) banners.prepend(banner("warn", SAVE_WARNING));
+  else warning.remove();
+}
+
+/** The note after unreadable saved data was reset (R17), drawn once at boot, below the warning when both show. */
+export function showResetNote() {
+  const dismiss = element("button", "icon-btn", { type: "button", "aria-label": "Dismiss note" });
+  dismiss.append(icon("i-x", "ph"));
+  const note = banner("note", RESET_NOTE);
+  note.append(dismiss);
+  $("div.banners").append(note);
+}
+
+/** A banner of the spec's Contracts, `div.banner.<kind>` with the role status, holding `text` in a `p`. */
+function banner(kind, text) {
+  const node = element("div", `banner ${kind}`, { role: "status" });
+  node.append(element("p", "", {}, text));
+  return node;
+}
+
+/** The note's Dismiss that holds `target`, or null. */
+export const dismissOf = (target) => target.closest("div.banner.note > button.icon-btn");
+
+/**
+ * Dismiss removes the note, changes nothing else, and puts focus on the field (R17, rule 7). The app sets that focus
+ * because a click leaves focus on no element in WebKit (spec Invariants, engine note).
+ */
+export function dismissNote() {
+  $("div.banners > div.banner.note").remove();
+  $("#nh").focus();
 }
 
 /** The elements app.js listens on. Their selectors live here only. */

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="3" time="7.374" timestamp="2026-10-14T22:11:01.609734+08:00" hostname="{host}"><testcase classname="tests.browser.test_storage" name="test_R41_a_cold_boot_with_working_storage_shows_no_warning_and_writes_nothing[a fresh day]" time="2.943"><failure message="AssertionError: a warning showed at a boot that saved nothing&#10;assert 1 == 0&#10; +  where 1 = count()&#10; +    where count = &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:13722/'&gt; selector='div.banner.warn'&gt;.count&#10; +      where &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:13722/'&gt; selector='div.banner.warn'&gt; = locator('div.banner.warn')&#10; +        where locator = &lt;Page url='http://127.0.0.1:13722/'&gt;.locator">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000018893121D20&gt;, storage = None
+
+    @pytest.mark.parametrize(
+        "storage",
+        [
+            pytest.param(None, id="a fresh day"),
+            pytest.param(sample_state(), id="the sample day"),
+            pytest.param(twelve_state(), id="twelve habits"),
+        ],
+    )
+    def test_R41_a_cold_boot_with_working_storage_shows_no_warning_and_writes_nothing(app, storage):
+        page = app(storage=storage, count_writes=True)
+        expect(page.locator("ul.rows &gt; li")).not_to_have_count(0)
+        page.wait_for_timeout(2000)
+&gt;       assert page.locator("div.banner.warn").count() == 0, "a warning showed at a boot that saved nothing"
+E       AssertionError: a warning showed at a boot that saved nothing
+E       assert 1 == 0
+E        +  where 1 = count()
+E        +    where count = &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:13722/'&gt; selector='div.banner.warn'&gt;.count
+E        +      where &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:13722/'&gt; selector='div.banner.warn'&gt; = locator('div.banner.warn')
+E        +        where locator = &lt;Page url='http://127.0.0.1:13722/'&gt;.locator
+
+tests\browser\test_storage.py:326: AssertionError</failure></testcase><testcase classname="tests.browser.test_storage" name="test_R41_a_cold_boot_with_working_storage_shows_no_warning_and_writes_nothing[the sample day]" time="2.146"><failure message="AssertionError: a warning showed at a boot that saved nothing&#10;assert 1 == 0&#10; +  where 1 = count()&#10; +    where count = &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:13722/'&gt; selector='div.banner.warn'&gt;.count&#10; +      where &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:13722/'&gt; selector='div.banner.warn'&gt; = locator('div.banner.warn')&#10; +        where locator = &lt;Page url='http://127.0.0.1:13722/'&gt;.locator">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000018894521D20&gt;
+storage = '{"version":1,"habits":[{"name":"Read 20 pages","done":["2025-10-10","2025-10-11","2025-10-12","2025-10-13","2025-10-1...026-09-29","2026-09-30","2026-10-02","2026-10-03","2026-10-04","2026-10-05","2026-10-06","2026-10-07","2026-10-08"]}]}'
+
+    @pytest.mark.parametrize(
+        "storage",
+        [
+            pytest.param(None, id="a fresh day"),
+            pytest.param(sample_state(), id="the sample day"),
+            pytest.param(twelve_state(), id="twelve habits"),
+        ],
+    )
+    def test_R41_a_cold_boot_with_working_storage_shows_no_warning_and_writes_nothing(app, storage):
+        page = app(storage=storage, count_writes=True)
+        expect(page.locator("ul.rows &gt; li")).not_to_have_count(0)
+        page.wait_for_timeout(2000)
+&gt;       assert page.locator("div.banner.warn").count() == 0, "a warning showed at a boot that saved nothing"
+E       AssertionError: a warning showed at a boot that saved nothing
+E       assert 1 == 0
+E        +  where 1 = count()
+E        +    where count = &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:13722/'&gt; selector='div.banner.warn'&gt;.count
+E        +      where &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:13722/'&gt; selector='div.banner.warn'&gt; = locator('div.banner.warn')
+E        +        where locator = &lt;Page url='http://127.0.0.1:13722/'&gt;.locator
+
+tests\browser\test_storage.py:326: AssertionError</failure></testcase><testcase classname="tests.browser.test_storage" name="test_R41_a_cold_boot_with_working_storage_shows_no_warning_and_writes_nothing[twelve habits]" time="2.227"><failure message="AssertionError: a warning showed at a boot that saved nothing&#10;assert 1 == 0&#10; +  where 1 = count()&#10; +    where count = &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:13722/'&gt; selector='div.banner.warn'&gt;.count&#10; +      where &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:13722/'&gt; selector='div.banner.warn'&gt; = locator('div.banner.warn')&#10; +        where locator = &lt;Page url='http://127.0.0.1:13722/'&gt;.locator">app = &lt;function app.&lt;locals&gt;.open_page at 0x00000188945235E0&gt;
+storage = '{"version":1,"habits":[{"name":"Read 20 pages","done":["2025-10-10","2025-10-11","2025-10-12","2025-10-13","2025-10-1...026-09-28","2026-09-29","2026-09-30","2026-10-03","2026-10-04","2026-10-05","2026-10-06","2026-10-07","2026-10-09"]}]}'
+
+    @pytest.mark.parametrize(
+        "storage",
+        [
+            pytest.param(None, id="a fresh day"),
+            pytest.param(sample_state(), id="the sample day"),
+            pytest.param(twelve_state(), id="twelve habits"),
+        ],
+    )
+    def test_R41_a_cold_boot_with_working_storage_shows_no_warning_and_writes_nothing(app, storage):
+        page = app(storage=storage, count_writes=True)
+        expect(page.locator("ul.rows &gt; li")).not_to_have_count(0)
+        page.wait_for_timeout(2000)
+&gt;       assert page.locator("div.banner.warn").count() == 0, "a warning showed at a boot that saved nothing"
+E       AssertionError: a warning showed at a boot that saved nothing
+E       assert 1 == 0
+E        +  where 1 = count()
+E        +    where count = &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:13722/'&gt; selector='div.banner.warn'&gt;.count
+E        +      where &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:13722/'&gt; selector='div.banner.warn'&gt; = locator('div.banner.warn')
+E        +        where locator = &lt;Page url='http://127.0.0.1:13722/'&gt;.locator
+
+tests\browser\test_storage.py:326: AssertionError</failure></testcase></testsuite></testsuites>

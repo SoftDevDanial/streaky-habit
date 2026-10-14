@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="1.138" timestamp="2026-10-14T22:12:57.338692+08:00" hostname="{host}"><testcase classname="tests.browser.test_storage" name="test_R41_the_first_failing_save_shows_the_warning_and_the_change_stays" time="1.096"><failure message="AssertionError: assert '2 days' == '3 days'&#10;  &#10;  - 3 days&#10;  ? ^&#10;  + 2 days&#10;  ? ^">app = &lt;function app.&lt;locals&gt;.open_page at 0x000002BB624C1D20&gt;
+
+    def test_R41_the_first_failing_save_shows_the_warning_and_the_change_stays(app):
+        page = app(storage=sample_state(), init_script=FAIL_SETITEM, record=True)
+        expect(page.locator("ul.rows &gt; li.row")).to_have_count(3)
+        assert page.locator("div.banner.warn").count() == 0, "a warning showed before any save"
+    
+        done_btn(page, "Stretch 10 minutes").click()
+        assert banners(page)[:1] == [WARN_TREE], "the first child of div.banners is not the warning"
+&gt;       assert row_numbers(page, "Stretch 10 minutes")["current"] == "3 days"
+E       AssertionError: assert '2 days' == '3 days'
+E         
+E         - 3 days
+E         ? ^
+E         + 2 days
+E         ? ^
+
+tests\browser\test_storage.py:337: AssertionError</failure></testcase></testsuite></testsuites>

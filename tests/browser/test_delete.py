@@ -10,12 +10,10 @@ so those presses are raw mouse and touch input at measured points, and each poin
 scenario names, so a layout change can fail a precondition but never pass a scenario because nothing was there.
 """
 import json
-import pathlib
 
 import pytest
 from playwright.sync_api import expect
 
-import conftest
 from conftest import (
     FSI,
     GUARD_WINDOW_MS,
@@ -49,6 +47,7 @@ from conftest import (
     wait_for_close,
     watch_close,
     write_count,
+    write_evidence,
     year_btn,
 )
 
@@ -165,15 +164,6 @@ def tab_to(page, target, limit=200):
             return
         page.keyboard.press("Tab")
     pytest.fail(f"{target} did not take focus in {limit} presses of Tab")
-
-
-def write_evidence(name, data):
-    """Write `data` as JSON into the run's evidence folder (STREAKS_EVIDENCE_DIR, ending with the engine), when set."""
-    if not conftest.EVIDENCE_DIR:
-        return
-    folder = pathlib.Path(conftest.EVIDENCE_DIR)
-    folder.mkdir(parents=True, exist_ok=True)
-    (folder / f"{name}.json").write_text(json.dumps(data, indent=1), encoding="utf-8")
 
 
 FRAME_BOX_JS = """() => {

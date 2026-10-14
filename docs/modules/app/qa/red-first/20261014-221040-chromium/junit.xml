@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="4" time="9.495" timestamp="2026-10-14T22:10:41.806599+08:00" hostname="{host}"><testcase classname="tests.browser.test_storage" name="test_R16_loading_writes_nothing" time="2.976"><failure message="AssertionError: loading changed the saved text&#10;assert '{&quot;version&quot;:1...26-10-08&quot;]}]}' == '{\n  &quot;versio...    }\n  ]\n}'&#10;  &#10;  + {&quot;version&quot;:1,&quot;habits&quot;:[{&quot;name&quot;:&quot;Read 20 pages&quot;,&quot;done&quot;:[&quot;2025-10-10&quot;,&quot;2025-10-11&quot;,&quot;2025-10-12&quot;,&quot;2025-10-13&quot;,&quot;2025-10-14&quot;,&quot;2025-10-16&quot;,&quot;2025-10-17&quot;,&quot;2025-10-18&quot;,&quot;2025-10-19&quot;,&quot;2025-10-21&quot;,&quot;2025-10-22&quot;,&quot;2025-10-23&quot;,&quot;2025-10-24&quot;,&quot;2025-10-25&quot;,&quot;2025-10-26&quot;,&quot;2025-10-27&quot;,&quot;2025-10-28&quot;,&quot;2025-10-30&quot;,&quot;2025-10-31&quot;,&quot;2025-11-01&quot;,&quot;2025-11-02&quot;,&quot;2025-11-03&quot;,&quot;2025-11-04&quot;,&quot;2025-11-05&quot;,&quot;2025-11-06&quot;,&quot;2025-11-12&quot;,&quot;2025-11-13&quot;,&quot;2025-11-14&quot;,&quot;2025-11-15&quot;,&quot;2025-11-16&quot;,&quot;2025-11-18&quot;,&quot;2025-11-19&quot;,&quot;2025-11-24&quot;,&quot;2025-11-25&quot;,&quot;2025-11-26&quot;,&quot;2025-11-27&quot;,&quot;2025-11-28&quot;,&quot;2025-11-29&quot;,&quot;2025-11-30&quot;,&quot;2025-12-01&quot;...&#10;  &#10;  ...Full output truncated (720 lines hidden), use '-vv' to show">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001964C0E1D20&gt;
+
+    def test_R16_loading_writes_nothing(app):
+        pretty = json.dumps({"version": 1, "habits": SAMPLE_HABITS}, indent=2)
+        assert "\n" in pretty
+        page = app(storage=pretty, count_writes=True)
+        page.wait_for_timeout(2000)
+&gt;       assert stored(page) == pretty, "loading changed the saved text"
+E       AssertionError: loading changed the saved text
+E       assert '{"version":1...26-10-08"]}]}' == '{\n  "versio...    }\n  ]\n}'
+E         
+E         + {"version":1,"habits":[{"name":"Read 20 pages","done":["2025-10-10","2025-10-11","2025-10-12","2025-10-13","2025-10-14","2025-10-16","2025-10-17","2025-10-18","2025-10-19","2025-10-21","2025-10-22","2025-10-23","2025-10-24","2025-10-25","2025-10-26","2025-10-27","2025-10-28","2025-10-30","2025-10-31","2025-11-01","2025-11-02","2025-11-03","2025-11-04","2025-11-05","2025-11-06","2025-11-12","2025-11-13","2025-11-14","2025-11-15","2025-11-16","2025-11-18","2025-11-19","2025-11-24","2025-11-25","2025-11-26","2025-11-27","2025-11-28","2025-11-29","2025-11-30","2025-12-01"...
+E         
+E         ...Full output truncated (720 lines hidden), use '-vv' to show
+
+tests\browser\test_storage.py:162: AssertionError</failure></testcase><testcase classname="tests.browser.test_storage" name="test_R41_a_cold_boot_with_working_storage_shows_no_warning_and_writes_nothing[a fresh day]" time="2.130"><failure message="AssertionError: the boot wrote to storage&#10;assert 1 == 0&#10; +  where 1 = write_count(&lt;Page url='http://127.0.0.1:63323/'&gt;)">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001964D506610&gt;, storage = None
+
+    @pytest.mark.parametrize(
+        "storage",
+        [
+            pytest.param(None, id="a fresh day"),
+            pytest.param(sample_state(), id="the sample day"),
+            pytest.param(twelve_state(), id="twelve habits"),
+        ],
+    )
+    def test_R41_a_cold_boot_with_working_storage_shows_no_warning_and_writes_nothing(app, storage):
+        page = app(storage=storage, count_writes=True)
+        expect(page.locator("ul.rows &gt; li")).not_to_have_count(0)
+        page.wait_for_timeout(2000)
+        assert page.locator("div.banner.warn").count() == 0, "a warning showed at a boot that saved nothing"
+&gt;       assert write_count(page) == 0, "the boot wrote to storage"
+E       AssertionError: the boot wrote to storage
+E       assert 1 == 0
+E        +  where 1 = write_count(&lt;Page url='http://127.0.0.1:63323/'&gt;)
+
+tests\browser\test_storage.py:327: AssertionError</failure></testcase><testcase classname="tests.browser.test_storage" name="test_R41_a_cold_boot_with_working_storage_shows_no_warning_and_writes_nothing[the sample day]" time="2.148"><failure message="AssertionError: the boot wrote to storage&#10;assert 1 == 0&#10; +  where 1 = write_count(&lt;Page url='http://127.0.0.1:63323/'&gt;)">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001964D577480&gt;
+storage = '{"version":1,"habits":[{"name":"Read 20 pages","done":["2025-10-10","2025-10-11","2025-10-12","2025-10-13","2025-10-1...026-09-29","2026-09-30","2026-10-02","2026-10-03","2026-10-04","2026-10-05","2026-10-06","2026-10-07","2026-10-08"]}]}'
+
+    @pytest.mark.parametrize(
+        "storage",
+        [
+            pytest.param(None, id="a fresh day"),
+            pytest.param(sample_state(), id="the sample day"),
+            pytest.param(twelve_state(), id="twelve habits"),
+        ],
+    )
+    def test_R41_a_cold_boot_with_working_storage_shows_no_warning_and_writes_nothing(app, storage):
+        page = app(storage=storage, count_writes=True)
+        expect(page.locator("ul.rows &gt; li")).not_to_have_count(0)
+        page.wait_for_timeout(2000)
+        assert page.locator("div.banner.warn").count() == 0, "a warning showed at a boot that saved nothing"
+&gt;       assert write_count(page) == 0, "the boot wrote to storage"
+E       AssertionError: the boot wrote to storage
+E       assert 1 == 0
+E        +  where 1 = write_count(&lt;Page url='http://127.0.0.1:63323/'&gt;)
+
+tests\browser\test_storage.py:327: AssertionError</failure></testcase><testcase classname="tests.browser.test_storage" name="test_R41_a_cold_boot_with_working_storage_shows_no_warning_and_writes_nothing[twelve habits]" time="2.178"><failure message="AssertionError: the boot wrote to storage&#10;assert 1 == 0&#10; +  where 1 = write_count(&lt;Page url='http://127.0.0.1:63323/'&gt;)">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001964D5E7740&gt;
+storage = '{"version":1,"habits":[{"name":"Read 20 pages","done":["2025-10-10","2025-10-11","2025-10-12","2025-10-13","2025-10-1...026-09-28","2026-09-29","2026-09-30","2026-10-03","2026-10-04","2026-10-05","2026-10-06","2026-10-07","2026-10-09"]}]}'
+
+    @pytest.mark.parametrize(
+        "storage",
+        [
+            pytest.param(None, id="a fresh day"),
+            pytest.param(sample_state(), id="the sample day"),
+            pytest.param(twelve_state(), id="twelve habits"),
+        ],
+    )
+    def test_R41_a_cold_boot_with_working_storage_shows_no_warning_and_writes_nothing(app, storage):
+        page = app(storage=storage, count_writes=True)
+        expect(page.locator("ul.rows &gt; li")).not_to_have_count(0)
+        page.wait_for_timeout(2000)
+        assert page.locator("div.banner.warn").count() == 0, "a warning showed at a boot that saved nothing"
+&gt;       assert write_count(page) == 0, "the boot wrote to storage"
+E       AssertionError: the boot wrote to storage
+E       assert 1 == 0
+E        +  where 1 = write_count(&lt;Page url='http://127.0.0.1:63323/'&gt;)
+
+tests\browser\test_storage.py:327: AssertionError</failure></testcase></testsuite></testsuites>
