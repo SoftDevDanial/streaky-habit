@@ -1,10 +1,10 @@
-"""R30: two engines (app qa.md, Feature "Two engines", the three scenarios of task 11).
+"""R30: two engines (app qa.md, Feature "Two engines", the three scenarios of task 11 and the clipboard one of task 19).
 
 Why: the browser suite and the live gate run once in Chromium and once in WebKit, so a run must use the
 engine it was asked for, refuse any other before a browser starts, and launch every browser through
-conftest's one helper. Input: the run's --engine option and the text of tests/browser/. Output: pass or fail.
+conftest's one helper. Every context that presses gets the clipboard stand-in, so no run reaches the system clipboard.
+Input: the run's --engine option and the text of tests/browser/. Output: pass or fail.
 Each test gathers every broken property before it fails, so one RED run shows all of them.
-Task 19 adds the fourth scenario of the Feature here ("Every context has the clipboard stand-in", W21).
 """
 import ast
 import os
@@ -12,8 +12,10 @@ import pathlib
 import subprocess
 import sys
 
+from playwright.sync_api import expect
+
 import conftest
-from conftest import LAUNCH_ARGS, ROOT, launch
+from conftest import LAUNCH_ARGS, ROOT, done_btn, launch, record, sample_state, year_btn
 
 BROWSER_TESTS = ROOT / "tests" / "browser"
 COLLECT_ONLY_SECONDS = 60
@@ -93,3 +95,26 @@ def test_R30_one_helper_launches_every_browser():
     if LAUNCH_ARGS != {"chromium": ["--force-color-profile=srgb"], "webkit": []}:
         problems.append(f"LAUNCH_ARGS is {LAUNCH_ARGS}")
     assert not problems, problems
+
+
+# A native method prints "[native code]" as its source, the stand-in prints its own.
+STAND_IN_JS = """() => !navigator.clipboard
+  || !Function.prototype.toString.call(Clipboard.prototype.writeText).includes('[native code]')"""
+CLIPBOARD_MARK = "test:clipboard:"
+
+
+def test_R30_every_context_has_the_clipboard_stand_in(app):
+    page = app(storage=sample_state(), record=True)
+    assert page.evaluate(STAND_IN_JS) is True, "navigator.clipboard is the browser's own"
+
+    done_btn(page, "Stretch 10 minutes").click()
+    expect(done_btn(page, "Stretch 10 minutes")).to_have_attribute("aria-pressed", "true")
+    year_btn(page, "Read 20 pages").click()
+    dialog = page.locator("dialog.dlg-year")
+    expect(dialog).to_have_attribute("open", "")
+    dialog.get_by_role("button", name="Close", exact=True).click()
+    page.wait_for_function("() => !document.querySelector('dialog.dlg-year').open", timeout=5000)
+
+    page.evaluate("() => 0")  # a round trip, so every console message sent before it is in the log
+    marks = [message["text"] for message in record(page).console if message["text"].startswith(CLIPBOARD_MARK)]
+    assert marks == [], marks

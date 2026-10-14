@@ -1,8 +1,8 @@
 """R40 and R14: the popups' stack, Esc, the backdrop, Tab and the page under a popup (app qa.md, Feature "Popups").
 
-Each test opens popups with real gestures and reads which dialogs are open, the focus and computed styles. P3 is the
-only popup task 17 builds, so every row that opens another popup carries a strict xfail mark naming the task that
-lands it (qa.md, "Scenarios that wait on a later task", W14 to W18).
+Each test opens popups with real gestures and reads which dialogs are open, the focus and computed styles. A row that
+opens a popup a later task builds carries a strict xfail mark naming that task until it lands (qa.md, "Scenarios that
+wait on a later task", W14 to W18).
 """
 import pytest
 from playwright.sync_api import expect
@@ -144,7 +144,7 @@ FOCUS = {
         pytest.param(DESKTOP, "M1 from Stretch's bin", [], 'Delete "Stretch 10 minutes"', marks=wait(22), id="1280x800 M1"),
         pytest.param(PHONE, "P3, then P1 for 2026-09-22", ["dlg-ov"], "P3's 2026-09-22 button", id="390x844 P3 then P1"),
         pytest.param(DESKTOP, "P1 for 2026-09-22 from the band", [], "the band's 2026-09-22 button", id="1280x800 P1"),
-        pytest.param(DESKTOP, "P2 for Read", [], '"Year view, Read 20 pages"', marks=wait(19), id="1280x800 P2"),
+        pytest.param(DESKTOP, "P2 for Read", [], '"Year view, Read 20 pages"', id="1280x800 P2"),
         pytest.param(DESKTOP, "P4 from the band's Year", [], "the band's Year", marks=wait(20), id="1280x800 P4"),
         pytest.param(DESKTOP, "P2 for Read, then M1 from its Delete habit", ["dlg-year"], "P2's Delete habit", marks=wait(22), id="1280x800 P2 then M1"),
         pytest.param((800, 900), "P3", [], "the Overview button", id="800x900 P3"),
@@ -165,7 +165,7 @@ def test_R40_R14_a_backdrop_click_closes_that_popup_only(app, viewport, popups, 
     [
         pytest.param(PHONE, "M1 from Stretch's bin", "#del-title", marks=wait(22), id="390x844 M1"),
         pytest.param(DESKTOP, "P1 for 2026-09-22 from the band", "h2#day-title", id="1280x800 P1"),
-        pytest.param(DESKTOP, "P2 for Read", "h2#yr-title", marks=wait(19), id="1280x800 P2"),
+        pytest.param(DESKTOP, "P2 for Read", "h2#yr-title", id="1280x800 P2"),
         pytest.param(DESKTOP, "P4 from the band's Year", "h2#all-title", marks=wait(20), id="1280x800 P4"),
     ],
 )
@@ -195,7 +195,7 @@ def test_R40_R14_a_click_inside_the_box_or_a_drag_that_leaves_it_closes_nothing(
     "viewport, popups, presses",
     [
         pytest.param(PHONE, "P3, then P1 for 2026-09-22", 6, id="390x844 P3 then P1"),
-        pytest.param(DESKTOP, "P2 for Read", 10, marks=wait(19), id="1280x800 P2"),
+        pytest.param(DESKTOP, "P2 for Read", 10, id="1280x800 P2"),
         pytest.param(PHONE, "M1 from Read's bin", 4, marks=wait(22), id="390x844 M1"),
     ],
 )
@@ -217,7 +217,7 @@ def test_R40_tab_never_reaches_a_control_outside_the_top_popup(app, viewport, po
     [
         pytest.param(PHONE, "P3", id="390x844 P3"),
         pytest.param(PHONE, "P3, then P4 from its Year", marks=wait(20), id="390x844 P3 then P4"),
-        pytest.param(PHONE, "P2 for Read", marks=wait(19), id="390x844 P2"),
+        pytest.param(PHONE, "P2 for Read", id="390x844 P2"),
         pytest.param(DESKTOP, "P1 for 2026-09-22 from the band", id="1280x800 P1"),
         pytest.param(PHONE, "M1 from Read's bin", marks=wait(22), id="390x844 M1"),
     ],

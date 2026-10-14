@@ -172,12 +172,18 @@ export function renderFrameFades() {
 export const containers = () => ({ page: $("div.app"), frame: $("div.frame") });
 
 /**
- * The position of the habit whose Done today holds `target`, or -1. Rows carry no index attribute (spec Events and
- * focus), so a row's habit is its place in the list.
+ * The position of the habit whose row holds `control`. Rows carry no index attribute (spec Events and focus), so a
+ * row's habit is its place in the list.
  */
+export const habitIndexOf = (control) => rowsOf().indexOf(control.closest("li.row"));
+
+/** The position of the habit whose Done today holds `target`, or -1. */
 export function doneTodayIndexOf(target) {
   const button = target.closest("button.btn-done");
-  return button ? rowsOf().indexOf(button.closest("li.row")) : -1;
+  return button ? habitIndexOf(button) : -1;
 }
 
 export const overviewButtonOf = (target) => target.closest("button.ov-btn");
+
+/** A row's Year that holds `target`, or null. */
+export const yearButtonOf = (target) => target.closest("button.btn-year");

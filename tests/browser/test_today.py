@@ -1,9 +1,9 @@
 """R31, R32 and R16: Done today, and one edit updating every view at once (app qa.md, Feature "Done today and every
 view at once").
 
-Each test presses with real gestures and reads the DOM, the focus and the saved text. Scenarios and rows that tick in
-a popup use a feature of a later task, so they carry a strict xfail mark naming that task (qa.md, "Scenarios that wait
-on a later task", W7 to W13). Two scenarios succeed tests of the 1.0 test_tick.py (spec task 12).
+Each test presses with real gestures and reads the DOM, the focus and the saved text. A scenario or row that uses a
+feature of a later task carries a strict xfail mark naming that task until it lands (qa.md, "Scenarios that wait on a
+later task", W7 to W13). Two scenarios succeed tests of the 1.0 test_tick.py (spec task 12).
 """
 import json
 import re
@@ -121,7 +121,6 @@ def test_R31_R16_pressing_twice_restores_the_saved_value(app):
     assert json.loads(stored(page)) == json.loads(text)
 
 
-@pytest.mark.xfail(strict=True, reason="task 19")
 def test_R32_R16_one_done_today_updates_every_place_at_once_and_only_what_changed_moves(app):
     page = app(viewport=DESKTOP, storage=sample_state(), count_writes=True)
     expect(page.locator("ul.rows > li.row")).to_have_count(3)
@@ -189,7 +188,6 @@ def test_R32_R39_a_tick_in_p1_over_p4_updates_p4_and_p3_beneath_it(app):
     assert classes_in(row(page, "Stretch 10 minutes"), "bump") == 0
 
 
-@pytest.mark.xfail(strict=True, reason="task 19")
 def test_R32_R34_a_tick_in_p2_updates_p2_the_row_and_the_band(app):
     page = app(viewport=DESKTOP, storage=sample_state())
     year_btn(page, "No phone after 11pm").click()
@@ -287,7 +285,7 @@ def check_after(page, popup, ticked):
     [
         "none",
         "P1",
-        pytest.param("P2", marks=pytest.mark.xfail(strict=True, reason="task 19")),
+        "P2",
     ],
 )
 def test_R6_R32_best_back_to_0_removes_the_best_block_in_every_place(app, popup):
@@ -310,7 +308,7 @@ def test_R6_R32_best_back_to_0_removes_the_best_block_in_every_place(app, popup)
     "popup",
     [
         "P1",
-        pytest.param("P2", marks=pytest.mark.xfail(strict=True, reason="task 19")),
+        "P2",
     ],
 )
 def test_R32_a_tick_that_changes_current_and_leaves_best_moves_current_only(app, popup):

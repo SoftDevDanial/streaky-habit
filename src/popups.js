@@ -1,6 +1,7 @@
 /**
- * The popups' own parts (spec R36 to R38, R40, Contracts "Files"): opening a dialog in the top layer, telling its
- * backdrop from its box, P3's grid and legend, P1's head and ticks, the `is-open` marks and the phone scroll of rule 4.
+ * The popups' own parts (spec R33, R36 to R38, R40, Contracts "Files"): opening a dialog in the top layer, telling its
+ * backdrop from its box, P3's grid and legend, P1's head and ticks, P2's head and year, the `is-open` marks and the
+ * phone scroll of rule 4.
  * Why: the five dialogs open, focus and close one way, so app.js keeps only which popups are open, for what, and who
  * opened them. Input: dialogs, habits, heatmap cells and date keys, never a clock or storage. Output: changes to the
  * dialogs and their day buttons. It registers no event listener. Data reaches the DOM only through textContent and
@@ -8,7 +9,8 @@
  */
 import { longDate } from "./dates.js";
 import { bestStreak, currentStreak, doneFlags } from "./habits.js";
-import { DAY_BUTTON, dayUnit, drawLegend, drawOverview, drawRing, element, flagChange, icon, ringSvg } from "./calendar.js";
+import { DAY_BUTTON, dayUnit, drawHabitYear, drawLegend, drawOverview, drawRing, element, flagChange, icon, ringSvg } from "./calendar.js";
+import { renderStats } from "./view.js";
 
 /** Below 768 px P1 is a bottom sheet over its host (system.css breakpoint), where rule 4 applies. */
 const PHONE_SHEET = "(max-width: 767px)";
@@ -46,6 +48,17 @@ export function onBackdrop(dialog, event) {
   if (event.target !== dialog) return false;
   const box = dialog.querySelector(":scope > .dlg-box").getBoundingClientRect();
   return event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom;
+}
+
+/**
+ * P2 for `habit` (R33, R34), its name, its Current and Best for today in a row's stats markup (R6), and its year of
+ * beads. Drawn as P2 opens (`animate` false) and after every edit while it is open, where what changed pops or bumps.
+ */
+export function renderHabitYear(habit, todayKey, animate) {
+  const { habitYear } = dialogs();
+  habitYear.querySelector("#yr-title").textContent = habit.name;
+  renderStats(habitYear.querySelector("p.yr-stats"), currentStreak(habit.done, todayKey), bestStreak(habit.done), animate);
+  drawHabitYear(habitYear.querySelector("div.months"), habit.done, todayKey, animate);
 }
 
 /** P3's weeks, newest first, and its legend (R38), drawn the way the band draws them. */

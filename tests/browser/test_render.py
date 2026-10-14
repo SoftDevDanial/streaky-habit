@@ -1,9 +1,9 @@
 """R3, R4, R5, R6, R35 and R42: what the page draws when it loads (app qa.md, Features "First visit and header",
 "Rows, numbers and the list frame", "The overview band", and the browser half of "Rings and the legend").
 
-Each test opens the running app on a named starting state and reads the DOM, computed styles and boxes. Four
-scenarios use a feature of a later task, so they carry a strict xfail mark naming that task (qa.md, "Scenarios that
-wait on a later task", W3 to W6).
+Each test opens the running app on a named starting state and reads the DOM, computed styles and boxes. A scenario
+that uses a feature of a later task carries a strict xfail mark naming that task until it lands (qa.md, "Scenarios
+that wait on a later task", W3 to W6).
 """
 import datetime
 import re
@@ -209,7 +209,6 @@ def test_R4_R38_the_header_on_a_phone_and_on_a_desktop(app, viewport, overview):
         assert date["top"] > brand["bottom"], found
 
 
-@pytest.mark.xfail(strict=True, reason="task 19")
 def test_R4_english_under_a_german_browser_locale(app):
     page = app(storage=sample_state(), locale="de-DE")
     expect(page.locator("header.top > time.date")).to_have_text("Saturday 10 October")

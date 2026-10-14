@@ -5,7 +5,7 @@
  * State is the habits array, the shown day and the open popups with their openers. Every change goes through a
  * habit-logic function, then a save, then a synchronous render inside the handler that caused it (spec Invariants).
  */
-import { dayButtonOf } from "./calendar.js";
+import { beadOf, dayButtonOf } from "./calendar.js";
 import { localDateKey } from "./dates.js";
 import { MAX_HABITS, doneFlags, heatmapCells, toggleDay } from "./habits.js";
 import * as popups from "./popups.js";
@@ -17,8 +17,11 @@ function readToday() {
   return localDateKey(new Date());
 }
 
-/** `day` is the date P1 is open for, null while it is closed. */
-const state = { habits: [], todayKey: "", day: null };
+/**
+ * `day` is the date P1 is open for, `year` the position of the habit P2 is open for, each null while its popup is
+ * closed. A position stays right while P2 is open, because P2 is modal and nothing adds or deletes behind it.
+ */
+const state = { habits: [], todayKey: "", day: null, year: null };
 
 /** Each open popup and the control that opened it, so closing it puts focus back there (rule 1). */
 const openers = new Map();
@@ -38,6 +41,7 @@ function render(animate) {
   const open = popups.dialogs();
   if (open.overview.open) popups.renderOverviewPopup(cells, todayKey, habits.length, animate);
   if (open.day.open) popups.renderDayEditor(state.day, habits, todayKey, animate);
+  if (open.habitYear.open) popups.renderHabitYear(habits[state.year], todayKey, animate);
   view.renderRows(habits, todayKey, animate);
   view.renderComposerLimit(habits.length >= MAX_HABITS);
   view.renderFrameFades();
@@ -72,9 +76,17 @@ function openDay(dayButton) {
   popups.keepDayInSight(dayButton);
 }
 
+/** P2, the year of the habit whose row holds `yearButton` (R33). */
+function openYear(yearButton) {
+  state.year = view.habitIndexOf(yearButton);
+  popups.renderHabitYear(state.habits[state.year], state.todayKey, false);
+  const { habitYear } = popups.dialogs();
+  openPopup(habitYear, yearButton, popups.closeButtonOf(habitYear));
+}
+
 /**
  * Done today ticks or unticks today (R31). The button is updated in place by the render, and focus is never moved,
- * so a keyboard user stays on it. The Overview button opens P3, a band day opens P1.
+ * so a keyboard user stays on it. The Overview button opens P3, a row's Year opens P2, a band day opens P1.
  */
 function onPageClick(event) {
   const index = view.doneTodayIndexOf(event.target);
@@ -85,6 +97,11 @@ function onPageClick(event) {
   const overviewButton = view.overviewButtonOf(event.target);
   if (overviewButton) {
     openOverview(overviewButton);
+    return;
+  }
+  const yearButton = view.yearButtonOf(event.target);
+  if (yearButton) {
+    openYear(yearButton);
     return;
   }
   const dayButton = dayButtonOf(event.target);
@@ -98,7 +115,8 @@ function onPopupPointerDown(event) {
 /**
  * Close closes its popup, and so does a click whose press and release both land on the backdrop. A click inside the
  * box, or a drag from the box to the backdrop, closes nothing (R40). Inside the box a day button opens P1 over this
- * popup, and a tick in P1 ticks or unticks P1's day for its habit, with focus left where it is (R37).
+ * popup, a tick in P1 ticks or unticks P1's day for its habit (R37), and a bead in P2 its day for P2's habit (R34),
+ * with focus left where it is.
  */
 function onPopupClick(event) {
   const dialog = event.currentTarget;
@@ -115,7 +133,12 @@ function onPopupClick(event) {
     return;
   }
   const tickIndex = popups.tickIndexOf(event.target);
-  if (tickIndex >= 0) edit(toggleDay(state.habits, tickIndex, state.day, state.todayKey));
+  if (tickIndex >= 0) {
+    edit(toggleDay(state.habits, tickIndex, state.day, state.todayKey));
+    return;
+  }
+  const bead = beadOf(event.target);
+  if (bead) edit(toggleDay(state.habits, state.year, bead.getAttribute("data-key"), state.todayKey));
 }
 
 /**
@@ -124,10 +147,12 @@ function onPopupClick(event) {
  */
 function onPopupClose(event) {
   const dialog = event.currentTarget;
-  if (dialog === popups.dialogs().day) {
+  const { day, habitYear } = popups.dialogs();
+  if (dialog === day) {
     state.day = null;
     popups.markOpenDay(null);
   }
+  if (dialog === habitYear) state.year = null;
   const opener = openers.get(dialog);
   openers.delete(dialog);
   opener?.focus();

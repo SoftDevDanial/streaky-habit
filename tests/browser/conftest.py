@@ -722,3 +722,68 @@ def short_date(key):
     """'Tue 6 Oct' for '2026-10-06', worked out here from the calendar so tests do not reuse the app's code."""
     moment = datetime.date.fromisoformat(key)
     return f"{_WEEKDAYS[moment.weekday()][:3]} {moment.day} {_MONTHS[moment.month - 1][:3]}"
+
+
+def year_date(key):
+    """'Fri 10 Oct 2025' for '2025-10-10', the short date with its year (the year views' day names)."""
+    return f"{short_date(key)} {key[:4]}"
+
+
+def month_title(year, month):
+    """'October 2026' for (2026, 10)."""
+    return f"{_MONTHS[month - 1]} {year}"
+
+
+def focus_after_a_click_in_a_popup(engine, handle, dialog):
+    """Assert where focus is after a mouse click on the button `handle` inside the open popup `dialog` (a selector).
+
+    In Chromium the clicked button has it. WebKit focuses no button on a mouse press (spec Invariants, engine note),
+    and inside a modal dialog it leaves focus on the dialog element, not on body (qa.md "Engine differences by
+    design", measured at task 18). Either way the app has not moved focus.
+    """
+    active = handle.evaluate(
+        "(button, dialog) => document.activeElement === button ? 'button' : document.activeElement.matches(dialog) ? dialog : document.activeElement.localName",
+        dialog,
+    )
+    assert active == ("button" if engine == "chromium" else dialog), active
+
+
+# A subtree as [tag, attributes, own text, children], so the app's markup and a golden's compare in one assert. Classes
+# are a set (sorted) and the motion classes "pop" and "bump" are left out, since they mark an edit, not the state.
+# Whitespace between tags is free (spec Contracts, Rendered markup), so text nodes are trimmed and empty ones dropped.
+_CANON_JS = """const canon = (node) => {
+  const attributes = Array.from(node.attributes).map((attribute) => attribute.name === 'class'
+    ? 'class=' + Array.from(node.classList).filter((name) => name !== 'pop' && name !== 'bump').sort().join(' ')
+    : attribute.name + '=' + attribute.value).sort();
+  const text = Array.from(node.childNodes).filter((child) => child.nodeType === Node.TEXT_NODE)
+    .map((child) => child.textContent.trim()).filter(Boolean).join(' ');
+  return [node.localName, attributes, text, Array.from(node.children).map(canon)];
+};"""
+
+
+def canon_tree(page, selector, golden=None):
+    """The `_CANON_JS` tree of the first element matching `selector` in the page, or, with `golden` (a file name in
+    DESIGN_DIR, read only), in that golden parsed by DOMParser in the page, which runs none of its scripts."""
+    if golden is None:
+        return page.evaluate("(selector) => {\n" + _CANON_JS + "\nreturn canon(document.querySelector(selector));\n}", selector)
+    text = (DESIGN_DIR / golden).read_text(encoding="utf-8")
+    return page.evaluate(
+        "([selector, text]) => {\n" + _CANON_JS
+        + "\nreturn canon(new DOMParser().parseFromString(text, 'text/html').querySelector(selector));\n}",
+        [selector, text],
+    )
+
+
+def first_difference(found, expected, path=""):
+    """Where two `canon_tree` trees first differ, as a short message, or None when they are equal. Kept short on
+    purpose, because pytest's own diff of two trees of several thousand nodes is slow and unreadable."""
+    tag, attributes, text, children = found
+    if [tag, attributes, text] != expected[:3]:
+        return f"{path}/{tag}: {[tag, attributes, text]} != {expected[:3]}"
+    for index, (child, twin) in enumerate(zip(children, expected[3])):
+        difference = first_difference(child, twin, f"{path}/{tag}[{index}]")
+        if difference:
+            return difference
+    if len(children) != len(expected[3]):
+        return f"{path}/{tag}: {len(children)} children != {len(expected[3])}"
+    return None

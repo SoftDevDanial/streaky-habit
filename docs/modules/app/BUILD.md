@@ -414,3 +414,62 @@ No `inert`, no `.scrim`, no `<dialog open>`. No observer callback, no deferred r
 - `src/calendar.js` gains `DAY_BUTTON`, `dayButtonOf`, `dayUnit` and `icon` (moved from `view.js`).
 - `src/app.js` gains `state.day` and `openDay`. `onPageClick` opens P1 from a band day, `onPopupClick` from a P3 day and ticks in P1, `onPopupClose` clears P1's day and marks.
 - The browser suite gains `test_day_editor.py`. qa.md's engine table has a row for focus after a click inside a popup.
+
+---
+
+## v1.1.0 task 19, the habit's year view P2 (2026-10-14)
+> Written by the frontend builder (senior frontend dev agent), 2026-10-14. Requirements R33, R34, R32, R30. The commit is the one whose message starts `feat(app): the habit's year view P2, opening it and ticking a day (task 19`.
+
+### Phase skills (design row of `docs/phase-skills.md`)
+Both read on disk in this session before any UI code (no Skill tool). `taste-skill` (`taste-skill/1.0.0/skills/taste-skill/SKILL.md`) and `frontend-design` (`claude-plugins-official/frontend-design/8d392c816966/skills/frontend-design/SKILL.md`).
+- **What they changed.** Nothing in the look. P2's markup, copy and CSS are the golden's (`year-view.html`, `system.css`).
+- **Transferred and checked.** No em or en dash in any file written (checked with Python). No hand-drawn icon, the trash glyph is the sprite's and P2's head is the skeleton's. Copy self-audit, every P2 string is a row of the spec's Copy table (the habit's name, "The last 12 months", "Delete habit", "Tap a day to mark it done or not done.", "Done", "Not done", the month titles, "Mark Ddd D Mon YYYY as done"). Bead numbers as SVG text (rule 6). Motion only answers an action (a bead pops when its own done state changes, the stats bump, the box rises on opening from the copied CSS). The empty and closed days are drawn as the golden draws them.
+- **Not transferred, and why.** React, Tailwind, Motion, fonts and image rules (locked stack). Landing and hero rules (a tool, not a landing page).
+
+### What changed
+- `src/calendar.js`. `layOutMonths` (the 13 month sections of `yearMonths`, newest first, each with its weekday letters, lead cells, then blank, closed or open cells from two cell makers, the way f2's `monthsHTML` serves both year views) and `monthId` ("mo-2026-9"). `drawHabitYear(months, done, todayKey, animate)` lays P2's months out once per day and updates every bead in place after that (`syncBead`, with `aria-pressed`, `on`, `l`, `r`, `today` with `aria-current`, and `pop`). `beadButton`, `closedBead` and `beadFace` build the bead markup of the spec's Contracts. `beadOf(target)` finds the bead a click landed on. The module comment names P2.
+- `src/popups.js`. `renderHabitYear(habit, todayKey, animate)`, P2's title, its stats through `view.renderStats` (the row's markup, R6) and its months through `calendar.drawHabitYear`. The module comment names P2.
+- `src/view.js`. `habitIndexOf(control)` (a row's habit is its place in the list) and `yearButtonOf(target)`. `doneTodayIndexOf` now calls `habitIndexOf` (a DRY merge, the Done today tests are green before and after it).
+- `src/app.js`. `state.year` (the position of P2's habit), `openYear(yearButton)`, a row's Year in `onPageClick`, a bead in `onPopupClick` (`toggleDay(habits, state.year, key, today)` through `edit`), P2 redrawn in `render` while it is open (R32), and `onPopupClose` clears `state.year`. Close, Esc, the backdrop and the focus return are the generic ones of task 17.
+- `tests/browser/test_year.py` (new). The eight scenarios of qa.md's Feature "A habit's year view", 13 tests. W19 ("A day before a habit was added can be ticked") carries `xfail(strict=True, reason="task 21")`.
+- `tests/browser/test_engines.py`. W21, `test_R30_every_context_has_the_clipboard_stand_in`, no mark.
+- `tests/browser/conftest.py`. `year_date` and `month_title` (the test-side calendar of the year views), `canon_tree` and `first_difference` (a subtree of the app or of a golden as one comparable tree, classes as a set, `pop` and `bump` left out, P4 can use it at task 20), and `focus_after_a_click_in_a_popup` (moved from `test_day_editor.py`, which now uses it, 12 passed and 2 xfailed before and after the move).
+- Marks removed, each test read against its scenario first and every feature it uses now exists. W3 `test_R4_english_under_a_german_browser_locale`, W7 `test_R32_R16_one_done_today_updates_every_place_at_once_and_only_what_changed_moves`, W10 `test_R32_R34_a_tick_in_p2_updates_p2_the_row_and_the_band`, the P2 rows of W12 and W13, and in `test_popups.py` the rows "1280x800 P2" of W15, W16 and W17 and "390x844 P2" of W18. Nine marks in all.
+- Marks added. One, W19 with `reason="task 21"` (qa.md says it is written at task 19 and green from 21).
+- The module docstrings of `test_render.py`, `test_today.py` and `test_popups.py` no longer say every waiting row is still marked.
+- `spec.md` task 19 ticked.
+
+### RED first
+`test_year.py` and W21 were written first and run once in Chromium with `--runxfail` on the task 18 tree, which opens no P2. 14 of 14 failed on their property (`docs/modules/app/qa/red-first/20261014-155649-chromium/junit.xml`). Thirteen failed at `dialog.dlg-year` never opening, after W21's stand-in check had passed. W19 failed at the Add click (the submit's navigation, which task 21 replaces with the add). The nine unmarked tests were recorded RED at the tasks that wrote them (15, 16, 17).
+
+### Proof
+- Chromium, **95 passed, 18 xfailed**, 114.8 s (`docs/modules/app/qa/functional/20261014-161055-chromium/junit.xml`). 73 of task 18, plus 12 of `test_year.py`, W21 and the nine unmarked tests. The 18 xfails are the 26 of task 18 less nine, plus W19.
+- WebKit, **94 passed, 1 skipped (CO-1, counted with its reason), 18 xfailed**, 139.1 s (`.../functional/20261014-161257-webkit/junit.xml`). No WebKit failure. After a mouse click on a bead WebKit leaves focus on `dialog.dlg-year`, asserted per engine as the Q3 ruling says.
+- An earlier pair of runs gave the same counts (`.../functional/20261014-160452-chromium/junit.xml`, `.../functional/20261014-160657-webkit/junit.xml`), before two comments were reworded and one line of `drawHabitYear` was split. The runs above are of the committed tree.
+- Node, `node --test "tests/**/*.test.js"`, 137 of 137.
+- Before the marks went, the new tests and every marked test were run once with `--runxfail` in Chromium. All nine task 19 marks passed, and every other marked test still failed at the task it names (20, 21, 22) or at B1.
+- Builder self-check (scratch, not the fidelity gate, nothing written). P2 for Read opened with `element.click()` against `year-view.html` in headless Chromium with reduced motion gives 0 pixels differing by more than 25 in any channel at 360 x 780, 390 x 844 and 1280 x 800. Its control, the app with nothing open against the same golden, gives 67671, 76359 and 192642.
+- W21's marker check can fail. In a scratch probe with the stand-in confirmed in place, a `navigator.clipboard.writeText` call from the page logged `test:clipboard:writeText`, the marker the test looks for. The system clipboard was not touched (the call reached only the stand-in).
+
+### Judgment calls (named, for the orchestrator)
+1. **A bead pops only when its own done state changes.** R32 says a bead whose drawn state changed carries `pop`. A tick also changes the thread of a done neighbour (`l` or `r`), which is drawn by the cell, not by the bead. f2 pops a bead on its done state alone (`changed("yc-" + id + "-" + key, on)`), so the neighbour's bead stays still. Recommended, keep it.
+2. **One month layout for both year views.** `layOutMonths` takes the id prefix, the cell class and two cell makers, as f2's `monthsHTML` does, so P4 at task 20 reuses it instead of a second copy. Only P2 calls it at this commit.
+3. **P2's habit is held by position** (`state.year`). Rows carry no index (spec Events and focus), and the position stays right while P2 is open, because P2 is modal, nothing adds behind it, and task 22's delete from P2 closes P2.
+4. **"Untick and tick again" compares the three beads' classes without `pop`.** The scenario says the classes are as before the first click, and R32 requires `pop` on the bead the second click changed. `pop` marks the edit, not the state, the same reading `stats_tree` takes for `bump`.
+5. **The year-view test also compares the whole P2 box with the golden.** `canon_tree` reads `dialog.dlg-year > div.dlg-box` in the app and in `year-view.html` (parsed by `DOMParser`, read only), and `first_difference` reports the first node that differs. This holds the scenario's line "the bead classes match the golden" day by day. The scenario's counts are asserted on their own as well.
+
+### Deviations
+- One process slip. The four `test_popups.py` marks were removed with one `sed -i` on the relative path `tests/browser/test_popups.py`, where the brief asks for Write and Edit only. `git diff` showed exactly those four lines changed and the file's LF endings kept. Every other edit used Write and Edit.
+
+### Non-goals honoured
+Delete habit in P2 opens nothing at this commit (M1 and the guards are task 22's). No tap-through guard (R14, CG-11, task 22). No rollover work (task 24). No `innerHTML`, no observer, no deferred render. No new copy, icon, motion or shadow.
+
+### How to run and view
+- `python -m pytest tests/browser -q` (Chromium) and `python -m pytest tests/browser -q --engine webkit`.
+- Serve the root with `python -m http.server <port> --bind 127.0.0.1` and open `http://127.0.0.1:<port>/`. A row's Year opens P2 at any width. A bead ticks its day.
+
+### For the README reconcile
+- `src/calendar.js` gains `drawHabitYear` and `beadOf`, and the private `layOutMonths` that P4 will share.
+- `src/popups.js` gains `renderHabitYear`. `src/view.js` gains `habitIndexOf` and `yearButtonOf`.
+- `src/app.js` gains `state.year` and `openYear`. `onPageClick` opens P2 from a row's Year, `onPopupClick` ticks a bead, `render` redraws P2 while it is open, `onPopupClose` clears P2's habit.
+- The browser suite gains `test_year.py` and the clipboard scenario in `test_engines.py`. `conftest.py` gains `year_date`, `month_title`, `canon_tree`, `first_difference` and `focus_after_a_click_in_a_popup`.

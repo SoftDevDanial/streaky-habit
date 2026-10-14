@@ -15,6 +15,7 @@ from conftest import (
     TODAY,
     band_day,
     done_btn,
+    focus_after_a_click_in_a_popup,
     p3_day,
     ring_of,
     ring_parts,
@@ -75,14 +76,6 @@ def mini_ring(page):
 
 def three(*on):
     return ring_of([seg(ARCS3[i], i in on) for i in range(3)])
-
-
-def focus_after_a_mouse_click_in_p1(engine, handle):
-    """In Chromium a clicked button keeps focus. WebKit focuses no button on a mouse press (spec Invariants, engine
-    note), and inside a modal dialog it leaves focus on the dialog element, not on body (measured at task 18, qa.md
-    "Engine differences by design"). Either way the app has not moved focus."""
-    active = handle.evaluate("(button) => document.activeElement === button ? 'tick' : document.activeElement.localName + '.' + document.activeElement.className")
-    assert active == ("tick" if engine == "chromium" else "dialog.dlg-day"), active
 
 
 # ---------------------------------------------------------------------------------------------------------------
@@ -224,7 +217,7 @@ def test_R37_R32_ticking_a_past_day_in_p1(app, engine):
     expect(band_day(page, SEP_22)).to_have_class(re.compile(r"\bis-open\b"))
     assert row_numbers(page, "Read 20 pages")["best"] == "13"
     assert write_count(page) == 1
-    focus_after_a_mouse_click_in_p1(engine, handle)
+    focus_after_a_click_in_a_popup(engine, handle, "dialog.dlg-day")
 
 
 def test_R37_keyboard_ticks_keep_focus_and_a_second_tick_restores_the_saved_value(app):
