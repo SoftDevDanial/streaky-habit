@@ -1,9 +1,8 @@
 """R31, R32 and R16: Done today, and one edit updating every view at once (app qa.md, Feature "Done today and every
 view at once").
 
-Each test presses with real gestures and reads the DOM, the focus and the saved text. A scenario or row that uses a
-feature of a later task carries a strict xfail mark naming that task until it lands (qa.md, "Scenarios that wait on a
-later task", W7 to W13). Two scenarios succeed tests of the 1.0 test_tick.py (spec task 12).
+Each test presses with real gestures and reads the DOM, the focus and the saved text. Two scenarios succeed tests of
+the 1.0 test_tick.py (spec task 12).
 """
 import json
 import re
@@ -203,7 +202,6 @@ def test_R32_R34_a_tick_in_p2_updates_p2_the_row_and_the_band(app):
     assert has_class(day, "pop")
 
 
-@pytest.mark.xfail(strict=True, reason="task 22")
 def test_R32_R16_each_edit_saves_once_and_opening_or_closing_a_popup_saves_nothing(app):
     page = app(viewport=DESKTOP, storage=sample_state(), count_writes=True, install_time=NOON)
     expect(page.locator("ul.rows > li.row")).to_have_count(3)

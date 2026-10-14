@@ -1,7 +1,7 @@
 /**
- * The popups' own parts (spec R33, R36 to R40, Contracts "Files"): opening a dialog in the top layer, telling its
- * backdrop from its box, P3's grid and legend, P4's months and legend, P1's head and ticks, P2's head and year, the
- * `is-open` marks, and the phone scroll of rule 4 with the room it gives P1's host.
+ * The popups' own parts (spec R13, R33, R36 to R40, Contracts "Files"), which are opening a dialog in the top layer,
+ * telling its backdrop from its box, P3's grid and legend, P4's months and legend, P1's head and ticks, P2's head and
+ * year, M1's title, the `is-open` marks, and the phone scroll of rule 4 with the room it gives P1's host.
  * Why: the five dialogs open, focus and close one way, so app.js keeps only which popups are open, for what, and who
  * opened them. Input: dialogs, habits, heatmap cells and date keys, never a clock or storage. Output: changes to the
  * dialogs and their day buttons. It registers no event listener. Data reaches the DOM only through textContent and
@@ -38,8 +38,36 @@ export const dialogs = () => ({
   remove: $("dialog.dlg-del"),
 });
 
-/** Each popup but M1 has one Close, the only `icon-btn` inside it. */
-export const closeButtonOf = (dialog) => dialog.querySelector("button.icon-btn");
+/**
+ * The one control that closes `dialog` and returns focus to its opener, which is Close (the only `icon-btn` inside
+ * it), or Cancel in M1, which has no Close (R13, R14). It also takes focus as P2, P3, P4 and M1 open (rule 1).
+ */
+export const closeButtonOf = (dialog) => dialog.querySelector("button.icon-btn, div.dlg-actions > button.btn-secondary");
+
+/** M1's Delete habit that holds `target`, or null. */
+export const confirmDeleteOf = (target) => target.closest("dialog.dlg-del button.btn-danger");
+
+/** P2's Delete habit that holds `target`, or null. */
+export const yearDeleteOf = (target) => target.closest("dialog.dlg-year button.btn-del");
+
+/**
+ * What M1's title leaves out of its copy of the name, written as escapes so that this file holds no invisible
+ * character. U+202A to U+202E (embeddings and overrides, and their end), U+2066 to U+2069 (isolates, and their end)
+ * and the paragraph separators U+0085, U+001C to U+001E and U+2029 (SEC-06). The isolate round the name only holds
+ * while the name can neither close it nor leave one open. A U+2069 or a separator inside the name closes the title's
+ * isolate early, and an isolate opener with no closer takes the title's U+2069, so after a right-to-left letter the
+ * closing quote and the question mark were drawn on the wrong side of the name.
+ */
+const TITLE_STRIPPED = /[\u{202A}-\u{202E}\u{2066}-\u{2069}\u{0085}\u{001C}-\u{001E}\u{2029}]/gu;
+
+/**
+ * M1's title for the habit `name` (R13). The name sits between U+2068 and U+2069, two invisible characters, so a
+ * bidirectional override in it cannot reorder the quotes and the question mark that follow it (SEC-02), and the
+ * title's copy has `TITLE_STRIPPED` taken out first. The stored name and every other place keep the name as typed.
+ */
+export function renderDeleteTitle(name) {
+  dialogs().remove.querySelector("#del-title").textContent = `Delete "\u{2068}${name.replace(TITLE_STRIPPED, "")}\u{2069}"?`;
+}
 
 /**
  * Opens `dialog` with showModal (R40), so it stacks over what is open and everything under it is inert, with its

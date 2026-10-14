@@ -1,7 +1,7 @@
 /**
  * K1, the main screen: the header date, the Overview button, the band, the rows and their numbers, the list
- * frame's fades and scroll, and the composer's states, its name errors and its 12-habit state (spec R3 to R6, R10
- * to R12, R35, R38).
+ * frame's fades and scroll, the composer's states, its name errors and its 12-habit state, and focus after a delete
+ * (spec R3 to R6, R10 to R12, R15, R35, R38).
  * Why: one module owns K1's markup and selectors, so app.js never builds or looks up an element of K1 itself.
  * Input: habits, heatmap cells and `todayKey` (never a clock), and `animate`, true when a render answers an edit
  * (R32). Output: changes to the page. Data reaches the DOM only through textContent and setAttribute (R24).
@@ -229,6 +229,27 @@ export const habitIndexOf = (control) => rowsOf().indexOf(control.closest("li.ro
 export function doneTodayIndexOf(target) {
   const button = target.closest("button.btn-done");
   return button ? habitIndexOf(button) : -1;
+}
+
+/** A row's bin that holds `target`, or null. */
+export const binOf = (target) => target.closest("button.btn-bin");
+
+/**
+ * Rule 3 (R15, CG-18). After a delete, focus goes to the bin of the row now at the deleted `position`, or to its Year
+ * when the delete came from P2 (`fromYear`), else to that control of the row above, else to the field. When that row
+ * lies outside the frame's visible part the frame scrolls it into view, as F2 does, and the fades follow at once,
+ * because the frame's `scroll` event comes only after this handler (R5).
+ */
+export function focusAfterDelete(position, fromYear) {
+  const rows = rowsOf();
+  const row = rows[position] ?? rows[position - 1];
+  if (!row) {
+    $("#nh").focus();
+    return;
+  }
+  row.querySelector(fromYear ? ":scope > button.btn-year" : ":scope > div.r-head > button.btn-bin").focus({ preventScroll: true });
+  row.scrollIntoView({ block: "nearest" });
+  renderFrameFades();
 }
 
 export const overviewButtonOf = (target) => target.closest("button.ov-btn");

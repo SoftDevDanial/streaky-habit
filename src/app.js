@@ -7,10 +7,13 @@
  */
 import { beadOf, dayButtonOf } from "./calendar.js";
 import { localDateKey } from "./dates.js";
-import { MAX_HABITS, addHabit, doneFlags, heatmapCells, toggleDay } from "./habits.js";
+import { MAX_HABITS, addHabit, deleteHabit, doneFlags, heatmapCells, toggleDay } from "./habits.js";
 import * as popups from "./popups.js";
 import { loadHabits, saveHabits } from "./storage.js";
 import * as view from "./view.js";
+
+/** For this long after a mouse or touch click inside a popup, in event time, the layers beneath it ignore clicks (R14). */
+const TAP_THROUGH_MS = 500;
 
 /** The only clock read in the app, so tests move time with Playwright's clock alone (spec Invariants). */
 function readToday() {
@@ -18,16 +21,24 @@ function readToday() {
 }
 
 /**
- * `day` is the date P1 is open for, `year` the position of the habit P2 is open for, each null while its popup is
- * closed. A position stays right while P2 is open, because P2 is modal and nothing adds or deletes behind it.
+ * `day` is the date P1 is open for, `year` the position of the habit P2 is open for, `remove` what M1 is open for
+ * (the habit's position, whether M1 came from P2, and the box of the control that opened it), each null while its
+ * popup is closed. A position stays right while its popup is open, because popups are modal and nothing adds or
+ * deletes behind them.
  */
-const state = { habits: [], todayKey: "", day: null, year: null };
+const state = { habits: [], todayKey: "", day: null, year: null, remove: null };
 
-/** Each open popup and the control that opened it, so closing it puts focus back there (rule 1). */
+/**
+ * Each open popup and the control that opened it, so closing it puts focus back there (rule 1). A Map keeps the order
+ * the popups opened in, so its keys are the stack, bottom first (R40).
+ */
 const openers = new Map();
 
 /** Whether the current press began on a popup's backdrop (R40). */
 let pressStartedOnBackdrop = false;
+
+/** The event time of the latest mouse or touch click inside a popup, and the layers that lay beneath that popup (R14). */
+let lastPopupPress = null;
 
 /**
  * Draws every view of the habits for the shown day, the open popups included. `animate` is true when the render
@@ -93,14 +104,61 @@ function openYear(yearButton) {
 }
 
 /**
+ * M1 for the habit at `index` (R13), over K1 from its row's bin or over P2 from P2's Delete habit, with focus on
+ * Cancel. The opener's box is kept for the guard of Delete habit (`isStrayPress`).
+ */
+function openDelete(opener, index) {
+  const { remove, habitYear } = popups.dialogs();
+  state.remove = { index, fromYear: habitYear.contains(opener), openerBox: opener.getBoundingClientRect() };
+  popups.renderDeleteTitle(state.habits[index].name);
+  openPopup(remove, opener, popups.closeButtonOf(remove));
+}
+
+/**
+ * The guard of Delete habit (R13, CG-10). M1 opens under the pointer, so the second click of a double click or double
+ * tap, slow or fast, lands where the first one opened M1. A mouse or touch click (`detail` above 0) is ignored when
+ * its point lies in the opener's box or when it is a second click by the browser's count. A keyboard click (`detail`
+ * 0) always acts, and nothing depends on time.
+ */
+function isStrayPress(event, box) {
+  if (event.detail === 0) return false;
+  const inBox = event.clientX >= box.left && event.clientX <= box.right && event.clientY >= box.top && event.clientY <= box.bottom;
+  return event.detail > 1 || inBox;
+}
+
+/**
+ * Delete habit (R15). The habit and its history go through `deleteHabit` and `edit` (one save, R32), M1 closes, and
+ * P2 too when M1 came from it. Focus then goes by rule 3 (CG-18), so neither close returns it to an opener.
+ */
+function deleteFromM1() {
+  const { index, fromYear } = state.remove;
+  const { remove, habitYear } = popups.dialogs();
+  closeWithoutReturn(remove);
+  if (fromYear) closeWithoutReturn(habitYear);
+  edit(deleteHabit(state.habits, index));
+  view.focusAfterDelete(index, fromYear);
+}
+
+/** Closes `dialog` with no opener left for `onPopupClose` to focus, because the caller sets focus itself. */
+function closeWithoutReturn(dialog) {
+  openers.delete(dialog);
+  dialog.close();
+}
+
+/**
  * Done today ticks or unticks today (R31). The button is updated in place by the render, and focus is never moved,
- * so a keyboard user stays on it. The Overview button opens P3, the band's Year opens P4, a row's Year opens P2, a
- * band day opens P1.
+ * so a keyboard user stays on it. A row's bin opens M1, the Overview button opens P3, the band's Year opens P4, a
+ * row's Year opens P2, a band day opens P1.
  */
 function onPageClick(event) {
   const index = view.doneTodayIndexOf(event.target);
   if (index >= 0) {
     edit(toggleDay(state.habits, index, state.todayKey, state.todayKey));
+    return;
+  }
+  const bin = view.binOf(event.target);
+  if (bin) {
+    openDelete(bin, view.habitIndexOf(bin));
     return;
   }
   const overviewButton = view.overviewButtonOf(event.target);
@@ -145,18 +203,27 @@ function onPopupPointerDown(event) {
 }
 
 /**
- * Close closes its popup, and so does a click whose press and release both land on the backdrop. A click inside the
- * box, or a drag from the box to the backdrop, closes nothing (R40). Inside the box P3's Year opens P4 over P3, a day
- * button opens P1 over this popup, a tick in P1 ticks or unticks P1's day for its habit (R37), and a bead in P2 its
- * day for P2's habit (R34), with focus left where it is.
+ * Close (or M1's Cancel) closes its popup, and so does a click whose press and release both land on the backdrop. A
+ * click inside the box, or a drag from the box to the backdrop, closes nothing (R40). Inside the box M1's Delete habit
+ * deletes unless the guard holds the click (R13), P2's Delete habit opens M1 over P2, P3's Year opens P4 over P3, a
+ * day button opens P1 over this popup, a tick in P1 ticks or unticks P1's day for its habit (R37), and a bead in P2
+ * its day for P2's habit (R34), with focus left where it is.
  */
 function onPopupClick(event) {
   const dialog = event.currentTarget;
   const pressedOnBackdrop = pressStartedOnBackdrop;
   pressStartedOnBackdrop = false;
-  const close = popups.closeButtonOf(dialog);
-  if ((close && close.contains(event.target)) || (pressedOnBackdrop && popups.onBackdrop(dialog, event))) {
+  if (popups.closeButtonOf(dialog).contains(event.target) || (pressedOnBackdrop && popups.onBackdrop(dialog, event))) {
     dialog.close();
+    return;
+  }
+  if (popups.confirmDeleteOf(event.target)) {
+    if (!isStrayPress(event, state.remove.openerBox)) deleteFromM1();
+    return;
+  }
+  const yearDelete = popups.yearDeleteOf(event.target);
+  if (yearDelete) {
+    openDelete(yearDelete, state.year);
     return;
   }
   const allHabitsButton = view.allHabitsButtonOf(event.target);
@@ -178,19 +245,44 @@ function onPopupClick(event) {
   if (bead) edit(toggleDay(state.habits, state.year, bead.getAttribute("data-key"), state.todayKey));
 }
 
+/** The layers beneath `popup`, the page and then the popups that opened before it and are still open, bottom first. */
+function layersBeneath(popup) {
+  const stack = [...openers.keys()];
+  return [view.containers().page, ...stack.slice(0, Math.max(0, stack.indexOf(popup)))];
+}
+
 /**
- * Every way out of a popup ends here (Close, Esc, the backdrop). Focus goes back to its opener by hand, because a
- * clicked button never took focus in WebKit, so the native return has nothing to return to (R40).
+ * The tap-through guard (R14, CG-11). A click that closes a popup sends the second click of the same gesture to the
+ * layer behind it. So for TAP_THROUGH_MS after a mouse or touch click inside a popup (its backdrop included), measured
+ * in `event.timeStamp`, a click on the page or on a popup that lay beneath it is cancelled. Clicks in that popup, and
+ * in popups opened after it, are never held, and a keyboard click (`detail` 0) starts no window.
+ */
+function guardTapThrough(event) {
+  const layer = event.currentTarget;
+  const held = lastPopupPress && event.timeStamp - lastPopupPress.at < TAP_THROUGH_MS && lastPopupPress.beneath.includes(layer);
+  if (held) {
+    event.preventDefault();
+    // Immediate, because a click on a backdrop targets the dialog itself, where its own click listener would still run.
+    event.stopImmediatePropagation();
+    return;
+  }
+  if (layer.localName === "dialog" && event.detail > 0) lastPopupPress = { at: event.timeStamp, beneath: layersBeneath(layer) };
+}
+
+/**
+ * Every way out of a popup ends here (Close, Cancel, Esc, the backdrop, a delete). Focus goes back to its opener by
+ * hand, because a clicked button never took focus in WebKit, so the native return has nothing to return to (R40).
  */
 function onPopupClose(event) {
   const dialog = event.currentTarget;
-  const { day, habitYear } = popups.dialogs();
+  const { day, habitYear, remove } = popups.dialogs();
   if (dialog === day) {
     state.day = null;
     popups.markOpenDay(null);
     popups.clearDayRoom();
   }
   if (dialog === habitYear) state.year = null;
+  if (dialog === remove) state.remove = null;
   const opener = openers.get(dialog);
   openers.delete(dialog);
   opener?.focus();
@@ -202,12 +294,15 @@ function boot() {
   view.renderDate(state.todayKey);
   render(false);
   const { page, frame, composer, field } = view.containers();
+  // The guard listens in the capture phase and first, so a held click reaches no other listener (R14).
+  page.addEventListener("click", guardTapThrough, true);
   page.addEventListener("click", onPageClick);
   composer.addEventListener("submit", onComposerSubmit);
   field.addEventListener("input", view.clearNameError);
   frame.addEventListener("scroll", view.renderFrameFades);
   window.addEventListener("resize", view.renderFrameFades);
   for (const dialog of Object.values(popups.dialogs())) {
+    dialog.addEventListener("click", guardTapThrough, true);
     dialog.addEventListener("pointerdown", onPopupPointerDown);
     dialog.addEventListener("click", onPopupClick);
     dialog.addEventListener("close", onPopupClose);

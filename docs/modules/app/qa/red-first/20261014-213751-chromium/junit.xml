@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="4" time="21.873" timestamp="2026-10-14T21:37:53.333569+08:00" hostname="{host}"><testcase classname="tests.browser.test_delete" name="test_R14_cancel_still_works_right_after_a_click_inside_the_box" time="6.179"><failure message="AssertionError: Locator expected not to have attribute ''&#10;Actual value:  &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-del&quot;)&#10;    14 × locator resolved to &lt;dialog open=&quot;&quot; class=&quot;dlg-del&quot; aria-modal=&quot;true&quot; role=&quot;alertdialog&quot; aria-labelledby=&quot;del-title&quot; aria-describedby=&quot;del-body&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;&quot;&#10;&#10;Aria snapshot:&#10;- alertdialog &quot;Delete \&quot;Read 20 pages\&quot;?&quot;:&#10;  - heading &quot;Delete \&quot;Read 20 pages\&quot;?&quot; [level=2]&#10;  - paragraph: Its history is deleted too.&#10;  - button &quot;Cancel&quot;&#10;  - button &quot;Delete habit&quot;">E   AssertionError: Locator expected not to have attribute ''
+    Actual value:  
+    Call log:
+      - Expect "to_have_attribute" with timeout 5000ms
+      - waiting for locator("dialog.dlg-del")
+        14 × locator resolved to &lt;dialog open="" class="dlg-del" aria-modal="true" role="alertdialog" aria-labelledby="del-title" aria-describedby="del-body"&gt;…&lt;/dialog&gt;
+           - unexpected value ""
+    
+    Aria snapshot:
+    - alertdialog "Delete \"Read 20 pages\"?":
+      - heading "Delete \"Read 20 pages\"?" [level=2]
+      - paragraph: Its history is deleted too.
+      - button "Cancel"
+      - button "Delete habit"</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_closing_with_the_keyboard_holds_nothing[Enter]" time="5.201"><failure message="AssertionError: Locator expected to have attribute 'true'&#10;Actual value: false &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for get_by_role(&quot;button&quot;, name=&quot;Done today, Stretch 10 minutes&quot;, exact=True)&#10;    14 × locator resolved to &lt;button type=&quot;button&quot; class=&quot;btn-done&quot; aria-pressed=&quot;false&quot; aria-describedby=&quot;rs-2&quot; aria-label=&quot;Done today, Stretch 10 minutes&quot;&gt;…&lt;/button&gt;&#10;       - unexpected value &quot;false&quot;&#10;&#10;Aria snapshot:&#10;- button &quot;Done today, Stretch 10 minutes&quot;: Done today">E   AssertionError: Locator expected to have attribute 'true'
+    Actual value: false 
+    Call log:
+      - Expect "to_have_attribute" with timeout 5000ms
+      - waiting for get_by_role("button", name="Done today, Stretch 10 minutes", exact=True)
+        14 × locator resolved to &lt;button type="button" class="btn-done" aria-pressed="false" aria-describedby="rs-2" aria-label="Done today, Stretch 10 minutes"&gt;…&lt;/button&gt;
+           - unexpected value "false"
+    
+    Aria snapshot:
+    - button "Done today, Stretch 10 minutes": Done today</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_closing_with_the_keyboard_holds_nothing[Space]" time="5.208"><failure message="AssertionError: Locator expected to have attribute 'true'&#10;Actual value: false &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for get_by_role(&quot;button&quot;, name=&quot;Done today, Stretch 10 minutes&quot;, exact=True)&#10;    14 × locator resolved to &lt;button type=&quot;button&quot; class=&quot;btn-done&quot; aria-pressed=&quot;false&quot; aria-describedby=&quot;rs-2&quot; aria-label=&quot;Done today, Stretch 10 minutes&quot;&gt;…&lt;/button&gt;&#10;       - unexpected value &quot;false&quot;&#10;&#10;Aria snapshot:&#10;- button &quot;Done today, Stretch 10 minutes&quot;: Done today">E   AssertionError: Locator expected to have attribute 'true'
+    Actual value: false 
+    Call log:
+      - Expect "to_have_attribute" with timeout 5000ms
+      - waiting for get_by_role("button", name="Done today, Stretch 10 minutes", exact=True)
+        14 × locator resolved to &lt;button type="button" class="btn-done" aria-pressed="false" aria-describedby="rs-2" aria-label="Done today, Stretch 10 minutes"&gt;…&lt;/button&gt;
+           - unexpected value "false"
+    
+    Aria snapshot:
+    - button "Done today, Stretch 10 minutes": Done today</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_closing_with_the_keyboard_holds_nothing[Escape]" time="5.223"><failure message="AssertionError: Locator expected to have attribute 'true'&#10;Actual value: false &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for get_by_role(&quot;button&quot;, name=&quot;Done today, Stretch 10 minutes&quot;, exact=True)&#10;    14 × locator resolved to &lt;button type=&quot;button&quot; class=&quot;btn-done&quot; aria-pressed=&quot;false&quot; aria-describedby=&quot;rs-2&quot; aria-label=&quot;Done today, Stretch 10 minutes&quot;&gt;…&lt;/button&gt;&#10;       - unexpected value &quot;false&quot;&#10;&#10;Aria snapshot:&#10;- button &quot;Done today, Stretch 10 minutes&quot;: Done today">E   AssertionError: Locator expected to have attribute 'true'
+    Actual value: false 
+    Call log:
+      - Expect "to_have_attribute" with timeout 5000ms
+      - waiting for get_by_role("button", name="Done today, Stretch 10 minutes", exact=True)
+        14 × locator resolved to &lt;button type="button" class="btn-done" aria-pressed="false" aria-describedby="rs-2" aria-label="Done today, Stretch 10 minutes"&gt;…&lt;/button&gt;
+           - unexpected value "false"
+    
+    Aria snapshot:
+    - button "Done today, Stretch 10 minutes": Done today</failure></testcase></testsuite></testsuites>

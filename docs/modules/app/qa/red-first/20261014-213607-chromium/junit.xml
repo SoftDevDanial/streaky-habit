@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="7.418" timestamp="2026-10-14T21:36:08.811846+08:00" hostname="{host}"><testcase classname="tests.browser.test_delete" name="test_R13_R15_the_keyboard_deletes_even_when_delete_habit_lies_over_the_bin" time="7.360"><failure message="AssertionError: Locator expected to have count '2'&#10;Actual value: 3 &#10;Call log:&#10;  - Expect &quot;to_have_count&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;ul.rows &gt; li.row&quot;)&#10;    14 × locator resolved to 3 elements&#10;       - unexpected value &quot;3&quot;">E   AssertionError: Locator expected to have count '2'
+    Actual value: 3 
+    Call log:
+      - Expect "to_have_count" with timeout 5000ms
+      - waiting for locator("ul.rows &gt; li.row")
+        14 × locator resolved to 3 elements
+           - unexpected value "3"</failure></testcase></testsuite></testsuites>

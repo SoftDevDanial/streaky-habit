@@ -1,9 +1,7 @@
 """R10, R11 and R12, the composer. Adding a habit, the name errors and the twelve-habit state (app qa.md, Feature "Add
 a habit").
 
-Each test types and presses with real gestures and reads the DOM, the focus, boxes and the saved text. "Deleting one
-of twelve opens the composer again" deletes, which task 22 lands, so it carries a strict xfail mark (qa.md, "Scenarios
-that wait on a later task", W20).
+Each test types and presses with real gestures and reads the DOM, the focus, boxes and the saved text.
 """
 import json
 import math
@@ -284,7 +282,6 @@ def test_R12_twelve_habits_at_load(app, viewport):
     assert (state["full"], state["fieldDisabled"], state["addDisabled"], state["message"]) == (True, True, True, NOTE), state
 
 
-@pytest.mark.xfail(strict=True, reason="task 22")
 def test_R12_R15_deleting_one_of_twelve_opens_the_composer_again(app):
     page = app(storage=twelve_state())
     rows = page.locator("ul.rows > li.row")

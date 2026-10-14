@@ -1,0 +1,1809 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="56" skipped="0" tests="85" time="140.034" timestamp="2026-10-14T21:25:32.101258+08:00" hostname="{host}"><testcase classname="tests.browser.test_delete" name="test_R13_a_bin_opens_m1_with_focus_on_cancel" time="1.008"><failure message="assert 'Delete &quot;Read 20 pages&quot;?' == 'Delete &quot;\u20...pages\u2069&quot;?'&#10;  &#10;  #x1B[0m#x1B[91m- Delete &quot;⁨Read 20 pages⁩&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  ?         -             -#x1B[90m#x1B[39;49;00m&#10;  #x1B[92m+ Delete &quot;Read 20 pages&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F40D47CC0&gt;
+
+    def test_R13_a_bin_opens_m1_with_focus_on_cancel(app):
+        page = app(storage=sample_state())
+        bin_btn(page, "Read 20 pages").click()
+    
+        m1 = dialog(page, "dlg-del")
+        assert m1.evaluate("(node) =&gt; node.open &amp;&amp; node.matches(':modal')") is True
+&gt;       assert title(page) == dialog_title("Read 20 pages")
+E       assert 'Delete "Read 20 pages"?' == 'Delete "\u20...pages\u2069"?'
+E         
+E         #x1B[0m#x1B[91m- Delete "⁨Read 20 pages⁩"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         ?         -             -#x1B[90m#x1B[39;49;00m
+E         #x1B[92m+ Delete "Read 20 pages"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+
+tests\browser\test_delete.py:258: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_R28_m1_has_the_markup_of_the_golden" time="0.156" /><testcase classname="tests.browser.test_delete" name="test_R13_R33_delete_habit_in_the_year_view_opens_m1_over_it" time="0.470"><failure message="assert 'Delete &quot;Read 20 pages&quot;?' == 'Delete &quot;\u20...pages\u2069&quot;?'&#10;  &#10;  #x1B[0m#x1B[91m- Delete &quot;⁨Read 20 pages⁩&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  ?         -             -#x1B[90m#x1B[39;49;00m&#10;  #x1B[92m+ Delete &quot;Read 20 pages&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F41FAFED0&gt;
+
+    def test_R13_R33_delete_habit_in_the_year_view_opens_m1_over_it(app):
+        page = app(storage=sample_state())
+        year_btn(page, "Read 20 pages").click()
+        expect(dialog(page, "dlg-year")).to_have_attribute("open", "")
+        p2_delete(page).click()
+    
+        assert open_dialogs(page) == ["dlg-year", "dlg-del"]
+        assert page.evaluate("() =&gt; ['dlg-year', 'dlg-del'].map((cls) =&gt; document.querySelector('dialog.' + cls).matches(':modal'))") == [True, True]
+        box = page.locator("dialog.dlg-del &gt; div.dlg-box").bounding_box()
+        assert page.evaluate("([x, y]) =&gt; !!document.elementFromPoint(x, y).closest('dialog.dlg-del')", list(middle(box)))
+&gt;       assert title(page) == dialog_title("Read 20 pages")
+E       assert 'Delete "Read 20 pages"?' == 'Delete "\u20...pages\u2069"?'
+E         
+E         #x1B[0m#x1B[91m- Delete "⁨Read 20 pages⁩"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         ?         -             -#x1B[90m#x1B[39;49;00m
+E         #x1B[92m+ Delete "Read 20 pages"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+
+tests\browser\test_delete.py:300: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_a_long_name_wraps_in_the_title_and_the_box_keeps_its_width" time="0.139" /><testcase classname="tests.browser.test_delete" name="test_R13_a_slow_double_click_on_a_bin_that_lies_under_delete_habit_cannot_delete[sample-1280x800-mouse]" time="0.943"><failure message="assert 'Delete &quot;Read 20 pages&quot;?' == 'Delete &quot;\u20...pages\u2069&quot;?'&#10;  &#10;  #x1B[0m#x1B[91m- Delete &quot;⁨Read 20 pages⁩&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  ?         -             -#x1B[90m#x1B[39;49;00m&#10;  #x1B[92m+ Delete &quot;Read 20 pages&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F4232F950&gt;
+state = 'the sample day', viewport = (1280, 800), how = 'mouse'
+
+    @pytest.mark.parametrize("state, viewport, how", OVERLAP_ROWS)
+    def test_R13_a_slow_double_click_on_a_bin_that_lies_under_delete_habit_cannot_delete(app, state, viewport, how):
+        page, habits, before = open_for_overlap(app, state, viewport, how)
+        name, point = overlap_point(page, habits, f"delete-overlap-slow-{state.replace(' ', '-')}-{viewport[0]}x{viewport[1]}-{how}")
+        page.clock.pause_at(PAUSE_AT)
+    
+        press(page, point, how)
+        expect(dialog(page, "dlg-del")).to_have_attribute("open", "")
+&gt;       assert title(page) == dialog_title(name)
+E       assert 'Delete "Read 20 pages"?' == 'Delete "\u20...pages\u2069"?'
+E         
+E         #x1B[0m#x1B[91m- Delete "⁨Read 20 pages⁩"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         ?         -             -#x1B[90m#x1B[39;49;00m
+E         #x1B[92m+ Delete "Read 20 pages"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+
+tests\browser\test_delete.py:347: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_a_slow_double_click_on_a_bin_that_lies_under_delete_habit_cannot_delete[sample-1280x800-touch]" time="0.942"><failure message="assert 'Delete &quot;Read 20 pages&quot;?' == 'Delete &quot;\u20...pages\u2069&quot;?'&#10;  &#10;  #x1B[0m#x1B[91m- Delete &quot;⁨Read 20 pages⁩&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  ?         -             -#x1B[90m#x1B[39;49;00m&#10;  #x1B[92m+ Delete &quot;Read 20 pages&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F42472C40&gt;
+state = 'the sample day', viewport = (1280, 800), how = 'touch'
+
+    @pytest.mark.parametrize("state, viewport, how", OVERLAP_ROWS)
+    def test_R13_a_slow_double_click_on_a_bin_that_lies_under_delete_habit_cannot_delete(app, state, viewport, how):
+        page, habits, before = open_for_overlap(app, state, viewport, how)
+        name, point = overlap_point(page, habits, f"delete-overlap-slow-{state.replace(' ', '-')}-{viewport[0]}x{viewport[1]}-{how}")
+        page.clock.pause_at(PAUSE_AT)
+    
+        press(page, point, how)
+        expect(dialog(page, "dlg-del")).to_have_attribute("open", "")
+&gt;       assert title(page) == dialog_title(name)
+E       assert 'Delete "Read 20 pages"?' == 'Delete "\u20...pages\u2069"?'
+E         
+E         #x1B[0m#x1B[91m- Delete "⁨Read 20 pages⁩"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         ?         -             -#x1B[90m#x1B[39;49;00m
+E         #x1B[92m+ Delete "Read 20 pages"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+
+tests\browser\test_delete.py:347: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_a_slow_double_click_on_a_bin_that_lies_under_delete_habit_cannot_delete[twelve-390x844-mouse]" time="1.540"><failure message="assert 'Delete &quot;Drin...es of water&quot;?' == 'Delete &quot;\u20...water\u2069&quot;?'&#10;  &#10;  #x1B[0m#x1B[91m- Delete &quot;⁨Drink 2 litres of water⁩&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  ?         -                       -#x1B[90m#x1B[39;49;00m&#10;  #x1B[92m+ Delete &quot;Drink 2 litres of water&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F424F71C0&gt;
+state = 'twelve habits', viewport = (390, 844), how = 'mouse'
+
+    @pytest.mark.parametrize("state, viewport, how", OVERLAP_ROWS)
+    def test_R13_a_slow_double_click_on_a_bin_that_lies_under_delete_habit_cannot_delete(app, state, viewport, how):
+        page, habits, before = open_for_overlap(app, state, viewport, how)
+        name, point = overlap_point(page, habits, f"delete-overlap-slow-{state.replace(' ', '-')}-{viewport[0]}x{viewport[1]}-{how}")
+        page.clock.pause_at(PAUSE_AT)
+    
+        press(page, point, how)
+        expect(dialog(page, "dlg-del")).to_have_attribute("open", "")
+&gt;       assert title(page) == dialog_title(name)
+E       assert 'Delete "Drin...es of water"?' == 'Delete "\u20...water\u2069"?'
+E         
+E         #x1B[0m#x1B[91m- Delete "⁨Drink 2 litres of water⁩"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         ?         -                       -#x1B[90m#x1B[39;49;00m
+E         #x1B[92m+ Delete "Drink 2 litres of water"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+
+tests\browser\test_delete.py:347: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_a_slow_double_click_on_a_bin_that_lies_under_delete_habit_cannot_delete[twelve-390x844-touch]" time="1.547"><failure message="assert 'Delete &quot;Drin...es of water&quot;?' == 'Delete &quot;\u20...water\u2069&quot;?'&#10;  &#10;  #x1B[0m#x1B[91m- Delete &quot;⁨Drink 2 litres of water⁩&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  ?         -                       -#x1B[90m#x1B[39;49;00m&#10;  #x1B[92m+ Delete &quot;Drink 2 litres of water&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F425B5BC0&gt;
+state = 'twelve habits', viewport = (390, 844), how = 'touch'
+
+    @pytest.mark.parametrize("state, viewport, how", OVERLAP_ROWS)
+    def test_R13_a_slow_double_click_on_a_bin_that_lies_under_delete_habit_cannot_delete(app, state, viewport, how):
+        page, habits, before = open_for_overlap(app, state, viewport, how)
+        name, point = overlap_point(page, habits, f"delete-overlap-slow-{state.replace(' ', '-')}-{viewport[0]}x{viewport[1]}-{how}")
+        page.clock.pause_at(PAUSE_AT)
+    
+        press(page, point, how)
+        expect(dialog(page, "dlg-del")).to_have_attribute("open", "")
+&gt;       assert title(page) == dialog_title(name)
+E       assert 'Delete "Drin...es of water"?' == 'Delete "\u20...water\u2069"?'
+E         
+E         #x1B[0m#x1B[91m- Delete "⁨Drink 2 litres of water⁩"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         ?         -                       -#x1B[90m#x1B[39;49;00m
+E         #x1B[92m+ Delete "Drink 2 litres of water"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+
+tests\browser\test_delete.py:347: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_a_fast_double_click_or_double_tap_on_a_bin_under_delete_habit_cannot_delete[sample-1280x800-mouse]" time="5.964"><failure message="AssertionError: Locator expected to have attribute ''&#10;Actual value: None &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-del&quot;)&#10;    14 × locator resolved to &lt;dialog class=&quot;dlg-del&quot; aria-modal=&quot;true&quot; role=&quot;alertdialog&quot; aria-labelledby=&quot;del-title&quot; aria-describedby=&quot;del-body&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;null&quot;&#10;&#10;Aria snapshot:&#10;- banner:&#10;  - heading &quot;Streaky Habit&quot; [level=1]&#10;  - time: Saturday 10 October&#10;- main:&#10;  - region &quot;Last 12 weeks&quot;:&#10;    - heading &quot;Last 12 weeks&quot; [level=2]&#10;    - button &quot;Year view, all habits&quot;: Year&#10;    - paragraph: Tap a day to change it.&#10;    - group &quot;Last 12 weeks&quot;:&#10;      - button &quot;Mon 20 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Tue 21 Jul, 2 of 2 habits&quot;&#10;      - button &quot;Wed 22 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Thu 23 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Fri 24 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Sat 25 Jul, 2 of 2 habits&quot;&#10;      - button &quot;Sun 26 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Mon 27 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Tue 28 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Wed 29 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Thu 30 Jul, 2 of 2 habits&quot;&#10;      - button &quot;Fri 31 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Sat 1 Aug, 0 of 2 habits&quot;&#10;      - button &quot;Sun 2 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Mon 3 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Tue 4 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Wed 5 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Thu 6 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Fri 7 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Sat 8 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Sun 9 Aug, 0 of 2 habits&quot;&#10;      - button &quot;Mon 10 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Tue 11 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Wed 12 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Thu 13 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Fri 14 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Sat 15 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Sun 16 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Mon 17 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Tue 18 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Wed 19 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Thu 20 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Fri 21 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Sat 22 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Sun 23 Aug, 0 of 2 habits&quot;&#10;      - button &quot;Mon 24 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Tue 25 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Wed 26 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Thu 27 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Fri 28 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Sat 29 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Sun 30 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Mon 31 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Tue 1 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Wed 2 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Thu 3 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Fri 4 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Sat 5 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Sun 6 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Mon 7 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Tue 8 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Wed 9 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Thu 10 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Fri 11 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Sat 12 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Sun 13 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Mon 14 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Tue 15 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Wed 16 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Thu 17 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Fri 18 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Sat 19 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Sun 20 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Mon 21 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Tue 22 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Wed 23 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Thu 24 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Fri 25 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Sat 26 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Sun 27 Sep, 0 of 2 habits&quot;&#10;      - button &quot;Mon 28 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Tue 29 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Wed 30 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Thu 1 Oct, 1 of 2 habits&quot;&#10;      - button &quot;Fri 2 Oct, 1 of 2 habits&quot;&#10;      - button &quot;Sat 3 Oct, 2 of 2 habits&quot;&#10;      - button &quot;Sun 4 Oct, 1 of 2 habits&quot;&#10;      - button &quot;Mon 5 Oct, 2 of 2 habits&quot;&#10;      - button &quot;Tue 6 Oct, 1 of 2 habits&quot;&#10;      - button &quot;Wed 7 Oct, 1 of 2 habits&quot;&#10;      - button &quot;Thu 8 Oct, 2 of 2 habits&quot;&#10;      - button &quot;Fri 9 Oct, 1 of 2 habits&quot;&#10;      - button &quot;Sat 10 Oct, 0 of 2 habits&quot;&#10;  - heading &quot;Habits&quot; [level=2]&#10;  - list &quot;Habits&quot;:&#10;    - listitem:&#10;      - heading &quot;Stretch 10 minutes&quot; [level=3]&#10;      - button &quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;&#10;      - paragraph: Current 2 days Best 5&#10;      - button &quot;Year view, Stretch 10 minutes&quot;: Year&#10;      - button &quot;Done today, Stretch 10 minutes&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;No phone after 11pm&quot; [level=3]&#10;      - button &quot;Delete \&quot;No phone after 11pm\&quot;&quot;&#10;      - paragraph: Current No streak yet Best 14&#10;      - button &quot;Year view, No phone after 11pm&quot;: Year&#10;      - button &quot;Done today, No phone after 11pm&quot;: Done today&#10;  - text: New habit&#10;  - textbox &quot;New habit&quot;&#10;  - button &quot;Add&quot;">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F426637F0&gt;
+state = 'the sample day', viewport = (1280, 800), how = 'mouse'
+
+    @pytest.mark.parametrize("state, viewport, how", OVERLAP_ROWS)
+    def test_R13_a_fast_double_click_or_double_tap_on_a_bin_under_delete_habit_cannot_delete(app, state, viewport, how):
+        page, habits, before = open_for_overlap(app, state, viewport, how)
+        evidence = f"delete-overlap-fast-{state.replace(' ', '-')}-{viewport[0]}x{viewport[1]}-{how}"
+        name, point = overlap_point(page, habits, evidence)
+        page.clock.pause_at(PAUSE_AT)
+        details = page.evaluate_handle(DETAILS_JS)
+    
+        press_twice(page, *point, how)
+        write_evidence(f"{evidence}-click-details", {"point": point, "detailsOfClicksOnDeleteHabit": details.json_value()})
+    
+&gt;       assert_kept(page, name, [habit["name"] for habit in habits], before)
+
+tests\browser\test_delete.py:370: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+page = &lt;Page url='http://127.0.0.1:15126/'&gt;, name = 'Read 20 pages'
+everyone = ['Read 20 pages', 'Stretch 10 minutes', 'No phone after 11pm']
+before = '{\n "version": 1,\n "habits": [\n  {\n   "name": "Read 20 pages",\n   "done": [\n    "2025-10-10",\n    "2025-10-11",...0-03",\n    "2026-10-04",\n    "2026-10-05",\n    "2026-10-06",\n    "2026-10-07",\n    "2026-10-08"\n   ]\n  }\n ]\n}'
+
+    def assert_kept(page, name, everyone, before):
+        """M1 is still open for `name`, every habit is listed, nothing was written and the stored text is `before`."""
+&gt;       expect(dialog(page, "dlg-del")).to_have_attribute("open", "")
+E       AssertionError: Locator expected to have attribute ''
+E       Actual value: None 
+E       Call log:
+E         - Expect "to_have_attribute" with timeout 5000ms
+E         - waiting for locator("dialog.dlg-del")
+E           14 × locator resolved to &lt;dialog class="dlg-del" aria-modal="true" role="alertdialog" aria-labelledby="del-title" aria-describedby="del-body"&gt;…&lt;/dialog&gt;
+E              - unexpected value "null"
+E       
+E       Aria snapshot:
+E       - banner:
+E         - heading "Streaky Habit" [level=1]
+E         - time: Saturday 10 October
+E       - main:
+E         - region "Last 12 weeks":
+E           - heading "Last 12 weeks" [level=2]
+E           - button "Year view, all habits": Year
+E           - paragraph: Tap a day to change it.
+E           - group "Last 12 weeks":
+E             - button "Mon 20 Jul, 1 of 2 habits"
+E             - button "Tue 21 Jul, 2 of 2 habits"
+E             - button "Wed 22 Jul, 1 of 2 habits"
+E             - button "Thu 23 Jul, 1 of 2 habits"
+E             - button "Fri 24 Jul, 1 of 2 habits"
+E             - button "Sat 25 Jul, 2 of 2 habits"
+E             - button "Sun 26 Jul, 1 of 2 habits"
+E             - button "Mon 27 Jul, 1 of 2 habits"
+E             - button "Tue 28 Jul, 1 of 2 habits"
+E             - button "Wed 29 Jul, 1 of 2 habits"
+E             - button "Thu 30 Jul, 2 of 2 habits"
+E             - button "Fri 31 Jul, 1 of 2 habits"
+E             - button "Sat 1 Aug, 0 of 2 habits"
+E             - button "Sun 2 Aug, 2 of 2 habits"
+E             - button "Mon 3 Aug, 1 of 2 habits"
+E             - button "Tue 4 Aug, 1 of 2 habits"
+E             - button "Wed 5 Aug, 2 of 2 habits"
+E             - button "Thu 6 Aug, 1 of 2 habits"
+E             - button "Fri 7 Aug, 2 of 2 habits"
+E             - button "Sat 8 Aug, 1 of 2 habits"
+E             - button "Sun 9 Aug, 0 of 2 habits"
+E             - button "Mon 10 Aug, 1 of 2 habits"
+E             - button "Tue 11 Aug, 2 of 2 habits"
+E             - button "Wed 12 Aug, 2 of 2 habits"
+E             - button "Thu 13 Aug, 2 of 2 habits"
+E             - button "Fri 14 Aug, 1 of 2 habits"
+E             - button "Sat 15 Aug, 1 of 2 habits"
+E             - button "Sun 16 Aug, 1 of 2 habits"
+E             - button "Mon 17 Aug, 1 of 2 habits"
+E             - button "Tue 18 Aug, 1 of 2 habits"
+E             - button "Wed 19 Aug, 1 of 2 habits"
+E             - button "Thu 20 Aug, 1 of 2 habits"
+E             - button "Fri 21 Aug, 2 of 2 habits"
+E             - button "Sat 22 Aug, 2 of 2 habits"
+E             - button "Sun 23 Aug, 0 of 2 habits"
+E             - button "Mon 24 Aug, 2 of 2 habits"
+E             - button "Tue 25 Aug, 2 of 2 habits"
+E             - button "Wed 26 Aug, 1 of 2 habits"
+E             - button "Thu 27 Aug, 1 of 2 habits"
+E             - button "Fri 28 Aug, 2 of 2 habits"
+E             - button "Sat 29 Aug, 1 of 2 habits"
+E             - button "Sun 30 Aug, 1 of 2 habits"
+E             - button "Mon 31 Aug, 1 of 2 habits"
+E             - button "Tue 1 Sep, 1 of 2 habits"
+E             - button "Wed 2 Sep, 2 of 2 habits"
+E             - button "Thu 3 Sep, 2 of 2 habits"
+E             - button "Fri 4 Sep, 1 of 2 habits"
+E             - button "Sat 5 Sep, 2 of 2 habits"
+E             - button "Sun 6 Sep, 1 of 2 habits"
+E             - button "Mon 7 Sep, 1 of 2 habits"
+E             - button "Tue 8 Sep, 2 of 2 habits"
+E             - button "Wed 9 Sep, 1 of 2 habits"
+E             - button "Thu 10 Sep, 1 of 2 habits"
+E             - button "Fri 11 Sep, 2 of 2 habits"
+E             - button "Sat 12 Sep, 1 of 2 habits"
+E             - button "Sun 13 Sep, 1 of 2 habits"
+E             - button "Mon 14 Sep, 1 of 2 habits"
+E             - button "Tue 15 Sep, 2 of 2 habits"
+E             - button "Wed 16 Sep, 1 of 2 habits"
+E             - button "Thu 17 Sep, 1 of 2 habits"
+E             - button "Fri 18 Sep, 1 of 2 habits"
+E             - button "Sat 19 Sep, 2 of 2 habits"
+E             - button "Sun 20 Sep, 2 of 2 habits"
+E             - button "Mon 21 Sep, 1 of 2 habits"
+E             - button "Tue 22 Sep, 1 of 2 habits"
+E             - button "Wed 23 Sep, 1 of 2 habits"
+E             - button "Thu 24 Sep, 1 of 2 habits"
+E             - button "Fri 25 Sep, 2 of 2 habits"
+E             - button "Sat 26 Sep, 2 of 2 habits"
+E             - button "Sun 27 Sep, 0 of 2 habits"
+E             - button "Mon 28 Sep, 1 of 2 habits"
+E             - button "Tue 29 Sep, 2 of 2 habits"
+E             - button "Wed 30 Sep, 2 of 2 habits"
+E             - button "Thu 1 Oct, 1 of 2 habits"
+E             - button "Fri 2 Oct, 1 of 2 habits"
+E             - button "Sat 3 Oct, 2 of 2 habits"
+E             - button "Sun 4 Oct, 1 of 2 habits"
+E             - button "Mon 5 Oct, 2 of 2 habits"
+E             - button "Tue 6 Oct, 1 of 2 habits"
+E             - button "Wed 7 Oct, 1 of 2 habits"
+E             - button "Thu 8 Oct, 2 of 2 habits"
+E             - button "Fri 9 Oct, 1 of 2 habits"
+E             - button "Sat 10 Oct, 0 of 2 habits"
+E         - heading "Habits" [level=2]
+E         - list "Habits":
+E           - listitem:
+E             - heading "Stretch 10 minutes" [level=3]
+E             - button "Delete \"Stretch 10 minutes\""
+E             - paragraph: Current 2 days Best 5
+E             - button "Year view, Stretch 10 minutes": Year
+E             - button "Done today, Stretch 10 minutes": Done today
+E           - listitem:
+E             - heading "No phone after 11pm" [level=3]
+E             - button "Delete \"No phone after 11pm\""
+E             - paragraph: Current No streak yet Best 14
+E             - button "Year view, No phone after 11pm": Year
+E             - button "Done today, No phone after 11pm": Done today
+E         - text: New habit
+E         - textbox "New habit"
+E         - button "Add"
+
+tests\browser\test_delete.py:231: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_a_fast_double_click_or_double_tap_on_a_bin_under_delete_habit_cannot_delete[sample-1280x800-touch]" time="6.017"><failure message="AssertionError: Locator expected to have attribute ''&#10;Actual value: None &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-del&quot;)&#10;    14 × locator resolved to &lt;dialog class=&quot;dlg-del&quot; aria-modal=&quot;true&quot; role=&quot;alertdialog&quot; aria-labelledby=&quot;del-title&quot; aria-describedby=&quot;del-body&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;null&quot;&#10;&#10;Aria snapshot:&#10;- banner:&#10;  - heading &quot;Streaky Habit&quot; [level=1]&#10;  - time: Saturday 10 October&#10;- main:&#10;  - region &quot;Last 12 weeks&quot;:&#10;    - heading &quot;Last 12 weeks&quot; [level=2]&#10;    - button &quot;Year view, all habits&quot;: Year&#10;    - paragraph: Tap a day to change it.&#10;    - group &quot;Last 12 weeks&quot;:&#10;      - button &quot;Mon 20 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Tue 21 Jul, 2 of 2 habits&quot;&#10;      - button &quot;Wed 22 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Thu 23 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Fri 24 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Sat 25 Jul, 2 of 2 habits&quot;&#10;      - button &quot;Sun 26 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Mon 27 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Tue 28 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Wed 29 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Thu 30 Jul, 2 of 2 habits&quot;&#10;      - button &quot;Fri 31 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Sat 1 Aug, 0 of 2 habits&quot;&#10;      - button &quot;Sun 2 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Mon 3 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Tue 4 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Wed 5 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Thu 6 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Fri 7 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Sat 8 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Sun 9 Aug, 0 of 2 habits&quot;&#10;      - button &quot;Mon 10 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Tue 11 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Wed 12 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Thu 13 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Fri 14 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Sat 15 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Sun 16 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Mon 17 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Tue 18 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Wed 19 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Thu 20 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Fri 21 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Sat 22 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Sun 23 Aug, 0 of 2 habits&quot;&#10;      - button &quot;Mon 24 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Tue 25 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Wed 26 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Thu 27 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Fri 28 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Sat 29 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Sun 30 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Mon 31 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Tue 1 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Wed 2 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Thu 3 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Fri 4 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Sat 5 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Sun 6 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Mon 7 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Tue 8 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Wed 9 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Thu 10 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Fri 11 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Sat 12 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Sun 13 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Mon 14 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Tue 15 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Wed 16 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Thu 17 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Fri 18 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Sat 19 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Sun 20 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Mon 21 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Tue 22 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Wed 23 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Thu 24 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Fri 25 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Sat 26 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Sun 27 Sep, 0 of 2 habits&quot;&#10;      - button &quot;Mon 28 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Tue 29 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Wed 30 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Thu 1 Oct, 1 of 2 habits&quot;&#10;      - button &quot;Fri 2 Oct, 1 of 2 habits&quot;&#10;      - button &quot;Sat 3 Oct, 2 of 2 habits&quot;&#10;      - button &quot;Sun 4 Oct, 1 of 2 habits&quot;&#10;      - button &quot;Mon 5 Oct, 2 of 2 habits&quot;&#10;      - button &quot;Tue 6 Oct, 1 of 2 habits&quot;&#10;      - button &quot;Wed 7 Oct, 1 of 2 habits&quot;&#10;      - button &quot;Thu 8 Oct, 2 of 2 habits&quot;&#10;      - button &quot;Fri 9 Oct, 1 of 2 habits&quot;&#10;      - button &quot;Sat 10 Oct, 0 of 2 habits&quot;&#10;  - heading &quot;Habits&quot; [level=2]&#10;  - list &quot;Habits&quot;:&#10;    - listitem:&#10;      - heading &quot;Stretch 10 minutes&quot; [level=3]&#10;      - button &quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;&#10;      - paragraph: Current 2 days Best 5&#10;      - button &quot;Year view, Stretch 10 minutes&quot;: Year&#10;      - button &quot;Done today, Stretch 10 minutes&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;No phone after 11pm&quot; [level=3]&#10;      - button &quot;Delete \&quot;No phone after 11pm\&quot;&quot;&#10;      - paragraph: Current No streak yet Best 14&#10;      - button &quot;Year view, No phone after 11pm&quot;: Year&#10;      - button &quot;Done today, No phone after 11pm&quot;: Done today&#10;  - text: New habit&#10;  - textbox &quot;New habit&quot;&#10;  - button &quot;Add&quot;">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F42A3E820&gt;
+state = 'the sample day', viewport = (1280, 800), how = 'touch'
+
+    @pytest.mark.parametrize("state, viewport, how", OVERLAP_ROWS)
+    def test_R13_a_fast_double_click_or_double_tap_on_a_bin_under_delete_habit_cannot_delete(app, state, viewport, how):
+        page, habits, before = open_for_overlap(app, state, viewport, how)
+        evidence = f"delete-overlap-fast-{state.replace(' ', '-')}-{viewport[0]}x{viewport[1]}-{how}"
+        name, point = overlap_point(page, habits, evidence)
+        page.clock.pause_at(PAUSE_AT)
+        details = page.evaluate_handle(DETAILS_JS)
+    
+        press_twice(page, *point, how)
+        write_evidence(f"{evidence}-click-details", {"point": point, "detailsOfClicksOnDeleteHabit": details.json_value()})
+    
+&gt;       assert_kept(page, name, [habit["name"] for habit in habits], before)
+
+tests\browser\test_delete.py:370: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+page = &lt;Page url='http://127.0.0.1:15126/'&gt;, name = 'Read 20 pages'
+everyone = ['Read 20 pages', 'Stretch 10 minutes', 'No phone after 11pm']
+before = '{\n "version": 1,\n "habits": [\n  {\n   "name": "Read 20 pages",\n   "done": [\n    "2025-10-10",\n    "2025-10-11",...0-03",\n    "2026-10-04",\n    "2026-10-05",\n    "2026-10-06",\n    "2026-10-07",\n    "2026-10-08"\n   ]\n  }\n ]\n}'
+
+    def assert_kept(page, name, everyone, before):
+        """M1 is still open for `name`, every habit is listed, nothing was written and the stored text is `before`."""
+&gt;       expect(dialog(page, "dlg-del")).to_have_attribute("open", "")
+E       AssertionError: Locator expected to have attribute ''
+E       Actual value: None 
+E       Call log:
+E         - Expect "to_have_attribute" with timeout 5000ms
+E         - waiting for locator("dialog.dlg-del")
+E           14 × locator resolved to &lt;dialog class="dlg-del" aria-modal="true" role="alertdialog" aria-labelledby="del-title" aria-describedby="del-body"&gt;…&lt;/dialog&gt;
+E              - unexpected value "null"
+E       
+E       Aria snapshot:
+E       - banner:
+E         - heading "Streaky Habit" [level=1]
+E         - time: Saturday 10 October
+E       - main:
+E         - region "Last 12 weeks":
+E           - heading "Last 12 weeks" [level=2]
+E           - button "Year view, all habits": Year
+E           - paragraph: Tap a day to change it.
+E           - group "Last 12 weeks":
+E             - button "Mon 20 Jul, 1 of 2 habits"
+E             - button "Tue 21 Jul, 2 of 2 habits"
+E             - button "Wed 22 Jul, 1 of 2 habits"
+E             - button "Thu 23 Jul, 1 of 2 habits"
+E             - button "Fri 24 Jul, 1 of 2 habits"
+E             - button "Sat 25 Jul, 2 of 2 habits"
+E             - button "Sun 26 Jul, 1 of 2 habits"
+E             - button "Mon 27 Jul, 1 of 2 habits"
+E             - button "Tue 28 Jul, 1 of 2 habits"
+E             - button "Wed 29 Jul, 1 of 2 habits"
+E             - button "Thu 30 Jul, 2 of 2 habits"
+E             - button "Fri 31 Jul, 1 of 2 habits"
+E             - button "Sat 1 Aug, 0 of 2 habits"
+E             - button "Sun 2 Aug, 2 of 2 habits"
+E             - button "Mon 3 Aug, 1 of 2 habits"
+E             - button "Tue 4 Aug, 1 of 2 habits"
+E             - button "Wed 5 Aug, 2 of 2 habits"
+E             - button "Thu 6 Aug, 1 of 2 habits"
+E             - button "Fri 7 Aug, 2 of 2 habits"
+E             - button "Sat 8 Aug, 1 of 2 habits"
+E             - button "Sun 9 Aug, 0 of 2 habits"
+E             - button "Mon 10 Aug, 1 of 2 habits"
+E             - button "Tue 11 Aug, 2 of 2 habits"
+E             - button "Wed 12 Aug, 2 of 2 habits"
+E             - button "Thu 13 Aug, 2 of 2 habits"
+E             - button "Fri 14 Aug, 1 of 2 habits"
+E             - button "Sat 15 Aug, 1 of 2 habits"
+E             - button "Sun 16 Aug, 1 of 2 habits"
+E             - button "Mon 17 Aug, 1 of 2 habits"
+E             - button "Tue 18 Aug, 1 of 2 habits"
+E             - button "Wed 19 Aug, 1 of 2 habits"
+E             - button "Thu 20 Aug, 1 of 2 habits"
+E             - button "Fri 21 Aug, 2 of 2 habits"
+E             - button "Sat 22 Aug, 2 of 2 habits"
+E             - button "Sun 23 Aug, 0 of 2 habits"
+E             - button "Mon 24 Aug, 2 of 2 habits"
+E             - button "Tue 25 Aug, 2 of 2 habits"
+E             - button "Wed 26 Aug, 1 of 2 habits"
+E             - button "Thu 27 Aug, 1 of 2 habits"
+E             - button "Fri 28 Aug, 2 of 2 habits"
+E             - button "Sat 29 Aug, 1 of 2 habits"
+E             - button "Sun 30 Aug, 1 of 2 habits"
+E             - button "Mon 31 Aug, 1 of 2 habits"
+E             - button "Tue 1 Sep, 1 of 2 habits"
+E             - button "Wed 2 Sep, 2 of 2 habits"
+E             - button "Thu 3 Sep, 2 of 2 habits"
+E             - button "Fri 4 Sep, 1 of 2 habits"
+E             - button "Sat 5 Sep, 2 of 2 habits"
+E             - button "Sun 6 Sep, 1 of 2 habits"
+E             - button "Mon 7 Sep, 1 of 2 habits"
+E             - button "Tue 8 Sep, 2 of 2 habits"
+E             - button "Wed 9 Sep, 1 of 2 habits"
+E             - button "Thu 10 Sep, 1 of 2 habits"
+E             - button "Fri 11 Sep, 2 of 2 habits"
+E             - button "Sat 12 Sep, 1 of 2 habits"
+E             - button "Sun 13 Sep, 1 of 2 habits"
+E             - button "Mon 14 Sep, 1 of 2 habits"
+E             - button "Tue 15 Sep, 2 of 2 habits"
+E             - button "Wed 16 Sep, 1 of 2 habits"
+E             - button "Thu 17 Sep, 1 of 2 habits"
+E             - button "Fri 18 Sep, 1 of 2 habits"
+E             - button "Sat 19 Sep, 2 of 2 habits"
+E             - button "Sun 20 Sep, 2 of 2 habits"
+E             - button "Mon 21 Sep, 1 of 2 habits"
+E             - button "Tue 22 Sep, 1 of 2 habits"
+E             - button "Wed 23 Sep, 1 of 2 habits"
+E             - button "Thu 24 Sep, 1 of 2 habits"
+E             - button "Fri 25 Sep, 2 of 2 habits"
+E             - button "Sat 26 Sep, 2 of 2 habits"
+E             - button "Sun 27 Sep, 0 of 2 habits"
+E             - button "Mon 28 Sep, 1 of 2 habits"
+E             - button "Tue 29 Sep, 2 of 2 habits"
+E             - button "Wed 30 Sep, 2 of 2 habits"
+E             - button "Thu 1 Oct, 1 of 2 habits"
+E             - button "Fri 2 Oct, 1 of 2 habits"
+E             - button "Sat 3 Oct, 2 of 2 habits"
+E             - button "Sun 4 Oct, 1 of 2 habits"
+E             - button "Mon 5 Oct, 2 of 2 habits"
+E             - button "Tue 6 Oct, 1 of 2 habits"
+E             - button "Wed 7 Oct, 1 of 2 habits"
+E             - button "Thu 8 Oct, 2 of 2 habits"
+E             - button "Fri 9 Oct, 1 of 2 habits"
+E             - button "Sat 10 Oct, 0 of 2 habits"
+E         - heading "Habits" [level=2]
+E         - list "Habits":
+E           - listitem:
+E             - heading "Stretch 10 minutes" [level=3]
+E             - button "Delete \"Stretch 10 minutes\""
+E             - paragraph: Current 2 days Best 5
+E             - button "Year view, Stretch 10 minutes": Year
+E             - button "Done today, Stretch 10 minutes": Done today
+E           - listitem:
+E             - heading "No phone after 11pm" [level=3]
+E             - button "Delete \"No phone after 11pm\""
+E             - paragraph: Current No streak yet Best 14
+E             - button "Year view, No phone after 11pm": Year
+E             - button "Done today, No phone after 11pm": Done today
+E         - text: New habit
+E         - textbox "New habit"
+E         - button "Add"
+
+tests\browser\test_delete.py:231: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_a_fast_double_click_or_double_tap_on_a_bin_under_delete_habit_cannot_delete[twelve-390x844-mouse]" time="6.553"><failure message="AssertionError: Locator expected to have attribute ''&#10;Actual value: None &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-del&quot;)&#10;    14 × locator resolved to &lt;dialog class=&quot;dlg-del&quot; aria-modal=&quot;true&quot; role=&quot;alertdialog&quot; aria-labelledby=&quot;del-title&quot; aria-describedby=&quot;del-body&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;null&quot;&#10;&#10;Aria snapshot:&#10;- banner:&#10;  - heading &quot;Streaky Habit&quot; [level=1]&#10;  - button &quot;Overview, today 6 of 11 habits done&quot;: Overview&#10;  - time: Saturday 10 October&#10;- main:&#10;  - heading &quot;Habits&quot; [level=2]&#10;  - list &quot;Habits&quot;:&#10;    - listitem:&#10;      - heading &quot;Read 20 pages&quot; [level=3]&#10;      - button &quot;Delete \&quot;Read 20 pages\&quot;&quot;&#10;      - paragraph: Current 4 days Best 9&#10;      - button &quot;Year view, Read 20 pages&quot;: Year&#10;      - button &quot;Done today, Read 20 pages&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Stretch 10 minutes&quot; [level=3]&#10;      - button &quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;&#10;      - paragraph: Current 2 days Best 5&#10;      - button &quot;Year view, Stretch 10 minutes&quot;: Year&#10;      - button &quot;Done today, Stretch 10 minutes&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;No phone after 11pm&quot; [level=3]&#10;      - button &quot;Delete \&quot;No phone after 11pm\&quot;&quot;&#10;      - paragraph: Current No streak yet Best 14&#10;      - button &quot;Year view, No phone after 11pm&quot;: Year&#10;      - button &quot;Done today, No phone after 11pm&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;Walk 8,000 steps&quot; [level=3]&#10;      - button &quot;Delete \&quot;Walk 8,000 steps\&quot;&quot;&#10;      - paragraph: Current 1 day Best 11&#10;      - button &quot;Year view, Walk 8,000 steps&quot;: Year&#10;      - button &quot;Done today, Walk 8,000 steps&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;Journal one page&quot; [level=3]&#10;      - button &quot;Delete \&quot;Journal one page\&quot;&quot;&#10;      - paragraph: Current 8 days Best 11&#10;      - button &quot;Year view, Journal one page&quot;: Year&#10;      - button &quot;Done today, Journal one page&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Practise guitar&quot; [level=3]&#10;      - button &quot;Delete \&quot;Practise guitar\&quot;&quot;&#10;      - paragraph: Current 1 day Best 11&#10;      - button &quot;Year view, Practise guitar&quot;: Year&#10;      - button &quot;Done today, Practise guitar&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Cook dinner at home&quot; [level=3]&#10;      - button &quot;Delete \&quot;Cook dinner at home\&quot;&quot;&#10;      - paragraph: Current 5 days Best 11&#10;      - button &quot;Year view, Cook dinner at home&quot;: Year&#10;      - button &quot;Done today, Cook dinner at home&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Lights out by midnight&quot; [level=3]&#10;      - button &quot;Delete \&quot;Lights out by midnight\&quot;&quot;&#10;      - paragraph: Current 2 days Best 11&#10;      - button &quot;Year view, Lights out by midnight&quot;: Year&#10;      - button &quot;Done today, Lights out by midnight&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;Meditate 5 minutes&quot; [level=3]&#10;      - button &quot;Delete \&quot;Meditate 5 minutes\&quot;&quot;&#10;      - paragraph: Current 2 days Best 11&#10;      - button &quot;Year view, Meditate 5 minutes&quot;: Year&#10;      - button &quot;Done today, Meditate 5 minutes&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Floss&quot; [level=3]&#10;      - button &quot;Delete \&quot;Floss\&quot;&quot;&#10;      - paragraph: Current 1 day Best 11&#10;      - button &quot;Year view, Floss&quot;: Year&#10;      - button &quot;Done today, Floss&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Learn 10 Malay words&quot; [level=3]&#10;      - button &quot;Delete \&quot;Learn 10 Malay words\&quot;&quot;&#10;      - paragraph: Current 1 day Best 11&#10;      - button &quot;Year view, Learn 10 Malay words&quot;: Year&#10;      - button &quot;Done today, Learn 10 Malay words&quot;: Done today&#10;  - text: New habit&#10;  - textbox &quot;New habit&quot;&#10;  - button &quot;Add&quot;">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F42B14E00&gt;
+state = 'twelve habits', viewport = (390, 844), how = 'mouse'
+
+    @pytest.mark.parametrize("state, viewport, how", OVERLAP_ROWS)
+    def test_R13_a_fast_double_click_or_double_tap_on_a_bin_under_delete_habit_cannot_delete(app, state, viewport, how):
+        page, habits, before = open_for_overlap(app, state, viewport, how)
+        evidence = f"delete-overlap-fast-{state.replace(' ', '-')}-{viewport[0]}x{viewport[1]}-{how}"
+        name, point = overlap_point(page, habits, evidence)
+        page.clock.pause_at(PAUSE_AT)
+        details = page.evaluate_handle(DETAILS_JS)
+    
+        press_twice(page, *point, how)
+        write_evidence(f"{evidence}-click-details", {"point": point, "detailsOfClicksOnDeleteHabit": details.json_value()})
+    
+&gt;       assert_kept(page, name, [habit["name"] for habit in habits], before)
+
+tests\browser\test_delete.py:370: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+page = &lt;Page url='http://127.0.0.1:15126/'&gt;, name = 'Drink 2 litres of water'
+everyone = ['Read 20 pages', 'Stretch 10 minutes', 'No phone after 11pm', 'Drink 2 litres of water', 'Walk 8,000 steps', 'Journal one page', ...]
+before = '{\n "version": 1,\n "habits": [\n  {\n   "name": "Read 20 pages",\n   "done": [\n    "2025-10-10",\n    "2025-10-11",...0-03",\n    "2026-10-04",\n    "2026-10-05",\n    "2026-10-06",\n    "2026-10-07",\n    "2026-10-09"\n   ]\n  }\n ]\n}'
+
+    def assert_kept(page, name, everyone, before):
+        """M1 is still open for `name`, every habit is listed, nothing was written and the stored text is `before`."""
+&gt;       expect(dialog(page, "dlg-del")).to_have_attribute("open", "")
+E       AssertionError: Locator expected to have attribute ''
+E       Actual value: None 
+E       Call log:
+E         - Expect "to_have_attribute" with timeout 5000ms
+E         - waiting for locator("dialog.dlg-del")
+E           14 × locator resolved to &lt;dialog class="dlg-del" aria-modal="true" role="alertdialog" aria-labelledby="del-title" aria-describedby="del-body"&gt;…&lt;/dialog&gt;
+E              - unexpected value "null"
+E       
+E       Aria snapshot:
+E       - banner:
+E         - heading "Streaky Habit" [level=1]
+E         - button "Overview, today 6 of 11 habits done": Overview
+E         - time: Saturday 10 October
+E       - main:
+E         - heading "Habits" [level=2]
+E         - list "Habits":
+E           - listitem:
+E             - heading "Read 20 pages" [level=3]
+E             - button "Delete \"Read 20 pages\""
+E             - paragraph: Current 4 days Best 9
+E             - button "Year view, Read 20 pages": Year
+E             - button "Done today, Read 20 pages" [pressed]: Done today
+E           - listitem:
+E             - heading "Stretch 10 minutes" [level=3]
+E             - button "Delete \"Stretch 10 minutes\""
+E             - paragraph: Current 2 days Best 5
+E             - button "Year view, Stretch 10 minutes": Year
+E             - button "Done today, Stretch 10 minutes": Done today
+E           - listitem:
+E             - heading "No phone after 11pm" [level=3]
+E             - button "Delete \"No phone after 11pm\""
+E             - paragraph: Current No streak yet Best 14
+E             - button "Year view, No phone after 11pm": Year
+E             - button "Done today, No phone after 11pm": Done today
+E           - listitem:
+E             - heading "Walk 8,000 steps" [level=3]
+E             - button "Delete \"Walk 8,000 steps\""
+E             - paragraph: Current 1 day Best 11
+E             - button "Year view, Walk 8,000 steps": Year
+E             - button "Done today, Walk 8,000 steps": Done today
+E           - listitem:
+E             - heading "Journal one page" [level=3]
+E             - button "Delete \"Journal one page\""
+E             - paragraph: Current 8 days Best 11
+E             - button "Year view, Journal one page": Year
+E             - button "Done today, Journal one page" [pressed]: Done today
+E           - listitem:
+E             - heading "Practise guitar" [level=3]
+E             - button "Delete \"Practise guitar\""
+E             - paragraph: Current 1 day Best 11
+E             - button "Year view, Practise guitar": Year
+E             - button "Done today, Practise guitar" [pressed]: Done today
+E           - listitem:
+E             - heading "Cook dinner at home" [level=3]
+E             - button "Delete \"Cook dinner at home\""
+E             - paragraph: Current 5 days Best 11
+E             - button "Year view, Cook dinner at home": Year
+E             - button "Done today, Cook dinner at home" [pressed]: Done today
+E           - listitem:
+E             - heading "Lights out by midnight" [level=3]
+E             - button "Delete \"Lights out by midnight\""
+E             - paragraph: Current 2 days Best 11
+E             - button "Year view, Lights out by midnight": Year
+E             - button "Done today, Lights out by midnight": Done today
+E           - listitem:
+E             - heading "Meditate 5 minutes" [level=3]
+E             - button "Delete \"Meditate 5 minutes\""
+E             - paragraph: Current 2 days Best 11
+E             - button "Year view, Meditate 5 minutes": Year
+E             - button "Done today, Meditate 5 minutes" [pressed]: Done today
+E           - listitem:
+E             - heading "Floss" [level=3]
+E             - button "Delete \"Floss\""
+E             - paragraph: Current 1 day Best 11
+E             - button "Year view, Floss": Year
+E             - button "Done today, Floss" [pressed]: Done today
+E           - listitem:
+E             - heading "Learn 10 Malay words" [level=3]
+E             - button "Delete \"Learn 10 Malay words\""
+E             - paragraph: Current 1 day Best 11
+E             - button "Year view, Learn 10 Malay words": Year
+E             - button "Done today, Learn 10 Malay words": Done today
+E         - text: New habit
+E         - textbox "New habit"
+E         - button "Add"
+
+tests\browser\test_delete.py:231: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_a_fast_double_click_or_double_tap_on_a_bin_under_delete_habit_cannot_delete[twelve-390x844-touch]" time="6.606"><failure message="AssertionError: Locator expected to have attribute ''&#10;Actual value: None &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-del&quot;)&#10;    14 × locator resolved to &lt;dialog class=&quot;dlg-del&quot; aria-modal=&quot;true&quot; role=&quot;alertdialog&quot; aria-labelledby=&quot;del-title&quot; aria-describedby=&quot;del-body&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;null&quot;&#10;&#10;Aria snapshot:&#10;- banner:&#10;  - heading &quot;Streaky Habit&quot; [level=1]&#10;  - button &quot;Overview, today 6 of 11 habits done&quot;: Overview&#10;  - time: Saturday 10 October&#10;- main:&#10;  - heading &quot;Habits&quot; [level=2]&#10;  - list &quot;Habits&quot;:&#10;    - listitem:&#10;      - heading &quot;Read 20 pages&quot; [level=3]&#10;      - button &quot;Delete \&quot;Read 20 pages\&quot;&quot;&#10;      - paragraph: Current 4 days Best 9&#10;      - button &quot;Year view, Read 20 pages&quot;: Year&#10;      - button &quot;Done today, Read 20 pages&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Stretch 10 minutes&quot; [level=3]&#10;      - button &quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;&#10;      - paragraph: Current 2 days Best 5&#10;      - button &quot;Year view, Stretch 10 minutes&quot;: Year&#10;      - button &quot;Done today, Stretch 10 minutes&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;No phone after 11pm&quot; [level=3]&#10;      - button &quot;Delete \&quot;No phone after 11pm\&quot;&quot;&#10;      - paragraph: Current No streak yet Best 14&#10;      - button &quot;Year view, No phone after 11pm&quot;: Year&#10;      - button &quot;Done today, No phone after 11pm&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;Walk 8,000 steps&quot; [level=3]&#10;      - button &quot;Delete \&quot;Walk 8,000 steps\&quot;&quot;&#10;      - paragraph: Current 1 day Best 11&#10;      - button &quot;Year view, Walk 8,000 steps&quot;: Year&#10;      - button &quot;Done today, Walk 8,000 steps&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;Journal one page&quot; [level=3]&#10;      - button &quot;Delete \&quot;Journal one page\&quot;&quot;&#10;      - paragraph: Current 8 days Best 11&#10;      - button &quot;Year view, Journal one page&quot;: Year&#10;      - button &quot;Done today, Journal one page&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Practise guitar&quot; [level=3]&#10;      - button &quot;Delete \&quot;Practise guitar\&quot;&quot;&#10;      - paragraph: Current 1 day Best 11&#10;      - button &quot;Year view, Practise guitar&quot;: Year&#10;      - button &quot;Done today, Practise guitar&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Cook dinner at home&quot; [level=3]&#10;      - button &quot;Delete \&quot;Cook dinner at home\&quot;&quot;&#10;      - paragraph: Current 5 days Best 11&#10;      - button &quot;Year view, Cook dinner at home&quot;: Year&#10;      - button &quot;Done today, Cook dinner at home&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Lights out by midnight&quot; [level=3]&#10;      - button &quot;Delete \&quot;Lights out by midnight\&quot;&quot;&#10;      - paragraph: Current 2 days Best 11&#10;      - button &quot;Year view, Lights out by midnight&quot;: Year&#10;      - button &quot;Done today, Lights out by midnight&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;Meditate 5 minutes&quot; [level=3]&#10;      - button &quot;Delete \&quot;Meditate 5 minutes\&quot;&quot;&#10;      - paragraph: Current 2 days Best 11&#10;      - button &quot;Year view, Meditate 5 minutes&quot;: Year&#10;      - button &quot;Done today, Meditate 5 minutes&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Floss&quot; [level=3]&#10;      - button &quot;Delete \&quot;Floss\&quot;&quot;&#10;      - paragraph: Current 1 day Best 11&#10;      - button &quot;Year view, Floss&quot;: Year&#10;      - button &quot;Done today, Floss&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Learn 10 Malay words&quot; [level=3]&#10;      - button &quot;Delete \&quot;Learn 10 Malay words\&quot;&quot;&#10;      - paragraph: Current 1 day Best 11&#10;      - button &quot;Year view, Learn 10 Malay words&quot;: Year&#10;      - button &quot;Done today, Learn 10 Malay words&quot;: Done today&#10;  - text: New habit&#10;  - textbox &quot;New habit&quot;&#10;  - button &quot;Add&quot;">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F42D1D430&gt;
+state = 'twelve habits', viewport = (390, 844), how = 'touch'
+
+    @pytest.mark.parametrize("state, viewport, how", OVERLAP_ROWS)
+    def test_R13_a_fast_double_click_or_double_tap_on_a_bin_under_delete_habit_cannot_delete(app, state, viewport, how):
+        page, habits, before = open_for_overlap(app, state, viewport, how)
+        evidence = f"delete-overlap-fast-{state.replace(' ', '-')}-{viewport[0]}x{viewport[1]}-{how}"
+        name, point = overlap_point(page, habits, evidence)
+        page.clock.pause_at(PAUSE_AT)
+        details = page.evaluate_handle(DETAILS_JS)
+    
+        press_twice(page, *point, how)
+        write_evidence(f"{evidence}-click-details", {"point": point, "detailsOfClicksOnDeleteHabit": details.json_value()})
+    
+&gt;       assert_kept(page, name, [habit["name"] for habit in habits], before)
+
+tests\browser\test_delete.py:370: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+page = &lt;Page url='http://127.0.0.1:15126/'&gt;, name = 'Drink 2 litres of water'
+everyone = ['Read 20 pages', 'Stretch 10 minutes', 'No phone after 11pm', 'Drink 2 litres of water', 'Walk 8,000 steps', 'Journal one page', ...]
+before = '{\n "version": 1,\n "habits": [\n  {\n   "name": "Read 20 pages",\n   "done": [\n    "2025-10-10",\n    "2025-10-11",...0-03",\n    "2026-10-04",\n    "2026-10-05",\n    "2026-10-06",\n    "2026-10-07",\n    "2026-10-09"\n   ]\n  }\n ]\n}'
+
+    def assert_kept(page, name, everyone, before):
+        """M1 is still open for `name`, every habit is listed, nothing was written and the stored text is `before`."""
+&gt;       expect(dialog(page, "dlg-del")).to_have_attribute("open", "")
+E       AssertionError: Locator expected to have attribute ''
+E       Actual value: None 
+E       Call log:
+E         - Expect "to_have_attribute" with timeout 5000ms
+E         - waiting for locator("dialog.dlg-del")
+E           14 × locator resolved to &lt;dialog class="dlg-del" aria-modal="true" role="alertdialog" aria-labelledby="del-title" aria-describedby="del-body"&gt;…&lt;/dialog&gt;
+E              - unexpected value "null"
+E       
+E       Aria snapshot:
+E       - banner:
+E         - heading "Streaky Habit" [level=1]
+E         - button "Overview, today 6 of 11 habits done": Overview
+E         - time: Saturday 10 October
+E       - main:
+E         - heading "Habits" [level=2]
+E         - list "Habits":
+E           - listitem:
+E             - heading "Read 20 pages" [level=3]
+E             - button "Delete \"Read 20 pages\""
+E             - paragraph: Current 4 days Best 9
+E             - button "Year view, Read 20 pages": Year
+E             - button "Done today, Read 20 pages" [pressed]: Done today
+E           - listitem:
+E             - heading "Stretch 10 minutes" [level=3]
+E             - button "Delete \"Stretch 10 minutes\""
+E             - paragraph: Current 2 days Best 5
+E             - button "Year view, Stretch 10 minutes": Year
+E             - button "Done today, Stretch 10 minutes": Done today
+E           - listitem:
+E             - heading "No phone after 11pm" [level=3]
+E             - button "Delete \"No phone after 11pm\""
+E             - paragraph: Current No streak yet Best 14
+E             - button "Year view, No phone after 11pm": Year
+E             - button "Done today, No phone after 11pm": Done today
+E           - listitem:
+E             - heading "Walk 8,000 steps" [level=3]
+E             - button "Delete \"Walk 8,000 steps\""
+E             - paragraph: Current 1 day Best 11
+E             - button "Year view, Walk 8,000 steps": Year
+E             - button "Done today, Walk 8,000 steps": Done today
+E           - listitem:
+E             - heading "Journal one page" [level=3]
+E             - button "Delete \"Journal one page\""
+E             - paragraph: Current 8 days Best 11
+E             - button "Year view, Journal one page": Year
+E             - button "Done today, Journal one page" [pressed]: Done today
+E           - listitem:
+E             - heading "Practise guitar" [level=3]
+E             - button "Delete \"Practise guitar\""
+E             - paragraph: Current 1 day Best 11
+E             - button "Year view, Practise guitar": Year
+E             - button "Done today, Practise guitar" [pressed]: Done today
+E           - listitem:
+E             - heading "Cook dinner at home" [level=3]
+E             - button "Delete \"Cook dinner at home\""
+E             - paragraph: Current 5 days Best 11
+E             - button "Year view, Cook dinner at home": Year
+E             - button "Done today, Cook dinner at home" [pressed]: Done today
+E           - listitem:
+E             - heading "Lights out by midnight" [level=3]
+E             - button "Delete \"Lights out by midnight\""
+E             - paragraph: Current 2 days Best 11
+E             - button "Year view, Lights out by midnight": Year
+E             - button "Done today, Lights out by midnight": Done today
+E           - listitem:
+E             - heading "Meditate 5 minutes" [level=3]
+E             - button "Delete \"Meditate 5 minutes\""
+E             - paragraph: Current 2 days Best 11
+E             - button "Year view, Meditate 5 minutes": Year
+E             - button "Done today, Meditate 5 minutes" [pressed]: Done today
+E           - listitem:
+E             - heading "Floss" [level=3]
+E             - button "Delete \"Floss\""
+E             - paragraph: Current 1 day Best 11
+E             - button "Year view, Floss": Year
+E             - button "Done today, Floss" [pressed]: Done today
+E           - listitem:
+E             - heading "Learn 10 Malay words" [level=3]
+E             - button "Delete \"Learn 10 Malay words\""
+E             - paragraph: Current 1 day Best 11
+E             - button "Year view, Learn 10 Malay words": Year
+E             - button "Done today, Learn 10 Malay words": Done today
+E         - text: New habit
+E         - textbox "New habit"
+E         - button "Add"
+
+tests\browser\test_delete.py:231: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_a_press_with_a_click_count_of_2_on_delete_habit_away_from_the_bin_does_nothing" time="5.465"><failure message="AssertionError: Locator expected to have attribute ''&#10;Actual value: None &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-del&quot;)&#10;    14 × locator resolved to &lt;dialog class=&quot;dlg-del&quot; aria-modal=&quot;true&quot; role=&quot;alertdialog&quot; aria-labelledby=&quot;del-title&quot; aria-describedby=&quot;del-body&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;null&quot;&#10;&#10;Aria snapshot:&#10;- banner:&#10;  - heading &quot;Streaky Habit&quot; [level=1]&#10;  - button &quot;Overview, today 1 of 2 habits done&quot;: Overview&#10;  - time: Saturday 10 October&#10;- main:&#10;  - heading &quot;Habits&quot; [level=2]&#10;  - list &quot;Habits&quot;:&#10;    - listitem:&#10;      - heading &quot;Read 20 pages&quot; [level=3]&#10;      - button &quot;Delete \&quot;Read 20 pages\&quot;&quot;&#10;      - paragraph: Current 4 days Best 9&#10;      - button &quot;Year view, Read 20 pages&quot;: Year&#10;      - button &quot;Done today, Read 20 pages&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;No phone after 11pm&quot; [level=3]&#10;      - button &quot;Delete \&quot;No phone after 11pm\&quot;&quot;&#10;      - paragraph: Current No streak yet Best 14&#10;      - button &quot;Year view, No phone after 11pm&quot;: Year&#10;      - button &quot;Done today, No phone after 11pm&quot;: Done today&#10;  - text: New habit&#10;  - textbox &quot;New habit&quot;&#10;  - button &quot;Add&quot;">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F42FB9B10&gt;
+
+    def test_R13_a_press_with_a_click_count_of_2_on_delete_habit_away_from_the_bin_does_nothing(app):
+        before = pretty(SAMPLE_HABITS)
+        page = app(viewport=PHONE, storage=before, install_time=NOON, count_writes=True)
+        opener = bin_btn(page, "Stretch 10 minutes")
+        opener.click()
+        expect(dialog(page, "dlg-del")).to_have_attribute("open", "")
+        settle(page, "dlg-del")
+        page.clock.pause_at(PAUSE_AT)
+        point = point_beside(confirm(page), opener)
+        assert under(page, point, "dialog.dlg-del button.btn-danger") and not inside(point, opener.bounding_box())
+        details = page.evaluate_handle(DETAILS_JS)
+    
+        page.mouse.move(*point)
+        page.mouse.down(click_count=2)
+        page.mouse.up(click_count=2)
+    
+        assert details.json_value() == [2]
+&gt;       assert_kept(page, "Stretch 10 minutes", SAMPLE_NAMES, before)
+
+tests\browser\test_delete.py:393: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+page = &lt;Page url='http://127.0.0.1:15126/'&gt;, name = 'Stretch 10 minutes'
+everyone = ['Read 20 pages', 'Stretch 10 minutes', 'No phone after 11pm']
+before = '{\n "version": 1,\n "habits": [\n  {\n   "name": "Read 20 pages",\n   "done": [\n    "2025-10-10",\n    "2025-10-11",...0-03",\n    "2026-10-04",\n    "2026-10-05",\n    "2026-10-06",\n    "2026-10-07",\n    "2026-10-08"\n   ]\n  }\n ]\n}'
+
+    def assert_kept(page, name, everyone, before):
+        """M1 is still open for `name`, every habit is listed, nothing was written and the stored text is `before`."""
+&gt;       expect(dialog(page, "dlg-del")).to_have_attribute("open", "")
+E       AssertionError: Locator expected to have attribute ''
+E       Actual value: None 
+E       Call log:
+E         - Expect "to_have_attribute" with timeout 5000ms
+E         - waiting for locator("dialog.dlg-del")
+E           14 × locator resolved to &lt;dialog class="dlg-del" aria-modal="true" role="alertdialog" aria-labelledby="del-title" aria-describedby="del-body"&gt;…&lt;/dialog&gt;
+E              - unexpected value "null"
+E       
+E       Aria snapshot:
+E       - banner:
+E         - heading "Streaky Habit" [level=1]
+E         - button "Overview, today 1 of 2 habits done": Overview
+E         - time: Saturday 10 October
+E       - main:
+E         - heading "Habits" [level=2]
+E         - list "Habits":
+E           - listitem:
+E             - heading "Read 20 pages" [level=3]
+E             - button "Delete \"Read 20 pages\""
+E             - paragraph: Current 4 days Best 9
+E             - button "Year view, Read 20 pages": Year
+E             - button "Done today, Read 20 pages" [pressed]: Done today
+E           - listitem:
+E             - heading "No phone after 11pm" [level=3]
+E             - button "Delete \"No phone after 11pm\""
+E             - paragraph: Current No streak yet Best 14
+E             - button "Year view, No phone after 11pm": Year
+E             - button "Done today, No phone after 11pm": Done today
+E         - text: New habit
+E         - textbox "New habit"
+E         - button "Add"
+
+tests\browser\test_delete.py:231: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_R15_one_press_on_delete_habit_away_from_the_bin_deletes_at_once[390x844-mouse]" time="0.418" /><testcase classname="tests.browser.test_delete" name="test_R13_R15_one_press_on_delete_habit_away_from_the_bin_deletes_at_once[390x844-touch]" time="0.428" /><testcase classname="tests.browser.test_delete" name="test_R13_R15_one_press_on_delete_habit_away_from_the_bin_deletes_at_once[1280x800-mouse]" time="0.423" /><testcase classname="tests.browser.test_delete" name="test_R13_R15_enter_on_delete_habit_deletes_at_once" time="5.230"><failure message="AssertionError: Locator expected to be focused&#10;Actual value: inactive &#10;Call log:&#10;  - Expect &quot;to_be_focused&quot; with timeout 5000ms&#10;  - waiting for get_by_role(&quot;button&quot;, name=&quot;Delete \&quot;No phone after 11pm\&quot;&quot;, exact=True)&#10;    14 × locator resolved to &lt;button type=&quot;button&quot; class=&quot;btn-bin&quot; aria-haspopup=&quot;dialog&quot; aria-label=&quot;Delete &quot;No phone after 11pm&quot;&quot;&gt;…&lt;/button&gt;&#10;       - unexpected value &quot;inactive&quot;&#10;&#10;Aria snapshot:&#10;- button &quot;Delete \&quot;No phone after 11pm\&quot;&quot;">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F43227740&gt;
+
+    def test_R13_R15_enter_on_delete_habit_deletes_at_once(app):
+        page = app(storage=sample_state(), install_time=NOON, count_writes=True)
+        expect(page.locator("ul.rows &gt; li.row")).to_have_count(3)
+        page.clock.pause_at(PAUSE_AT)
+        tab_to(page, bin_btn(page, "Stretch 10 minutes"))
+    
+        page.keyboard.press("Enter")
+        expect(dialog(page, "dlg-del")).to_have_attribute("open", "")
+        expect(cancel(page)).to_be_focused()
+        page.keyboard.press("Tab")
+        expect(confirm(page)).to_be_focused()
+        page.keyboard.press("Enter")
+    
+        expect(dialog(page, "dlg-del")).not_to_have_attribute("open", "")
+        assert names(page) == ["Read 20 pages", "No phone after 11pm"]
+        assert write_count(page) == 1
+&gt;       expect(bin_btn(page, "No phone after 11pm")).to_be_focused()
+E       AssertionError: Locator expected to be focused
+E       Actual value: inactive 
+E       Call log:
+E         - Expect "to_be_focused" with timeout 5000ms
+E         - waiting for get_by_role("button", name="Delete \"No phone after 11pm\"", exact=True)
+E           14 × locator resolved to &lt;button type="button" class="btn-bin" aria-haspopup="dialog" aria-label="Delete "No phone after 11pm""&gt;…&lt;/button&gt;
+E              - unexpected value "inactive"
+E       
+E       Aria snapshot:
+E       - button "Delete \"No phone after 11pm\""
+
+tests\browser\test_delete.py:438: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_R15_the_keyboard_deletes_even_when_delete_habit_lies_over_the_bin" time="1.818" /><testcase classname="tests.browser.test_delete" name="test_R14_cancel_esc_and_a_backdrop_click_keep_the_habit_and_give_focus_back[390x844-bin-cancel]" time="0.472" /><testcase classname="tests.browser.test_delete" name="test_R14_cancel_esc_and_a_backdrop_click_keep_the_habit_and_give_focus_back[390x844-bin-escape]" time="0.190" /><testcase classname="tests.browser.test_delete" name="test_R14_cancel_esc_and_a_backdrop_click_keep_the_habit_and_give_focus_back[390x844-bin-backdrop]" time="0.210" /><testcase classname="tests.browser.test_delete" name="test_R14_cancel_esc_and_a_backdrop_click_keep_the_habit_and_give_focus_back[1280x800-p2-cancel]" time="0.757" /><testcase classname="tests.browser.test_delete" name="test_R14_cancel_esc_and_a_backdrop_click_keep_the_habit_and_give_focus_back[1280x800-p2-escape]" time="0.493" /><testcase classname="tests.browser.test_delete" name="test_R14_cancel_esc_and_a_backdrop_click_keep_the_habit_and_give_focus_back[1280x800-p2-backdrop]" time="0.503" /><testcase classname="tests.browser.test_delete" name="test_R14_esc_after_an_earlier_delete_still_keeps_the_habit" time="0.225" /><testcase classname="tests.browser.test_delete" name="test_R14_cancel_esc_and_a_backdrop_click_work_at_the_instant_of_opening[cancel]" time="0.181" /><testcase classname="tests.browser.test_delete" name="test_R14_cancel_esc_and_a_backdrop_click_work_at_the_instant_of_opening[escape]" time="0.159" /><testcase classname="tests.browser.test_delete" name="test_R14_cancel_esc_and_a_backdrop_click_work_at_the_instant_of_opening[backdrop]" time="0.167" /><testcase classname="tests.browser.test_delete" name="test_R14_cancel_still_works_right_after_a_click_inside_the_box" time="0.416" /><testcase classname="tests.browser.test_delete" name="test_R14_a_double_press_on_a_backdrop_does_not_reach_the_control_behind_it[390x844-mouse-M1]" time="0.422"><failure message="AssertionError: ('stretch_not_done', [])&#10;assert False&#10; +  where False = &lt;function stretch_not_done at 0x0000027F40D46610&gt;(&lt;Page url='http://127.0.0.1:15126/'&gt;)">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F440E50C0&gt;
+viewport = (390, 844), how = 'mouse', popups = "M1 from Read's bin"
+behind = "ul.rows button.btn-done[aria-label='Done today, Stretch 10 minutes']"
+result = &lt;function stretch_not_done at 0x0000027F40D46610&gt;
+
+    @pytest.mark.parametrize(
+        "viewport, how, popups, behind, result",
+        [
+            pytest.param(PHONE, "mouse", "M1 from Read's bin", done_selector("Stretch 10 minutes"), stretch_not_done, id="390x844-mouse-M1"),
+            pytest.param(PHONE, "touch", "M1 from Read's bin", done_selector("Stretch 10 minutes"), stretch_not_done, id="390x844-touch-M1"),
+            pytest.param(DESKTOP, "mouse", "M1 from Read's bin", BAND_JULY_20, no_p1, id="1280x800-mouse-M1"),
+            pytest.param(DESKTOP, "touch", "M1 from Read's bin", BAND_JULY_20, no_p1, id="1280x800-touch-M1"),
+            pytest.param(DESKTOP, "mouse", "P1 for 2026-09-22 from the band", BAND_JULY_20, no_p1, id="1280x800-mouse-P1"),
+            pytest.param(PHONE, "mouse", "P3, then P1 for 2026-09-22", P3_OCTOBER_5, p3_open_and_no_p1, id="390x844-mouse-P3-then-P1"),
+            pytest.param(PHONE, "touch", "P3, then P1 for 2026-09-22", P3_OCTOBER_5, p3_open_and_no_p1, id="390x844-touch-P3-then-P1"),
+        ],
+    )
+    def test_R14_a_double_press_on_a_backdrop_does_not_reach_the_control_behind_it(app, viewport, how, popups, behind, result):
+        before = pretty(SAMPLE_HABITS)
+        page = app(viewport=viewport, storage=before, touch=how == "touch", install_time=NOON)
+        top = open_and_pause(page, popups)
+        point = centre(page.locator(behind))
+        assert not inside(point, page.locator(f"dialog.{top} &gt; div.dlg-box").bounding_box()), f"{behind} lies inside the top popup's box"
+    
+        press_twice(page, *point, how)
+    
+        expect(dialog(page, top)).not_to_have_attribute("open", "")
+        assert under(page, point, behind), f"{behind} is not under {point}"
+&gt;       assert result(page), (result.__name__, open_dialogs(page))
+E       AssertionError: ('stretch_not_done', [])
+E       assert False
+E        +  where False = &lt;function stretch_not_done at 0x0000027F40D46610&gt;(&lt;Page url='http://127.0.0.1:15126/'&gt;)
+
+tests\browser\test_delete.py:657: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_a_double_press_on_a_backdrop_does_not_reach_the_control_behind_it[390x844-touch-M1]" time="0.450"><failure message="AssertionError: ('stretch_not_done', [])&#10;assert False&#10; +  where False = &lt;function stretch_not_done at 0x0000027F40D46610&gt;(&lt;Page url='http://127.0.0.1:15126/'&gt;)">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F428ED010&gt;
+viewport = (390, 844), how = 'touch', popups = "M1 from Read's bin"
+behind = "ul.rows button.btn-done[aria-label='Done today, Stretch 10 minutes']"
+result = &lt;function stretch_not_done at 0x0000027F40D46610&gt;
+
+    @pytest.mark.parametrize(
+        "viewport, how, popups, behind, result",
+        [
+            pytest.param(PHONE, "mouse", "M1 from Read's bin", done_selector("Stretch 10 minutes"), stretch_not_done, id="390x844-mouse-M1"),
+            pytest.param(PHONE, "touch", "M1 from Read's bin", done_selector("Stretch 10 minutes"), stretch_not_done, id="390x844-touch-M1"),
+            pytest.param(DESKTOP, "mouse", "M1 from Read's bin", BAND_JULY_20, no_p1, id="1280x800-mouse-M1"),
+            pytest.param(DESKTOP, "touch", "M1 from Read's bin", BAND_JULY_20, no_p1, id="1280x800-touch-M1"),
+            pytest.param(DESKTOP, "mouse", "P1 for 2026-09-22 from the band", BAND_JULY_20, no_p1, id="1280x800-mouse-P1"),
+            pytest.param(PHONE, "mouse", "P3, then P1 for 2026-09-22", P3_OCTOBER_5, p3_open_and_no_p1, id="390x844-mouse-P3-then-P1"),
+            pytest.param(PHONE, "touch", "P3, then P1 for 2026-09-22", P3_OCTOBER_5, p3_open_and_no_p1, id="390x844-touch-P3-then-P1"),
+        ],
+    )
+    def test_R14_a_double_press_on_a_backdrop_does_not_reach_the_control_behind_it(app, viewport, how, popups, behind, result):
+        before = pretty(SAMPLE_HABITS)
+        page = app(viewport=viewport, storage=before, touch=how == "touch", install_time=NOON)
+        top = open_and_pause(page, popups)
+        point = centre(page.locator(behind))
+        assert not inside(point, page.locator(f"dialog.{top} &gt; div.dlg-box").bounding_box()), f"{behind} lies inside the top popup's box"
+    
+        press_twice(page, *point, how)
+    
+        expect(dialog(page, top)).not_to_have_attribute("open", "")
+        assert under(page, point, behind), f"{behind} is not under {point}"
+&gt;       assert result(page), (result.__name__, open_dialogs(page))
+E       AssertionError: ('stretch_not_done', [])
+E       assert False
+E        +  where False = &lt;function stretch_not_done at 0x0000027F40D46610&gt;(&lt;Page url='http://127.0.0.1:15126/'&gt;)
+
+tests\browser\test_delete.py:657: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_a_double_press_on_a_backdrop_does_not_reach_the_control_behind_it[1280x800-mouse-M1]" time="0.441"><failure message="AssertionError: section.band button.hc[data-key='2026-07-20'] is not under (417.328125, 111.0)&#10;assert False&#10; +  where False = under(&lt;Page url='http://127.0.0.1:15126/'&gt;, (417.328125, 111.0), &quot;section.band button.hc[data-key='2026-07-20']&quot;)">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F4276DBC0&gt;
+viewport = (1280, 800), how = 'mouse', popups = "M1 from Read's bin"
+behind = "section.band button.hc[data-key='2026-07-20']"
+result = &lt;function no_p1 at 0x0000027F40D46560&gt;
+
+    @pytest.mark.parametrize(
+        "viewport, how, popups, behind, result",
+        [
+            pytest.param(PHONE, "mouse", "M1 from Read's bin", done_selector("Stretch 10 minutes"), stretch_not_done, id="390x844-mouse-M1"),
+            pytest.param(PHONE, "touch", "M1 from Read's bin", done_selector("Stretch 10 minutes"), stretch_not_done, id="390x844-touch-M1"),
+            pytest.param(DESKTOP, "mouse", "M1 from Read's bin", BAND_JULY_20, no_p1, id="1280x800-mouse-M1"),
+            pytest.param(DESKTOP, "touch", "M1 from Read's bin", BAND_JULY_20, no_p1, id="1280x800-touch-M1"),
+            pytest.param(DESKTOP, "mouse", "P1 for 2026-09-22 from the band", BAND_JULY_20, no_p1, id="1280x800-mouse-P1"),
+            pytest.param(PHONE, "mouse", "P3, then P1 for 2026-09-22", P3_OCTOBER_5, p3_open_and_no_p1, id="390x844-mouse-P3-then-P1"),
+            pytest.param(PHONE, "touch", "P3, then P1 for 2026-09-22", P3_OCTOBER_5, p3_open_and_no_p1, id="390x844-touch-P3-then-P1"),
+        ],
+    )
+    def test_R14_a_double_press_on_a_backdrop_does_not_reach_the_control_behind_it(app, viewport, how, popups, behind, result):
+        before = pretty(SAMPLE_HABITS)
+        page = app(viewport=viewport, storage=before, touch=how == "touch", install_time=NOON)
+        top = open_and_pause(page, popups)
+        point = centre(page.locator(behind))
+        assert not inside(point, page.locator(f"dialog.{top} &gt; div.dlg-box").bounding_box()), f"{behind} lies inside the top popup's box"
+    
+        press_twice(page, *point, how)
+    
+        expect(dialog(page, top)).not_to_have_attribute("open", "")
+&gt;       assert under(page, point, behind), f"{behind} is not under {point}"
+E       AssertionError: section.band button.hc[data-key='2026-07-20'] is not under (417.328125, 111.0)
+E       assert False
+E        +  where False = under(&lt;Page url='http://127.0.0.1:15126/'&gt;, (417.328125, 111.0), "section.band button.hc[data-key='2026-07-20']")
+
+tests\browser\test_delete.py:656: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_a_double_press_on_a_backdrop_does_not_reach_the_control_behind_it[1280x800-touch-M1]" time="0.461"><failure message="AssertionError: section.band button.hc[data-key='2026-07-20'] is not under (417.328125, 111.0)&#10;assert False&#10; +  where False = under(&lt;Page url='http://127.0.0.1:15126/'&gt;, (417.328125, 111.0), &quot;section.band button.hc[data-key='2026-07-20']&quot;)">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F4283EF00&gt;
+viewport = (1280, 800), how = 'touch', popups = "M1 from Read's bin"
+behind = "section.band button.hc[data-key='2026-07-20']"
+result = &lt;function no_p1 at 0x0000027F40D46560&gt;
+
+    @pytest.mark.parametrize(
+        "viewport, how, popups, behind, result",
+        [
+            pytest.param(PHONE, "mouse", "M1 from Read's bin", done_selector("Stretch 10 minutes"), stretch_not_done, id="390x844-mouse-M1"),
+            pytest.param(PHONE, "touch", "M1 from Read's bin", done_selector("Stretch 10 minutes"), stretch_not_done, id="390x844-touch-M1"),
+            pytest.param(DESKTOP, "mouse", "M1 from Read's bin", BAND_JULY_20, no_p1, id="1280x800-mouse-M1"),
+            pytest.param(DESKTOP, "touch", "M1 from Read's bin", BAND_JULY_20, no_p1, id="1280x800-touch-M1"),
+            pytest.param(DESKTOP, "mouse", "P1 for 2026-09-22 from the band", BAND_JULY_20, no_p1, id="1280x800-mouse-P1"),
+            pytest.param(PHONE, "mouse", "P3, then P1 for 2026-09-22", P3_OCTOBER_5, p3_open_and_no_p1, id="390x844-mouse-P3-then-P1"),
+            pytest.param(PHONE, "touch", "P3, then P1 for 2026-09-22", P3_OCTOBER_5, p3_open_and_no_p1, id="390x844-touch-P3-then-P1"),
+        ],
+    )
+    def test_R14_a_double_press_on_a_backdrop_does_not_reach_the_control_behind_it(app, viewport, how, popups, behind, result):
+        before = pretty(SAMPLE_HABITS)
+        page = app(viewport=viewport, storage=before, touch=how == "touch", install_time=NOON)
+        top = open_and_pause(page, popups)
+        point = centre(page.locator(behind))
+        assert not inside(point, page.locator(f"dialog.{top} &gt; div.dlg-box").bounding_box()), f"{behind} lies inside the top popup's box"
+    
+        press_twice(page, *point, how)
+    
+        expect(dialog(page, top)).not_to_have_attribute("open", "")
+&gt;       assert under(page, point, behind), f"{behind} is not under {point}"
+E       AssertionError: section.band button.hc[data-key='2026-07-20'] is not under (417.328125, 111.0)
+E       assert False
+E        +  where False = under(&lt;Page url='http://127.0.0.1:15126/'&gt;, (417.328125, 111.0), "section.band button.hc[data-key='2026-07-20']")
+
+tests\browser\test_delete.py:656: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_a_double_press_on_a_backdrop_does_not_reach_the_control_behind_it[1280x800-mouse-P1]" time="5.459"><failure message="AssertionError: Locator expected not to have attribute ''&#10;Actual value:  &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-day&quot;)&#10;    14 × locator resolved to &lt;dialog open=&quot;&quot; class=&quot;dlg-day&quot; aria-modal=&quot;true&quot; aria-describedby=&quot;day-sub&quot; aria-labelledby=&quot;day-title&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;&quot;&#10;&#10;Aria snapshot:&#10;- dialog &quot;Monday 20 July&quot;:&#10;  - heading &quot;Monday 20 July&quot; [level=2]&#10;  - paragraph: 2 of 3 habits&#10;  - button &quot;Close&quot;&#10;  - list">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F4283DC70&gt;
+viewport = (1280, 800), how = 'mouse'
+popups = 'P1 for 2026-09-22 from the band'
+behind = "section.band button.hc[data-key='2026-07-20']"
+result = &lt;function no_p1 at 0x0000027F40D46560&gt;
+
+    @pytest.mark.parametrize(
+        "viewport, how, popups, behind, result",
+        [
+            pytest.param(PHONE, "mouse", "M1 from Read's bin", done_selector("Stretch 10 minutes"), stretch_not_done, id="390x844-mouse-M1"),
+            pytest.param(PHONE, "touch", "M1 from Read's bin", done_selector("Stretch 10 minutes"), stretch_not_done, id="390x844-touch-M1"),
+            pytest.param(DESKTOP, "mouse", "M1 from Read's bin", BAND_JULY_20, no_p1, id="1280x800-mouse-M1"),
+            pytest.param(DESKTOP, "touch", "M1 from Read's bin", BAND_JULY_20, no_p1, id="1280x800-touch-M1"),
+            pytest.param(DESKTOP, "mouse", "P1 for 2026-09-22 from the band", BAND_JULY_20, no_p1, id="1280x800-mouse-P1"),
+            pytest.param(PHONE, "mouse", "P3, then P1 for 2026-09-22", P3_OCTOBER_5, p3_open_and_no_p1, id="390x844-mouse-P3-then-P1"),
+            pytest.param(PHONE, "touch", "P3, then P1 for 2026-09-22", P3_OCTOBER_5, p3_open_and_no_p1, id="390x844-touch-P3-then-P1"),
+        ],
+    )
+    def test_R14_a_double_press_on_a_backdrop_does_not_reach_the_control_behind_it(app, viewport, how, popups, behind, result):
+        before = pretty(SAMPLE_HABITS)
+        page = app(viewport=viewport, storage=before, touch=how == "touch", install_time=NOON)
+        top = open_and_pause(page, popups)
+        point = centre(page.locator(behind))
+        assert not inside(point, page.locator(f"dialog.{top} &gt; div.dlg-box").bounding_box()), f"{behind} lies inside the top popup's box"
+    
+        press_twice(page, *point, how)
+    
+&gt;       expect(dialog(page, top)).not_to_have_attribute("open", "")
+E       AssertionError: Locator expected not to have attribute ''
+E       Actual value:  
+E       Call log:
+E         - Expect "to_have_attribute" with timeout 5000ms
+E         - waiting for locator("dialog.dlg-day")
+E           14 × locator resolved to &lt;dialog open="" class="dlg-day" aria-modal="true" aria-describedby="day-sub" aria-labelledby="day-title"&gt;…&lt;/dialog&gt;
+E              - unexpected value ""
+E       
+E       Aria snapshot:
+E       - dialog "Monday 20 July":
+E         - heading "Monday 20 July" [level=2]
+E         - paragraph: 2 of 3 habits
+E         - button "Close"
+E         - list
+
+tests\browser\test_delete.py:655: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_a_double_press_on_a_backdrop_does_not_reach_the_control_behind_it[390x844-mouse-P3-then-P1]" time="5.714"><failure message="AssertionError: Locator expected not to have attribute ''&#10;Actual value:  &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-day&quot;)&#10;    14 × locator resolved to &lt;dialog open=&quot;&quot; class=&quot;dlg-day&quot; aria-modal=&quot;true&quot; aria-describedby=&quot;day-sub&quot; aria-labelledby=&quot;day-title&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;&quot;&#10;&#10;Aria snapshot:&#10;- dialog &quot;Monday 5 October&quot;:&#10;  - heading &quot;Monday 5 October&quot; [level=2]&#10;  - paragraph: 3 of 3 habits&#10;  - button &quot;Close&quot;&#10;  - list">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F4416CB40&gt;
+viewport = (390, 844), how = 'mouse', popups = 'P3, then P1 for 2026-09-22'
+behind = "dialog.dlg-ov button.hc[data-key='2026-10-05']"
+result = &lt;function p3_open_and_no_p1 at 0x0000027F40D466C0&gt;
+
+    @pytest.mark.parametrize(
+        "viewport, how, popups, behind, result",
+        [
+            pytest.param(PHONE, "mouse", "M1 from Read's bin", done_selector("Stretch 10 minutes"), stretch_not_done, id="390x844-mouse-M1"),
+            pytest.param(PHONE, "touch", "M1 from Read's bin", done_selector("Stretch 10 minutes"), stretch_not_done, id="390x844-touch-M1"),
+            pytest.param(DESKTOP, "mouse", "M1 from Read's bin", BAND_JULY_20, no_p1, id="1280x800-mouse-M1"),
+            pytest.param(DESKTOP, "touch", "M1 from Read's bin", BAND_JULY_20, no_p1, id="1280x800-touch-M1"),
+            pytest.param(DESKTOP, "mouse", "P1 for 2026-09-22 from the band", BAND_JULY_20, no_p1, id="1280x800-mouse-P1"),
+            pytest.param(PHONE, "mouse", "P3, then P1 for 2026-09-22", P3_OCTOBER_5, p3_open_and_no_p1, id="390x844-mouse-P3-then-P1"),
+            pytest.param(PHONE, "touch", "P3, then P1 for 2026-09-22", P3_OCTOBER_5, p3_open_and_no_p1, id="390x844-touch-P3-then-P1"),
+        ],
+    )
+    def test_R14_a_double_press_on_a_backdrop_does_not_reach_the_control_behind_it(app, viewport, how, popups, behind, result):
+        before = pretty(SAMPLE_HABITS)
+        page = app(viewport=viewport, storage=before, touch=how == "touch", install_time=NOON)
+        top = open_and_pause(page, popups)
+        point = centre(page.locator(behind))
+        assert not inside(point, page.locator(f"dialog.{top} &gt; div.dlg-box").bounding_box()), f"{behind} lies inside the top popup's box"
+    
+        press_twice(page, *point, how)
+    
+&gt;       expect(dialog(page, top)).not_to_have_attribute("open", "")
+E       AssertionError: Locator expected not to have attribute ''
+E       Actual value:  
+E       Call log:
+E         - Expect "to_have_attribute" with timeout 5000ms
+E         - waiting for locator("dialog.dlg-day")
+E           14 × locator resolved to &lt;dialog open="" class="dlg-day" aria-modal="true" aria-describedby="day-sub" aria-labelledby="day-title"&gt;…&lt;/dialog&gt;
+E              - unexpected value ""
+E       
+E       Aria snapshot:
+E       - dialog "Monday 5 October":
+E         - heading "Monday 5 October" [level=2]
+E         - paragraph: 3 of 3 habits
+E         - button "Close"
+E         - list
+
+tests\browser\test_delete.py:655: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_a_double_press_on_a_backdrop_does_not_reach_the_control_behind_it[390x844-touch-P3-then-P1]" time="5.750"><failure message="AssertionError: Locator expected not to have attribute ''&#10;Actual value:  &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-day&quot;)&#10;    14 × locator resolved to &lt;dialog open=&quot;&quot; class=&quot;dlg-day&quot; aria-modal=&quot;true&quot; aria-describedby=&quot;day-sub&quot; aria-labelledby=&quot;day-title&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;&quot;&#10;&#10;Aria snapshot:&#10;- dialog &quot;Monday 5 October&quot;:&#10;  - heading &quot;Monday 5 October&quot; [level=2]&#10;  - paragraph: 3 of 3 habits&#10;  - button &quot;Close&quot;&#10;  - list">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F428EC1A0&gt;
+viewport = (390, 844), how = 'touch', popups = 'P3, then P1 for 2026-09-22'
+behind = "dialog.dlg-ov button.hc[data-key='2026-10-05']"
+result = &lt;function p3_open_and_no_p1 at 0x0000027F40D466C0&gt;
+
+    @pytest.mark.parametrize(
+        "viewport, how, popups, behind, result",
+        [
+            pytest.param(PHONE, "mouse", "M1 from Read's bin", done_selector("Stretch 10 minutes"), stretch_not_done, id="390x844-mouse-M1"),
+            pytest.param(PHONE, "touch", "M1 from Read's bin", done_selector("Stretch 10 minutes"), stretch_not_done, id="390x844-touch-M1"),
+            pytest.param(DESKTOP, "mouse", "M1 from Read's bin", BAND_JULY_20, no_p1, id="1280x800-mouse-M1"),
+            pytest.param(DESKTOP, "touch", "M1 from Read's bin", BAND_JULY_20, no_p1, id="1280x800-touch-M1"),
+            pytest.param(DESKTOP, "mouse", "P1 for 2026-09-22 from the band", BAND_JULY_20, no_p1, id="1280x800-mouse-P1"),
+            pytest.param(PHONE, "mouse", "P3, then P1 for 2026-09-22", P3_OCTOBER_5, p3_open_and_no_p1, id="390x844-mouse-P3-then-P1"),
+            pytest.param(PHONE, "touch", "P3, then P1 for 2026-09-22", P3_OCTOBER_5, p3_open_and_no_p1, id="390x844-touch-P3-then-P1"),
+        ],
+    )
+    def test_R14_a_double_press_on_a_backdrop_does_not_reach_the_control_behind_it(app, viewport, how, popups, behind, result):
+        before = pretty(SAMPLE_HABITS)
+        page = app(viewport=viewport, storage=before, touch=how == "touch", install_time=NOON)
+        top = open_and_pause(page, popups)
+        point = centre(page.locator(behind))
+        assert not inside(point, page.locator(f"dialog.{top} &gt; div.dlg-box").bounding_box()), f"{behind} lies inside the top popup's box"
+    
+        press_twice(page, *point, how)
+    
+&gt;       expect(dialog(page, top)).not_to_have_attribute("open", "")
+E       AssertionError: Locator expected not to have attribute ''
+E       Actual value:  
+E       Call log:
+E         - Expect "to_have_attribute" with timeout 5000ms
+E         - waiting for locator("dialog.dlg-day")
+E           14 × locator resolved to &lt;dialog open="" class="dlg-day" aria-modal="true" aria-describedby="day-sub" aria-labelledby="day-title"&gt;…&lt;/dialog&gt;
+E              - unexpected value ""
+E       
+E       Aria snapshot:
+E       - dialog "Monday 5 October":
+E         - heading "Monday 5 October" [level=2]
+E         - paragraph: 3 of 3 habits
+E         - button "Close"
+E         - list
+
+tests\browser\test_delete.py:655: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_a_double_press_on_close_does_not_reach_the_control_behind_it[390x844-mouse-P2]" time="0.422"><failure message="AssertionError: button.ov-btn is not under (358.0, 34.0)&#10;assert False&#10; +  where False = under(&lt;Page url='http://127.0.0.1:15126/'&gt;, (358.0, 34.0), 'button.ov-btn')">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F443A05C0&gt;
+viewport = (390, 844), how = 'mouse', popups = 'P2 for Read'
+behind = 'button.ov-btn', result = &lt;function &lt;lambda&gt; at 0x0000027F40D46820&gt;
+
+    @pytest.mark.parametrize(
+        "viewport, how, popups, behind, result",
+        [
+            pytest.param(PHONE, "mouse", "P2 for Read", "button.ov-btn", lambda page: "dlg-ov" not in open_dialogs(page), id="390x844-mouse-P2"),
+            pytest.param(PHONE, "touch", "P2 for Read", "button.ov-btn", lambda page: "dlg-ov" not in open_dialogs(page), id="390x844-touch-P2"),
+            pytest.param(PHONE, "mouse", "P3", "button.ov-btn", lambda page: "dlg-ov" not in open_dialogs(page), id="390x844-mouse-P3"),
+            pytest.param(PHONE, "mouse", "P3, then P4 from its Year", "dialog.dlg-ov button.icon-btn", lambda page: open_dialogs(page) == ["dlg-ov"], id="390x844-mouse-P3-then-P4"),
+            pytest.param(DESKTOP, "mouse", "P1 for 2026-09-22 from the band", "section.band button.hc", no_p1, id="1280x800-mouse-P1"),
+        ],
+    )
+    def test_R14_a_double_press_on_close_does_not_reach_the_control_behind_it(app, viewport, how, popups, behind, result):
+        page = app(viewport=viewport, storage=sample_state(), touch=how == "touch", install_time=NOON)
+        top = open_and_pause(page, popups)
+        point = centre(close_of(page, top))
+    
+        press_twice(page, *point, how)
+    
+        expect(dialog(page, top)).not_to_have_attribute("open", "")
+&gt;       assert under(page, point, behind), f"{behind} is not under {point}"
+E       AssertionError: button.ov-btn is not under (358.0, 34.0)
+E       assert False
+E        +  where False = under(&lt;Page url='http://127.0.0.1:15126/'&gt;, (358.0, 34.0), 'button.ov-btn')
+
+tests\browser\test_delete.py:679: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_a_double_press_on_close_does_not_reach_the_control_behind_it[390x844-touch-P2]" time="0.432"><failure message="AssertionError: button.ov-btn is not under (358.0, 34.0)&#10;assert False&#10; +  where False = under(&lt;Page url='http://127.0.0.1:15126/'&gt;, (358.0, 34.0), 'button.ov-btn')">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F443A3270&gt;
+viewport = (390, 844), how = 'touch', popups = 'P2 for Read'
+behind = 'button.ov-btn', result = &lt;function &lt;lambda&gt; at 0x0000027F40D468D0&gt;
+
+    @pytest.mark.parametrize(
+        "viewport, how, popups, behind, result",
+        [
+            pytest.param(PHONE, "mouse", "P2 for Read", "button.ov-btn", lambda page: "dlg-ov" not in open_dialogs(page), id="390x844-mouse-P2"),
+            pytest.param(PHONE, "touch", "P2 for Read", "button.ov-btn", lambda page: "dlg-ov" not in open_dialogs(page), id="390x844-touch-P2"),
+            pytest.param(PHONE, "mouse", "P3", "button.ov-btn", lambda page: "dlg-ov" not in open_dialogs(page), id="390x844-mouse-P3"),
+            pytest.param(PHONE, "mouse", "P3, then P4 from its Year", "dialog.dlg-ov button.icon-btn", lambda page: open_dialogs(page) == ["dlg-ov"], id="390x844-mouse-P3-then-P4"),
+            pytest.param(DESKTOP, "mouse", "P1 for 2026-09-22 from the band", "section.band button.hc", no_p1, id="1280x800-mouse-P1"),
+        ],
+    )
+    def test_R14_a_double_press_on_close_does_not_reach_the_control_behind_it(app, viewport, how, popups, behind, result):
+        page = app(viewport=viewport, storage=sample_state(), touch=how == "touch", install_time=NOON)
+        top = open_and_pause(page, popups)
+        point = centre(close_of(page, top))
+    
+        press_twice(page, *point, how)
+    
+        expect(dialog(page, top)).not_to_have_attribute("open", "")
+&gt;       assert under(page, point, behind), f"{behind} is not under {point}"
+E       AssertionError: button.ov-btn is not under (358.0, 34.0)
+E       assert False
+E        +  where False = under(&lt;Page url='http://127.0.0.1:15126/'&gt;, (358.0, 34.0), 'button.ov-btn')
+
+tests\browser\test_delete.py:679: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_a_double_press_on_close_does_not_reach_the_control_behind_it[390x844-mouse-P3]" time="5.424"><failure message="AssertionError: Locator expected not to have attribute ''&#10;Actual value:  &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-ov&quot;)&#10;    14 × locator resolved to &lt;dialog open=&quot;&quot; aria-modal=&quot;true&quot; class=&quot;dlg-full dlg-ov&quot; aria-labelledby=&quot;ov-title&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;&quot;&#10;&#10;Aria snapshot:&#10;- dialog &quot;Last 12 weeks&quot;:&#10;  - heading &quot;Last 12 weeks&quot; [level=2]&#10;  - paragraph: Tap a day to change it.&#10;  - button &quot;Year view, all habits&quot;: Year&#10;  - button &quot;Close&quot;&#10;  - group &quot;Last 12 weeks&quot;">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F445D4460&gt;
+viewport = (390, 844), how = 'mouse', popups = 'P3', behind = 'button.ov-btn'
+result = &lt;function &lt;lambda&gt; at 0x0000027F40D46980&gt;
+
+    @pytest.mark.parametrize(
+        "viewport, how, popups, behind, result",
+        [
+            pytest.param(PHONE, "mouse", "P2 for Read", "button.ov-btn", lambda page: "dlg-ov" not in open_dialogs(page), id="390x844-mouse-P2"),
+            pytest.param(PHONE, "touch", "P2 for Read", "button.ov-btn", lambda page: "dlg-ov" not in open_dialogs(page), id="390x844-touch-P2"),
+            pytest.param(PHONE, "mouse", "P3", "button.ov-btn", lambda page: "dlg-ov" not in open_dialogs(page), id="390x844-mouse-P3"),
+            pytest.param(PHONE, "mouse", "P3, then P4 from its Year", "dialog.dlg-ov button.icon-btn", lambda page: open_dialogs(page) == ["dlg-ov"], id="390x844-mouse-P3-then-P4"),
+            pytest.param(DESKTOP, "mouse", "P1 for 2026-09-22 from the band", "section.band button.hc", no_p1, id="1280x800-mouse-P1"),
+        ],
+    )
+    def test_R14_a_double_press_on_close_does_not_reach_the_control_behind_it(app, viewport, how, popups, behind, result):
+        page = app(viewport=viewport, storage=sample_state(), touch=how == "touch", install_time=NOON)
+        top = open_and_pause(page, popups)
+        point = centre(close_of(page, top))
+    
+        press_twice(page, *point, how)
+    
+&gt;       expect(dialog(page, top)).not_to_have_attribute("open", "")
+E       AssertionError: Locator expected not to have attribute ''
+E       Actual value:  
+E       Call log:
+E         - Expect "to_have_attribute" with timeout 5000ms
+E         - waiting for locator("dialog.dlg-ov")
+E           14 × locator resolved to &lt;dialog open="" aria-modal="true" class="dlg-full dlg-ov" aria-labelledby="ov-title"&gt;…&lt;/dialog&gt;
+E              - unexpected value ""
+E       
+E       Aria snapshot:
+E       - dialog "Last 12 weeks":
+E         - heading "Last 12 weeks" [level=2]
+E         - paragraph: Tap a day to change it.
+E         - button "Year view, all habits": Year
+E         - button "Close"
+E         - group "Last 12 weeks"
+
+tests\browser\test_delete.py:678: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_a_double_press_on_close_does_not_reach_the_control_behind_it[390x844-mouse-P3-then-P4]" time="0.791"><failure message="AssertionError: dialog.dlg-ov button.icon-btn is not under (358.0, 34.0)&#10;assert False&#10; +  where False = under(&lt;Page url='http://127.0.0.1:15126/'&gt;, (358.0, 34.0), 'dialog.dlg-ov button.icon-btn')">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F44617CC0&gt;
+viewport = (390, 844), how = 'mouse', popups = 'P3, then P4 from its Year'
+behind = 'dialog.dlg-ov button.icon-btn'
+result = &lt;function &lt;lambda&gt; at 0x0000027F40D46A30&gt;
+
+    @pytest.mark.parametrize(
+        "viewport, how, popups, behind, result",
+        [
+            pytest.param(PHONE, "mouse", "P2 for Read", "button.ov-btn", lambda page: "dlg-ov" not in open_dialogs(page), id="390x844-mouse-P2"),
+            pytest.param(PHONE, "touch", "P2 for Read", "button.ov-btn", lambda page: "dlg-ov" not in open_dialogs(page), id="390x844-touch-P2"),
+            pytest.param(PHONE, "mouse", "P3", "button.ov-btn", lambda page: "dlg-ov" not in open_dialogs(page), id="390x844-mouse-P3"),
+            pytest.param(PHONE, "mouse", "P3, then P4 from its Year", "dialog.dlg-ov button.icon-btn", lambda page: open_dialogs(page) == ["dlg-ov"], id="390x844-mouse-P3-then-P4"),
+            pytest.param(DESKTOP, "mouse", "P1 for 2026-09-22 from the band", "section.band button.hc", no_p1, id="1280x800-mouse-P1"),
+        ],
+    )
+    def test_R14_a_double_press_on_close_does_not_reach_the_control_behind_it(app, viewport, how, popups, behind, result):
+        page = app(viewport=viewport, storage=sample_state(), touch=how == "touch", install_time=NOON)
+        top = open_and_pause(page, popups)
+        point = centre(close_of(page, top))
+    
+        press_twice(page, *point, how)
+    
+        expect(dialog(page, top)).not_to_have_attribute("open", "")
+&gt;       assert under(page, point, behind), f"{behind} is not under {point}"
+E       AssertionError: dialog.dlg-ov button.icon-btn is not under (358.0, 34.0)
+E       assert False
+E        +  where False = under(&lt;Page url='http://127.0.0.1:15126/'&gt;, (358.0, 34.0), 'dialog.dlg-ov button.icon-btn')
+
+tests\browser\test_delete.py:679: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_a_double_press_on_close_does_not_reach_the_control_behind_it[1280x800-mouse-P1]" time="5.467"><failure message="AssertionError: Locator expected not to have attribute ''&#10;Actual value:  &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-day&quot;)&#10;    14 × locator resolved to &lt;dialog open=&quot;&quot; class=&quot;dlg-day&quot; aria-modal=&quot;true&quot; aria-describedby=&quot;day-sub&quot; aria-labelledby=&quot;day-title&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;&quot;&#10;&#10;Aria snapshot:&#10;- dialog &quot;Friday 11 September&quot;:&#10;  - heading &quot;Friday 11 September&quot; [level=2]&#10;  - paragraph: 3 of 3 habits&#10;  - button &quot;Close&quot;&#10;  - list">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F444EF1C0&gt;
+viewport = (1280, 800), how = 'mouse'
+popups = 'P1 for 2026-09-22 from the band', behind = 'section.band button.hc'
+result = &lt;function no_p1 at 0x0000027F40D46560&gt;
+
+    @pytest.mark.parametrize(
+        "viewport, how, popups, behind, result",
+        [
+            pytest.param(PHONE, "mouse", "P2 for Read", "button.ov-btn", lambda page: "dlg-ov" not in open_dialogs(page), id="390x844-mouse-P2"),
+            pytest.param(PHONE, "touch", "P2 for Read", "button.ov-btn", lambda page: "dlg-ov" not in open_dialogs(page), id="390x844-touch-P2"),
+            pytest.param(PHONE, "mouse", "P3", "button.ov-btn", lambda page: "dlg-ov" not in open_dialogs(page), id="390x844-mouse-P3"),
+            pytest.param(PHONE, "mouse", "P3, then P4 from its Year", "dialog.dlg-ov button.icon-btn", lambda page: open_dialogs(page) == ["dlg-ov"], id="390x844-mouse-P3-then-P4"),
+            pytest.param(DESKTOP, "mouse", "P1 for 2026-09-22 from the band", "section.band button.hc", no_p1, id="1280x800-mouse-P1"),
+        ],
+    )
+    def test_R14_a_double_press_on_close_does_not_reach_the_control_behind_it(app, viewport, how, popups, behind, result):
+        page = app(viewport=viewport, storage=sample_state(), touch=how == "touch", install_time=NOON)
+        top = open_and_pause(page, popups)
+        point = centre(close_of(page, top))
+    
+        press_twice(page, *point, how)
+    
+&gt;       expect(dialog(page, top)).not_to_have_attribute("open", "")
+E       AssertionError: Locator expected not to have attribute ''
+E       Actual value:  
+E       Call log:
+E         - Expect "to_have_attribute" with timeout 5000ms
+E         - waiting for locator("dialog.dlg-day")
+E           14 × locator resolved to &lt;dialog open="" class="dlg-day" aria-modal="true" aria-describedby="day-sub" aria-labelledby="day-title"&gt;…&lt;/dialog&gt;
+E              - unexpected value ""
+E       
+E       Aria snapshot:
+E       - dialog "Friday 11 September":
+E         - heading "Friday 11 September" [level=2]
+E         - paragraph: 3 of 3 habits
+E         - button "Close"
+E         - list
+
+tests\browser\test_delete.py:678: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_R10_a_double_press_on_the_backdrop_over_add_does_not_add_a_typed_name[mouse]" time="5.437"><failure message="AssertionError: Locator expected to have Value 'Drink water'&#10;Actual value:  &#10;Call log:&#10;  - Expect &quot;to_have_value&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;#nh&quot;)&#10;    14 × locator resolved to &lt;input id=&quot;nh&quot; type=&quot;text&quot; class=&quot;input&quot; autocomplete=&quot;off&quot; spellcheck=&quot;false&quot; aria-describedby=&quot;nh-msg&quot;/&gt;&#10;       - unexpected value &quot;&quot;&#10;&#10;Aria snapshot:&#10;- textbox &quot;New habit&quot;">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F444EDFE0&gt;, how = 'mouse'
+
+    @pytest.mark.parametrize("how", ["mouse", "touch"])
+    def test_R14_R10_a_double_press_on_the_backdrop_over_add_does_not_add_a_typed_name(app, how):
+        before = pretty(SAMPLE_HABITS)
+        page = app(viewport=PHONE, storage=before, touch=how == "touch", install_time=NOON, count_writes=True)
+        page.locator("#nh").fill("Drink water")
+        top = open_and_pause(page, "M1 from Read's bin")
+        point = centre(add_button(page))
+        assert not inside(point, page.locator("dialog.dlg-del &gt; div.dlg-box").bounding_box()), "Add lies inside M1's box"
+    
+        press_twice(page, *point, how)
+    
+        expect(dialog(page, top)).not_to_have_attribute("open", "")
+        assert under(page, point, "#add-btn"), f"Add is not under {point}"
+&gt;       expect(page.locator("#nh")).to_have_value("Drink water")  # an add would have emptied the field
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Locator expected to have Value 'Drink water'
+E       Actual value:  
+E       Call log:
+E         - Expect "to_have_value" with timeout 5000ms
+E         - waiting for locator("#nh")
+E           14 × locator resolved to &lt;input id="nh" type="text" class="input" autocomplete="off" spellcheck="false" aria-describedby="nh-msg"/&gt;
+E              - unexpected value ""
+E       
+E       Aria snapshot:
+E       - textbox "New habit"
+
+tests\browser\test_delete.py:696: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_R10_a_double_press_on_the_backdrop_over_add_does_not_add_a_typed_name[touch]" time="5.473"><failure message="AssertionError: Locator expected to have Value 'Drink water'&#10;Actual value:  &#10;Call log:&#10;  - Expect &quot;to_have_value&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;#nh&quot;)&#10;    14 × locator resolved to &lt;input id=&quot;nh&quot; type=&quot;text&quot; class=&quot;input&quot; autocomplete=&quot;off&quot; spellcheck=&quot;false&quot; aria-describedby=&quot;nh-msg&quot;/&gt;&#10;       - unexpected value &quot;&quot;&#10;&#10;Aria snapshot:&#10;- textbox &quot;New habit&quot;">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F44879D20&gt;, how = 'touch'
+
+    @pytest.mark.parametrize("how", ["mouse", "touch"])
+    def test_R14_R10_a_double_press_on_the_backdrop_over_add_does_not_add_a_typed_name(app, how):
+        before = pretty(SAMPLE_HABITS)
+        page = app(viewport=PHONE, storage=before, touch=how == "touch", install_time=NOON, count_writes=True)
+        page.locator("#nh").fill("Drink water")
+        top = open_and_pause(page, "M1 from Read's bin")
+        point = centre(add_button(page))
+        assert not inside(point, page.locator("dialog.dlg-del &gt; div.dlg-box").bounding_box()), "Add lies inside M1's box"
+    
+        press_twice(page, *point, how)
+    
+        expect(dialog(page, top)).not_to_have_attribute("open", "")
+        assert under(page, point, "#add-btn"), f"Add is not under {point}"
+&gt;       expect(page.locator("#nh")).to_have_value("Drink water")  # an add would have emptied the field
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Locator expected to have Value 'Drink water'
+E       Actual value:  
+E       Call log:
+E         - Expect "to_have_value" with timeout 5000ms
+E         - waiting for locator("#nh")
+E           14 × locator resolved to &lt;input id="nh" type="text" class="input" autocomplete="off" spellcheck="false" aria-describedby="nh-msg"/&gt;
+E              - unexpected value ""
+E       
+E       Aria snapshot:
+E       - textbox "New habit"
+
+tests\browser\test_delete.py:696: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_R15_a_double_click_on_delete_habit_deletes_once_and_nothing_behind_acts" time="0.537"><failure message="AssertionError: assert 2 == 1&#10; +  where 2 = write_count(&lt;Page url='http://127.0.0.1:15126/'&gt;)">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F448562A0&gt;
+
+    def test_R14_R15_a_double_click_on_delete_habit_deletes_once_and_nothing_behind_acts(app):
+        page = app(viewport=PHONE, storage=twelve_state(), install_time=NOON, count_writes=True)
+        expect(page.locator("ul.rows &gt; li.row")).to_have_count(12)
+        pressed = {name: done_btn(page, name).get_attribute("aria-pressed") for name in TWELVE_NAMES}
+        opener = bin_btn(page, "Journal one page")
+        opener.click()
+        expect(dialog(page, "dlg-del")).to_have_attribute("open", "")
+        settle(page, "dlg-del")
+        page.clock.pause_at(PAUSE_AT)
+        point = point_beside(confirm(page), opener)
+        assert under(page, point, "dialog.dlg-del button.btn-danger") and not inside(point, opener.bounding_box())
+    
+        page.mouse.dblclick(*point)
+    
+        expect(dialog(page, "dlg-del")).not_to_have_attribute("open", "")
+        assert names(page) == [name for name in TWELVE_NAMES if name != "Journal one page"]
+&gt;       assert write_count(page) == 1
+E       AssertionError: assert 2 == 1
+E        +  where 2 = write_count(&lt;Page url='http://127.0.0.1:15126/'&gt;)
+
+tests\browser\test_delete.py:718: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_the_layer_behind_listens_again_once_the_window_has_passed[mouse]" time="0.440"><failure message="AssertionError: assert 'dlg-ov' not in ['dlg-ov']&#10; +  where ['dlg-ov'] = open_dialogs(&lt;Page url='http://127.0.0.1:15126/'&gt;)">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F449937F0&gt;, how = 'mouse'
+
+    @pytest.mark.parametrize("how", ["mouse", "touch"])
+    def test_R14_the_layer_behind_listens_again_once_the_window_has_passed(app, how):
+        page = app(viewport=PHONE, storage=sample_state(), touch=how == "touch", install_time=NOON)
+        top = open_and_pause(page, "P2 for Read")
+        press(page, centre(close_of(page, top)), how)
+        expect(dialog(page, top)).not_to_have_attribute("open", "")
+        overview = centre(page.locator("button.ov-btn"))
+    
+        page.clock.run_for(GUARD_WINDOW_MS - 1)
+        press(page, overview, how)
+&gt;       assert "dlg-ov" not in open_dialogs(page)
+E       AssertionError: assert 'dlg-ov' not in ['dlg-ov']
+E        +  where ['dlg-ov'] = open_dialogs(&lt;Page url='http://127.0.0.1:15126/'&gt;)
+
+tests\browser\test_delete.py:739: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_the_layer_behind_listens_again_once_the_window_has_passed[touch]" time="0.467"><failure message="AssertionError: assert 'dlg-ov' not in ['dlg-ov']&#10; +  where ['dlg-ov'] = open_dialogs(&lt;Page url='http://127.0.0.1:15126/'&gt;)">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F44992350&gt;, how = 'touch'
+
+    @pytest.mark.parametrize("how", ["mouse", "touch"])
+    def test_R14_the_layer_behind_listens_again_once_the_window_has_passed(app, how):
+        page = app(viewport=PHONE, storage=sample_state(), touch=how == "touch", install_time=NOON)
+        top = open_and_pause(page, "P2 for Read")
+        press(page, centre(close_of(page, top)), how)
+        expect(dialog(page, top)).not_to_have_attribute("open", "")
+        overview = centre(page.locator("button.ov-btn"))
+    
+        page.clock.run_for(GUARD_WINDOW_MS - 1)
+        press(page, overview, how)
+&gt;       assert "dlg-ov" not in open_dialogs(page)
+E       AssertionError: assert 'dlg-ov' not in ['dlg-ov']
+E        +  where ['dlg-ov'] = open_dialogs(&lt;Page url='http://127.0.0.1:15126/'&gt;)
+
+tests\browser\test_delete.py:739: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_closing_with_the_keyboard_holds_nothing[Enter]" time="0.173" /><testcase classname="tests.browser.test_delete" name="test_R14_closing_with_the_keyboard_holds_nothing[Space]" time="0.170" /><testcase classname="tests.browser.test_delete" name="test_R14_closing_with_the_keyboard_holds_nothing[Escape]" time="0.180" /><testcase classname="tests.browser.test_delete" name="test_R14_clicks_inside_the_same_popup_or_in_a_popup_opened_after_it_are_never_held" time="0.731"><failure message="AssertionError: a click on P2 right after Cancel reached the bead&#10;assert 'false' == 'true'&#10;  &#10;  #x1B[0m#x1B[91m- true#x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  #x1B[92m+ false#x1B[39;49;00m#x1B[90m#x1B[39;49;00m">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F44CD97A0&gt;
+
+    def test_R14_clicks_inside_the_same_popup_or_in_a_popup_opened_after_it_are_never_held(app):
+        page = app(viewport=PHONE, storage=sample_state(), install_time=NOON)
+        opening = centre(year_btn(page, "Read 20 pages"))
+        page.clock.pause_at(PAUSE_AT)
+    
+        page.mouse.click(*opening)
+        expect(dialog(page, "dlg-year")).to_have_attribute("open", "")
+        settle(page, "dlg-year")
+        for key in ("2026-10-06", "2026-10-03"):
+            page.mouse.click(*centre(bead(page, key)))
+        expect(bead(page, "2026-10-06")).to_have_attribute("aria-pressed", "true")
+        expect(bead(page, "2026-10-03")).to_have_attribute("aria-pressed", "true")
+    
+        page.mouse.click(*centre(p2_delete(page)))
+        expect(dialog(page, "dlg-del")).to_have_attribute("open", "")
+        settle(page, "dlg-del")
+        page.mouse.click(*centre(cancel(page)))
+        expect(dialog(page, "dlg-del")).not_to_have_attribute("open", "")
+        expect(p2_delete(page)).to_be_focused()  # the close event has run
+        assert open_dialogs(page) == ["dlg-year"]
+    
+        october_2 = bead(page, "2026-10-02")
+        expect(october_2).to_have_attribute("aria-pressed", "true")
+        page.mouse.click(*centre(october_2))
+&gt;       assert october_2.get_attribute("aria-pressed") == "true", "a click on P2 right after Cancel reached the bead"
+E       AssertionError: a click on P2 right after Cancel reached the bead
+E       assert 'false' == 'true'
+E         
+E         #x1B[0m#x1B[91m- true#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         #x1B[92m+ false#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+
+tests\browser\test_delete.py:791: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R15_R32_deleting_from_a_bin_moves_focus_to_the_next_bin_and_recounts" time="5.202"><failure message="AssertionError: Locator expected to be focused&#10;Actual value: inactive &#10;Call log:&#10;  - Expect &quot;to_be_focused&quot; with timeout 5000ms&#10;  - waiting for get_by_role(&quot;button&quot;, name=&quot;Delete \&quot;No phone after 11pm\&quot;&quot;, exact=True)&#10;    14 × locator resolved to &lt;button type=&quot;button&quot; class=&quot;btn-bin&quot; aria-haspopup=&quot;dialog&quot; aria-label=&quot;Delete &quot;No phone after 11pm&quot;&quot;&gt;…&lt;/button&gt;&#10;       - unexpected value &quot;inactive&quot;&#10;&#10;Aria snapshot:&#10;- button &quot;Delete \&quot;No phone after 11pm\&quot;&quot;">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F44C6C1A0&gt;
+
+    def test_R15_R32_deleting_from_a_bin_moves_focus_to_the_next_bin_and_recounts(app):
+        page = app(viewport=DESKTOP, storage=sample_state())
+        opener = bin_btn(page, "Stretch 10 minutes")
+        opener.click()
+        expect(dialog(page, "dlg-del")).to_have_attribute("open", "")
+        confirm_delete(page, opener)
+    
+        expect(dialog(page, "dlg-del")).not_to_have_attribute("open", "")
+        expect(page.locator("ul.rows &gt; li.row")).to_have_count(2)
+        assert page.locator("ul.rows &gt; li.row h3.r-name").evaluate_all("(nodes) =&gt; nodes.map((n) =&gt; [n.textContent, n.id])") == [
+            ["Read 20 pages", "rn-1"],
+            ["No phone after 11pm", "rn-2"],
+        ]
+&gt;       expect(bin_btn(page, "No phone after 11pm")).to_be_focused()
+E       AssertionError: Locator expected to be focused
+E       Actual value: inactive 
+E       Call log:
+E         - Expect "to_be_focused" with timeout 5000ms
+E         - waiting for get_by_role("button", name="Delete \"No phone after 11pm\"", exact=True)
+E           14 × locator resolved to &lt;button type="button" class="btn-bin" aria-haspopup="dialog" aria-label="Delete "No phone after 11pm""&gt;…&lt;/button&gt;
+E              - unexpected value "inactive"
+E       
+E       Aria snapshot:
+E       - button "Delete \"No phone after 11pm\""
+
+tests\browser\test_delete.py:814: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R15_deleting_the_last_row_moves_focus_to_the_bin_above" time="5.193"><failure message="AssertionError: Locator expected to be focused&#10;Actual value: inactive &#10;Call log:&#10;  - Expect &quot;to_be_focused&quot; with timeout 5000ms&#10;  - waiting for get_by_role(&quot;button&quot;, name=&quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;, exact=True)&#10;    14 × locator resolved to &lt;button type=&quot;button&quot; class=&quot;btn-bin&quot; aria-haspopup=&quot;dialog&quot; aria-label=&quot;Delete &quot;Stretch 10 minutes&quot;&quot;&gt;…&lt;/button&gt;&#10;       - unexpected value &quot;inactive&quot;&#10;&#10;Aria snapshot:&#10;- button &quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F44C6F480&gt;
+
+    def test_R15_deleting_the_last_row_moves_focus_to_the_bin_above(app):
+        page = app(storage=sample_state())
+        opener = bin_btn(page, "No phone after 11pm")
+        opener.click()
+        expect(dialog(page, "dlg-del")).to_have_attribute("open", "")
+        confirm_delete(page, opener)
+    
+        expect(page.locator("ul.rows &gt; li.row")).to_have_count(2)
+&gt;       expect(bin_btn(page, "Stretch 10 minutes")).to_be_focused()
+E       AssertionError: Locator expected to be focused
+E       Actual value: inactive 
+E       Call log:
+E         - Expect "to_be_focused" with timeout 5000ms
+E         - waiting for get_by_role("button", name="Delete \"Stretch 10 minutes\"", exact=True)
+E           14 × locator resolved to &lt;button type="button" class="btn-bin" aria-haspopup="dialog" aria-label="Delete "Stretch 10 minutes""&gt;…&lt;/button&gt;
+E              - unexpected value "inactive"
+E       
+E       Aria snapshot:
+E       - button "Delete \"Stretch 10 minutes\""
+
+tests\browser\test_delete.py:830: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R15_R3_deleting_the_only_habit_shows_the_empty_list" time="5.293"><failure message="AssertionError: Locator expected to be focused&#10;Actual value: inactive &#10;Call log:&#10;  - Expect &quot;to_be_focused&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;#nh&quot;)&#10;    14 × locator resolved to &lt;input id=&quot;nh&quot; type=&quot;text&quot; class=&quot;input&quot; autocomplete=&quot;off&quot; spellcheck=&quot;false&quot; aria-describedby=&quot;nh-msg&quot;/&gt;&#10;       - unexpected value &quot;inactive&quot;&#10;&#10;Aria snapshot:&#10;- textbox &quot;New habit&quot;">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F44BFDA60&gt;
+
+    def test_R15_R3_deleting_the_only_habit_shows_the_empty_list(app):
+        page = app()
+        add_habit(page, "Read 20 pages")
+        expect(page.locator("ul.rows &gt; li.row")).to_have_count(1)
+        done_btn(page, "Read 20 pages").click()
+        expect(done_btn(page, "Read 20 pages")).to_have_attribute("aria-pressed", "true")
+        opener = bin_btn(page, "Read 20 pages")
+        opener.click()
+        expect(dialog(page, "dlg-del")).to_have_attribute("open", "")
+        confirm_delete(page, opener)
+    
+        expect(page.locator("ul.rows &gt; li.empty")).to_have_count(1)
+        expect(page.locator("ul.rows &gt; li.row")).to_have_count(0)
+&gt;       expect(page.locator("#nh")).to_be_focused()
+E       AssertionError: Locator expected to be focused
+E       Actual value: inactive 
+E       Call log:
+E         - Expect "to_be_focused" with timeout 5000ms
+E         - waiting for locator("#nh")
+E           14 × locator resolved to &lt;input id="nh" type="text" class="input" autocomplete="off" spellcheck="false" aria-describedby="nh-msg"/&gt;
+E              - unexpected value "inactive"
+E       
+E       Aria snapshot:
+E       - textbox "New habit"
+
+tests\browser\test_delete.py:847: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R15_R33_deleting_from_the_year_view_closes_both_popups_and_moves_focus[sample-Read]" time="5.512"><failure message="AssertionError: Locator expected to be focused&#10;Actual value: inactive &#10;Call log:&#10;  - Expect &quot;to_be_focused&quot; with timeout 5000ms&#10;  - waiting for get_by_role(&quot;button&quot;, name=&quot;Year view, Stretch 10 minutes&quot;, exact=True)&#10;    14 × locator resolved to &lt;button type=&quot;button&quot; class=&quot;btn-year&quot; aria-haspopup=&quot;dialog&quot; aria-label=&quot;Year view, Stretch 10 minutes&quot;&gt;Year&lt;/button&gt;&#10;       - unexpected value &quot;inactive&quot;&#10;&#10;Aria snapshot:&#10;- button &quot;Year view, Stretch 10 minutes&quot;: Year">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F44F7A8D0&gt;
+storage = '{"version":1,"habits":[{"name":"Read 20 pages","done":["2025-10-10","2025-10-11","2025-10-12","2025-10-13","2025-10-1...026-09-29","2026-09-30","2026-10-02","2026-10-03","2026-10-04","2026-10-05","2026-10-06","2026-10-07","2026-10-08"]}]}'
+habit = 'Read 20 pages', focus = 'Year view, Stretch 10 minutes'
+
+    @pytest.mark.parametrize(
+        "storage, habit, focus",
+        [
+            pytest.param(sample_state(), "Read 20 pages", "Year view, Stretch 10 minutes", id="sample-Read"),
+            pytest.param(sample_state(), "No phone after 11pm", "Year view, Stretch 10 minutes", id="sample-No-phone"),
+            pytest.param(encode([{"name": "Read", "done": []}]), "Read", "the field", id="one-habit-Read"),
+        ],
+    )
+    def test_R15_R33_deleting_from_the_year_view_closes_both_popups_and_moves_focus(app, storage, habit, focus):
+        page = app(viewport=PHONE, storage=storage)
+        year_btn(page, habit).click()
+        expect(dialog(page, "dlg-year")).to_have_attribute("open", "")
+        opener = p2_delete(page)
+        opener.click()
+        expect(dialog(page, "dlg-del")).to_have_attribute("open", "")
+        confirm_delete(page, opener)
+    
+        expect(dialog(page, "dlg-del")).not_to_have_attribute("open", "")
+        expect(dialog(page, "dlg-year")).not_to_have_attribute("open", "")
+        assert open_dialogs(page) == []
+        assert habit not in names(page)
+        target = page.locator("#nh") if focus == "the field" else page.get_by_role("button", name=focus, exact=True)
+&gt;       expect(target).to_be_focused()
+E       AssertionError: Locator expected to be focused
+E       Actual value: inactive 
+E       Call log:
+E         - Expect "to_be_focused" with timeout 5000ms
+E         - waiting for get_by_role("button", name="Year view, Stretch 10 minutes", exact=True)
+E           14 × locator resolved to &lt;button type="button" class="btn-year" aria-haspopup="dialog" aria-label="Year view, Stretch 10 minutes"&gt;Year&lt;/button&gt;
+E              - unexpected value "inactive"
+E       
+E       Aria snapshot:
+E       - button "Year view, Stretch 10 minutes": Year
+
+tests\browser\test_delete.py:877: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R15_R33_deleting_from_the_year_view_closes_both_popups_and_moves_focus[sample-No-phone]" time="5.496"><failure message="AssertionError: Locator expected to be focused&#10;Actual value: inactive &#10;Call log:&#10;  - Expect &quot;to_be_focused&quot; with timeout 5000ms&#10;  - waiting for get_by_role(&quot;button&quot;, name=&quot;Year view, Stretch 10 minutes&quot;, exact=True)&#10;    14 × locator resolved to &lt;button type=&quot;button&quot; class=&quot;btn-year&quot; aria-haspopup=&quot;dialog&quot; aria-label=&quot;Year view, Stretch 10 minutes&quot;&gt;Year&lt;/button&gt;&#10;       - unexpected value &quot;inactive&quot;&#10;&#10;Aria snapshot:&#10;- button &quot;Year view, Stretch 10 minutes&quot;: Year">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F44F7B3D0&gt;
+storage = '{"version":1,"habits":[{"name":"Read 20 pages","done":["2025-10-10","2025-10-11","2025-10-12","2025-10-13","2025-10-1...026-09-29","2026-09-30","2026-10-02","2026-10-03","2026-10-04","2026-10-05","2026-10-06","2026-10-07","2026-10-08"]}]}'
+habit = 'No phone after 11pm', focus = 'Year view, Stretch 10 minutes'
+
+    @pytest.mark.parametrize(
+        "storage, habit, focus",
+        [
+            pytest.param(sample_state(), "Read 20 pages", "Year view, Stretch 10 minutes", id="sample-Read"),
+            pytest.param(sample_state(), "No phone after 11pm", "Year view, Stretch 10 minutes", id="sample-No-phone"),
+            pytest.param(encode([{"name": "Read", "done": []}]), "Read", "the field", id="one-habit-Read"),
+        ],
+    )
+    def test_R15_R33_deleting_from_the_year_view_closes_both_popups_and_moves_focus(app, storage, habit, focus):
+        page = app(viewport=PHONE, storage=storage)
+        year_btn(page, habit).click()
+        expect(dialog(page, "dlg-year")).to_have_attribute("open", "")
+        opener = p2_delete(page)
+        opener.click()
+        expect(dialog(page, "dlg-del")).to_have_attribute("open", "")
+        confirm_delete(page, opener)
+    
+        expect(dialog(page, "dlg-del")).not_to_have_attribute("open", "")
+        expect(dialog(page, "dlg-year")).not_to_have_attribute("open", "")
+        assert open_dialogs(page) == []
+        assert habit not in names(page)
+        target = page.locator("#nh") if focus == "the field" else page.get_by_role("button", name=focus, exact=True)
+&gt;       expect(target).to_be_focused()
+E       AssertionError: Locator expected to be focused
+E       Actual value: inactive 
+E       Call log:
+E         - Expect "to_be_focused" with timeout 5000ms
+E         - waiting for get_by_role("button", name="Year view, Stretch 10 minutes", exact=True)
+E           14 × locator resolved to &lt;button type="button" class="btn-year" aria-haspopup="dialog" aria-label="Year view, Stretch 10 minutes"&gt;Year&lt;/button&gt;
+E              - unexpected value "inactive"
+E       
+E       Aria snapshot:
+E       - button "Year view, Stretch 10 minutes": Year
+
+tests\browser\test_delete.py:877: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R15_R33_deleting_from_the_year_view_closes_both_popups_and_moves_focus[one-habit-Read]" time="5.490"><failure message="AssertionError: Locator expected to be focused&#10;Actual value: inactive &#10;Call log:&#10;  - Expect &quot;to_be_focused&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;#nh&quot;)&#10;    14 × locator resolved to &lt;input id=&quot;nh&quot; type=&quot;text&quot; class=&quot;input&quot; autocomplete=&quot;off&quot; spellcheck=&quot;false&quot; aria-describedby=&quot;nh-msg&quot;/&gt;&#10;       - unexpected value &quot;inactive&quot;&#10;&#10;Aria snapshot:&#10;- textbox &quot;New habit&quot;">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F44EBAE50&gt;
+storage = '{"version":1,"habits":[{"name":"Read","done":[]}]}', habit = 'Read'
+focus = 'the field'
+
+    @pytest.mark.parametrize(
+        "storage, habit, focus",
+        [
+            pytest.param(sample_state(), "Read 20 pages", "Year view, Stretch 10 minutes", id="sample-Read"),
+            pytest.param(sample_state(), "No phone after 11pm", "Year view, Stretch 10 minutes", id="sample-No-phone"),
+            pytest.param(encode([{"name": "Read", "done": []}]), "Read", "the field", id="one-habit-Read"),
+        ],
+    )
+    def test_R15_R33_deleting_from_the_year_view_closes_both_popups_and_moves_focus(app, storage, habit, focus):
+        page = app(viewport=PHONE, storage=storage)
+        year_btn(page, habit).click()
+        expect(dialog(page, "dlg-year")).to_have_attribute("open", "")
+        opener = p2_delete(page)
+        opener.click()
+        expect(dialog(page, "dlg-del")).to_have_attribute("open", "")
+        confirm_delete(page, opener)
+    
+        expect(dialog(page, "dlg-del")).not_to_have_attribute("open", "")
+        expect(dialog(page, "dlg-year")).not_to_have_attribute("open", "")
+        assert open_dialogs(page) == []
+        assert habit not in names(page)
+        target = page.locator("#nh") if focus == "the field" else page.get_by_role("button", name=focus, exact=True)
+&gt;       expect(target).to_be_focused()
+E       AssertionError: Locator expected to be focused
+E       Actual value: inactive 
+E       Call log:
+E         - Expect "to_be_focused" with timeout 5000ms
+E         - waiting for locator("#nh")
+E           14 × locator resolved to &lt;input id="nh" type="text" class="input" autocomplete="off" spellcheck="false" aria-describedby="nh-msg"/&gt;
+E              - unexpected value "inactive"
+E       
+E       Aria snapshot:
+E       - textbox "New habit"
+
+tests\browser\test_delete.py:877: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R15_history_goes_with_the_habit" time="0.380" /><testcase classname="tests.browser.test_delete" name="test_R15_a_focused_row_out_of_sight_is_scrolled_into_view" time="5.270"><failure message="AssertionError: Locator expected to be focused&#10;Actual value: inactive &#10;Call log:&#10;  - Expect &quot;to_be_focused&quot; with timeout 5000ms&#10;  - waiting for get_by_role(&quot;button&quot;, name=&quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;, exact=True)&#10;    14 × locator resolved to &lt;button type=&quot;button&quot; class=&quot;btn-bin&quot; aria-haspopup=&quot;dialog&quot; aria-label=&quot;Delete &quot;Stretch 10 minutes&quot;&quot;&gt;…&lt;/button&gt;&#10;       - unexpected value &quot;inactive&quot;&#10;&#10;Aria snapshot:&#10;- button &quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F45073950&gt;
+
+    def test_R15_a_focused_row_out_of_sight_is_scrolled_into_view(app):
+        page = app(viewport=PHONE, storage=twelve_state())
+        expect(page.locator("ul.rows &gt; li.row")).to_have_count(12)
+        read = bin_btn(page, "Read 20 pages")
+        tab_to(page, read)
+        frame = page.locator("div.frame")
+        page.mouse.move(*centre(frame))
+        page.mouse.wheel(0, 3000)
+        page.wait_for_function(
+            "() =&gt; { const f = document.querySelector('div.frame'); return f.scrollTop + f.clientHeight &gt;= f.scrollHeight; }", timeout=5000
+        )
+        expect(read).to_be_focused()
+        assert not fully_inside(read.bounding_box(), frame_box(page)), "Read's bin is still in sight"
+    
+        page.keyboard.press("Enter")
+        expect(dialog(page, "dlg-del")).to_have_attribute("open", "")
+        page.keyboard.press("Tab")
+        expect(confirm(page)).to_be_focused()
+        page.keyboard.press("Enter")
+    
+        expect(page.locator("ul.rows &gt; li.row")).to_have_count(11)
+        assert "Read 20 pages" not in names(page)
+        stretch = bin_btn(page, "Stretch 10 minutes")
+&gt;       expect(stretch).to_be_focused()
+E       AssertionError: Locator expected to be focused
+E       Actual value: inactive 
+E       Call log:
+E         - Expect "to_be_focused" with timeout 5000ms
+E         - waiting for get_by_role("button", name="Delete \"Stretch 10 minutes\"", exact=True)
+E           14 × locator resolved to &lt;button type="button" class="btn-bin" aria-haspopup="dialog" aria-label="Delete "Stretch 10 minutes""&gt;…&lt;/button&gt;
+E              - unexpected value "inactive"
+E       
+E       Aria snapshot:
+E       - button "Delete \"Stretch 10 minutes\""
+
+tests\browser\test_delete.py:924: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place[rlo-first]" time="0.141"><failure message="AssertionError: characters in the title: ['U+202E']&#10;assert 'Delete &quot;\u20...d text here&quot;?' == 'Delete &quot;\u20... here\u2069&quot;?'&#10;  &#10;  #x1B[0m#x1B[91m- Delete &quot;⁨Reversed text here⁩&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  ?         ^                  -#x1B[90m#x1B[39;49;00m&#10;  #x1B[92m+ Delete &quot;‮Reversed text here&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  ?         ^#x1B[90m#x1B[39;49;00m">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F45038B40&gt;
+stored_name = '\u202eReversed text here', shown_name = 'Reversed text here'
+
+    @pytest.mark.parametrize("stored_name, shown_name", list(TITLE_NAMES.values()), ids=list(TITLE_NAMES))
+    def test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place(app, stored_name, shown_name):
+        page = open_title_dialog(app, stored_name)
+    
+&gt;       assert title(page) == dialog_title(shown_name), f"characters in the title: {left_over(title(page))}"
+E       AssertionError: characters in the title: ['U+202E']
+E       assert 'Delete "\u20...d text here"?' == 'Delete "\u20... here\u2069"?'
+E         
+E         #x1B[0m#x1B[91m- Delete "⁨Reversed text here⁩"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         ?         ^                  -#x1B[90m#x1B[39;49;00m
+E         #x1B[92m+ Delete "‮Reversed text here"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         ?         ^#x1B[90m#x1B[39;49;00m
+
+tests\browser\test_delete.py:1015: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place[rlo-in-the-middle]" time="0.137"><failure message="AssertionError: characters in the title: ['U+202E']&#10;assert 'Delete &quot;Read...dleiys .gnp&quot;?' == 'Delete &quot;\u20... .gnp\u2069&quot;?'&#10;  &#10;  #x1B[0m#x1B[91m- Delete &quot;⁨Read 20 pages dleiys .gnp⁩&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  ?         -                         -#x1B[90m#x1B[39;49;00m&#10;  #x1B[92m+ Delete &quot;Read 20 pages‮ dleiys .gnp&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  ?                      +#x1B[90m#x1B[39;49;00m">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F450390C0&gt;
+stored_name = 'Read 20 pages\u202e dleiys .gnp'
+shown_name = 'Read 20 pages dleiys .gnp'
+
+    @pytest.mark.parametrize("stored_name, shown_name", list(TITLE_NAMES.values()), ids=list(TITLE_NAMES))
+    def test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place(app, stored_name, shown_name):
+        page = open_title_dialog(app, stored_name)
+    
+&gt;       assert title(page) == dialog_title(shown_name), f"characters in the title: {left_over(title(page))}"
+E       AssertionError: characters in the title: ['U+202E']
+E       assert 'Delete "Read...dleiys .gnp"?' == 'Delete "\u20... .gnp\u2069"?'
+E         
+E         #x1B[0m#x1B[91m- Delete "⁨Read 20 pages dleiys .gnp⁩"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         ?         -                         -#x1B[90m#x1B[39;49;00m
+E         #x1B[92m+ Delete "Read 20 pages‮ dleiys .gnp"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         ?                      +#x1B[90m#x1B[39;49;00m
+
+tests\browser\test_delete.py:1015: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place[three-rlo]" time="0.136"><failure message="AssertionError: characters in the title: ['U+202E', 'U+202E', 'U+202E']&#10;assert 'Delete &quot;a\u2...202ec\u202e&quot;?' == 'Delete &quot;\u2068abc\u2069&quot;?'&#10;  &#10;  #x1B[0m#x1B[91m- Delete &quot;⁨abc⁩&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  ?         -   ^#x1B[90m#x1B[39;49;00m&#10;  #x1B[92m+ Delete &quot;a‮b‮c‮&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  ?          + + ^#x1B[90m#x1B[39;49;00m">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F452A5FE0&gt;
+stored_name = 'a\u202eb\u202ec\u202e', shown_name = 'abc'
+
+    @pytest.mark.parametrize("stored_name, shown_name", list(TITLE_NAMES.values()), ids=list(TITLE_NAMES))
+    def test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place(app, stored_name, shown_name):
+        page = open_title_dialog(app, stored_name)
+    
+&gt;       assert title(page) == dialog_title(shown_name), f"characters in the title: {left_over(title(page))}"
+E       AssertionError: characters in the title: ['U+202E', 'U+202E', 'U+202E']
+E       assert 'Delete "a\u2...202ec\u202e"?' == 'Delete "\u2068abc\u2069"?'
+E         
+E         #x1B[0m#x1B[91m- Delete "⁨abc⁩"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         ?         -   ^#x1B[90m#x1B[39;49;00m
+E         #x1B[92m+ Delete "a‮b‮c‮"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         ?          + + ^#x1B[90m#x1B[39;49;00m
+
+tests\browser\test_delete.py:1015: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place[rle]" time="0.153"><failure message="AssertionError: characters in the title: ['U+202B']&#10;assert 'Delete &quot;\u202babc def&quot;?' == 'Delete &quot;\u20...c def\u2069&quot;?'&#10;  &#10;  #x1B[0m#x1B[91m- Delete &quot;⁨abc def⁩&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  ?         ^       -#x1B[90m#x1B[39;49;00m&#10;  #x1B[92m+ Delete &quot;‫abc def&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  ?         ^#x1B[90m#x1B[39;49;00m">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F4531E350&gt;
+stored_name = '\u202babc def', shown_name = 'abc def'
+
+    @pytest.mark.parametrize("stored_name, shown_name", list(TITLE_NAMES.values()), ids=list(TITLE_NAMES))
+    def test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place(app, stored_name, shown_name):
+        page = open_title_dialog(app, stored_name)
+    
+&gt;       assert title(page) == dialog_title(shown_name), f"characters in the title: {left_over(title(page))}"
+E       AssertionError: characters in the title: ['U+202B']
+E       assert 'Delete "\u202babc def"?' == 'Delete "\u20...c def\u2069"?'
+E         
+E         #x1B[0m#x1B[91m- Delete "⁨abc def⁩"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         ?         ^       -#x1B[90m#x1B[39;49;00m
+E         #x1B[92m+ Delete "‫abc def"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         ?         ^#x1B[90m#x1B[39;49;00m
+
+tests\browser\test_delete.py:1015: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place[rli]" time="0.152"><failure message="AssertionError: characters in the title: ['U+2067']&#10;assert 'Delete &quot;\u2067abc def&quot;?' == 'Delete &quot;\u20...c def\u2069&quot;?'&#10;  &#10;  #x1B[0m#x1B[91m- Delete &quot;⁨abc def⁩&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  ?         ^       -#x1B[90m#x1B[39;49;00m&#10;  #x1B[92m+ Delete &quot;⁧abc def&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  ?         ^#x1B[90m#x1B[39;49;00m">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F4531F7F0&gt;
+stored_name = '\u2067abc def', shown_name = 'abc def'
+
+    @pytest.mark.parametrize("stored_name, shown_name", list(TITLE_NAMES.values()), ids=list(TITLE_NAMES))
+    def test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place(app, stored_name, shown_name):
+        page = open_title_dialog(app, stored_name)
+    
+&gt;       assert title(page) == dialog_title(shown_name), f"characters in the title: {left_over(title(page))}"
+E       AssertionError: characters in the title: ['U+2067']
+E       assert 'Delete "\u2067abc def"?' == 'Delete "\u20...c def\u2069"?'
+E         
+E         #x1B[0m#x1B[91m- Delete "⁨abc def⁩"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         ?         ^       -#x1B[90m#x1B[39;49;00m
+E         #x1B[92m+ Delete "⁧abc def"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         ?         ^#x1B[90m#x1B[39;49;00m
+
+tests\browser\test_delete.py:1015: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place[alef-lri-abc]" time="0.153"><failure message="AssertionError: characters in the title: ['U+05D0', 'U+2066']&#10;assert 'Delete &quot;א\u2066abc&quot;?' == 'Delete &quot;\u2068אabc\u2069&quot;?'&#10;  &#10;  #x1B[0m#x1B[91m- Delete &quot;⁨אabc⁩&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  ?         -    -#x1B[90m#x1B[39;49;00m&#10;  #x1B[92m+ Delete &quot;א⁦abc&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  ?          +#x1B[90m#x1B[39;49;00m">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F450385C0&gt;
+stored_name = 'א\u2066abc', shown_name = 'אabc'
+
+    @pytest.mark.parametrize("stored_name, shown_name", list(TITLE_NAMES.values()), ids=list(TITLE_NAMES))
+    def test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place(app, stored_name, shown_name):
+        page = open_title_dialog(app, stored_name)
+    
+&gt;       assert title(page) == dialog_title(shown_name), f"characters in the title: {left_over(title(page))}"
+E       AssertionError: characters in the title: ['U+05D0', 'U+2066']
+E       assert 'Delete "א\u2066abc"?' == 'Delete "\u2068אabc\u2069"?'
+E         
+E         #x1B[0m#x1B[91m- Delete "⁨אabc⁩"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         ?         -    -#x1B[90m#x1B[39;49;00m
+E         #x1B[92m+ Delete "א⁦abc"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         ?          +#x1B[90m#x1B[39;49;00m
+
+tests\browser\test_delete.py:1015: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place[alef-fsi-abc]" time="0.169"><failure message="AssertionError: characters in the title: ['U+05D0', 'U+2068']&#10;assert 'Delete &quot;א\u2068abc&quot;?' == 'Delete &quot;\u2068אabc\u2069&quot;?'&#10;  &#10;  #x1B[0m#x1B[91m- Delete &quot;⁨אabc⁩&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  ?          -   -#x1B[90m#x1B[39;49;00m&#10;  #x1B[92m+ Delete &quot;א⁨abc&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  ?         +#x1B[90m#x1B[39;49;00m">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F439B8D50&gt;
+stored_name = 'א\u2068abc', shown_name = 'אabc'
+
+    @pytest.mark.parametrize("stored_name, shown_name", list(TITLE_NAMES.values()), ids=list(TITLE_NAMES))
+    def test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place(app, stored_name, shown_name):
+        page = open_title_dialog(app, stored_name)
+    
+&gt;       assert title(page) == dialog_title(shown_name), f"characters in the title: {left_over(title(page))}"
+E       AssertionError: characters in the title: ['U+05D0', 'U+2068']
+E       assert 'Delete "א\u2068abc"?' == 'Delete "\u2068אabc\u2069"?'
+E         
+E         #x1B[0m#x1B[91m- Delete "⁨אabc⁩"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         ?          -   -#x1B[90m#x1B[39;49;00m
+E         #x1B[92m+ Delete "א⁨abc"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         ?         +#x1B[90m#x1B[39;49;00m
+
+tests\browser\test_delete.py:1015: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place[hebrew-word-lri]" time="0.163"><failure message="AssertionError: characters in the title: ['U+05E9', 'U+05DC', 'U+05D5', 'U+05DD', 'U+2066']&#10;assert 'Delete &quot;שלום\u2066&quot;?' == 'Delete &quot;\u2068שלום\u2069&quot;?'&#10;  &#10;  #x1B[0m#x1B[91m- Delete &quot;⁨שלום⁩&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  ?         -    ^#x1B[90m#x1B[39;49;00m&#10;  #x1B[92m+ Delete &quot;שלום⁦&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  ?             ^#x1B[90m#x1B[39;49;00m">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F440E4B40&gt;
+stored_name = 'שלום\u2066', shown_name = 'שלום'
+
+    @pytest.mark.parametrize("stored_name, shown_name", list(TITLE_NAMES.values()), ids=list(TITLE_NAMES))
+    def test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place(app, stored_name, shown_name):
+        page = open_title_dialog(app, stored_name)
+    
+&gt;       assert title(page) == dialog_title(shown_name), f"characters in the title: {left_over(title(page))}"
+E       AssertionError: characters in the title: ['U+05E9', 'U+05DC', 'U+05D5', 'U+05DD', 'U+2066']
+E       assert 'Delete "שלום\u2066"?' == 'Delete "\u2068שלום\u2069"?'
+E         
+E         #x1B[0m#x1B[91m- Delete "⁨שלום⁩"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         ?         -    ^#x1B[90m#x1B[39;49;00m
+E         #x1B[92m+ Delete "שלום⁦"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         ?             ^#x1B[90m#x1B[39;49;00m
+
+tests\browser\test_delete.py:1015: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place[hebrew-word-space-abc-lri]" time="0.153"><failure message="AssertionError: characters in the title: ['U+05E9', 'U+05DC', 'U+05D5', 'U+05DD', 'U+2066']&#10;assert 'Delete &quot;שלום abc\u2066&quot;?' == 'Delete &quot;\u20...ם abc\u2069&quot;?'&#10;  &#10;  #x1B[0m#x1B[91m- Delete &quot;⁨שלום abc⁩&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  ?         -        ^#x1B[90m#x1B[39;49;00m&#10;  #x1B[92m+ Delete &quot;שלום abc⁦&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  ?                 ^#x1B[90m#x1B[39;49;00m">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F43E977F0&gt;
+stored_name = 'שלום abc\u2066', shown_name = 'שלום abc'
+
+    @pytest.mark.parametrize("stored_name, shown_name", list(TITLE_NAMES.values()), ids=list(TITLE_NAMES))
+    def test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place(app, stored_name, shown_name):
+        page = open_title_dialog(app, stored_name)
+    
+&gt;       assert title(page) == dialog_title(shown_name), f"characters in the title: {left_over(title(page))}"
+E       AssertionError: characters in the title: ['U+05E9', 'U+05DC', 'U+05D5', 'U+05DD', 'U+2066']
+E       assert 'Delete "שלום abc\u2066"?' == 'Delete "\u20...ם abc\u2069"?'
+E         
+E         #x1B[0m#x1B[91m- Delete "⁨שלום abc⁩"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         ?         -        ^#x1B[90m#x1B[39;49;00m
+E         #x1B[92m+ Delete "שלום abc⁦"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         ?                 ^#x1B[90m#x1B[39;49;00m
+
+tests\browser\test_delete.py:1015: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place[meem-lri-x]" time="0.176"><failure message="AssertionError: characters in the title: ['U+0645', 'U+2066']&#10;assert 'Delete &quot;م\u2066x&quot;?' == 'Delete &quot;\u2068مx\u2069&quot;?'&#10;  &#10;  #x1B[0m#x1B[91m- Delete &quot;⁨مx⁩&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  ?         -  -#x1B[90m#x1B[39;49;00m&#10;  #x1B[92m+ Delete &quot;م⁦x&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  ?          +#x1B[90m#x1B[39;49;00m">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F43E97480&gt;
+stored_name = 'م\u2066x', shown_name = 'مx'
+
+    @pytest.mark.parametrize("stored_name, shown_name", list(TITLE_NAMES.values()), ids=list(TITLE_NAMES))
+    def test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place(app, stored_name, shown_name):
+        page = open_title_dialog(app, stored_name)
+    
+&gt;       assert title(page) == dialog_title(shown_name), f"characters in the title: {left_over(title(page))}"
+E       AssertionError: characters in the title: ['U+0645', 'U+2066']
+E       assert 'Delete "م\u2066x"?' == 'Delete "\u2068مx\u2069"?'
+E         
+E         #x1B[0m#x1B[91m- Delete "⁨مx⁩"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         ?         -  -#x1B[90m#x1B[39;49;00m
+E         #x1B[92m+ Delete "م⁦x"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         ?          +#x1B[90m#x1B[39;49;00m
+
+tests\browser\test_delete.py:1015: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place[x-pdi-rlo-y-z]" time="0.219"><failure message="AssertionError: characters in the title: ['U+2069', 'U+202E']&#10;assert 'Delete &quot;x\u2069\u202ey z&quot;?' == 'Delete &quot;\u2068xy z\u2069&quot;?'&#10;  &#10;  #x1B[0m#x1B[91m- Delete &quot;⁨xy z⁩&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  ?         -    -#x1B[90m#x1B[39;49;00m&#10;  #x1B[92m+ Delete &quot;x⁩‮y z&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  ?          ++#x1B[90m#x1B[39;49;00m">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F43D4D010&gt;
+stored_name = 'x\u2069\u202ey z', shown_name = 'xy z'
+
+    @pytest.mark.parametrize("stored_name, shown_name", list(TITLE_NAMES.values()), ids=list(TITLE_NAMES))
+    def test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place(app, stored_name, shown_name):
+        page = open_title_dialog(app, stored_name)
+    
+&gt;       assert title(page) == dialog_title(shown_name), f"characters in the title: {left_over(title(page))}"
+E       AssertionError: characters in the title: ['U+2069', 'U+202E']
+E       assert 'Delete "x\u2069\u202ey z"?' == 'Delete "\u2068xy z\u2069"?'
+E         
+E         #x1B[0m#x1B[91m- Delete "⁨xy z⁩"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         ?         -    -#x1B[90m#x1B[39;49;00m
+E         #x1B[92m+ Delete "x⁩‮y z"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         ?          ++#x1B[90m#x1B[39;49;00m
+
+tests\browser\test_delete.py:1015: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place[x-paragraph-separator-rlo-y-z]" time="0.151"><failure message="AssertionError: characters in the title: ['U+2029', 'U+202E']&#10;assert 'Delete &quot;x\u2029\u202ey z&quot;?' == 'Delete &quot;\u2068xy z\u2069&quot;?'&#10;  &#10;  #x1B[0m#x1B[91m- Delete &quot;⁨xy z⁩&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  #x1B[92m+ Delete &quot;x&#10;  #x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  #x1B[92m+ ‮y z&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F43E96FB0&gt;
+stored_name = 'x\u2029\u202ey z', shown_name = 'xy z'
+
+    @pytest.mark.parametrize("stored_name, shown_name", list(TITLE_NAMES.values()), ids=list(TITLE_NAMES))
+    def test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place(app, stored_name, shown_name):
+        page = open_title_dialog(app, stored_name)
+    
+&gt;       assert title(page) == dialog_title(shown_name), f"characters in the title: {left_over(title(page))}"
+E       AssertionError: characters in the title: ['U+2029', 'U+202E']
+E       assert 'Delete "x\u2029\u202ey z"?' == 'Delete "\u2068xy z\u2069"?'
+E         
+E         #x1B[0m#x1B[91m- Delete "⁨xy z⁩"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         #x1B[92m+ Delete "x
+E         #x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         #x1B[92m+ ‮y z"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+
+tests\browser\test_delete.py:1015: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place[alef-lri-abc-pdi]" time="0.151"><failure message="AssertionError: characters in the title: ['U+05D0', 'U+2066', 'U+2069']&#10;assert 'Delete &quot;א\u2066abc\u2069&quot;?' == 'Delete &quot;\u2068אabc\u2069&quot;?'&#10;  &#10;  #x1B[0m#x1B[91m- Delete &quot;⁨אabc⁩&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  ?         -#x1B[90m#x1B[39;49;00m&#10;  #x1B[92m+ Delete &quot;א⁦abc⁩&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  ?          +#x1B[90m#x1B[39;49;00m">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F43BF77F0&gt;
+stored_name = 'א\u2066abc\u2069', shown_name = 'אabc'
+
+    @pytest.mark.parametrize("stored_name, shown_name", list(TITLE_NAMES.values()), ids=list(TITLE_NAMES))
+    def test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place(app, stored_name, shown_name):
+        page = open_title_dialog(app, stored_name)
+    
+&gt;       assert title(page) == dialog_title(shown_name), f"characters in the title: {left_over(title(page))}"
+E       AssertionError: characters in the title: ['U+05D0', 'U+2066', 'U+2069']
+E       assert 'Delete "א\u2066abc\u2069"?' == 'Delete "\u2068אabc\u2069"?'
+E         
+E         #x1B[0m#x1B[91m- Delete "⁨אabc⁩"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         ?         -#x1B[90m#x1B[39;49;00m
+E         #x1B[92m+ Delete "א⁦abc⁩"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         ?          +#x1B[90m#x1B[39;49;00m
+
+tests\browser\test_delete.py:1015: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place[plain]" time="0.151"><failure message="AssertionError: characters in the title: []&#10;assert 'Delete &quot;Read 20 pages&quot;?' == 'Delete &quot;\u20...pages\u2069&quot;?'&#10;  &#10;  #x1B[0m#x1B[91m- Delete &quot;⁨Read 20 pages⁩&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  ?         -             -#x1B[90m#x1B[39;49;00m&#10;  #x1B[92m+ Delete &quot;Read 20 pages&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F43BF71C0&gt;
+stored_name = 'Read 20 pages', shown_name = 'Read 20 pages'
+
+    @pytest.mark.parametrize("stored_name, shown_name", list(TITLE_NAMES.values()), ids=list(TITLE_NAMES))
+    def test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place(app, stored_name, shown_name):
+        page = open_title_dialog(app, stored_name)
+    
+&gt;       assert title(page) == dialog_title(shown_name), f"characters in the title: {left_over(title(page))}"
+E       AssertionError: characters in the title: []
+E       assert 'Delete "Read 20 pages"?' == 'Delete "\u20...pages\u2069"?'
+E         
+E         #x1B[0m#x1B[91m- Delete "⁨Read 20 pages⁩"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         ?         -             -#x1B[90m#x1B[39;49;00m
+E         #x1B[92m+ Delete "Read 20 pages"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+
+tests\browser\test_delete.py:1015: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place[two-hebrew-words]" time="0.136"><failure message="AssertionError: characters in the title: ['U+05E9', 'U+05DC', 'U+05D5', 'U+05DD', 'U+05E2', 'U+05D5', 'U+05DC', 'U+05DD']&#10;assert 'Delete &quot;שלום עולם&quot;?' == 'Delete &quot;\u20... עולם\u2069&quot;?'&#10;  &#10;  #x1B[0m#x1B[91m- Delete &quot;⁨שלום עולם⁩&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  ?         -         -#x1B[90m#x1B[39;49;00m&#10;  #x1B[92m+ Delete &quot;שלום עולם&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F4337C460&gt;
+stored_name = 'שלום עולם', shown_name = 'שלום עולם'
+
+    @pytest.mark.parametrize("stored_name, shown_name", list(TITLE_NAMES.values()), ids=list(TITLE_NAMES))
+    def test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place(app, stored_name, shown_name):
+        page = open_title_dialog(app, stored_name)
+    
+&gt;       assert title(page) == dialog_title(shown_name), f"characters in the title: {left_over(title(page))}"
+E       AssertionError: characters in the title: ['U+05E9', 'U+05DC', 'U+05D5', 'U+05DD', 'U+05E2', 'U+05D5', 'U+05DC', 'U+05DD']
+E       assert 'Delete "שלום עולם"?' == 'Delete "\u20... עולם\u2069"?'
+E         
+E         #x1B[0m#x1B[91m- Delete "⁨שלום עולם⁩"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         ?         -         -#x1B[90m#x1B[39;49;00m
+E         #x1B[92m+ Delete "שלום עולם"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+
+tests\browser\test_delete.py:1015: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place[alef-alone]" time="0.136"><failure message="AssertionError: characters in the title: ['U+05D0']&#10;assert 'Delete &quot;א&quot;?' == 'Delete &quot;\u2068א\u2069&quot;?'&#10;  &#10;  #x1B[0m#x1B[91m- Delete &quot;⁨א⁩&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  ?         - -#x1B[90m#x1B[39;49;00m&#10;  #x1B[92m+ Delete &quot;א&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F43087690&gt;, stored_name = 'א'
+shown_name = 'א'
+
+    @pytest.mark.parametrize("stored_name, shown_name", list(TITLE_NAMES.values()), ids=list(TITLE_NAMES))
+    def test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place(app, stored_name, shown_name):
+        page = open_title_dialog(app, stored_name)
+    
+&gt;       assert title(page) == dialog_title(shown_name), f"characters in the title: {left_over(title(page))}"
+E       AssertionError: characters in the title: ['U+05D0']
+E       assert 'Delete "א"?' == 'Delete "\u2068א\u2069"?'
+E         
+E         #x1B[0m#x1B[91m- Delete "⁨א⁩"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         ?         - -#x1B[90m#x1B[39;49;00m
+E         #x1B[92m+ Delete "א"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+
+tests\browser\test_delete.py:1015: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_every_character_of_the_stripped_set_is_left_out_of_the_title" time="0.166"><failure message="AssertionError: characters in the title: ['U+202A', 'U+202B', 'U+202C', 'U+202D', 'U+202E', 'U+2066', 'U+2067', 'U+2068', 'U+2069', 'U+0085', 'U+001C', 'U+001D', 'U+001E', 'U+2029']&#10;assert 'Delete &quot;x\u2...x1ex\u2029x&quot;?' == 'Delete &quot;\u20...xxxxx\u2069&quot;?'&#10;  &#10;  #x1B[0m#x1B[91m- Delete &quot;⁨xxxxxxxxxxxxxxx⁩&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  #x1B[92m+ Delete &quot;x‪x‫x‬x‭x‮x⁦x⁧x⁨x⁩x&#10;  #x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  #x1B[92m+ x&#10;  #x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  #x1B[92m+ x...&#10;  &#10;  ...Full output truncated (6 lines hidden), use '-vv' to show">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F42FB8BF0&gt;
+
+    def test_R13_every_character_of_the_stripped_set_is_left_out_of_the_title(app):
+        page = open_title_dialog(app, spaced(STRIPPED))
+    
+        text = title(page)
+&gt;       assert text == dialog_title("x" * (len(STRIPPED) + 1)), f"characters in the title: {left_over(text)}"
+E       AssertionError: characters in the title: ['U+202A', 'U+202B', 'U+202C', 'U+202D', 'U+202E', 'U+2066', 'U+2067', 'U+2068', 'U+2069', 'U+0085', 'U+001C', 'U+001D', 'U+001E', 'U+2029']
+E       assert 'Delete "x\u2...x1ex\u2029x"?' == 'Delete "\u20...xxxxx\u2069"?'
+E         
+E         #x1B[0m#x1B[91m- Delete "⁨xxxxxxxxxxxxxxx⁩"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         #x1B[92m+ Delete "x‪x‫x‬x‭x‮x⁦x⁧x⁨x⁩x
+E         #x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         #x1B[92m+ x
+E         #x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         #x1B[92m+ x...
+E         
+E         ...Full output truncated (6 lines hidden), use '-vv' to show
+
+tests\browser\test_delete.py:1027: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_the_neighbours_of_the_stripped_ranges_and_other_invisible_characters_stay_in_the_title" time="0.154"><failure message="AssertionError: characters in the title: ['U+0084', 'U+0086', 'U+001B', 'U+001F', 'U+2028', 'U+202F', 'U+2065', 'U+206A', 'U+200E', 'U+200F', 'U+061C', 'U+200B', 'U+200C', 'U+200D', 'U+2060', 'U+FEFF']&#10;assert 'Delete &quot;x\x8...060x\ufeffx&quot;?' == 'Delete &quot;\u20...feffx\u2069&quot;?'&#10;  &#10;  #x1B[0m#x1B[91m- Delete &quot;⁨xxx#x1Bx#x1Fx&#10;  #x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  ?         -#x1B[90m#x1B[39;49;00m&#10;  #x1B[92m+ Delete &quot;xxx#x1Bx#x1Fx&#10;  #x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  #x1B[91m- x x⁥x⁪x‎x‏x؜x​x‌x‍x⁠x﻿x⁩&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  ?                        -#x1B[90m#x1B[39;49;00m&#10;  #x1B[92m+ x x⁥x⁪x‎x‏x؜x​x‌x‍x⁠x﻿x&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F42BBD220&gt;
+
+    def test_R13_the_neighbours_of_the_stripped_ranges_and_other_invisible_characters_stay_in_the_title(app):
+        name = spaced(KEPT)
+        page = open_title_dialog(app, name)
+    
+        text = title(page)
+&gt;       assert text == dialog_title(name), f"characters in the title: {left_over(text)}"
+E       AssertionError: characters in the title: ['U+0084', 'U+0086', 'U+001B', 'U+001F', 'U+2028', 'U+202F', 'U+2065', 'U+206A', 'U+200E', 'U+200F', 'U+061C', 'U+200B', 'U+200C', 'U+200D', 'U+2060', 'U+FEFF']
+E       assert 'Delete "x\x8...060x\ufeffx"?' == 'Delete "\u20...feffx\u2069"?'
+E         
+E         #x1B[0m#x1B[91m- Delete "⁨xxx#x1Bx#x1Fx
+E         #x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         ?         -#x1B[90m#x1B[39;49;00m
+E         #x1B[92m+ Delete "xxx#x1Bx#x1Fx
+E         #x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         #x1B[91m- x x⁥x⁪x‎x‏x؜x​x‌x‍x⁠x﻿x⁩"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         ?                        -#x1B[90m#x1B[39;49;00m
+E         #x1B[92m+ x x⁥x⁪x‎x‏x؜x​x‌x‍x⁠x﻿x"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+
+tests\browser\test_delete.py:1035: AssertionError</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_R15_only_the_titles_copy_loses_the_characters_and_the_habit_named_in_it_is_the_one_deleted" time="0.151"><failure message="AssertionError: characters in the title: ['U+05D0', 'U+2066']&#10;assert 'Delete &quot;א\u2066abc&quot;?' == 'Delete &quot;\u2068אabc\u2069&quot;?'&#10;  &#10;  #x1B[0m#x1B[91m- Delete &quot;⁨אabc⁩&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  ?         -    -#x1B[90m#x1B[39;49;00m&#10;  #x1B[92m+ Delete &quot;א⁦abc&quot;?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  ?          +#x1B[90m#x1B[39;49;00m">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000027F45532610&gt;
+
+    def test_R13_R15_only_the_titles_copy_loses_the_characters_and_the_habit_named_in_it_is_the_one_deleted(app):
+        name = ALEF + LRI + "abc"
+        before = encode([{"name": name, "done": []}, {"name": "Other habit", "done": []}])
+        page = app(storage=before, count_writes=True)
+        page.locator("ul.rows button.btn-bin").first.click()
+    
+&gt;       assert title(page) == dialog_title(ALEF + "abc"), f"characters in the title: {left_over(title(page) or '')}"
+E       AssertionError: characters in the title: ['U+05D0', 'U+2066']
+E       assert 'Delete "א\u2066abc"?' == 'Delete "\u2068אabc\u2069"?'
+E         
+E         #x1B[0m#x1B[91m- Delete "⁨אabc⁩"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         ?         -    -#x1B[90m#x1B[39;49;00m
+E         #x1B[92m+ Delete "א⁦abc"?#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         ?          +#x1B[90m#x1B[39;49;00m
+
+tests\browser\test_delete.py:1044: AssertionError</failure></testcase><testcase classname="tests.browser.test_add" name="test_R12_R15_deleting_one_of_twelve_opens_the_composer_again" time="0.224" /><testcase classname="tests.browser.test_today" name="test_R32_R16_each_edit_saves_once_and_opening_or_closing_a_popup_saves_nothing" time="2.252" /><testcase classname="tests.browser.test_popups" name="test_R40_R14_a_backdrop_click_closes_that_popup_only[390x844 M1]" time="0.181" /><testcase classname="tests.browser.test_popups" name="test_R40_R14_a_backdrop_click_closes_that_popup_only[1280x800 M1]" time="0.189" /><testcase classname="tests.browser.test_popups" name="test_R40_R14_a_backdrop_click_closes_that_popup_only[1280x800 P2 then M1]" time="0.472" /><testcase classname="tests.browser.test_popups" name="test_R40_R14_a_click_inside_the_box_or_a_drag_that_leaves_it_closes_nothing[390x844 M1]" time="0.210" /><testcase classname="tests.browser.test_popups" name="test_R40_tab_never_reaches_a_control_outside_the_top_popup[390x844 M1]" time="0.172" /><testcase classname="tests.browser.test_popups" name="test_R40_every_popup_is_modal_and_the_page_does_not_scroll_under_it[390x844 M1]" time="0.263" /></testsuite></testsuites>

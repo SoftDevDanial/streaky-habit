@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="1.152" timestamp="2026-10-14T21:39:16.513645+08:00" hostname="{host}"><testcase classname="tests.browser.test_delete" name="test_R14_esc_after_an_earlier_delete_still_keeps_the_habit" time="1.096"><failure message="AssertionError: assert ['Read 20 pages'] == ['Read 20 pag...h 10 minutes']&#10;  &#10;  Right contains one more item: 'Stretch 10 minutes'&#10;  Use -v to get more diff">E   AssertionError: assert ['Read 20 pages'] == ['Read 20 pag...h 10 minutes']
+      
+      Right contains one more item: 'Stretch 10 minutes'
+      Use -v to get more diff</failure></testcase></testsuite></testsuites>

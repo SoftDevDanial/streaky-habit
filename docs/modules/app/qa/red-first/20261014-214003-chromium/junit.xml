@@ -1,0 +1,1139 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="56" skipped="0" tests="85" time="162.358" timestamp="2026-10-14T21:40:05.013311+08:00" hostname="{host}"><testcase classname="tests.browser.test_delete" name="test_R13_a_bin_opens_m1_with_focus_on_cancel" time="0.931"><failure message="assert 'Delete &quot;Read 20 pages&quot;?' == 'Delete &quot;\u20...pages\u2069&quot;?'&#10;  &#10;  - Delete &quot;⁨Read 20 pages⁩&quot;?&#10;  ?         -             -&#10;  + Delete &quot;Read 20 pages&quot;?">E   assert 'Delete "Read 20 pages"?' == 'Delete "\u20...pages\u2069"?'
+      
+      - Delete "⁨Read 20 pages⁩"?
+      ?         -             -
+      + Delete "Read 20 pages"?</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_R28_m1_has_the_markup_of_the_golden" time="0.180" /><testcase classname="tests.browser.test_delete" name="test_R13_R33_delete_habit_in_the_year_view_opens_m1_over_it" time="0.473"><failure message="assert 'Delete &quot;Read 20 pages&quot;?' == 'Delete &quot;\u20...pages\u2069&quot;?'&#10;  &#10;  - Delete &quot;⁨Read 20 pages⁩&quot;?&#10;  ?         -             -&#10;  + Delete &quot;Read 20 pages&quot;?">E   assert 'Delete "Read 20 pages"?' == 'Delete "\u20...pages\u2069"?'
+      
+      - Delete "⁨Read 20 pages⁩"?
+      ?         -             -
+      + Delete "Read 20 pages"?</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_a_long_name_wraps_in_the_title_and_the_box_keeps_its_width" time="0.153" /><testcase classname="tests.browser.test_delete" name="test_R13_a_slow_double_click_on_a_bin_that_lies_under_delete_habit_cannot_delete[sample-1280x800-mouse]" time="6.265"><failure message="AssertionError: Locator expected to have attribute ''&#10;Actual value: None &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-del&quot;)&#10;    14 × locator resolved to &lt;dialog class=&quot;dlg-del&quot; aria-modal=&quot;true&quot; role=&quot;alertdialog&quot; aria-labelledby=&quot;del-title&quot; aria-describedby=&quot;del-body&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;null&quot;&#10;&#10;Aria snapshot:&#10;- banner:&#10;  - heading &quot;Streaky Habit&quot; [level=1]&#10;  - time: Saturday 10 October&#10;- main:&#10;  - region &quot;Last 12 weeks&quot;:&#10;    - heading &quot;Last 12 weeks&quot; [level=2]&#10;    - button &quot;Year view, all habits&quot;: Year&#10;    - paragraph: Tap a day to change it.&#10;    - group &quot;Last 12 weeks&quot;:&#10;      - button &quot;Mon 20 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Tue 21 Jul, 2 of 2 habits&quot;&#10;      - button &quot;Wed 22 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Thu 23 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Fri 24 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Sat 25 Jul, 2 of 2 habits&quot;&#10;      - button &quot;Sun 26 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Mon 27 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Tue 28 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Wed 29 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Thu 30 Jul, 2 of 2 habits&quot;&#10;      - button &quot;Fri 31 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Sat 1 Aug, 0 of 2 habits&quot;&#10;      - button &quot;Sun 2 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Mon 3 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Tue 4 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Wed 5 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Thu 6 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Fri 7 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Sat 8 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Sun 9 Aug, 0 of 2 habits&quot;&#10;      - button &quot;Mon 10 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Tue 11 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Wed 12 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Thu 13 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Fri 14 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Sat 15 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Sun 16 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Mon 17 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Tue 18 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Wed 19 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Thu 20 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Fri 21 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Sat 22 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Sun 23 Aug, 0 of 2 habits&quot;&#10;      - button &quot;Mon 24 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Tue 25 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Wed 26 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Thu 27 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Fri 28 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Sat 29 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Sun 30 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Mon 31 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Tue 1 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Wed 2 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Thu 3 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Fri 4 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Sat 5 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Sun 6 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Mon 7 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Tue 8 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Wed 9 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Thu 10 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Fri 11 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Sat 12 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Sun 13 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Mon 14 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Tue 15 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Wed 16 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Thu 17 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Fri 18 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Sat 19 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Sun 20 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Mon 21 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Tue 22 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Wed 23 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Thu 24 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Fri 25 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Sat 26 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Sun 27 Sep, 0 of 2 habits&quot;&#10;      - button &quot;Mon 28 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Tue 29 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Wed 30 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Thu 1 Oct, 1 of 2 habits&quot;&#10;      - button &quot;Fri 2 Oct, 1 of 2 habits&quot;&#10;      - button &quot;Sat 3 Oct, 2 of 2 habits&quot;&#10;      - button &quot;Sun 4 Oct, 1 of 2 habits&quot;&#10;      - button &quot;Mon 5 Oct, 2 of 2 habits&quot;&#10;      - button &quot;Tue 6 Oct, 1 of 2 habits&quot;&#10;      - button &quot;Wed 7 Oct, 1 of 2 habits&quot;&#10;      - button &quot;Thu 8 Oct, 2 of 2 habits&quot;&#10;      - button &quot;Fri 9 Oct, 1 of 2 habits&quot;&#10;      - button &quot;Sat 10 Oct, 0 of 2 habits&quot;&#10;  - heading &quot;Habits&quot; [level=2]&#10;  - list &quot;Habits&quot;:&#10;    - listitem:&#10;      - heading &quot;Stretch 10 minutes&quot; [level=3]&#10;      - button &quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;&#10;      - paragraph: Current 2 days Best 5&#10;      - button &quot;Year view, Stretch 10 minutes&quot;: Year&#10;      - button &quot;Done today, Stretch 10 minutes&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;No phone after 11pm&quot; [level=3]&#10;      - button &quot;Delete \&quot;No phone after 11pm\&quot;&quot;&#10;      - paragraph: Current No streak yet Best 14&#10;      - button &quot;Year view, No phone after 11pm&quot;: Year&#10;      - button &quot;Done today, No phone after 11pm&quot;: Done today&#10;  - text: New habit&#10;  - textbox &quot;New habit&quot;&#10;  - button &quot;Add&quot;">E   AssertionError: Locator expected to have attribute ''
+    Actual value: None 
+    Call log:
+      - Expect "to_have_attribute" with timeout 5000ms
+      - waiting for locator("dialog.dlg-del")
+        14 × locator resolved to &lt;dialog class="dlg-del" aria-modal="true" role="alertdialog" aria-labelledby="del-title" aria-describedby="del-body"&gt;…&lt;/dialog&gt;
+           - unexpected value "null"
+    
+    Aria snapshot:
+    - banner:
+      - heading "Streaky Habit" [level=1]
+      - time: Saturday 10 October
+    - main:
+      - region "Last 12 weeks":
+        - heading "Last 12 weeks" [level=2]
+        - button "Year view, all habits": Year
+        - paragraph: Tap a day to change it.
+        - group "Last 12 weeks":
+          - button "Mon 20 Jul, 1 of 2 habits"
+          - button "Tue 21 Jul, 2 of 2 habits"
+          - button "Wed 22 Jul, 1 of 2 habits"
+          - button "Thu 23 Jul, 1 of 2 habits"
+          - button "Fri 24 Jul, 1 of 2 habits"
+          - button "Sat 25 Jul, 2 of 2 habits"
+          - button "Sun 26 Jul, 1 of 2 habits"
+          - button "Mon 27 Jul, 1 of 2 habits"
+          - button "Tue 28 Jul, 1 of 2 habits"
+          - button "Wed 29 Jul, 1 of 2 habits"
+          - button "Thu 30 Jul, 2 of 2 habits"
+          - button "Fri 31 Jul, 1 of 2 habits"
+          - button "Sat 1 Aug, 0 of 2 habits"
+          - button "Sun 2 Aug, 2 of 2 habits"
+          - button "Mon 3 Aug, 1 of 2 habits"
+          - button "Tue 4 Aug, 1 of 2 habits"
+          - button "Wed 5 Aug, 2 of 2 habits"
+          - button "Thu 6 Aug, 1 of 2 habits"
+          - button "Fri 7 Aug, 2 of 2 habits"
+          - button "Sat 8 Aug, 1 of 2 habits"
+          - button "Sun 9 Aug, 0 of 2 habits"
+          - button "Mon 10 Aug, 1 of 2 habits"
+          - button "Tue 11 Aug, 2 of 2 habits"
+          - button "Wed 12 Aug, 2 of 2 habits"
+          - button "Thu 13 Aug, 2 of 2 habits"
+          - button "Fri 14 Aug, 1 of 2 habits"
+          - button "Sat 15 Aug, 1 of 2 habits"
+          - button "Sun 16 Aug, 1 of 2 habits"
+          - button "Mon 17 Aug, 1 of 2 habits"
+          - button "Tue 18 Aug, 1 of 2 habits"
+          - button "Wed 19 Aug, 1 of 2 habits"
+          - button "Thu 20 Aug, 1 of 2 habits"
+          - button "Fri 21 Aug, 2 of 2 habits"
+          - button "Sat 22 Aug, 2 of 2 habits"
+          - button "Sun 23 Aug, 0 of 2 habits"
+          - button "Mon 24 Aug, 2 of 2 habits"
+          - button "Tue 25 Aug, 2 of 2 habits"
+          - button "Wed 26 Aug, 1 of 2 habits"
+          - button "Thu 27 Aug, 1 of 2 habits"
+          - button "Fri 28 Aug, 2 of 2 habits"
+          - button "Sat 29 Aug, 1 of 2 habits"
+          - button "Sun 30 Aug, 1 of 2 habits"
+          - button "Mon 31 Aug, 1 of 2 habits"
+          - button "Tue 1 Sep, 1 of 2 habits"
+          - button "Wed 2 Sep, 2 of 2 habits"
+          - button "Thu 3 Sep, 2 of 2 habits"
+          - button "Fri 4 Sep, 1 of 2 habits"
+          - button "Sat 5 Sep, 2 of 2 habits"
+          - button "Sun 6 Sep, 1 of 2 habits"
+          - button "Mon 7 Sep, 1 of 2 habits"
+          - button "Tue 8 Sep, 2 of 2 habits"
+          - button "Wed 9 Sep, 1 of 2 habits"
+          - button "Thu 10 Sep, 1 of 2 habits"
+          - button "Fri 11 Sep, 2 of 2 habits"
+          - button "Sat 12 Sep, 1 of 2 habits"
+          - button "Sun 13 Sep, 1 of 2 habits"
+          - button "Mon 14 Sep, 1 of 2 habits"
+          - button "Tue 15 Sep, 2 of 2 habits"
+          - button "Wed 16 Sep, 1 of 2 habits"
+          - button "Thu 17 Sep, 1 of 2 habits"
+          - button "Fri 18 Sep, 1 of 2 habits"
+          - button "Sat 19 Sep, 2 of 2 habits"
+          - button "Sun 20 Sep, 2 of 2 habits"
+          - button "Mon 21 Sep, 1 of 2 habits"
+          - button "Tue 22 Sep, 1 of 2 habits"
+          - button "Wed 23 Sep, 1 of 2 habits"
+          - button "Thu 24 Sep, 1 of 2 habits"
+          - button "Fri 25 Sep, 2 of 2 habits"
+          - button "Sat 26 Sep, 2 of 2 habits"
+          - button "Sun 27 Sep, 0 of 2 habits"
+          - button "Mon 28 Sep, 1 of 2 habits"
+          - button "Tue 29 Sep, 2 of 2 habits"
+          - button "Wed 30 Sep, 2 of 2 habits"
+          - button "Thu 1 Oct, 1 of 2 habits"
+          - button "Fri 2 Oct, 1 of 2 habits"
+          - button "Sat 3 Oct, 2 of 2 habits"
+          - button "Sun 4 Oct, 1 of 2 habits"
+          - button "Mon 5 Oct, 2 of 2 habits"
+          - button "Tue 6 Oct, 1 of 2 habits"
+          - button "Wed 7 Oct, 1 of 2 habits"
+          - button "Thu 8 Oct, 2 of 2 habits"
+          - button "Fri 9 Oct, 1 of 2 habits"
+          - button "Sat 10 Oct, 0 of 2 habits"
+      - heading "Habits" [level=2]
+      - list "Habits":
+        - listitem:
+          - heading "Stretch 10 minutes" [level=3]
+          - button "Delete \"Stretch 10 minutes\""
+          - paragraph: Current 2 days Best 5
+          - button "Year view, Stretch 10 minutes": Year
+          - button "Done today, Stretch 10 minutes": Done today
+        - listitem:
+          - heading "No phone after 11pm" [level=3]
+          - button "Delete \"No phone after 11pm\""
+          - paragraph: Current No streak yet Best 14
+          - button "Year view, No phone after 11pm": Year
+          - button "Done today, No phone after 11pm": Done today
+      - text: New habit
+      - textbox "New habit"
+      - button "Add"</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_a_slow_double_click_on_a_bin_that_lies_under_delete_habit_cannot_delete[sample-1280x800-touch]" time="6.366"><failure message="AssertionError: Locator expected to have attribute ''&#10;Actual value: None &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-del&quot;)&#10;    14 × locator resolved to &lt;dialog class=&quot;dlg-del&quot; aria-modal=&quot;true&quot; role=&quot;alertdialog&quot; aria-labelledby=&quot;del-title&quot; aria-describedby=&quot;del-body&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;null&quot;&#10;&#10;Aria snapshot:&#10;- banner:&#10;  - heading &quot;Streaky Habit&quot; [level=1]&#10;  - time: Saturday 10 October&#10;- main:&#10;  - region &quot;Last 12 weeks&quot;:&#10;    - heading &quot;Last 12 weeks&quot; [level=2]&#10;    - button &quot;Year view, all habits&quot;: Year&#10;    - paragraph: Tap a day to change it.&#10;    - group &quot;Last 12 weeks&quot;:&#10;      - button &quot;Mon 20 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Tue 21 Jul, 2 of 2 habits&quot;&#10;      - button &quot;Wed 22 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Thu 23 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Fri 24 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Sat 25 Jul, 2 of 2 habits&quot;&#10;      - button &quot;Sun 26 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Mon 27 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Tue 28 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Wed 29 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Thu 30 Jul, 2 of 2 habits&quot;&#10;      - button &quot;Fri 31 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Sat 1 Aug, 0 of 2 habits&quot;&#10;      - button &quot;Sun 2 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Mon 3 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Tue 4 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Wed 5 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Thu 6 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Fri 7 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Sat 8 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Sun 9 Aug, 0 of 2 habits&quot;&#10;      - button &quot;Mon 10 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Tue 11 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Wed 12 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Thu 13 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Fri 14 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Sat 15 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Sun 16 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Mon 17 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Tue 18 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Wed 19 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Thu 20 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Fri 21 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Sat 22 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Sun 23 Aug, 0 of 2 habits&quot;&#10;      - button &quot;Mon 24 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Tue 25 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Wed 26 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Thu 27 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Fri 28 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Sat 29 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Sun 30 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Mon 31 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Tue 1 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Wed 2 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Thu 3 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Fri 4 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Sat 5 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Sun 6 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Mon 7 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Tue 8 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Wed 9 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Thu 10 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Fri 11 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Sat 12 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Sun 13 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Mon 14 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Tue 15 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Wed 16 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Thu 17 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Fri 18 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Sat 19 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Sun 20 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Mon 21 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Tue 22 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Wed 23 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Thu 24 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Fri 25 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Sat 26 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Sun 27 Sep, 0 of 2 habits&quot;&#10;      - button &quot;Mon 28 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Tue 29 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Wed 30 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Thu 1 Oct, 1 of 2 habits&quot;&#10;      - button &quot;Fri 2 Oct, 1 of 2 habits&quot;&#10;      - button &quot;Sat 3 Oct, 2 of 2 habits&quot;&#10;      - button &quot;Sun 4 Oct, 1 of 2 habits&quot;&#10;      - button &quot;Mon 5 Oct, 2 of 2 habits&quot;&#10;      - button &quot;Tue 6 Oct, 1 of 2 habits&quot;&#10;      - button &quot;Wed 7 Oct, 1 of 2 habits&quot;&#10;      - button &quot;Thu 8 Oct, 2 of 2 habits&quot;&#10;      - button &quot;Fri 9 Oct, 1 of 2 habits&quot;&#10;      - button &quot;Sat 10 Oct, 0 of 2 habits&quot;&#10;  - heading &quot;Habits&quot; [level=2]&#10;  - list &quot;Habits&quot;:&#10;    - listitem:&#10;      - heading &quot;Stretch 10 minutes&quot; [level=3]&#10;      - button &quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;&#10;      - paragraph: Current 2 days Best 5&#10;      - button &quot;Year view, Stretch 10 minutes&quot;: Year&#10;      - button &quot;Done today, Stretch 10 minutes&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;No phone after 11pm&quot; [level=3]&#10;      - button &quot;Delete \&quot;No phone after 11pm\&quot;&quot;&#10;      - paragraph: Current No streak yet Best 14&#10;      - button &quot;Year view, No phone after 11pm&quot;: Year&#10;      - button &quot;Done today, No phone after 11pm&quot;: Done today&#10;  - text: New habit&#10;  - textbox &quot;New habit&quot;&#10;  - button &quot;Add&quot;">E   AssertionError: Locator expected to have attribute ''
+    Actual value: None 
+    Call log:
+      - Expect "to_have_attribute" with timeout 5000ms
+      - waiting for locator("dialog.dlg-del")
+        14 × locator resolved to &lt;dialog class="dlg-del" aria-modal="true" role="alertdialog" aria-labelledby="del-title" aria-describedby="del-body"&gt;…&lt;/dialog&gt;
+           - unexpected value "null"
+    
+    Aria snapshot:
+    - banner:
+      - heading "Streaky Habit" [level=1]
+      - time: Saturday 10 October
+    - main:
+      - region "Last 12 weeks":
+        - heading "Last 12 weeks" [level=2]
+        - button "Year view, all habits": Year
+        - paragraph: Tap a day to change it.
+        - group "Last 12 weeks":
+          - button "Mon 20 Jul, 1 of 2 habits"
+          - button "Tue 21 Jul, 2 of 2 habits"
+          - button "Wed 22 Jul, 1 of 2 habits"
+          - button "Thu 23 Jul, 1 of 2 habits"
+          - button "Fri 24 Jul, 1 of 2 habits"
+          - button "Sat 25 Jul, 2 of 2 habits"
+          - button "Sun 26 Jul, 1 of 2 habits"
+          - button "Mon 27 Jul, 1 of 2 habits"
+          - button "Tue 28 Jul, 1 of 2 habits"
+          - button "Wed 29 Jul, 1 of 2 habits"
+          - button "Thu 30 Jul, 2 of 2 habits"
+          - button "Fri 31 Jul, 1 of 2 habits"
+          - button "Sat 1 Aug, 0 of 2 habits"
+          - button "Sun 2 Aug, 2 of 2 habits"
+          - button "Mon 3 Aug, 1 of 2 habits"
+          - button "Tue 4 Aug, 1 of 2 habits"
+          - button "Wed 5 Aug, 2 of 2 habits"
+          - button "Thu 6 Aug, 1 of 2 habits"
+          - button "Fri 7 Aug, 2 of 2 habits"
+          - button "Sat 8 Aug, 1 of 2 habits"
+          - button "Sun 9 Aug, 0 of 2 habits"
+          - button "Mon 10 Aug, 1 of 2 habits"
+          - button "Tue 11 Aug, 2 of 2 habits"
+          - button "Wed 12 Aug, 2 of 2 habits"
+          - button "Thu 13 Aug, 2 of 2 habits"
+          - button "Fri 14 Aug, 1 of 2 habits"
+          - button "Sat 15 Aug, 1 of 2 habits"
+          - button "Sun 16 Aug, 1 of 2 habits"
+          - button "Mon 17 Aug, 1 of 2 habits"
+          - button "Tue 18 Aug, 1 of 2 habits"
+          - button "Wed 19 Aug, 1 of 2 habits"
+          - button "Thu 20 Aug, 1 of 2 habits"
+          - button "Fri 21 Aug, 2 of 2 habits"
+          - button "Sat 22 Aug, 2 of 2 habits"
+          - button "Sun 23 Aug, 0 of 2 habits"
+          - button "Mon 24 Aug, 2 of 2 habits"
+          - button "Tue 25 Aug, 2 of 2 habits"
+          - button "Wed 26 Aug, 1 of 2 habits"
+          - button "Thu 27 Aug, 1 of 2 habits"
+          - button "Fri 28 Aug, 2 of 2 habits"
+          - button "Sat 29 Aug, 1 of 2 habits"
+          - button "Sun 30 Aug, 1 of 2 habits"
+          - button "Mon 31 Aug, 1 of 2 habits"
+          - button "Tue 1 Sep, 1 of 2 habits"
+          - button "Wed 2 Sep, 2 of 2 habits"
+          - button "Thu 3 Sep, 2 of 2 habits"
+          - button "Fri 4 Sep, 1 of 2 habits"
+          - button "Sat 5 Sep, 2 of 2 habits"
+          - button "Sun 6 Sep, 1 of 2 habits"
+          - button "Mon 7 Sep, 1 of 2 habits"
+          - button "Tue 8 Sep, 2 of 2 habits"
+          - button "Wed 9 Sep, 1 of 2 habits"
+          - button "Thu 10 Sep, 1 of 2 habits"
+          - button "Fri 11 Sep, 2 of 2 habits"
+          - button "Sat 12 Sep, 1 of 2 habits"
+          - button "Sun 13 Sep, 1 of 2 habits"
+          - button "Mon 14 Sep, 1 of 2 habits"
+          - button "Tue 15 Sep, 2 of 2 habits"
+          - button "Wed 16 Sep, 1 of 2 habits"
+          - button "Thu 17 Sep, 1 of 2 habits"
+          - button "Fri 18 Sep, 1 of 2 habits"
+          - button "Sat 19 Sep, 2 of 2 habits"
+          - button "Sun 20 Sep, 2 of 2 habits"
+          - button "Mon 21 Sep, 1 of 2 habits"
+          - button "Tue 22 Sep, 1 of 2 habits"
+          - button "Wed 23 Sep, 1 of 2 habits"
+          - button "Thu 24 Sep, 1 of 2 habits"
+          - button "Fri 25 Sep, 2 of 2 habits"
+          - button "Sat 26 Sep, 2 of 2 habits"
+          - button "Sun 27 Sep, 0 of 2 habits"
+          - button "Mon 28 Sep, 1 of 2 habits"
+          - button "Tue 29 Sep, 2 of 2 habits"
+          - button "Wed 30 Sep, 2 of 2 habits"
+          - button "Thu 1 Oct, 1 of 2 habits"
+          - button "Fri 2 Oct, 1 of 2 habits"
+          - button "Sat 3 Oct, 2 of 2 habits"
+          - button "Sun 4 Oct, 1 of 2 habits"
+          - button "Mon 5 Oct, 2 of 2 habits"
+          - button "Tue 6 Oct, 1 of 2 habits"
+          - button "Wed 7 Oct, 1 of 2 habits"
+          - button "Thu 8 Oct, 2 of 2 habits"
+          - button "Fri 9 Oct, 1 of 2 habits"
+          - button "Sat 10 Oct, 0 of 2 habits"
+      - heading "Habits" [level=2]
+      - list "Habits":
+        - listitem:
+          - heading "Stretch 10 minutes" [level=3]
+          - button "Delete \"Stretch 10 minutes\""
+          - paragraph: Current 2 days Best 5
+          - button "Year view, Stretch 10 minutes": Year
+          - button "Done today, Stretch 10 minutes": Done today
+        - listitem:
+          - heading "No phone after 11pm" [level=3]
+          - button "Delete \"No phone after 11pm\""
+          - paragraph: Current No streak yet Best 14
+          - button "Year view, No phone after 11pm": Year
+          - button "Done today, No phone after 11pm": Done today
+      - text: New habit
+      - textbox "New habit"
+      - button "Add"</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_a_slow_double_click_on_a_bin_that_lies_under_delete_habit_cannot_delete[twelve-390x844-mouse]" time="6.979"><failure message="AssertionError: Locator expected to have attribute ''&#10;Actual value: None &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-del&quot;)&#10;    14 × locator resolved to &lt;dialog class=&quot;dlg-del&quot; aria-modal=&quot;true&quot; role=&quot;alertdialog&quot; aria-labelledby=&quot;del-title&quot; aria-describedby=&quot;del-body&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;null&quot;&#10;&#10;Aria snapshot:&#10;- banner:&#10;  - heading &quot;Streaky Habit&quot; [level=1]&#10;  - button &quot;Overview, today 6 of 11 habits done&quot;: Overview&#10;  - time: Saturday 10 October&#10;- main:&#10;  - heading &quot;Habits&quot; [level=2]&#10;  - list &quot;Habits&quot;:&#10;    - listitem:&#10;      - heading &quot;Read 20 pages&quot; [level=3]&#10;      - button &quot;Delete \&quot;Read 20 pages\&quot;&quot;&#10;      - paragraph: Current 4 days Best 9&#10;      - button &quot;Year view, Read 20 pages&quot;: Year&#10;      - button &quot;Done today, Read 20 pages&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Stretch 10 minutes&quot; [level=3]&#10;      - button &quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;&#10;      - paragraph: Current 2 days Best 5&#10;      - button &quot;Year view, Stretch 10 minutes&quot;: Year&#10;      - button &quot;Done today, Stretch 10 minutes&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;No phone after 11pm&quot; [level=3]&#10;      - button &quot;Delete \&quot;No phone after 11pm\&quot;&quot;&#10;      - paragraph: Current No streak yet Best 14&#10;      - button &quot;Year view, No phone after 11pm&quot;: Year&#10;      - button &quot;Done today, No phone after 11pm&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;Walk 8,000 steps&quot; [level=3]&#10;      - button &quot;Delete \&quot;Walk 8,000 steps\&quot;&quot;&#10;      - paragraph: Current 1 day Best 11&#10;      - button &quot;Year view, Walk 8,000 steps&quot;: Year&#10;      - button &quot;Done today, Walk 8,000 steps&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;Journal one page&quot; [level=3]&#10;      - button &quot;Delete \&quot;Journal one page\&quot;&quot;&#10;      - paragraph: Current 8 days Best 11&#10;      - button &quot;Year view, Journal one page&quot;: Year&#10;      - button &quot;Done today, Journal one page&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Practise guitar&quot; [level=3]&#10;      - button &quot;Delete \&quot;Practise guitar\&quot;&quot;&#10;      - paragraph: Current 1 day Best 11&#10;      - button &quot;Year view, Practise guitar&quot;: Year&#10;      - button &quot;Done today, Practise guitar&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Cook dinner at home&quot; [level=3]&#10;      - button &quot;Delete \&quot;Cook dinner at home\&quot;&quot;&#10;      - paragraph: Current 5 days Best 11&#10;      - button &quot;Year view, Cook dinner at home&quot;: Year&#10;      - button &quot;Done today, Cook dinner at home&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Lights out by midnight&quot; [level=3]&#10;      - button &quot;Delete \&quot;Lights out by midnight\&quot;&quot;&#10;      - paragraph: Current 2 days Best 11&#10;      - button &quot;Year view, Lights out by midnight&quot;: Year&#10;      - button &quot;Done today, Lights out by midnight&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;Meditate 5 minutes&quot; [level=3]&#10;      - button &quot;Delete \&quot;Meditate 5 minutes\&quot;&quot;&#10;      - paragraph: Current 2 days Best 11&#10;      - button &quot;Year view, Meditate 5 minutes&quot;: Year&#10;      - button &quot;Done today, Meditate 5 minutes&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Floss&quot; [level=3]&#10;      - button &quot;Delete \&quot;Floss\&quot;&quot;&#10;      - paragraph: Current 1 day Best 11&#10;      - button &quot;Year view, Floss&quot;: Year&#10;      - button &quot;Done today, Floss&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Learn 10 Malay words&quot; [level=3]&#10;      - button &quot;Delete \&quot;Learn 10 Malay words\&quot;&quot;&#10;      - paragraph: Current 1 day Best 11&#10;      - button &quot;Year view, Learn 10 Malay words&quot;: Year&#10;      - button &quot;Done today, Learn 10 Malay words&quot;: Done today&#10;  - text: New habit&#10;  - textbox &quot;New habit&quot;&#10;  - button &quot;Add&quot;">E   AssertionError: Locator expected to have attribute ''
+    Actual value: None 
+    Call log:
+      - Expect "to_have_attribute" with timeout 5000ms
+      - waiting for locator("dialog.dlg-del")
+        14 × locator resolved to &lt;dialog class="dlg-del" aria-modal="true" role="alertdialog" aria-labelledby="del-title" aria-describedby="del-body"&gt;…&lt;/dialog&gt;
+           - unexpected value "null"
+    
+    Aria snapshot:
+    - banner:
+      - heading "Streaky Habit" [level=1]
+      - button "Overview, today 6 of 11 habits done": Overview
+      - time: Saturday 10 October
+    - main:
+      - heading "Habits" [level=2]
+      - list "Habits":
+        - listitem:
+          - heading "Read 20 pages" [level=3]
+          - button "Delete \"Read 20 pages\""
+          - paragraph: Current 4 days Best 9
+          - button "Year view, Read 20 pages": Year
+          - button "Done today, Read 20 pages" [pressed]: Done today
+        - listitem:
+          - heading "Stretch 10 minutes" [level=3]
+          - button "Delete \"Stretch 10 minutes\""
+          - paragraph: Current 2 days Best 5
+          - button "Year view, Stretch 10 minutes": Year
+          - button "Done today, Stretch 10 minutes": Done today
+        - listitem:
+          - heading "No phone after 11pm" [level=3]
+          - button "Delete \"No phone after 11pm\""
+          - paragraph: Current No streak yet Best 14
+          - button "Year view, No phone after 11pm": Year
+          - button "Done today, No phone after 11pm": Done today
+        - listitem:
+          - heading "Walk 8,000 steps" [level=3]
+          - button "Delete \"Walk 8,000 steps\""
+          - paragraph: Current 1 day Best 11
+          - button "Year view, Walk 8,000 steps": Year
+          - button "Done today, Walk 8,000 steps": Done today
+        - listitem:
+          - heading "Journal one page" [level=3]
+          - button "Delete \"Journal one page\""
+          - paragraph: Current 8 days Best 11
+          - button "Year view, Journal one page": Year
+          - button "Done today, Journal one page" [pressed]: Done today
+        - listitem:
+          - heading "Practise guitar" [level=3]
+          - button "Delete \"Practise guitar\""
+          - paragraph: Current 1 day Best 11
+          - button "Year view, Practise guitar": Year
+          - button "Done today, Practise guitar" [pressed]: Done today
+        - listitem:
+          - heading "Cook dinner at home" [level=3]
+          - button "Delete \"Cook dinner at home\""
+          - paragraph: Current 5 days Best 11
+          - button "Year view, Cook dinner at home": Year
+          - button "Done today, Cook dinner at home" [pressed]: Done today
+        - listitem:
+          - heading "Lights out by midnight" [level=3]
+          - button "Delete \"Lights out by midnight\""
+          - paragraph: Current 2 days Best 11
+          - button "Year view, Lights out by midnight": Year
+          - button "Done today, Lights out by midnight": Done today
+        - listitem:
+          - heading "Meditate 5 minutes" [level=3]
+          - button "Delete \"Meditate 5 minutes\""
+          - paragraph: Current 2 days Best 11
+          - button "Year view, Meditate 5 minutes": Year
+          - button "Done today, Meditate 5 minutes" [pressed]: Done today
+        - listitem:
+          - heading "Floss" [level=3]
+          - button "Delete \"Floss\""
+          - paragraph: Current 1 day Best 11
+          - button "Year view, Floss": Year
+          - button "Done today, Floss" [pressed]: Done today
+        - listitem:
+          - heading "Learn 10 Malay words" [level=3]
+          - button "Delete \"Learn 10 Malay words\""
+          - paragraph: Current 1 day Best 11
+          - button "Year view, Learn 10 Malay words": Year
+          - button "Done today, Learn 10 Malay words": Done today
+      - text: New habit
+      - textbox "New habit"
+      - button "Add"</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_a_slow_double_click_on_a_bin_that_lies_under_delete_habit_cannot_delete[twelve-390x844-touch]" time="6.919"><failure message="AssertionError: Locator expected to have attribute ''&#10;Actual value: None &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-del&quot;)&#10;    14 × locator resolved to &lt;dialog class=&quot;dlg-del&quot; aria-modal=&quot;true&quot; role=&quot;alertdialog&quot; aria-labelledby=&quot;del-title&quot; aria-describedby=&quot;del-body&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;null&quot;&#10;&#10;Aria snapshot:&#10;- banner:&#10;  - heading &quot;Streaky Habit&quot; [level=1]&#10;  - button &quot;Overview, today 6 of 11 habits done&quot;: Overview&#10;  - time: Saturday 10 October&#10;- main:&#10;  - heading &quot;Habits&quot; [level=2]&#10;  - list &quot;Habits&quot;:&#10;    - listitem:&#10;      - heading &quot;Read 20 pages&quot; [level=3]&#10;      - button &quot;Delete \&quot;Read 20 pages\&quot;&quot;&#10;      - paragraph: Current 4 days Best 9&#10;      - button &quot;Year view, Read 20 pages&quot;: Year&#10;      - button &quot;Done today, Read 20 pages&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Stretch 10 minutes&quot; [level=3]&#10;      - button &quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;&#10;      - paragraph: Current 2 days Best 5&#10;      - button &quot;Year view, Stretch 10 minutes&quot;: Year&#10;      - button &quot;Done today, Stretch 10 minutes&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;No phone after 11pm&quot; [level=3]&#10;      - button &quot;Delete \&quot;No phone after 11pm\&quot;&quot;&#10;      - paragraph: Current No streak yet Best 14&#10;      - button &quot;Year view, No phone after 11pm&quot;: Year&#10;      - button &quot;Done today, No phone after 11pm&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;Walk 8,000 steps&quot; [level=3]&#10;      - button &quot;Delete \&quot;Walk 8,000 steps\&quot;&quot;&#10;      - paragraph: Current 1 day Best 11&#10;      - button &quot;Year view, Walk 8,000 steps&quot;: Year&#10;      - button &quot;Done today, Walk 8,000 steps&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;Journal one page&quot; [level=3]&#10;      - button &quot;Delete \&quot;Journal one page\&quot;&quot;&#10;      - paragraph: Current 8 days Best 11&#10;      - button &quot;Year view, Journal one page&quot;: Year&#10;      - button &quot;Done today, Journal one page&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Practise guitar&quot; [level=3]&#10;      - button &quot;Delete \&quot;Practise guitar\&quot;&quot;&#10;      - paragraph: Current 1 day Best 11&#10;      - button &quot;Year view, Practise guitar&quot;: Year&#10;      - button &quot;Done today, Practise guitar&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Cook dinner at home&quot; [level=3]&#10;      - button &quot;Delete \&quot;Cook dinner at home\&quot;&quot;&#10;      - paragraph: Current 5 days Best 11&#10;      - button &quot;Year view, Cook dinner at home&quot;: Year&#10;      - button &quot;Done today, Cook dinner at home&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Lights out by midnight&quot; [level=3]&#10;      - button &quot;Delete \&quot;Lights out by midnight\&quot;&quot;&#10;      - paragraph: Current 2 days Best 11&#10;      - button &quot;Year view, Lights out by midnight&quot;: Year&#10;      - button &quot;Done today, Lights out by midnight&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;Meditate 5 minutes&quot; [level=3]&#10;      - button &quot;Delete \&quot;Meditate 5 minutes\&quot;&quot;&#10;      - paragraph: Current 2 days Best 11&#10;      - button &quot;Year view, Meditate 5 minutes&quot;: Year&#10;      - button &quot;Done today, Meditate 5 minutes&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Floss&quot; [level=3]&#10;      - button &quot;Delete \&quot;Floss\&quot;&quot;&#10;      - paragraph: Current 1 day Best 11&#10;      - button &quot;Year view, Floss&quot;: Year&#10;      - button &quot;Done today, Floss&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Learn 10 Malay words&quot; [level=3]&#10;      - button &quot;Delete \&quot;Learn 10 Malay words\&quot;&quot;&#10;      - paragraph: Current 1 day Best 11&#10;      - button &quot;Year view, Learn 10 Malay words&quot;: Year&#10;      - button &quot;Done today, Learn 10 Malay words&quot;: Done today&#10;  - text: New habit&#10;  - textbox &quot;New habit&quot;&#10;  - button &quot;Add&quot;">E   AssertionError: Locator expected to have attribute ''
+    Actual value: None 
+    Call log:
+      - Expect "to_have_attribute" with timeout 5000ms
+      - waiting for locator("dialog.dlg-del")
+        14 × locator resolved to &lt;dialog class="dlg-del" aria-modal="true" role="alertdialog" aria-labelledby="del-title" aria-describedby="del-body"&gt;…&lt;/dialog&gt;
+           - unexpected value "null"
+    
+    Aria snapshot:
+    - banner:
+      - heading "Streaky Habit" [level=1]
+      - button "Overview, today 6 of 11 habits done": Overview
+      - time: Saturday 10 October
+    - main:
+      - heading "Habits" [level=2]
+      - list "Habits":
+        - listitem:
+          - heading "Read 20 pages" [level=3]
+          - button "Delete \"Read 20 pages\""
+          - paragraph: Current 4 days Best 9
+          - button "Year view, Read 20 pages": Year
+          - button "Done today, Read 20 pages" [pressed]: Done today
+        - listitem:
+          - heading "Stretch 10 minutes" [level=3]
+          - button "Delete \"Stretch 10 minutes\""
+          - paragraph: Current 2 days Best 5
+          - button "Year view, Stretch 10 minutes": Year
+          - button "Done today, Stretch 10 minutes": Done today
+        - listitem:
+          - heading "No phone after 11pm" [level=3]
+          - button "Delete \"No phone after 11pm\""
+          - paragraph: Current No streak yet Best 14
+          - button "Year view, No phone after 11pm": Year
+          - button "Done today, No phone after 11pm": Done today
+        - listitem:
+          - heading "Walk 8,000 steps" [level=3]
+          - button "Delete \"Walk 8,000 steps\""
+          - paragraph: Current 1 day Best 11
+          - button "Year view, Walk 8,000 steps": Year
+          - button "Done today, Walk 8,000 steps": Done today
+        - listitem:
+          - heading "Journal one page" [level=3]
+          - button "Delete \"Journal one page\""
+          - paragraph: Current 8 days Best 11
+          - button "Year view, Journal one page": Year
+          - button "Done today, Journal one page" [pressed]: Done today
+        - listitem:
+          - heading "Practise guitar" [level=3]
+          - button "Delete \"Practise guitar\""
+          - paragraph: Current 1 day Best 11
+          - button "Year view, Practise guitar": Year
+          - button "Done today, Practise guitar" [pressed]: Done today
+        - listitem:
+          - heading "Cook dinner at home" [level=3]
+          - button "Delete \"Cook dinner at home\""
+          - paragraph: Current 5 days Best 11
+          - button "Year view, Cook dinner at home": Year
+          - button "Done today, Cook dinner at home" [pressed]: Done today
+        - listitem:
+          - heading "Lights out by midnight" [level=3]
+          - button "Delete \"Lights out by midnight\""
+          - paragraph: Current 2 days Best 11
+          - button "Year view, Lights out by midnight": Year
+          - button "Done today, Lights out by midnight": Done today
+        - listitem:
+          - heading "Meditate 5 minutes" [level=3]
+          - button "Delete \"Meditate 5 minutes\""
+          - paragraph: Current 2 days Best 11
+          - button "Year view, Meditate 5 minutes": Year
+          - button "Done today, Meditate 5 minutes" [pressed]: Done today
+        - listitem:
+          - heading "Floss" [level=3]
+          - button "Delete \"Floss\""
+          - paragraph: Current 1 day Best 11
+          - button "Year view, Floss": Year
+          - button "Done today, Floss" [pressed]: Done today
+        - listitem:
+          - heading "Learn 10 Malay words" [level=3]
+          - button "Delete \"Learn 10 Malay words\""
+          - paragraph: Current 1 day Best 11
+          - button "Year view, Learn 10 Malay words": Year
+          - button "Done today, Learn 10 Malay words": Done today
+      - text: New habit
+      - textbox "New habit"
+      - button "Add"</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_a_fast_double_click_or_double_tap_on_a_bin_under_delete_habit_cannot_delete[sample-1280x800-mouse]" time="6.035"><failure message="AssertionError: Locator expected to have attribute ''&#10;Actual value: None &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-del&quot;)&#10;    14 × locator resolved to &lt;dialog class=&quot;dlg-del&quot; aria-modal=&quot;true&quot; role=&quot;alertdialog&quot; aria-labelledby=&quot;del-title&quot; aria-describedby=&quot;del-body&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;null&quot;&#10;&#10;Aria snapshot:&#10;- banner:&#10;  - heading &quot;Streaky Habit&quot; [level=1]&#10;  - time: Saturday 10 October&#10;- main:&#10;  - region &quot;Last 12 weeks&quot;:&#10;    - heading &quot;Last 12 weeks&quot; [level=2]&#10;    - button &quot;Year view, all habits&quot;: Year&#10;    - paragraph: Tap a day to change it.&#10;    - group &quot;Last 12 weeks&quot;:&#10;      - button &quot;Mon 20 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Tue 21 Jul, 2 of 2 habits&quot;&#10;      - button &quot;Wed 22 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Thu 23 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Fri 24 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Sat 25 Jul, 2 of 2 habits&quot;&#10;      - button &quot;Sun 26 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Mon 27 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Tue 28 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Wed 29 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Thu 30 Jul, 2 of 2 habits&quot;&#10;      - button &quot;Fri 31 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Sat 1 Aug, 0 of 2 habits&quot;&#10;      - button &quot;Sun 2 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Mon 3 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Tue 4 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Wed 5 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Thu 6 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Fri 7 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Sat 8 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Sun 9 Aug, 0 of 2 habits&quot;&#10;      - button &quot;Mon 10 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Tue 11 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Wed 12 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Thu 13 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Fri 14 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Sat 15 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Sun 16 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Mon 17 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Tue 18 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Wed 19 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Thu 20 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Fri 21 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Sat 22 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Sun 23 Aug, 0 of 2 habits&quot;&#10;      - button &quot;Mon 24 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Tue 25 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Wed 26 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Thu 27 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Fri 28 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Sat 29 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Sun 30 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Mon 31 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Tue 1 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Wed 2 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Thu 3 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Fri 4 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Sat 5 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Sun 6 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Mon 7 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Tue 8 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Wed 9 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Thu 10 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Fri 11 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Sat 12 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Sun 13 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Mon 14 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Tue 15 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Wed 16 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Thu 17 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Fri 18 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Sat 19 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Sun 20 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Mon 21 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Tue 22 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Wed 23 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Thu 24 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Fri 25 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Sat 26 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Sun 27 Sep, 0 of 2 habits&quot;&#10;      - button &quot;Mon 28 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Tue 29 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Wed 30 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Thu 1 Oct, 1 of 2 habits&quot;&#10;      - button &quot;Fri 2 Oct, 1 of 2 habits&quot;&#10;      - button &quot;Sat 3 Oct, 2 of 2 habits&quot;&#10;      - button &quot;Sun 4 Oct, 1 of 2 habits&quot;&#10;      - button &quot;Mon 5 Oct, 2 of 2 habits&quot;&#10;      - button &quot;Tue 6 Oct, 1 of 2 habits&quot;&#10;      - button &quot;Wed 7 Oct, 1 of 2 habits&quot;&#10;      - button &quot;Thu 8 Oct, 2 of 2 habits&quot;&#10;      - button &quot;Fri 9 Oct, 1 of 2 habits&quot;&#10;      - button &quot;Sat 10 Oct, 0 of 2 habits&quot;&#10;  - heading &quot;Habits&quot; [level=2]&#10;  - list &quot;Habits&quot;:&#10;    - listitem:&#10;      - heading &quot;Stretch 10 minutes&quot; [level=3]&#10;      - button &quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;&#10;      - paragraph: Current 2 days Best 5&#10;      - button &quot;Year view, Stretch 10 minutes&quot;: Year&#10;      - button &quot;Done today, Stretch 10 minutes&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;No phone after 11pm&quot; [level=3]&#10;      - button &quot;Delete \&quot;No phone after 11pm\&quot;&quot;&#10;      - paragraph: Current No streak yet Best 14&#10;      - button &quot;Year view, No phone after 11pm&quot;: Year&#10;      - button &quot;Done today, No phone after 11pm&quot;: Done today&#10;  - text: New habit&#10;  - textbox &quot;New habit&quot;&#10;  - button &quot;Add&quot;">E   AssertionError: Locator expected to have attribute ''
+    Actual value: None 
+    Call log:
+      - Expect "to_have_attribute" with timeout 5000ms
+      - waiting for locator("dialog.dlg-del")
+        14 × locator resolved to &lt;dialog class="dlg-del" aria-modal="true" role="alertdialog" aria-labelledby="del-title" aria-describedby="del-body"&gt;…&lt;/dialog&gt;
+           - unexpected value "null"
+    
+    Aria snapshot:
+    - banner:
+      - heading "Streaky Habit" [level=1]
+      - time: Saturday 10 October
+    - main:
+      - region "Last 12 weeks":
+        - heading "Last 12 weeks" [level=2]
+        - button "Year view, all habits": Year
+        - paragraph: Tap a day to change it.
+        - group "Last 12 weeks":
+          - button "Mon 20 Jul, 1 of 2 habits"
+          - button "Tue 21 Jul, 2 of 2 habits"
+          - button "Wed 22 Jul, 1 of 2 habits"
+          - button "Thu 23 Jul, 1 of 2 habits"
+          - button "Fri 24 Jul, 1 of 2 habits"
+          - button "Sat 25 Jul, 2 of 2 habits"
+          - button "Sun 26 Jul, 1 of 2 habits"
+          - button "Mon 27 Jul, 1 of 2 habits"
+          - button "Tue 28 Jul, 1 of 2 habits"
+          - button "Wed 29 Jul, 1 of 2 habits"
+          - button "Thu 30 Jul, 2 of 2 habits"
+          - button "Fri 31 Jul, 1 of 2 habits"
+          - button "Sat 1 Aug, 0 of 2 habits"
+          - button "Sun 2 Aug, 2 of 2 habits"
+          - button "Mon 3 Aug, 1 of 2 habits"
+          - button "Tue 4 Aug, 1 of 2 habits"
+          - button "Wed 5 Aug, 2 of 2 habits"
+          - button "Thu 6 Aug, 1 of 2 habits"
+          - button "Fri 7 Aug, 2 of 2 habits"
+          - button "Sat 8 Aug, 1 of 2 habits"
+          - button "Sun 9 Aug, 0 of 2 habits"
+          - button "Mon 10 Aug, 1 of 2 habits"
+          - button "Tue 11 Aug, 2 of 2 habits"
+          - button "Wed 12 Aug, 2 of 2 habits"
+          - button "Thu 13 Aug, 2 of 2 habits"
+          - button "Fri 14 Aug, 1 of 2 habits"
+          - button "Sat 15 Aug, 1 of 2 habits"
+          - button "Sun 16 Aug, 1 of 2 habits"
+          - button "Mon 17 Aug, 1 of 2 habits"
+          - button "Tue 18 Aug, 1 of 2 habits"
+          - button "Wed 19 Aug, 1 of 2 habits"
+          - button "Thu 20 Aug, 1 of 2 habits"
+          - button "Fri 21 Aug, 2 of 2 habits"
+          - button "Sat 22 Aug, 2 of 2 habits"
+          - button "Sun 23 Aug, 0 of 2 habits"
+          - button "Mon 24 Aug, 2 of 2 habits"
+          - button "Tue 25 Aug, 2 of 2 habits"
+          - button "Wed 26 Aug, 1 of 2 habits"
+          - button "Thu 27 Aug, 1 of 2 habits"
+          - button "Fri 28 Aug, 2 of 2 habits"
+          - button "Sat 29 Aug, 1 of 2 habits"
+          - button "Sun 30 Aug, 1 of 2 habits"
+          - button "Mon 31 Aug, 1 of 2 habits"
+          - button "Tue 1 Sep, 1 of 2 habits"
+          - button "Wed 2 Sep, 2 of 2 habits"
+          - button "Thu 3 Sep, 2 of 2 habits"
+          - button "Fri 4 Sep, 1 of 2 habits"
+          - button "Sat 5 Sep, 2 of 2 habits"
+          - button "Sun 6 Sep, 1 of 2 habits"
+          - button "Mon 7 Sep, 1 of 2 habits"
+          - button "Tue 8 Sep, 2 of 2 habits"
+          - button "Wed 9 Sep, 1 of 2 habits"
+          - button "Thu 10 Sep, 1 of 2 habits"
+          - button "Fri 11 Sep, 2 of 2 habits"
+          - button "Sat 12 Sep, 1 of 2 habits"
+          - button "Sun 13 Sep, 1 of 2 habits"
+          - button "Mon 14 Sep, 1 of 2 habits"
+          - button "Tue 15 Sep, 2 of 2 habits"
+          - button "Wed 16 Sep, 1 of 2 habits"
+          - button "Thu 17 Sep, 1 of 2 habits"
+          - button "Fri 18 Sep, 1 of 2 habits"
+          - button "Sat 19 Sep, 2 of 2 habits"
+          - button "Sun 20 Sep, 2 of 2 habits"
+          - button "Mon 21 Sep, 1 of 2 habits"
+          - button "Tue 22 Sep, 1 of 2 habits"
+          - button "Wed 23 Sep, 1 of 2 habits"
+          - button "Thu 24 Sep, 1 of 2 habits"
+          - button "Fri 25 Sep, 2 of 2 habits"
+          - button "Sat 26 Sep, 2 of 2 habits"
+          - button "Sun 27 Sep, 0 of 2 habits"
+          - button "Mon 28 Sep, 1 of 2 habits"
+          - button "Tue 29 Sep, 2 of 2 habits"
+          - button "Wed 30 Sep, 2 of 2 habits"
+          - button "Thu 1 Oct, 1 of 2 habits"
+          - button "Fri 2 Oct, 1 of 2 habits"
+          - button "Sat 3 Oct, 2 of 2 habits"
+          - button "Sun 4 Oct, 1 of 2 habits"
+          - button "Mon 5 Oct, 2 of 2 habits"
+          - button "Tue 6 Oct, 1 of 2 habits"
+          - button "Wed 7 Oct, 1 of 2 habits"
+          - button "Thu 8 Oct, 2 of 2 habits"
+          - button "Fri 9 Oct, 1 of 2 habits"
+          - button "Sat 10 Oct, 0 of 2 habits"
+      - heading "Habits" [level=2]
+      - list "Habits":
+        - listitem:
+          - heading "Stretch 10 minutes" [level=3]
+          - button "Delete \"Stretch 10 minutes\""
+          - paragraph: Current 2 days Best 5
+          - button "Year view, Stretch 10 minutes": Year
+          - button "Done today, Stretch 10 minutes": Done today
+        - listitem:
+          - heading "No phone after 11pm" [level=3]
+          - button "Delete \"No phone after 11pm\""
+          - paragraph: Current No streak yet Best 14
+          - button "Year view, No phone after 11pm": Year
+          - button "Done today, No phone after 11pm": Done today
+      - text: New habit
+      - textbox "New habit"
+      - button "Add"</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_a_fast_double_click_or_double_tap_on_a_bin_under_delete_habit_cannot_delete[sample-1280x800-touch]" time="6.060"><failure message="AssertionError: Locator expected to have attribute ''&#10;Actual value: None &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-del&quot;)&#10;    14 × locator resolved to &lt;dialog class=&quot;dlg-del&quot; aria-modal=&quot;true&quot; role=&quot;alertdialog&quot; aria-labelledby=&quot;del-title&quot; aria-describedby=&quot;del-body&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;null&quot;&#10;&#10;Aria snapshot:&#10;- banner:&#10;  - heading &quot;Streaky Habit&quot; [level=1]&#10;  - time: Saturday 10 October&#10;- main:&#10;  - region &quot;Last 12 weeks&quot;:&#10;    - heading &quot;Last 12 weeks&quot; [level=2]&#10;    - button &quot;Year view, all habits&quot;: Year&#10;    - paragraph: Tap a day to change it.&#10;    - group &quot;Last 12 weeks&quot;:&#10;      - button &quot;Mon 20 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Tue 21 Jul, 2 of 2 habits&quot;&#10;      - button &quot;Wed 22 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Thu 23 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Fri 24 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Sat 25 Jul, 2 of 2 habits&quot;&#10;      - button &quot;Sun 26 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Mon 27 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Tue 28 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Wed 29 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Thu 30 Jul, 2 of 2 habits&quot;&#10;      - button &quot;Fri 31 Jul, 1 of 2 habits&quot;&#10;      - button &quot;Sat 1 Aug, 0 of 2 habits&quot;&#10;      - button &quot;Sun 2 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Mon 3 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Tue 4 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Wed 5 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Thu 6 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Fri 7 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Sat 8 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Sun 9 Aug, 0 of 2 habits&quot;&#10;      - button &quot;Mon 10 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Tue 11 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Wed 12 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Thu 13 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Fri 14 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Sat 15 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Sun 16 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Mon 17 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Tue 18 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Wed 19 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Thu 20 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Fri 21 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Sat 22 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Sun 23 Aug, 0 of 2 habits&quot;&#10;      - button &quot;Mon 24 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Tue 25 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Wed 26 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Thu 27 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Fri 28 Aug, 2 of 2 habits&quot;&#10;      - button &quot;Sat 29 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Sun 30 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Mon 31 Aug, 1 of 2 habits&quot;&#10;      - button &quot;Tue 1 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Wed 2 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Thu 3 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Fri 4 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Sat 5 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Sun 6 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Mon 7 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Tue 8 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Wed 9 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Thu 10 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Fri 11 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Sat 12 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Sun 13 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Mon 14 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Tue 15 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Wed 16 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Thu 17 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Fri 18 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Sat 19 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Sun 20 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Mon 21 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Tue 22 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Wed 23 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Thu 24 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Fri 25 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Sat 26 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Sun 27 Sep, 0 of 2 habits&quot;&#10;      - button &quot;Mon 28 Sep, 1 of 2 habits&quot;&#10;      - button &quot;Tue 29 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Wed 30 Sep, 2 of 2 habits&quot;&#10;      - button &quot;Thu 1 Oct, 1 of 2 habits&quot;&#10;      - button &quot;Fri 2 Oct, 1 of 2 habits&quot;&#10;      - button &quot;Sat 3 Oct, 2 of 2 habits&quot;&#10;      - button &quot;Sun 4 Oct, 1 of 2 habits&quot;&#10;      - button &quot;Mon 5 Oct, 2 of 2 habits&quot;&#10;      - button &quot;Tue 6 Oct, 1 of 2 habits&quot;&#10;      - button &quot;Wed 7 Oct, 1 of 2 habits&quot;&#10;      - button &quot;Thu 8 Oct, 2 of 2 habits&quot;&#10;      - button &quot;Fri 9 Oct, 1 of 2 habits&quot;&#10;      - button &quot;Sat 10 Oct, 0 of 2 habits&quot;&#10;  - heading &quot;Habits&quot; [level=2]&#10;  - list &quot;Habits&quot;:&#10;    - listitem:&#10;      - heading &quot;Stretch 10 minutes&quot; [level=3]&#10;      - button &quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;&#10;      - paragraph: Current 2 days Best 5&#10;      - button &quot;Year view, Stretch 10 minutes&quot;: Year&#10;      - button &quot;Done today, Stretch 10 minutes&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;No phone after 11pm&quot; [level=3]&#10;      - button &quot;Delete \&quot;No phone after 11pm\&quot;&quot;&#10;      - paragraph: Current No streak yet Best 14&#10;      - button &quot;Year view, No phone after 11pm&quot;: Year&#10;      - button &quot;Done today, No phone after 11pm&quot;: Done today&#10;  - text: New habit&#10;  - textbox &quot;New habit&quot;&#10;  - button &quot;Add&quot;">E   AssertionError: Locator expected to have attribute ''
+    Actual value: None 
+    Call log:
+      - Expect "to_have_attribute" with timeout 5000ms
+      - waiting for locator("dialog.dlg-del")
+        14 × locator resolved to &lt;dialog class="dlg-del" aria-modal="true" role="alertdialog" aria-labelledby="del-title" aria-describedby="del-body"&gt;…&lt;/dialog&gt;
+           - unexpected value "null"
+    
+    Aria snapshot:
+    - banner:
+      - heading "Streaky Habit" [level=1]
+      - time: Saturday 10 October
+    - main:
+      - region "Last 12 weeks":
+        - heading "Last 12 weeks" [level=2]
+        - button "Year view, all habits": Year
+        - paragraph: Tap a day to change it.
+        - group "Last 12 weeks":
+          - button "Mon 20 Jul, 1 of 2 habits"
+          - button "Tue 21 Jul, 2 of 2 habits"
+          - button "Wed 22 Jul, 1 of 2 habits"
+          - button "Thu 23 Jul, 1 of 2 habits"
+          - button "Fri 24 Jul, 1 of 2 habits"
+          - button "Sat 25 Jul, 2 of 2 habits"
+          - button "Sun 26 Jul, 1 of 2 habits"
+          - button "Mon 27 Jul, 1 of 2 habits"
+          - button "Tue 28 Jul, 1 of 2 habits"
+          - button "Wed 29 Jul, 1 of 2 habits"
+          - button "Thu 30 Jul, 2 of 2 habits"
+          - button "Fri 31 Jul, 1 of 2 habits"
+          - button "Sat 1 Aug, 0 of 2 habits"
+          - button "Sun 2 Aug, 2 of 2 habits"
+          - button "Mon 3 Aug, 1 of 2 habits"
+          - button "Tue 4 Aug, 1 of 2 habits"
+          - button "Wed 5 Aug, 2 of 2 habits"
+          - button "Thu 6 Aug, 1 of 2 habits"
+          - button "Fri 7 Aug, 2 of 2 habits"
+          - button "Sat 8 Aug, 1 of 2 habits"
+          - button "Sun 9 Aug, 0 of 2 habits"
+          - button "Mon 10 Aug, 1 of 2 habits"
+          - button "Tue 11 Aug, 2 of 2 habits"
+          - button "Wed 12 Aug, 2 of 2 habits"
+          - button "Thu 13 Aug, 2 of 2 habits"
+          - button "Fri 14 Aug, 1 of 2 habits"
+          - button "Sat 15 Aug, 1 of 2 habits"
+          - button "Sun 16 Aug, 1 of 2 habits"
+          - button "Mon 17 Aug, 1 of 2 habits"
+          - button "Tue 18 Aug, 1 of 2 habits"
+          - button "Wed 19 Aug, 1 of 2 habits"
+          - button "Thu 20 Aug, 1 of 2 habits"
+          - button "Fri 21 Aug, 2 of 2 habits"
+          - button "Sat 22 Aug, 2 of 2 habits"
+          - button "Sun 23 Aug, 0 of 2 habits"
+          - button "Mon 24 Aug, 2 of 2 habits"
+          - button "Tue 25 Aug, 2 of 2 habits"
+          - button "Wed 26 Aug, 1 of 2 habits"
+          - button "Thu 27 Aug, 1 of 2 habits"
+          - button "Fri 28 Aug, 2 of 2 habits"
+          - button "Sat 29 Aug, 1 of 2 habits"
+          - button "Sun 30 Aug, 1 of 2 habits"
+          - button "Mon 31 Aug, 1 of 2 habits"
+          - button "Tue 1 Sep, 1 of 2 habits"
+          - button "Wed 2 Sep, 2 of 2 habits"
+          - button "Thu 3 Sep, 2 of 2 habits"
+          - button "Fri 4 Sep, 1 of 2 habits"
+          - button "Sat 5 Sep, 2 of 2 habits"
+          - button "Sun 6 Sep, 1 of 2 habits"
+          - button "Mon 7 Sep, 1 of 2 habits"
+          - button "Tue 8 Sep, 2 of 2 habits"
+          - button "Wed 9 Sep, 1 of 2 habits"
+          - button "Thu 10 Sep, 1 of 2 habits"
+          - button "Fri 11 Sep, 2 of 2 habits"
+          - button "Sat 12 Sep, 1 of 2 habits"
+          - button "Sun 13 Sep, 1 of 2 habits"
+          - button "Mon 14 Sep, 1 of 2 habits"
+          - button "Tue 15 Sep, 2 of 2 habits"
+          - button "Wed 16 Sep, 1 of 2 habits"
+          - button "Thu 17 Sep, 1 of 2 habits"
+          - button "Fri 18 Sep, 1 of 2 habits"
+          - button "Sat 19 Sep, 2 of 2 habits"
+          - button "Sun 20 Sep, 2 of 2 habits"
+          - button "Mon 21 Sep, 1 of 2 habits"
+          - button "Tue 22 Sep, 1 of 2 habits"
+          - button "Wed 23 Sep, 1 of 2 habits"
+          - button "Thu 24 Sep, 1 of 2 habits"
+          - button "Fri 25 Sep, 2 of 2 habits"
+          - button "Sat 26 Sep, 2 of 2 habits"
+          - button "Sun 27 Sep, 0 of 2 habits"
+          - button "Mon 28 Sep, 1 of 2 habits"
+          - button "Tue 29 Sep, 2 of 2 habits"
+          - button "Wed 30 Sep, 2 of 2 habits"
+          - button "Thu 1 Oct, 1 of 2 habits"
+          - button "Fri 2 Oct, 1 of 2 habits"
+          - button "Sat 3 Oct, 2 of 2 habits"
+          - button "Sun 4 Oct, 1 of 2 habits"
+          - button "Mon 5 Oct, 2 of 2 habits"
+          - button "Tue 6 Oct, 1 of 2 habits"
+          - button "Wed 7 Oct, 1 of 2 habits"
+          - button "Thu 8 Oct, 2 of 2 habits"
+          - button "Fri 9 Oct, 1 of 2 habits"
+          - button "Sat 10 Oct, 0 of 2 habits"
+      - heading "Habits" [level=2]
+      - list "Habits":
+        - listitem:
+          - heading "Stretch 10 minutes" [level=3]
+          - button "Delete \"Stretch 10 minutes\""
+          - paragraph: Current 2 days Best 5
+          - button "Year view, Stretch 10 minutes": Year
+          - button "Done today, Stretch 10 minutes": Done today
+        - listitem:
+          - heading "No phone after 11pm" [level=3]
+          - button "Delete \"No phone after 11pm\""
+          - paragraph: Current No streak yet Best 14
+          - button "Year view, No phone after 11pm": Year
+          - button "Done today, No phone after 11pm": Done today
+      - text: New habit
+      - textbox "New habit"
+      - button "Add"</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_a_fast_double_click_or_double_tap_on_a_bin_under_delete_habit_cannot_delete[twelve-390x844-mouse]" time="6.666"><failure message="AssertionError: Locator expected to have attribute ''&#10;Actual value: None &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-del&quot;)&#10;    14 × locator resolved to &lt;dialog class=&quot;dlg-del&quot; aria-modal=&quot;true&quot; role=&quot;alertdialog&quot; aria-labelledby=&quot;del-title&quot; aria-describedby=&quot;del-body&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;null&quot;&#10;&#10;Aria snapshot:&#10;- banner:&#10;  - heading &quot;Streaky Habit&quot; [level=1]&#10;  - button &quot;Overview, today 6 of 11 habits done&quot;: Overview&#10;  - time: Saturday 10 October&#10;- main:&#10;  - heading &quot;Habits&quot; [level=2]&#10;  - list &quot;Habits&quot;:&#10;    - listitem:&#10;      - heading &quot;Read 20 pages&quot; [level=3]&#10;      - button &quot;Delete \&quot;Read 20 pages\&quot;&quot;&#10;      - paragraph: Current 4 days Best 9&#10;      - button &quot;Year view, Read 20 pages&quot;: Year&#10;      - button &quot;Done today, Read 20 pages&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Stretch 10 minutes&quot; [level=3]&#10;      - button &quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;&#10;      - paragraph: Current 2 days Best 5&#10;      - button &quot;Year view, Stretch 10 minutes&quot;: Year&#10;      - button &quot;Done today, Stretch 10 minutes&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;No phone after 11pm&quot; [level=3]&#10;      - button &quot;Delete \&quot;No phone after 11pm\&quot;&quot;&#10;      - paragraph: Current No streak yet Best 14&#10;      - button &quot;Year view, No phone after 11pm&quot;: Year&#10;      - button &quot;Done today, No phone after 11pm&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;Walk 8,000 steps&quot; [level=3]&#10;      - button &quot;Delete \&quot;Walk 8,000 steps\&quot;&quot;&#10;      - paragraph: Current 1 day Best 11&#10;      - button &quot;Year view, Walk 8,000 steps&quot;: Year&#10;      - button &quot;Done today, Walk 8,000 steps&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;Journal one page&quot; [level=3]&#10;      - button &quot;Delete \&quot;Journal one page\&quot;&quot;&#10;      - paragraph: Current 8 days Best 11&#10;      - button &quot;Year view, Journal one page&quot;: Year&#10;      - button &quot;Done today, Journal one page&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Practise guitar&quot; [level=3]&#10;      - button &quot;Delete \&quot;Practise guitar\&quot;&quot;&#10;      - paragraph: Current 1 day Best 11&#10;      - button &quot;Year view, Practise guitar&quot;: Year&#10;      - button &quot;Done today, Practise guitar&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Cook dinner at home&quot; [level=3]&#10;      - button &quot;Delete \&quot;Cook dinner at home\&quot;&quot;&#10;      - paragraph: Current 5 days Best 11&#10;      - button &quot;Year view, Cook dinner at home&quot;: Year&#10;      - button &quot;Done today, Cook dinner at home&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Lights out by midnight&quot; [level=3]&#10;      - button &quot;Delete \&quot;Lights out by midnight\&quot;&quot;&#10;      - paragraph: Current 2 days Best 11&#10;      - button &quot;Year view, Lights out by midnight&quot;: Year&#10;      - button &quot;Done today, Lights out by midnight&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;Meditate 5 minutes&quot; [level=3]&#10;      - button &quot;Delete \&quot;Meditate 5 minutes\&quot;&quot;&#10;      - paragraph: Current 2 days Best 11&#10;      - button &quot;Year view, Meditate 5 minutes&quot;: Year&#10;      - button &quot;Done today, Meditate 5 minutes&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Floss&quot; [level=3]&#10;      - button &quot;Delete \&quot;Floss\&quot;&quot;&#10;      - paragraph: Current 1 day Best 11&#10;      - button &quot;Year view, Floss&quot;: Year&#10;      - button &quot;Done today, Floss&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Learn 10 Malay words&quot; [level=3]&#10;      - button &quot;Delete \&quot;Learn 10 Malay words\&quot;&quot;&#10;      - paragraph: Current 1 day Best 11&#10;      - button &quot;Year view, Learn 10 Malay words&quot;: Year&#10;      - button &quot;Done today, Learn 10 Malay words&quot;: Done today&#10;  - text: New habit&#10;  - textbox &quot;New habit&quot;&#10;  - button &quot;Add&quot;">E   AssertionError: Locator expected to have attribute ''
+    Actual value: None 
+    Call log:
+      - Expect "to_have_attribute" with timeout 5000ms
+      - waiting for locator("dialog.dlg-del")
+        14 × locator resolved to &lt;dialog class="dlg-del" aria-modal="true" role="alertdialog" aria-labelledby="del-title" aria-describedby="del-body"&gt;…&lt;/dialog&gt;
+           - unexpected value "null"
+    
+    Aria snapshot:
+    - banner:
+      - heading "Streaky Habit" [level=1]
+      - button "Overview, today 6 of 11 habits done": Overview
+      - time: Saturday 10 October
+    - main:
+      - heading "Habits" [level=2]
+      - list "Habits":
+        - listitem:
+          - heading "Read 20 pages" [level=3]
+          - button "Delete \"Read 20 pages\""
+          - paragraph: Current 4 days Best 9
+          - button "Year view, Read 20 pages": Year
+          - button "Done today, Read 20 pages" [pressed]: Done today
+        - listitem:
+          - heading "Stretch 10 minutes" [level=3]
+          - button "Delete \"Stretch 10 minutes\""
+          - paragraph: Current 2 days Best 5
+          - button "Year view, Stretch 10 minutes": Year
+          - button "Done today, Stretch 10 minutes": Done today
+        - listitem:
+          - heading "No phone after 11pm" [level=3]
+          - button "Delete \"No phone after 11pm\""
+          - paragraph: Current No streak yet Best 14
+          - button "Year view, No phone after 11pm": Year
+          - button "Done today, No phone after 11pm": Done today
+        - listitem:
+          - heading "Walk 8,000 steps" [level=3]
+          - button "Delete \"Walk 8,000 steps\""
+          - paragraph: Current 1 day Best 11
+          - button "Year view, Walk 8,000 steps": Year
+          - button "Done today, Walk 8,000 steps": Done today
+        - listitem:
+          - heading "Journal one page" [level=3]
+          - button "Delete \"Journal one page\""
+          - paragraph: Current 8 days Best 11
+          - button "Year view, Journal one page": Year
+          - button "Done today, Journal one page" [pressed]: Done today
+        - listitem:
+          - heading "Practise guitar" [level=3]
+          - button "Delete \"Practise guitar\""
+          - paragraph: Current 1 day Best 11
+          - button "Year view, Practise guitar": Year
+          - button "Done today, Practise guitar" [pressed]: Done today
+        - listitem:
+          - heading "Cook dinner at home" [level=3]
+          - button "Delete \"Cook dinner at home\""
+          - paragraph: Current 5 days Best 11
+          - button "Year view, Cook dinner at home": Year
+          - button "Done today, Cook dinner at home" [pressed]: Done today
+        - listitem:
+          - heading "Lights out by midnight" [level=3]
+          - button "Delete \"Lights out by midnight\""
+          - paragraph: Current 2 days Best 11
+          - button "Year view, Lights out by midnight": Year
+          - button "Done today, Lights out by midnight": Done today
+        - listitem:
+          - heading "Meditate 5 minutes" [level=3]
+          - button "Delete \"Meditate 5 minutes\""
+          - paragraph: Current 2 days Best 11
+          - button "Year view, Meditate 5 minutes": Year
+          - button "Done today, Meditate 5 minutes" [pressed]: Done today
+        - listitem:
+          - heading "Floss" [level=3]
+          - button "Delete \"Floss\""
+          - paragraph: Current 1 day Best 11
+          - button "Year view, Floss": Year
+          - button "Done today, Floss" [pressed]: Done today
+        - listitem:
+          - heading "Learn 10 Malay words" [level=3]
+          - button "Delete \"Learn 10 Malay words\""
+          - paragraph: Current 1 day Best 11
+          - button "Year view, Learn 10 Malay words": Year
+          - button "Done today, Learn 10 Malay words": Done today
+      - text: New habit
+      - textbox "New habit"
+      - button "Add"</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_a_fast_double_click_or_double_tap_on_a_bin_under_delete_habit_cannot_delete[twelve-390x844-touch]" time="6.723"><failure message="AssertionError: Locator expected to have attribute ''&#10;Actual value: None &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-del&quot;)&#10;    14 × locator resolved to &lt;dialog class=&quot;dlg-del&quot; aria-modal=&quot;true&quot; role=&quot;alertdialog&quot; aria-labelledby=&quot;del-title&quot; aria-describedby=&quot;del-body&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;null&quot;&#10;&#10;Aria snapshot:&#10;- banner:&#10;  - heading &quot;Streaky Habit&quot; [level=1]&#10;  - button &quot;Overview, today 6 of 11 habits done&quot;: Overview&#10;  - time: Saturday 10 October&#10;- main:&#10;  - heading &quot;Habits&quot; [level=2]&#10;  - list &quot;Habits&quot;:&#10;    - listitem:&#10;      - heading &quot;Read 20 pages&quot; [level=3]&#10;      - button &quot;Delete \&quot;Read 20 pages\&quot;&quot;&#10;      - paragraph: Current 4 days Best 9&#10;      - button &quot;Year view, Read 20 pages&quot;: Year&#10;      - button &quot;Done today, Read 20 pages&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Stretch 10 minutes&quot; [level=3]&#10;      - button &quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;&#10;      - paragraph: Current 2 days Best 5&#10;      - button &quot;Year view, Stretch 10 minutes&quot;: Year&#10;      - button &quot;Done today, Stretch 10 minutes&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;No phone after 11pm&quot; [level=3]&#10;      - button &quot;Delete \&quot;No phone after 11pm\&quot;&quot;&#10;      - paragraph: Current No streak yet Best 14&#10;      - button &quot;Year view, No phone after 11pm&quot;: Year&#10;      - button &quot;Done today, No phone after 11pm&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;Walk 8,000 steps&quot; [level=3]&#10;      - button &quot;Delete \&quot;Walk 8,000 steps\&quot;&quot;&#10;      - paragraph: Current 1 day Best 11&#10;      - button &quot;Year view, Walk 8,000 steps&quot;: Year&#10;      - button &quot;Done today, Walk 8,000 steps&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;Journal one page&quot; [level=3]&#10;      - button &quot;Delete \&quot;Journal one page\&quot;&quot;&#10;      - paragraph: Current 8 days Best 11&#10;      - button &quot;Year view, Journal one page&quot;: Year&#10;      - button &quot;Done today, Journal one page&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Practise guitar&quot; [level=3]&#10;      - button &quot;Delete \&quot;Practise guitar\&quot;&quot;&#10;      - paragraph: Current 1 day Best 11&#10;      - button &quot;Year view, Practise guitar&quot;: Year&#10;      - button &quot;Done today, Practise guitar&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Cook dinner at home&quot; [level=3]&#10;      - button &quot;Delete \&quot;Cook dinner at home\&quot;&quot;&#10;      - paragraph: Current 5 days Best 11&#10;      - button &quot;Year view, Cook dinner at home&quot;: Year&#10;      - button &quot;Done today, Cook dinner at home&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Lights out by midnight&quot; [level=3]&#10;      - button &quot;Delete \&quot;Lights out by midnight\&quot;&quot;&#10;      - paragraph: Current 2 days Best 11&#10;      - button &quot;Year view, Lights out by midnight&quot;: Year&#10;      - button &quot;Done today, Lights out by midnight&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;Meditate 5 minutes&quot; [level=3]&#10;      - button &quot;Delete \&quot;Meditate 5 minutes\&quot;&quot;&#10;      - paragraph: Current 2 days Best 11&#10;      - button &quot;Year view, Meditate 5 minutes&quot;: Year&#10;      - button &quot;Done today, Meditate 5 minutes&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Floss&quot; [level=3]&#10;      - button &quot;Delete \&quot;Floss\&quot;&quot;&#10;      - paragraph: Current 1 day Best 11&#10;      - button &quot;Year view, Floss&quot;: Year&#10;      - button &quot;Done today, Floss&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Learn 10 Malay words&quot; [level=3]&#10;      - button &quot;Delete \&quot;Learn 10 Malay words\&quot;&quot;&#10;      - paragraph: Current 1 day Best 11&#10;      - button &quot;Year view, Learn 10 Malay words&quot;: Year&#10;      - button &quot;Done today, Learn 10 Malay words&quot;: Done today&#10;  - text: New habit&#10;  - textbox &quot;New habit&quot;&#10;  - button &quot;Add&quot;">E   AssertionError: Locator expected to have attribute ''
+    Actual value: None 
+    Call log:
+      - Expect "to_have_attribute" with timeout 5000ms
+      - waiting for locator("dialog.dlg-del")
+        14 × locator resolved to &lt;dialog class="dlg-del" aria-modal="true" role="alertdialog" aria-labelledby="del-title" aria-describedby="del-body"&gt;…&lt;/dialog&gt;
+           - unexpected value "null"
+    
+    Aria snapshot:
+    - banner:
+      - heading "Streaky Habit" [level=1]
+      - button "Overview, today 6 of 11 habits done": Overview
+      - time: Saturday 10 October
+    - main:
+      - heading "Habits" [level=2]
+      - list "Habits":
+        - listitem:
+          - heading "Read 20 pages" [level=3]
+          - button "Delete \"Read 20 pages\""
+          - paragraph: Current 4 days Best 9
+          - button "Year view, Read 20 pages": Year
+          - button "Done today, Read 20 pages" [pressed]: Done today
+        - listitem:
+          - heading "Stretch 10 minutes" [level=3]
+          - button "Delete \"Stretch 10 minutes\""
+          - paragraph: Current 2 days Best 5
+          - button "Year view, Stretch 10 minutes": Year
+          - button "Done today, Stretch 10 minutes": Done today
+        - listitem:
+          - heading "No phone after 11pm" [level=3]
+          - button "Delete \"No phone after 11pm\""
+          - paragraph: Current No streak yet Best 14
+          - button "Year view, No phone after 11pm": Year
+          - button "Done today, No phone after 11pm": Done today
+        - listitem:
+          - heading "Walk 8,000 steps" [level=3]
+          - button "Delete \"Walk 8,000 steps\""
+          - paragraph: Current 1 day Best 11
+          - button "Year view, Walk 8,000 steps": Year
+          - button "Done today, Walk 8,000 steps": Done today
+        - listitem:
+          - heading "Journal one page" [level=3]
+          - button "Delete \"Journal one page\""
+          - paragraph: Current 8 days Best 11
+          - button "Year view, Journal one page": Year
+          - button "Done today, Journal one page" [pressed]: Done today
+        - listitem:
+          - heading "Practise guitar" [level=3]
+          - button "Delete \"Practise guitar\""
+          - paragraph: Current 1 day Best 11
+          - button "Year view, Practise guitar": Year
+          - button "Done today, Practise guitar" [pressed]: Done today
+        - listitem:
+          - heading "Cook dinner at home" [level=3]
+          - button "Delete \"Cook dinner at home\""
+          - paragraph: Current 5 days Best 11
+          - button "Year view, Cook dinner at home": Year
+          - button "Done today, Cook dinner at home" [pressed]: Done today
+        - listitem:
+          - heading "Lights out by midnight" [level=3]
+          - button "Delete \"Lights out by midnight\""
+          - paragraph: Current 2 days Best 11
+          - button "Year view, Lights out by midnight": Year
+          - button "Done today, Lights out by midnight": Done today
+        - listitem:
+          - heading "Meditate 5 minutes" [level=3]
+          - button "Delete \"Meditate 5 minutes\""
+          - paragraph: Current 2 days Best 11
+          - button "Year view, Meditate 5 minutes": Year
+          - button "Done today, Meditate 5 minutes" [pressed]: Done today
+        - listitem:
+          - heading "Floss" [level=3]
+          - button "Delete \"Floss\""
+          - paragraph: Current 1 day Best 11
+          - button "Year view, Floss": Year
+          - button "Done today, Floss" [pressed]: Done today
+        - listitem:
+          - heading "Learn 10 Malay words" [level=3]
+          - button "Delete \"Learn 10 Malay words\""
+          - paragraph: Current 1 day Best 11
+          - button "Year view, Learn 10 Malay words": Year
+          - button "Done today, Learn 10 Malay words": Done today
+      - text: New habit
+      - textbox "New habit"
+      - button "Add"</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_a_press_with_a_click_count_of_2_on_delete_habit_away_from_the_bin_does_nothing" time="5.463"><failure message="AssertionError: Locator expected to have attribute ''&#10;Actual value: None &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-del&quot;)&#10;    14 × locator resolved to &lt;dialog class=&quot;dlg-del&quot; aria-modal=&quot;true&quot; role=&quot;alertdialog&quot; aria-labelledby=&quot;del-title&quot; aria-describedby=&quot;del-body&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;null&quot;&#10;&#10;Aria snapshot:&#10;- banner:&#10;  - heading &quot;Streaky Habit&quot; [level=1]&#10;  - button &quot;Overview, today 1 of 2 habits done&quot;: Overview&#10;  - time: Saturday 10 October&#10;- main:&#10;  - heading &quot;Habits&quot; [level=2]&#10;  - list &quot;Habits&quot;:&#10;    - listitem:&#10;      - heading &quot;Read 20 pages&quot; [level=3]&#10;      - button &quot;Delete \&quot;Read 20 pages\&quot;&quot;&#10;      - paragraph: Current 4 days Best 9&#10;      - button &quot;Year view, Read 20 pages&quot;: Year&#10;      - button &quot;Done today, Read 20 pages&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;No phone after 11pm&quot; [level=3]&#10;      - button &quot;Delete \&quot;No phone after 11pm\&quot;&quot;&#10;      - paragraph: Current No streak yet Best 14&#10;      - button &quot;Year view, No phone after 11pm&quot;: Year&#10;      - button &quot;Done today, No phone after 11pm&quot;: Done today&#10;  - text: New habit&#10;  - textbox &quot;New habit&quot;&#10;  - button &quot;Add&quot;">E   AssertionError: Locator expected to have attribute ''
+    Actual value: None 
+    Call log:
+      - Expect "to_have_attribute" with timeout 5000ms
+      - waiting for locator("dialog.dlg-del")
+        14 × locator resolved to &lt;dialog class="dlg-del" aria-modal="true" role="alertdialog" aria-labelledby="del-title" aria-describedby="del-body"&gt;…&lt;/dialog&gt;
+           - unexpected value "null"
+    
+    Aria snapshot:
+    - banner:
+      - heading "Streaky Habit" [level=1]
+      - button "Overview, today 1 of 2 habits done": Overview
+      - time: Saturday 10 October
+    - main:
+      - heading "Habits" [level=2]
+      - list "Habits":
+        - listitem:
+          - heading "Read 20 pages" [level=3]
+          - button "Delete \"Read 20 pages\""
+          - paragraph: Current 4 days Best 9
+          - button "Year view, Read 20 pages": Year
+          - button "Done today, Read 20 pages" [pressed]: Done today
+        - listitem:
+          - heading "No phone after 11pm" [level=3]
+          - button "Delete \"No phone after 11pm\""
+          - paragraph: Current No streak yet Best 14
+          - button "Year view, No phone after 11pm": Year
+          - button "Done today, No phone after 11pm": Done today
+      - text: New habit
+      - textbox "New habit"
+      - button "Add"</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_R15_one_press_on_delete_habit_away_from_the_bin_deletes_at_once[390x844-mouse]" time="0.429" /><testcase classname="tests.browser.test_delete" name="test_R13_R15_one_press_on_delete_habit_away_from_the_bin_deletes_at_once[390x844-touch]" time="0.437" /><testcase classname="tests.browser.test_delete" name="test_R13_R15_one_press_on_delete_habit_away_from_the_bin_deletes_at_once[1280x800-mouse]" time="0.420" /><testcase classname="tests.browser.test_delete" name="test_R13_R15_enter_on_delete_habit_deletes_at_once" time="5.274"><failure message="AssertionError: Locator expected to be focused&#10;Actual value: inactive &#10;Call log:&#10;  - Expect &quot;to_be_focused&quot; with timeout 5000ms&#10;  - waiting for get_by_role(&quot;button&quot;, name=&quot;Delete \&quot;No phone after 11pm\&quot;&quot;, exact=True)&#10;    14 × locator resolved to &lt;button type=&quot;button&quot; class=&quot;btn-bin&quot; aria-haspopup=&quot;dialog&quot; aria-label=&quot;Delete &quot;No phone after 11pm&quot;&quot;&gt;…&lt;/button&gt;&#10;       - unexpected value &quot;inactive&quot;&#10;&#10;Aria snapshot:&#10;- button &quot;Delete \&quot;No phone after 11pm\&quot;&quot;">E   AssertionError: Locator expected to be focused
+    Actual value: inactive 
+    Call log:
+      - Expect "to_be_focused" with timeout 5000ms
+      - waiting for get_by_role("button", name="Delete \"No phone after 11pm\"", exact=True)
+        14 × locator resolved to &lt;button type="button" class="btn-bin" aria-haspopup="dialog" aria-label="Delete "No phone after 11pm""&gt;…&lt;/button&gt;
+           - unexpected value "inactive"
+    
+    Aria snapshot:
+    - button "Delete \"No phone after 11pm\""</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_R15_the_keyboard_deletes_even_when_delete_habit_lies_over_the_bin" time="2.321" /><testcase classname="tests.browser.test_delete" name="test_R14_cancel_esc_and_a_backdrop_click_keep_the_habit_and_give_focus_back[390x844-bin-cancel]" time="0.498" /><testcase classname="tests.browser.test_delete" name="test_R14_cancel_esc_and_a_backdrop_click_keep_the_habit_and_give_focus_back[390x844-bin-escape]" time="0.266" /><testcase classname="tests.browser.test_delete" name="test_R14_cancel_esc_and_a_backdrop_click_keep_the_habit_and_give_focus_back[390x844-bin-backdrop]" time="0.259" /><testcase classname="tests.browser.test_delete" name="test_R14_cancel_esc_and_a_backdrop_click_keep_the_habit_and_give_focus_back[1280x800-p2-cancel]" time="0.797" /><testcase classname="tests.browser.test_delete" name="test_R14_cancel_esc_and_a_backdrop_click_keep_the_habit_and_give_focus_back[1280x800-p2-escape]" time="0.523" /><testcase classname="tests.browser.test_delete" name="test_R14_cancel_esc_and_a_backdrop_click_keep_the_habit_and_give_focus_back[1280x800-p2-backdrop]" time="0.533" /><testcase classname="tests.browser.test_delete" name="test_R14_esc_after_an_earlier_delete_still_keeps_the_habit" time="0.294" /><testcase classname="tests.browser.test_delete" name="test_R14_cancel_esc_and_a_backdrop_click_work_at_the_instant_of_opening[cancel]" time="0.226" /><testcase classname="tests.browser.test_delete" name="test_R14_cancel_esc_and_a_backdrop_click_work_at_the_instant_of_opening[escape]" time="0.203" /><testcase classname="tests.browser.test_delete" name="test_R14_cancel_esc_and_a_backdrop_click_work_at_the_instant_of_opening[backdrop]" time="0.202" /><testcase classname="tests.browser.test_delete" name="test_R14_cancel_still_works_right_after_a_click_inside_the_box" time="0.429" /><testcase classname="tests.browser.test_delete" name="test_R14_a_double_press_on_a_backdrop_does_not_reach_the_control_behind_it[390x844-mouse-M1]" time="0.434"><failure message="AssertionError: ('stretch_not_done', [])&#10;assert False&#10; +  where False = &lt;function stretch_not_done at 0x0000024BFD772980&gt;(&lt;Page url='http://127.0.0.1:55395/'&gt;)">E   AssertionError: ('stretch_not_done', [])
+    assert False
+     +  where False = &lt;function stretch_not_done at 0x0000024BFD772980&gt;(&lt;Page url='http://127.0.0.1:55395/'&gt;)</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_a_double_press_on_a_backdrop_does_not_reach_the_control_behind_it[390x844-touch-M1]" time="0.465"><failure message="AssertionError: ('stretch_not_done', [])&#10;assert False&#10; +  where False = &lt;function stretch_not_done at 0x0000024BFD772980&gt;(&lt;Page url='http://127.0.0.1:55395/'&gt;)">E   AssertionError: ('stretch_not_done', [])
+    assert False
+     +  where False = &lt;function stretch_not_done at 0x0000024BFD772980&gt;(&lt;Page url='http://127.0.0.1:55395/'&gt;)</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_a_double_press_on_a_backdrop_does_not_reach_the_control_behind_it[1280x800-mouse-M1]" time="0.435"><failure message="AssertionError: ('no_p1', ['dlg-day'])&#10;assert False&#10; +  where False = &lt;function no_p1 at 0x0000024BFD7728D0&gt;(&lt;Page url='http://127.0.0.1:55395/'&gt;)">E   AssertionError: ('no_p1', ['dlg-day'])
+    assert False
+     +  where False = &lt;function no_p1 at 0x0000024BFD7728D0&gt;(&lt;Page url='http://127.0.0.1:55395/'&gt;)</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_a_double_press_on_a_backdrop_does_not_reach_the_control_behind_it[1280x800-touch-M1]" time="0.478"><failure message="AssertionError: ('no_p1', ['dlg-day'])&#10;assert False&#10; +  where False = &lt;function no_p1 at 0x0000024BFD7728D0&gt;(&lt;Page url='http://127.0.0.1:55395/'&gt;)">E   AssertionError: ('no_p1', ['dlg-day'])
+    assert False
+     +  where False = &lt;function no_p1 at 0x0000024BFD7728D0&gt;(&lt;Page url='http://127.0.0.1:55395/'&gt;)</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_a_double_press_on_a_backdrop_does_not_reach_the_control_behind_it[1280x800-mouse-P1]" time="5.464"><failure message="AssertionError: Locator expected not to have attribute ''&#10;Actual value:  &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-day&quot;)&#10;    14 × locator resolved to &lt;dialog open=&quot;&quot; class=&quot;dlg-day&quot; aria-modal=&quot;true&quot; aria-describedby=&quot;day-sub&quot; aria-labelledby=&quot;day-title&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;&quot;&#10;&#10;Aria snapshot:&#10;- dialog &quot;Monday 20 July&quot;:&#10;  - heading &quot;Monday 20 July&quot; [level=2]&#10;  - paragraph: 2 of 3 habits&#10;  - button &quot;Close&quot;&#10;  - list">E   AssertionError: Locator expected not to have attribute ''
+    Actual value:  
+    Call log:
+      - Expect "to_have_attribute" with timeout 5000ms
+      - waiting for locator("dialog.dlg-day")
+        14 × locator resolved to &lt;dialog open="" class="dlg-day" aria-modal="true" aria-describedby="day-sub" aria-labelledby="day-title"&gt;…&lt;/dialog&gt;
+           - unexpected value ""
+    
+    Aria snapshot:
+    - dialog "Monday 20 July":
+      - heading "Monday 20 July" [level=2]
+      - paragraph: 2 of 3 habits
+      - button "Close"
+      - list</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_a_double_press_on_a_backdrop_does_not_reach_the_control_behind_it[390x844-mouse-P3-then-P1]" time="5.719"><failure message="AssertionError: Locator expected not to have attribute ''&#10;Actual value:  &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-day&quot;)&#10;    14 × locator resolved to &lt;dialog open=&quot;&quot; class=&quot;dlg-day&quot; aria-modal=&quot;true&quot; aria-describedby=&quot;day-sub&quot; aria-labelledby=&quot;day-title&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;&quot;&#10;&#10;Aria snapshot:&#10;- dialog &quot;Monday 5 October&quot;:&#10;  - heading &quot;Monday 5 October&quot; [level=2]&#10;  - paragraph: 3 of 3 habits&#10;  - button &quot;Close&quot;&#10;  - list">E   AssertionError: Locator expected not to have attribute ''
+    Actual value:  
+    Call log:
+      - Expect "to_have_attribute" with timeout 5000ms
+      - waiting for locator("dialog.dlg-day")
+        14 × locator resolved to &lt;dialog open="" class="dlg-day" aria-modal="true" aria-describedby="day-sub" aria-labelledby="day-title"&gt;…&lt;/dialog&gt;
+           - unexpected value ""
+    
+    Aria snapshot:
+    - dialog "Monday 5 October":
+      - heading "Monday 5 October" [level=2]
+      - paragraph: 3 of 3 habits
+      - button "Close"
+      - list</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_a_double_press_on_a_backdrop_does_not_reach_the_control_behind_it[390x844-touch-P3-then-P1]" time="5.745"><failure message="AssertionError: Locator expected not to have attribute ''&#10;Actual value:  &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-day&quot;)&#10;    14 × locator resolved to &lt;dialog open=&quot;&quot; class=&quot;dlg-day&quot; aria-modal=&quot;true&quot; aria-describedby=&quot;day-sub&quot; aria-labelledby=&quot;day-title&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;&quot;&#10;&#10;Aria snapshot:&#10;- dialog &quot;Monday 5 October&quot;:&#10;  - heading &quot;Monday 5 October&quot; [level=2]&#10;  - paragraph: 3 of 3 habits&#10;  - button &quot;Close&quot;&#10;  - list">E   AssertionError: Locator expected not to have attribute ''
+    Actual value:  
+    Call log:
+      - Expect "to_have_attribute" with timeout 5000ms
+      - waiting for locator("dialog.dlg-day")
+        14 × locator resolved to &lt;dialog open="" class="dlg-day" aria-modal="true" aria-describedby="day-sub" aria-labelledby="day-title"&gt;…&lt;/dialog&gt;
+           - unexpected value ""
+    
+    Aria snapshot:
+    - dialog "Monday 5 October":
+      - heading "Monday 5 October" [level=2]
+      - paragraph: 3 of 3 habits
+      - button "Close"
+      - list</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_a_double_press_on_close_does_not_reach_the_control_behind_it[390x844-mouse-P2]" time="0.432"><failure message="AssertionError: ['dlg-ov']&#10;assert False&#10; +  where False = &lt;function &lt;lambda&gt; at 0x0000024BFD772B90&gt;(&lt;Page url='http://127.0.0.1:55395/'&gt;)">E   AssertionError: ['dlg-ov']
+    assert False
+     +  where False = &lt;function &lt;lambda&gt; at 0x0000024BFD772B90&gt;(&lt;Page url='http://127.0.0.1:55395/'&gt;)</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_a_double_press_on_close_does_not_reach_the_control_behind_it[390x844-touch-P2]" time="0.446"><failure message="AssertionError: ['dlg-ov']&#10;assert False&#10; +  where False = &lt;function &lt;lambda&gt; at 0x0000024BFD772C40&gt;(&lt;Page url='http://127.0.0.1:55395/'&gt;)">E   AssertionError: ['dlg-ov']
+    assert False
+     +  where False = &lt;function &lt;lambda&gt; at 0x0000024BFD772C40&gt;(&lt;Page url='http://127.0.0.1:55395/'&gt;)</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_a_double_press_on_close_does_not_reach_the_control_behind_it[390x844-mouse-P3]" time="5.420"><failure message="AssertionError: Locator expected not to have attribute ''&#10;Actual value:  &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-ov&quot;)&#10;    14 × locator resolved to &lt;dialog open=&quot;&quot; aria-modal=&quot;true&quot; class=&quot;dlg-full dlg-ov&quot; aria-labelledby=&quot;ov-title&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;&quot;&#10;&#10;Aria snapshot:&#10;- dialog &quot;Last 12 weeks&quot;:&#10;  - heading &quot;Last 12 weeks&quot; [level=2]&#10;  - paragraph: Tap a day to change it.&#10;  - button &quot;Year view, all habits&quot;: Year&#10;  - button &quot;Close&quot;&#10;  - group &quot;Last 12 weeks&quot;">E   AssertionError: Locator expected not to have attribute ''
+    Actual value:  
+    Call log:
+      - Expect "to_have_attribute" with timeout 5000ms
+      - waiting for locator("dialog.dlg-ov")
+        14 × locator resolved to &lt;dialog open="" aria-modal="true" class="dlg-full dlg-ov" aria-labelledby="ov-title"&gt;…&lt;/dialog&gt;
+           - unexpected value ""
+    
+    Aria snapshot:
+    - dialog "Last 12 weeks":
+      - heading "Last 12 weeks" [level=2]
+      - paragraph: Tap a day to change it.
+      - button "Year view, all habits": Year
+      - button "Close"
+      - group "Last 12 weeks"</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_a_double_press_on_close_does_not_reach_the_control_behind_it[390x844-mouse-P3-then-P4]" time="0.800"><failure message="AssertionError: []&#10;assert False&#10; +  where False = &lt;function &lt;lambda&gt; at 0x0000024BFD772DA0&gt;(&lt;Page url='http://127.0.0.1:55395/'&gt;)">E   AssertionError: []
+    assert False
+     +  where False = &lt;function &lt;lambda&gt; at 0x0000024BFD772DA0&gt;(&lt;Page url='http://127.0.0.1:55395/'&gt;)</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_a_double_press_on_close_does_not_reach_the_control_behind_it[1280x800-mouse-P1]" time="5.457"><failure message="AssertionError: Locator expected not to have attribute ''&#10;Actual value:  &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-day&quot;)&#10;    14 × locator resolved to &lt;dialog open=&quot;&quot; class=&quot;dlg-day&quot; aria-modal=&quot;true&quot; aria-describedby=&quot;day-sub&quot; aria-labelledby=&quot;day-title&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;&quot;&#10;&#10;Aria snapshot:&#10;- dialog &quot;Friday 11 September&quot;:&#10;  - heading &quot;Friday 11 September&quot; [level=2]&#10;  - paragraph: 3 of 3 habits&#10;  - button &quot;Close&quot;&#10;  - list">E   AssertionError: Locator expected not to have attribute ''
+    Actual value:  
+    Call log:
+      - Expect "to_have_attribute" with timeout 5000ms
+      - waiting for locator("dialog.dlg-day")
+        14 × locator resolved to &lt;dialog open="" class="dlg-day" aria-modal="true" aria-describedby="day-sub" aria-labelledby="day-title"&gt;…&lt;/dialog&gt;
+           - unexpected value ""
+    
+    Aria snapshot:
+    - dialog "Friday 11 September":
+      - heading "Friday 11 September" [level=2]
+      - paragraph: 3 of 3 habits
+      - button "Close"
+      - list</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_R10_a_double_press_on_the_backdrop_over_add_does_not_add_a_typed_name[mouse]" time="5.460"><failure message="AssertionError: Locator expected to have Value 'Drink water'&#10;Actual value:  &#10;Call log:&#10;  - Expect &quot;to_have_value&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;#nh&quot;)&#10;    14 × locator resolved to &lt;input id=&quot;nh&quot; type=&quot;text&quot; class=&quot;input&quot; autocomplete=&quot;off&quot; spellcheck=&quot;false&quot; aria-describedby=&quot;nh-msg&quot;/&gt;&#10;       - unexpected value &quot;&quot;&#10;&#10;Aria snapshot:&#10;- textbox &quot;New habit&quot;">E   AssertionError: Locator expected to have Value 'Drink water'
+    Actual value:  
+    Call log:
+      - Expect "to_have_value" with timeout 5000ms
+      - waiting for locator("#nh")
+        14 × locator resolved to &lt;input id="nh" type="text" class="input" autocomplete="off" spellcheck="false" aria-describedby="nh-msg"/&gt;
+           - unexpected value ""
+    
+    Aria snapshot:
+    - textbox "New habit"</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_R10_a_double_press_on_the_backdrop_over_add_does_not_add_a_typed_name[touch]" time="5.475"><failure message="AssertionError: Locator expected to have Value 'Drink water'&#10;Actual value:  &#10;Call log:&#10;  - Expect &quot;to_have_value&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;#nh&quot;)&#10;    14 × locator resolved to &lt;input id=&quot;nh&quot; type=&quot;text&quot; class=&quot;input&quot; autocomplete=&quot;off&quot; spellcheck=&quot;false&quot; aria-describedby=&quot;nh-msg&quot;/&gt;&#10;       - unexpected value &quot;&quot;&#10;&#10;Aria snapshot:&#10;- textbox &quot;New habit&quot;">E   AssertionError: Locator expected to have Value 'Drink water'
+    Actual value:  
+    Call log:
+      - Expect "to_have_value" with timeout 5000ms
+      - waiting for locator("#nh")
+        14 × locator resolved to &lt;input id="nh" type="text" class="input" autocomplete="off" spellcheck="false" aria-describedby="nh-msg"/&gt;
+           - unexpected value ""
+    
+    Aria snapshot:
+    - textbox "New habit"</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_R15_a_double_click_on_delete_habit_deletes_once_and_nothing_behind_acts" time="0.520"><failure message="AssertionError: assert 2 == 1&#10; +  where 2 = write_count(&lt;Page url='http://127.0.0.1:55395/'&gt;)">E   AssertionError: assert 2 == 1
+     +  where 2 = write_count(&lt;Page url='http://127.0.0.1:55395/'&gt;)</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_the_layer_behind_listens_again_once_the_window_has_passed[mouse]" time="0.460"><failure message="AssertionError: assert 'dlg-ov' not in ['dlg-ov']&#10; +  where ['dlg-ov'] = open_dialogs(&lt;Page url='http://127.0.0.1:55395/'&gt;)">E   AssertionError: assert 'dlg-ov' not in ['dlg-ov']
+     +  where ['dlg-ov'] = open_dialogs(&lt;Page url='http://127.0.0.1:55395/'&gt;)</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_the_layer_behind_listens_again_once_the_window_has_passed[touch]" time="0.453"><failure message="AssertionError: assert 'dlg-ov' not in ['dlg-ov']&#10; +  where ['dlg-ov'] = open_dialogs(&lt;Page url='http://127.0.0.1:55395/'&gt;)">E   AssertionError: assert 'dlg-ov' not in ['dlg-ov']
+     +  where ['dlg-ov'] = open_dialogs(&lt;Page url='http://127.0.0.1:55395/'&gt;)</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_closing_with_the_keyboard_holds_nothing[Enter]" time="0.181" /><testcase classname="tests.browser.test_delete" name="test_R14_closing_with_the_keyboard_holds_nothing[Space]" time="0.192" /><testcase classname="tests.browser.test_delete" name="test_R14_closing_with_the_keyboard_holds_nothing[Escape]" time="0.201" /><testcase classname="tests.browser.test_delete" name="test_R14_clicks_inside_the_same_popup_or_in_a_popup_opened_after_it_are_never_held" time="0.733"><failure message="AssertionError: a click on P2 right after Cancel reached the bead&#10;assert 'false' == 'true'&#10;  &#10;  - true&#10;  + false">E   AssertionError: a click on P2 right after Cancel reached the bead
+    assert 'false' == 'true'
+      
+      - true
+      + false</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R15_R32_deleting_from_a_bin_moves_focus_to_the_next_bin_and_recounts" time="5.215"><failure message="AssertionError: Locator expected to be focused&#10;Actual value: inactive &#10;Call log:&#10;  - Expect &quot;to_be_focused&quot; with timeout 5000ms&#10;  - waiting for get_by_role(&quot;button&quot;, name=&quot;Delete \&quot;No phone after 11pm\&quot;&quot;, exact=True)&#10;    14 × locator resolved to &lt;button type=&quot;button&quot; class=&quot;btn-bin&quot; aria-haspopup=&quot;dialog&quot; aria-label=&quot;Delete &quot;No phone after 11pm&quot;&quot;&gt;…&lt;/button&gt;&#10;       - unexpected value &quot;inactive&quot;&#10;&#10;Aria snapshot:&#10;- button &quot;Delete \&quot;No phone after 11pm\&quot;&quot;">E   AssertionError: Locator expected to be focused
+    Actual value: inactive 
+    Call log:
+      - Expect "to_be_focused" with timeout 5000ms
+      - waiting for get_by_role("button", name="Delete \"No phone after 11pm\"", exact=True)
+        14 × locator resolved to &lt;button type="button" class="btn-bin" aria-haspopup="dialog" aria-label="Delete "No phone after 11pm""&gt;…&lt;/button&gt;
+           - unexpected value "inactive"
+    
+    Aria snapshot:
+    - button "Delete \"No phone after 11pm\""</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R15_deleting_the_last_row_moves_focus_to_the_bin_above" time="5.199"><failure message="AssertionError: Locator expected to be focused&#10;Actual value: inactive &#10;Call log:&#10;  - Expect &quot;to_be_focused&quot; with timeout 5000ms&#10;  - waiting for get_by_role(&quot;button&quot;, name=&quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;, exact=True)&#10;    14 × locator resolved to &lt;button type=&quot;button&quot; class=&quot;btn-bin&quot; aria-haspopup=&quot;dialog&quot; aria-label=&quot;Delete &quot;Stretch 10 minutes&quot;&quot;&gt;…&lt;/button&gt;&#10;       - unexpected value &quot;inactive&quot;&#10;&#10;Aria snapshot:&#10;- button &quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;">E   AssertionError: Locator expected to be focused
+    Actual value: inactive 
+    Call log:
+      - Expect "to_be_focused" with timeout 5000ms
+      - waiting for get_by_role("button", name="Delete \"Stretch 10 minutes\"", exact=True)
+        14 × locator resolved to &lt;button type="button" class="btn-bin" aria-haspopup="dialog" aria-label="Delete "Stretch 10 minutes""&gt;…&lt;/button&gt;
+           - unexpected value "inactive"
+    
+    Aria snapshot:
+    - button "Delete \"Stretch 10 minutes\""</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R15_R3_deleting_the_only_habit_shows_the_empty_list" time="5.312"><failure message="AssertionError: Locator expected to be focused&#10;Actual value: inactive &#10;Call log:&#10;  - Expect &quot;to_be_focused&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;#nh&quot;)&#10;    14 × locator resolved to &lt;input id=&quot;nh&quot; type=&quot;text&quot; class=&quot;input&quot; autocomplete=&quot;off&quot; spellcheck=&quot;false&quot; aria-describedby=&quot;nh-msg&quot;/&gt;&#10;       - unexpected value &quot;inactive&quot;&#10;&#10;Aria snapshot:&#10;- textbox &quot;New habit&quot;">E   AssertionError: Locator expected to be focused
+    Actual value: inactive 
+    Call log:
+      - Expect "to_be_focused" with timeout 5000ms
+      - waiting for locator("#nh")
+        14 × locator resolved to &lt;input id="nh" type="text" class="input" autocomplete="off" spellcheck="false" aria-describedby="nh-msg"/&gt;
+           - unexpected value "inactive"
+    
+    Aria snapshot:
+    - textbox "New habit"</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R15_R33_deleting_from_the_year_view_closes_both_popups_and_moves_focus[sample-Read]" time="5.513"><failure message="AssertionError: Locator expected to be focused&#10;Actual value: inactive &#10;Call log:&#10;  - Expect &quot;to_be_focused&quot; with timeout 5000ms&#10;  - waiting for get_by_role(&quot;button&quot;, name=&quot;Year view, Stretch 10 minutes&quot;, exact=True)&#10;    14 × locator resolved to &lt;button type=&quot;button&quot; class=&quot;btn-year&quot; aria-haspopup=&quot;dialog&quot; aria-label=&quot;Year view, Stretch 10 minutes&quot;&gt;Year&lt;/button&gt;&#10;       - unexpected value &quot;inactive&quot;&#10;&#10;Aria snapshot:&#10;- button &quot;Year view, Stretch 10 minutes&quot;: Year">E   AssertionError: Locator expected to be focused
+    Actual value: inactive 
+    Call log:
+      - Expect "to_be_focused" with timeout 5000ms
+      - waiting for get_by_role("button", name="Year view, Stretch 10 minutes", exact=True)
+        14 × locator resolved to &lt;button type="button" class="btn-year" aria-haspopup="dialog" aria-label="Year view, Stretch 10 minutes"&gt;Year&lt;/button&gt;
+           - unexpected value "inactive"
+    
+    Aria snapshot:
+    - button "Year view, Stretch 10 minutes": Year</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R15_R33_deleting_from_the_year_view_closes_both_popups_and_moves_focus[sample-No-phone]" time="5.505"><failure message="AssertionError: Locator expected to be focused&#10;Actual value: inactive &#10;Call log:&#10;  - Expect &quot;to_be_focused&quot; with timeout 5000ms&#10;  - waiting for get_by_role(&quot;button&quot;, name=&quot;Year view, Stretch 10 minutes&quot;, exact=True)&#10;    14 × locator resolved to &lt;button type=&quot;button&quot; class=&quot;btn-year&quot; aria-haspopup=&quot;dialog&quot; aria-label=&quot;Year view, Stretch 10 minutes&quot;&gt;Year&lt;/button&gt;&#10;       - unexpected value &quot;inactive&quot;&#10;&#10;Aria snapshot:&#10;- button &quot;Year view, Stretch 10 minutes&quot;: Year">E   AssertionError: Locator expected to be focused
+    Actual value: inactive 
+    Call log:
+      - Expect "to_be_focused" with timeout 5000ms
+      - waiting for get_by_role("button", name="Year view, Stretch 10 minutes", exact=True)
+        14 × locator resolved to &lt;button type="button" class="btn-year" aria-haspopup="dialog" aria-label="Year view, Stretch 10 minutes"&gt;Year&lt;/button&gt;
+           - unexpected value "inactive"
+    
+    Aria snapshot:
+    - button "Year view, Stretch 10 minutes": Year</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R15_R33_deleting_from_the_year_view_closes_both_popups_and_moves_focus[one-habit-Read]" time="5.486"><failure message="AssertionError: Locator expected to be focused&#10;Actual value: inactive &#10;Call log:&#10;  - Expect &quot;to_be_focused&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;#nh&quot;)&#10;    14 × locator resolved to &lt;input id=&quot;nh&quot; type=&quot;text&quot; class=&quot;input&quot; autocomplete=&quot;off&quot; spellcheck=&quot;false&quot; aria-describedby=&quot;nh-msg&quot;/&gt;&#10;       - unexpected value &quot;inactive&quot;&#10;&#10;Aria snapshot:&#10;- textbox &quot;New habit&quot;">E   AssertionError: Locator expected to be focused
+    Actual value: inactive 
+    Call log:
+      - Expect "to_be_focused" with timeout 5000ms
+      - waiting for locator("#nh")
+        14 × locator resolved to &lt;input id="nh" type="text" class="input" autocomplete="off" spellcheck="false" aria-describedby="nh-msg"/&gt;
+           - unexpected value "inactive"
+    
+    Aria snapshot:
+    - textbox "New habit"</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R15_history_goes_with_the_habit" time="0.336" /><testcase classname="tests.browser.test_delete" name="test_R15_a_focused_row_out_of_sight_is_scrolled_into_view" time="5.278"><failure message="AssertionError: Locator expected to be focused&#10;Actual value: inactive &#10;Call log:&#10;  - Expect &quot;to_be_focused&quot; with timeout 5000ms&#10;  - waiting for get_by_role(&quot;button&quot;, name=&quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;, exact=True)&#10;    14 × locator resolved to &lt;button type=&quot;button&quot; class=&quot;btn-bin&quot; aria-haspopup=&quot;dialog&quot; aria-label=&quot;Delete &quot;Stretch 10 minutes&quot;&quot;&gt;…&lt;/button&gt;&#10;       - unexpected value &quot;inactive&quot;&#10;&#10;Aria snapshot:&#10;- button &quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;">E   AssertionError: Locator expected to be focused
+    Actual value: inactive 
+    Call log:
+      - Expect "to_be_focused" with timeout 5000ms
+      - waiting for get_by_role("button", name="Delete \"Stretch 10 minutes\"", exact=True)
+        14 × locator resolved to &lt;button type="button" class="btn-bin" aria-haspopup="dialog" aria-label="Delete "Stretch 10 minutes""&gt;…&lt;/button&gt;
+           - unexpected value "inactive"
+    
+    Aria snapshot:
+    - button "Delete \"Stretch 10 minutes\""</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place[rlo-first]" time="0.147"><failure message="AssertionError: characters in the title: ['U+202E']&#10;assert 'Delete &quot;\u20...d text here&quot;?' == 'Delete &quot;\u20... here\u2069&quot;?'&#10;  &#10;  - Delete &quot;⁨Reversed text here⁩&quot;?&#10;  ?         ^                  -&#10;  + Delete &quot;‮Reversed text here&quot;?&#10;  ?         ^">E   AssertionError: characters in the title: ['U+202E']
+    assert 'Delete "\u20...d text here"?' == 'Delete "\u20... here\u2069"?'
+      
+      - Delete "⁨Reversed text here⁩"?
+      ?         ^                  -
+      + Delete "‮Reversed text here"?
+      ?         ^</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place[rlo-in-the-middle]" time="0.150"><failure message="AssertionError: characters in the title: ['U+202E']&#10;assert 'Delete &quot;Read...dleiys .gnp&quot;?' == 'Delete &quot;\u20... .gnp\u2069&quot;?'&#10;  &#10;  - Delete &quot;⁨Read 20 pages dleiys .gnp⁩&quot;?&#10;  ?         -                         -&#10;  + Delete &quot;Read 20 pages‮ dleiys .gnp&quot;?&#10;  ?                      +">E   AssertionError: characters in the title: ['U+202E']
+    assert 'Delete "Read...dleiys .gnp"?' == 'Delete "\u20... .gnp\u2069"?'
+      
+      - Delete "⁨Read 20 pages dleiys .gnp⁩"?
+      ?         -                         -
+      + Delete "Read 20 pages‮ dleiys .gnp"?
+      ?                      +</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place[three-rlo]" time="0.146"><failure message="AssertionError: characters in the title: ['U+202E', 'U+202E', 'U+202E']&#10;assert 'Delete &quot;a\u2...202ec\u202e&quot;?' == 'Delete &quot;\u2068abc\u2069&quot;?'&#10;  &#10;  - Delete &quot;⁨abc⁩&quot;?&#10;  ?         -   ^&#10;  + Delete &quot;a‮b‮c‮&quot;?&#10;  ?          + + ^">E   AssertionError: characters in the title: ['U+202E', 'U+202E', 'U+202E']
+    assert 'Delete "a\u2...202ec\u202e"?' == 'Delete "\u2068abc\u2069"?'
+      
+      - Delete "⁨abc⁩"?
+      ?         -   ^
+      + Delete "a‮b‮c‮"?
+      ?          + + ^</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place[rle]" time="0.148"><failure message="AssertionError: characters in the title: ['U+202B']&#10;assert 'Delete &quot;\u202babc def&quot;?' == 'Delete &quot;\u20...c def\u2069&quot;?'&#10;  &#10;  - Delete &quot;⁨abc def⁩&quot;?&#10;  ?         ^       -&#10;  + Delete &quot;‫abc def&quot;?&#10;  ?         ^">E   AssertionError: characters in the title: ['U+202B']
+    assert 'Delete "\u202babc def"?' == 'Delete "\u20...c def\u2069"?'
+      
+      - Delete "⁨abc def⁩"?
+      ?         ^       -
+      + Delete "‫abc def"?
+      ?         ^</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place[rli]" time="0.149"><failure message="AssertionError: characters in the title: ['U+2067']&#10;assert 'Delete &quot;\u2067abc def&quot;?' == 'Delete &quot;\u20...c def\u2069&quot;?'&#10;  &#10;  - Delete &quot;⁨abc def⁩&quot;?&#10;  ?         ^       -&#10;  + Delete &quot;⁧abc def&quot;?&#10;  ?         ^">E   AssertionError: characters in the title: ['U+2067']
+    assert 'Delete "\u2067abc def"?' == 'Delete "\u20...c def\u2069"?'
+      
+      - Delete "⁨abc def⁩"?
+      ?         ^       -
+      + Delete "⁧abc def"?
+      ?         ^</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place[alef-lri-abc]" time="0.148"><failure message="AssertionError: characters in the title: ['U+05D0', 'U+2066']&#10;assert 'Delete &quot;א\u2066abc&quot;?' == 'Delete &quot;\u2068אabc\u2069&quot;?'&#10;  &#10;  - Delete &quot;⁨אabc⁩&quot;?&#10;  ?         -    -&#10;  + Delete &quot;א⁦abc&quot;?&#10;  ?          +">E   AssertionError: characters in the title: ['U+05D0', 'U+2066']
+    assert 'Delete "א\u2066abc"?' == 'Delete "\u2068אabc\u2069"?'
+      
+      - Delete "⁨אabc⁩"?
+      ?         -    -
+      + Delete "א⁦abc"?
+      ?          +</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place[alef-fsi-abc]" time="0.152"><failure message="AssertionError: characters in the title: ['U+05D0', 'U+2068']&#10;assert 'Delete &quot;א\u2068abc&quot;?' == 'Delete &quot;\u2068אabc\u2069&quot;?'&#10;  &#10;  - Delete &quot;⁨אabc⁩&quot;?&#10;  ?          -   -&#10;  + Delete &quot;א⁨abc&quot;?&#10;  ?         +">E   AssertionError: characters in the title: ['U+05D0', 'U+2068']
+    assert 'Delete "א\u2068abc"?' == 'Delete "\u2068אabc\u2069"?'
+      
+      - Delete "⁨אabc⁩"?
+      ?          -   -
+      + Delete "א⁨abc"?
+      ?         +</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place[hebrew-word-lri]" time="0.147"><failure message="AssertionError: characters in the title: ['U+05E9', 'U+05DC', 'U+05D5', 'U+05DD', 'U+2066']&#10;assert 'Delete &quot;שלום\u2066&quot;?' == 'Delete &quot;\u2068שלום\u2069&quot;?'&#10;  &#10;  - Delete &quot;⁨שלום⁩&quot;?&#10;  ?         -    ^&#10;  + Delete &quot;שלום⁦&quot;?&#10;  ?             ^">E   AssertionError: characters in the title: ['U+05E9', 'U+05DC', 'U+05D5', 'U+05DD', 'U+2066']
+    assert 'Delete "שלום\u2066"?' == 'Delete "\u2068שלום\u2069"?'
+      
+      - Delete "⁨שלום⁩"?
+      ?         -    ^
+      + Delete "שלום⁦"?
+      ?             ^</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place[hebrew-word-space-abc-lri]" time="0.151"><failure message="AssertionError: characters in the title: ['U+05E9', 'U+05DC', 'U+05D5', 'U+05DD', 'U+2066']&#10;assert 'Delete &quot;שלום abc\u2066&quot;?' == 'Delete &quot;\u20...ם abc\u2069&quot;?'&#10;  &#10;  - Delete &quot;⁨שלום abc⁩&quot;?&#10;  ?         -        ^&#10;  + Delete &quot;שלום abc⁦&quot;?&#10;  ?                 ^">E   AssertionError: characters in the title: ['U+05E9', 'U+05DC', 'U+05D5', 'U+05DD', 'U+2066']
+    assert 'Delete "שלום abc\u2066"?' == 'Delete "\u20...ם abc\u2069"?'
+      
+      - Delete "⁨שלום abc⁩"?
+      ?         -        ^
+      + Delete "שלום abc⁦"?
+      ?                 ^</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place[meem-lri-x]" time="0.181"><failure message="AssertionError: characters in the title: ['U+0645', 'U+2066']&#10;assert 'Delete &quot;م\u2066x&quot;?' == 'Delete &quot;\u2068مx\u2069&quot;?'&#10;  &#10;  - Delete &quot;⁨مx⁩&quot;?&#10;  ?         -  -&#10;  + Delete &quot;م⁦x&quot;?&#10;  ?          +">E   AssertionError: characters in the title: ['U+0645', 'U+2066']
+    assert 'Delete "م\u2066x"?' == 'Delete "\u2068مx\u2069"?'
+      
+      - Delete "⁨مx⁩"?
+      ?         -  -
+      + Delete "م⁦x"?
+      ?          +</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place[x-pdi-rlo-y-z]" time="0.162"><failure message="AssertionError: characters in the title: ['U+2069', 'U+202E']&#10;assert 'Delete &quot;x\u2069\u202ey z&quot;?' == 'Delete &quot;\u2068xy z\u2069&quot;?'&#10;  &#10;  - Delete &quot;⁨xy z⁩&quot;?&#10;  ?         -    -&#10;  + Delete &quot;x⁩‮y z&quot;?&#10;  ?          ++">E   AssertionError: characters in the title: ['U+2069', 'U+202E']
+    assert 'Delete "x\u2069\u202ey z"?' == 'Delete "\u2068xy z\u2069"?'
+      
+      - Delete "⁨xy z⁩"?
+      ?         -    -
+      + Delete "x⁩‮y z"?
+      ?          ++</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place[x-paragraph-separator-rlo-y-z]" time="0.165"><failure message="AssertionError: characters in the title: ['U+2029', 'U+202E']&#10;assert 'Delete &quot;x\u2029\u202ey z&quot;?' == 'Delete &quot;\u2068xy z\u2069&quot;?'&#10;  &#10;  - Delete &quot;⁨xy z⁩&quot;?&#10;  + Delete &quot;x&#10;  &#10;  + ‮y z&quot;?">E   AssertionError: characters in the title: ['U+2029', 'U+202E']
+    assert 'Delete "x\u2029\u202ey z"?' == 'Delete "\u2068xy z\u2069"?'
+      
+      - Delete "⁨xy z⁩"?
+      + Delete "x
+      
+      + ‮y z"?</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place[alef-lri-abc-pdi]" time="0.146"><failure message="AssertionError: characters in the title: ['U+05D0', 'U+2066', 'U+2069']&#10;assert 'Delete &quot;א\u2066abc\u2069&quot;?' == 'Delete &quot;\u2068אabc\u2069&quot;?'&#10;  &#10;  - Delete &quot;⁨אabc⁩&quot;?&#10;  ?         -&#10;  + Delete &quot;א⁦abc⁩&quot;?&#10;  ?          +">E   AssertionError: characters in the title: ['U+05D0', 'U+2066', 'U+2069']
+    assert 'Delete "א\u2066abc\u2069"?' == 'Delete "\u2068אabc\u2069"?'
+      
+      - Delete "⁨אabc⁩"?
+      ?         -
+      + Delete "א⁦abc⁩"?
+      ?          +</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place[plain]" time="0.149"><failure message="AssertionError: characters in the title: []&#10;assert 'Delete &quot;Read 20 pages&quot;?' == 'Delete &quot;\u20...pages\u2069&quot;?'&#10;  &#10;  - Delete &quot;⁨Read 20 pages⁩&quot;?&#10;  ?         -             -&#10;  + Delete &quot;Read 20 pages&quot;?">E   AssertionError: characters in the title: []
+    assert 'Delete "Read 20 pages"?' == 'Delete "\u20...pages\u2069"?'
+      
+      - Delete "⁨Read 20 pages⁩"?
+      ?         -             -
+      + Delete "Read 20 pages"?</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place[two-hebrew-words]" time="0.147"><failure message="AssertionError: characters in the title: ['U+05E9', 'U+05DC', 'U+05D5', 'U+05DD', 'U+05E2', 'U+05D5', 'U+05DC', 'U+05DD']&#10;assert 'Delete &quot;שלום עולם&quot;?' == 'Delete &quot;\u20... עולם\u2069&quot;?'&#10;  &#10;  - Delete &quot;⁨שלום עולם⁩&quot;?&#10;  ?         -         -&#10;  + Delete &quot;שלום עולם&quot;?">E   AssertionError: characters in the title: ['U+05E9', 'U+05DC', 'U+05D5', 'U+05DD', 'U+05E2', 'U+05D5', 'U+05DC', 'U+05DD']
+    assert 'Delete "שלום עולם"?' == 'Delete "\u20... עולם\u2069"?'
+      
+      - Delete "⁨שלום עולם⁩"?
+      ?         -         -
+      + Delete "שלום עולם"?</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_the_title_shows_the_name_without_bidi_format_characters_and_its_quotes_stay_in_place[alef-alone]" time="0.149"><failure message="AssertionError: characters in the title: ['U+05D0']&#10;assert 'Delete &quot;א&quot;?' == 'Delete &quot;\u2068א\u2069&quot;?'&#10;  &#10;  - Delete &quot;⁨א⁩&quot;?&#10;  ?         - -&#10;  + Delete &quot;א&quot;?">E   AssertionError: characters in the title: ['U+05D0']
+    assert 'Delete "א"?' == 'Delete "\u2068א\u2069"?'
+      
+      - Delete "⁨א⁩"?
+      ?         - -
+      + Delete "א"?</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_every_character_of_the_stripped_set_is_left_out_of_the_title" time="0.163"><failure message="AssertionError: characters in the title: ['U+202A', 'U+202B', 'U+202C', 'U+202D', 'U+202E', 'U+2066', 'U+2067', 'U+2068', 'U+2069', 'U+0085', 'U+001C', 'U+001D', 'U+001E', 'U+2029']&#10;assert 'Delete &quot;x\u2...x1ex\u2029x&quot;?' == 'Delete &quot;\u20...xxxxx\u2069&quot;?'&#10;  &#10;  - Delete &quot;⁨xxxxxxxxxxxxxxx⁩&quot;?&#10;  + Delete &quot;x‪x‫x‬x‭x‮x⁦x⁧x⁨x⁩x&#10;  &#10;  + x&#10;  &#10;  + x...&#10;  &#10;  ...Full output truncated (6 lines hidden), use '-vv' to show">E   AssertionError: characters in the title: ['U+202A', 'U+202B', 'U+202C', 'U+202D', 'U+202E', 'U+2066', 'U+2067', 'U+2068', 'U+2069', 'U+0085', 'U+001C', 'U+001D', 'U+001E', 'U+2029']
+    assert 'Delete "x\u2...x1ex\u2029x"?' == 'Delete "\u20...xxxxx\u2069"?'
+      
+      - Delete "⁨xxxxxxxxxxxxxxx⁩"?
+      + Delete "x‪x‫x‬x‭x‮x⁦x⁧x⁨x⁩x
+      
+      + x
+      
+      + x...
+      
+      ...Full output truncated (6 lines hidden), use '-vv' to show</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_the_neighbours_of_the_stripped_ranges_and_other_invisible_characters_stay_in_the_title" time="0.166"><failure message="AssertionError: characters in the title: ['U+0084', 'U+0086', 'U+001B', 'U+001F', 'U+2028', 'U+202F', 'U+2065', 'U+206A', 'U+200E', 'U+200F', 'U+061C', 'U+200B', 'U+200C', 'U+200D', 'U+2060', 'U+FEFF']&#10;assert 'Delete &quot;x\x8...060x\ufeffx&quot;?' == 'Delete &quot;\u20...feffx\u2069&quot;?'&#10;  &#10;  - Delete &quot;⁨xxx#x1Bx#x1Fx&#10;  &#10;  ?         -&#10;  + Delete &quot;xxx#x1Bx#x1Fx&#10;  &#10;  - x x⁥x⁪x‎x‏x؜x​x‌x‍x⁠x﻿x⁩&quot;?&#10;  ?                        -&#10;  + x x⁥x⁪x‎x‏x؜x​x‌x‍x⁠x﻿x&quot;?">E   AssertionError: characters in the title: ['U+0084', 'U+0086', 'U+001B', 'U+001F', 'U+2028', 'U+202F', 'U+2065', 'U+206A', 'U+200E', 'U+200F', 'U+061C', 'U+200B', 'U+200C', 'U+200D', 'U+2060', 'U+FEFF']
+    assert 'Delete "x\x8...060x\ufeffx"?' == 'Delete "\u20...feffx\u2069"?'
+      
+      - Delete "⁨xxx#x1Bx#x1Fx
+      
+      ?         -
+      + Delete "xxx#x1Bx#x1Fx
+      
+      - x x⁥x⁪x‎x‏x؜x​x‌x‍x⁠x﻿x⁩"?
+      ?                        -
+      + x x⁥x⁪x‎x‏x؜x​x‌x‍x⁠x﻿x"?</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_R15_only_the_titles_copy_loses_the_characters_and_the_habit_named_in_it_is_the_one_deleted" time="0.164"><failure message="AssertionError: characters in the title: ['U+05D0', 'U+2066']&#10;assert 'Delete &quot;א\u2066abc&quot;?' == 'Delete &quot;\u2068אabc\u2069&quot;?'&#10;  &#10;  - Delete &quot;⁨אabc⁩&quot;?&#10;  ?         -    -&#10;  + Delete &quot;א⁦abc&quot;?&#10;  ?          +">E   AssertionError: characters in the title: ['U+05D0', 'U+2066']
+    assert 'Delete "א\u2066abc"?' == 'Delete "\u2068אabc\u2069"?'
+      
+      - Delete "⁨אabc⁩"?
+      ?         -    -
+      + Delete "א⁦abc"?
+      ?          +</failure></testcase><testcase classname="tests.browser.test_add" name="test_R12_R15_deleting_one_of_twelve_opens_the_composer_again" time="0.219" /><testcase classname="tests.browser.test_today" name="test_R32_R16_each_edit_saves_once_and_opening_or_closing_a_popup_saves_nothing" time="2.290" /><testcase classname="tests.browser.test_popups" name="test_R40_R14_a_backdrop_click_closes_that_popup_only[390x844 M1]" time="0.188" /><testcase classname="tests.browser.test_popups" name="test_R40_R14_a_backdrop_click_closes_that_popup_only[1280x800 M1]" time="0.227" /><testcase classname="tests.browser.test_popups" name="test_R40_R14_a_backdrop_click_closes_that_popup_only[1280x800 P2 then M1]" time="0.491" /><testcase classname="tests.browser.test_popups" name="test_R40_R14_a_click_inside_the_box_or_a_drag_that_leaves_it_closes_nothing[390x844 M1]" time="0.227" /><testcase classname="tests.browser.test_popups" name="test_R40_tab_never_reaches_a_control_outside_the_top_popup[390x844 M1]" time="0.180" /><testcase classname="tests.browser.test_popups" name="test_R40_every_popup_is_modal_and_the_page_does_not_scroll_under_it[390x844 M1]" time="0.242" /></testsuite></testsuites>

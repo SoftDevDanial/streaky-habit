@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="6.170" timestamp="2026-10-14T21:38:57.747451+08:00" hostname="{host}"><testcase classname="tests.browser.test_delete" name="test_R14_esc_after_an_earlier_delete_still_keeps_the_habit" time="6.109"><failure message="AssertionError: Locator expected to be focused&#10;Actual value: None&#10;Error: element(s) not found &#10;Call log:&#10;  - Expect &quot;to_be_focused&quot; with timeout 5000ms&#10;  - waiting for get_by_role(&quot;button&quot;, name=&quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;, exact=True)&#10;&#10;Aria snapshot:&#10;- banner:&#10;  - heading &quot;Streaky Habit&quot; [level=1]&#10;  - button &quot;Overview, today 1 of 1 habits done&quot;: Overview&#10;  - time: Saturday 10 October&#10;- main:&#10;  - heading &quot;Habits&quot; [level=2]&#10;  - list &quot;Habits&quot;:&#10;    - listitem:&#10;      - heading &quot;Read 20 pages&quot; [level=3]&#10;      - button &quot;Delete \&quot;Read 20 pages\&quot;&quot;&#10;      - paragraph: Current 4 days Best 9&#10;      - button &quot;Year view, Read 20 pages&quot;: Year&#10;      - button &quot;Done today, Read 20 pages&quot; [pressed]: Done today&#10;  - text: New habit&#10;  - textbox &quot;New habit&quot;&#10;  - button &quot;Add&quot;">E   AssertionError: Locator expected to be focused
+    Actual value: None
+    Error: element(s) not found 
+    Call log:
+      - Expect "to_be_focused" with timeout 5000ms
+      - waiting for get_by_role("button", name="Delete \"Stretch 10 minutes\"", exact=True)
+    
+    Aria snapshot:
+    - banner:
+      - heading "Streaky Habit" [level=1]
+      - button "Overview, today 1 of 1 habits done": Overview
+      - time: Saturday 10 October
+    - main:
+      - heading "Habits" [level=2]
+      - list "Habits":
+        - listitem:
+          - heading "Read 20 pages" [level=3]
+          - button "Delete \"Read 20 pages\""
+          - paragraph: Current 4 days Best 9
+          - button "Year view, Read 20 pages": Year
+          - button "Done today, Read 20 pages" [pressed]: Done today
+      - text: New habit
+      - textbox "New habit"
+      - button "Add"</failure></testcase></testsuite></testsuites>

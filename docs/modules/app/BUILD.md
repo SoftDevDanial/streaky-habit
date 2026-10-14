@@ -604,3 +604,68 @@ No message while typing, no message other than the three S2 errors and the S3 no
 - `src/view.js` gains `composerText`, `showNameError`, `clearNameError`, `emptyComposer` and `showLastRow`. `renderComposerLimit` writes only when the 12-habit state changes. `containers` gains `composer` and `field`.
 - `src/app.js` gains `onComposerSubmit`. `boot` listens for `submit` on `form.composer` and `input` on the field.
 - The browser suite gains `test_add.py`. `conftest.py` gains `plain_state`.
+
+---
+
+## v1.1.0 task 22, delete, the two guards and focus after a delete (2026-10-14)
+> Written by the frontend builder (senior frontend dev agent), 2026-10-14. Requirements R13, R14 and R15 (CG-10, CG-11 and CG-18 ruled). The commit is the one whose message starts `feat(app): delete from a row and from P2` (task 22.
+
+### Phase skills (design row of `docs/phase-skills.md`)
+Both read on disk in this session before any UI code (no Skill tool). `taste-skill` (`taste-skill/1.0.0/skills/taste-skill/SKILL.md`, all 1206 lines) and `frontend-design` (`claude-plugins-official/frontend-design/8d392c816966/skills/frontend-design/SKILL.md`).
+- **What they changed.** Nothing in the look. M1's markup and copy are the golden's (`delete-dialog.html`, compared node for node by `test_R13_R28_m1_has_the_markup_of_the_golden`), and `src/styles.css` is unchanged, so R2's three changes still hold.
+- **Transferred and checked.** No em or en dash in any file written (checked with Python). Copy self-audit, M1's four strings are rows of the spec's Copy table and the title is built in one place (`renderDeleteTitle`). Motion only answers an action (M1's `rise` from the copied CSS, nothing new). No hand-drawn icon.
+- **Not transferred, and why.** React, Tailwind, Motion, fonts and image rules (locked stack). Landing and hero rules (a tool, not a landing page).
+
+### What changed
+- `src/app.js`. `openDelete` (M1 over K1 from a bin or over P2 from its Delete habit, Cancel focused, the opener's box kept in `state.remove`), `isStrayPress` (the guard of R13, CG-10), `deleteFromM1` and `closeWithoutReturn` (R15, one save through `edit`, M1 and P2 closed with no opener to return to, then rule 3), `guardTapThrough` and `layersBeneath` (the guard of R14, CG-11, `TAP_THROUGH_MS` 500 in `event.timeStamp`). `boot` registers the guard first, for the capture phase, on `div.app` and on each dialog. `onPageClick` opens M1 from a bin, `onPopupClick` from P2's Delete habit and runs M1's Delete habit through the guard. `onPopupClose` clears `state.remove`. The keys of `openers` are the stack, bottom first.
+- `src/popups.js`. `closeButtonOf` also finds M1's Cancel, so Cancel closes M1 and takes focus as it opens through the paths Close uses. `confirmDeleteOf`, `yearDeleteOf`, and `renderDeleteTitle` with `TITLE_STRIPPED` (SEC-02 and SEC-06 as in 1.0).
+- `src/view.js`. `binOf`, and `focusAfterDelete` (rule 3, CG-18), which scrolls the focused row into view (`block: "nearest"`, as F2 does) and sets the fades at once.
+- `tests/browser/test_delete.py` (new). Every scenario of qa.md's Feature "Delete a habit", 77 tests, plus `test_R13_R28_m1_has_the_markup_of_the_golden`. The overlap scenarios write the measured boxes to the evidence, and the fast double click writes the `detail` of each click that reached Delete habit.
+- `tests/browser/conftest.py`. `press_twice` (qa.md's table), `point_beside` (taken out of `confirm_delete`, which now calls it), `watch_close` and `wait_for_close`. `animation_log` and `mutation_log` are not added, because no task 22 scenario uses them.
+- `tests/browser/test_popups.py`. W15 now reads focus only after the popup's close event (judgment call 5).
+- Marks removed, the last eight, each read against its scenario first and every feature it uses now exists. W20 `test_add.py::test_R12_R15_deleting_one_of_twelve_opens_the_composer_again`, W11 `test_today.py::test_R32_R16_each_edit_saves_once_and_opening_or_closing_a_popup_saves_nothing`, and in `test_popups.py` the rows "390x844 M1", "1280x800 M1" and "1280x800 P2 then M1" of W15, "390x844 M1" of W16, W17 and W18. `wait()` and the docstring sentences about marks in `test_popups.py`, `test_today.py` and `test_add.py` are gone. No mark is left in `tests/`.
+- `spec.md` task 22 ticked.
+
+### RED first
+At HEAD a bin opens nothing, so most scenarios would fail in their Given. A throwaway stub S, never committed, gave M1 a raw title (no isolates, no strip), opened it from a bin and from P2, closed it on Cancel, and made Delete habit always delete, with no guard of R13 or R14 and no rule 3 focus. All runs are Chromium, in `docs/modules/app/qa/red-first/`.
+1. `20261014-212530-chromium` (stub S, the first test text). 85 tests, 56 failed.
+2. Three tests were fixed after it, because they failed on a check that was not their property. The slow double click checked the full title after the first press, and the double press scenarios checked "behind lies under the point" before the result (a press that got through had opened P1 or P3 over the point). `20261014-212904-chromium`, the 16 fixed tests on S, 16 failed on their properties.
+3. Planted defects for the 29 that pass on S, each run on its target tests only. Run A `20261014-213105` (the title without quotes, the composer never opening again, a second save on delete, M1 closing on any click that targets the dialog, rule 3 focus without the scroll), 5 of 5 failed. Run B `20261014-213136` showed a race (judgment call 5) and a defect that cannot reach the P2 rows, kept as written. After the fix, `20261014-213404` (a title cut at 12 characters, keep focusing the top popup's Close or else the field, a deleted habit's days back on a same-name add), 11 of 11 failed. Run C `20261014-213514` (M1 16 px from the edges, 1.0's 500 ms window on Delete habit), 4 of 4. Run D `20261014-213535` passed through my own slip (the defect read Delete habit's box after M1 had closed), kept as written, and `20261014-213607` (Delete habit ignoring every activation while its box overlaps the opener's), 1 of 1. Run E `20261014-213632` failed on my close-event wait rather than on "M1 is closed", so the tests now assert that first, and `20261014-213718` (M1 holding every way out for 500 ms after it opens), 3 of 3. Run F `20261014-213751` (a guard holding the pressed popup too, a window started by any close, keyboard included), 4 of 4. Run G, 1.0's own defect (`returnValue` kept, so a later Esc repeats a delete) no longer reproduces in Chromium 149 (`20261014-213832` passed), so the same defect was planted in app state (a "confirmed" flag never reset), `20261014-213856` failed on a missing element, the test now asserts the list first, and `20261014-213914` 1 of 1. Run H `20261014-213935` (M1 opened with `show()`), 2 of 2.
+4. `20261014-214003-chromium`, the final test text on stub S once more. 85 tests, 56 failed on their properties, and the 29 that pass are the targets of runs A to H.
+5. The press point of "A double click on Delete habit deletes once" changed after the green run (judgment call 7), and `20261014-215130-chromium` shows it still fails without the page guard (2 writes, not 1).
+Every stub and defect was removed before the code. `app.js` was written whole, so no stub line is left.
+
+### Proof
+- Chromium, **226 passed**, 0 xfailed, 93.1 s (`docs/modules/app/qa/functional/20261014-215237-chromium/junit.xml`). 149 of task 21, plus 77 new.
+- WebKit, **225 passed, 1 skipped (CO-1, counted with its reason)**, 150.8 s (`docs/modules/app/qa/functional/20261014-215414-webkit/junit.xml`). No WebKit failure.
+- An earlier pair, `.../functional/20261014-214549-chromium` (226 passed) and `.../functional/20261014-214735-webkit` (1 failed). The failure was my test's press point (judgment call 7), not the app.
+- Node, `node --test "tests/**/*.test.js"`, 137 of 137.
+- Measured overlaps (the evidence of each overlap test). At 1280 x 800 Read's bin lies under Delete habit (43 by 27 px). With twelve habits at 390 x 844 the fourth row's bin does (28 by 42 px). The `detail` of the click that reached Delete habit in the fast double click is 2 in Chromium for mouse and touch, and in WebKit 2 for the mouse and 1 for a double tap, as task 11 measured. WebKit's tap is held by the spatial rule.
+- Not run, M1's own pixel check against `delete-dialog.html` (the markup test holds node for node equality, and `styles.css` is unchanged). The fidelity gate is task 28's.
+
+### Judgment calls (named, for the orchestrator)
+1. **Cancel is M1's `closeButtonOf`.** It closes M1, returns focus to the opener and takes focus as M1 opens, the same job Close does in the other popups, so one lookup serves both.
+2. **The page guard listens on each stable container** (`div.app` and every dialog, capture phase, registered first), as the spec's Events line lists them, and uses `stopImmediatePropagation`, because a click on a backdrop targets the dialog itself, where `onPopupClick` would still run.
+3. **Any click inside the window is held**, a keyboard click too, because R14 says "a click". Only a mouse or touch click inside a popup starts a window. The edge is `event.timeStamp - start < 500`, so 499 ms is held and 500 ms acts.
+4. **A delete closes M1, and P2 when M1 came from it, with no opener left** for `onPopupClose`, and focus is set by rule 3 in the same handler. The rows are rebuilt by then, so each opener is gone anyway.
+5. **Focus after a close is read after the close event.** The close event is a queued task, and in Chromium the browser's own focus restore already shows the clicked opener focused before the app's handler runs, so a focus check could pass on the browser's work. The new tests and W15 wait for a test-side close listener added after the app's (`watch_close`). The same race may sit in earlier focus-after-close checks in `test_overview.py`, `test_year.py` and `test_day_editor.py`, which this task did not change. For the planner or the QA finder.
+6. **The row is scrolled with `scrollIntoView({ block: "nearest" })`** after a `focus({ preventScroll: true })`, F2's way (CG-18 cites F2), so it moves only when the row lies outside the frame's visible part.
+7. **"A double click on Delete habit deletes once" presses the part of Delete habit over the deleted row's Done today.** The rows below move up one row and the frame does not scroll, so the next row's Done today is under the point in both engines. The first point (the middle of Delete habit) sat on a button edge, which a 1 px difference between the engines decided.
+8. **An extra test** compares M1 with the golden node for node, as tasks 19 and 20 did for P2 and P4.
+
+### Deviations
+- None in the code.
+- Process. The first background run ended its command with `> /dev/null 2>&1`, a redirection that wrote no file (it discarded the console, the run kept its `junit.xml`). Every later run piped to `grep` or `tail` instead.
+
+### Non-goals honoured
+No undo after a delete, no toast, no message. No new copy, icon, motion or shadow. `src/styles.css` unchanged. No `inert`, no `.scrim`, no `<dialog open>`. No storage work (task 23), no rollover work (task 24).
+
+### How to run and view
+- `python -m pytest tests/browser -q` (Chromium) and `python -m pytest tests/browser -q --engine webkit`.
+- Serve the root with `python -m http.server <port> --bind 127.0.0.1` and open `http://127.0.0.1:<port>/`. A row's bin opens M1, and so does Delete habit in a habit's Year. Cancel, Esc and the backdrop keep the habit, Delete habit deletes it and focus moves to the next row. A double click on a bin that lies under Delete habit does nothing.
+
+### For the README reconcile
+- `src/app.js` gains `openDelete`, `isStrayPress`, `deleteFromM1`, `closeWithoutReturn`, `guardTapThrough`, `layersBeneath`, `TAP_THROUGH_MS`, `state.remove` and `lastPopupPress`. The guard is registered first, for the capture phase, on `div.app` and on each dialog.
+- `src/popups.js` gains `confirmDeleteOf`, `yearDeleteOf`, `renderDeleteTitle` and `TITLE_STRIPPED`. `closeButtonOf` also finds M1's Cancel.
+- `src/view.js` gains `binOf` and `focusAfterDelete`.
+- The browser suite gains `test_delete.py`. `conftest.py` gains `press_twice`, `point_beside`, `watch_close` and `wait_for_close`. No `xfail` mark is left in the suite.

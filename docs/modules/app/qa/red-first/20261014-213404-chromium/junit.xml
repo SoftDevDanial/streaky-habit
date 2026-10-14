@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="11" skipped="0" tests="11" time="49.586" timestamp="2026-10-14T21:34:05.709472+08:00" hostname="{host}"><testcase classname="tests.browser.test_delete" name="test_R13_a_long_name_wraps_in_the_title_and_the_box_keeps_its_width" time="0.519"><failure message="AssertionError: {'width': 358, 'height': 26, 'line': '26px'}&#10;assert ('26px' == '26px'&#10;  &#10;    26px and 26 &gt; 26)">E   AssertionError: {'width': 358, 'height': 26, 'line': '26px'}
+    assert ('26px' == '26px'
+      
+        26px and 26 &gt; 26)</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_cancel_esc_and_a_backdrop_click_keep_the_habit_and_give_focus_back[390x844-bin-cancel]" time="5.475"><failure message="AssertionError: Locator expected to be focused&#10;Actual value: inactive &#10;Call log:&#10;  - Expect &quot;to_be_focused&quot; with timeout 5000ms&#10;  - waiting for get_by_role(&quot;button&quot;, name=&quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;, exact=True)&#10;    14 × locator resolved to &lt;button type=&quot;button&quot; class=&quot;btn-bin&quot; aria-haspopup=&quot;dialog&quot; aria-label=&quot;Delete &quot;Stretch 10 minutes&quot;&quot;&gt;…&lt;/button&gt;&#10;       - unexpected value &quot;inactive&quot;&#10;&#10;Aria snapshot:&#10;- button &quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;">E   AssertionError: Locator expected to be focused
+    Actual value: inactive 
+    Call log:
+      - Expect "to_be_focused" with timeout 5000ms
+      - waiting for get_by_role("button", name="Delete \"Stretch 10 minutes\"", exact=True)
+        14 × locator resolved to &lt;button type="button" class="btn-bin" aria-haspopup="dialog" aria-label="Delete "Stretch 10 minutes""&gt;…&lt;/button&gt;
+           - unexpected value "inactive"
+    
+    Aria snapshot:
+    - button "Delete \"Stretch 10 minutes\""</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_cancel_esc_and_a_backdrop_click_keep_the_habit_and_give_focus_back[390x844-bin-escape]" time="5.224"><failure message="AssertionError: Locator expected to be focused&#10;Actual value: inactive &#10;Call log:&#10;  - Expect &quot;to_be_focused&quot; with timeout 5000ms&#10;  - waiting for get_by_role(&quot;button&quot;, name=&quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;, exact=True)&#10;    14 × locator resolved to &lt;button type=&quot;button&quot; class=&quot;btn-bin&quot; aria-haspopup=&quot;dialog&quot; aria-label=&quot;Delete &quot;Stretch 10 minutes&quot;&quot;&gt;…&lt;/button&gt;&#10;       - unexpected value &quot;inactive&quot;&#10;&#10;Aria snapshot:&#10;- button &quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;">E   AssertionError: Locator expected to be focused
+    Actual value: inactive 
+    Call log:
+      - Expect "to_be_focused" with timeout 5000ms
+      - waiting for get_by_role("button", name="Delete \"Stretch 10 minutes\"", exact=True)
+        14 × locator resolved to &lt;button type="button" class="btn-bin" aria-haspopup="dialog" aria-label="Delete "Stretch 10 minutes""&gt;…&lt;/button&gt;
+           - unexpected value "inactive"
+    
+    Aria snapshot:
+    - button "Delete \"Stretch 10 minutes\""</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_cancel_esc_and_a_backdrop_click_keep_the_habit_and_give_focus_back[390x844-bin-backdrop]" time="5.215"><failure message="AssertionError: Locator expected to be focused&#10;Actual value: inactive &#10;Call log:&#10;  - Expect &quot;to_be_focused&quot; with timeout 5000ms&#10;  - waiting for get_by_role(&quot;button&quot;, name=&quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;, exact=True)&#10;    14 × locator resolved to &lt;button type=&quot;button&quot; class=&quot;btn-bin&quot; aria-haspopup=&quot;dialog&quot; aria-label=&quot;Delete &quot;Stretch 10 minutes&quot;&quot;&gt;…&lt;/button&gt;&#10;       - unexpected value &quot;inactive&quot;&#10;&#10;Aria snapshot:&#10;- button &quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;">E   AssertionError: Locator expected to be focused
+    Actual value: inactive 
+    Call log:
+      - Expect "to_be_focused" with timeout 5000ms
+      - waiting for get_by_role("button", name="Delete \"Stretch 10 minutes\"", exact=True)
+        14 × locator resolved to &lt;button type="button" class="btn-bin" aria-haspopup="dialog" aria-label="Delete "Stretch 10 minutes""&gt;…&lt;/button&gt;
+           - unexpected value "inactive"
+    
+    Aria snapshot:
+    - button "Delete \"Stretch 10 minutes\""</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_cancel_esc_and_a_backdrop_click_keep_the_habit_and_give_focus_back[1280x800-p2-cancel]" time="5.792"><failure message="AssertionError: Locator expected to be focused&#10;Actual value: inactive &#10;Call log:&#10;  - Expect &quot;to_be_focused&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-year button.btn-del&quot;)&#10;    14 × locator resolved to &lt;button type=&quot;button&quot; class=&quot;btn-del&quot;&gt;…&lt;/button&gt;&#10;       - unexpected value &quot;inactive&quot;&#10;&#10;Aria snapshot:&#10;- button &quot;Delete habit&quot;">E   AssertionError: Locator expected to be focused
+    Actual value: inactive 
+    Call log:
+      - Expect "to_be_focused" with timeout 5000ms
+      - waiting for locator("dialog.dlg-year button.btn-del")
+        14 × locator resolved to &lt;button type="button" class="btn-del"&gt;…&lt;/button&gt;
+           - unexpected value "inactive"
+    
+    Aria snapshot:
+    - button "Delete habit"</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_cancel_esc_and_a_backdrop_click_keep_the_habit_and_give_focus_back[1280x800-p2-escape]" time="5.514"><failure message="AssertionError: Locator expected to be focused&#10;Actual value: inactive &#10;Call log:&#10;  - Expect &quot;to_be_focused&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-year button.btn-del&quot;)&#10;    14 × locator resolved to &lt;button type=&quot;button&quot; class=&quot;btn-del&quot;&gt;…&lt;/button&gt;&#10;       - unexpected value &quot;inactive&quot;&#10;&#10;Aria snapshot:&#10;- button &quot;Delete habit&quot;">E   AssertionError: Locator expected to be focused
+    Actual value: inactive 
+    Call log:
+      - Expect "to_be_focused" with timeout 5000ms
+      - waiting for locator("dialog.dlg-year button.btn-del")
+        14 × locator resolved to &lt;button type="button" class="btn-del"&gt;…&lt;/button&gt;
+           - unexpected value "inactive"
+    
+    Aria snapshot:
+    - button "Delete habit"</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_cancel_esc_and_a_backdrop_click_keep_the_habit_and_give_focus_back[1280x800-p2-backdrop]" time="5.528"><failure message="AssertionError: Locator expected to be focused&#10;Actual value: inactive &#10;Call log:&#10;  - Expect &quot;to_be_focused&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-year button.btn-del&quot;)&#10;    14 × locator resolved to &lt;button type=&quot;button&quot; class=&quot;btn-del&quot;&gt;…&lt;/button&gt;&#10;       - unexpected value &quot;inactive&quot;&#10;&#10;Aria snapshot:&#10;- button &quot;Delete habit&quot;">E   AssertionError: Locator expected to be focused
+    Actual value: inactive 
+    Call log:
+      - Expect "to_be_focused" with timeout 5000ms
+      - waiting for locator("dialog.dlg-year button.btn-del")
+        14 × locator resolved to &lt;button type="button" class="btn-del"&gt;…&lt;/button&gt;
+           - unexpected value "inactive"
+    
+    Aria snapshot:
+    - button "Delete habit"</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R15_history_goes_with_the_habit" time="0.295"><failure message="AssertionError: assert [['span.stat....'b.num:5']]]]] == [['span.stat....streak yet']]]&#10;  &#10;  At index 0 diff: ['span.stat.cur', ['span.lbl:Current', ['span.val', ['b.num:2', 'span.unit:days']]]] != ['span.stat.cur', ['span.lbl:Current', 'span.none:No streak yet']]&#10;  Left contains one more item: ['span.stat.best', ['span.lbl:Best', ['span.val', ['b.num:5']]]]&#10;  Use -v to get more diff">E   AssertionError: assert [['span.stat....'b.num:5']]]]] == [['span.stat....streak yet']]]
+      
+      At index 0 diff: ['span.stat.cur', ['span.lbl:Current', ['span.val', ['b.num:2', 'span.unit:days']]]] != ['span.stat.cur', ['span.lbl:Current', 'span.none:No streak yet']]
+      Left contains one more item: ['span.stat.best', ['span.lbl:Best', ['span.val', ['b.num:5']]]]
+      Use -v to get more diff</failure></testcase><testcase classname="tests.browser.test_popups" name="test_R40_R14_a_backdrop_click_closes_that_popup_only[390x844 M1]" time="5.198"><failure message="AssertionError: Locator expected to be focused&#10;Actual value: inactive &#10;Call log:&#10;  - Expect &quot;to_be_focused&quot; with timeout 5000ms&#10;  - waiting for get_by_role(&quot;button&quot;, name=&quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;, exact=True)&#10;    14 × locator resolved to &lt;button type=&quot;button&quot; class=&quot;btn-bin&quot; aria-haspopup=&quot;dialog&quot; aria-label=&quot;Delete &quot;Stretch 10 minutes&quot;&quot;&gt;…&lt;/button&gt;&#10;       - unexpected value &quot;inactive&quot;&#10;&#10;Aria snapshot:&#10;- button &quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;">E   AssertionError: Locator expected to be focused
+    Actual value: inactive 
+    Call log:
+      - Expect "to_be_focused" with timeout 5000ms
+      - waiting for get_by_role("button", name="Delete \"Stretch 10 minutes\"", exact=True)
+        14 × locator resolved to &lt;button type="button" class="btn-bin" aria-haspopup="dialog" aria-label="Delete "Stretch 10 minutes""&gt;…&lt;/button&gt;
+           - unexpected value "inactive"
+    
+    Aria snapshot:
+    - button "Delete \"Stretch 10 minutes\""</failure></testcase><testcase classname="tests.browser.test_popups" name="test_R40_R14_a_backdrop_click_closes_that_popup_only[1280x800 M1]" time="5.184"><failure message="AssertionError: Locator expected to be focused&#10;Actual value: inactive &#10;Call log:&#10;  - Expect &quot;to_be_focused&quot; with timeout 5000ms&#10;  - waiting for get_by_role(&quot;button&quot;, name=&quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;, exact=True)&#10;    14 × locator resolved to &lt;button type=&quot;button&quot; class=&quot;btn-bin&quot; aria-haspopup=&quot;dialog&quot; aria-label=&quot;Delete &quot;Stretch 10 minutes&quot;&quot;&gt;…&lt;/button&gt;&#10;       - unexpected value &quot;inactive&quot;&#10;&#10;Aria snapshot:&#10;- button &quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;">E   AssertionError: Locator expected to be focused
+    Actual value: inactive 
+    Call log:
+      - Expect "to_be_focused" with timeout 5000ms
+      - waiting for get_by_role("button", name="Delete \"Stretch 10 minutes\"", exact=True)
+        14 × locator resolved to &lt;button type="button" class="btn-bin" aria-haspopup="dialog" aria-label="Delete "Stretch 10 minutes""&gt;…&lt;/button&gt;
+           - unexpected value "inactive"
+    
+    Aria snapshot:
+    - button "Delete \"Stretch 10 minutes\""</failure></testcase><testcase classname="tests.browser.test_popups" name="test_R40_R14_a_backdrop_click_closes_that_popup_only[1280x800 P2 then M1]" time="5.554"><failure message="AssertionError: Locator expected to be focused&#10;Actual value: inactive &#10;Call log:&#10;  - Expect &quot;to_be_focused&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-year button.btn-del&quot;)&#10;    14 × locator resolved to &lt;button type=&quot;button&quot; class=&quot;btn-del&quot;&gt;…&lt;/button&gt;&#10;       - unexpected value &quot;inactive&quot;&#10;&#10;Aria snapshot:&#10;- button &quot;Delete habit&quot;">E   AssertionError: Locator expected to be focused
+    Actual value: inactive 
+    Call log:
+      - Expect "to_be_focused" with timeout 5000ms
+      - waiting for locator("dialog.dlg-year button.btn-del")
+        14 × locator resolved to &lt;button type="button" class="btn-del"&gt;…&lt;/button&gt;
+           - unexpected value "inactive"
+    
+    Aria snapshot:
+    - button "Delete habit"</failure></testcase></testsuite></testsuites>

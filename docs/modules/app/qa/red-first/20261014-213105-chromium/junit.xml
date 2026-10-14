@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="5" skipped="0" tests="5" time="9.300" timestamp="2026-10-14T21:31:07.122590+08:00" hostname="{host}"><testcase classname="tests.browser.test_delete" name="test_R13_R28_m1_has_the_markup_of_the_golden" time="1.013"><failure message="AssertionError: /dialog[0]/div[0]/h2: ['h2', ['id=del-title'], 'Delete Stretch 10 minutes?'] != ['h2', ['id=del-title'], 'Delete &quot;Stretch 10 minutes&quot;?']&#10;assert '/dialog[0]/div[0]/h2: [\'h2\', [\'id=del-title\'], \'Delete Stretch 10 minutes?\'] != [\'h2\', [\'id=del-title\'], \'Delete &quot;Stretch 10 minutes&quot;?\']' is None&#10; +  where '/dialog[0]/div[0]/h2: [\'h2\', [\'id=del-title\'], \'Delete Stretch 10 minutes?\'] != [\'h2\', [\'id=del-title\'], \'Delete &quot;Stretch 10 minutes&quot;?\']' = first_difference(['dialog', ['aria-describedby=del-body', 'aria-labelledby=del-title', 'aria-modal=true', 'class=dlg-del', 'open=', 'ro... []], ['p', ['id=del-body'], 'Its history is deleted too.', []], ['div', ['class=dlg-actions'], '', [[...], [...]]]]]]], ['dialog', ['aria-describedby=del-body', 'aria-labelledby=del-title', 'aria-modal=true', 'class=dlg-del', 'open=', 'ro... []], ['p', ['id=del-body'], 'Its history is deleted too.', []], ['div', ['class=dlg-actions'], '', [[...], [...]]]]]]])">E   AssertionError: /dialog[0]/div[0]/h2: ['h2', ['id=del-title'], 'Delete Stretch 10 minutes?'] != ['h2', ['id=del-title'], 'Delete "Stretch 10 minutes"?']
+    assert '/dialog[0]/div[0]/h2: [\'h2\', [\'id=del-title\'], \'Delete Stretch 10 minutes?\'] != [\'h2\', [\'id=del-title\'], \'Delete "Stretch 10 minutes"?\']' is None
+     +  where '/dialog[0]/div[0]/h2: [\'h2\', [\'id=del-title\'], \'Delete Stretch 10 minutes?\'] != [\'h2\', [\'id=del-title\'], \'Delete "Stretch 10 minutes"?\']' = first_difference(['dialog', ['aria-describedby=del-body', 'aria-labelledby=del-title', 'aria-modal=true', 'class=dlg-del', 'open=', 'ro... []], ['p', ['id=del-body'], 'Its history is deleted too.', []], ['div', ['class=dlg-actions'], '', [[...], [...]]]]]]], ['dialog', ['aria-describedby=del-body', 'aria-labelledby=del-title', 'aria-modal=true', 'class=dlg-del', 'open=', 'ro... []], ['p', ['id=del-body'], 'Its history is deleted too.', []], ['div', ['class=dlg-actions'], '', [[...], [...]]]]]]])</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R15_a_focused_row_out_of_sight_is_scrolled_into_view" time="0.329"><failure message="AssertionError: {'bin': {'x': 325, 'y': -590, 'width': 44, 'height': 44}, 'frame': {'x': 17, 'y': 95, 'width': 356, 'height': 578}}&#10;assert False&#10; +  where False = fully_inside({'x': 325, 'y': -590, 'width': 44, 'height': 44}, {'x': 17, 'y': 95, 'width': 356, 'height': 578})">E   AssertionError: {'bin': {'x': 325, 'y': -590, 'width': 44, 'height': 44}, 'frame': {'x': 17, 'y': 95, 'width': 356, 'height': 578}}
+    assert False
+     +  where False = fully_inside({'x': 325, 'y': -590, 'width': 44, 'height': 44}, {'x': 17, 'y': 95, 'width': 356, 'height': 578})</failure></testcase><testcase classname="tests.browser.test_add" name="test_R12_R15_deleting_one_of_twelve_opens_the_composer_again" time="0.216"><failure message="AssertionError: {'full': True, 'fieldDisabled': True, 'addDisabled': True, 'value': '', ...}&#10;assert (True, True, ...dd another.'}) == (False, False..., 'text': ''})&#10;  &#10;  At index 0 diff: True != False&#10;  Use -v to get more diff">E   AssertionError: {'full': True, 'fieldDisabled': True, 'addDisabled': True, 'value': '', ...}
+    assert (True, True, ...dd another.'}) == (False, False..., 'text': ''})
+      
+      At index 0 diff: True != False
+      Use -v to get more diff</failure></testcase><testcase classname="tests.browser.test_today" name="test_R32_R16_each_edit_saves_once_and_opening_or_closing_a_popup_saves_nothing" time="2.359"><failure message="AssertionError: assert 6 == 5&#10; +  where 6 = write_count(&lt;Page url='http://127.0.0.1:10756/'&gt;)">E   AssertionError: assert 6 == 5
+     +  where 6 = write_count(&lt;Page url='http://127.0.0.1:10756/'&gt;)</failure></testcase><testcase classname="tests.browser.test_popups" name="test_R40_R14_a_click_inside_the_box_or_a_drag_that_leaves_it_closes_nothing[390x844 M1]" time="5.266"><failure message="AssertionError: Locator expected to have attribute ''&#10;Actual value: None &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-del&quot;)&#10;    14 × locator resolved to &lt;dialog class=&quot;dlg-del&quot; aria-modal=&quot;true&quot; role=&quot;alertdialog&quot; aria-labelledby=&quot;del-title&quot; aria-describedby=&quot;del-body&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;null&quot;&#10;&#10;Aria snapshot:&#10;- banner:&#10;  - heading &quot;Streaky Habit&quot; [level=1]&#10;  - button &quot;Overview, today 1 of 3 habits done&quot;: Overview&#10;  - time: Saturday 10 October&#10;- main:&#10;  - heading &quot;Habits&quot; [level=2]&#10;  - list &quot;Habits&quot;:&#10;    - listitem:&#10;      - heading &quot;Read 20 pages&quot; [level=3]&#10;      - button &quot;Delete \&quot;Read 20 pages\&quot;&quot;&#10;      - paragraph: Current 4 days Best 9&#10;      - button &quot;Year view, Read 20 pages&quot;: Year&#10;      - button &quot;Done today, Read 20 pages&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Stretch 10 minutes&quot; [level=3]&#10;      - button &quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;&#10;      - paragraph: Current 2 days Best 5&#10;      - button &quot;Year view, Stretch 10 minutes&quot;: Year&#10;      - button &quot;Done today, Stretch 10 minutes&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;No phone after 11pm&quot; [level=3]&#10;      - button &quot;Delete \&quot;No phone after 11pm\&quot;&quot;&#10;      - paragraph: Current No streak yet Best 14&#10;      - button &quot;Year view, No phone after 11pm&quot;: Year&#10;      - button &quot;Done today, No phone after 11pm&quot;: Done today&#10;  - text: New habit&#10;  - textbox &quot;New habit&quot;&#10;  - button &quot;Add&quot;">E   AssertionError: Locator expected to have attribute ''
+    Actual value: None 
+    Call log:
+      - Expect "to_have_attribute" with timeout 5000ms
+      - waiting for locator("dialog.dlg-del")
+        14 × locator resolved to &lt;dialog class="dlg-del" aria-modal="true" role="alertdialog" aria-labelledby="del-title" aria-describedby="del-body"&gt;…&lt;/dialog&gt;
+           - unexpected value "null"
+    
+    Aria snapshot:
+    - banner:
+      - heading "Streaky Habit" [level=1]
+      - button "Overview, today 1 of 3 habits done": Overview
+      - time: Saturday 10 October
+    - main:
+      - heading "Habits" [level=2]
+      - list "Habits":
+        - listitem:
+          - heading "Read 20 pages" [level=3]
+          - button "Delete \"Read 20 pages\""
+          - paragraph: Current 4 days Best 9
+          - button "Year view, Read 20 pages": Year
+          - button "Done today, Read 20 pages" [pressed]: Done today
+        - listitem:
+          - heading "Stretch 10 minutes" [level=3]
+          - button "Delete \"Stretch 10 minutes\""
+          - paragraph: Current 2 days Best 5
+          - button "Year view, Stretch 10 minutes": Year
+          - button "Done today, Stretch 10 minutes": Done today
+        - listitem:
+          - heading "No phone after 11pm" [level=3]
+          - button "Delete \"No phone after 11pm\""
+          - paragraph: Current No streak yet Best 14
+          - button "Year view, No phone after 11pm": Year
+          - button "Done today, No phone after 11pm": Done today
+      - text: New habit
+      - textbox "New habit"
+      - button "Add"</failure></testcase></testsuite></testsuites>

@@ -551,18 +551,18 @@ def tick(page, name):
     return page.locator("dialog.dlg-day ul.day-list").get_by_role("button", name=name, exact=True)
 
 
-def confirm_delete(page, opener):
-    """Click M1's Delete habit at the centre of the largest part of its box that lies outside the opener's box.
+def point_beside(target, avoid):
+    """The centre of the largest part of the box of the locator `target` that lies outside the box of `avoid`.
 
-    The guard of spec R13 ignores a pointer click inside the box of the control that opened M1 (CG-10), so a
-    deliberate click lands beside it. Fails at once when Delete habit lies wholly inside the opener's box.
+    Fails at once when `target` lies wholly inside `avoid`, or when either is not shown.
     """
-    target = page.locator("dialog.dlg-del button.btn-danger").bounding_box()
-    avoid = opener.bounding_box()
-    left, top = target["x"], target["y"]
-    right, bottom = left + target["width"], top + target["height"]
-    a_left, a_top = avoid["x"], avoid["y"]
-    a_right, a_bottom = a_left + avoid["width"], a_top + avoid["height"]
+    box, other = target.bounding_box(), avoid.bounding_box()
+    if box is None or other is None:
+        pytest.fail(f"no box to measure, {target} gives {box} and {avoid} gives {other}")
+    left, top = box["x"], box["y"]
+    right, bottom = left + box["width"], top + box["height"]
+    a_left, a_top = other["x"], other["y"]
+    a_right, a_bottom = a_left + other["width"], a_top + other["height"]
     parts = [
         (left, top, min(right, a_left), bottom),
         (max(left, a_right), top, right, bottom),
@@ -571,9 +571,60 @@ def confirm_delete(page, opener):
     ]
     parts = [part for part in parts if part[2] > part[0] and part[3] > part[1]]
     if not parts:
-        pytest.fail(f"Delete habit {target} lies wholly inside its opener {avoid}")
+        pytest.fail(f"{box} lies wholly inside {other}")
     x0, y0, x1, y1 = max(parts, key=lambda part: (part[2] - part[0]) * (part[3] - part[1]))
-    page.mouse.click((x0 + x1) / 2, (y0 + y1) / 2)
+    return (x0 + x1) / 2, (y0 + y1) / 2
+
+
+def confirm_delete(page, opener):
+    """Click M1's Delete habit at the centre of the largest part of its box that lies outside the opener's box.
+
+    The guard of spec R13 ignores a pointer click inside the box of the control that opened M1 (CG-10), so a
+    deliberate click lands beside it. Fails at once when Delete habit lies wholly inside the opener's box.
+    """
+    page.mouse.click(*point_beside(page.locator("dialog.dlg-del button.btn-danger"), opener))
+
+
+_CLOSE_WATCH_JS = """(dialog) => {
+  const seen = { closed: false };
+  dialog.addEventListener('close', () => { seen.closed = true; }, { once: true });
+  return seen;
+}"""
+
+
+def watch_close(page, selector):
+    """Watch the dialog at `selector` for its next close event, for `wait_for_close`.
+
+    The close event is a queued task, so right after a gesture closes a dialog the app's close handler may not have
+    run yet, and in Chromium the browser's own focus restore can already show the opener focused. This test-side
+    listener is added after the app's, so once it has run the app's handler has run too. It adds no property to window.
+    """
+    return page.locator(selector).evaluate_handle(_CLOSE_WATCH_JS)
+
+
+def wait_for_close(watch, seconds=5):
+    """Wait until the close event that `watch` looks for has come. Polled from here, so it works under a paused clock.
+    Fails after `seconds`."""
+    deadline = time.monotonic() + seconds
+    while not watch.evaluate("(seen) => seen.closed"):
+        if time.monotonic() > deadline:
+            pytest.fail(f"no close event within {seconds} seconds")
+        time.sleep(0.02)
+
+
+def press_twice(page, x, y, how):
+    """Two presses at one point, what a person's double click ("mouse", `mouse.dblclick`) or double tap ("touch", two
+    `touchscreen.tap`) sends. Meant for a paused installed clock, so both land at the same instant on any machine.
+    Fails at once on a page opened without `install_time`.
+    """
+    assert page in _CLOCK_INSTALLED, "open the page with open_app(install_time=...) and pause its clock"
+    if how == "mouse":
+        page.mouse.dblclick(x, y)
+    elif how == "touch":
+        page.touchscreen.tap(x, y)
+        page.touchscreen.tap(x, y)
+    else:
+        raise ValueError(f"how is 'mouse' or 'touch', not {how!r}")
 
 
 # p.stats or p.yr-stats as a tree. An element is "tag.class.class", a leaf adds ":text", a parent is [name, [children]].

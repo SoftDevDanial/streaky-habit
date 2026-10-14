@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="4" time="1.913" timestamp="2026-10-14T21:35:15.884778+08:00" hostname="{host}"><testcase classname="tests.browser.test_delete" name="test_R13_a_long_name_wraps_in_the_title_and_the_box_keeps_its_width" time="0.532"><failure message="AssertionError: {'width': 374, 'height': 52, 'line': '26px'}&#10;assert 374 == 358">E   AssertionError: {'width': 374, 'height': 52, 'line': '26px'}
+    assert 374 == 358</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_R15_one_press_on_delete_habit_away_from_the_bin_deletes_at_once[390x844-mouse]" time="0.417"><failure message="AssertionError: assert ['Read 20 pag...e after 11pm'] == ['Read 20 pag...e after 11pm']&#10;  &#10;  At index 1 diff: 'Stretch 10 minutes' != 'No phone after 11pm'&#10;  Left contains one more item: 'No phone after 11pm'&#10;  Use -v to get more diff">E   AssertionError: assert ['Read 20 pag...e after 11pm'] == ['Read 20 pag...e after 11pm']
+      
+      At index 1 diff: 'Stretch 10 minutes' != 'No phone after 11pm'
+      Left contains one more item: 'No phone after 11pm'
+      Use -v to get more diff</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_R15_one_press_on_delete_habit_away_from_the_bin_deletes_at_once[390x844-touch]" time="0.421"><failure message="AssertionError: assert ['Read 20 pag...e after 11pm'] == ['Read 20 pag...e after 11pm']&#10;  &#10;  At index 1 diff: 'Stretch 10 minutes' != 'No phone after 11pm'&#10;  Left contains one more item: 'No phone after 11pm'&#10;  Use -v to get more diff">E   AssertionError: assert ['Read 20 pag...e after 11pm'] == ['Read 20 pag...e after 11pm']
+      
+      At index 1 diff: 'Stretch 10 minutes' != 'No phone after 11pm'
+      Left contains one more item: 'No phone after 11pm'
+      Use -v to get more diff</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R13_R15_one_press_on_delete_habit_away_from_the_bin_deletes_at_once[1280x800-mouse]" time="0.478"><failure message="AssertionError: assert ['Read 20 pag...e after 11pm'] == ['Read 20 pag...e after 11pm']&#10;  &#10;  At index 1 diff: 'Stretch 10 minutes' != 'No phone after 11pm'&#10;  Left contains one more item: 'No phone after 11pm'&#10;  Use -v to get more diff">E   AssertionError: assert ['Read 20 pag...e after 11pm'] == ['Read 20 pag...e after 11pm']
+      
+      At index 1 diff: 'Stretch 10 minutes' != 'No phone after 11pm'
+      Left contains one more item: 'No phone after 11pm'
+      Use -v to get more diff</failure></testcase></testsuite></testsuites>

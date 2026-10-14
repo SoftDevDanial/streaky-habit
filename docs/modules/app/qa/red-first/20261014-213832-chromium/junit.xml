@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="1.204" timestamp="2026-10-14T21:38:34.019381+08:00" hostname="{host}"><testcase classname="tests.browser.test_delete" name="test_R14_esc_after_an_earlier_delete_still_keeps_the_habit" time="1.149" /></testsuite></testsuites>

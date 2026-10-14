@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="3" time="16.412" timestamp="2026-10-14T21:37:20.507109+08:00" hostname="{host}"><testcase classname="tests.browser.test_delete" name="test_R14_cancel_esc_and_a_backdrop_click_work_at_the_instant_of_opening[cancel]" time="5.923"><failure message="AssertionError: Locator expected not to have attribute ''&#10;Actual value:  &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-del&quot;)&#10;    14 × locator resolved to &lt;dialog open=&quot;&quot; class=&quot;dlg-del&quot; aria-modal=&quot;true&quot; role=&quot;alertdialog&quot; aria-labelledby=&quot;del-title&quot; aria-describedby=&quot;del-body&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;&quot;&#10;&#10;Aria snapshot:&#10;- alertdialog &quot;Delete \&quot;Stretch 10 minutes\&quot;?&quot;:&#10;  - heading &quot;Delete \&quot;Stretch 10 minutes\&quot;?&quot; [level=2]&#10;  - paragraph: Its history is deleted too.&#10;  - button &quot;Cancel&quot;&#10;  - button &quot;Delete habit&quot;">E   AssertionError: Locator expected not to have attribute ''
+    Actual value:  
+    Call log:
+      - Expect "to_have_attribute" with timeout 5000ms
+      - waiting for locator("dialog.dlg-del")
+        14 × locator resolved to &lt;dialog open="" class="dlg-del" aria-modal="true" role="alertdialog" aria-labelledby="del-title" aria-describedby="del-body"&gt;…&lt;/dialog&gt;
+           - unexpected value ""
+    
+    Aria snapshot:
+    - alertdialog "Delete \"Stretch 10 minutes\"?":
+      - heading "Delete \"Stretch 10 minutes\"?" [level=2]
+      - paragraph: Its history is deleted too.
+      - button "Cancel"
+      - button "Delete habit"</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_cancel_esc_and_a_backdrop_click_work_at_the_instant_of_opening[escape]" time="5.176"><failure message="AssertionError: Locator expected not to have attribute ''&#10;Actual value:  &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-del&quot;)&#10;    14 × locator resolved to &lt;dialog open=&quot;&quot; class=&quot;dlg-del&quot; aria-modal=&quot;true&quot; role=&quot;alertdialog&quot; aria-labelledby=&quot;del-title&quot; aria-describedby=&quot;del-body&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;&quot;&#10;&#10;Aria snapshot:&#10;- alertdialog &quot;Delete \&quot;Stretch 10 minutes\&quot;?&quot;:&#10;  - heading &quot;Delete \&quot;Stretch 10 minutes\&quot;?&quot; [level=2]&#10;  - paragraph: Its history is deleted too.&#10;  - button &quot;Cancel&quot;&#10;  - button &quot;Delete habit&quot;">E   AssertionError: Locator expected not to have attribute ''
+    Actual value:  
+    Call log:
+      - Expect "to_have_attribute" with timeout 5000ms
+      - waiting for locator("dialog.dlg-del")
+        14 × locator resolved to &lt;dialog open="" class="dlg-del" aria-modal="true" role="alertdialog" aria-labelledby="del-title" aria-describedby="del-body"&gt;…&lt;/dialog&gt;
+           - unexpected value ""
+    
+    Aria snapshot:
+    - alertdialog "Delete \"Stretch 10 minutes\"?":
+      - heading "Delete \"Stretch 10 minutes\"?" [level=2]
+      - paragraph: Its history is deleted too.
+      - button "Cancel"
+      - button "Delete habit"</failure></testcase><testcase classname="tests.browser.test_delete" name="test_R14_cancel_esc_and_a_backdrop_click_work_at_the_instant_of_opening[backdrop]" time="5.252"><failure message="AssertionError: Locator expected not to have attribute ''&#10;Actual value:  &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-del&quot;)&#10;    14 × locator resolved to &lt;dialog open=&quot;&quot; class=&quot;dlg-del&quot; aria-modal=&quot;true&quot; role=&quot;alertdialog&quot; aria-labelledby=&quot;del-title&quot; aria-describedby=&quot;del-body&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;&quot;&#10;&#10;Aria snapshot:&#10;- alertdialog &quot;Delete \&quot;Stretch 10 minutes\&quot;?&quot;:&#10;  - heading &quot;Delete \&quot;Stretch 10 minutes\&quot;?&quot; [level=2]&#10;  - paragraph: Its history is deleted too.&#10;  - button &quot;Cancel&quot;&#10;  - button &quot;Delete habit&quot;">E   AssertionError: Locator expected not to have attribute ''
+    Actual value:  
+    Call log:
+      - Expect "to_have_attribute" with timeout 5000ms
+      - waiting for locator("dialog.dlg-del")
+        14 × locator resolved to &lt;dialog open="" class="dlg-del" aria-modal="true" role="alertdialog" aria-labelledby="del-title" aria-describedby="del-body"&gt;…&lt;/dialog&gt;
+           - unexpected value ""
+    
+    Aria snapshot:
+    - alertdialog "Delete \"Stretch 10 minutes\"?":
+      - heading "Delete \"Stretch 10 minutes\"?" [level=2]
+      - paragraph: Its history is deleted too.
+      - button "Cancel"
+      - button "Delete habit"</failure></testcase></testsuite></testsuites>
