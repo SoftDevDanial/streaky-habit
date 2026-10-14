@@ -6,6 +6,7 @@
 > v1.1.0 rewrite by the planner (solutions architect role), 2026-10-13. Scenario titles end with `(v1.1.0 new)` or `(v1.1.0 changed)`. A changed scenario replaces its 1.0 form, which stays at tag `v1.0.0`. Scenarios of retired requirements (R7, R8, R9, R18) and 1.0 scenarios with no v1.1.0 form are kept as text under "Feature: Retired in v1.1.0" at the end of the Gherkin, each with a `# Retired in v1.1.0` comment, and their tests are removed. A scenario that applies a clarify gate part 2 ruling names its item in its title ("CG-n ruled") and asserts the answer that `spec.md` applies. The owner ruled all ten items, CG-10 to CG-19, on 2026-10-13 with the recommended answers (ledger S1 row 4, S3 row 2, S4 row 3, S7 row 12, `../ROADMAP.md`, v1.1.0, Clarify gate). The coverage count per R# is at the end of this file.
 > Changed 2026-10-13 after the plan check (B1, F1, F3 to F6, F8, F9). The 21 titles that now read "CG-n ruled" first read "pending CG-n" (F1). Other changes carry their own dated note where they were made.
 > Changed 2026-10-13 after the plan re-check (F12, F13, F14, N9). The new section "Scenarios that wait on a later task" names, for W1 to W22, the task from which each is green (F12). "Controls are watched failing first" lists the stubs for names and files under test (F13). Two new scenarios (`@R6 @R32` and `@R32`) succeed two `test_tick.py` tests that had no scenario (F14). The Feature "Two engines" names its two finder checks (N9). Each change carries its own dated note.
+> Changed 2026-10-14 in execute (planner touch-up, ledger H-03, S1 row 8, S7 row 15). H-03, the two P3 rows "2026-07-20" of W22 hold through P3's room for rule 4 (spec R36), built at task 20, and one new `@R36` scenario checks the room. Q1 and Q2, two lines follow the goldens as ruled ORCH (the field's box with twelve habits, the Overview button's computed `flex`). Q3, two scenarios name the popup's `dialog` as WebKit's focus after a click inside a popup. Each change carries its own dated note.
 > Phase skills. The plan phase has none assigned. The builder of each UI task loads the design row of `docs/phase-skills.md` (`taste-skill`, `frontend-design`) before writing UI (spec, Tasks).
 
 ## How these scenarios run
@@ -68,7 +69,7 @@ Task 11's probe may add a row only for Chromium-only tooling (class (c) of spec 
 - `docs/design/` is read-only. Tests read the goldens and `sample-history.json` and never write there.
 
 ### Scenarios that wait on a later task
-Each scenario below sits in a file whose task comes before the task that lands the last feature it uses. It follows the one rule of spec, Tasks ("A test that waits on a later task"). Its test is run once and recorded RED before the code of the task that writes it, and it is green from the task in the fifth column with no mark. Written before that task, it carries `pytest.mark.xfail(strict=True, reason="task N")`, in an Outline only on the rows that wait (`pytest.param(..., marks=...)`). That task removes the mark. A marked test that passes early fails the run, and the builder acts as the spec says. No mark is left after task 22. W21 and W22 are written at the task they wait on, so they carry no mark. Added 2026-10-13 after the plan re-check (F12). The plan first said how such a test behaves only for W1 and W2, as "stay RED".
+Each scenario below sits in a file whose task comes before the task that lands the last feature it uses. It follows the one rule of spec, Tasks ("A test that waits on a later task"). Its test is run once and recorded RED before the code of the task that writes it, and it is green from the task in the fifth column with no mark. Written before that task, it carries `pytest.mark.xfail(strict=True, reason="task N")`, in an Outline only on the rows that wait (`pytest.param(..., marks=...)`). That task removes the mark. A marked test that passes early fails the run, and the builder acts as the spec says. No mark is left after task 22. ~~W21 and W22 are written at the task they wait on, so they carry no mark.~~ W21 and W22 are written at the task they wait on, so they carry no mark, except W22's two P3 rows "2026-07-20", which wait on task 20 (changed 2026-10-14 in execute, ledger H-03, see the note under the table). Added 2026-10-13 after the plan re-check (F12). The plan first said how such a test behaves only for W1 and W2, as "stay RED".
 
 | # | Scenario | File, written at task | What waits (other rows are green at once) | Green from task (the mark's reason) | The feature that task lands |
 |---|---|---|---|---|---|
@@ -93,13 +94,15 @@ Each scenario below sits in a file whose task comes before the task that lands t
 | W19 | A day before a habit was added can be ticked | `test_year.py`, 19 | the scenario | 21 | the add |
 | W20 | Deleting one of twelve opens the composer again | `test_add.py`, 21 | the scenario | 22 | the delete |
 | W21 | Every context has the clipboard stand-in | `test_engines.py` (task 11's file), written at 19 | nothing, no mark | 19 | Year (Done today lands at 16) |
-| W22 | On a phone the chosen day stays in sight above P1 | `test_day_editor.py`, the four P3 rows at 18, the two P4 rows written at 20 | nothing, no mark | 18 and 20 by row | P4 |
+| W22 | On a phone the chosen day stays in sight above P1 | `test_day_editor.py`, the four P3 rows at 18, the two P4 rows written at 20 | ~~nothing, no mark~~ the two P3 rows "2026-07-20" | ~~18 and 20 by row~~ 18 for the two P3 rows "2026-09-22", 20 for the two P3 rows "2026-07-20" and the two P4 rows | P4, and P3's room for rule 4 (spec R36, H-03) |
+
+Changed 2026-10-14 in execute (planner touch-up, ledger H-03, owner ruling 2026-10-14 16:05 "Fix, give P3 room"). W22's two P3 rows "2026-07-20" could not turn green at task 18, because P3 had nothing to scroll on a phone (blocker B1, `BUILD.md` task 18, evidence `docs/modules/app/qa/day-editor-b1/20261014-153746-chromium/`). They hold as written once P3 gets its room (spec R36), which task 20 builds. Today `test_day_editor.py` carries them with the mark `BLOCKED_B1`, which names a blocker, not a task. The builder of task 20 changes it on both rows to `xfail(strict=True, reason="task 20")` and removes it in task 20's commit (spec, task 20). The builder edits the test. The W22 row first read "nothing, no mark" and "18 and 20 by row".
 
 ### Engine differences by design
 | Behaviour | Chromium | WebKit | Source |
 |---|---|---|---|
 | Focus after a mouse click on a button | the clicked button | no element (`document.activeElement` is `body`), whatever had focus before | spec Invariants, research webkit-testing section 2. Task 11's probe confirms it |
-| Focus after a mouse click on a button inside an open popup (added at task 18) | the clicked button | the popup's `dialog` element, not `body` (measured at task 18 on P1's ticks, in WebKit 26.5) | WebKit's mouse press finds no mouse-focusable element and focuses the modal dialog. A click on a popup's text with no control focuses the dialog in both engines. Scenarios that read "In WebKit document.activeElement is body" after a click inside a popup assert the dialog |
+| Focus after a mouse click on a button inside an open popup (added at task 18) | the clicked button | the popup's `dialog` element, not `body` (measured at task 18 on P1's ticks, in WebKit 26.5) | WebKit's mouse press finds no mouse-focusable element and focuses the modal dialog. A click on a popup's text with no control focuses the dialog in both engines. Scenarios that read "In WebKit document.activeElement is body" after a click inside a popup assert the dialog. Added 2026-10-14 in execute (planner touch-up, Q3, ruled ORCH). The two such scenarios, "Ticking a past day in P1" and "Ticking a day in the year view", now name the dialog in their own text |
 | Focus after a keyboard press on a button | the button | the button | both engines |
 | Focus the app sets (Cancel on M1, Close on P2, P3 and P4, the first tick on P1, the opener on close, the field after a name error or Dismiss, rule 3 after a delete) | as the requirement says | as the requirement says | spec R40, the app sets it by hand |
 | Tab reaches every button | yes | yes, on Windows | research webkit-testing section 2 |
@@ -375,10 +378,14 @@ Feature: First visit and header
     Then the computed display of button.ov-btn is "<overview>"
     And time.date lies <date place>
 
+    # Changed 2026-10-14 in execute (planner touch-up, Q2, ledger S7 row 15, ruled ORCH to the golden). The two phone
+    # rows first read ~~inline-flex~~, the value system.css writes. button.ov-btn is a grid item of header.top, so the
+    # browser blockifies its display, and today.html itself computes "flex" at 360 and 390 in Chromium and in WebKit
+    # (measured at task 15, BUILD.md task 15, Q2). The golden is the truth, so the rows read "flex".
     Examples:
       | viewport | overview    | date place                                                                                                   |
-      | 360x780  | inline-flex | on its own line, its top below the bottom of div.brand                                                       |
-      | 390x844  | inline-flex | on its own line, its top below the bottom of div.brand                                                       |
+      | 360x780  | flex        | on its own line, its top below the bottom of div.brand                                                       |
+      | 390x844  | flex        | on its own line, its top below the bottom of div.brand                                                       |
       | 1280x800 | none        | on the brand line, its vertical centre between the top and bottom of div.brand, its right edge within 1 px of the right edge of header.top |
 
   @R4
@@ -444,7 +451,13 @@ Feature: Rows, numbers and the list frame
   Scenario Outline: The page never scrolls and the composer stays put (v1.1.0 changed)
     Given <state> at <viewport>
     Then document.documentElement.scrollHeight equals the viewport height and scrollWidth is at most the viewport width
-    And the bounding box of form.composer equals its box for a fresh day at that viewport
+    # Changed 2026-10-14 in execute (planner touch-up, Q1, ledger S7 row 15, ruled ORCH to the golden). This line first
+    # read ~~And the bounding box of form.composer equals its box for a fresh day at that viewport~~. With twelve habits
+    # the 12-habit note grows form.composer upward in today-full.html (checklist S3-07 and S3-08, composer top 622
+    # against 670 at 360x780, 686 against 734 at 390x844, 686 against 714 at 1280x800, measured on the goldens at task
+    # 15), while the field keeps its box. So the field is checked in every row and the composer in the other six.
+    And the bounding box of the field (#nh) equals its box for a fresh day at that viewport
+    And, unless the state is twelve habits, the bounding box of form.composer equals its box for a fresh day at that viewport
 
     Examples:
       | state          | viewport |
@@ -863,6 +876,9 @@ Feature: The day editor
   # tests/browser/test_day_editor.py (tasks 18 and 20)
   # Task 20 writes the scenarios and rows that use P4, among them the two P4 rows of W22 ("Scenarios that wait on a
   # later task", added 2026-10-13 after the plan re-check, F12)
+  # Task 20 also builds P3's room for rule 4 (spec R36, ledger H-03), so it writes the scenario "On a phone P3 gets room
+  # while P1 is open over it, and loses it when P1 closes" with no mark, and it turns W22's two P3 rows "2026-07-20"
+  # green. Added 2026-10-14 in execute (planner touch-up, ledger H-03).
 
   @R36 @R42
   Scenario: A band day opens P1 (v1.1.0 new)
@@ -893,6 +909,9 @@ Feature: The day editor
 
   @R36
   Scenario Outline: On a phone the chosen day stays in sight above P1 (v1.1.0 new)
+    # The two P3 rows "2026-07-20" hold as written through P3's room for rule 4 (spec R36, owner ruling H-03,
+    # 2026-10-14 16:05). test_day_editor.py carries them with the mark BLOCKED_B1 until task 20 changes it to
+    # xfail(strict=True, reason="task 20") and removes it (W22). Added 2026-10-14 in execute (planner touch-up, H-03).
     Given the sample day at <viewport>
     When the user opens <host> and clicks its day button for <day>
     Then P1 is open as a sheet at the bottom of the viewport, over <host>
@@ -907,6 +926,26 @@ Feature: The day editor
       | 360x780  | P3 (Overview)                | 2026-07-20 | above 0, so the host had to scroll        |
       | 390x844  | P4 (Overview, then Year)     | 2026-09-22 | any value                                 |
       | 390x844  | P4 (Overview, then Year)     | 2025-10-10 | above 0, so the host had to scroll        |
+
+  @R36
+  Scenario Outline: On a phone P3 gets room while P1 is open over it, and loses it when P1 closes (v1.1.0 new, H-03 ruled)
+    # Added 2026-10-14 in execute (planner touch-up, ledger H-03, owner ruling 2026-10-14 16:05 "Fix, give P3 room").
+    # Written at task 20 into test_day_editor.py with no mark, as "A P4 day opens P1 over P4 on a desktop" is.
+    # The 800x900 row checks that no room appears from 768 px, where P1 is a centred dialog and rule 4 does not apply.
+    Given the sample day at <viewport> with P3 open
+    Then P3's div.sheet-body has the computed padding-bottom "24px" and its scrollHeight equals its clientHeight
+    When the user clicks P3's button for <day>
+    Then P1 is open over P3, and P3's div.sheet-body has a computed padding-bottom <room>
+    When the user <action>
+    Then P1 is closed, P3 is open, and focus is on P3's button for <day>
+    And P3's div.sheet-body has the computed padding-bottom "24px" and no inline padding-bottom, its scrollHeight equals its clientHeight, and its scrollTop is 0
+
+    Examples:
+      | viewport | day        | action                           | room                                                                                                     |
+      | 390x844  | 2026-07-20 | presses Escape                   | within 1 px of the height of dialog.dlg-day, which is the distance from P1's top edge to the viewport's bottom |
+      | 360x780  | 2026-07-20 | clicks Close                     | within 1 px of the height of dialog.dlg-day, which is the distance from P1's top edge to the viewport's bottom |
+      | 390x844  | 2026-09-22 | clicks the viewport point (5, 5) | within 1 px of the height of dialog.dlg-day, which is the distance from P1's top edge to the viewport's bottom |
+      | 800x900  | 2026-07-20 | presses Escape                   | of "24px", the stylesheet's, with no inline padding-bottom                                               |
 
   @R36 @R39
   Scenario: A P4 day opens P1 over P4 on a desktop (v1.1.0 new)
@@ -935,7 +974,10 @@ Feature: The day editor
     And p#day-sub reads "2 of 3 habits" and the mini ring has its first and third path.seg on
     And the band's 2026-09-22 is named "Tue 22 Sep, 2 of 3 habits" and keeps "is-open"
     And the Read row reads "Best 13", and exactly one write was made
-    And in Chromium the tick has focus. In WebKit document.activeElement is body
+    # Changed 2026-10-14 in execute (planner touch-up, Q3, ledger S1 row 8, ruled ORCH). The next line first ended
+    # ~~In WebKit document.activeElement is body~~. Measured at task 18, a mouse click on a button inside an open popup
+    # leaves focus on the popup's dialog element in WebKit (Engine differences by design).
+    And in Chromium the tick has focus. In WebKit document.activeElement is dialog.dlg-day, not body
 
   @R37
   Scenario: Keyboard ticks keep focus, and a second tick restores the saved value (v1.1.0 new)
@@ -1006,7 +1048,10 @@ Feature: A habit's year view
     And the bead 2026-10-08 has gained "r"
     And p.yr-stats holds Current "8" "days" and Best "14"
     And exactly one write was made and the No phone row reads "Current 8 days"
-    And in Chromium the bead has focus. In WebKit document.activeElement is body
+    # Changed 2026-10-14 in execute (planner touch-up, Q3, ledger S1 row 8, ruled ORCH). The next line first ended
+    # ~~In WebKit document.activeElement is body~~. Measured at task 18 and asserted so at task 19, a mouse click on a
+    # button inside an open popup leaves focus on the popup's dialog element in WebKit (Engine differences by design).
+    And in Chromium the bead has focus. In WebKit document.activeElement is dialog.dlg-year, not body
 
   @R34 @R16
   Scenario: Untick and tick again (v1.1.0 new)
@@ -2563,7 +2608,7 @@ Feature: Looks right
 - Re-run the Node suite (`node --test "tests/**/*.test.js"`), the browser suite in Chromium and in WebKit (two runs, two evidence folders), the 23 fidelity captures with their controls and the states check in Chromium, and the `@R27` cold-boot gate in Chromium and in WebKit, in the final parallel all-modules pass. Each engine's pass, fail and skip counts and run time go into `docs/regression/REGRESSION.md`.
 
 ## Coverage by R#
-Counted from the Gherkin above on 2026-10-13 by the planner, recounted by script after the plan-check fixes. A scenario with two tags counts for both. An outline counts once. 167 live scenarios (92 new, 71 changed, 4 unchanged from 1.0), 18 retired scenarios kept as text, 1 Chromium-only scenario (CO-1). Every live R# has at least one scenario. Changed 2026-10-13 after the plan check (F5), the live gate's control scenario added one new `@R27` scenario (164 and 89 before). Changed 2026-10-13 after the plan re-check (F14), the two successors of the `test_tick.py` tests added one `@R6 @R32` and one `@R32` scenario (165 and 90 before, R6 5 and R32 12 before).
+Counted from the Gherkin above on 2026-10-13 by the planner, recounted by script after the plan-check fixes. A scenario with two tags counts for both. An outline counts once. 167 live scenarios (92 new, 71 changed, 4 unchanged from 1.0), 18 retired scenarios kept as text, 1 Chromium-only scenario (CO-1). Every live R# has at least one scenario. Changed 2026-10-13 after the plan check (F5), the live gate's control scenario added one new `@R27` scenario (164 and 89 before). Changed 2026-10-13 after the plan re-check (F14), the two successors of the `test_tick.py` tests added one `@R6 @R32` and one `@R32` scenario (165 and 90 before, R6 5 and R32 12 before). Changed 2026-10-14 in execute (planner touch-up, ledger H-03), the `@R36` scenario of P3's room added one new scenario, so ~~167 live scenarios (92 new~~ 168 live scenarios (93 new, 71 changed, 4 unchanged), and R36 has 7 (6 before). Recounted by script.
 
 | R# | Spec status | Live scenarios | Retired kept | R# | Spec status | Live scenarios | Retired kept |
 |---|---|---|---|---|---|---|---|
@@ -2581,7 +2626,7 @@ Counted from the Gherkin above on 2026-10-13 by the planner, recounted by script
 | R12 | changed | 3 | 0 | R33 | new | 6 | 0 |
 | R13 | changed | 13 | 3 | R34 | new | 6 | 0 |
 | R14 | changed | 13 | 1 | R35 | new | 6 | 0 |
-| R15 | changed | 12 | 4 | R36 | new | 6 | 0 |
+| R15 | changed | 12 | 4 | R36 | new | 7 (6 before 2026-10-14, H-03) | 0 |
 | R16 | changed | 9 | 1 | R37 | new | 5 | 0 |
 | R17 | changed | 6 | 1 | R38 | new | 5 | 0 |
 | R18 | retired | 0 | 2 | R39 | new | 5 | 0 |
