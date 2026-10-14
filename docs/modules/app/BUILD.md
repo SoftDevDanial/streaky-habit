@@ -355,3 +355,62 @@ None.
 ### For the README reconcile
 - `src/popups.js` is new, exporting `dialogs`, `closeButtonOf`, `showPopup`, `onBackdrop`, `renderOverviewPopup`. `src/app.js` gains `openers`, `pressStartedOnBackdrop`, `openPopup`, `openOverview`, `onPopupPointerDown`, `onPopupClick`, `onPopupClose`. `src/view.js` gains `overviewButtonOf`.
 - The browser suite gains `test_popups.py` and `test_overview.py`. `conftest.py` now holds the ring and grid readers.
+
+---
+
+## v1.1.0 task 18, the day editor P1 (2026-10-14)
+> Written by the frontend builder (senior frontend dev agent), 2026-10-14. Requirements R36, R37, R32. The commit is the one whose message starts `feat(app): the day editor P1, opening a day and ticking it (task 18`.
+
+### Phase skills (design row of `docs/phase-skills.md`)
+Both read on disk before any UI code in this session (no Skill tool). `taste-skill` (`taste-skill/1.0.0/skills/taste-skill/SKILL.md`) and `frontend-design` (`claude-plugins-official/frontend-design/8d392c816966/skills/frontend-design/SKILL.md`).
+- **What they changed.** Nothing in the look. P1's markup, copy and CSS are the golden's (`day-editor.html`, `system.css`).
+- **Transferred and checked.** No em or en dash in any file written. The check glyph through the sprite only (`use href="#i-check"`), no hand-drawn icon. Copy self-audit, every P1 string is a row of the spec's Copy table ("N of T habits", "Current N days", "Current 1 day", "No streak yet", "Best N", "No habits yet."). Motion only answers an action (the tick box `pop` on a tick, nothing on opening beyond the copied `sheet`, `rise` and `fade`). The empty state (CG-12) is the line `system.css` styles.
+- **Not transferred, and why.** React, Tailwind, Motion, fonts and image rules (locked stack). Landing and hero rules (a tool, not a landing page).
+
+### What changed
+- `src/popups.js`. `buildDayList(habits)` (one tick per habit, or `li.day-empty` "No habits yet." for CG-12, built as P1 opens because no habit can be added or deleted while it is open), `renderDayEditor(dayKey, habits, todayKey, animate)` (the mini ring, `longDate`, "<count> of <total> habits", and each tick's `aria-pressed`, `on`, `pop` and numbers for today, in place), `dayEditorFocus()` (the first tick, else Close), `tickIndexOf(target)`, `markOpenDay(dayKey)` (`is-open` on every day button for that date, null clears) and `keepDayInSight(dayButton)` (rule 4, below 768 px). The module comment names P1.
+- `src/app.js`. `state.day` (the date P1 is open for), `openDay(dayButton)`, a band day in `onPageClick` and a P3 day or a P1 tick in `onPopupClick` (after Close and the backdrop), and `onPopupClose` clears `state.day` and the marks when P1 closes. `render` redraws P1 while it is open (R32).
+- `src/calendar.js`. `DAY_BUTTON` (the day cell's selector, now one home), `dayButtonOf(target)`, `dayUnit(count)` ("day" or "days", shared by the row stats and the tick stats) and `icon` (moved from `view.js`, because P1's tick draws the check glyph too).
+- `src/view.js`. Imports `icon` and `dayUnit` from `calendar.js`, no other change.
+- `tests/browser/test_day_editor.py` (new). The P1 scenarios of qa.md that task 18 lands, 12 tests. The scenario "A P4 day opens P1 over P4 on a desktop" and the two P4 rows of W22 are task 20's, as qa.md says.
+- Marks removed (each test read against its scenario first, and every feature it uses now exists). W6 `test_R42_small_rings_carry_no_number_and_no_today_circle`, W8 `test_R32_R37_a_tick_in_p1_over_p3_...`, the P1 rows of W12 and W13, and in `test_popups.py` the W15 rows "390x844 P3 then P1" and "1280x800 P1", the W16 row "1280x800 P1", the W17 row "390x844 P3 then P1" and the W18 row "1280x800 P1". Nine marks in all.
+- Marks added. Two, `BLOCKED_B1` on the rows "390x844 P3 2026-07-20" and "360x780 P3 2026-07-20" of W22, see Blocker B1.
+- `docs/modules/app/qa.md`. One dated row in "Engine differences by design", the WebKit focus after a click inside a popup (see Judgment call 2).
+- `spec.md` task 18 ticked.
+
+### RED first
+`test_day_editor.py` was written first and run once in Chromium on the task 17 tree, which opens no P1. 12 of 12 failed on their property, `dialog.dlg-day` never opened (`docs/modules/app/qa/red-first/20261014-151839-chromium/junit.xml`). The nine unmarked tests were recorded RED at the tasks that wrote them (15, 16, 17).
+
+### Proof
+- Chromium, **73 passed, 26 xfailed**, 148.1 s (`docs/modules/app/qa/functional/20261014-153509-chromium/junit.xml`). An earlier run of the same tree before the WebKit measurement change gave the same counts (`.../functional/20261014-152547-chromium/junit.xml`).
+- WebKit, **72 passed, 1 skipped (CO-1, counted with its reason), 26 xfailed**, 168.6 s (`.../functional/20261014-153212-webkit/junit.xml`). The first WebKit run failed one test, `test_day_editor.py::test_R37_R32_ticking_a_past_day_in_p1`, on its focus line (`.../functional/20261014-152824-webkit/junit.xml`, kept). Classed (b), an engine difference, see Judgment call 2.
+- The 26 xfails are the 33 of task 17 less the nine removed, plus the two B1 rows.
+- Node, `node --test "tests/**/*.test.js"`, 137 of 137.
+- B1 measured, the two blocked rows run with `--runxfail` fail on their property, the day's box (top 642, bottom 690 at 390x844, top 620, bottom 666 at 360x780) lies below P1's top edge (551 and 487) with P3's body at `scrollTop` 0 (`docs/modules/app/qa/day-editor-b1/20261014-153746-chromium/junit.xml`).
+- Builder self-check (scratch, not the fidelity gate, nothing written). P1 opened on 22 September (from P3 below 1024 px, from the band at 1280) against `day-editor.html` in headless Chromium with reduced motion gives 0 pixels differing by more than 25 in any channel at 360 x 780, 390 x 844 and 1280 x 800. Its control, the app with nothing open against the same golden, gives 60001, 66447 and 70493.
+
+### Blocker B1 (for the orchestrator, R36 rule 4 against the golden)
+R36 says that below 768 px, when P1 opens over P3, P3's `div.sheet-body` scrolls so the chosen day lies fully between P3's head and P1's top edge, and W22's rows "2026-07-20" expect `scrollTop` above 0. In the golden layout P3 never scrolls on a phone. `.dlg-full` is 100dvh and the 12 week rows fit, so the body's `scrollHeight` equals its `clientHeight` (698 at 360 x 780, 762 at 390 x 844, measured). P1's sheet covers the bottom of the screen (its top at 487 and 551), so the lower weeks of P3, about 20 July to 16 August, lie under it and no scroll can lift them. `f2.html` has the same gap (its scroll is clamped). `keepDayInSight` is written to R36's rule and scrolls whenever the host has room (P4 at task 20 has room). The two rows carry `xfail(strict=True, reason="blocked B1, ...")`, a mark that names no later task, so the gap shows in every run. Recommended answer. Rule 4 is an owner-approved interaction rule, so give P3 the room through the design phase (for example P3's body gains bottom padding equal to P1's height while P1 is open over it), and then the two rows hold as written. The other way is to accept it as a residual, drop the two rows from W22 and add a UAT note that on a phone the lower weeks of P3 sit under P1.
+
+### Judgment calls (named, for the orchestrator)
+1. **`pop` on `div.day-mini`.** R32 says a ring whose drawn state changed carries `pop`. P1's mini ring is a ring, so its holder gets `pop` after a tick that changes it, as `span.ov-ring` does. `system.css` has no rule for `.day-mini.pop`, so nothing moves (system.md Motion is not extended). Recommended, keep it, it is the spec's letter and has no look.
+2. **WebKit focus after a click inside a popup (Q3 for qa.md).** Measured with a scratch probe in both engines. After a mouse click on a tick, Chromium focuses the tick and WebKit focuses `dialog.dlg-day`, not `body`. A click on P1's title (no control) focuses the dialog in both. The app moves no focus on a tick. qa.md's scenario "Ticking a past day in P1" reads "In WebKit document.activeElement is body". The spec's engine note says a different measurement is written into qa.md with its value, so qa.md's engine table has a new dated row and the test asserts the dialog in WebKit. The scenario line needs the planner's wording. The same will hold for P2's beads (qa.md "Ticking a day in the year view", task 19).
+3. **Ticks are built as P1 opens and updated in place after that.** No habit can be added or deleted while P1 is open (it is modal), so `openDay` builds the list and `render` only updates it, which keeps a ticked button the same element with its focus.
+4. **P1's top edge for rule 4 is the dialog element's box**, not `div.dlg-box`, because the box is still moved by its `sheet` animation when P1 has just opened (the code comment in `keepDayInSight` says so). The scroll amount is rounded up so a fractional box never leaves a part of the day under the sheet.
+
+### Deviations
+- The two `BLOCKED_B1` marks name a blocker, not a later task (spec Tasks, "A test that waits on a later task", allows only later tasks). Named here and in the return. They go when B1 is ruled.
+- qa.md edited by the builder (one engine-table row), which the spec's engine note asks for.
+
+### Non-goals honoured
+No `inert`, no `.scrim`, no `<dialog open>`. No observer callback, no deferred render (rule 4's scroll runs in the click handler after `showModal`). No tap-through guard (R14, CG-11, task 22). No rollover work (task 24). No new copy, icon, motion or shadow.
+
+### How to run and view
+- `python -m pytest tests/browser -q` (Chromium) and `python -m pytest tests/browser -q --engine webkit`.
+- Serve the root with `python -m http.server <port> --bind 127.0.0.1` and open `http://127.0.0.1:<port>/`. At 1280 px a band day opens P1. Below 1024 px open Overview, then a day.
+
+### For the README reconcile
+- `src/popups.js` exports `dialogs`, `closeButtonOf`, `showPopup`, `onBackdrop`, `renderOverviewPopup`, `buildDayList`, `renderDayEditor`, `dayEditorFocus`, `tickIndexOf`, `markOpenDay`, `keepDayInSight`.
+- `src/calendar.js` gains `DAY_BUTTON`, `dayButtonOf`, `dayUnit` and `icon` (moved from `view.js`).
+- `src/app.js` gains `state.day` and `openDay`. `onPageClick` opens P1 from a band day, `onPopupClick` from a P3 day and ticks in P1, `onPopupClose` clears P1's day and marks.
+- The browser suite gains `test_day_editor.py`. qa.md's engine table has a row for focus after a click inside a popup.

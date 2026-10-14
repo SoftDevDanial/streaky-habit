@@ -632,7 +632,6 @@ def key_done(habit, key):
     return key in habit["done"]
 
 
-@pytest.mark.xfail(strict=True, reason="task 18")
 def test_R42_small_rings_carry_no_number_and_no_today_circle(app):
     page = app(storage=sample_state())
     three = [seg(ARCS3[0], True), seg(ARCS3[1], False), seg(ARCS3[2], False)]

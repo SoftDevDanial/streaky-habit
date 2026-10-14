@@ -99,6 +99,7 @@ Each scenario below sits in a file whose task comes before the task that lands t
 | Behaviour | Chromium | WebKit | Source |
 |---|---|---|---|
 | Focus after a mouse click on a button | the clicked button | no element (`document.activeElement` is `body`), whatever had focus before | spec Invariants, research webkit-testing section 2. Task 11's probe confirms it |
+| Focus after a mouse click on a button inside an open popup (added at task 18) | the clicked button | the popup's `dialog` element, not `body` (measured at task 18 on P1's ticks, in WebKit 26.5) | WebKit's mouse press finds no mouse-focusable element and focuses the modal dialog. A click on a popup's text with no control focuses the dialog in both engines. Scenarios that read "In WebKit document.activeElement is body" after a click inside a popup assert the dialog |
 | Focus after a keyboard press on a button | the button | the button | both engines |
 | Focus the app sets (Cancel on M1, Close on P2, P3 and P4, the first tick on P1, the opener on close, the field after a name error or Dismiss, rule 3 after a delete) | as the requirement says | as the requirement says | spec R40, the app sets it by hand |
 | Tab reaches every button | yes | yes, on Windows | research webkit-testing section 2 |

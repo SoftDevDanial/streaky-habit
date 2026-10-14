@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="4" time="3.294" timestamp="2026-10-14T15:37:48.195343+08:00" hostname="{host}"><testcase classname="tests.browser.test_day_editor" name="test_R36_on_a_phone_the_chosen_day_stays_in_sight_above_p1[390x844 P3 2026-09-22]" time="1.072" /><testcase classname="tests.browser.test_day_editor" name="test_R36_on_a_phone_the_chosen_day_stays_in_sight_above_p1[360x780 P3 2026-09-22]" time="0.711" /><testcase classname="tests.browser.test_day_editor" name="test_R36_on_a_phone_the_chosen_day_stays_in_sight_above_p1[390x844 P3 2026-07-20]" time="0.717"><failure message="AssertionError: {'hostOpen': True, 'head': {'top': 0, 'bottom': 82, 'left': 0, 'right': 390}, 'day': {'top': 642, 'bottom': 690, 'left': 50, 'right': 96.28125}, 'open': True, ...}&#10;assert (82 &lt;= 642 and 690 &lt;= 551)">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001BF6048BB60&gt;
+viewport = (390, 844), key = '2026-07-20', scrolled = True
+
+    @pytest.mark.parametrize(
+        "viewport, key, scrolled",
+        [
+            pytest.param(PHONE, SEP_22, False, id="390x844 P3 2026-09-22"),
+            pytest.param((360, 780), SEP_22, False, id="360x780 P3 2026-09-22"),
+            pytest.param(PHONE, "2026-07-20", True, marks=BLOCKED_B1, id="390x844 P3 2026-07-20"),
+            pytest.param((360, 780), "2026-07-20", True, marks=BLOCKED_B1, id="360x780 P3 2026-07-20"),
+        ],
+    )
+    def test_R36_on_a_phone_the_chosen_day_stays_in_sight_above_p1(app, viewport, key, scrolled):
+        page = app(viewport=viewport, storage=sample_state())
+        page.locator("button.ov-btn").click()
+        expect(page.locator("dialog.dlg-ov")).to_have_attribute("open", "")
+        p3_day(page, key).click()
+        expect(day_dialog(page)).to_have_attribute("open", "")
+        # The sheet slides up for 260 ms. Its resting place is measured once its animation has ended.
+        page.wait_for_function(
+            "() =&gt; document.querySelector('dialog.dlg-day &gt; div.dlg-box').getAnimations().length === 0", timeout=5000
+        )
+        found = page.evaluate(SIGHT_JS, [key])
+        width, height = found["viewport"]
+        sheet = found["sheet"]
+        assert found["hostOpen"] is True, found
+        assert abs(sheet["bottom"] - height) &lt;= 1 and abs(sheet["left"]) &lt;= 1 and abs(sheet["right"] - width) &lt;= 1, found
+&gt;       assert found["head"]["bottom"] &lt;= found["day"]["top"] and found["day"]["bottom"] &lt;= sheet["top"], found
+E       AssertionError: {'hostOpen': True, 'head': {'top': 0, 'bottom': 82, 'left': 0, 'right': 390}, 'day': {'top': 642, 'bottom': 690, 'left': 50, 'right': 96.28125}, 'open': True, ...}
+E       assert (82 &lt;= 642 and 690 &lt;= 551)
+
+tests\browser\test_day_editor.py:187: AssertionError</failure></testcase><testcase classname="tests.browser.test_day_editor" name="test_R36_on_a_phone_the_chosen_day_stays_in_sight_above_p1[360x780 P3 2026-07-20]" time="0.757"><failure message="AssertionError: {'hostOpen': True, 'head': {'top': 0, 'bottom': 82, 'left': 0, 'right': 360}, 'day': {'top': 620, 'bottom': 666, 'left': 46, 'right': 89.140625}, 'open': True, ...}&#10;assert (82 &lt;= 620 and 666 &lt;= 487)">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001BF60583950&gt;
+viewport = (360, 780), key = '2026-07-20', scrolled = True
+
+    @pytest.mark.parametrize(
+        "viewport, key, scrolled",
+        [
+            pytest.param(PHONE, SEP_22, False, id="390x844 P3 2026-09-22"),
+            pytest.param((360, 780), SEP_22, False, id="360x780 P3 2026-09-22"),
+            pytest.param(PHONE, "2026-07-20", True, marks=BLOCKED_B1, id="390x844 P3 2026-07-20"),
+            pytest.param((360, 780), "2026-07-20", True, marks=BLOCKED_B1, id="360x780 P3 2026-07-20"),
+        ],
+    )
+    def test_R36_on_a_phone_the_chosen_day_stays_in_sight_above_p1(app, viewport, key, scrolled):
+        page = app(viewport=viewport, storage=sample_state())
+        page.locator("button.ov-btn").click()
+        expect(page.locator("dialog.dlg-ov")).to_have_attribute("open", "")
+        p3_day(page, key).click()
+        expect(day_dialog(page)).to_have_attribute("open", "")
+        # The sheet slides up for 260 ms. Its resting place is measured once its animation has ended.
+        page.wait_for_function(
+            "() =&gt; document.querySelector('dialog.dlg-day &gt; div.dlg-box').getAnimations().length === 0", timeout=5000
+        )
+        found = page.evaluate(SIGHT_JS, [key])
+        width, height = found["viewport"]
+        sheet = found["sheet"]
+        assert found["hostOpen"] is True, found
+        assert abs(sheet["bottom"] - height) &lt;= 1 and abs(sheet["left"]) &lt;= 1 and abs(sheet["right"] - width) &lt;= 1, found
+&gt;       assert found["head"]["bottom"] &lt;= found["day"]["top"] and found["day"]["bottom"] &lt;= sheet["top"], found
+E       AssertionError: {'hostOpen': True, 'head': {'top': 0, 'bottom': 82, 'left': 0, 'right': 360}, 'day': {'top': 620, 'bottom': 666, 'left': 46, 'right': 89.140625}, 'open': True, ...}
+E       assert (82 &lt;= 620 and 666 &lt;= 487)
+
+tests\browser\test_day_editor.py:187: AssertionError</failure></testcase></testsuite></testsuites>

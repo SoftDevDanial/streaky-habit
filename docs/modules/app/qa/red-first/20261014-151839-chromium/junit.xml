@@ -1,0 +1,1672 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="12" skipped="0" tests="12" time="64.495" timestamp="2026-10-14T15:18:40.857884+08:00" hostname="{host}"><testcase classname="tests.browser.test_day_editor" name="test_R36_R42_a_band_day_opens_p1" time="6.026"><failure message="AssertionError: Locator expected to have attribute ''&#10;Actual value: None &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-day&quot;)&#10;    14 × locator resolved to &lt;dialog class=&quot;dlg-day&quot; aria-modal=&quot;true&quot; aria-describedby=&quot;day-sub&quot; aria-labelledby=&quot;day-title&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;null&quot;&#10;&#10;Aria snapshot:&#10;- banner:&#10;  - heading &quot;Streaky Habit&quot; [level=1]&#10;  - time: Saturday 10 October&#10;- main:&#10;  - region &quot;Last 12 weeks&quot;:&#10;    - heading &quot;Last 12 weeks&quot; [level=2]&#10;    - button &quot;Year view, all habits&quot;: Year&#10;    - paragraph: Tap a day to change it.&#10;    - group &quot;Last 12 weeks&quot;:&#10;      - button &quot;Mon 20 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Tue 21 Jul, 3 of 3 habits&quot;&#10;      - button &quot;Wed 22 Jul, 1 of 3 habits&quot;&#10;      - button &quot;Thu 23 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Fri 24 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Sat 25 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Sun 26 Jul, 1 of 3 habits&quot;&#10;      - button &quot;Mon 27 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Tue 28 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Wed 29 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Thu 30 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Fri 31 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Sat 1 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Sun 2 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Mon 3 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Tue 4 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Wed 5 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Thu 6 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Fri 7 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sat 8 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sun 9 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Mon 10 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Tue 11 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Wed 12 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Thu 13 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Fri 14 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sat 15 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sun 16 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Mon 17 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Tue 18 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Wed 19 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Thu 20 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Fri 21 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Sat 22 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Sun 23 Aug, 0 of 3 habits&quot;&#10;      - button &quot;Mon 24 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Tue 25 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Wed 26 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Thu 27 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Fri 28 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sat 29 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sun 30 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Mon 31 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Tue 1 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Wed 2 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Thu 3 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Fri 4 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Sat 5 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Sun 6 Sep, 1 of 3 habits&quot;&#10;      - button &quot;Mon 7 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Tue 8 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Wed 9 Sep, 1 of 3 habits&quot;&#10;      - button &quot;Thu 10 Sep, 1 of 3 habits&quot;&#10;      - button &quot;Fri 11 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Sat 12 Sep, 1 of 3 habits&quot;&#10;      - button &quot;Sun 13 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Mon 14 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Tue 15 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Wed 16 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Thu 17 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Fri 18 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Sat 19 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Sun 20 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Mon 21 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Tue 22 Sep, 1 of 3 habits&quot;&#10;      - button &quot;Wed 23 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Thu 24 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Fri 25 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Sat 26 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Sun 27 Sep, 0 of 3 habits&quot;&#10;      - button &quot;Mon 28 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Tue 29 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Wed 30 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Thu 1 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Fri 2 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Sat 3 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Sun 4 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Mon 5 Oct, 3 of 3 habits&quot;&#10;      - button &quot;Tue 6 Oct, 1 of 3 habits&quot;&#10;      - button &quot;Wed 7 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Thu 8 Oct, 3 of 3 habits&quot;&#10;      - button &quot;Fri 9 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Sat 10 Oct, 1 of 3 habits&quot;&#10;  - heading &quot;Habits&quot; [level=2]&#10;  - list &quot;Habits&quot;:&#10;    - listitem:&#10;      - heading &quot;Read 20 pages&quot; [level=3]&#10;      - button &quot;Delete \&quot;Read 20 pages\&quot;&quot;&#10;      - paragraph: Current 4 days Best 9&#10;      - button &quot;Year view, Read 20 pages&quot;: Year&#10;      - button &quot;Done today, Read 20 pages&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Stretch 10 minutes&quot; [level=3]&#10;      - button &quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;&#10;      - paragraph: Current 2 days Best 5&#10;      - button &quot;Year view, Stretch 10 minutes&quot;: Year&#10;      - button &quot;Done today, Stretch 10 minutes&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;No phone after 11pm&quot; [level=3]&#10;      - button &quot;Delete \&quot;No phone after 11pm\&quot;&quot;&#10;      - paragraph: Current No streak yet Best 14&#10;      - button &quot;Year view, No phone after 11pm&quot;: Year&#10;      - button &quot;Done today, No phone after 11pm&quot;: Done today&#10;  - text: New habit&#10;  - textbox &quot;New habit&quot;&#10;  - button &quot;Add&quot;">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001EF7C299DD0&gt;
+
+    def test_R36_R42_a_band_day_opens_p1(app):
+        page = app(viewport=DESKTOP, storage=sample_state())
+        page.locator("section.band").get_by_role("button", name="Tue 22 Sep, 1 of 3 habits", exact=True).click()
+        dialog = day_dialog(page)
+&gt;       expect(dialog).to_have_attribute("open", "")
+E       AssertionError: Locator expected to have attribute ''
+E       Actual value: None 
+E       Call log:
+E         - Expect "to_have_attribute" with timeout 5000ms
+E         - waiting for locator("dialog.dlg-day")
+E           14 × locator resolved to &lt;dialog class="dlg-day" aria-modal="true" aria-describedby="day-sub" aria-labelledby="day-title"&gt;…&lt;/dialog&gt;
+E              - unexpected value "null"
+E       
+E       Aria snapshot:
+E       - banner:
+E         - heading "Streaky Habit" [level=1]
+E         - time: Saturday 10 October
+E       - main:
+E         - region "Last 12 weeks":
+E           - heading "Last 12 weeks" [level=2]
+E           - button "Year view, all habits": Year
+E           - paragraph: Tap a day to change it.
+E           - group "Last 12 weeks":
+E             - button "Mon 20 Jul, 2 of 3 habits"
+E             - button "Tue 21 Jul, 3 of 3 habits"
+E             - button "Wed 22 Jul, 1 of 3 habits"
+E             - button "Thu 23 Jul, 2 of 3 habits"
+E             - button "Fri 24 Jul, 2 of 3 habits"
+E             - button "Sat 25 Jul, 2 of 3 habits"
+E             - button "Sun 26 Jul, 1 of 3 habits"
+E             - button "Mon 27 Jul, 2 of 3 habits"
+E             - button "Tue 28 Jul, 2 of 3 habits"
+E             - button "Wed 29 Jul, 2 of 3 habits"
+E             - button "Thu 30 Jul, 2 of 3 habits"
+E             - button "Fri 31 Jul, 2 of 3 habits"
+E             - button "Sat 1 Aug, 1 of 3 habits"
+E             - button "Sun 2 Aug, 2 of 3 habits"
+E             - button "Mon 3 Aug, 1 of 3 habits"
+E             - button "Tue 4 Aug, 2 of 3 habits"
+E             - button "Wed 5 Aug, 3 of 3 habits"
+E             - button "Thu 6 Aug, 2 of 3 habits"
+E             - button "Fri 7 Aug, 2 of 3 habits"
+E             - button "Sat 8 Aug, 2 of 3 habits"
+E             - button "Sun 9 Aug, 1 of 3 habits"
+E             - button "Mon 10 Aug, 2 of 3 habits"
+E             - button "Tue 11 Aug, 3 of 3 habits"
+E             - button "Wed 12 Aug, 2 of 3 habits"
+E             - button "Thu 13 Aug, 2 of 3 habits"
+E             - button "Fri 14 Aug, 2 of 3 habits"
+E             - button "Sat 15 Aug, 2 of 3 habits"
+E             - button "Sun 16 Aug, 2 of 3 habits"
+E             - button "Mon 17 Aug, 1 of 3 habits"
+E             - button "Tue 18 Aug, 2 of 3 habits"
+E             - button "Wed 19 Aug, 2 of 3 habits"
+E             - button "Thu 20 Aug, 1 of 3 habits"
+E             - button "Fri 21 Aug, 3 of 3 habits"
+E             - button "Sat 22 Aug, 3 of 3 habits"
+E             - button "Sun 23 Aug, 0 of 3 habits"
+E             - button "Mon 24 Aug, 3 of 3 habits"
+E             - button "Tue 25 Aug, 3 of 3 habits"
+E             - button "Wed 26 Aug, 2 of 3 habits"
+E             - button "Thu 27 Aug, 1 of 3 habits"
+E             - button "Fri 28 Aug, 2 of 3 habits"
+E             - button "Sat 29 Aug, 2 of 3 habits"
+E             - button "Sun 30 Aug, 2 of 3 habits"
+E             - button "Mon 31 Aug, 1 of 3 habits"
+E             - button "Tue 1 Sep, 2 of 3 habits"
+E             - button "Wed 2 Sep, 3 of 3 habits"
+E             - button "Thu 3 Sep, 3 of 3 habits"
+E             - button "Fri 4 Sep, 2 of 3 habits"
+E             - button "Sat 5 Sep, 2 of 3 habits"
+E             - button "Sun 6 Sep, 1 of 3 habits"
+E             - button "Mon 7 Sep, 2 of 3 habits"
+E             - button "Tue 8 Sep, 3 of 3 habits"
+E             - button "Wed 9 Sep, 1 of 3 habits"
+E             - button "Thu 10 Sep, 1 of 3 habits"
+E             - button "Fri 11 Sep, 3 of 3 habits"
+E             - button "Sat 12 Sep, 1 of 3 habits"
+E             - button "Sun 13 Sep, 2 of 3 habits"
+E             - button "Mon 14 Sep, 2 of 3 habits"
+E             - button "Tue 15 Sep, 3 of 3 habits"
+E             - button "Wed 16 Sep, 2 of 3 habits"
+E             - button "Thu 17 Sep, 2 of 3 habits"
+E             - button "Fri 18 Sep, 2 of 3 habits"
+E             - button "Sat 19 Sep, 3 of 3 habits"
+E             - button "Sun 20 Sep, 3 of 3 habits"
+E             - button "Mon 21 Sep, 2 of 3 habits"
+E             - button "Tue 22 Sep, 1 of 3 habits"
+E             - button "Wed 23 Sep, 2 of 3 habits"
+E             - button "Thu 24 Sep, 2 of 3 habits"
+E             - button "Fri 25 Sep, 3 of 3 habits"
+E             - button "Sat 26 Sep, 2 of 3 habits"
+E             - button "Sun 27 Sep, 0 of 3 habits"
+E             - button "Mon 28 Sep, 2 of 3 habits"
+E             - button "Tue 29 Sep, 3 of 3 habits"
+E             - button "Wed 30 Sep, 2 of 3 habits"
+E             - button "Thu 1 Oct, 2 of 3 habits"
+E             - button "Fri 2 Oct, 2 of 3 habits"
+E             - button "Sat 3 Oct, 2 of 3 habits"
+E             - button "Sun 4 Oct, 2 of 3 habits"
+E             - button "Mon 5 Oct, 3 of 3 habits"
+E             - button "Tue 6 Oct, 1 of 3 habits"
+E             - button "Wed 7 Oct, 2 of 3 habits"
+E             - button "Thu 8 Oct, 3 of 3 habits"
+E             - button "Fri 9 Oct, 2 of 3 habits"
+E             - button "Sat 10 Oct, 1 of 3 habits"
+E         - heading "Habits" [level=2]
+E         - list "Habits":
+E           - listitem:
+E             - heading "Read 20 pages" [level=3]
+E             - button "Delete \"Read 20 pages\""
+E             - paragraph: Current 4 days Best 9
+E             - button "Year view, Read 20 pages": Year
+E             - button "Done today, Read 20 pages" [pressed]: Done today
+E           - listitem:
+E             - heading "Stretch 10 minutes" [level=3]
+E             - button "Delete \"Stretch 10 minutes\""
+E             - paragraph: Current 2 days Best 5
+E             - button "Year view, Stretch 10 minutes": Year
+E             - button "Done today, Stretch 10 minutes": Done today
+E           - listitem:
+E             - heading "No phone after 11pm" [level=3]
+E             - button "Delete \"No phone after 11pm\""
+E             - paragraph: Current No streak yet Best 14
+E             - button "Year view, No phone after 11pm": Year
+E             - button "Done today, No phone after 11pm": Done today
+E         - text: New habit
+E         - textbox "New habit"
+E         - button "Add"
+
+tests\browser\test_day_editor.py:97: AssertionError</failure></testcase><testcase classname="tests.browser.test_day_editor" name="test_R36_R40_p1_closes_and_gives_focus_back_to_its_day[clicks Close]" time="5.168"><failure message="AssertionError: Locator expected to have attribute ''&#10;Actual value: None &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-day&quot;)&#10;    14 × locator resolved to &lt;dialog class=&quot;dlg-day&quot; aria-modal=&quot;true&quot; aria-describedby=&quot;day-sub&quot; aria-labelledby=&quot;day-title&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;null&quot;&#10;&#10;Aria snapshot:&#10;- banner:&#10;  - heading &quot;Streaky Habit&quot; [level=1]&#10;  - time: Saturday 10 October&#10;- main:&#10;  - region &quot;Last 12 weeks&quot;:&#10;    - heading &quot;Last 12 weeks&quot; [level=2]&#10;    - button &quot;Year view, all habits&quot;: Year&#10;    - paragraph: Tap a day to change it.&#10;    - group &quot;Last 12 weeks&quot;:&#10;      - button &quot;Mon 20 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Tue 21 Jul, 3 of 3 habits&quot;&#10;      - button &quot;Wed 22 Jul, 1 of 3 habits&quot;&#10;      - button &quot;Thu 23 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Fri 24 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Sat 25 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Sun 26 Jul, 1 of 3 habits&quot;&#10;      - button &quot;Mon 27 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Tue 28 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Wed 29 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Thu 30 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Fri 31 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Sat 1 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Sun 2 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Mon 3 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Tue 4 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Wed 5 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Thu 6 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Fri 7 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sat 8 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sun 9 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Mon 10 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Tue 11 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Wed 12 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Thu 13 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Fri 14 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sat 15 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sun 16 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Mon 17 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Tue 18 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Wed 19 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Thu 20 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Fri 21 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Sat 22 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Sun 23 Aug, 0 of 3 habits&quot;&#10;      - button &quot;Mon 24 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Tue 25 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Wed 26 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Thu 27 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Fri 28 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sat 29 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sun 30 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Mon 31 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Tue 1 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Wed 2 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Thu 3 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Fri 4 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Sat 5 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Sun 6 Sep, 1 of 3 habits&quot;&#10;      - button &quot;Mon 7 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Tue 8 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Wed 9 Sep, 1 of 3 habits&quot;&#10;      - button &quot;Thu 10 Sep, 1 of 3 habits&quot;&#10;      - button &quot;Fri 11 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Sat 12 Sep, 1 of 3 habits&quot;&#10;      - button &quot;Sun 13 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Mon 14 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Tue 15 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Wed 16 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Thu 17 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Fri 18 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Sat 19 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Sun 20 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Mon 21 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Tue 22 Sep, 1 of 3 habits&quot;&#10;      - button &quot;Wed 23 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Thu 24 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Fri 25 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Sat 26 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Sun 27 Sep, 0 of 3 habits&quot;&#10;      - button &quot;Mon 28 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Tue 29 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Wed 30 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Thu 1 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Fri 2 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Sat 3 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Sun 4 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Mon 5 Oct, 3 of 3 habits&quot;&#10;      - button &quot;Tue 6 Oct, 1 of 3 habits&quot;&#10;      - button &quot;Wed 7 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Thu 8 Oct, 3 of 3 habits&quot;&#10;      - button &quot;Fri 9 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Sat 10 Oct, 1 of 3 habits&quot;&#10;  - heading &quot;Habits&quot; [level=2]&#10;  - list &quot;Habits&quot;:&#10;    - listitem:&#10;      - heading &quot;Read 20 pages&quot; [level=3]&#10;      - button &quot;Delete \&quot;Read 20 pages\&quot;&quot;&#10;      - paragraph: Current 4 days Best 9&#10;      - button &quot;Year view, Read 20 pages&quot;: Year&#10;      - button &quot;Done today, Read 20 pages&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Stretch 10 minutes&quot; [level=3]&#10;      - button &quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;&#10;      - paragraph: Current 2 days Best 5&#10;      - button &quot;Year view, Stretch 10 minutes&quot;: Year&#10;      - button &quot;Done today, Stretch 10 minutes&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;No phone after 11pm&quot; [level=3]&#10;      - button &quot;Delete \&quot;No phone after 11pm\&quot;&quot;&#10;      - paragraph: Current No streak yet Best 14&#10;      - button &quot;Year view, No phone after 11pm&quot;: Year&#10;      - button &quot;Done today, No phone after 11pm&quot;: Done today&#10;  - text: New habit&#10;  - textbox &quot;New habit&quot;&#10;  - button &quot;Add&quot;">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001EF7D9E5380&gt;
+action = 'clicks Close'
+
+    @pytest.mark.parametrize("action", ["clicks Close", "presses Escape", "clicks the viewport point (5, 5)"])
+    def test_R36_R40_p1_closes_and_gives_focus_back_to_its_day(app, action):
+        page = app(viewport=DESKTOP, storage=sample_state())
+&gt;       open_from_band(page, SEP_22)
+
+tests\browser\test_day_editor.py:129: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+page = &lt;Page url='http://127.0.0.1:34264/'&gt;, key = '2026-09-22'
+
+    def open_from_band(page, key):
+        band_day(page, key).click()
+&gt;       expect(day_dialog(page)).to_have_attribute("open", "")
+E       AssertionError: Locator expected to have attribute ''
+E       Actual value: None 
+E       Call log:
+E         - Expect "to_have_attribute" with timeout 5000ms
+E         - waiting for locator("dialog.dlg-day")
+E           14 × locator resolved to &lt;dialog class="dlg-day" aria-modal="true" aria-describedby="day-sub" aria-labelledby="day-title"&gt;…&lt;/dialog&gt;
+E              - unexpected value "null"
+E       
+E       Aria snapshot:
+E       - banner:
+E         - heading "Streaky Habit" [level=1]
+E         - time: Saturday 10 October
+E       - main:
+E         - region "Last 12 weeks":
+E           - heading "Last 12 weeks" [level=2]
+E           - button "Year view, all habits": Year
+E           - paragraph: Tap a day to change it.
+E           - group "Last 12 weeks":
+E             - button "Mon 20 Jul, 2 of 3 habits"
+E             - button "Tue 21 Jul, 3 of 3 habits"
+E             - button "Wed 22 Jul, 1 of 3 habits"
+E             - button "Thu 23 Jul, 2 of 3 habits"
+E             - button "Fri 24 Jul, 2 of 3 habits"
+E             - button "Sat 25 Jul, 2 of 3 habits"
+E             - button "Sun 26 Jul, 1 of 3 habits"
+E             - button "Mon 27 Jul, 2 of 3 habits"
+E             - button "Tue 28 Jul, 2 of 3 habits"
+E             - button "Wed 29 Jul, 2 of 3 habits"
+E             - button "Thu 30 Jul, 2 of 3 habits"
+E             - button "Fri 31 Jul, 2 of 3 habits"
+E             - button "Sat 1 Aug, 1 of 3 habits"
+E             - button "Sun 2 Aug, 2 of 3 habits"
+E             - button "Mon 3 Aug, 1 of 3 habits"
+E             - button "Tue 4 Aug, 2 of 3 habits"
+E             - button "Wed 5 Aug, 3 of 3 habits"
+E             - button "Thu 6 Aug, 2 of 3 habits"
+E             - button "Fri 7 Aug, 2 of 3 habits"
+E             - button "Sat 8 Aug, 2 of 3 habits"
+E             - button "Sun 9 Aug, 1 of 3 habits"
+E             - button "Mon 10 Aug, 2 of 3 habits"
+E             - button "Tue 11 Aug, 3 of 3 habits"
+E             - button "Wed 12 Aug, 2 of 3 habits"
+E             - button "Thu 13 Aug, 2 of 3 habits"
+E             - button "Fri 14 Aug, 2 of 3 habits"
+E             - button "Sat 15 Aug, 2 of 3 habits"
+E             - button "Sun 16 Aug, 2 of 3 habits"
+E             - button "Mon 17 Aug, 1 of 3 habits"
+E             - button "Tue 18 Aug, 2 of 3 habits"
+E             - button "Wed 19 Aug, 2 of 3 habits"
+E             - button "Thu 20 Aug, 1 of 3 habits"
+E             - button "Fri 21 Aug, 3 of 3 habits"
+E             - button "Sat 22 Aug, 3 of 3 habits"
+E             - button "Sun 23 Aug, 0 of 3 habits"
+E             - button "Mon 24 Aug, 3 of 3 habits"
+E             - button "Tue 25 Aug, 3 of 3 habits"
+E             - button "Wed 26 Aug, 2 of 3 habits"
+E             - button "Thu 27 Aug, 1 of 3 habits"
+E             - button "Fri 28 Aug, 2 of 3 habits"
+E             - button "Sat 29 Aug, 2 of 3 habits"
+E             - button "Sun 30 Aug, 2 of 3 habits"
+E             - button "Mon 31 Aug, 1 of 3 habits"
+E             - button "Tue 1 Sep, 2 of 3 habits"
+E             - button "Wed 2 Sep, 3 of 3 habits"
+E             - button "Thu 3 Sep, 3 of 3 habits"
+E             - button "Fri 4 Sep, 2 of 3 habits"
+E             - button "Sat 5 Sep, 2 of 3 habits"
+E             - button "Sun 6 Sep, 1 of 3 habits"
+E             - button "Mon 7 Sep, 2 of 3 habits"
+E             - button "Tue 8 Sep, 3 of 3 habits"
+E             - button "Wed 9 Sep, 1 of 3 habits"
+E             - button "Thu 10 Sep, 1 of 3 habits"
+E             - button "Fri 11 Sep, 3 of 3 habits"
+E             - button "Sat 12 Sep, 1 of 3 habits"
+E             - button "Sun 13 Sep, 2 of 3 habits"
+E             - button "Mon 14 Sep, 2 of 3 habits"
+E             - button "Tue 15 Sep, 3 of 3 habits"
+E             - button "Wed 16 Sep, 2 of 3 habits"
+E             - button "Thu 17 Sep, 2 of 3 habits"
+E             - button "Fri 18 Sep, 2 of 3 habits"
+E             - button "Sat 19 Sep, 3 of 3 habits"
+E             - button "Sun 20 Sep, 3 of 3 habits"
+E             - button "Mon 21 Sep, 2 of 3 habits"
+E             - button "Tue 22 Sep, 1 of 3 habits"
+E             - button "Wed 23 Sep, 2 of 3 habits"
+E             - button "Thu 24 Sep, 2 of 3 habits"
+E             - button "Fri 25 Sep, 3 of 3 habits"
+E             - button "Sat 26 Sep, 2 of 3 habits"
+E             - button "Sun 27 Sep, 0 of 3 habits"
+E             - button "Mon 28 Sep, 2 of 3 habits"
+E             - button "Tue 29 Sep, 3 of 3 habits"
+E             - button "Wed 30 Sep, 2 of 3 habits"
+E             - button "Thu 1 Oct, 2 of 3 habits"
+E             - button "Fri 2 Oct, 2 of 3 habits"
+E             - button "Sat 3 Oct, 2 of 3 habits"
+E             - button "Sun 4 Oct, 2 of 3 habits"
+E             - button "Mon 5 Oct, 3 of 3 habits"
+E             - button "Tue 6 Oct, 1 of 3 habits"
+E             - button "Wed 7 Oct, 2 of 3 habits"
+E             - button "Thu 8 Oct, 3 of 3 habits"
+E             - button "Fri 9 Oct, 2 of 3 habits"
+E             - button "Sat 10 Oct, 1 of 3 habits"
+E         - heading "Habits" [level=2]
+E         - list "Habits":
+E           - listitem:
+E             - heading "Read 20 pages" [level=3]
+E             - button "Delete \"Read 20 pages\""
+E             - paragraph: Current 4 days Best 9
+E             - button "Year view, Read 20 pages": Year
+E             - button "Done today, Read 20 pages" [pressed]: Done today
+E           - listitem:
+E             - heading "Stretch 10 minutes" [level=3]
+E             - button "Delete \"Stretch 10 minutes\""
+E             - paragraph: Current 2 days Best 5
+E             - button "Year view, Stretch 10 minutes": Year
+E             - button "Done today, Stretch 10 minutes": Done today
+E           - listitem:
+E             - heading "No phone after 11pm" [level=3]
+E             - button "Delete \"No phone after 11pm\""
+E             - paragraph: Current No streak yet Best 14
+E             - button "Year view, No phone after 11pm": Year
+E             - button "Done today, No phone after 11pm": Done today
+E         - text: New habit
+E         - textbox "New habit"
+E         - button "Add"
+
+tests\browser\test_day_editor.py:63: AssertionError</failure></testcase><testcase classname="tests.browser.test_day_editor" name="test_R36_R40_p1_closes_and_gives_focus_back_to_its_day[presses Escape]" time="5.166"><failure message="AssertionError: Locator expected to have attribute ''&#10;Actual value: None &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-day&quot;)&#10;    14 × locator resolved to &lt;dialog class=&quot;dlg-day&quot; aria-modal=&quot;true&quot; aria-describedby=&quot;day-sub&quot; aria-labelledby=&quot;day-title&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;null&quot;&#10;&#10;Aria snapshot:&#10;- banner:&#10;  - heading &quot;Streaky Habit&quot; [level=1]&#10;  - time: Saturday 10 October&#10;- main:&#10;  - region &quot;Last 12 weeks&quot;:&#10;    - heading &quot;Last 12 weeks&quot; [level=2]&#10;    - button &quot;Year view, all habits&quot;: Year&#10;    - paragraph: Tap a day to change it.&#10;    - group &quot;Last 12 weeks&quot;:&#10;      - button &quot;Mon 20 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Tue 21 Jul, 3 of 3 habits&quot;&#10;      - button &quot;Wed 22 Jul, 1 of 3 habits&quot;&#10;      - button &quot;Thu 23 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Fri 24 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Sat 25 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Sun 26 Jul, 1 of 3 habits&quot;&#10;      - button &quot;Mon 27 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Tue 28 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Wed 29 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Thu 30 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Fri 31 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Sat 1 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Sun 2 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Mon 3 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Tue 4 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Wed 5 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Thu 6 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Fri 7 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sat 8 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sun 9 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Mon 10 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Tue 11 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Wed 12 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Thu 13 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Fri 14 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sat 15 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sun 16 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Mon 17 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Tue 18 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Wed 19 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Thu 20 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Fri 21 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Sat 22 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Sun 23 Aug, 0 of 3 habits&quot;&#10;      - button &quot;Mon 24 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Tue 25 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Wed 26 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Thu 27 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Fri 28 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sat 29 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sun 30 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Mon 31 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Tue 1 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Wed 2 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Thu 3 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Fri 4 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Sat 5 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Sun 6 Sep, 1 of 3 habits&quot;&#10;      - button &quot;Mon 7 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Tue 8 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Wed 9 Sep, 1 of 3 habits&quot;&#10;      - button &quot;Thu 10 Sep, 1 of 3 habits&quot;&#10;      - button &quot;Fri 11 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Sat 12 Sep, 1 of 3 habits&quot;&#10;      - button &quot;Sun 13 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Mon 14 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Tue 15 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Wed 16 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Thu 17 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Fri 18 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Sat 19 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Sun 20 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Mon 21 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Tue 22 Sep, 1 of 3 habits&quot;&#10;      - button &quot;Wed 23 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Thu 24 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Fri 25 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Sat 26 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Sun 27 Sep, 0 of 3 habits&quot;&#10;      - button &quot;Mon 28 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Tue 29 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Wed 30 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Thu 1 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Fri 2 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Sat 3 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Sun 4 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Mon 5 Oct, 3 of 3 habits&quot;&#10;      - button &quot;Tue 6 Oct, 1 of 3 habits&quot;&#10;      - button &quot;Wed 7 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Thu 8 Oct, 3 of 3 habits&quot;&#10;      - button &quot;Fri 9 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Sat 10 Oct, 1 of 3 habits&quot;&#10;  - heading &quot;Habits&quot; [level=2]&#10;  - list &quot;Habits&quot;:&#10;    - listitem:&#10;      - heading &quot;Read 20 pages&quot; [level=3]&#10;      - button &quot;Delete \&quot;Read 20 pages\&quot;&quot;&#10;      - paragraph: Current 4 days Best 9&#10;      - button &quot;Year view, Read 20 pages&quot;: Year&#10;      - button &quot;Done today, Read 20 pages&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Stretch 10 minutes&quot; [level=3]&#10;      - button &quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;&#10;      - paragraph: Current 2 days Best 5&#10;      - button &quot;Year view, Stretch 10 minutes&quot;: Year&#10;      - button &quot;Done today, Stretch 10 minutes&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;No phone after 11pm&quot; [level=3]&#10;      - button &quot;Delete \&quot;No phone after 11pm\&quot;&quot;&#10;      - paragraph: Current No streak yet Best 14&#10;      - button &quot;Year view, No phone after 11pm&quot;: Year&#10;      - button &quot;Done today, No phone after 11pm&quot;: Done today&#10;  - text: New habit&#10;  - textbox &quot;New habit&quot;&#10;  - button &quot;Add&quot;">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001EF7D9E5BC0&gt;
+action = 'presses Escape'
+
+    @pytest.mark.parametrize("action", ["clicks Close", "presses Escape", "clicks the viewport point (5, 5)"])
+    def test_R36_R40_p1_closes_and_gives_focus_back_to_its_day(app, action):
+        page = app(viewport=DESKTOP, storage=sample_state())
+&gt;       open_from_band(page, SEP_22)
+
+tests\browser\test_day_editor.py:129: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+page = &lt;Page url='http://127.0.0.1:34264/'&gt;, key = '2026-09-22'
+
+    def open_from_band(page, key):
+        band_day(page, key).click()
+&gt;       expect(day_dialog(page)).to_have_attribute("open", "")
+E       AssertionError: Locator expected to have attribute ''
+E       Actual value: None 
+E       Call log:
+E         - Expect "to_have_attribute" with timeout 5000ms
+E         - waiting for locator("dialog.dlg-day")
+E           14 × locator resolved to &lt;dialog class="dlg-day" aria-modal="true" aria-describedby="day-sub" aria-labelledby="day-title"&gt;…&lt;/dialog&gt;
+E              - unexpected value "null"
+E       
+E       Aria snapshot:
+E       - banner:
+E         - heading "Streaky Habit" [level=1]
+E         - time: Saturday 10 October
+E       - main:
+E         - region "Last 12 weeks":
+E           - heading "Last 12 weeks" [level=2]
+E           - button "Year view, all habits": Year
+E           - paragraph: Tap a day to change it.
+E           - group "Last 12 weeks":
+E             - button "Mon 20 Jul, 2 of 3 habits"
+E             - button "Tue 21 Jul, 3 of 3 habits"
+E             - button "Wed 22 Jul, 1 of 3 habits"
+E             - button "Thu 23 Jul, 2 of 3 habits"
+E             - button "Fri 24 Jul, 2 of 3 habits"
+E             - button "Sat 25 Jul, 2 of 3 habits"
+E             - button "Sun 26 Jul, 1 of 3 habits"
+E             - button "Mon 27 Jul, 2 of 3 habits"
+E             - button "Tue 28 Jul, 2 of 3 habits"
+E             - button "Wed 29 Jul, 2 of 3 habits"
+E             - button "Thu 30 Jul, 2 of 3 habits"
+E             - button "Fri 31 Jul, 2 of 3 habits"
+E             - button "Sat 1 Aug, 1 of 3 habits"
+E             - button "Sun 2 Aug, 2 of 3 habits"
+E             - button "Mon 3 Aug, 1 of 3 habits"
+E             - button "Tue 4 Aug, 2 of 3 habits"
+E             - button "Wed 5 Aug, 3 of 3 habits"
+E             - button "Thu 6 Aug, 2 of 3 habits"
+E             - button "Fri 7 Aug, 2 of 3 habits"
+E             - button "Sat 8 Aug, 2 of 3 habits"
+E             - button "Sun 9 Aug, 1 of 3 habits"
+E             - button "Mon 10 Aug, 2 of 3 habits"
+E             - button "Tue 11 Aug, 3 of 3 habits"
+E             - button "Wed 12 Aug, 2 of 3 habits"
+E             - button "Thu 13 Aug, 2 of 3 habits"
+E             - button "Fri 14 Aug, 2 of 3 habits"
+E             - button "Sat 15 Aug, 2 of 3 habits"
+E             - button "Sun 16 Aug, 2 of 3 habits"
+E             - button "Mon 17 Aug, 1 of 3 habits"
+E             - button "Tue 18 Aug, 2 of 3 habits"
+E             - button "Wed 19 Aug, 2 of 3 habits"
+E             - button "Thu 20 Aug, 1 of 3 habits"
+E             - button "Fri 21 Aug, 3 of 3 habits"
+E             - button "Sat 22 Aug, 3 of 3 habits"
+E             - button "Sun 23 Aug, 0 of 3 habits"
+E             - button "Mon 24 Aug, 3 of 3 habits"
+E             - button "Tue 25 Aug, 3 of 3 habits"
+E             - button "Wed 26 Aug, 2 of 3 habits"
+E             - button "Thu 27 Aug, 1 of 3 habits"
+E             - button "Fri 28 Aug, 2 of 3 habits"
+E             - button "Sat 29 Aug, 2 of 3 habits"
+E             - button "Sun 30 Aug, 2 of 3 habits"
+E             - button "Mon 31 Aug, 1 of 3 habits"
+E             - button "Tue 1 Sep, 2 of 3 habits"
+E             - button "Wed 2 Sep, 3 of 3 habits"
+E             - button "Thu 3 Sep, 3 of 3 habits"
+E             - button "Fri 4 Sep, 2 of 3 habits"
+E             - button "Sat 5 Sep, 2 of 3 habits"
+E             - button "Sun 6 Sep, 1 of 3 habits"
+E             - button "Mon 7 Sep, 2 of 3 habits"
+E             - button "Tue 8 Sep, 3 of 3 habits"
+E             - button "Wed 9 Sep, 1 of 3 habits"
+E             - button "Thu 10 Sep, 1 of 3 habits"
+E             - button "Fri 11 Sep, 3 of 3 habits"
+E             - button "Sat 12 Sep, 1 of 3 habits"
+E             - button "Sun 13 Sep, 2 of 3 habits"
+E             - button "Mon 14 Sep, 2 of 3 habits"
+E             - button "Tue 15 Sep, 3 of 3 habits"
+E             - button "Wed 16 Sep, 2 of 3 habits"
+E             - button "Thu 17 Sep, 2 of 3 habits"
+E             - button "Fri 18 Sep, 2 of 3 habits"
+E             - button "Sat 19 Sep, 3 of 3 habits"
+E             - button "Sun 20 Sep, 3 of 3 habits"
+E             - button "Mon 21 Sep, 2 of 3 habits"
+E             - button "Tue 22 Sep, 1 of 3 habits"
+E             - button "Wed 23 Sep, 2 of 3 habits"
+E             - button "Thu 24 Sep, 2 of 3 habits"
+E             - button "Fri 25 Sep, 3 of 3 habits"
+E             - button "Sat 26 Sep, 2 of 3 habits"
+E             - button "Sun 27 Sep, 0 of 3 habits"
+E             - button "Mon 28 Sep, 2 of 3 habits"
+E             - button "Tue 29 Sep, 3 of 3 habits"
+E             - button "Wed 30 Sep, 2 of 3 habits"
+E             - button "Thu 1 Oct, 2 of 3 habits"
+E             - button "Fri 2 Oct, 2 of 3 habits"
+E             - button "Sat 3 Oct, 2 of 3 habits"
+E             - button "Sun 4 Oct, 2 of 3 habits"
+E             - button "Mon 5 Oct, 3 of 3 habits"
+E             - button "Tue 6 Oct, 1 of 3 habits"
+E             - button "Wed 7 Oct, 2 of 3 habits"
+E             - button "Thu 8 Oct, 3 of 3 habits"
+E             - button "Fri 9 Oct, 2 of 3 habits"
+E             - button "Sat 10 Oct, 1 of 3 habits"
+E         - heading "Habits" [level=2]
+E         - list "Habits":
+E           - listitem:
+E             - heading "Read 20 pages" [level=3]
+E             - button "Delete \"Read 20 pages\""
+E             - paragraph: Current 4 days Best 9
+E             - button "Year view, Read 20 pages": Year
+E             - button "Done today, Read 20 pages" [pressed]: Done today
+E           - listitem:
+E             - heading "Stretch 10 minutes" [level=3]
+E             - button "Delete \"Stretch 10 minutes\""
+E             - paragraph: Current 2 days Best 5
+E             - button "Year view, Stretch 10 minutes": Year
+E             - button "Done today, Stretch 10 minutes": Done today
+E           - listitem:
+E             - heading "No phone after 11pm" [level=3]
+E             - button "Delete \"No phone after 11pm\""
+E             - paragraph: Current No streak yet Best 14
+E             - button "Year view, No phone after 11pm": Year
+E             - button "Done today, No phone after 11pm": Done today
+E         - text: New habit
+E         - textbox "New habit"
+E         - button "Add"
+
+tests\browser\test_day_editor.py:63: AssertionError</failure></testcase><testcase classname="tests.browser.test_day_editor" name="test_R36_R40_p1_closes_and_gives_focus_back_to_its_day[clicks the viewport point (5, 5)]" time="5.143"><failure message="AssertionError: Locator expected to have attribute ''&#10;Actual value: None &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-day&quot;)&#10;    14 × locator resolved to &lt;dialog class=&quot;dlg-day&quot; aria-modal=&quot;true&quot; aria-describedby=&quot;day-sub&quot; aria-labelledby=&quot;day-title&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;null&quot;&#10;&#10;Aria snapshot:&#10;- banner:&#10;  - heading &quot;Streaky Habit&quot; [level=1]&#10;  - time: Saturday 10 October&#10;- main:&#10;  - region &quot;Last 12 weeks&quot;:&#10;    - heading &quot;Last 12 weeks&quot; [level=2]&#10;    - button &quot;Year view, all habits&quot;: Year&#10;    - paragraph: Tap a day to change it.&#10;    - group &quot;Last 12 weeks&quot;:&#10;      - button &quot;Mon 20 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Tue 21 Jul, 3 of 3 habits&quot;&#10;      - button &quot;Wed 22 Jul, 1 of 3 habits&quot;&#10;      - button &quot;Thu 23 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Fri 24 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Sat 25 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Sun 26 Jul, 1 of 3 habits&quot;&#10;      - button &quot;Mon 27 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Tue 28 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Wed 29 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Thu 30 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Fri 31 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Sat 1 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Sun 2 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Mon 3 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Tue 4 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Wed 5 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Thu 6 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Fri 7 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sat 8 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sun 9 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Mon 10 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Tue 11 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Wed 12 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Thu 13 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Fri 14 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sat 15 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sun 16 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Mon 17 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Tue 18 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Wed 19 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Thu 20 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Fri 21 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Sat 22 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Sun 23 Aug, 0 of 3 habits&quot;&#10;      - button &quot;Mon 24 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Tue 25 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Wed 26 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Thu 27 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Fri 28 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sat 29 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sun 30 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Mon 31 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Tue 1 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Wed 2 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Thu 3 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Fri 4 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Sat 5 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Sun 6 Sep, 1 of 3 habits&quot;&#10;      - button &quot;Mon 7 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Tue 8 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Wed 9 Sep, 1 of 3 habits&quot;&#10;      - button &quot;Thu 10 Sep, 1 of 3 habits&quot;&#10;      - button &quot;Fri 11 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Sat 12 Sep, 1 of 3 habits&quot;&#10;      - button &quot;Sun 13 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Mon 14 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Tue 15 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Wed 16 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Thu 17 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Fri 18 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Sat 19 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Sun 20 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Mon 21 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Tue 22 Sep, 1 of 3 habits&quot;&#10;      - button &quot;Wed 23 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Thu 24 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Fri 25 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Sat 26 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Sun 27 Sep, 0 of 3 habits&quot;&#10;      - button &quot;Mon 28 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Tue 29 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Wed 30 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Thu 1 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Fri 2 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Sat 3 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Sun 4 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Mon 5 Oct, 3 of 3 habits&quot;&#10;      - button &quot;Tue 6 Oct, 1 of 3 habits&quot;&#10;      - button &quot;Wed 7 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Thu 8 Oct, 3 of 3 habits&quot;&#10;      - button &quot;Fri 9 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Sat 10 Oct, 1 of 3 habits&quot;&#10;  - heading &quot;Habits&quot; [level=2]&#10;  - list &quot;Habits&quot;:&#10;    - listitem:&#10;      - heading &quot;Read 20 pages&quot; [level=3]&#10;      - button &quot;Delete \&quot;Read 20 pages\&quot;&quot;&#10;      - paragraph: Current 4 days Best 9&#10;      - button &quot;Year view, Read 20 pages&quot;: Year&#10;      - button &quot;Done today, Read 20 pages&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Stretch 10 minutes&quot; [level=3]&#10;      - button &quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;&#10;      - paragraph: Current 2 days Best 5&#10;      - button &quot;Year view, Stretch 10 minutes&quot;: Year&#10;      - button &quot;Done today, Stretch 10 minutes&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;No phone after 11pm&quot; [level=3]&#10;      - button &quot;Delete \&quot;No phone after 11pm\&quot;&quot;&#10;      - paragraph: Current No streak yet Best 14&#10;      - button &quot;Year view, No phone after 11pm&quot;: Year&#10;      - button &quot;Done today, No phone after 11pm&quot;: Done today&#10;  - text: New habit&#10;  - textbox &quot;New habit&quot;&#10;  - button &quot;Add&quot;">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001EF7D9E5430&gt;
+action = 'clicks the viewport point (5, 5)'
+
+    @pytest.mark.parametrize("action", ["clicks Close", "presses Escape", "clicks the viewport point (5, 5)"])
+    def test_R36_R40_p1_closes_and_gives_focus_back_to_its_day(app, action):
+        page = app(viewport=DESKTOP, storage=sample_state())
+&gt;       open_from_band(page, SEP_22)
+
+tests\browser\test_day_editor.py:129: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+page = &lt;Page url='http://127.0.0.1:34264/'&gt;, key = '2026-09-22'
+
+    def open_from_band(page, key):
+        band_day(page, key).click()
+&gt;       expect(day_dialog(page)).to_have_attribute("open", "")
+E       AssertionError: Locator expected to have attribute ''
+E       Actual value: None 
+E       Call log:
+E         - Expect "to_have_attribute" with timeout 5000ms
+E         - waiting for locator("dialog.dlg-day")
+E           14 × locator resolved to &lt;dialog class="dlg-day" aria-modal="true" aria-describedby="day-sub" aria-labelledby="day-title"&gt;…&lt;/dialog&gt;
+E              - unexpected value "null"
+E       
+E       Aria snapshot:
+E       - banner:
+E         - heading "Streaky Habit" [level=1]
+E         - time: Saturday 10 October
+E       - main:
+E         - region "Last 12 weeks":
+E           - heading "Last 12 weeks" [level=2]
+E           - button "Year view, all habits": Year
+E           - paragraph: Tap a day to change it.
+E           - group "Last 12 weeks":
+E             - button "Mon 20 Jul, 2 of 3 habits"
+E             - button "Tue 21 Jul, 3 of 3 habits"
+E             - button "Wed 22 Jul, 1 of 3 habits"
+E             - button "Thu 23 Jul, 2 of 3 habits"
+E             - button "Fri 24 Jul, 2 of 3 habits"
+E             - button "Sat 25 Jul, 2 of 3 habits"
+E             - button "Sun 26 Jul, 1 of 3 habits"
+E             - button "Mon 27 Jul, 2 of 3 habits"
+E             - button "Tue 28 Jul, 2 of 3 habits"
+E             - button "Wed 29 Jul, 2 of 3 habits"
+E             - button "Thu 30 Jul, 2 of 3 habits"
+E             - button "Fri 31 Jul, 2 of 3 habits"
+E             - button "Sat 1 Aug, 1 of 3 habits"
+E             - button "Sun 2 Aug, 2 of 3 habits"
+E             - button "Mon 3 Aug, 1 of 3 habits"
+E             - button "Tue 4 Aug, 2 of 3 habits"
+E             - button "Wed 5 Aug, 3 of 3 habits"
+E             - button "Thu 6 Aug, 2 of 3 habits"
+E             - button "Fri 7 Aug, 2 of 3 habits"
+E             - button "Sat 8 Aug, 2 of 3 habits"
+E             - button "Sun 9 Aug, 1 of 3 habits"
+E             - button "Mon 10 Aug, 2 of 3 habits"
+E             - button "Tue 11 Aug, 3 of 3 habits"
+E             - button "Wed 12 Aug, 2 of 3 habits"
+E             - button "Thu 13 Aug, 2 of 3 habits"
+E             - button "Fri 14 Aug, 2 of 3 habits"
+E             - button "Sat 15 Aug, 2 of 3 habits"
+E             - button "Sun 16 Aug, 2 of 3 habits"
+E             - button "Mon 17 Aug, 1 of 3 habits"
+E             - button "Tue 18 Aug, 2 of 3 habits"
+E             - button "Wed 19 Aug, 2 of 3 habits"
+E             - button "Thu 20 Aug, 1 of 3 habits"
+E             - button "Fri 21 Aug, 3 of 3 habits"
+E             - button "Sat 22 Aug, 3 of 3 habits"
+E             - button "Sun 23 Aug, 0 of 3 habits"
+E             - button "Mon 24 Aug, 3 of 3 habits"
+E             - button "Tue 25 Aug, 3 of 3 habits"
+E             - button "Wed 26 Aug, 2 of 3 habits"
+E             - button "Thu 27 Aug, 1 of 3 habits"
+E             - button "Fri 28 Aug, 2 of 3 habits"
+E             - button "Sat 29 Aug, 2 of 3 habits"
+E             - button "Sun 30 Aug, 2 of 3 habits"
+E             - button "Mon 31 Aug, 1 of 3 habits"
+E             - button "Tue 1 Sep, 2 of 3 habits"
+E             - button "Wed 2 Sep, 3 of 3 habits"
+E             - button "Thu 3 Sep, 3 of 3 habits"
+E             - button "Fri 4 Sep, 2 of 3 habits"
+E             - button "Sat 5 Sep, 2 of 3 habits"
+E             - button "Sun 6 Sep, 1 of 3 habits"
+E             - button "Mon 7 Sep, 2 of 3 habits"
+E             - button "Tue 8 Sep, 3 of 3 habits"
+E             - button "Wed 9 Sep, 1 of 3 habits"
+E             - button "Thu 10 Sep, 1 of 3 habits"
+E             - button "Fri 11 Sep, 3 of 3 habits"
+E             - button "Sat 12 Sep, 1 of 3 habits"
+E             - button "Sun 13 Sep, 2 of 3 habits"
+E             - button "Mon 14 Sep, 2 of 3 habits"
+E             - button "Tue 15 Sep, 3 of 3 habits"
+E             - button "Wed 16 Sep, 2 of 3 habits"
+E             - button "Thu 17 Sep, 2 of 3 habits"
+E             - button "Fri 18 Sep, 2 of 3 habits"
+E             - button "Sat 19 Sep, 3 of 3 habits"
+E             - button "Sun 20 Sep, 3 of 3 habits"
+E             - button "Mon 21 Sep, 2 of 3 habits"
+E             - button "Tue 22 Sep, 1 of 3 habits"
+E             - button "Wed 23 Sep, 2 of 3 habits"
+E             - button "Thu 24 Sep, 2 of 3 habits"
+E             - button "Fri 25 Sep, 3 of 3 habits"
+E             - button "Sat 26 Sep, 2 of 3 habits"
+E             - button "Sun 27 Sep, 0 of 3 habits"
+E             - button "Mon 28 Sep, 2 of 3 habits"
+E             - button "Tue 29 Sep, 3 of 3 habits"
+E             - button "Wed 30 Sep, 2 of 3 habits"
+E             - button "Thu 1 Oct, 2 of 3 habits"
+E             - button "Fri 2 Oct, 2 of 3 habits"
+E             - button "Sat 3 Oct, 2 of 3 habits"
+E             - button "Sun 4 Oct, 2 of 3 habits"
+E             - button "Mon 5 Oct, 3 of 3 habits"
+E             - button "Tue 6 Oct, 1 of 3 habits"
+E             - button "Wed 7 Oct, 2 of 3 habits"
+E             - button "Thu 8 Oct, 3 of 3 habits"
+E             - button "Fri 9 Oct, 2 of 3 habits"
+E             - button "Sat 10 Oct, 1 of 3 habits"
+E         - heading "Habits" [level=2]
+E         - list "Habits":
+E           - listitem:
+E             - heading "Read 20 pages" [level=3]
+E             - button "Delete \"Read 20 pages\""
+E             - paragraph: Current 4 days Best 9
+E             - button "Year view, Read 20 pages": Year
+E             - button "Done today, Read 20 pages" [pressed]: Done today
+E           - listitem:
+E             - heading "Stretch 10 minutes" [level=3]
+E             - button "Delete \"Stretch 10 minutes\""
+E             - paragraph: Current 2 days Best 5
+E             - button "Year view, Stretch 10 minutes": Year
+E             - button "Done today, Stretch 10 minutes": Done today
+E           - listitem:
+E             - heading "No phone after 11pm" [level=3]
+E             - button "Delete \"No phone after 11pm\""
+E             - paragraph: Current No streak yet Best 14
+E             - button "Year view, No phone after 11pm": Year
+E             - button "Done today, No phone after 11pm": Done today
+E         - text: New habit
+E         - textbox "New habit"
+E         - button "Add"
+
+tests\browser\test_day_editor.py:63: AssertionError</failure></testcase><testcase classname="tests.browser.test_day_editor" name="test_R36_on_a_phone_the_chosen_day_stays_in_sight_above_p1[390x844 P3 2026-09-22]" time="5.416"><failure message="AssertionError: Locator expected to have attribute ''&#10;Actual value: None &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-day&quot;)&#10;    14 × locator resolved to &lt;dialog class=&quot;dlg-day&quot; aria-modal=&quot;true&quot; aria-describedby=&quot;day-sub&quot; aria-labelledby=&quot;day-title&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;null&quot;&#10;&#10;Aria snapshot:&#10;- banner:&#10;  - heading &quot;Streaky Habit&quot; [level=1]&#10;  - button &quot;Overview, today 1 of 3 habits done&quot;: Overview&#10;  - time: Saturday 10 October&#10;- main:&#10;  - heading &quot;Habits&quot; [level=2]&#10;  - list &quot;Habits&quot;:&#10;    - listitem:&#10;      - heading &quot;Read 20 pages&quot; [level=3]&#10;      - button &quot;Delete \&quot;Read 20 pages\&quot;&quot;&#10;      - paragraph: Current 4 days Best 9&#10;      - button &quot;Year view, Read 20 pages&quot;: Year&#10;      - button &quot;Done today, Read 20 pages&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Stretch 10 minutes&quot; [level=3]&#10;      - button &quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;&#10;      - paragraph: Current 2 days Best 5&#10;      - button &quot;Year view, Stretch 10 minutes&quot;: Year&#10;      - button &quot;Done today, Stretch 10 minutes&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;No phone after 11pm&quot; [level=3]&#10;      - button &quot;Delete \&quot;No phone after 11pm\&quot;&quot;&#10;      - paragraph: Current No streak yet Best 14&#10;      - button &quot;Year view, No phone after 11pm&quot;: Year&#10;      - button &quot;Done today, No phone after 11pm&quot;: Done today&#10;  - text: New habit&#10;  - textbox &quot;New habit&quot;&#10;  - button &quot;Add&quot;&#10;- dialog &quot;Last 12 weeks&quot;:&#10;  - heading &quot;Last 12 weeks&quot; [level=2]&#10;  - paragraph: Tap a day to change it.&#10;  - button &quot;Year view, all habits&quot;: Year&#10;  - button &quot;Close&quot;&#10;  - group &quot;Last 12 weeks&quot;:&#10;    - button &quot;Mon 5 Oct, 3 of 3 habits&quot;&#10;    - button &quot;Tue 6 Oct, 1 of 3 habits&quot;&#10;    - button &quot;Wed 7 Oct, 2 of 3 habits&quot;&#10;    - button &quot;Thu 8 Oct, 3 of 3 habits&quot;&#10;    - button &quot;Fri 9 Oct, 2 of 3 habits&quot;&#10;    - button &quot;Sat 10 Oct, 1 of 3 habits&quot;&#10;    - button &quot;Mon 28 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Tue 29 Sep, 3 of 3 habits&quot;&#10;    - button &quot;Wed 30 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Thu 1 Oct, 2 of 3 habits&quot;&#10;    - button &quot;Fri 2 Oct, 2 of 3 habits&quot;&#10;    - button &quot;Sat 3 Oct, 2 of 3 habits&quot;&#10;    - button &quot;Sun 4 Oct, 2 of 3 habits&quot;&#10;    - button &quot;Mon 21 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Tue 22 Sep, 1 of 3 habits&quot;&#10;    - button &quot;Wed 23 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Thu 24 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Fri 25 Sep, 3 of 3 habits&quot;&#10;    - button &quot;Sat 26 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Sun 27 Sep, 0 of 3 habits&quot;&#10;    - button &quot;Mon 14 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Tue 15 Sep, 3 of 3 habits&quot;&#10;    - button &quot;Wed 16 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Thu 17 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Fri 18 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Sat 19 Sep, 3 of 3 habits&quot;&#10;    - button &quot;Sun 20 Sep, 3 of 3 habits&quot;&#10;    - button &quot;Mon 7 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Tue 8 Sep, 3 of 3 habits&quot;&#10;    - button &quot;Wed 9 Sep, 1 of 3 habits&quot;&#10;    - button &quot;Thu 10 Sep, 1 of 3 habits&quot;&#10;    - button &quot;Fri 11 Sep, 3 of 3 habits&quot;&#10;    - button &quot;Sat 12 Sep, 1 of 3 habits&quot;&#10;    - button &quot;Sun 13 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Mon 31 Aug, 1 of 3 habits&quot;&#10;    - button &quot;Tue 1 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Wed 2 Sep, 3 of 3 habits&quot;&#10;    - button &quot;Thu 3 Sep, 3 of 3 habits&quot;&#10;    - button &quot;Fri 4 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Sat 5 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Sun 6 Sep, 1 of 3 habits&quot;&#10;    - button &quot;Mon 24 Aug, 3 of 3 habits&quot;&#10;    - button &quot;Tue 25 Aug, 3 of 3 habits&quot;&#10;    - button &quot;Wed 26 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Thu 27 Aug, 1 of 3 habits&quot;&#10;    - button &quot;Fri 28 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Sat 29 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Sun 30 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Mon 17 Aug, 1 of 3 habits&quot;&#10;    - button &quot;Tue 18 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Wed 19 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Thu 20 Aug, 1 of 3 habits&quot;&#10;    - button &quot;Fri 21 Aug, 3 of 3 habits&quot;&#10;    - button &quot;Sat 22 Aug, 3 of 3 habits&quot;&#10;    - button &quot;Sun 23 Aug, 0 of 3 habits&quot;&#10;    - button &quot;Mon 10 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Tue 11 Aug, 3 of 3 habits&quot;&#10;    - button &quot;Wed 12 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Thu 13 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Fri 14 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Sat 15 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Sun 16 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Mon 3 Aug, 1 of 3 habits&quot;&#10;    - button &quot;Tue 4 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Wed 5 Aug, 3 of 3 habits&quot;&#10;    - button &quot;Thu 6 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Fri 7 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Sat 8 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Sun 9 Aug, 1 of 3 habits&quot;&#10;    - button &quot;Mon 27 Jul, 2 of 3 habits&quot;&#10;    - button &quot;Tue 28 Jul, 2 of 3 habits&quot;&#10;    - button &quot;Wed 29 Jul, 2 of 3 habits&quot;&#10;    - button &quot;Thu 30 Jul, 2 of 3 habits&quot;&#10;    - button &quot;Fri 31 Jul, 2 of 3 habits&quot;&#10;    - button &quot;Sat 1 Aug, 1 of 3 habits&quot;&#10;    - button &quot;Sun 2 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Mon 20 Jul, 2 of 3 habits&quot;&#10;    - button &quot;Tue 21 Jul, 3 of 3 habits&quot;&#10;    - button &quot;Wed 22 Jul, 1 of 3 habits&quot;&#10;    - button &quot;Thu 23 Jul, 2 of 3 habits&quot;&#10;    - button &quot;Fri 24 Jul, 2 of 3 habits&quot;&#10;    - button &quot;Sat 25 Jul, 2 of 3 habits&quot;&#10;    - button &quot;Sun 26 Jul, 1 of 3 habits&quot;">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001EF7D9E75E0&gt;
+viewport = (390, 844), key = '2026-09-22', scrolled = False
+
+    @pytest.mark.parametrize(
+        "viewport, key, scrolled",
+        [
+            pytest.param(PHONE, SEP_22, False, id="390x844 P3 2026-09-22"),
+            pytest.param((360, 780), SEP_22, False, id="360x780 P3 2026-09-22"),
+            pytest.param(PHONE, "2026-07-20", True, id="390x844 P3 2026-07-20"),
+            pytest.param((360, 780), "2026-07-20", True, id="360x780 P3 2026-07-20"),
+        ],
+    )
+    def test_R36_on_a_phone_the_chosen_day_stays_in_sight_above_p1(app, viewport, key, scrolled):
+        page = app(viewport=viewport, storage=sample_state())
+        page.locator("button.ov-btn").click()
+        expect(page.locator("dialog.dlg-ov")).to_have_attribute("open", "")
+        p3_day(page, key).click()
+&gt;       expect(day_dialog(page)).to_have_attribute("open", "")
+E       AssertionError: Locator expected to have attribute ''
+E       Actual value: None 
+E       Call log:
+E         - Expect "to_have_attribute" with timeout 5000ms
+E         - waiting for locator("dialog.dlg-day")
+E           14 × locator resolved to &lt;dialog class="dlg-day" aria-modal="true" aria-describedby="day-sub" aria-labelledby="day-title"&gt;…&lt;/dialog&gt;
+E              - unexpected value "null"
+E       
+E       Aria snapshot:
+E       - banner:
+E         - heading "Streaky Habit" [level=1]
+E         - button "Overview, today 1 of 3 habits done": Overview
+E         - time: Saturday 10 October
+E       - main:
+E         - heading "Habits" [level=2]
+E         - list "Habits":
+E           - listitem:
+E             - heading "Read 20 pages" [level=3]
+E             - button "Delete \"Read 20 pages\""
+E             - paragraph: Current 4 days Best 9
+E             - button "Year view, Read 20 pages": Year
+E             - button "Done today, Read 20 pages" [pressed]: Done today
+E           - listitem:
+E             - heading "Stretch 10 minutes" [level=3]
+E             - button "Delete \"Stretch 10 minutes\""
+E             - paragraph: Current 2 days Best 5
+E             - button "Year view, Stretch 10 minutes": Year
+E             - button "Done today, Stretch 10 minutes": Done today
+E           - listitem:
+E             - heading "No phone after 11pm" [level=3]
+E             - button "Delete \"No phone after 11pm\""
+E             - paragraph: Current No streak yet Best 14
+E             - button "Year view, No phone after 11pm": Year
+E             - button "Done today, No phone after 11pm": Done today
+E         - text: New habit
+E         - textbox "New habit"
+E         - button "Add"
+E       - dialog "Last 12 weeks":
+E         - heading "Last 12 weeks" [level=2]
+E         - paragraph: Tap a day to change it.
+E         - button "Year view, all habits": Year
+E         - button "Close"
+E         - group "Last 12 weeks":
+E           - button "Mon 5 Oct, 3 of 3 habits"
+E           - button "Tue 6 Oct, 1 of 3 habits"
+E           - button "Wed 7 Oct, 2 of 3 habits"
+E           - button "Thu 8 Oct, 3 of 3 habits"
+E           - button "Fri 9 Oct, 2 of 3 habits"
+E           - button "Sat 10 Oct, 1 of 3 habits"
+E           - button "Mon 28 Sep, 2 of 3 habits"
+E           - button "Tue 29 Sep, 3 of 3 habits"
+E           - button "Wed 30 Sep, 2 of 3 habits"
+E           - button "Thu 1 Oct, 2 of 3 habits"
+E           - button "Fri 2 Oct, 2 of 3 habits"
+E           - button "Sat 3 Oct, 2 of 3 habits"
+E           - button "Sun 4 Oct, 2 of 3 habits"
+E           - button "Mon 21 Sep, 2 of 3 habits"
+E           - button "Tue 22 Sep, 1 of 3 habits"
+E           - button "Wed 23 Sep, 2 of 3 habits"
+E           - button "Thu 24 Sep, 2 of 3 habits"
+E           - button "Fri 25 Sep, 3 of 3 habits"
+E           - button "Sat 26 Sep, 2 of 3 habits"
+E           - button "Sun 27 Sep, 0 of 3 habits"
+E           - button "Mon 14 Sep, 2 of 3 habits"
+E           - button "Tue 15 Sep, 3 of 3 habits"
+E           - button "Wed 16 Sep, 2 of 3 habits"
+E           - button "Thu 17 Sep, 2 of 3 habits"
+E           - button "Fri 18 Sep, 2 of 3 habits"
+E           - button "Sat 19 Sep, 3 of 3 habits"
+E           - button "Sun 20 Sep, 3 of 3 habits"
+E           - button "Mon 7 Sep, 2 of 3 habits"
+E           - button "Tue 8 Sep, 3 of 3 habits"
+E           - button "Wed 9 Sep, 1 of 3 habits"
+E           - button "Thu 10 Sep, 1 of 3 habits"
+E           - button "Fri 11 Sep, 3 of 3 habits"
+E           - button "Sat 12 Sep, 1 of 3 habits"
+E           - button "Sun 13 Sep, 2 of 3 habits"
+E           - button "Mon 31 Aug, 1 of 3 habits"
+E           - button "Tue 1 Sep, 2 of 3 habits"
+E           - button "Wed 2 Sep, 3 of 3 habits"
+E           - button "Thu 3 Sep, 3 of 3 habits"
+E           - button "Fri 4 Sep, 2 of 3 habits"
+E           - button "Sat 5 Sep, 2 of 3 habits"
+E           - button "Sun 6 Sep, 1 of 3 habits"
+E           - button "Mon 24 Aug, 3 of 3 habits"
+E           - button "Tue 25 Aug, 3 of 3 habits"
+E           - button "Wed 26 Aug, 2 of 3 habits"
+E           - button "Thu 27 Aug, 1 of 3 habits"
+E           - button "Fri 28 Aug, 2 of 3 habits"
+E           - button "Sat 29 Aug, 2 of 3 habits"
+E           - button "Sun 30 Aug, 2 of 3 habits"
+E           - button "Mon 17 Aug, 1 of 3 habits"
+E           - button "Tue 18 Aug, 2 of 3 habits"
+E           - button "Wed 19 Aug, 2 of 3 habits"
+E           - button "Thu 20 Aug, 1 of 3 habits"
+E           - button "Fri 21 Aug, 3 of 3 habits"
+E           - button "Sat 22 Aug, 3 of 3 habits"
+E           - button "Sun 23 Aug, 0 of 3 habits"
+E           - button "Mon 10 Aug, 2 of 3 habits"
+E           - button "Tue 11 Aug, 3 of 3 habits"
+E           - button "Wed 12 Aug, 2 of 3 habits"
+E           - button "Thu 13 Aug, 2 of 3 habits"
+E           - button "Fri 14 Aug, 2 of 3 habits"
+E           - button "Sat 15 Aug, 2 of 3 habits"
+E           - button "Sun 16 Aug, 2 of 3 habits"
+E           - button "Mon 3 Aug, 1 of 3 habits"
+E           - button "Tue 4 Aug, 2 of 3 habits"
+E           - button "Wed 5 Aug, 3 of 3 habits"
+E           - button "Thu 6 Aug, 2 of 3 habits"
+E           - button "Fri 7 Aug, 2 of 3 habits"
+E           - button "Sat 8 Aug, 2 of 3 habits"
+E           - button "Sun 9 Aug, 1 of 3 habits"
+E           - button "Mon 27 Jul, 2 of 3 habits"
+E           - button "Tue 28 Jul, 2 of 3 habits"
+E           - button "Wed 29 Jul, 2 of 3 habits"
+E           - button "Thu 30 Jul, 2 of 3 habits"
+E           - button "Fri 31 Jul, 2 of 3 habits"
+E           - button "Sat 1 Aug, 1 of 3 habits"
+E           - button "Sun 2 Aug, 2 of 3 habits"
+E           - button "Mon 20 Jul, 2 of 3 habits"
+E           - button "Tue 21 Jul, 3 of 3 habits"
+E           - button "Wed 22 Jul, 1 of 3 habits"
+E           - button "Thu 23 Jul, 2 of 3 habits"
+E           - button "Fri 24 Jul, 2 of 3 habits"
+E           - button "Sat 25 Jul, 2 of 3 habits"
+E           - button "Sun 26 Jul, 1 of 3 habits"
+
+tests\browser\test_day_editor.py:173: AssertionError</failure></testcase><testcase classname="tests.browser.test_day_editor" name="test_R36_on_a_phone_the_chosen_day_stays_in_sight_above_p1[360x780 P3 2026-09-22]" time="5.422"><failure message="AssertionError: Locator expected to have attribute ''&#10;Actual value: None &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-day&quot;)&#10;    14 × locator resolved to &lt;dialog class=&quot;dlg-day&quot; aria-modal=&quot;true&quot; aria-describedby=&quot;day-sub&quot; aria-labelledby=&quot;day-title&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;null&quot;&#10;&#10;Aria snapshot:&#10;- banner:&#10;  - heading &quot;Streaky Habit&quot; [level=1]&#10;  - button &quot;Overview, today 1 of 3 habits done&quot;: Overview&#10;  - time: Saturday 10 October&#10;- main:&#10;  - heading &quot;Habits&quot; [level=2]&#10;  - list &quot;Habits&quot;:&#10;    - listitem:&#10;      - heading &quot;Read 20 pages&quot; [level=3]&#10;      - button &quot;Delete \&quot;Read 20 pages\&quot;&quot;&#10;      - paragraph: Current 4 days Best 9&#10;      - button &quot;Year view, Read 20 pages&quot;: Year&#10;      - button &quot;Done today, Read 20 pages&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Stretch 10 minutes&quot; [level=3]&#10;      - button &quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;&#10;      - paragraph: Current 2 days Best 5&#10;      - button &quot;Year view, Stretch 10 minutes&quot;: Year&#10;      - button &quot;Done today, Stretch 10 minutes&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;No phone after 11pm&quot; [level=3]&#10;      - button &quot;Delete \&quot;No phone after 11pm\&quot;&quot;&#10;      - paragraph: Current No streak yet Best 14&#10;      - button &quot;Year view, No phone after 11pm&quot;: Year&#10;      - button &quot;Done today, No phone after 11pm&quot;: Done today&#10;  - text: New habit&#10;  - textbox &quot;New habit&quot;&#10;  - button &quot;Add&quot;&#10;- dialog &quot;Last 12 weeks&quot;:&#10;  - heading &quot;Last 12 weeks&quot; [level=2]&#10;  - paragraph: Tap a day to change it.&#10;  - button &quot;Year view, all habits&quot;: Year&#10;  - button &quot;Close&quot;&#10;  - group &quot;Last 12 weeks&quot;:&#10;    - button &quot;Mon 5 Oct, 3 of 3 habits&quot;&#10;    - button &quot;Tue 6 Oct, 1 of 3 habits&quot;&#10;    - button &quot;Wed 7 Oct, 2 of 3 habits&quot;&#10;    - button &quot;Thu 8 Oct, 3 of 3 habits&quot;&#10;    - button &quot;Fri 9 Oct, 2 of 3 habits&quot;&#10;    - button &quot;Sat 10 Oct, 1 of 3 habits&quot;&#10;    - button &quot;Mon 28 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Tue 29 Sep, 3 of 3 habits&quot;&#10;    - button &quot;Wed 30 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Thu 1 Oct, 2 of 3 habits&quot;&#10;    - button &quot;Fri 2 Oct, 2 of 3 habits&quot;&#10;    - button &quot;Sat 3 Oct, 2 of 3 habits&quot;&#10;    - button &quot;Sun 4 Oct, 2 of 3 habits&quot;&#10;    - button &quot;Mon 21 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Tue 22 Sep, 1 of 3 habits&quot;&#10;    - button &quot;Wed 23 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Thu 24 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Fri 25 Sep, 3 of 3 habits&quot;&#10;    - button &quot;Sat 26 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Sun 27 Sep, 0 of 3 habits&quot;&#10;    - button &quot;Mon 14 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Tue 15 Sep, 3 of 3 habits&quot;&#10;    - button &quot;Wed 16 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Thu 17 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Fri 18 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Sat 19 Sep, 3 of 3 habits&quot;&#10;    - button &quot;Sun 20 Sep, 3 of 3 habits&quot;&#10;    - button &quot;Mon 7 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Tue 8 Sep, 3 of 3 habits&quot;&#10;    - button &quot;Wed 9 Sep, 1 of 3 habits&quot;&#10;    - button &quot;Thu 10 Sep, 1 of 3 habits&quot;&#10;    - button &quot;Fri 11 Sep, 3 of 3 habits&quot;&#10;    - button &quot;Sat 12 Sep, 1 of 3 habits&quot;&#10;    - button &quot;Sun 13 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Mon 31 Aug, 1 of 3 habits&quot;&#10;    - button &quot;Tue 1 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Wed 2 Sep, 3 of 3 habits&quot;&#10;    - button &quot;Thu 3 Sep, 3 of 3 habits&quot;&#10;    - button &quot;Fri 4 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Sat 5 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Sun 6 Sep, 1 of 3 habits&quot;&#10;    - button &quot;Mon 24 Aug, 3 of 3 habits&quot;&#10;    - button &quot;Tue 25 Aug, 3 of 3 habits&quot;&#10;    - button &quot;Wed 26 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Thu 27 Aug, 1 of 3 habits&quot;&#10;    - button &quot;Fri 28 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Sat 29 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Sun 30 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Mon 17 Aug, 1 of 3 habits&quot;&#10;    - button &quot;Tue 18 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Wed 19 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Thu 20 Aug, 1 of 3 habits&quot;&#10;    - button &quot;Fri 21 Aug, 3 of 3 habits&quot;&#10;    - button &quot;Sat 22 Aug, 3 of 3 habits&quot;&#10;    - button &quot;Sun 23 Aug, 0 of 3 habits&quot;&#10;    - button &quot;Mon 10 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Tue 11 Aug, 3 of 3 habits&quot;&#10;    - button &quot;Wed 12 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Thu 13 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Fri 14 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Sat 15 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Sun 16 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Mon 3 Aug, 1 of 3 habits&quot;&#10;    - button &quot;Tue 4 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Wed 5 Aug, 3 of 3 habits&quot;&#10;    - button &quot;Thu 6 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Fri 7 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Sat 8 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Sun 9 Aug, 1 of 3 habits&quot;&#10;    - button &quot;Mon 27 Jul, 2 of 3 habits&quot;&#10;    - button &quot;Tue 28 Jul, 2 of 3 habits&quot;&#10;    - button &quot;Wed 29 Jul, 2 of 3 habits&quot;&#10;    - button &quot;Thu 30 Jul, 2 of 3 habits&quot;&#10;    - button &quot;Fri 31 Jul, 2 of 3 habits&quot;&#10;    - button &quot;Sat 1 Aug, 1 of 3 habits&quot;&#10;    - button &quot;Sun 2 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Mon 20 Jul, 2 of 3 habits&quot;&#10;    - button &quot;Tue 21 Jul, 3 of 3 habits&quot;&#10;    - button &quot;Wed 22 Jul, 1 of 3 habits&quot;&#10;    - button &quot;Thu 23 Jul, 2 of 3 habits&quot;&#10;    - button &quot;Fri 24 Jul, 2 of 3 habits&quot;&#10;    - button &quot;Sat 25 Jul, 2 of 3 habits&quot;&#10;    - button &quot;Sun 26 Jul, 1 of 3 habits&quot;">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001EF7DB741A0&gt;
+viewport = (360, 780), key = '2026-09-22', scrolled = False
+
+    @pytest.mark.parametrize(
+        "viewport, key, scrolled",
+        [
+            pytest.param(PHONE, SEP_22, False, id="390x844 P3 2026-09-22"),
+            pytest.param((360, 780), SEP_22, False, id="360x780 P3 2026-09-22"),
+            pytest.param(PHONE, "2026-07-20", True, id="390x844 P3 2026-07-20"),
+            pytest.param((360, 780), "2026-07-20", True, id="360x780 P3 2026-07-20"),
+        ],
+    )
+    def test_R36_on_a_phone_the_chosen_day_stays_in_sight_above_p1(app, viewport, key, scrolled):
+        page = app(viewport=viewport, storage=sample_state())
+        page.locator("button.ov-btn").click()
+        expect(page.locator("dialog.dlg-ov")).to_have_attribute("open", "")
+        p3_day(page, key).click()
+&gt;       expect(day_dialog(page)).to_have_attribute("open", "")
+E       AssertionError: Locator expected to have attribute ''
+E       Actual value: None 
+E       Call log:
+E         - Expect "to_have_attribute" with timeout 5000ms
+E         - waiting for locator("dialog.dlg-day")
+E           14 × locator resolved to &lt;dialog class="dlg-day" aria-modal="true" aria-describedby="day-sub" aria-labelledby="day-title"&gt;…&lt;/dialog&gt;
+E              - unexpected value "null"
+E       
+E       Aria snapshot:
+E       - banner:
+E         - heading "Streaky Habit" [level=1]
+E         - button "Overview, today 1 of 3 habits done": Overview
+E         - time: Saturday 10 October
+E       - main:
+E         - heading "Habits" [level=2]
+E         - list "Habits":
+E           - listitem:
+E             - heading "Read 20 pages" [level=3]
+E             - button "Delete \"Read 20 pages\""
+E             - paragraph: Current 4 days Best 9
+E             - button "Year view, Read 20 pages": Year
+E             - button "Done today, Read 20 pages" [pressed]: Done today
+E           - listitem:
+E             - heading "Stretch 10 minutes" [level=3]
+E             - button "Delete \"Stretch 10 minutes\""
+E             - paragraph: Current 2 days Best 5
+E             - button "Year view, Stretch 10 minutes": Year
+E             - button "Done today, Stretch 10 minutes": Done today
+E           - listitem:
+E             - heading "No phone after 11pm" [level=3]
+E             - button "Delete \"No phone after 11pm\""
+E             - paragraph: Current No streak yet Best 14
+E             - button "Year view, No phone after 11pm": Year
+E             - button "Done today, No phone after 11pm": Done today
+E         - text: New habit
+E         - textbox "New habit"
+E         - button "Add"
+E       - dialog "Last 12 weeks":
+E         - heading "Last 12 weeks" [level=2]
+E         - paragraph: Tap a day to change it.
+E         - button "Year view, all habits": Year
+E         - button "Close"
+E         - group "Last 12 weeks":
+E           - button "Mon 5 Oct, 3 of 3 habits"
+E           - button "Tue 6 Oct, 1 of 3 habits"
+E           - button "Wed 7 Oct, 2 of 3 habits"
+E           - button "Thu 8 Oct, 3 of 3 habits"
+E           - button "Fri 9 Oct, 2 of 3 habits"
+E           - button "Sat 10 Oct, 1 of 3 habits"
+E           - button "Mon 28 Sep, 2 of 3 habits"
+E           - button "Tue 29 Sep, 3 of 3 habits"
+E           - button "Wed 30 Sep, 2 of 3 habits"
+E           - button "Thu 1 Oct, 2 of 3 habits"
+E           - button "Fri 2 Oct, 2 of 3 habits"
+E           - button "Sat 3 Oct, 2 of 3 habits"
+E           - button "Sun 4 Oct, 2 of 3 habits"
+E           - button "Mon 21 Sep, 2 of 3 habits"
+E           - button "Tue 22 Sep, 1 of 3 habits"
+E           - button "Wed 23 Sep, 2 of 3 habits"
+E           - button "Thu 24 Sep, 2 of 3 habits"
+E           - button "Fri 25 Sep, 3 of 3 habits"
+E           - button "Sat 26 Sep, 2 of 3 habits"
+E           - button "Sun 27 Sep, 0 of 3 habits"
+E           - button "Mon 14 Sep, 2 of 3 habits"
+E           - button "Tue 15 Sep, 3 of 3 habits"
+E           - button "Wed 16 Sep, 2 of 3 habits"
+E           - button "Thu 17 Sep, 2 of 3 habits"
+E           - button "Fri 18 Sep, 2 of 3 habits"
+E           - button "Sat 19 Sep, 3 of 3 habits"
+E           - button "Sun 20 Sep, 3 of 3 habits"
+E           - button "Mon 7 Sep, 2 of 3 habits"
+E           - button "Tue 8 Sep, 3 of 3 habits"
+E           - button "Wed 9 Sep, 1 of 3 habits"
+E           - button "Thu 10 Sep, 1 of 3 habits"
+E           - button "Fri 11 Sep, 3 of 3 habits"
+E           - button "Sat 12 Sep, 1 of 3 habits"
+E           - button "Sun 13 Sep, 2 of 3 habits"
+E           - button "Mon 31 Aug, 1 of 3 habits"
+E           - button "Tue 1 Sep, 2 of 3 habits"
+E           - button "Wed 2 Sep, 3 of 3 habits"
+E           - button "Thu 3 Sep, 3 of 3 habits"
+E           - button "Fri 4 Sep, 2 of 3 habits"
+E           - button "Sat 5 Sep, 2 of 3 habits"
+E           - button "Sun 6 Sep, 1 of 3 habits"
+E           - button "Mon 24 Aug, 3 of 3 habits"
+E           - button "Tue 25 Aug, 3 of 3 habits"
+E           - button "Wed 26 Aug, 2 of 3 habits"
+E           - button "Thu 27 Aug, 1 of 3 habits"
+E           - button "Fri 28 Aug, 2 of 3 habits"
+E           - button "Sat 29 Aug, 2 of 3 habits"
+E           - button "Sun 30 Aug, 2 of 3 habits"
+E           - button "Mon 17 Aug, 1 of 3 habits"
+E           - button "Tue 18 Aug, 2 of 3 habits"
+E           - button "Wed 19 Aug, 2 of 3 habits"
+E           - button "Thu 20 Aug, 1 of 3 habits"
+E           - button "Fri 21 Aug, 3 of 3 habits"
+E           - button "Sat 22 Aug, 3 of 3 habits"
+E           - button "Sun 23 Aug, 0 of 3 habits"
+E           - button "Mon 10 Aug, 2 of 3 habits"
+E           - button "Tue 11 Aug, 3 of 3 habits"
+E           - button "Wed 12 Aug, 2 of 3 habits"
+E           - button "Thu 13 Aug, 2 of 3 habits"
+E           - button "Fri 14 Aug, 2 of 3 habits"
+E           - button "Sat 15 Aug, 2 of 3 habits"
+E           - button "Sun 16 Aug, 2 of 3 habits"
+E           - button "Mon 3 Aug, 1 of 3 habits"
+E           - button "Tue 4 Aug, 2 of 3 habits"
+E           - button "Wed 5 Aug, 3 of 3 habits"
+E           - button "Thu 6 Aug, 2 of 3 habits"
+E           - button "Fri 7 Aug, 2 of 3 habits"
+E           - button "Sat 8 Aug, 2 of 3 habits"
+E           - button "Sun 9 Aug, 1 of 3 habits"
+E           - button "Mon 27 Jul, 2 of 3 habits"
+E           - button "Tue 28 Jul, 2 of 3 habits"
+E           - button "Wed 29 Jul, 2 of 3 habits"
+E           - button "Thu 30 Jul, 2 of 3 habits"
+E           - button "Fri 31 Jul, 2 of 3 habits"
+E           - button "Sat 1 Aug, 1 of 3 habits"
+E           - button "Sun 2 Aug, 2 of 3 habits"
+E           - button "Mon 20 Jul, 2 of 3 habits"
+E           - button "Tue 21 Jul, 3 of 3 habits"
+E           - button "Wed 22 Jul, 1 of 3 habits"
+E           - button "Thu 23 Jul, 2 of 3 habits"
+E           - button "Fri 24 Jul, 2 of 3 habits"
+E           - button "Sat 25 Jul, 2 of 3 habits"
+E           - button "Sun 26 Jul, 1 of 3 habits"
+
+tests\browser\test_day_editor.py:173: AssertionError</failure></testcase><testcase classname="tests.browser.test_day_editor" name="test_R36_on_a_phone_the_chosen_day_stays_in_sight_above_p1[390x844 P3 2026-07-20]" time="5.420"><failure message="AssertionError: Locator expected to have attribute ''&#10;Actual value: None &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-day&quot;)&#10;    14 × locator resolved to &lt;dialog class=&quot;dlg-day&quot; aria-modal=&quot;true&quot; aria-describedby=&quot;day-sub&quot; aria-labelledby=&quot;day-title&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;null&quot;&#10;&#10;Aria snapshot:&#10;- banner:&#10;  - heading &quot;Streaky Habit&quot; [level=1]&#10;  - button &quot;Overview, today 1 of 3 habits done&quot;: Overview&#10;  - time: Saturday 10 October&#10;- main:&#10;  - heading &quot;Habits&quot; [level=2]&#10;  - list &quot;Habits&quot;:&#10;    - listitem:&#10;      - heading &quot;Read 20 pages&quot; [level=3]&#10;      - button &quot;Delete \&quot;Read 20 pages\&quot;&quot;&#10;      - paragraph: Current 4 days Best 9&#10;      - button &quot;Year view, Read 20 pages&quot;: Year&#10;      - button &quot;Done today, Read 20 pages&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Stretch 10 minutes&quot; [level=3]&#10;      - button &quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;&#10;      - paragraph: Current 2 days Best 5&#10;      - button &quot;Year view, Stretch 10 minutes&quot;: Year&#10;      - button &quot;Done today, Stretch 10 minutes&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;No phone after 11pm&quot; [level=3]&#10;      - button &quot;Delete \&quot;No phone after 11pm\&quot;&quot;&#10;      - paragraph: Current No streak yet Best 14&#10;      - button &quot;Year view, No phone after 11pm&quot;: Year&#10;      - button &quot;Done today, No phone after 11pm&quot;: Done today&#10;  - text: New habit&#10;  - textbox &quot;New habit&quot;&#10;  - button &quot;Add&quot;&#10;- dialog &quot;Last 12 weeks&quot;:&#10;  - heading &quot;Last 12 weeks&quot; [level=2]&#10;  - paragraph: Tap a day to change it.&#10;  - button &quot;Year view, all habits&quot;: Year&#10;  - button &quot;Close&quot;&#10;  - group &quot;Last 12 weeks&quot;:&#10;    - button &quot;Mon 5 Oct, 3 of 3 habits&quot;&#10;    - button &quot;Tue 6 Oct, 1 of 3 habits&quot;&#10;    - button &quot;Wed 7 Oct, 2 of 3 habits&quot;&#10;    - button &quot;Thu 8 Oct, 3 of 3 habits&quot;&#10;    - button &quot;Fri 9 Oct, 2 of 3 habits&quot;&#10;    - button &quot;Sat 10 Oct, 1 of 3 habits&quot;&#10;    - button &quot;Mon 28 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Tue 29 Sep, 3 of 3 habits&quot;&#10;    - button &quot;Wed 30 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Thu 1 Oct, 2 of 3 habits&quot;&#10;    - button &quot;Fri 2 Oct, 2 of 3 habits&quot;&#10;    - button &quot;Sat 3 Oct, 2 of 3 habits&quot;&#10;    - button &quot;Sun 4 Oct, 2 of 3 habits&quot;&#10;    - button &quot;Mon 21 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Tue 22 Sep, 1 of 3 habits&quot;&#10;    - button &quot;Wed 23 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Thu 24 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Fri 25 Sep, 3 of 3 habits&quot;&#10;    - button &quot;Sat 26 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Sun 27 Sep, 0 of 3 habits&quot;&#10;    - button &quot;Mon 14 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Tue 15 Sep, 3 of 3 habits&quot;&#10;    - button &quot;Wed 16 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Thu 17 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Fri 18 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Sat 19 Sep, 3 of 3 habits&quot;&#10;    - button &quot;Sun 20 Sep, 3 of 3 habits&quot;&#10;    - button &quot;Mon 7 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Tue 8 Sep, 3 of 3 habits&quot;&#10;    - button &quot;Wed 9 Sep, 1 of 3 habits&quot;&#10;    - button &quot;Thu 10 Sep, 1 of 3 habits&quot;&#10;    - button &quot;Fri 11 Sep, 3 of 3 habits&quot;&#10;    - button &quot;Sat 12 Sep, 1 of 3 habits&quot;&#10;    - button &quot;Sun 13 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Mon 31 Aug, 1 of 3 habits&quot;&#10;    - button &quot;Tue 1 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Wed 2 Sep, 3 of 3 habits&quot;&#10;    - button &quot;Thu 3 Sep, 3 of 3 habits&quot;&#10;    - button &quot;Fri 4 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Sat 5 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Sun 6 Sep, 1 of 3 habits&quot;&#10;    - button &quot;Mon 24 Aug, 3 of 3 habits&quot;&#10;    - button &quot;Tue 25 Aug, 3 of 3 habits&quot;&#10;    - button &quot;Wed 26 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Thu 27 Aug, 1 of 3 habits&quot;&#10;    - button &quot;Fri 28 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Sat 29 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Sun 30 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Mon 17 Aug, 1 of 3 habits&quot;&#10;    - button &quot;Tue 18 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Wed 19 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Thu 20 Aug, 1 of 3 habits&quot;&#10;    - button &quot;Fri 21 Aug, 3 of 3 habits&quot;&#10;    - button &quot;Sat 22 Aug, 3 of 3 habits&quot;&#10;    - button &quot;Sun 23 Aug, 0 of 3 habits&quot;&#10;    - button &quot;Mon 10 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Tue 11 Aug, 3 of 3 habits&quot;&#10;    - button &quot;Wed 12 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Thu 13 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Fri 14 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Sat 15 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Sun 16 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Mon 3 Aug, 1 of 3 habits&quot;&#10;    - button &quot;Tue 4 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Wed 5 Aug, 3 of 3 habits&quot;&#10;    - button &quot;Thu 6 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Fri 7 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Sat 8 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Sun 9 Aug, 1 of 3 habits&quot;&#10;    - button &quot;Mon 27 Jul, 2 of 3 habits&quot;&#10;    - button &quot;Tue 28 Jul, 2 of 3 habits&quot;&#10;    - button &quot;Wed 29 Jul, 2 of 3 habits&quot;&#10;    - button &quot;Thu 30 Jul, 2 of 3 habits&quot;&#10;    - button &quot;Fri 31 Jul, 2 of 3 habits&quot;&#10;    - button &quot;Sat 1 Aug, 1 of 3 habits&quot;&#10;    - button &quot;Sun 2 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Mon 20 Jul, 2 of 3 habits&quot;&#10;    - button &quot;Tue 21 Jul, 3 of 3 habits&quot;&#10;    - button &quot;Wed 22 Jul, 1 of 3 habits&quot;&#10;    - button &quot;Thu 23 Jul, 2 of 3 habits&quot;&#10;    - button &quot;Fri 24 Jul, 2 of 3 habits&quot;&#10;    - button &quot;Sat 25 Jul, 2 of 3 habits&quot;&#10;    - button &quot;Sun 26 Jul, 1 of 3 habits&quot;">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001EF7DB76770&gt;
+viewport = (390, 844), key = '2026-07-20', scrolled = True
+
+    @pytest.mark.parametrize(
+        "viewport, key, scrolled",
+        [
+            pytest.param(PHONE, SEP_22, False, id="390x844 P3 2026-09-22"),
+            pytest.param((360, 780), SEP_22, False, id="360x780 P3 2026-09-22"),
+            pytest.param(PHONE, "2026-07-20", True, id="390x844 P3 2026-07-20"),
+            pytest.param((360, 780), "2026-07-20", True, id="360x780 P3 2026-07-20"),
+        ],
+    )
+    def test_R36_on_a_phone_the_chosen_day_stays_in_sight_above_p1(app, viewport, key, scrolled):
+        page = app(viewport=viewport, storage=sample_state())
+        page.locator("button.ov-btn").click()
+        expect(page.locator("dialog.dlg-ov")).to_have_attribute("open", "")
+        p3_day(page, key).click()
+&gt;       expect(day_dialog(page)).to_have_attribute("open", "")
+E       AssertionError: Locator expected to have attribute ''
+E       Actual value: None 
+E       Call log:
+E         - Expect "to_have_attribute" with timeout 5000ms
+E         - waiting for locator("dialog.dlg-day")
+E           14 × locator resolved to &lt;dialog class="dlg-day" aria-modal="true" aria-describedby="day-sub" aria-labelledby="day-title"&gt;…&lt;/dialog&gt;
+E              - unexpected value "null"
+E       
+E       Aria snapshot:
+E       - banner:
+E         - heading "Streaky Habit" [level=1]
+E         - button "Overview, today 1 of 3 habits done": Overview
+E         - time: Saturday 10 October
+E       - main:
+E         - heading "Habits" [level=2]
+E         - list "Habits":
+E           - listitem:
+E             - heading "Read 20 pages" [level=3]
+E             - button "Delete \"Read 20 pages\""
+E             - paragraph: Current 4 days Best 9
+E             - button "Year view, Read 20 pages": Year
+E             - button "Done today, Read 20 pages" [pressed]: Done today
+E           - listitem:
+E             - heading "Stretch 10 minutes" [level=3]
+E             - button "Delete \"Stretch 10 minutes\""
+E             - paragraph: Current 2 days Best 5
+E             - button "Year view, Stretch 10 minutes": Year
+E             - button "Done today, Stretch 10 minutes": Done today
+E           - listitem:
+E             - heading "No phone after 11pm" [level=3]
+E             - button "Delete \"No phone after 11pm\""
+E             - paragraph: Current No streak yet Best 14
+E             - button "Year view, No phone after 11pm": Year
+E             - button "Done today, No phone after 11pm": Done today
+E         - text: New habit
+E         - textbox "New habit"
+E         - button "Add"
+E       - dialog "Last 12 weeks":
+E         - heading "Last 12 weeks" [level=2]
+E         - paragraph: Tap a day to change it.
+E         - button "Year view, all habits": Year
+E         - button "Close"
+E         - group "Last 12 weeks":
+E           - button "Mon 5 Oct, 3 of 3 habits"
+E           - button "Tue 6 Oct, 1 of 3 habits"
+E           - button "Wed 7 Oct, 2 of 3 habits"
+E           - button "Thu 8 Oct, 3 of 3 habits"
+E           - button "Fri 9 Oct, 2 of 3 habits"
+E           - button "Sat 10 Oct, 1 of 3 habits"
+E           - button "Mon 28 Sep, 2 of 3 habits"
+E           - button "Tue 29 Sep, 3 of 3 habits"
+E           - button "Wed 30 Sep, 2 of 3 habits"
+E           - button "Thu 1 Oct, 2 of 3 habits"
+E           - button "Fri 2 Oct, 2 of 3 habits"
+E           - button "Sat 3 Oct, 2 of 3 habits"
+E           - button "Sun 4 Oct, 2 of 3 habits"
+E           - button "Mon 21 Sep, 2 of 3 habits"
+E           - button "Tue 22 Sep, 1 of 3 habits"
+E           - button "Wed 23 Sep, 2 of 3 habits"
+E           - button "Thu 24 Sep, 2 of 3 habits"
+E           - button "Fri 25 Sep, 3 of 3 habits"
+E           - button "Sat 26 Sep, 2 of 3 habits"
+E           - button "Sun 27 Sep, 0 of 3 habits"
+E           - button "Mon 14 Sep, 2 of 3 habits"
+E           - button "Tue 15 Sep, 3 of 3 habits"
+E           - button "Wed 16 Sep, 2 of 3 habits"
+E           - button "Thu 17 Sep, 2 of 3 habits"
+E           - button "Fri 18 Sep, 2 of 3 habits"
+E           - button "Sat 19 Sep, 3 of 3 habits"
+E           - button "Sun 20 Sep, 3 of 3 habits"
+E           - button "Mon 7 Sep, 2 of 3 habits"
+E           - button "Tue 8 Sep, 3 of 3 habits"
+E           - button "Wed 9 Sep, 1 of 3 habits"
+E           - button "Thu 10 Sep, 1 of 3 habits"
+E           - button "Fri 11 Sep, 3 of 3 habits"
+E           - button "Sat 12 Sep, 1 of 3 habits"
+E           - button "Sun 13 Sep, 2 of 3 habits"
+E           - button "Mon 31 Aug, 1 of 3 habits"
+E           - button "Tue 1 Sep, 2 of 3 habits"
+E           - button "Wed 2 Sep, 3 of 3 habits"
+E           - button "Thu 3 Sep, 3 of 3 habits"
+E           - button "Fri 4 Sep, 2 of 3 habits"
+E           - button "Sat 5 Sep, 2 of 3 habits"
+E           - button "Sun 6 Sep, 1 of 3 habits"
+E           - button "Mon 24 Aug, 3 of 3 habits"
+E           - button "Tue 25 Aug, 3 of 3 habits"
+E           - button "Wed 26 Aug, 2 of 3 habits"
+E           - button "Thu 27 Aug, 1 of 3 habits"
+E           - button "Fri 28 Aug, 2 of 3 habits"
+E           - button "Sat 29 Aug, 2 of 3 habits"
+E           - button "Sun 30 Aug, 2 of 3 habits"
+E           - button "Mon 17 Aug, 1 of 3 habits"
+E           - button "Tue 18 Aug, 2 of 3 habits"
+E           - button "Wed 19 Aug, 2 of 3 habits"
+E           - button "Thu 20 Aug, 1 of 3 habits"
+E           - button "Fri 21 Aug, 3 of 3 habits"
+E           - button "Sat 22 Aug, 3 of 3 habits"
+E           - button "Sun 23 Aug, 0 of 3 habits"
+E           - button "Mon 10 Aug, 2 of 3 habits"
+E           - button "Tue 11 Aug, 3 of 3 habits"
+E           - button "Wed 12 Aug, 2 of 3 habits"
+E           - button "Thu 13 Aug, 2 of 3 habits"
+E           - button "Fri 14 Aug, 2 of 3 habits"
+E           - button "Sat 15 Aug, 2 of 3 habits"
+E           - button "Sun 16 Aug, 2 of 3 habits"
+E           - button "Mon 3 Aug, 1 of 3 habits"
+E           - button "Tue 4 Aug, 2 of 3 habits"
+E           - button "Wed 5 Aug, 3 of 3 habits"
+E           - button "Thu 6 Aug, 2 of 3 habits"
+E           - button "Fri 7 Aug, 2 of 3 habits"
+E           - button "Sat 8 Aug, 2 of 3 habits"
+E           - button "Sun 9 Aug, 1 of 3 habits"
+E           - button "Mon 27 Jul, 2 of 3 habits"
+E           - button "Tue 28 Jul, 2 of 3 habits"
+E           - button "Wed 29 Jul, 2 of 3 habits"
+E           - button "Thu 30 Jul, 2 of 3 habits"
+E           - button "Fri 31 Jul, 2 of 3 habits"
+E           - button "Sat 1 Aug, 1 of 3 habits"
+E           - button "Sun 2 Aug, 2 of 3 habits"
+E           - button "Mon 20 Jul, 2 of 3 habits"
+E           - button "Tue 21 Jul, 3 of 3 habits"
+E           - button "Wed 22 Jul, 1 of 3 habits"
+E           - button "Thu 23 Jul, 2 of 3 habits"
+E           - button "Fri 24 Jul, 2 of 3 habits"
+E           - button "Sat 25 Jul, 2 of 3 habits"
+E           - button "Sun 26 Jul, 1 of 3 habits"
+
+tests\browser\test_day_editor.py:173: AssertionError</failure></testcase><testcase classname="tests.browser.test_day_editor" name="test_R36_on_a_phone_the_chosen_day_stays_in_sight_above_p1[360x780 P3 2026-07-20]" time="5.415"><failure message="AssertionError: Locator expected to have attribute ''&#10;Actual value: None &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-day&quot;)&#10;    14 × locator resolved to &lt;dialog class=&quot;dlg-day&quot; aria-modal=&quot;true&quot; aria-describedby=&quot;day-sub&quot; aria-labelledby=&quot;day-title&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;null&quot;&#10;&#10;Aria snapshot:&#10;- banner:&#10;  - heading &quot;Streaky Habit&quot; [level=1]&#10;  - button &quot;Overview, today 1 of 3 habits done&quot;: Overview&#10;  - time: Saturday 10 October&#10;- main:&#10;  - heading &quot;Habits&quot; [level=2]&#10;  - list &quot;Habits&quot;:&#10;    - listitem:&#10;      - heading &quot;Read 20 pages&quot; [level=3]&#10;      - button &quot;Delete \&quot;Read 20 pages\&quot;&quot;&#10;      - paragraph: Current 4 days Best 9&#10;      - button &quot;Year view, Read 20 pages&quot;: Year&#10;      - button &quot;Done today, Read 20 pages&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Stretch 10 minutes&quot; [level=3]&#10;      - button &quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;&#10;      - paragraph: Current 2 days Best 5&#10;      - button &quot;Year view, Stretch 10 minutes&quot;: Year&#10;      - button &quot;Done today, Stretch 10 minutes&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;No phone after 11pm&quot; [level=3]&#10;      - button &quot;Delete \&quot;No phone after 11pm\&quot;&quot;&#10;      - paragraph: Current No streak yet Best 14&#10;      - button &quot;Year view, No phone after 11pm&quot;: Year&#10;      - button &quot;Done today, No phone after 11pm&quot;: Done today&#10;  - text: New habit&#10;  - textbox &quot;New habit&quot;&#10;  - button &quot;Add&quot;&#10;- dialog &quot;Last 12 weeks&quot;:&#10;  - heading &quot;Last 12 weeks&quot; [level=2]&#10;  - paragraph: Tap a day to change it.&#10;  - button &quot;Year view, all habits&quot;: Year&#10;  - button &quot;Close&quot;&#10;  - group &quot;Last 12 weeks&quot;:&#10;    - button &quot;Mon 5 Oct, 3 of 3 habits&quot;&#10;    - button &quot;Tue 6 Oct, 1 of 3 habits&quot;&#10;    - button &quot;Wed 7 Oct, 2 of 3 habits&quot;&#10;    - button &quot;Thu 8 Oct, 3 of 3 habits&quot;&#10;    - button &quot;Fri 9 Oct, 2 of 3 habits&quot;&#10;    - button &quot;Sat 10 Oct, 1 of 3 habits&quot;&#10;    - button &quot;Mon 28 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Tue 29 Sep, 3 of 3 habits&quot;&#10;    - button &quot;Wed 30 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Thu 1 Oct, 2 of 3 habits&quot;&#10;    - button &quot;Fri 2 Oct, 2 of 3 habits&quot;&#10;    - button &quot;Sat 3 Oct, 2 of 3 habits&quot;&#10;    - button &quot;Sun 4 Oct, 2 of 3 habits&quot;&#10;    - button &quot;Mon 21 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Tue 22 Sep, 1 of 3 habits&quot;&#10;    - button &quot;Wed 23 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Thu 24 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Fri 25 Sep, 3 of 3 habits&quot;&#10;    - button &quot;Sat 26 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Sun 27 Sep, 0 of 3 habits&quot;&#10;    - button &quot;Mon 14 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Tue 15 Sep, 3 of 3 habits&quot;&#10;    - button &quot;Wed 16 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Thu 17 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Fri 18 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Sat 19 Sep, 3 of 3 habits&quot;&#10;    - button &quot;Sun 20 Sep, 3 of 3 habits&quot;&#10;    - button &quot;Mon 7 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Tue 8 Sep, 3 of 3 habits&quot;&#10;    - button &quot;Wed 9 Sep, 1 of 3 habits&quot;&#10;    - button &quot;Thu 10 Sep, 1 of 3 habits&quot;&#10;    - button &quot;Fri 11 Sep, 3 of 3 habits&quot;&#10;    - button &quot;Sat 12 Sep, 1 of 3 habits&quot;&#10;    - button &quot;Sun 13 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Mon 31 Aug, 1 of 3 habits&quot;&#10;    - button &quot;Tue 1 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Wed 2 Sep, 3 of 3 habits&quot;&#10;    - button &quot;Thu 3 Sep, 3 of 3 habits&quot;&#10;    - button &quot;Fri 4 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Sat 5 Sep, 2 of 3 habits&quot;&#10;    - button &quot;Sun 6 Sep, 1 of 3 habits&quot;&#10;    - button &quot;Mon 24 Aug, 3 of 3 habits&quot;&#10;    - button &quot;Tue 25 Aug, 3 of 3 habits&quot;&#10;    - button &quot;Wed 26 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Thu 27 Aug, 1 of 3 habits&quot;&#10;    - button &quot;Fri 28 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Sat 29 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Sun 30 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Mon 17 Aug, 1 of 3 habits&quot;&#10;    - button &quot;Tue 18 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Wed 19 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Thu 20 Aug, 1 of 3 habits&quot;&#10;    - button &quot;Fri 21 Aug, 3 of 3 habits&quot;&#10;    - button &quot;Sat 22 Aug, 3 of 3 habits&quot;&#10;    - button &quot;Sun 23 Aug, 0 of 3 habits&quot;&#10;    - button &quot;Mon 10 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Tue 11 Aug, 3 of 3 habits&quot;&#10;    - button &quot;Wed 12 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Thu 13 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Fri 14 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Sat 15 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Sun 16 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Mon 3 Aug, 1 of 3 habits&quot;&#10;    - button &quot;Tue 4 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Wed 5 Aug, 3 of 3 habits&quot;&#10;    - button &quot;Thu 6 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Fri 7 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Sat 8 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Sun 9 Aug, 1 of 3 habits&quot;&#10;    - button &quot;Mon 27 Jul, 2 of 3 habits&quot;&#10;    - button &quot;Tue 28 Jul, 2 of 3 habits&quot;&#10;    - button &quot;Wed 29 Jul, 2 of 3 habits&quot;&#10;    - button &quot;Thu 30 Jul, 2 of 3 habits&quot;&#10;    - button &quot;Fri 31 Jul, 2 of 3 habits&quot;&#10;    - button &quot;Sat 1 Aug, 1 of 3 habits&quot;&#10;    - button &quot;Sun 2 Aug, 2 of 3 habits&quot;&#10;    - button &quot;Mon 20 Jul, 2 of 3 habits&quot;&#10;    - button &quot;Tue 21 Jul, 3 of 3 habits&quot;&#10;    - button &quot;Wed 22 Jul, 1 of 3 habits&quot;&#10;    - button &quot;Thu 23 Jul, 2 of 3 habits&quot;&#10;    - button &quot;Fri 24 Jul, 2 of 3 habits&quot;&#10;    - button &quot;Sat 25 Jul, 2 of 3 habits&quot;&#10;    - button &quot;Sun 26 Jul, 1 of 3 habits&quot;">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001EF7DBEC9E0&gt;
+viewport = (360, 780), key = '2026-07-20', scrolled = True
+
+    @pytest.mark.parametrize(
+        "viewport, key, scrolled",
+        [
+            pytest.param(PHONE, SEP_22, False, id="390x844 P3 2026-09-22"),
+            pytest.param((360, 780), SEP_22, False, id="360x780 P3 2026-09-22"),
+            pytest.param(PHONE, "2026-07-20", True, id="390x844 P3 2026-07-20"),
+            pytest.param((360, 780), "2026-07-20", True, id="360x780 P3 2026-07-20"),
+        ],
+    )
+    def test_R36_on_a_phone_the_chosen_day_stays_in_sight_above_p1(app, viewport, key, scrolled):
+        page = app(viewport=viewport, storage=sample_state())
+        page.locator("button.ov-btn").click()
+        expect(page.locator("dialog.dlg-ov")).to_have_attribute("open", "")
+        p3_day(page, key).click()
+&gt;       expect(day_dialog(page)).to_have_attribute("open", "")
+E       AssertionError: Locator expected to have attribute ''
+E       Actual value: None 
+E       Call log:
+E         - Expect "to_have_attribute" with timeout 5000ms
+E         - waiting for locator("dialog.dlg-day")
+E           14 × locator resolved to &lt;dialog class="dlg-day" aria-modal="true" aria-describedby="day-sub" aria-labelledby="day-title"&gt;…&lt;/dialog&gt;
+E              - unexpected value "null"
+E       
+E       Aria snapshot:
+E       - banner:
+E         - heading "Streaky Habit" [level=1]
+E         - button "Overview, today 1 of 3 habits done": Overview
+E         - time: Saturday 10 October
+E       - main:
+E         - heading "Habits" [level=2]
+E         - list "Habits":
+E           - listitem:
+E             - heading "Read 20 pages" [level=3]
+E             - button "Delete \"Read 20 pages\""
+E             - paragraph: Current 4 days Best 9
+E             - button "Year view, Read 20 pages": Year
+E             - button "Done today, Read 20 pages" [pressed]: Done today
+E           - listitem:
+E             - heading "Stretch 10 minutes" [level=3]
+E             - button "Delete \"Stretch 10 minutes\""
+E             - paragraph: Current 2 days Best 5
+E             - button "Year view, Stretch 10 minutes": Year
+E             - button "Done today, Stretch 10 minutes": Done today
+E           - listitem:
+E             - heading "No phone after 11pm" [level=3]
+E             - button "Delete \"No phone after 11pm\""
+E             - paragraph: Current No streak yet Best 14
+E             - button "Year view, No phone after 11pm": Year
+E             - button "Done today, No phone after 11pm": Done today
+E         - text: New habit
+E         - textbox "New habit"
+E         - button "Add"
+E       - dialog "Last 12 weeks":
+E         - heading "Last 12 weeks" [level=2]
+E         - paragraph: Tap a day to change it.
+E         - button "Year view, all habits": Year
+E         - button "Close"
+E         - group "Last 12 weeks":
+E           - button "Mon 5 Oct, 3 of 3 habits"
+E           - button "Tue 6 Oct, 1 of 3 habits"
+E           - button "Wed 7 Oct, 2 of 3 habits"
+E           - button "Thu 8 Oct, 3 of 3 habits"
+E           - button "Fri 9 Oct, 2 of 3 habits"
+E           - button "Sat 10 Oct, 1 of 3 habits"
+E           - button "Mon 28 Sep, 2 of 3 habits"
+E           - button "Tue 29 Sep, 3 of 3 habits"
+E           - button "Wed 30 Sep, 2 of 3 habits"
+E           - button "Thu 1 Oct, 2 of 3 habits"
+E           - button "Fri 2 Oct, 2 of 3 habits"
+E           - button "Sat 3 Oct, 2 of 3 habits"
+E           - button "Sun 4 Oct, 2 of 3 habits"
+E           - button "Mon 21 Sep, 2 of 3 habits"
+E           - button "Tue 22 Sep, 1 of 3 habits"
+E           - button "Wed 23 Sep, 2 of 3 habits"
+E           - button "Thu 24 Sep, 2 of 3 habits"
+E           - button "Fri 25 Sep, 3 of 3 habits"
+E           - button "Sat 26 Sep, 2 of 3 habits"
+E           - button "Sun 27 Sep, 0 of 3 habits"
+E           - button "Mon 14 Sep, 2 of 3 habits"
+E           - button "Tue 15 Sep, 3 of 3 habits"
+E           - button "Wed 16 Sep, 2 of 3 habits"
+E           - button "Thu 17 Sep, 2 of 3 habits"
+E           - button "Fri 18 Sep, 2 of 3 habits"
+E           - button "Sat 19 Sep, 3 of 3 habits"
+E           - button "Sun 20 Sep, 3 of 3 habits"
+E           - button "Mon 7 Sep, 2 of 3 habits"
+E           - button "Tue 8 Sep, 3 of 3 habits"
+E           - button "Wed 9 Sep, 1 of 3 habits"
+E           - button "Thu 10 Sep, 1 of 3 habits"
+E           - button "Fri 11 Sep, 3 of 3 habits"
+E           - button "Sat 12 Sep, 1 of 3 habits"
+E           - button "Sun 13 Sep, 2 of 3 habits"
+E           - button "Mon 31 Aug, 1 of 3 habits"
+E           - button "Tue 1 Sep, 2 of 3 habits"
+E           - button "Wed 2 Sep, 3 of 3 habits"
+E           - button "Thu 3 Sep, 3 of 3 habits"
+E           - button "Fri 4 Sep, 2 of 3 habits"
+E           - button "Sat 5 Sep, 2 of 3 habits"
+E           - button "Sun 6 Sep, 1 of 3 habits"
+E           - button "Mon 24 Aug, 3 of 3 habits"
+E           - button "Tue 25 Aug, 3 of 3 habits"
+E           - button "Wed 26 Aug, 2 of 3 habits"
+E           - button "Thu 27 Aug, 1 of 3 habits"
+E           - button "Fri 28 Aug, 2 of 3 habits"
+E           - button "Sat 29 Aug, 2 of 3 habits"
+E           - button "Sun 30 Aug, 2 of 3 habits"
+E           - button "Mon 17 Aug, 1 of 3 habits"
+E           - button "Tue 18 Aug, 2 of 3 habits"
+E           - button "Wed 19 Aug, 2 of 3 habits"
+E           - button "Thu 20 Aug, 1 of 3 habits"
+E           - button "Fri 21 Aug, 3 of 3 habits"
+E           - button "Sat 22 Aug, 3 of 3 habits"
+E           - button "Sun 23 Aug, 0 of 3 habits"
+E           - button "Mon 10 Aug, 2 of 3 habits"
+E           - button "Tue 11 Aug, 3 of 3 habits"
+E           - button "Wed 12 Aug, 2 of 3 habits"
+E           - button "Thu 13 Aug, 2 of 3 habits"
+E           - button "Fri 14 Aug, 2 of 3 habits"
+E           - button "Sat 15 Aug, 2 of 3 habits"
+E           - button "Sun 16 Aug, 2 of 3 habits"
+E           - button "Mon 3 Aug, 1 of 3 habits"
+E           - button "Tue 4 Aug, 2 of 3 habits"
+E           - button "Wed 5 Aug, 3 of 3 habits"
+E           - button "Thu 6 Aug, 2 of 3 habits"
+E           - button "Fri 7 Aug, 2 of 3 habits"
+E           - button "Sat 8 Aug, 2 of 3 habits"
+E           - button "Sun 9 Aug, 1 of 3 habits"
+E           - button "Mon 27 Jul, 2 of 3 habits"
+E           - button "Tue 28 Jul, 2 of 3 habits"
+E           - button "Wed 29 Jul, 2 of 3 habits"
+E           - button "Thu 30 Jul, 2 of 3 habits"
+E           - button "Fri 31 Jul, 2 of 3 habits"
+E           - button "Sat 1 Aug, 1 of 3 habits"
+E           - button "Sun 2 Aug, 2 of 3 habits"
+E           - button "Mon 20 Jul, 2 of 3 habits"
+E           - button "Tue 21 Jul, 3 of 3 habits"
+E           - button "Wed 22 Jul, 1 of 3 habits"
+E           - button "Thu 23 Jul, 2 of 3 habits"
+E           - button "Fri 24 Jul, 2 of 3 habits"
+E           - button "Sat 25 Jul, 2 of 3 habits"
+E           - button "Sun 26 Jul, 1 of 3 habits"
+
+tests\browser\test_day_editor.py:173: AssertionError</failure></testcase><testcase classname="tests.browser.test_day_editor" name="test_R36_R3_a_day_opens_p1_when_there_are_no_habits" time="5.130"><failure message="AssertionError: Locator expected to have attribute ''&#10;Actual value: None &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-day&quot;)&#10;    14 × locator resolved to &lt;dialog class=&quot;dlg-day&quot; aria-modal=&quot;true&quot; aria-describedby=&quot;day-sub&quot; aria-labelledby=&quot;day-title&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;null&quot;&#10;&#10;Aria snapshot:&#10;- banner:&#10;  - heading &quot;Streaky Habit&quot; [level=1]&#10;  - time: Saturday 10 October&#10;- main:&#10;  - region &quot;Last 12 weeks&quot;:&#10;    - heading &quot;Last 12 weeks&quot; [level=2]&#10;    - button &quot;Year view, all habits&quot;: Year&#10;    - paragraph: Tap a day to change it.&#10;    - group &quot;Last 12 weeks&quot;:&#10;      - button &quot;Mon 20 Jul, 0 of 0 habits&quot;&#10;      - button &quot;Tue 21 Jul, 0 of 0 habits&quot;&#10;      - button &quot;Wed 22 Jul, 0 of 0 habits&quot;&#10;      - button &quot;Thu 23 Jul, 0 of 0 habits&quot;&#10;      - button &quot;Fri 24 Jul, 0 of 0 habits&quot;&#10;      - button &quot;Sat 25 Jul, 0 of 0 habits&quot;&#10;      - button &quot;Sun 26 Jul, 0 of 0 habits&quot;&#10;      - button &quot;Mon 27 Jul, 0 of 0 habits&quot;&#10;      - button &quot;Tue 28 Jul, 0 of 0 habits&quot;&#10;      - button &quot;Wed 29 Jul, 0 of 0 habits&quot;&#10;      - button &quot;Thu 30 Jul, 0 of 0 habits&quot;&#10;      - button &quot;Fri 31 Jul, 0 of 0 habits&quot;&#10;      - button &quot;Sat 1 Aug, 0 of 0 habits&quot;&#10;      - button &quot;Sun 2 Aug, 0 of 0 habits&quot;&#10;      - button &quot;Mon 3 Aug, 0 of 0 habits&quot;&#10;      - button &quot;Tue 4 Aug, 0 of 0 habits&quot;&#10;      - button &quot;Wed 5 Aug, 0 of 0 habits&quot;&#10;      - button &quot;Thu 6 Aug, 0 of 0 habits&quot;&#10;      - button &quot;Fri 7 Aug, 0 of 0 habits&quot;&#10;      - button &quot;Sat 8 Aug, 0 of 0 habits&quot;&#10;      - button &quot;Sun 9 Aug, 0 of 0 habits&quot;&#10;      - button &quot;Mon 10 Aug, 0 of 0 habits&quot;&#10;      - button &quot;Tue 11 Aug, 0 of 0 habits&quot;&#10;      - button &quot;Wed 12 Aug, 0 of 0 habits&quot;&#10;      - button &quot;Thu 13 Aug, 0 of 0 habits&quot;&#10;      - button &quot;Fri 14 Aug, 0 of 0 habits&quot;&#10;      - button &quot;Sat 15 Aug, 0 of 0 habits&quot;&#10;      - button &quot;Sun 16 Aug, 0 of 0 habits&quot;&#10;      - button &quot;Mon 17 Aug, 0 of 0 habits&quot;&#10;      - button &quot;Tue 18 Aug, 0 of 0 habits&quot;&#10;      - button &quot;Wed 19 Aug, 0 of 0 habits&quot;&#10;      - button &quot;Thu 20 Aug, 0 of 0 habits&quot;&#10;      - button &quot;Fri 21 Aug, 0 of 0 habits&quot;&#10;      - button &quot;Sat 22 Aug, 0 of 0 habits&quot;&#10;      - button &quot;Sun 23 Aug, 0 of 0 habits&quot;&#10;      - button &quot;Mon 24 Aug, 0 of 0 habits&quot;&#10;      - button &quot;Tue 25 Aug, 0 of 0 habits&quot;&#10;      - button &quot;Wed 26 Aug, 0 of 0 habits&quot;&#10;      - button &quot;Thu 27 Aug, 0 of 0 habits&quot;&#10;      - button &quot;Fri 28 Aug, 0 of 0 habits&quot;&#10;      - button &quot;Sat 29 Aug, 0 of 0 habits&quot;&#10;      - button &quot;Sun 30 Aug, 0 of 0 habits&quot;&#10;      - button &quot;Mon 31 Aug, 0 of 0 habits&quot;&#10;      - button &quot;Tue 1 Sep, 0 of 0 habits&quot;&#10;      - button &quot;Wed 2 Sep, 0 of 0 habits&quot;&#10;      - button &quot;Thu 3 Sep, 0 of 0 habits&quot;&#10;      - button &quot;Fri 4 Sep, 0 of 0 habits&quot;&#10;      - button &quot;Sat 5 Sep, 0 of 0 habits&quot;&#10;      - button &quot;Sun 6 Sep, 0 of 0 habits&quot;&#10;      - button &quot;Mon 7 Sep, 0 of 0 habits&quot;&#10;      - button &quot;Tue 8 Sep, 0 of 0 habits&quot;&#10;      - button &quot;Wed 9 Sep, 0 of 0 habits&quot;&#10;      - button &quot;Thu 10 Sep, 0 of 0 habits&quot;&#10;      - button &quot;Fri 11 Sep, 0 of 0 habits&quot;&#10;      - button &quot;Sat 12 Sep, 0 of 0 habits&quot;&#10;      - button &quot;Sun 13 Sep, 0 of 0 habits&quot;&#10;      - button &quot;Mon 14 Sep, 0 of 0 habits&quot;&#10;      - button &quot;Tue 15 Sep, 0 of 0 habits&quot;&#10;      - button &quot;Wed 16 Sep, 0 of 0 habits&quot;&#10;      - button &quot;Thu 17 Sep, 0 of 0 habits&quot;&#10;      - button &quot;Fri 18 Sep, 0 of 0 habits&quot;&#10;      - button &quot;Sat 19 Sep, 0 of 0 habits&quot;&#10;      - button &quot;Sun 20 Sep, 0 of 0 habits&quot;&#10;      - button &quot;Mon 21 Sep, 0 of 0 habits&quot;&#10;      - button &quot;Tue 22 Sep, 0 of 0 habits&quot;&#10;      - button &quot;Wed 23 Sep, 0 of 0 habits&quot;&#10;      - button &quot;Thu 24 Sep, 0 of 0 habits&quot;&#10;      - button &quot;Fri 25 Sep, 0 of 0 habits&quot;&#10;      - button &quot;Sat 26 Sep, 0 of 0 habits&quot;&#10;      - button &quot;Sun 27 Sep, 0 of 0 habits&quot;&#10;      - button &quot;Mon 28 Sep, 0 of 0 habits&quot;&#10;      - button &quot;Tue 29 Sep, 0 of 0 habits&quot;&#10;      - button &quot;Wed 30 Sep, 0 of 0 habits&quot;&#10;      - button &quot;Thu 1 Oct, 0 of 0 habits&quot;&#10;      - button &quot;Fri 2 Oct, 0 of 0 habits&quot;&#10;      - button &quot;Sat 3 Oct, 0 of 0 habits&quot;&#10;      - button &quot;Sun 4 Oct, 0 of 0 habits&quot;&#10;      - button &quot;Mon 5 Oct, 0 of 0 habits&quot;&#10;      - button &quot;Tue 6 Oct, 0 of 0 habits&quot;&#10;      - button &quot;Wed 7 Oct, 0 of 0 habits&quot;&#10;      - button &quot;Thu 8 Oct, 0 of 0 habits&quot;&#10;      - button &quot;Fri 9 Oct, 0 of 0 habits&quot;&#10;      - button &quot;Sat 10 Oct, 0 of 0 habits&quot;&#10;  - heading &quot;Habits&quot; [level=2]&#10;  - list &quot;Habits&quot;:&#10;    - listitem:&#10;      - paragraph: No habits yet.&#10;      - paragraph: Add one you want to do every day.&#10;  - text: New habit&#10;  - textbox &quot;New habit&quot;&#10;  - button &quot;Add&quot;">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001EF7DB778A0&gt;
+
+    def test_R36_R3_a_day_opens_p1_when_there_are_no_habits(app):
+        page = app(viewport=DESKTOP)
+        page.locator("section.band").get_by_role("button", name="Sat 10 Oct, 0 of 0 habits", exact=True).click()
+        dialog = day_dialog(page)
+&gt;       expect(dialog).to_have_attribute("open", "")
+E       AssertionError: Locator expected to have attribute ''
+E       Actual value: None 
+E       Call log:
+E         - Expect "to_have_attribute" with timeout 5000ms
+E         - waiting for locator("dialog.dlg-day")
+E           14 × locator resolved to &lt;dialog class="dlg-day" aria-modal="true" aria-describedby="day-sub" aria-labelledby="day-title"&gt;…&lt;/dialog&gt;
+E              - unexpected value "null"
+E       
+E       Aria snapshot:
+E       - banner:
+E         - heading "Streaky Habit" [level=1]
+E         - time: Saturday 10 October
+E       - main:
+E         - region "Last 12 weeks":
+E           - heading "Last 12 weeks" [level=2]
+E           - button "Year view, all habits": Year
+E           - paragraph: Tap a day to change it.
+E           - group "Last 12 weeks":
+E             - button "Mon 20 Jul, 0 of 0 habits"
+E             - button "Tue 21 Jul, 0 of 0 habits"
+E             - button "Wed 22 Jul, 0 of 0 habits"
+E             - button "Thu 23 Jul, 0 of 0 habits"
+E             - button "Fri 24 Jul, 0 of 0 habits"
+E             - button "Sat 25 Jul, 0 of 0 habits"
+E             - button "Sun 26 Jul, 0 of 0 habits"
+E             - button "Mon 27 Jul, 0 of 0 habits"
+E             - button "Tue 28 Jul, 0 of 0 habits"
+E             - button "Wed 29 Jul, 0 of 0 habits"
+E             - button "Thu 30 Jul, 0 of 0 habits"
+E             - button "Fri 31 Jul, 0 of 0 habits"
+E             - button "Sat 1 Aug, 0 of 0 habits"
+E             - button "Sun 2 Aug, 0 of 0 habits"
+E             - button "Mon 3 Aug, 0 of 0 habits"
+E             - button "Tue 4 Aug, 0 of 0 habits"
+E             - button "Wed 5 Aug, 0 of 0 habits"
+E             - button "Thu 6 Aug, 0 of 0 habits"
+E             - button "Fri 7 Aug, 0 of 0 habits"
+E             - button "Sat 8 Aug, 0 of 0 habits"
+E             - button "Sun 9 Aug, 0 of 0 habits"
+E             - button "Mon 10 Aug, 0 of 0 habits"
+E             - button "Tue 11 Aug, 0 of 0 habits"
+E             - button "Wed 12 Aug, 0 of 0 habits"
+E             - button "Thu 13 Aug, 0 of 0 habits"
+E             - button "Fri 14 Aug, 0 of 0 habits"
+E             - button "Sat 15 Aug, 0 of 0 habits"
+E             - button "Sun 16 Aug, 0 of 0 habits"
+E             - button "Mon 17 Aug, 0 of 0 habits"
+E             - button "Tue 18 Aug, 0 of 0 habits"
+E             - button "Wed 19 Aug, 0 of 0 habits"
+E             - button "Thu 20 Aug, 0 of 0 habits"
+E             - button "Fri 21 Aug, 0 of 0 habits"
+E             - button "Sat 22 Aug, 0 of 0 habits"
+E             - button "Sun 23 Aug, 0 of 0 habits"
+E             - button "Mon 24 Aug, 0 of 0 habits"
+E             - button "Tue 25 Aug, 0 of 0 habits"
+E             - button "Wed 26 Aug, 0 of 0 habits"
+E             - button "Thu 27 Aug, 0 of 0 habits"
+E             - button "Fri 28 Aug, 0 of 0 habits"
+E             - button "Sat 29 Aug, 0 of 0 habits"
+E             - button "Sun 30 Aug, 0 of 0 habits"
+E             - button "Mon 31 Aug, 0 of 0 habits"
+E             - button "Tue 1 Sep, 0 of 0 habits"
+E             - button "Wed 2 Sep, 0 of 0 habits"
+E             - button "Thu 3 Sep, 0 of 0 habits"
+E             - button "Fri 4 Sep, 0 of 0 habits"
+E             - button "Sat 5 Sep, 0 of 0 habits"
+E             - button "Sun 6 Sep, 0 of 0 habits"
+E             - button "Mon 7 Sep, 0 of 0 habits"
+E             - button "Tue 8 Sep, 0 of 0 habits"
+E             - button "Wed 9 Sep, 0 of 0 habits"
+E             - button "Thu 10 Sep, 0 of 0 habits"
+E             - button "Fri 11 Sep, 0 of 0 habits"
+E             - button "Sat 12 Sep, 0 of 0 habits"
+E             - button "Sun 13 Sep, 0 of 0 habits"
+E             - button "Mon 14 Sep, 0 of 0 habits"
+E             - button "Tue 15 Sep, 0 of 0 habits"
+E             - button "Wed 16 Sep, 0 of 0 habits"
+E             - button "Thu 17 Sep, 0 of 0 habits"
+E             - button "Fri 18 Sep, 0 of 0 habits"
+E             - button "Sat 19 Sep, 0 of 0 habits"
+E             - button "Sun 20 Sep, 0 of 0 habits"
+E             - button "Mon 21 Sep, 0 of 0 habits"
+E             - button "Tue 22 Sep, 0 of 0 habits"
+E             - button "Wed 23 Sep, 0 of 0 habits"
+E             - button "Thu 24 Sep, 0 of 0 habits"
+E             - button "Fri 25 Sep, 0 of 0 habits"
+E             - button "Sat 26 Sep, 0 of 0 habits"
+E             - button "Sun 27 Sep, 0 of 0 habits"
+E             - button "Mon 28 Sep, 0 of 0 habits"
+E             - button "Tue 29 Sep, 0 of 0 habits"
+E             - button "Wed 30 Sep, 0 of 0 habits"
+E             - button "Thu 1 Oct, 0 of 0 habits"
+E             - button "Fri 2 Oct, 0 of 0 habits"
+E             - button "Sat 3 Oct, 0 of 0 habits"
+E             - button "Sun 4 Oct, 0 of 0 habits"
+E             - button "Mon 5 Oct, 0 of 0 habits"
+E             - button "Tue 6 Oct, 0 of 0 habits"
+E             - button "Wed 7 Oct, 0 of 0 habits"
+E             - button "Thu 8 Oct, 0 of 0 habits"
+E             - button "Fri 9 Oct, 0 of 0 habits"
+E             - button "Sat 10 Oct, 0 of 0 habits"
+E         - heading "Habits" [level=2]
+E         - list "Habits":
+E           - listitem:
+E             - paragraph: No habits yet.
+E             - paragraph: Add one you want to do every day.
+E         - text: New habit
+E         - textbox "New habit"
+E         - button "Add"
+
+tests\browser\test_day_editor.py:195: AssertionError</failure></testcase><testcase classname="tests.browser.test_day_editor" name="test_R37_R32_ticking_a_past_day_in_p1" time="5.155"><failure message="AssertionError: Locator expected to have attribute ''&#10;Actual value: None &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-day&quot;)&#10;    14 × locator resolved to &lt;dialog class=&quot;dlg-day&quot; aria-modal=&quot;true&quot; aria-describedby=&quot;day-sub&quot; aria-labelledby=&quot;day-title&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;null&quot;&#10;&#10;Aria snapshot:&#10;- banner:&#10;  - heading &quot;Streaky Habit&quot; [level=1]&#10;  - time: Saturday 10 October&#10;- main:&#10;  - region &quot;Last 12 weeks&quot;:&#10;    - heading &quot;Last 12 weeks&quot; [level=2]&#10;    - button &quot;Year view, all habits&quot;: Year&#10;    - paragraph: Tap a day to change it.&#10;    - group &quot;Last 12 weeks&quot;:&#10;      - button &quot;Mon 20 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Tue 21 Jul, 3 of 3 habits&quot;&#10;      - button &quot;Wed 22 Jul, 1 of 3 habits&quot;&#10;      - button &quot;Thu 23 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Fri 24 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Sat 25 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Sun 26 Jul, 1 of 3 habits&quot;&#10;      - button &quot;Mon 27 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Tue 28 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Wed 29 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Thu 30 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Fri 31 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Sat 1 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Sun 2 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Mon 3 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Tue 4 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Wed 5 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Thu 6 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Fri 7 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sat 8 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sun 9 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Mon 10 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Tue 11 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Wed 12 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Thu 13 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Fri 14 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sat 15 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sun 16 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Mon 17 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Tue 18 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Wed 19 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Thu 20 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Fri 21 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Sat 22 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Sun 23 Aug, 0 of 3 habits&quot;&#10;      - button &quot;Mon 24 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Tue 25 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Wed 26 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Thu 27 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Fri 28 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sat 29 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sun 30 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Mon 31 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Tue 1 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Wed 2 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Thu 3 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Fri 4 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Sat 5 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Sun 6 Sep, 1 of 3 habits&quot;&#10;      - button &quot;Mon 7 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Tue 8 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Wed 9 Sep, 1 of 3 habits&quot;&#10;      - button &quot;Thu 10 Sep, 1 of 3 habits&quot;&#10;      - button &quot;Fri 11 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Sat 12 Sep, 1 of 3 habits&quot;&#10;      - button &quot;Sun 13 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Mon 14 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Tue 15 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Wed 16 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Thu 17 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Fri 18 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Sat 19 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Sun 20 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Mon 21 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Tue 22 Sep, 1 of 3 habits&quot;&#10;      - button &quot;Wed 23 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Thu 24 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Fri 25 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Sat 26 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Sun 27 Sep, 0 of 3 habits&quot;&#10;      - button &quot;Mon 28 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Tue 29 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Wed 30 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Thu 1 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Fri 2 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Sat 3 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Sun 4 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Mon 5 Oct, 3 of 3 habits&quot;&#10;      - button &quot;Tue 6 Oct, 1 of 3 habits&quot;&#10;      - button &quot;Wed 7 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Thu 8 Oct, 3 of 3 habits&quot;&#10;      - button &quot;Fri 9 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Sat 10 Oct, 1 of 3 habits&quot;&#10;  - heading &quot;Habits&quot; [level=2]&#10;  - list &quot;Habits&quot;:&#10;    - listitem:&#10;      - heading &quot;Read 20 pages&quot; [level=3]&#10;      - button &quot;Delete \&quot;Read 20 pages\&quot;&quot;&#10;      - paragraph: Current 4 days Best 9&#10;      - button &quot;Year view, Read 20 pages&quot;: Year&#10;      - button &quot;Done today, Read 20 pages&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Stretch 10 minutes&quot; [level=3]&#10;      - button &quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;&#10;      - paragraph: Current 2 days Best 5&#10;      - button &quot;Year view, Stretch 10 minutes&quot;: Year&#10;      - button &quot;Done today, Stretch 10 minutes&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;No phone after 11pm&quot; [level=3]&#10;      - button &quot;Delete \&quot;No phone after 11pm\&quot;&quot;&#10;      - paragraph: Current No streak yet Best 14&#10;      - button &quot;Year view, No phone after 11pm&quot;: Year&#10;      - button &quot;Done today, No phone after 11pm&quot;: Done today&#10;  - text: New habit&#10;  - textbox &quot;New habit&quot;&#10;  - button &quot;Add&quot;">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001EF7DD32610&gt;
+engine = 'chromium'
+
+    def test_R37_R32_ticking_a_past_day_in_p1(app, engine):
+        page = app(viewport=DESKTOP, storage=sample_state(), count_writes=True)
+&gt;       open_from_band(page, SEP_22)
+
+tests\browser\test_day_editor.py:209: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+page = &lt;Page url='http://127.0.0.1:34264/'&gt;, key = '2026-09-22'
+
+    def open_from_band(page, key):
+        band_day(page, key).click()
+&gt;       expect(day_dialog(page)).to_have_attribute("open", "")
+E       AssertionError: Locator expected to have attribute ''
+E       Actual value: None 
+E       Call log:
+E         - Expect "to_have_attribute" with timeout 5000ms
+E         - waiting for locator("dialog.dlg-day")
+E           14 × locator resolved to &lt;dialog class="dlg-day" aria-modal="true" aria-describedby="day-sub" aria-labelledby="day-title"&gt;…&lt;/dialog&gt;
+E              - unexpected value "null"
+E       
+E       Aria snapshot:
+E       - banner:
+E         - heading "Streaky Habit" [level=1]
+E         - time: Saturday 10 October
+E       - main:
+E         - region "Last 12 weeks":
+E           - heading "Last 12 weeks" [level=2]
+E           - button "Year view, all habits": Year
+E           - paragraph: Tap a day to change it.
+E           - group "Last 12 weeks":
+E             - button "Mon 20 Jul, 2 of 3 habits"
+E             - button "Tue 21 Jul, 3 of 3 habits"
+E             - button "Wed 22 Jul, 1 of 3 habits"
+E             - button "Thu 23 Jul, 2 of 3 habits"
+E             - button "Fri 24 Jul, 2 of 3 habits"
+E             - button "Sat 25 Jul, 2 of 3 habits"
+E             - button "Sun 26 Jul, 1 of 3 habits"
+E             - button "Mon 27 Jul, 2 of 3 habits"
+E             - button "Tue 28 Jul, 2 of 3 habits"
+E             - button "Wed 29 Jul, 2 of 3 habits"
+E             - button "Thu 30 Jul, 2 of 3 habits"
+E             - button "Fri 31 Jul, 2 of 3 habits"
+E             - button "Sat 1 Aug, 1 of 3 habits"
+E             - button "Sun 2 Aug, 2 of 3 habits"
+E             - button "Mon 3 Aug, 1 of 3 habits"
+E             - button "Tue 4 Aug, 2 of 3 habits"
+E             - button "Wed 5 Aug, 3 of 3 habits"
+E             - button "Thu 6 Aug, 2 of 3 habits"
+E             - button "Fri 7 Aug, 2 of 3 habits"
+E             - button "Sat 8 Aug, 2 of 3 habits"
+E             - button "Sun 9 Aug, 1 of 3 habits"
+E             - button "Mon 10 Aug, 2 of 3 habits"
+E             - button "Tue 11 Aug, 3 of 3 habits"
+E             - button "Wed 12 Aug, 2 of 3 habits"
+E             - button "Thu 13 Aug, 2 of 3 habits"
+E             - button "Fri 14 Aug, 2 of 3 habits"
+E             - button "Sat 15 Aug, 2 of 3 habits"
+E             - button "Sun 16 Aug, 2 of 3 habits"
+E             - button "Mon 17 Aug, 1 of 3 habits"
+E             - button "Tue 18 Aug, 2 of 3 habits"
+E             - button "Wed 19 Aug, 2 of 3 habits"
+E             - button "Thu 20 Aug, 1 of 3 habits"
+E             - button "Fri 21 Aug, 3 of 3 habits"
+E             - button "Sat 22 Aug, 3 of 3 habits"
+E             - button "Sun 23 Aug, 0 of 3 habits"
+E             - button "Mon 24 Aug, 3 of 3 habits"
+E             - button "Tue 25 Aug, 3 of 3 habits"
+E             - button "Wed 26 Aug, 2 of 3 habits"
+E             - button "Thu 27 Aug, 1 of 3 habits"
+E             - button "Fri 28 Aug, 2 of 3 habits"
+E             - button "Sat 29 Aug, 2 of 3 habits"
+E             - button "Sun 30 Aug, 2 of 3 habits"
+E             - button "Mon 31 Aug, 1 of 3 habits"
+E             - button "Tue 1 Sep, 2 of 3 habits"
+E             - button "Wed 2 Sep, 3 of 3 habits"
+E             - button "Thu 3 Sep, 3 of 3 habits"
+E             - button "Fri 4 Sep, 2 of 3 habits"
+E             - button "Sat 5 Sep, 2 of 3 habits"
+E             - button "Sun 6 Sep, 1 of 3 habits"
+E             - button "Mon 7 Sep, 2 of 3 habits"
+E             - button "Tue 8 Sep, 3 of 3 habits"
+E             - button "Wed 9 Sep, 1 of 3 habits"
+E             - button "Thu 10 Sep, 1 of 3 habits"
+E             - button "Fri 11 Sep, 3 of 3 habits"
+E             - button "Sat 12 Sep, 1 of 3 habits"
+E             - button "Sun 13 Sep, 2 of 3 habits"
+E             - button "Mon 14 Sep, 2 of 3 habits"
+E             - button "Tue 15 Sep, 3 of 3 habits"
+E             - button "Wed 16 Sep, 2 of 3 habits"
+E             - button "Thu 17 Sep, 2 of 3 habits"
+E             - button "Fri 18 Sep, 2 of 3 habits"
+E             - button "Sat 19 Sep, 3 of 3 habits"
+E             - button "Sun 20 Sep, 3 of 3 habits"
+E             - button "Mon 21 Sep, 2 of 3 habits"
+E             - button "Tue 22 Sep, 1 of 3 habits"
+E             - button "Wed 23 Sep, 2 of 3 habits"
+E             - button "Thu 24 Sep, 2 of 3 habits"
+E             - button "Fri 25 Sep, 3 of 3 habits"
+E             - button "Sat 26 Sep, 2 of 3 habits"
+E             - button "Sun 27 Sep, 0 of 3 habits"
+E             - button "Mon 28 Sep, 2 of 3 habits"
+E             - button "Tue 29 Sep, 3 of 3 habits"
+E             - button "Wed 30 Sep, 2 of 3 habits"
+E             - button "Thu 1 Oct, 2 of 3 habits"
+E             - button "Fri 2 Oct, 2 of 3 habits"
+E             - button "Sat 3 Oct, 2 of 3 habits"
+E             - button "Sun 4 Oct, 2 of 3 habits"
+E             - button "Mon 5 Oct, 3 of 3 habits"
+E             - button "Tue 6 Oct, 1 of 3 habits"
+E             - button "Wed 7 Oct, 2 of 3 habits"
+E             - button "Thu 8 Oct, 3 of 3 habits"
+E             - button "Fri 9 Oct, 2 of 3 habits"
+E             - button "Sat 10 Oct, 1 of 3 habits"
+E         - heading "Habits" [level=2]
+E         - list "Habits":
+E           - listitem:
+E             - heading "Read 20 pages" [level=3]
+E             - button "Delete \"Read 20 pages\""
+E             - paragraph: Current 4 days Best 9
+E             - button "Year view, Read 20 pages": Year
+E             - button "Done today, Read 20 pages" [pressed]: Done today
+E           - listitem:
+E             - heading "Stretch 10 minutes" [level=3]
+E             - button "Delete \"Stretch 10 minutes\""
+E             - paragraph: Current 2 days Best 5
+E             - button "Year view, Stretch 10 minutes": Year
+E             - button "Done today, Stretch 10 minutes": Done today
+E           - listitem:
+E             - heading "No phone after 11pm" [level=3]
+E             - button "Delete \"No phone after 11pm\""
+E             - paragraph: Current No streak yet Best 14
+E             - button "Year view, No phone after 11pm": Year
+E             - button "Done today, No phone after 11pm": Done today
+E         - text: New habit
+E         - textbox "New habit"
+E         - button "Add"
+
+tests\browser\test_day_editor.py:63: AssertionError</failure></testcase><testcase classname="tests.browser.test_day_editor" name="test_R37_keyboard_ticks_keep_focus_and_a_second_tick_restores_the_saved_value" time="5.709"><failure message="AssertionError: Locator expected to have attribute ''&#10;Actual value: None &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-day&quot;)&#10;    14 × locator resolved to &lt;dialog class=&quot;dlg-day&quot; aria-modal=&quot;true&quot; aria-describedby=&quot;day-sub&quot; aria-labelledby=&quot;day-title&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;null&quot;&#10;&#10;Aria snapshot:&#10;- banner:&#10;  - heading &quot;Streaky Habit&quot; [level=1]&#10;  - time: Saturday 10 October&#10;- main:&#10;  - region &quot;Last 12 weeks&quot;:&#10;    - heading &quot;Last 12 weeks&quot; [level=2]&#10;    - button &quot;Year view, all habits&quot;: Year&#10;    - paragraph: Tap a day to change it.&#10;    - group &quot;Last 12 weeks&quot;:&#10;      - button &quot;Mon 20 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Tue 21 Jul, 3 of 3 habits&quot;&#10;      - button &quot;Wed 22 Jul, 1 of 3 habits&quot;&#10;      - button &quot;Thu 23 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Fri 24 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Sat 25 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Sun 26 Jul, 1 of 3 habits&quot;&#10;      - button &quot;Mon 27 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Tue 28 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Wed 29 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Thu 30 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Fri 31 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Sat 1 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Sun 2 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Mon 3 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Tue 4 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Wed 5 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Thu 6 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Fri 7 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sat 8 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sun 9 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Mon 10 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Tue 11 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Wed 12 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Thu 13 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Fri 14 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sat 15 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sun 16 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Mon 17 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Tue 18 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Wed 19 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Thu 20 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Fri 21 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Sat 22 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Sun 23 Aug, 0 of 3 habits&quot;&#10;      - button &quot;Mon 24 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Tue 25 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Wed 26 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Thu 27 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Fri 28 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sat 29 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sun 30 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Mon 31 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Tue 1 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Wed 2 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Thu 3 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Fri 4 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Sat 5 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Sun 6 Sep, 1 of 3 habits&quot;&#10;      - button &quot;Mon 7 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Tue 8 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Wed 9 Sep, 1 of 3 habits&quot;&#10;      - button &quot;Thu 10 Sep, 1 of 3 habits&quot;&#10;      - button &quot;Fri 11 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Sat 12 Sep, 1 of 3 habits&quot;&#10;      - button &quot;Sun 13 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Mon 14 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Tue 15 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Wed 16 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Thu 17 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Fri 18 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Sat 19 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Sun 20 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Mon 21 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Tue 22 Sep, 1 of 3 habits&quot;&#10;      - button &quot;Wed 23 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Thu 24 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Fri 25 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Sat 26 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Sun 27 Sep, 0 of 3 habits&quot;&#10;      - button &quot;Mon 28 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Tue 29 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Wed 30 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Thu 1 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Fri 2 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Sat 3 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Sun 4 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Mon 5 Oct, 3 of 3 habits&quot;&#10;      - button &quot;Tue 6 Oct, 1 of 3 habits&quot;&#10;      - button &quot;Wed 7 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Thu 8 Oct, 3 of 3 habits&quot;&#10;      - button &quot;Fri 9 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Sat 10 Oct, 1 of 3 habits&quot;&#10;  - heading &quot;Habits&quot; [level=2]&#10;  - list &quot;Habits&quot;:&#10;    - listitem:&#10;      - heading &quot;Read 20 pages&quot; [level=3]&#10;      - button &quot;Delete \&quot;Read 20 pages\&quot;&quot;&#10;      - paragraph: Current 4 days Best 9&#10;      - button &quot;Year view, Read 20 pages&quot;: Year&#10;      - button &quot;Done today, Read 20 pages&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Stretch 10 minutes&quot; [level=3]&#10;      - button &quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;&#10;      - paragraph: Current 2 days Best 5&#10;      - button &quot;Year view, Stretch 10 minutes&quot;: Year&#10;      - button &quot;Done today, Stretch 10 minutes&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;No phone after 11pm&quot; [level=3]&#10;      - button &quot;Delete \&quot;No phone after 11pm\&quot;&quot;&#10;      - paragraph: Current No streak yet Best 14&#10;      - button &quot;Year view, No phone after 11pm&quot;: Year&#10;      - button &quot;Done today, No phone after 11pm&quot;: Done today&#10;  - text: New habit&#10;  - textbox &quot;New habit&quot;&#10;  - button &quot;Add&quot;">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001EF7DDCA560&gt;
+
+    def test_R37_keyboard_ticks_keep_focus_and_a_second_tick_restores_the_saved_value(app):
+        text = sample_state()
+        page = app(viewport=DESKTOP, storage=text)
+        day = band_day(page, SEP_22)
+        expect(day).to_be_attached()
+        is_focused = "(node) =&gt; document.activeElement === node"
+        for _ in range(100):
+            if day.evaluate(is_focused):
+                break
+            page.keyboard.press("Tab")
+        assert day.evaluate(is_focused), "Tab never reached the band's 2026-09-22 button"
+        page.keyboard.press("Enter")
+&gt;       expect(day_dialog(page)).to_have_attribute("open", "")
+E       AssertionError: Locator expected to have attribute ''
+E       Actual value: None 
+E       Call log:
+E         - Expect "to_have_attribute" with timeout 5000ms
+E         - waiting for locator("dialog.dlg-day")
+E           14 × locator resolved to &lt;dialog class="dlg-day" aria-modal="true" aria-describedby="day-sub" aria-labelledby="day-title"&gt;…&lt;/dialog&gt;
+E              - unexpected value "null"
+E       
+E       Aria snapshot:
+E       - banner:
+E         - heading "Streaky Habit" [level=1]
+E         - time: Saturday 10 October
+E       - main:
+E         - region "Last 12 weeks":
+E           - heading "Last 12 weeks" [level=2]
+E           - button "Year view, all habits": Year
+E           - paragraph: Tap a day to change it.
+E           - group "Last 12 weeks":
+E             - button "Mon 20 Jul, 2 of 3 habits"
+E             - button "Tue 21 Jul, 3 of 3 habits"
+E             - button "Wed 22 Jul, 1 of 3 habits"
+E             - button "Thu 23 Jul, 2 of 3 habits"
+E             - button "Fri 24 Jul, 2 of 3 habits"
+E             - button "Sat 25 Jul, 2 of 3 habits"
+E             - button "Sun 26 Jul, 1 of 3 habits"
+E             - button "Mon 27 Jul, 2 of 3 habits"
+E             - button "Tue 28 Jul, 2 of 3 habits"
+E             - button "Wed 29 Jul, 2 of 3 habits"
+E             - button "Thu 30 Jul, 2 of 3 habits"
+E             - button "Fri 31 Jul, 2 of 3 habits"
+E             - button "Sat 1 Aug, 1 of 3 habits"
+E             - button "Sun 2 Aug, 2 of 3 habits"
+E             - button "Mon 3 Aug, 1 of 3 habits"
+E             - button "Tue 4 Aug, 2 of 3 habits"
+E             - button "Wed 5 Aug, 3 of 3 habits"
+E             - button "Thu 6 Aug, 2 of 3 habits"
+E             - button "Fri 7 Aug, 2 of 3 habits"
+E             - button "Sat 8 Aug, 2 of 3 habits"
+E             - button "Sun 9 Aug, 1 of 3 habits"
+E             - button "Mon 10 Aug, 2 of 3 habits"
+E             - button "Tue 11 Aug, 3 of 3 habits"
+E             - button "Wed 12 Aug, 2 of 3 habits"
+E             - button "Thu 13 Aug, 2 of 3 habits"
+E             - button "Fri 14 Aug, 2 of 3 habits"
+E             - button "Sat 15 Aug, 2 of 3 habits"
+E             - button "Sun 16 Aug, 2 of 3 habits"
+E             - button "Mon 17 Aug, 1 of 3 habits"
+E             - button "Tue 18 Aug, 2 of 3 habits"
+E             - button "Wed 19 Aug, 2 of 3 habits"
+E             - button "Thu 20 Aug, 1 of 3 habits"
+E             - button "Fri 21 Aug, 3 of 3 habits"
+E             - button "Sat 22 Aug, 3 of 3 habits"
+E             - button "Sun 23 Aug, 0 of 3 habits"
+E             - button "Mon 24 Aug, 3 of 3 habits"
+E             - button "Tue 25 Aug, 3 of 3 habits"
+E             - button "Wed 26 Aug, 2 of 3 habits"
+E             - button "Thu 27 Aug, 1 of 3 habits"
+E             - button "Fri 28 Aug, 2 of 3 habits"
+E             - button "Sat 29 Aug, 2 of 3 habits"
+E             - button "Sun 30 Aug, 2 of 3 habits"
+E             - button "Mon 31 Aug, 1 of 3 habits"
+E             - button "Tue 1 Sep, 2 of 3 habits"
+E             - button "Wed 2 Sep, 3 of 3 habits"
+E             - button "Thu 3 Sep, 3 of 3 habits"
+E             - button "Fri 4 Sep, 2 of 3 habits"
+E             - button "Sat 5 Sep, 2 of 3 habits"
+E             - button "Sun 6 Sep, 1 of 3 habits"
+E             - button "Mon 7 Sep, 2 of 3 habits"
+E             - button "Tue 8 Sep, 3 of 3 habits"
+E             - button "Wed 9 Sep, 1 of 3 habits"
+E             - button "Thu 10 Sep, 1 of 3 habits"
+E             - button "Fri 11 Sep, 3 of 3 habits"
+E             - button "Sat 12 Sep, 1 of 3 habits"
+E             - button "Sun 13 Sep, 2 of 3 habits"
+E             - button "Mon 14 Sep, 2 of 3 habits"
+E             - button "Tue 15 Sep, 3 of 3 habits"
+E             - button "Wed 16 Sep, 2 of 3 habits"
+E             - button "Thu 17 Sep, 2 of 3 habits"
+E             - button "Fri 18 Sep, 2 of 3 habits"
+E             - button "Sat 19 Sep, 3 of 3 habits"
+E             - button "Sun 20 Sep, 3 of 3 habits"
+E             - button "Mon 21 Sep, 2 of 3 habits"
+E             - button "Tue 22 Sep, 1 of 3 habits"
+E             - button "Wed 23 Sep, 2 of 3 habits"
+E             - button "Thu 24 Sep, 2 of 3 habits"
+E             - button "Fri 25 Sep, 3 of 3 habits"
+E             - button "Sat 26 Sep, 2 of 3 habits"
+E             - button "Sun 27 Sep, 0 of 3 habits"
+E             - button "Mon 28 Sep, 2 of 3 habits"
+E             - button "Tue 29 Sep, 3 of 3 habits"
+E             - button "Wed 30 Sep, 2 of 3 habits"
+E             - button "Thu 1 Oct, 2 of 3 habits"
+E             - button "Fri 2 Oct, 2 of 3 habits"
+E             - button "Sat 3 Oct, 2 of 3 habits"
+E             - button "Sun 4 Oct, 2 of 3 habits"
+E             - button "Mon 5 Oct, 3 of 3 habits"
+E             - button "Tue 6 Oct, 1 of 3 habits"
+E             - button "Wed 7 Oct, 2 of 3 habits"
+E             - button "Thu 8 Oct, 3 of 3 habits"
+E             - button "Fri 9 Oct, 2 of 3 habits"
+E             - button "Sat 10 Oct, 1 of 3 habits"
+E         - heading "Habits" [level=2]
+E         - list "Habits":
+E           - listitem:
+E             - heading "Read 20 pages" [level=3]
+E             - button "Delete \"Read 20 pages\""
+E             - paragraph: Current 4 days Best 9
+E             - button "Year view, Read 20 pages": Year
+E             - button "Done today, Read 20 pages" [pressed]: Done today
+E           - listitem:
+E             - heading "Stretch 10 minutes" [level=3]
+E             - button "Delete \"Stretch 10 minutes\""
+E             - paragraph: Current 2 days Best 5
+E             - button "Year view, Stretch 10 minutes": Year
+E             - button "Done today, Stretch 10 minutes": Done today
+E           - listitem:
+E             - heading "No phone after 11pm" [level=3]
+E             - button "Delete \"No phone after 11pm\""
+E             - paragraph: Current No streak yet Best 14
+E             - button "Year view, No phone after 11pm": Year
+E             - button "Done today, No phone after 11pm": Done today
+E         - text: New habit
+E         - textbox "New habit"
+E         - button "Add"
+
+tests\browser\test_day_editor.py:238: AssertionError</failure></testcase><testcase classname="tests.browser.test_day_editor" name="test_R37_R31_ticking_today_in_p1_presses_done_today" time="5.234"><failure message="AssertionError: Locator expected to have attribute ''&#10;Actual value: None &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-day&quot;)&#10;    14 × locator resolved to &lt;dialog class=&quot;dlg-day&quot; aria-modal=&quot;true&quot; aria-describedby=&quot;day-sub&quot; aria-labelledby=&quot;day-title&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;null&quot;&#10;&#10;Aria snapshot:&#10;- banner:&#10;  - heading &quot;Streaky Habit&quot; [level=1]&#10;  - time: Saturday 10 October&#10;- main:&#10;  - region &quot;Last 12 weeks&quot;:&#10;    - heading &quot;Last 12 weeks&quot; [level=2]&#10;    - button &quot;Year view, all habits&quot;: Year&#10;    - paragraph: Tap a day to change it.&#10;    - group &quot;Last 12 weeks&quot;:&#10;      - button &quot;Mon 20 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Tue 21 Jul, 3 of 3 habits&quot;&#10;      - button &quot;Wed 22 Jul, 1 of 3 habits&quot;&#10;      - button &quot;Thu 23 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Fri 24 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Sat 25 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Sun 26 Jul, 1 of 3 habits&quot;&#10;      - button &quot;Mon 27 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Tue 28 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Wed 29 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Thu 30 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Fri 31 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Sat 1 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Sun 2 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Mon 3 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Tue 4 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Wed 5 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Thu 6 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Fri 7 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sat 8 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sun 9 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Mon 10 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Tue 11 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Wed 12 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Thu 13 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Fri 14 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sat 15 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sun 16 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Mon 17 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Tue 18 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Wed 19 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Thu 20 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Fri 21 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Sat 22 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Sun 23 Aug, 0 of 3 habits&quot;&#10;      - button &quot;Mon 24 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Tue 25 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Wed 26 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Thu 27 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Fri 28 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sat 29 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sun 30 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Mon 31 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Tue 1 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Wed 2 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Thu 3 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Fri 4 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Sat 5 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Sun 6 Sep, 1 of 3 habits&quot;&#10;      - button &quot;Mon 7 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Tue 8 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Wed 9 Sep, 1 of 3 habits&quot;&#10;      - button &quot;Thu 10 Sep, 1 of 3 habits&quot;&#10;      - button &quot;Fri 11 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Sat 12 Sep, 1 of 3 habits&quot;&#10;      - button &quot;Sun 13 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Mon 14 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Tue 15 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Wed 16 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Thu 17 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Fri 18 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Sat 19 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Sun 20 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Mon 21 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Tue 22 Sep, 1 of 3 habits&quot;&#10;      - button &quot;Wed 23 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Thu 24 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Fri 25 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Sat 26 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Sun 27 Sep, 0 of 3 habits&quot;&#10;      - button &quot;Mon 28 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Tue 29 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Wed 30 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Thu 1 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Fri 2 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Sat 3 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Sun 4 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Mon 5 Oct, 3 of 3 habits&quot;&#10;      - button &quot;Tue 6 Oct, 1 of 3 habits&quot;&#10;      - button &quot;Wed 7 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Thu 8 Oct, 3 of 3 habits&quot;&#10;      - button &quot;Fri 9 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Sat 10 Oct, 1 of 3 habits&quot;&#10;  - heading &quot;Habits&quot; [level=2]&#10;  - list &quot;Habits&quot;:&#10;    - listitem:&#10;      - heading &quot;Read 20 pages&quot; [level=3]&#10;      - button &quot;Delete \&quot;Read 20 pages\&quot;&quot;&#10;      - paragraph: Current 4 days Best 9&#10;      - button &quot;Year view, Read 20 pages&quot;: Year&#10;      - button &quot;Done today, Read 20 pages&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Stretch 10 minutes&quot; [level=3]&#10;      - button &quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;&#10;      - paragraph: Current 2 days Best 5&#10;      - button &quot;Year view, Stretch 10 minutes&quot;: Year&#10;      - button &quot;Done today, Stretch 10 minutes&quot;: Done today&#10;    - listitem:&#10;      - heading &quot;No phone after 11pm&quot; [level=3]&#10;      - button &quot;Delete \&quot;No phone after 11pm\&quot;&quot;&#10;      - paragraph: Current No streak yet Best 14&#10;      - button &quot;Year view, No phone after 11pm&quot;: Year&#10;      - button &quot;Done today, No phone after 11pm&quot;: Done today&#10;  - text: New habit&#10;  - textbox &quot;New habit&quot;&#10;  - button &quot;Add&quot;">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001EF7DDCB5E0&gt;
+
+    def test_R37_R31_ticking_today_in_p1_presses_done_today(app):
+        page = app(viewport=DESKTOP, storage=sample_state())
+&gt;       open_from_band(page, TODAY)
+
+tests\browser\test_day_editor.py:258: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+page = &lt;Page url='http://127.0.0.1:34264/'&gt;, key = '2026-10-10'
+
+    def open_from_band(page, key):
+        band_day(page, key).click()
+&gt;       expect(day_dialog(page)).to_have_attribute("open", "")
+E       AssertionError: Locator expected to have attribute ''
+E       Actual value: None 
+E       Call log:
+E         - Expect "to_have_attribute" with timeout 5000ms
+E         - waiting for locator("dialog.dlg-day")
+E           14 × locator resolved to &lt;dialog class="dlg-day" aria-modal="true" aria-describedby="day-sub" aria-labelledby="day-title"&gt;…&lt;/dialog&gt;
+E              - unexpected value "null"
+E       
+E       Aria snapshot:
+E       - banner:
+E         - heading "Streaky Habit" [level=1]
+E         - time: Saturday 10 October
+E       - main:
+E         - region "Last 12 weeks":
+E           - heading "Last 12 weeks" [level=2]
+E           - button "Year view, all habits": Year
+E           - paragraph: Tap a day to change it.
+E           - group "Last 12 weeks":
+E             - button "Mon 20 Jul, 2 of 3 habits"
+E             - button "Tue 21 Jul, 3 of 3 habits"
+E             - button "Wed 22 Jul, 1 of 3 habits"
+E             - button "Thu 23 Jul, 2 of 3 habits"
+E             - button "Fri 24 Jul, 2 of 3 habits"
+E             - button "Sat 25 Jul, 2 of 3 habits"
+E             - button "Sun 26 Jul, 1 of 3 habits"
+E             - button "Mon 27 Jul, 2 of 3 habits"
+E             - button "Tue 28 Jul, 2 of 3 habits"
+E             - button "Wed 29 Jul, 2 of 3 habits"
+E             - button "Thu 30 Jul, 2 of 3 habits"
+E             - button "Fri 31 Jul, 2 of 3 habits"
+E             - button "Sat 1 Aug, 1 of 3 habits"
+E             - button "Sun 2 Aug, 2 of 3 habits"
+E             - button "Mon 3 Aug, 1 of 3 habits"
+E             - button "Tue 4 Aug, 2 of 3 habits"
+E             - button "Wed 5 Aug, 3 of 3 habits"
+E             - button "Thu 6 Aug, 2 of 3 habits"
+E             - button "Fri 7 Aug, 2 of 3 habits"
+E             - button "Sat 8 Aug, 2 of 3 habits"
+E             - button "Sun 9 Aug, 1 of 3 habits"
+E             - button "Mon 10 Aug, 2 of 3 habits"
+E             - button "Tue 11 Aug, 3 of 3 habits"
+E             - button "Wed 12 Aug, 2 of 3 habits"
+E             - button "Thu 13 Aug, 2 of 3 habits"
+E             - button "Fri 14 Aug, 2 of 3 habits"
+E             - button "Sat 15 Aug, 2 of 3 habits"
+E             - button "Sun 16 Aug, 2 of 3 habits"
+E             - button "Mon 17 Aug, 1 of 3 habits"
+E             - button "Tue 18 Aug, 2 of 3 habits"
+E             - button "Wed 19 Aug, 2 of 3 habits"
+E             - button "Thu 20 Aug, 1 of 3 habits"
+E             - button "Fri 21 Aug, 3 of 3 habits"
+E             - button "Sat 22 Aug, 3 of 3 habits"
+E             - button "Sun 23 Aug, 0 of 3 habits"
+E             - button "Mon 24 Aug, 3 of 3 habits"
+E             - button "Tue 25 Aug, 3 of 3 habits"
+E             - button "Wed 26 Aug, 2 of 3 habits"
+E             - button "Thu 27 Aug, 1 of 3 habits"
+E             - button "Fri 28 Aug, 2 of 3 habits"
+E             - button "Sat 29 Aug, 2 of 3 habits"
+E             - button "Sun 30 Aug, 2 of 3 habits"
+E             - button "Mon 31 Aug, 1 of 3 habits"
+E             - button "Tue 1 Sep, 2 of 3 habits"
+E             - button "Wed 2 Sep, 3 of 3 habits"
+E             - button "Thu 3 Sep, 3 of 3 habits"
+E             - button "Fri 4 Sep, 2 of 3 habits"
+E             - button "Sat 5 Sep, 2 of 3 habits"
+E             - button "Sun 6 Sep, 1 of 3 habits"
+E             - button "Mon 7 Sep, 2 of 3 habits"
+E             - button "Tue 8 Sep, 3 of 3 habits"
+E             - button "Wed 9 Sep, 1 of 3 habits"
+E             - button "Thu 10 Sep, 1 of 3 habits"
+E             - button "Fri 11 Sep, 3 of 3 habits"
+E             - button "Sat 12 Sep, 1 of 3 habits"
+E             - button "Sun 13 Sep, 2 of 3 habits"
+E             - button "Mon 14 Sep, 2 of 3 habits"
+E             - button "Tue 15 Sep, 3 of 3 habits"
+E             - button "Wed 16 Sep, 2 of 3 habits"
+E             - button "Thu 17 Sep, 2 of 3 habits"
+E             - button "Fri 18 Sep, 2 of 3 habits"
+E             - button "Sat 19 Sep, 3 of 3 habits"
+E             - button "Sun 20 Sep, 3 of 3 habits"
+E             - button "Mon 21 Sep, 2 of 3 habits"
+E             - button "Tue 22 Sep, 1 of 3 habits"
+E             - button "Wed 23 Sep, 2 of 3 habits"
+E             - button "Thu 24 Sep, 2 of 3 habits"
+E             - button "Fri 25 Sep, 3 of 3 habits"
+E             - button "Sat 26 Sep, 2 of 3 habits"
+E             - button "Sun 27 Sep, 0 of 3 habits"
+E             - button "Mon 28 Sep, 2 of 3 habits"
+E             - button "Tue 29 Sep, 3 of 3 habits"
+E             - button "Wed 30 Sep, 2 of 3 habits"
+E             - button "Thu 1 Oct, 2 of 3 habits"
+E             - button "Fri 2 Oct, 2 of 3 habits"
+E             - button "Sat 3 Oct, 2 of 3 habits"
+E             - button "Sun 4 Oct, 2 of 3 habits"
+E             - button "Mon 5 Oct, 3 of 3 habits"
+E             - button "Tue 6 Oct, 1 of 3 habits"
+E             - button "Wed 7 Oct, 2 of 3 habits"
+E             - button "Thu 8 Oct, 3 of 3 habits"
+E             - button "Fri 9 Oct, 2 of 3 habits"
+E             - button "Sat 10 Oct, 1 of 3 habits"
+E         - heading "Habits" [level=2]
+E         - list "Habits":
+E           - listitem:
+E             - heading "Read 20 pages" [level=3]
+E             - button "Delete \"Read 20 pages\""
+E             - paragraph: Current 4 days Best 9
+E             - button "Year view, Read 20 pages": Year
+E             - button "Done today, Read 20 pages" [pressed]: Done today
+E           - listitem:
+E             - heading "Stretch 10 minutes" [level=3]
+E             - button "Delete \"Stretch 10 minutes\""
+E             - paragraph: Current 2 days Best 5
+E             - button "Year view, Stretch 10 minutes": Year
+E             - button "Done today, Stretch 10 minutes": Done today
+E           - listitem:
+E             - heading "No phone after 11pm" [level=3]
+E             - button "Delete \"No phone after 11pm\""
+E             - paragraph: Current No streak yet Best 14
+E             - button "Year view, No phone after 11pm": Year
+E             - button "Done today, No phone after 11pm": Done today
+E         - text: New habit
+E         - textbox "New habit"
+E         - button "Add"
+
+tests\browser\test_day_editor.py:63: AssertionError</failure></testcase></testsuite></testsuites>

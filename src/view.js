@@ -8,19 +8,12 @@
  */
 import { longDate } from "./dates.js";
 import { bestStreak, currentStreak } from "./habits.js";
-import { drawLegend, drawOverview, drawRing, element, flagChange, ringSvg, svgElement } from "./calendar.js";
+import { dayUnit, drawLegend, drawOverview, drawRing, element, flagChange, icon, ringSvg, svgElement } from "./calendar.js";
 
 const LIMIT_NOTE = "You track 12 habits, the most this app holds. Delete one to add another.";
 
 const $ = (selector) => document.querySelector(selector);
 const rowsOf = () => Array.from(document.querySelectorAll("ul.rows > li.row"));
-
-/** A sprite glyph. Inner svgs carry no `focusable`, as the goldens draw them. */
-function icon(symbolId, className = "") {
-  const svg = svgElement("svg", className ? { class: className, "aria-hidden": "true" } : { "aria-hidden": "true" });
-  svg.append(svgElement("use", { href: `#${symbolId}` }));
-  return svg;
-}
 
 export function renderDate(todayKey) {
   const date = $("header.top > time.date");
@@ -108,7 +101,7 @@ function syncRow(row, done, todayKey, animate) {
 export function renderStats(stats, current, best, animate) {
   const bump = animate && stats.firstElementChild !== null;
   const currentStat = stats.querySelector(":scope > .stat.cur") ?? stats.appendChild(statBlock("cur", "Current"));
-  const currentValue = current > 0 ? valueOf(current, current === 1 ? "day" : "days") : element("span", "none", {}, "No streak yet");
+  const currentValue = current > 0 ? valueOf(current, dayUnit(current)) : element("span", "none", {}, "No streak yet");
   setValue(currentStat, currentValue, bump);
   const bestStat = stats.querySelector(":scope > .stat.best");
   if (best === 0) {

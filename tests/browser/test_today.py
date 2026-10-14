@@ -155,7 +155,6 @@ def test_R32_R16_one_done_today_updates_every_place_at_once_and_only_what_change
     expect(bead(page, "2026-10-09")).to_have_class(re.compile(r"\br\b"))
 
 
-@pytest.mark.xfail(strict=True, reason="task 18")
 def test_R32_R37_a_tick_in_p1_over_p3_updates_p3_and_the_row_and_leaves_todays_ring_alone(app):
     page = app(storage=sample_state())
     page.locator("button.ov-btn").click()
@@ -287,7 +286,7 @@ def check_after(page, popup, ticked):
     "popup",
     [
         "none",
-        pytest.param("P1", marks=pytest.mark.xfail(strict=True, reason="task 18")),
+        "P1",
         pytest.param("P2", marks=pytest.mark.xfail(strict=True, reason="task 19")),
     ],
 )
@@ -310,7 +309,7 @@ def test_R6_R32_best_back_to_0_removes_the_best_block_in_every_place(app, popup)
 @pytest.mark.parametrize(
     "popup",
     [
-        pytest.param("P1", marks=pytest.mark.xfail(strict=True, reason="task 18")),
+        "P1",
         pytest.param("P2", marks=pytest.mark.xfail(strict=True, reason="task 19")),
     ],
 )

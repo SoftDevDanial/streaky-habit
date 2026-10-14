@@ -18,6 +18,15 @@ const CORE_RADIUS = "11.5";
 const WEEKDAY_LETTERS = ["M", "T", "W", "T", "F", "S", "S"];
 const DAYS_PER_WEEK = 7;
 
+/** A day cell that opens P1, in the band, P3 and P4 (spec Contracts, Day cell). */
+export const DAY_BUTTON = "button.hc";
+
+/** The day button a click landed on, or null. */
+export const dayButtonOf = (target) => target.closest(DAY_BUTTON);
+
+/** The unit after a streak's number, "1 day" and "2 days" (spec Copy). */
+export const dayUnit = (count) => (count === 1 ? "day" : "days");
+
 /** An HTML element with its class, attributes and text. An empty class or text is left unset. */
 export function element(tag, className = "", attributes = {}, text = "") {
   const node = document.createElement(tag);
@@ -32,6 +41,13 @@ export function svgElement(tag, attributes = {}) {
   const node = document.createElementNS(SVG_NAMESPACE, tag);
   for (const [name, value] of Object.entries(attributes)) node.setAttribute(name, value);
   return node;
+}
+
+/** A sprite glyph. Inner svgs carry no `focusable`, as the goldens draw them. */
+export function icon(symbolId, className = "") {
+  const svg = svgElement("svg", className ? { class: className, "aria-hidden": "true" } : { "aria-hidden": "true" });
+  svg.append(svgElement("use", { href: `#${symbolId}` }));
+  return svg;
 }
 
 /** An empty ring, for `drawRing` to fill. */
@@ -129,7 +145,7 @@ export function drawOverview(grid, cells, todayKey, { newestFirst, animate }) {
     layOutWeeks(grid, cells, todayKey, newestFirst);
   }
   const cellOf = new Map(cells.map((cell) => [cell.key, cell]));
-  for (const button of grid.querySelectorAll("button.hc")) {
+  for (const button of grid.querySelectorAll(DAY_BUTTON)) {
     const cell = cellOf.get(button.getAttribute("data-key"));
     button.setAttribute("aria-label", `${shortDate(cell.key)}, ${cell.count} of ${cell.total} habits`);
     const changed = drawRing(button.firstElementChild, cell.done, { today: cell.today, day: dayParts(cell.key).day });

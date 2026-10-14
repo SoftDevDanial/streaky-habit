@@ -5,6 +5,7 @@
  * State is the habits array, the shown day and the open popups with their openers. Every change goes through a
  * habit-logic function, then a save, then a synchronous render inside the handler that caused it (spec Invariants).
  */
+import { dayButtonOf } from "./calendar.js";
 import { localDateKey } from "./dates.js";
 import { MAX_HABITS, doneFlags, heatmapCells, toggleDay } from "./habits.js";
 import * as popups from "./popups.js";
@@ -16,7 +17,8 @@ function readToday() {
   return localDateKey(new Date());
 }
 
-const state = { habits: [], todayKey: "" };
+/** `day` is the date P1 is open for, null while it is closed. */
+const state = { habits: [], todayKey: "", day: null };
 
 /** Each open popup and the control that opened it, so closing it puts focus back there (rule 1). */
 const openers = new Map();
@@ -33,7 +35,9 @@ function render(animate) {
   const cells = heatmapCells(habits, todayKey);
   view.renderOverviewButton(doneFlags(habits, todayKey), animate);
   view.renderBand(cells, todayKey, habits.length, animate);
-  if (popups.dialogs().overview.open) popups.renderOverviewPopup(cells, todayKey, habits.length, animate);
+  const open = popups.dialogs();
+  if (open.overview.open) popups.renderOverviewPopup(cells, todayKey, habits.length, animate);
+  if (open.day.open) popups.renderDayEditor(state.day, habits, todayKey, animate);
   view.renderRows(habits, todayKey, animate);
   view.renderComposerLimit(habits.length >= MAX_HABITS);
   view.renderFrameFades();
@@ -58,9 +62,19 @@ function openOverview(opener) {
   openPopup(overview, opener, popups.closeButtonOf(overview));
 }
 
+/** P1 for the day of `dayButton` (R36), over K1, P3 or P4, which marks that day open everywhere it shows. */
+function openDay(dayButton) {
+  state.day = dayButton.getAttribute("data-key");
+  popups.buildDayList(state.habits);
+  popups.renderDayEditor(state.day, state.habits, state.todayKey, false);
+  popups.markOpenDay(state.day);
+  openPopup(popups.dialogs().day, dayButton, popups.dayEditorFocus());
+  popups.keepDayInSight(dayButton);
+}
+
 /**
  * Done today ticks or unticks today (R31). The button is updated in place by the render, and focus is never moved,
- * so a keyboard user stays on it. The Overview button opens P3.
+ * so a keyboard user stays on it. The Overview button opens P3, a band day opens P1.
  */
 function onPageClick(event) {
   const index = view.doneTodayIndexOf(event.target);
@@ -69,7 +83,12 @@ function onPageClick(event) {
     return;
   }
   const overviewButton = view.overviewButtonOf(event.target);
-  if (overviewButton) openOverview(overviewButton);
+  if (overviewButton) {
+    openOverview(overviewButton);
+    return;
+  }
+  const dayButton = dayButtonOf(event.target);
+  if (dayButton) openDay(dayButton);
 }
 
 function onPopupPointerDown(event) {
@@ -78,14 +97,25 @@ function onPopupPointerDown(event) {
 
 /**
  * Close closes its popup, and so does a click whose press and release both land on the backdrop. A click inside the
- * box, or a drag from the box to the backdrop, closes nothing (R40).
+ * box, or a drag from the box to the backdrop, closes nothing (R40). Inside the box a day button opens P1 over this
+ * popup, and a tick in P1 ticks or unticks P1's day for its habit, with focus left where it is (R37).
  */
 function onPopupClick(event) {
   const dialog = event.currentTarget;
   const pressedOnBackdrop = pressStartedOnBackdrop;
   pressStartedOnBackdrop = false;
   const close = popups.closeButtonOf(dialog);
-  if ((close && close.contains(event.target)) || (pressedOnBackdrop && popups.onBackdrop(dialog, event))) dialog.close();
+  if ((close && close.contains(event.target)) || (pressedOnBackdrop && popups.onBackdrop(dialog, event))) {
+    dialog.close();
+    return;
+  }
+  const dayButton = dayButtonOf(event.target);
+  if (dayButton) {
+    openDay(dayButton);
+    return;
+  }
+  const tickIndex = popups.tickIndexOf(event.target);
+  if (tickIndex >= 0) edit(toggleDay(state.habits, tickIndex, state.day, state.todayKey));
 }
 
 /**
@@ -93,8 +123,13 @@ function onPopupClick(event) {
  * clicked button never took focus in WebKit, so the native return has nothing to return to (R40).
  */
 function onPopupClose(event) {
-  const opener = openers.get(event.currentTarget);
-  openers.delete(event.currentTarget);
+  const dialog = event.currentTarget;
+  if (dialog === popups.dialogs().day) {
+    state.day = null;
+    popups.markOpenDay(null);
+  }
+  const opener = openers.get(dialog);
+  openers.delete(dialog);
   opener?.focus();
 }
 
