@@ -3,7 +3,8 @@
  * Why: the saved text is untrusted (any page on the same origin can write the key), so reading it is a
  * strict check that rebuilds every habit from the two known fields, and anything else is "unreadable".
  * Input: the raw saved text, or the habits to save. Output: habits, or a status (spec Storage contract, CG-4).
- * Storage failures never reach the user (CG-5): a failed read starts empty and a failed save is ignored.
+ * A failed read starts empty, and both loading and saving report whether storage worked, so the app can show the
+ * save warning (R41). Neither function throws.
  */
 import { isDateKey } from "./dates.js";
 import { MAX_HABITS, validateName } from "./habits.js";
@@ -66,8 +67,9 @@ export function encodeState(habits) {
 
 /**
  * Never throws. Unreadable saved text is replaced by the empty state at once, so "the list was reset"
- * is true on the next load too, and `reset` tells the app to say so once.
- * @returns {{ habits: Habit[], reset: boolean }}
+ * is true on the next load too, and `reset` tells the app to say so once. `saveFailed` is true when the
+ * read itself failed or that reset save failed, so the warning shows from the first render (R41).
+ * @returns {{ habits: Habit[], reset: boolean, saveFailed: boolean }}
  */
 export function loadHabits() {
   // Only the storage access is guarded: a throw from decodeState is a bug and must not read as "storage
@@ -76,20 +78,27 @@ export function loadHabits() {
   try {
     raw = localStorage.getItem(STORAGE_KEY);
   } catch {
-    return { habits: [], reset: false };
+    return { habits: [], reset: false, saveFailed: true };
   }
   const decoded = decodeState(raw);
-  if (decoded.status === "ok") return { habits: decoded.habits, reset: false };
-  if (decoded.status === "absent") return { habits: [], reset: false };
-  saveHabits([]);
-  return { habits: [], reset: true };
+  if (decoded.status === "ok") return { habits: decoded.habits, reset: false, saveFailed: false };
+  if (decoded.status === "absent") return { habits: [], reset: false, saveFailed: false };
+  return { habits: [], reset: true, saveFailed: !saveHabits([]) };
 }
 
-/** @param {readonly Habit[]} habits */
+/**
+ * One save attempt (R41, SW1 to SW3). It reads localStorage afresh each time, so a store that comes back is seen
+ * on the next save. It touches only the stored key, so after a failure the caller still holds the change.
+ * @param {readonly Habit[]} habits
+ * @returns {boolean} true when setItem returned, false when reading localStorage or setItem threw
+ */
 export function saveHabits(habits) {
+  const text = encodeState(habits); // outside the guard, as in loadHabits, so a bug is not reported as "not saved"
   try {
-    localStorage.setItem(STORAGE_KEY, encodeState(habits));
+    localStorage.setItem(STORAGE_KEY, text);
+    return true;
   } catch {
-    // Blocked or full storage: the change stays on screen and in memory (CG-5, an accepted residual).
+    // Whatever was thrown counts as a failure and is never read (SW2). A thrown object's getters could run code.
+    return false;
   }
 }

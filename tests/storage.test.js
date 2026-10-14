@@ -1,9 +1,11 @@
-// Unit tests of the pure exports of src/storage.js (app spec, Storage contract and the readable rule, CG-4).
+// Unit tests of src/storage.js (app spec, Storage contract and the readable rule, CG-4), the pure exports and, with a
+// stand-in localStorage, what loadHabits and saveHabits report (R16, R41).
 // Why here and not only in the browser: the browser can see what decodeState keeps only through a later
 // save, and cannot see at all whether it returned the parsed objects themselves (threat T2).
 import test from "node:test";
 import assert from "node:assert/strict";
-import { STORAGE_KEY, decodeState, encodeState } from "../src/storage.js";
+import { STORAGE_KEY, decodeState, encodeState, loadHabits, saveHabits } from "../src/storage.js";
+import { sampleHabits } from "./fixtures/sample.js";
 
 const state = (habits) => JSON.stringify({ version: 1, habits });
 const habit = (name, done = []) => ({ name, done });
@@ -110,4 +112,98 @@ test("@R16 @R17 what encodeState writes decodeState reads back unchanged", () =>
   const habits = [habit("Read 20 pages", ["2026-10-03", "2026-10-04"]), habit("Stretch 10 minutes")];
   assert.deepEqual(decodeState(encodeState(habits)), { status: "ok", habits });
   assert.deepEqual(decodeState(encodeState([])), { status: "ok", habits: [] });
+});
+
+// qa.md, "saveHabits reports whether the write worked, and loadHabits whether the read did" (R16, R41, SW1 to SW4).
+// Node has no localStorage, so each case puts a stand-in on globalThis and removes it afterwards, whatever happens.
+
+const SAMPLE_HABITS = sampleHabits(new URL("../docs/design/sample-history.json", import.meta.url)).slice(0, 3);
+
+/**
+ * A stand-in store. `saved` is what getItem returns for the key. `failWith`, when given, is thrown by setItem
+ * instead of storing. `writes` records every setItem call, `held` what was stored.
+ */
+function standIn({ saved = null, failWith } = {}) {
+  const writes = [];
+  const held = new Map();
+  const storage = {
+    getItem: (key) => (key === STORAGE_KEY ? saved : null),
+    setItem: (key, value) => {
+      writes.push([key, value]);
+      if (failWith !== undefined) throw failWith;
+      held.set(key, value);
+    },
+  };
+  return { storage, writes, held };
+}
+
+/** Runs `body` with globalThis.localStorage defined by `descriptor`, then takes it away again. */
+function withLocalStorage(descriptor, body) {
+  const before = Object.getOwnPropertyDescriptor(globalThis, "localStorage");
+  Object.defineProperty(globalThis, "localStorage", { configurable: true, ...descriptor });
+  try {
+    return body();
+  } finally {
+    if (before) Object.defineProperty(globalThis, "localStorage", before);
+    else delete globalThis.localStorage;
+  }
+}
+
+test("@R16 @R41 saveHabits returns true when setItem returns, and the store holds encodeState(habits)", () => {
+  const { storage, held } = standIn();
+  const result = withLocalStorage({ value: storage }, () => saveHabits(SAMPLE_HABITS));
+  assert.equal(result, true);
+  assert.equal(held.get(STORAGE_KEY), encodeState(SAMPLE_HABITS));
+});
+
+test("@R16 @R41 saveHabits returns false when setItem throws something that is not an Error, and never reads it", () => {
+  const read = [];
+  const thrown = {};
+  for (const property of ["name", "code", "message"]) {
+    Object.defineProperty(thrown, property, { get: () => read.push(property) });
+  }
+  const { storage } = standIn({ failWith: thrown });
+  let result;
+  assert.doesNotThrow(() => {
+    result = withLocalStorage({ value: storage }, () => saveHabits(SAMPLE_HABITS));
+  });
+  assert.equal(result, false);
+  assert.deepEqual(read, [], "the app read the error it caught");
+});
+
+test("@R16 @R41 with a localStorage getter that throws, saveHabits returns false and loadHabits reports the failed read", () => {
+  const denied = {
+    get: () => {
+      throw new Error("test denied");
+    },
+  };
+  assert.equal(withLocalStorage(denied, () => saveHabits(SAMPLE_HABITS)), false);
+  assert.deepEqual(withLocalStorage(denied, () => loadHabits()), { habits: [], reset: false, saveFailed: true });
+});
+
+test("@R16 @R41 nothing saved loads empty with no failure and writes nothing", () => {
+  const { storage, writes } = standIn({ saved: null });
+  assert.deepEqual(withLocalStorage({ value: storage }, () => loadHabits()), { habits: [], reset: false, saveFailed: false });
+  assert.deepEqual(writes, []);
+});
+
+test("@R16 @R41 unreadable saved text whose reset save fails gives reset and saveFailed", () => {
+  const { storage } = standIn({ saved: "{", failWith: new Error("test quota") });
+  assert.deepEqual(withLocalStorage({ value: storage }, () => loadHabits()), { habits: [], reset: true, saveFailed: true });
+});
+
+test("@R16 @R41 unreadable saved text is reset to the empty state, and the reset save works", () => {
+  const { storage, held } = standIn({ saved: "{" });
+  assert.deepEqual(withLocalStorage({ value: storage }, () => loadHabits()), { habits: [], reset: true, saveFailed: false });
+  assert.equal(held.get(STORAGE_KEY), '{"version":1,"habits":[]}');
+});
+
+test("@R16 @R41 readable saved text loads the habits with no reset and no failure, and writes nothing", () => {
+  const { storage, writes } = standIn({ saved: encodeState(SAMPLE_HABITS) });
+  assert.deepEqual(withLocalStorage({ value: storage }, () => loadHabits()), {
+    habits: SAMPLE_HABITS,
+    reset: false,
+    saveFailed: false,
+  });
+  assert.deepEqual(writes, []);
 });

@@ -1,0 +1,8 @@
+RED first, app task 14 (R16, R41), the seven new tests of tests/storage.test.js against the 1.0 src/storage.js
+No stub (qa.md, "Controls are watched failing first", the 1.0 forms of saveHabits and loadHabits fail the new assertions).
+Command, from the project root:
+node --test --test-name-pattern="@R41" --test-reporter=spec --test-reporter-destination=stdout --test-reporter=junit --test-reporter-destination=docs/modules/app/qa/red-first/20261014-132730-node/junit.xml tests/storage.test.js
+junit.xml in this folder is the run's own output.
+Result (2026-10-14 13:27:25, the folder's name was chosen a few seconds before the run), 7 tests, 0 pass, 7 fail, each on its property.
+- saveHabits returned undefined where true (setItem returned) and false (setItem threw an object, and the localStorage getter threw) are expected.
+- loadHabits returned { habits, reset } with no saveFailed for nothing saved, for unreadable text with a failing and with a working reset save, and for the readable sample.

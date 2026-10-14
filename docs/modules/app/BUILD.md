@@ -207,3 +207,30 @@ None. `arcPath` has no guard for `n` below 2, because the spec defines it for 2 
 
 ### For the README reconcile
 - `src/ring.js` exports `arcPath` and `legendCounts` (pure, the Ring contract). `tests/ring.test.js` is new.
+
+---
+
+## v1.1.0 task 14, storage results (2026-10-14)
+> Written by the frontend builder (senior frontend dev agent), 2026-10-14. Requirements R16, R41. The commit is the one whose message starts `feat(app): saveHabits and loadHabits report whether storage worked (task 14, R16, R41)`.
+
+### Phase skills
+None. The spec names task 14 as not UI work ("12 and up except 14, 27 and 28").
+
+### What changed
+- `src/storage.js`. `saveHabits(habits)` returns `true` when `setItem` returned and `false` when reading `localStorage` or `setItem` threw, and never reads what was thrown. `encodeState` runs before the guard, so only the storage access is guarded, the same rule `loadHabits` already followed. `loadHabits()` returns `{ habits, reset, saveFailed }`. A failed read gives `saveFailed: true`, absent and readable give `false`, and unreadable gives `reset: true` with `saveFailed` set from the reset save's result. The module comment no longer says a failed save is ignored (R18 is retired). `decodeState` and `encodeState` are unchanged.
+- `tests/storage.test.js`. Seven `@R16 @R41` tests for the qa.md scenario "saveHabits reports whether the write worked, and loadHabits whether the read did", one per Given and Then pair, with a stand-in `localStorage` on `globalThis` that each case removes again (Node 24 has none of its own). The "not an Error" case throws an object whose `name`, `code` and `message` getters record any read, and the test asserts none happened. The sample case uses the v1.1.0 sample's first three habits through `tests/fixtures/sample.js`.
+- `spec.md` task 14 ticked.
+- `src/app.js` is not changed. It still reads `{ habits, reset }` and ignores the boolean, and the warning itself is task 23's.
+
+### RED first
+No stub, as qa.md says, because the 1.0 forms fail the new assertions. Run on the 1.0 `storage.js`, 7 of 7 failed on their property. `saveHabits` returned `undefined` where `true` or `false` was expected, and `loadHabits` returned no `saveFailed` (`docs/modules/app/qa/red-first/20261014-132730-node/`, `junit.xml` from the run and `red.txt`, the folder named a few seconds before the run at 13:27:25).
+
+### Proof
+- Node, `node --test "tests/**/*.test.js"`, 125 of 125 (118 before, 7 new).
+- Chromium 8 passed, 2 xfailed (`docs/modules/app/qa/functional/20261014-132801-chromium/junit.xml`). WebKit 7 passed, 1 skipped (CO-1), 2 xfailed (`.../functional/20261014-132813-webkit/junit.xml`). No WebKit failure.
+
+### Deviations
+None.
+
+### For the README reconcile
+- `saveHabits` now returns a boolean and `loadHabits` returns `saveFailed` beside `habits` and `reset` (Storage contract, v1.1.0). A failed save is no longer silent at the storage level. The banner that shows it comes with task 23.

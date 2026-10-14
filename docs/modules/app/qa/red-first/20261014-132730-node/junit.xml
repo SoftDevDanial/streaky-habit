@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuites>
+	<testcase name="@R16 @R41 saveHabits returns true when setItem returns, and the store holds encodeState(habits)" time="0.001156" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js" failure="Expected values to be strictly equal:+ actual - expected+ undefined- true">
+		<failure type="testCodeFailure" message="Expected values to be strictly equal:+ actual - expected+ undefined- true">
+[Error [ERR_TEST_FAILURE]: Expected values to be strictly equal:
++ actual - expected
+
++ undefined
+- true
+] {
+  code: 'ERR_TEST_FAILURE',
+  failureType: 'testCodeFailure',
+  cause: AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - true
+  
+      at TestContext.&lt;anonymous> (file:///{workspace}/examples/streaks/tests/storage.test.js:155:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.start (node:internal/test_runner/test:1003:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:358:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+}
+		</failure>
+	</testcase>
+	<testcase name="@R16 @R41 saveHabits returns false when setItem throws something that is not an Error, and never reads it" time="0.000255" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js" failure="Expected values to be strictly equal:+ actual - expected+ undefined- false">
+		<failure type="testCodeFailure" message="Expected values to be strictly equal:+ actual - expected+ undefined- false">
+[Error [ERR_TEST_FAILURE]: Expected values to be strictly equal:
++ actual - expected
+
++ undefined
+- false
+] {
+  code: 'ERR_TEST_FAILURE',
+  failureType: 'testCodeFailure',
+  cause: AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - false
+  
+      at TestContext.&lt;anonymous> (file:///{workspace}/examples/streaks/tests/storage.test.js:170:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+}
+		</failure>
+	</testcase>
+	<testcase name="@R16 @R41 with a localStorage getter that throws, saveHabits returns false and loadHabits reports the failed read" time="0.000142" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js" failure="Expected values to be strictly equal:+ actual - expected+ undefined- false">
+		<failure type="testCodeFailure" message="Expected values to be strictly equal:+ actual - expected+ undefined- false">
+[Error [ERR_TEST_FAILURE]: Expected values to be strictly equal:
++ actual - expected
+
++ undefined
+- false
+] {
+  code: 'ERR_TEST_FAILURE',
+  failureType: 'testCodeFailure',
+  cause: AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - false
+  
+      at TestContext.&lt;anonymous> (file:///{workspace}/examples/streaks/tests/storage.test.js:180:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+}
+		</failure>
+	</testcase>
+	<testcase name="@R16 @R41 nothing saved loads empty with no failure and writes nothing" time="0.000738" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js" failure="Expected values to be strictly deep-equal:+ actual - expected  {    habits: [],    reset: false,-   saveFailed: false  }">
+		<failure type="testCodeFailure" message="Expected values to be strictly deep-equal:+ actual - expected  {    habits: [],    reset: false,-   saveFailed: false  }">
+[Error [ERR_TEST_FAILURE]: Expected values to be strictly deep-equal:
++ actual - expected
+
+  {
+    habits: [],
+    reset: false,
+-   saveFailed: false
+  }
+] {
+  code: 'ERR_TEST_FAILURE',
+  failureType: 'testCodeFailure',
+  cause: AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+      habits: [],
+      reset: false,
+  -   saveFailed: false
+    }
+  
+      at TestContext.&lt;anonymous> (file:///{workspace}/examples/streaks/tests/storage.test.js:186:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { habits: [], reset: false },
+    expected: { habits: [], reset: false, saveFailed: false },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+}
+		</failure>
+	</testcase>
+	<testcase name="@R16 @R41 unreadable saved text whose reset save fails gives reset and saveFailed" time="0.000219" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js" failure="Expected values to be strictly deep-equal:+ actual - expected  {    habits: [],    reset: true,-   saveFailed: true  }">
+		<failure type="testCodeFailure" message="Expected values to be strictly deep-equal:+ actual - expected  {    habits: [],    reset: true,-   saveFailed: true  }">
+[Error [ERR_TEST_FAILURE]: Expected values to be strictly deep-equal:
++ actual - expected
+
+  {
+    habits: [],
+    reset: true,
+-   saveFailed: true
+  }
+] {
+  code: 'ERR_TEST_FAILURE',
+  failureType: 'testCodeFailure',
+  cause: AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+      habits: [],
+      reset: true,
+  -   saveFailed: true
+    }
+  
+      at TestContext.&lt;anonymous> (file:///{workspace}/examples/streaks/tests/storage.test.js:192:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { habits: [], reset: true },
+    expected: { habits: [], reset: true, saveFailed: true },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+}
+		</failure>
+	</testcase>
+	<testcase name="@R16 @R41 unreadable saved text is reset to the empty state, and the reset save works" time="0.000184" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js" failure="Expected values to be strictly deep-equal:+ actual - expected  {    habits: [],    reset: true,-   saveFailed: false  }">
+		<failure type="testCodeFailure" message="Expected values to be strictly deep-equal:+ actual - expected  {    habits: [],    reset: true,-   saveFailed: false  }">
+[Error [ERR_TEST_FAILURE]: Expected values to be strictly deep-equal:
++ actual - expected
+
+  {
+    habits: [],
+    reset: true,
+-   saveFailed: false
+  }
+] {
+  code: 'ERR_TEST_FAILURE',
+  failureType: 'testCodeFailure',
+  cause: AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+      habits: [],
+      reset: true,
+  -   saveFailed: false
+    }
+  
+      at TestContext.&lt;anonymous> (file:///{workspace}/examples/streaks/tests/storage.test.js:197:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { habits: [], reset: true },
+    expected: { habits: [], reset: true, saveFailed: false },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+}
+		</failure>
+	</testcase>
+	<testcase name="@R16 @R41 readable saved text loads the habits with no reset and no failure, and writes nothing" time="0.001599" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js" failure="Expected values to be strictly deep-equal:+ actual - expected... Skipped lines  {    habits: [      {        done: [          '2025-10-10',...    reset: false,-   saveFailed: false  }">
+		<failure type="testCodeFailure" message="Expected values to be strictly deep-equal:+ actual - expected... Skipped lines  {    habits: [      {        done: [          '2025-10-10',...    reset: false,-   saveFailed: false  }">
+[Error [ERR_TEST_FAILURE]: Expected values to be strictly deep-equal:
++ actual - expected
+... Skipped lines
+
+  {
+    habits: [
+      {
+        done: [
+          '2025-10-10',
+...
+    reset: false,
+-   saveFailed: false
+  }
+] {
+  code: 'ERR_TEST_FAILURE',
+  failureType: 'testCodeFailure',
+  cause: AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  ... Skipped lines
+  
+    {
+      habits: [
+        {
+          done: [
+            '2025-10-10',
+  ...
+      reset: false,
+  -   saveFailed: false
+    }
+  
+      at TestContext.&lt;anonymous> (file:///{workspace}/examples/streaks/tests/storage.test.js:203:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { habits: [Array], reset: false },
+    expected: { habits: [Array], reset: false, saveFailed: false },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+}
+		</failure>
+	</testcase>
+	<!-- tests 7 -->
+	<!-- suites 0 -->
+	<!-- pass 0 -->
+	<!-- fail 7 -->
+	<!-- cancelled 0 -->
+	<!-- skipped 0 -->
+	<!-- todo 0 -->
+	<!-- duration_ms 64.0904 -->
+</testsuites>
