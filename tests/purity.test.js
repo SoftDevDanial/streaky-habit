@@ -48,14 +48,21 @@ const BANNED_IN_CODE = {
   locale: /\bIntl\b|\btoLocale\w*/,
 };
 
-test("@R16 the source has no clock or random read, even in a comment", () => {
-  for (const [name, text] of Object.entries(SOURCES)) {
-    for (const [form, source] of [["text", text], ["code", withoutComments(text)]]) {
-      for (const [read, pattern] of Object.entries(CLOCK_AND_RANDOM_READS)) {
-        assert.doesNotMatch(source, pattern, `${name} ${form}: ${read}`);
-      }
+function assertNoClockRead(name, text) {
+  for (const [form, source] of [["text", text], ["code", withoutComments(text)]]) {
+    for (const [read, pattern] of Object.entries(CLOCK_AND_RANDOM_READS)) {
+      assert.doesNotMatch(source, pattern, `${name} ${form}: ${read}`);
     }
   }
+}
+
+test("@R16 the source has no clock or random read, even in a comment", () => {
+  for (const [name, text] of Object.entries(SOURCES)) assertNoClockRead(name, text);
+});
+
+test("@R20 @R16 yearMonths reads no clock, so two calls with one key give equal results", () => {
+  assertNoClockRead("habits.js", SOURCES["habits.js"]);
+  assert.deepEqual(habits.yearMonths(TODAY), habits.yearMonths(TODAY));
 });
 
 test("@R16 the code has no DOM, storage, network, timer, global or locale access and builds no code from strings", () => {
@@ -98,13 +105,13 @@ test("@R16 only the contracted names are exported", () => {
     "bestStreak",
     "currentStreak",
     "deleteHabit",
-    "heatLevel",
+    "doneFlags",
     "heatmapCells",
     "monthLabels",
-    "runContinues",
     "toggleDay",
     "validateName",
-    "weekWindow",
+    "yearMonths",
+    "yearStart",
   ]);
 });
 
@@ -132,19 +139,20 @@ function callsWith(frozenHabits) {
     weekdayIndex: () => dates.weekdayIndex(TODAY),
     yearDate: () => dates.yearDate(TODAY),
     monthTitle: () => dates.monthTitle(TODAY),
-    weekWindow: () => habits.weekWindow(TODAY),
     currentStreak: () => habits.currentStreak(frozenDone, TODAY),
     bestStreak: () => habits.bestStreak(frozenDone),
-    runContinues: () => habits.runContinues(frozenDone, TODAY),
     toggleDay: () => [
       habits.toggleDay(frozenHabits, 1, TODAY, TODAY),
       habits.toggleDay(frozenHabits, 0, TODAY, TODAY),
       habits.toggleDay(frozenHabits, 0, "2026-10-01", TODAY),
+      habits.toggleDay(frozenHabits, 0, "2025-10-07", TODAY),
       habits.toggleDay(frozenHabits, 7, TODAY, TODAY),
     ],
     heatmapCells: () => habits.heatmapCells(frozenHabits, TODAY),
-    heatLevel: () => habits.heatLevel(2, 3),
     monthLabels: () => habits.monthLabels(TODAY),
+    yearStart: () => habits.yearStart(TODAY),
+    doneFlags: () => habits.doneFlags(frozenHabits, TODAY),
+    yearMonths: () => habits.yearMonths(TODAY),
     validateName: () => [
       habits.validateName("Drink water", frozenNames),
       habits.validateName("read 20 pages", frozenNames),

@@ -45,8 +45,9 @@ No DOM, rendering, storage or decoding. No clock read and no timer (`todayKey` i
 
 ## Exports (for the README reconcile)
 
-`src/dates.js`: `localDateKey`, `isDateKey`, `addDays`, `dayParts`, `shortDate`, `longDate`, `weekdayIndex`. Imports nothing.
-`src/habits.js`: `MAX_HABITS` (12), `MAX_NAME_LENGTH` (40), `weekWindow`, `currentStreak`, `bestStreak`, `runContinues`, `toggleDay`, `heatmapCells`, `heatLevel`, `monthLabels`, `validateName`, `addHabit`, `deleteHabit`. Imports only `./dates.js`.
+`src/dates.js`: `localDateKey`, `isDateKey`, `addDays`, `dayParts`, `shortDate`, `longDate`, `weekdayIndex`, `yearDate`, `monthTitle`. Imports nothing.
+`src/habits.js`: `MAX_HABITS` (12), `MAX_NAME_LENGTH` (40), `currentStreak`, `bestStreak`, `toggleDay`, `heatmapCells`, `monthLabels`, `yearStart`, `doneFlags`, `yearMonths`, `validateName`, `addHabit`, `deleteHabit`. Imports only `./dates.js`.
+Changed v1.1.0 (tasks 7 and 8): `yearDate`, `monthTitle`, `yearStart`, `doneFlags` and `yearMonths` are new. `weekWindow`, `runContinues` and `heatLevel` are removed (R5, R8 and R11 retired). The 1.0 list above is in git tag `v1.0.0`.
 Private helpers are not listed here and do not belong in the README. The source is their record. Changed 2026-10-09 (code review WR-08): an incomplete list of them was removed.
 
 ## How to run
@@ -83,3 +84,18 @@ RED first. A throwaway stub (`() => ""`, never committed) made the three `@R17` 
 Proof. `node --test "tests/**/*.test.js"` gives 102 tests, 102 pass. Chromium browser suite (`python -m pytest tests/browser -q`), 182 passed.
 
 Deviations: none. Non-goals honored: no clock, no `Intl`, no copy beyond the labels.
+
+## v1.1.0 task 8, the year in `habits.js` (2026-10-14)
+
+`src/habits.js` gains `yearStart` (R18), `doneFlags` (R19) and `yearMonths` (R20). `toggleDay` now accepts any valid day from `yearStart(todayKey)` to `todayKey` (R9). `heatmapCells` cells carry `done` (built by `doneFlags`) and `count`, and no `level` (R10). `weekWindow`, `runContinues` and `heatLevel` are removed, with the private `doneCountsByDay` (dead once `doneFlags` builds the cell).
+
+- `yearStart` rebuilds the key from its text (year less one, same month and day). 29 February falls back to 28 February (CG-13). Why text and not date arithmetic, see the comment on `yearStart`.
+- `yearMonths` walks from today's month back until it reaches the month of `yearStart`, so the 13 comes from the rule and not from a constant. Each month is walked day by day with `addDays`, no month-length table.
+- `doneFlags` is one `includes` per habit. `heatmapCells` calls it once per non-future cell, at most 84 calls (Threat model, responsiveness row).
+- Tests. `tests/habits.test.js`: the `@R5`, `@R8` and `@R11` tests are removed, the `@R9` and `@R10` tests changed, new `@R18`, `@R19`, `@R20` tests. `tests/purity.test.js`: the export list and the frozen-input calls follow the new exports, plus `@R20 @R16 yearMonths reads no clock` (the clock scan became the shared helper `assertNoClockRead`). `tests/sample-history.test.js`: the 1.0 sample checks lose the strip, run flag and level lines and gain the done-flag and count checks (counts 3, 30, 28, 20 for 0 to 3 habits). The qa rows that read the v1.1.0 sample are task 9.
+
+RED first. The tests were written before the code. `src/habits.js` kept its 1.0 form plus a throwaway stub (`yearStart` gave `""`, `doneFlags` gave `[]`, `yearMonths` read `new Date()` and gave `[]`), never committed. 129 tests, 112 pass, 17 fail, each on the asserted property (the absence property of `@R20 @R16` failed on the stub's clock read). Capture: `docs/modules/habit-logic/qa/red-first/20261014T140319-task8/red.txt`.
+
+Proof. `node --test "tests/**/*.test.js"` gives 129 tests, 129 pass (dates 18, habits 43, sample-history 6, purity 6, ring 16, storage 40). Chromium browser suite (`python -m pytest tests/browser -q`), 8 passed, 2 xfailed (strict), nothing red. The 1.0 `src/view.js` still imports `weekWindow` and `runContinues`, so the page's module graph no longer links until app task 15 replaces it (expected, ordered by the orchestrator). The 8 passing browser tests do not depend on it.
+
+Deviations: none. Non-goals honored: no clock, no `Intl`, no start date per habit, no caching, no ring geometry.

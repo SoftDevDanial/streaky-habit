@@ -5,21 +5,22 @@ import sample from "./fixtures/sample-history-v1.0.0.json" with { type: "json" }
 import {
   MAX_HABITS,
   MAX_NAME_LENGTH,
-  weekWindow,
   currentStreak,
   bestStreak,
-  runContinues,
   toggleDay,
-  heatLevel,
   heatmapCells,
   monthLabels,
+  yearStart,
+  doneFlags,
+  yearMonths,
   validateName,
   addHabit,
   deleteHabit,
 } from "../src/habits.js";
-import { addDays, dayParts, isDateKey } from "../src/dates.js";
+import { addDays, dayParts, isDateKey, monthTitle, weekdayIndex } from "../src/dates.js";
 
 const TODAY = "2026-10-08";
+const YEAR_START = "2025-10-08";
 const WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 // A fresh copy per test, so no test can leak a change into another through the imported JSON.
@@ -33,24 +34,6 @@ const isAscendingUnique = (done) => {
 test("@R13 @R14 the limits are exported", () => {
   assert.equal(MAX_NAME_LENGTH, 40);
   assert.equal(MAX_HABITS, 12);
-});
-
-test("@R5 the seven days of the strip", () => {
-  const rows = [
-    ["2026-10-08", ["2026-10-02", "2026-10-03", "2026-10-04", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08"]],
-    ["2027-01-03", ["2026-12-28", "2026-12-29", "2026-12-30", "2026-12-31", "2027-01-01", "2027-01-02", "2027-01-03"]],
-    ["2028-03-02", ["2028-02-25", "2028-02-26", "2028-02-27", "2028-02-28", "2028-02-29", "2028-03-01", "2028-03-02"]],
-  ];
-  for (const [today, days] of rows) {
-    assert.deepEqual(weekWindow(today), days, today);
-  }
-});
-
-test("@R5 the strip has 7 keys, the last is today, and every call returns a new array", () => {
-  const first = weekWindow(TODAY);
-  assert.equal(first.length, 7);
-  assert.equal(first.at(-1), TODAY);
-  assert.notEqual(weekWindow(TODAY), first);
 });
 
 test("@R6 a streak does not break until today is over", () => {
@@ -204,24 +187,7 @@ test("@R6 @R7 keys that fail isDateKey do not count, so a streak counts only val
   assert.equal(streakInChild("bestStreak", history), 10, "bestStreak");
 });
 
-test("@R8 the run flag needs the first strip day and the day before it", () => {
-  const rows = [
-    ["both", ["2026-10-01", "2026-10-02"], TODAY, true],
-    ["only the first strip day", ["2026-10-02"], TODAY, false],
-    ["only the day before", ["2026-10-01"], TODAY, false],
-    ["neither", ["2026-10-04", "2026-10-05"], TODAY, false],
-    ["both, in reverse order with a duplicate", ["2026-10-02", "2026-10-01", "2026-10-02"], TODAY, true],
-    ["both, one day later the window moved on", ["2026-10-01", "2026-10-02"], "2026-10-09", false],
-    ["the moved window", ["2026-10-02", "2026-10-03"], "2026-10-09", true],
-    ["a whole strip but nothing before it", weekWindow(TODAY), TODAY, false],
-    ["empty", [], TODAY, false],
-  ];
-  for (const [label, done, today, expected] of rows) {
-    assert.equal(runContinues(done, today), expected, label);
-  }
-});
-
-test("@R9 ticking a day inside the window", () => {
+test("@R9 ticking a day in the last week of the year", () => {
   const rows = [
     [1, "2026-10-08", true, 4],
     [0, "2026-10-08", false, 5],
@@ -250,11 +216,14 @@ test("@R9 ticking a day inside the window", () => {
   }
 });
 
-test("@R9 days outside the window and bad indexes change nothing", () => {
+test("@R9 days outside the year, bad dates and bad indexes change nothing", () => {
   const rows = [
-    [0, "2026-10-01"],
+    [0, "2025-10-07"],
     [1, "2026-10-09"],
-    [2, "2026-07-20"],
+    [2, "2026-02-30"],
+    [1, "2026-1-5"],
+    [1, "not a date"],
+    [1, undefined],
     [3, "2026-10-08"],
     [-1, "2026-10-08"],
     [0.5, "2026-10-08"],
@@ -272,14 +241,40 @@ test("@R9 days outside the window and bad indexes change nothing", () => {
   }
 });
 
-test("@R9 both ends of the window are editable and ticking twice restores the habit", () => {
-  for (const date of ["2026-10-02", "2026-10-08"]) {
+test("@R9 any day of the last 12 months can be ticked, even before the habit's history", () => {
+  const rows = [
+    [0, "2026-10-01", false],
+    [1, YEAR_START, true],
+    [2, "2026-01-15", true],
+  ];
+  for (const [index, date, nowContains] of rows) {
+    const input = sampleHabits();
+    const result = toggleDay(input, index, date, TODAY);
+    const label = `index ${index} date ${date}`;
+    assert.equal(result[index].done.includes(date), nowContains, label);
+    assert.ok(isAscendingUnique(result[index].done), label);
+    result.forEach((habit, position) => {
+      if (position !== index) assert.deepEqual(habit, input[position], `${label} other ${position}`);
+    });
+  }
+});
+
+test("@R9 both ends of the year are editable and ticking twice restores the habit", () => {
+  for (const date of [YEAR_START, TODAY]) {
     const input = sampleHabits();
     const once = toggleDay(input, 2, date, TODAY);
     const twice = toggleDay(once, 2, date, TODAY);
     assert.notDeepEqual(once[2].done, input[2].done, date);
     assert.deepEqual(twice, input, date);
   }
+});
+
+test("@R9 @R18 on 29 February the year starts on 28 February and holds 367 days", () => {
+  const leapDay = "2028-02-29";
+  const input = [{ name: "A", done: [] }];
+  assert.deepEqual(toggleDay(input, 0, "2027-02-28", leapDay)[0].done, ["2027-02-28"]);
+  assert.deepEqual(toggleDay(input, 0, "2027-02-27", leapDay), input);
+  assert.deepEqual(toggleDay(input, 0, "2028-03-01", leapDay), input);
 });
 
 test("@R9 an unsorted or duplicated done array comes back ascending without duplicates", () => {
@@ -316,7 +311,7 @@ test("@R10 the 12-week grid around today", () => {
     assert.equal(future.length, futureCount, today);
     for (const cell of future) {
       assert.ok(cell.key > today, `${today} future ${cell.key}`);
-      assert.deepEqual([cell.count, cell.level], [null, null], `${today} future ${cell.key}`);
+      assert.deepEqual([cell.done, cell.count], [null, null], `${today} future ${cell.key}`);
     }
     assert.ok(cells.filter((cell) => !cell.future).every((cell) => cell.key <= today), today);
 
@@ -325,8 +320,9 @@ test("@R10 the 12-week grid around today", () => {
     assert.equal(todays[0].key, today, today);
 
     for (const cell of cells.filter((c) => !c.future)) {
-      assert.deepEqual([cell.count, cell.total, cell.level], [0, 0, 0], `${today} ${cell.key}`);
+      assert.deepEqual([cell.done, cell.count, cell.total], [[], 0, 0], `${today} ${cell.key}`);
     }
+    for (const cell of cells) assert.equal("level" in cell, false, `${today} ${cell.key} has no level`);
   }
 });
 
@@ -343,9 +339,9 @@ test("@R10 a cell carries exactly the contract fields, and a habit counts once p
     row: 4,
     today: true,
     future: false,
+    done: [true, true, false],
     count: 2,
     total: 3,
-    level: 2,
   });
   assert.deepEqual(cells[11 * 7 + 4], {
     key: "2026-10-09",
@@ -353,24 +349,35 @@ test("@R10 a cell carries exactly the contract fields, and a habit counts once p
     row: 5,
     today: false,
     future: true,
+    done: null,
     count: null,
     total: 3,
-    level: null,
   });
 });
 
-test("@R10 @R11 a fourth habit makes level 3 appear", () => {
+test("@R10 a fourth habit counts in total and in done", () => {
   const habits = [...sampleHabits(), { name: "Drink water", done: [] }];
   const byKey = new Map(heatmapCells(habits, TODAY).map((cell) => [cell.key, cell]));
   const rows = [
-    ["2026-07-20", 3, 3],
-    ["2026-10-06", 3, 3],
-    ["2026-10-08", 2, 2],
-    ["2026-07-21", 1, 1],
-    ["2026-08-12", 0, 0],
+    ["2026-07-20", 3],
+    ["2026-10-06", 3],
+    ["2026-10-08", 2],
+    ["2026-07-21", 1],
+    ["2026-08-12", 0],
   ];
-  for (const [key, count, level] of rows) {
-    assert.deepEqual([byKey.get(key).count, byKey.get(key).total, byKey.get(key).level], [count, 4, level], key);
+  for (const [key, count] of rows) {
+    const cell = byKey.get(key);
+    assert.deepEqual([cell.count, cell.total], [count, 4], key);
+    assert.equal(cell.done.length, 4, `${key} done has one value per habit`);
+    assert.equal(cell.done[3], false, `${key} the fourth habit is not done`);
+    assert.equal(cell.done.filter(Boolean).length, count, `${key} count is the number of true values`);
+  }
+});
+
+test("@R10 @R19 a cell's done is doneFlags of its day", () => {
+  const habits = sampleHabits();
+  for (const cell of heatmapCells(habits, TODAY).filter((c) => !c.future)) {
+    assert.deepEqual(cell.done, doneFlags(habits, cell.key), cell.key);
   }
 });
 
@@ -381,26 +388,6 @@ test("@R10 the arguments are not changed and the cells are new objects", () => {
   assert.deepEqual(habits, sample.habits);
   assert.notEqual(first, second);
   assert.notEqual(first[0], second[0]);
-});
-
-test("@R11 levels from the share of habits done", () => {
-  const rows = [
-    [1, [0, 4]],
-    [2, [0, 2, 4]],
-    [3, [0, 1, 2, 4]],
-    [4, [0, 1, 2, 3, 4]],
-    [5, [0, 1, 2, 2, 3, 4]],
-    [6, [0, 1, 1, 2, 2, 3, 4]],
-    [12, [0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 4]],
-  ];
-  for (const [total, levels] of rows) {
-    const actual = Array.from({ length: total + 1 }, (_, count) => heatLevel(count, total));
-    assert.deepEqual(actual, levels, `total ${total}`);
-  }
-});
-
-test("@R11 no habits means level 0", () => {
-  assert.equal(heatLevel(0, 0), 0);
 });
 
 test("@R12 month labels over the first column whose Monday is in the month", () => {
@@ -431,6 +418,113 @@ test("@R12 each label sits on the first column whose Monday is in its month, for
     const monthsInGrid = columns.map((key) => dayParts(key).month);
     assert.equal(labels.length, new Set(monthsInGrid).size, today);
   }
+});
+
+test("@R18 the same date last year, and the year's day count", () => {
+  const rows = [
+    ["2026-10-10", "2025-10-10", 366],
+    ["2026-01-01", "2025-01-01", 366],
+    ["2027-03-01", "2026-03-01", 366],
+    ["2028-03-01", "2027-03-01", 367],
+    ["2028-02-29", "2027-02-28", 367],
+  ];
+  for (const [today, start, days] of rows) {
+    assert.equal(yearStart(today), start, today);
+    let length = 1;
+    for (let key = start; key < today; key = addDays(key, 1)) length++;
+    assert.equal(length, days, `${today} days from ${start}`);
+  }
+});
+
+const SAMPLE_DAYS = {
+  A: ["2026-10-07", "2026-10-08", "2026-10-08"],
+  B: [],
+  C: ["2026-10-08"],
+};
+const abc = () => Object.entries(SAMPLE_DAYS).map(([name, done]) => ({ name, done: [...done] }));
+
+test("@R19 which habits are done on a day, one boolean per habit in list order", () => {
+  const habits = abc();
+  assert.deepEqual(doneFlags(habits, "2026-10-08"), [true, false, true]);
+  assert.deepEqual(doneFlags(habits, "2026-10-07"), [true, false, false]);
+  assert.deepEqual(doneFlags(habits, "2026-10-09"), [false, false, false]);
+  assert.deepEqual(abc(), habits, "habits unchanged");
+});
+
+test("@R19 no habits gives an empty list, and every call returns a new array", () => {
+  assert.deepEqual(doneFlags([], "2026-10-08"), []);
+  const habits = abc();
+  assert.notEqual(doneFlags(habits, "2026-10-08"), doneFlags(habits, "2026-10-08"));
+});
+
+const pad2 = (number) => String(number).padStart(2, "0");
+const MONTH_LENGTHS_2025_10_TO_2026_10 = [31, 30, 31, 31, 30, 31, 30, 31, 28, 31, 31, 30, 31];
+const tally = (months) =>
+  months.flatMap((month) => month.days).reduce((counts, { kind }) => ({ ...counts, [kind]: counts[kind] + 1 }), {
+    open: 0,
+    closed: 0,
+    empty: 0,
+  });
+
+test("@R20 the year of the goldens", () => {
+  const months = yearMonths("2026-10-10");
+  assert.equal(months.length, 13);
+  assert.deepEqual(
+    months.map((month) => month.key),
+    ["2026-10-01", "2026-09-01", "2026-08-01", "2026-07-01", "2026-06-01", "2026-05-01", "2026-04-01",
+      "2026-03-01", "2026-02-01", "2026-01-01", "2025-12-01", "2025-11-01", "2025-10-01"],
+  );
+  assert.deepEqual(months.map((month) => month.days.length), MONTH_LENGTHS_2025_10_TO_2026_10);
+
+  for (const month of months) {
+    assert.equal(month.title, monthTitle(month.key), month.key);
+    assert.equal(month.lead, weekdayIndex(month.key), `${month.key} lead`);
+    month.days.forEach((day, position) => {
+      assert.equal(day.day, position + 1, `${month.key} day number`);
+      assert.equal(day.key, `${month.key.slice(0, 8)}${pad2(day.day)}`, `${month.key} day key`);
+    });
+  }
+  assert.deepEqual(
+    months.map((month) => [month.title, month.lead]).filter((_, position) => [0, 1, 2, 3, 12].includes(position)),
+    [["October 2026", 3], ["September 2026", 1], ["August 2026", 5], ["July 2026", 2], ["October 2025", 2]],
+  );
+  assert.equal(months.reduce((sum, month) => sum + month.lead, 0), 39);
+
+  const october = months[0].days.map((day) => day.kind);
+  assert.deepEqual(october.slice(0, 10), Array(10).fill("open"));
+  assert.deepEqual(october.slice(10), Array(21).fill("closed"));
+  const oldOctober = months[12].days.map((day) => day.kind);
+  assert.deepEqual(oldOctober.slice(0, 9), Array(9).fill("empty"));
+  assert.deepEqual(oldOctober.slice(9), Array(22).fill("open"));
+  assert.ok(months.slice(1, 12).every((month) => month.days.every((day) => day.kind === "open")));
+  assert.deepEqual(tally(months), { open: 366, closed: 21, empty: 9 });
+});
+
+test("@R20 the year on other days", () => {
+  const rows = [
+    ["2026-11-01", "November 2026", "November 2025", { open: 366, closed: 29, empty: 0 }],
+    ["2026-10-31", "October 2026", "October 2025", { open: 366, closed: 0, empty: 30 }],
+    ["2028-02-29", "February 2028", "February 2027", { open: 367, closed: 0, empty: 27 }],
+    ["2027-01-01", "January 2027", "January 2026", { open: 366, closed: 30, empty: 0 }],
+  ];
+  for (const [today, first, last, counts] of rows) {
+    const months = yearMonths(today);
+    assert.equal(months.length, 13, today);
+    assert.equal(months[0].title, first, today);
+    assert.equal(months[12].title, last, today);
+    assert.deepEqual(tally(months), counts, today);
+  }
+  const leap = yearMonths("2028-02-29");
+  assert.deepEqual(leap[0].days.map((day) => day.kind).slice(28), ["open"], "29 February 2028 is the last day and open");
+  assert.deepEqual(leap[12].days.map((day) => day.kind).slice(26), ["empty", "open"], "27 February 2027 empty, 28 open");
+});
+
+test("@R20 every call returns new objects", () => {
+  const first = yearMonths(TODAY);
+  const second = yearMonths(TODAY);
+  assert.deepEqual(first, second);
+  assert.notEqual(first, second);
+  assert.notEqual(first[0].days, second[0].days);
 });
 
 const EXISTING_NAMES = ["Read 20 pages", "Stretch 10 minutes", "No phone after 11pm"];

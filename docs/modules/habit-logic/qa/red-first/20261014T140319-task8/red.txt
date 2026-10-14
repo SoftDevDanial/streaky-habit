@@ -1,0 +1,33 @@
+habit-logic v1.1.0 task 8, RED first run, 2026-10-14 14:03 (local), by the backend builder.
+
+Setup. The new and changed tests were written first. src/habits.js was still the 1.0 file (weekWindow,
+runContinues, heatLevel, 1.0 toggleDay and heatmapCells) plus a throwaway stub, never committed:
+  export function yearStart() { return ""; }
+  export function doneFlags() { return []; }
+  export function yearMonths() { new Date(); return []; }
+Command, from the project root: node --test "tests/**/*.test.js"   (exit 1)
+
+Result: tests 129, pass 112, fail 17.
+
+Failing tests, with the asserted property that failed (from the run's own assertion output)
+  @R9 any day of the last 12 months can be ticked ...      actual true, expected false (2026-10-01 not removed, 1.0 refused it)
+  @R9 both ends of the year are editable ...               2025-10-08 refused by the 7-day strip
+  @R9 @R18 on 29 February the year starts on 28 February   actual [], expected ["2027-02-28"]
+  @R10 the 12-week grid around today                       future cell [done, count] actual [undefined, null], expected [null, null]
+  @R10 a cell carries exactly the contract fields ...      cell has level: 2 and no done, expected done [true, true, false] and no level
+  @R10 a fourth habit counts in total and in done          cell.done undefined, expected 4 values
+  @R10 @R19 a cell's done is doneFlags of its day          stub doneFlags gives [] for a cell
+  @R18 the same date last year, and the year's day count   actual "", expected "2025-10-10"
+  @R19 which habits are done on a day ...                  actual [], expected [true, false, true]
+  @R20 the year of the goldens                             actual length 0, expected 13
+  @R20 the year on other days                              actual length 0, expected 13
+  @R20 every call returns new objects                      stub result has no days
+  @R16 the source has no clock or random read              the stub's new Date() matches "new Date without an argument"
+  @R20 @R16 yearMonths reads no clock ...                  same scan, same match (this is the absence property, seen RED)
+  @R16 only the contracted names are exported              1.0 names weekWindow, runContinues, heatLevel still exported
+  @R16 no exported function writes to its arguments ...    export list and call table differ
+  @R10 the 1.0 sample's 12 weeks (sample-history.test.js)  cell.done undefined, expected [true, true, true]-style flags
+
+Passing against the stub, by design. "@R9 ticking a day in the last week of the year" and "@R9 days outside the
+year, bad dates and bad indexes change nothing" hold for the 1.0 form too (every row is inside the 7 days or
+outside the year). "@R19 no habits gives an empty list" holds because the stub returns a new [].

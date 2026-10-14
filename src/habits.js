@@ -1,18 +1,20 @@
 /**
- * Week strip, streaks, heatmap and habit-list rules.
+ * Streaks, the editable year, the 12-week overview and habit-list rules.
  * Why: the app needs these as pure functions of habit data and a passed-in day, so they can be
  * proved without a browser or a clock. Input: valid habits and date keys. Output: new values only,
  * the arguments are never changed.
  */
-import { addDays, dayParts, isDateKey, weekdayIndex } from "./dates.js";
+import { addDays, dayParts, isDateKey, monthTitle, weekdayIndex } from "./dates.js";
 
 /** @typedef {import("./dates.js").DateKey} DateKey */
 /** @typedef {{ name: string, done: DateKey[] }} Habit  done ascending, no duplicates */
 /**
  * @typedef {{ key: DateKey, column: number, row: number, today: boolean, future: boolean,
- *             count: number | null, total: number, level: 0 | 1 | 2 | 3 | 4 | null }} HeatCell
+ *             done: boolean[] | null, count: number | null, total: number }} HeatCell
  */
 /** @typedef {{ column: number, month: string }} MonthLabel */
+/** @typedef {{ key: DateKey, day: number, kind: "open" | "closed" | "empty" }} YearDay */
+/** @typedef {{ key: DateKey, title: string, lead: 0 | 1 | 2 | 3 | 4 | 5 | 6, days: YearDay[] }} YearMonth */
 /** @typedef {{ ok: true, name: string } | { ok: false, error: "empty" | "too-long" | "duplicate" }} NameCheck */
 /**
  * @typedef {{ ok: true, habits: Habit[] } | { ok: false, error: "limit" | "empty" | "too-long" | "duplicate" }} AddResult
@@ -21,9 +23,11 @@ import { addDays, dayParts, isDateKey, weekdayIndex } from "./dates.js";
 export const MAX_HABITS = 12;
 export const MAX_NAME_LENGTH = 40;
 
-// Both 7, kept apart: the strip's width is a design choice, the week's length is a calendar fact.
-const STRIP_DAYS = 7;
 const DAYS_PER_WEEK = 7;
+const YEAR_WIDTH = "YYYY".length;
+const MONTH_PREFIX_WIDTH = "YYYY-MM".length;
+const LEAP_DAY = "-02-29";
+const DAY_BEFORE_LEAP_DAY = "-02-28";
 const HEATMAP_WEEKS = 12;
 const PREVIOUS_DAY = -1;
 const NEXT_DAY = 1;
@@ -55,15 +59,6 @@ function runLength(days, from, step) {
 }
 
 /**
- * The seven days of the strip. Every rule tied to the strip's span reads it from here, so they move together.
- * @param {DateKey} todayKey
- * @returns {DateKey[]} oldest first, today last
- */
-export function weekWindow(todayKey) {
-  return Array.from({ length: STRIP_DAYS }, (_, position) => addDays(todayKey, position + 1 - STRIP_DAYS));
-}
-
-/**
  * Counting starts at yesterday while today is open, so a streak does not break until today is over.
  * Days after `todayKey` are never reached because the count only moves backwards.
  * @param {readonly DateKey[]} done any order, duplicates allowed, keys that fail `isDateKey` ignored
@@ -92,16 +87,16 @@ export function bestStreak(done) {
 }
 
 /**
- * True when a run reaches into the strip from the left, which the strip draws as a thread running
- * off its edge.
- * @param {readonly DateKey[]} done
+ * The first day of the editable year, "today back to the same date last year". 29 February is the
+ * one date whose twin may not exist (two years in a row are never both leap), and it falls back to
+ * 28 February (CG-13). The key's year part is fixed width, so the text is rebuilt, not recounted.
  * @param {DateKey} todayKey
- * @returns {boolean}
+ * @returns {DateKey}
  */
-export function runContinues(done, todayKey) {
-  const days = new Set(done);
-  const firstDay = weekWindow(todayKey)[0];
-  return days.has(firstDay) && days.has(addDays(firstDay, PREVIOUS_DAY));
+export function yearStart(todayKey) {
+  const previousYear = String(Number(todayKey.slice(0, YEAR_WIDTH)) - 1).padStart(YEAR_WIDTH, "0");
+  const monthAndDay = todayKey.slice(YEAR_WIDTH);
+  return `${previousYear}${monthAndDay === LEAP_DAY ? DAY_BEFORE_LEAP_DAY : monthAndDay}`;
 }
 
 /**
@@ -116,8 +111,10 @@ function toggledHabit(habit, dateKey) {
 }
 
 /**
- * Enforces "only the last 7 days can be changed" where the data changes, not in the screen.
- * A date outside the strip or an index that is no habit changes nothing and still returns a new array.
+ * Enforces "only the year from `yearStart(todayKey)` to today can be changed" where the data
+ * changes, not in the screen. A date outside it, a string that is not a real day or an index that is
+ * no habit changes nothing and still returns a new array. Date keys sort as text in calendar order,
+ * and `isDateKey` runs first so only well-formed keys are compared.
  * @param {readonly Habit[]} habits
  * @param {number} index
  * @param {DateKey} dateKey
@@ -125,25 +122,21 @@ function toggledHabit(habit, dateKey) {
  * @returns {Habit[]}
  */
 export function toggleDay(habits, index, dateKey, todayKey) {
-  const editable = weekWindow(todayKey).includes(dateKey);
+  const editable = isDateKey(dateKey) && dateKey >= yearStart(todayKey) && dateKey <= todayKey;
   return habits.map((habit, position) =>
     editable && position === index ? toggledHabit(habit, dateKey) : copyHabit(habit),
   );
 }
 
 /**
- * Integer comparisons only, so a boundary such as 1 of 3 cannot flip on floating-point rounding.
- * Both thirds are inclusive, as the goldens require.
- * @param {number} count habits done that day
- * @param {number} total habits in the list
- * @returns {0 | 1 | 2 | 3 | 4}
+ * The one answer to "which habits are done on this day", so the overview cells, the rings and the
+ * day editor cannot disagree. One `includes` per habit, so a call reads each `done` once.
+ * @param {readonly Habit[]} habits
+ * @param {DateKey} dateKey
+ * @returns {boolean[]} one value per habit, in list order
  */
-export function heatLevel(count, total) {
-  if (count === 0 || total === 0) return 0;
-  if (count === total) return 4;
-  if (3 * count <= total) return 1;
-  if (3 * count <= 2 * total) return 2;
-  return 3;
+export function doneFlags(habits, dateKey) {
+  return habits.map((habit) => habit.done.includes(dateKey));
 }
 
 /**
@@ -159,42 +152,32 @@ function columnMondays(todayKey) {
 
 /** Date keys are fixed width, so the "YYYY-MM" prefix names the calendar month. */
 function calendarMonth(key) {
-  return key.slice(0, "YYYY-MM".length);
-}
-
-/** Habits done per day, built once so the 84 cells do not each scan every habit. */
-function doneCountsByDay(habits) {
-  const counts = new Map();
-  for (const habit of habits) {
-    for (const key of new Set(habit.done)) counts.set(key, (counts.get(key) ?? 0) + 1);
-  }
-  return counts;
+  return key.slice(0, MONTH_PREFIX_WIDTH);
 }
 
 /**
  * The 12-week grid in the order the screen lays it out. Future days carry null so the screen can
- * leave them blank instead of drawing a level 0 that never happened.
+ * leave them blank instead of drawing an empty ring for a day that has not happened.
  * @param {readonly Habit[]} habits
  * @param {DateKey} todayKey
  * @returns {HeatCell[]} 84 cells, column-major, row 1 is Monday
  */
 export function heatmapCells(habits, todayKey) {
-  const counts = doneCountsByDay(habits);
   const total = habits.length;
   return columnMondays(todayKey).flatMap((monday, columnIndex) =>
     Array.from({ length: DAYS_PER_WEEK }, (_, rowIndex) => {
       const key = addDays(monday, rowIndex);
       const future = key > todayKey; // date keys sort as text in calendar order
-      const count = future ? null : (counts.get(key) ?? 0);
+      const done = future ? null : doneFlags(habits, key);
       return {
         key,
         column: columnIndex + 1,
         row: rowIndex + 1,
         today: key === todayKey,
         future,
-        count,
+        done,
+        count: done === null ? null : done.filter(Boolean).length,
         total,
-        level: future ? null : heatLevel(count, total),
       };
     }),
   );
@@ -213,6 +196,42 @@ export function monthLabels(todayKey) {
       ? [{ column: columnIndex + 1, month: dayParts(monday).month }]
       : [],
   );
+}
+
+/** The first day of the month `key` is in. */
+function monthStart(key) {
+  return `${calendarMonth(key)}-01`;
+}
+
+/** "empty" before the year starts, "closed" after today, "open" between, so one list draws blanks, locked and tappable cells. */
+function dayKind(key, firstDay, todayKey) {
+  if (key < firstDay) return "empty";
+  return key > todayKey ? "closed" : "open";
+}
+
+function yearMonth(start, firstDay, todayKey) {
+  const days = [];
+  for (let key = start; calendarMonth(key) === calendarMonth(start); key = addDays(key, 1)) {
+    days.push({ key, day: dayParts(key).day, kind: dayKind(key, firstDay, todayKey) });
+  }
+  return { key: start, title: monthTitle(start), lead: weekdayIndex(start), days };
+}
+
+/**
+ * The calendar of both year views, newest month first, from today's month back to the month of
+ * `yearStart`. That is always 13 months, because the start is the same month one year earlier.
+ * @param {DateKey} todayKey
+ * @returns {YearMonth[]}
+ */
+export function yearMonths(todayKey) {
+  const firstDay = yearStart(todayKey);
+  const months = [];
+  let start = monthStart(todayKey);
+  for (;;) {
+    months.push(yearMonth(start, firstDay, todayKey));
+    if (calendarMonth(start) === calendarMonth(firstDay)) return months;
+    start = monthStart(addDays(start, -1));
+  }
 }
 
 /**
