@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="44" time="21.042" timestamp="2026-10-14T23:01:33.974806+08:00" hostname="{host}"><testcase classname="tests.browser.test_platform" name="test_R21_nothing_scrolls_at_360_pixels_with_a_popup_open[P3]" time="0.656" /><testcase classname="tests.browser.test_platform" name="test_R21_nothing_scrolls_at_360_pixels_with_a_popup_open[P3, then P1 for 2026-09-22]" time="0.456" /><testcase classname="tests.browser.test_platform" name="test_R21_nothing_scrolls_at_360_pixels_with_a_popup_open[P3, then P4 from its Year]" time="0.467" /><testcase classname="tests.browser.test_platform" name="test_R21_nothing_scrolls_at_360_pixels_with_a_popup_open[P2 for Read]" time="0.205" /><testcase classname="tests.browser.test_platform" name="test_R21_nothing_scrolls_at_360_pixels_with_a_popup_open[M1, from 'Delete &quot;Read 20 pages&quot;']" time="0.190" /><testcase classname="tests.browser.test_platform" name="test_R21_sizes_at_360_pixels" time="0.641"><failure message="assert {45.999938964...0030517578125} == {46}&#10;  &#10;  Extra items in the left set:&#10;  45.99998474121094&#10;  45.99993896484375&#10;  46.000030517578125&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000028087269F30&gt;
+
+    def test_R21_sizes_at_360_pixels(app):
+        page = app(viewport=SMALL, storage=SAMPLE, install_time=NOON)
+        controls = boxes(page.locator("ul.rows button.btn-bin, ul.rows button.btn-year, ul.rows button.btn-done, button.ov-btn"))
+        assert len(controls) == 10 and all(width &gt;= 44 and height &gt;= 44 for width, height in controls), f"under 44 by 44: {controls}"
+        assert [height for _, height in boxes(page.locator("#nh, #add-btn"))] == [48, 48]
+    
+        open_p2_for_read(page)
+        assert sizes(page.locator("dialog.dlg-year span.bead")) == {(34, 34)}
+        assert boxes(page.locator("dialog.dlg-year button.icon-btn")) == [[44, 44]]
+    
+        close_with_escape(page, "dlg-year")
+        open_p3(page)
+        cells = boxes(page.locator("dialog.dlg-ov div.ovg-rows .hc"))
+        assert len(cells) == 84 and all(height == 46 and 42.6 &lt;= width &lt;= 43.6 for width, height in cells), f"P3 cells {sorted(set(map(tuple, cells)))}"
+        assert sizes(page.locator("dialog.dlg-ov div.ovg-rows button.hc &gt; svg")) == {(40, 40)}
+        head = boxes(page.locator("dialog.dlg-ov div.ov-head &gt; button"))
+        assert len(head) == 2 and all(width &gt;= 44 and height &gt;= 44 for width, height in head), f"P3's Year and Close {head}"
+    
+        click_open(page.locator("dialog.dlg-ov button.btn-all"), "dlg-all")
+&gt;       assert {height for _, height in boxes(page.locator("dialog.dlg-all div.mgrid .hc:not(.lead)"))} == {46}
+E       assert {45.999938964...0030517578125} == {46}
+E         
+E         Extra items in the left set:
+E         45.99998474121094
+E         45.99993896484375
+E         46.000030517578125
+E         Use -v to get more diff
+
+tests\browser\test_platform.py:153: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R21_sizes_at_390_pixels" time="0.224"><failure message="assert {(36, 35.9998...75), (36, 36)} == {(36, 36)}&#10;  &#10;  Extra items in the left set:&#10;  (36, 35.9998779296875)&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x00000280872F89E0&gt;
+
+    def test_R21_sizes_at_390_pixels(app):
+        page = app(viewport=PHONE, storage=SAMPLE)
+        open_p2_for_read(page)
+&gt;       assert sizes(page.locator("dialog.dlg-year span.bead")) == {(36, 36)}
+E       assert {(36, 35.9998...75), (36, 36)} == {(36, 36)}
+E         
+E         Extra items in the left set:
+E         (36, 35.9998779296875)
+E         Use -v to get more diff
+
+tests\browser\test_platform.py:174: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R22_tab_order_on_a_phone" time="0.211" /><testcase classname="tests.browser.test_platform" name="test_R22_R35_tab_order_on_a_desktop" time="0.831" /><testcase classname="tests.browser.test_platform" name="test_R22_R17_tab_order_with_the_note[390x844]" time="0.152" /><testcase classname="tests.browser.test_platform" name="test_R22_R17_tab_order_with_the_note[1280x800]" time="0.784" /><testcase classname="tests.browser.test_platform" name="test_R22_focus_rings_on_keyboard_focus[390x844 Overview]" time="0.174" /><testcase classname="tests.browser.test_platform" name="test_R22_focus_rings_on_keyboard_focus[390x844 Year view, Read]" time="0.206" /><testcase classname="tests.browser.test_platform" name="test_R22_focus_rings_on_keyboard_focus[390x844 Done today, Read]" time="0.220" /><testcase classname="tests.browser.test_platform" name="test_R22_focus_rings_on_keyboard_focus[390x844 the field]" time="0.335" /><testcase classname="tests.browser.test_platform" name="test_R22_focus_rings_on_keyboard_focus[390x844 Add]" time="0.329" /><testcase classname="tests.browser.test_platform" name="test_R22_focus_rings_on_keyboard_focus[1280x800 the band's Year]" time="0.177" /><testcase classname="tests.browser.test_platform" name="test_R22_focus_rings_on_keyboard_focus[1280x800 the band's Mon 20 Jul]" time="0.196" /><testcase classname="tests.browser.test_platform" name="test_R22_focus_rings_on_keyboard_focus[390x844 P2's Close]" time="0.254" /><testcase classname="tests.browser.test_platform" name="test_R22_focus_rings_on_keyboard_focus[390x844 P2's Delete habit]" time="0.287" /><testcase classname="tests.browser.test_platform" name="test_R22_focus_rings_on_keyboard_focus[390x844 the bead Thu 1 Oct 2026]" time="0.295" /><testcase classname="tests.browser.test_platform" name="test_R22_focus_rings_on_keyboard_focus[1280x800 P1's tick Stretch]" time="1.026" /><testcase classname="tests.browser.test_platform" name="test_R22_focus_rings_on_keyboard_focus[390x844 M1's Cancel]" time="0.216" /><testcase classname="tests.browser.test_platform" name="test_R22_focus_rings_on_keyboard_focus[390x844 Dismiss note]" time="0.192" /><testcase classname="tests.browser.test_platform" name="test_R22_a_focused_bin_shows_its_glyph_in_the_danger_colour_and_a_focused_bead_has_no_ring_of_its_own" time="0.541" /><testcase classname="tests.browser.test_platform" name="test_R22_a_mouse_click_draws_no_ring" time="0.201" /><testcase classname="tests.browser.test_platform" name="test_R22_R40_every_popup_can_be_used_with_the_keyboard_alone" time="0.369" /><testcase classname="tests.browser.test_platform" name="test_R23_transitions_without_reduced_motion" time="0.339" /><testcase classname="tests.browser.test_platform" name="test_R23_popups_rise_and_backdrops_fade[390x844 P2 for Read]" time="0.224" /><testcase classname="tests.browser.test_platform" name="test_R23_popups_rise_and_backdrops_fade[390x844 P3]" time="0.195" /><testcase classname="tests.browser.test_platform" name="test_R23_popups_rise_and_backdrops_fade[1280x800 P4 from the band's Year]" time="0.237" /><testcase classname="tests.browser.test_platform" name="test_R23_popups_rise_and_backdrops_fade[1280x800 P1 for 2026-09-22 from the band]" time="0.216" /><testcase classname="tests.browser.test_platform" name="test_R23_popups_rise_and_backdrops_fade[390x844 M1]" time="0.220" /><testcase classname="tests.browser.test_platform" name="test_R23_R32_a_change_pops_what_changed_and_bumps_its_number_and_replays_on_the_next_change" time="1.221"><failure message="AssertionError: the first Done today did not pop and bump exactly what changed&#10;assert [{'name': 'bu...es': [], ...}] == [{'name': 'bu...es': [], ...}]&#10;  &#10;  At index 2 diff: {'name': 'pop', 'tag': 'svg', 'pseudo': '', 'classes': [], 'owner': 'Sat 10 Oct, 2 of 3 habits', 'duration': '0.3s'} != {'name': 'pop', 'tag': 'svg', 'pseudo': '', 'classes': [], 'owner': 'Overview, today 2 of 3 habits done', 'duration': '0.3s'}&#10;  Right contains one more item: {'name': 'pop', 'tag': 'svg', 'pseudo': '', 'classes': [], ...}&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000028088EB2F00&gt;
+
+    def test_R23_R32_a_change_pops_what_changed_and_bumps_its_number_and_replays_on_the_next_change(app):
+        page = app(viewport=DESKTOP, storage=SAMPLE, install_time=NOON)
+        log = animation_log(page)
+        done = done_btn(page, STRETCH)
+        done.click()
+        clicked = time.monotonic()
+        first = [
+            entry("pop", "span", ["dot"], f"Done today, {STRETCH}", "0.26s"),
+            entry("pop", "svg", [], "Sat 10 Oct, 2 of 3 habits", "0.3s"),
+            entry("pop", "svg", [], "Overview, today 2 of 3 habits done", "0.3s"),
+            entry("bump", "span", ["val", "bump"], "rs-2", "0.28s"),
+        ]
+        found = logged_within(log, first)
+&gt;       assert sorted(found, key=str) == sorted(first, key=str), "the first Done today did not pop and bump exactly what changed"
+E       AssertionError: the first Done today did not pop and bump exactly what changed
+E       assert [{'name': 'bu...es': [], ...}] == [{'name': 'bu...es': [], ...}]
+E         
+E         At index 2 diff: {'name': 'pop', 'tag': 'svg', 'pseudo': '', 'classes': [], 'owner': 'Sat 10 Oct, 2 of 3 habits', 'duration': '0.3s'} != {'name': 'pop', 'tag': 'svg', 'pseudo': '', 'classes': [], 'owner': 'Overview, today 2 of 3 habits done', 'duration': '0.3s'}
+E         Right contains one more item: {'name': 'pop', 'tag': 'svg', 'pseudo': '', 'classes': [], ...}
+E         Use -v to get more diff
+
+tests\browser\test_platform.py:432: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R23_everything_appears_at_once_under_reduced_motion" time="0.331" /><testcase classname="tests.browser.test_platform" name="test_R24_markup_in_a_name_stays_text_everywhere" time="0.630" /><testcase classname="tests.browser.test_platform" name="test_R24_no_html_sinks_in_the_source" time="0.002" /><testcase classname="tests.browser.test_platform" name="test_R25_every_request_stays_on_the_devices_own_files" time="6.101"><failure message="AssertionError: Locator expected to have attribute ''&#10;Actual value: None &#10;Call log:&#10;  - Expect &quot;to_have_attribute&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;dialog.dlg-all&quot;)&#10;    14 × locator resolved to &lt;dialog aria-modal=&quot;true&quot; class=&quot;dlg-full dlg-all&quot; aria-describedby=&quot;all-sub&quot; aria-labelledby=&quot;all-title&quot;&gt;…&lt;/dialog&gt;&#10;       - unexpected value &quot;null&quot;&#10;&#10;Aria snapshot:&#10;- banner:&#10;  - heading &quot;Streaky Habit&quot; [level=1]&#10;  - time: Saturday 10 October&#10;- main:&#10;  - region &quot;Last 12 weeks&quot;:&#10;    - heading &quot;Last 12 weeks&quot; [level=2]&#10;    - button &quot;Year view, all habits&quot;: Year&#10;    - paragraph: Tap a day to change it.&#10;    - group &quot;Last 12 weeks&quot;:&#10;      - button &quot;Mon 20 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Tue 21 Jul, 3 of 3 habits&quot;&#10;      - button &quot;Wed 22 Jul, 1 of 3 habits&quot;&#10;      - button &quot;Thu 23 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Fri 24 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Sat 25 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Sun 26 Jul, 1 of 3 habits&quot;&#10;      - button &quot;Mon 27 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Tue 28 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Wed 29 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Thu 30 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Fri 31 Jul, 2 of 3 habits&quot;&#10;      - button &quot;Sat 1 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Sun 2 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Mon 3 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Tue 4 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Wed 5 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Thu 6 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Fri 7 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sat 8 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sun 9 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Mon 10 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Tue 11 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Wed 12 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Thu 13 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Fri 14 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sat 15 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sun 16 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Mon 17 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Tue 18 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Wed 19 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Thu 20 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Fri 21 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Sat 22 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Sun 23 Aug, 0 of 3 habits&quot;&#10;      - button &quot;Mon 24 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Tue 25 Aug, 3 of 3 habits&quot;&#10;      - button &quot;Wed 26 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Thu 27 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Fri 28 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sat 29 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Sun 30 Aug, 2 of 3 habits&quot;&#10;      - button &quot;Mon 31 Aug, 1 of 3 habits&quot;&#10;      - button &quot;Tue 1 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Wed 2 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Thu 3 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Fri 4 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Sat 5 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Sun 6 Sep, 1 of 3 habits&quot;&#10;      - button &quot;Mon 7 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Tue 8 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Wed 9 Sep, 1 of 3 habits&quot;&#10;      - button &quot;Thu 10 Sep, 1 of 3 habits&quot;&#10;      - button &quot;Fri 11 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Sat 12 Sep, 1 of 3 habits&quot;&#10;      - button &quot;Sun 13 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Mon 14 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Tue 15 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Wed 16 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Thu 17 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Fri 18 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Sat 19 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Sun 20 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Mon 21 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Tue 22 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Wed 23 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Thu 24 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Fri 25 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Sat 26 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Sun 27 Sep, 0 of 3 habits&quot;&#10;      - button &quot;Mon 28 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Tue 29 Sep, 3 of 3 habits&quot;&#10;      - button &quot;Wed 30 Sep, 2 of 3 habits&quot;&#10;      - button &quot;Thu 1 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Fri 2 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Sat 3 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Sun 4 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Mon 5 Oct, 3 of 3 habits&quot;&#10;      - button &quot;Tue 6 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Wed 7 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Thu 8 Oct, 3 of 3 habits&quot;&#10;      - button &quot;Fri 9 Oct, 2 of 3 habits&quot;&#10;      - button &quot;Sat 10 Oct, 2 of 3 habits&quot;&#10;  - heading &quot;Habits&quot; [level=2]&#10;  - list &quot;Habits&quot;:&#10;    - listitem:&#10;      - heading &quot;Read 20 pages&quot; [level=3]&#10;      - button &quot;Delete \&quot;Read 20 pages\&quot;&quot;&#10;      - paragraph: Current 7 days Best 13&#10;      - button &quot;Year view, Read 20 pages&quot;: Year&#10;      - button &quot;Done today, Read 20 pages&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;Stretch 10 minutes&quot; [level=3]&#10;      - button &quot;Delete \&quot;Stretch 10 minutes\&quot;&quot;&#10;      - paragraph: Current 3 days Best 5&#10;      - button &quot;Year view, Stretch 10 minutes&quot;: Year&#10;      - button &quot;Done today, Stretch 10 minutes&quot; [pressed]: Done today&#10;    - listitem:&#10;      - heading &quot;No phone after 11pm&quot; [level=3]&#10;      - button &quot;Delete \&quot;No phone after 11pm\&quot;&quot;&#10;      - paragraph: Current No streak yet Best 14&#10;      - button &quot;Year view, No phone after 11pm&quot;: Year&#10;      - button &quot;Done today, No phone after 11pm&quot;: Done today&#10;  - text: New habit&#10;  - textbox &quot;New habit&quot;&#10;  - button &quot;Add&quot;">app = &lt;function app.&lt;locals&gt;.open_page at 0x00000280892C9D20&gt;
+
+    def test_R25_every_request_stays_on_the_devices_own_files(app):
+        page = app(viewport=DESKTOP, storage=SAMPLE, record=True, install_time=NOON)
+        done_btn(page, STRETCH).click()
+        expect(done_btn(page, STRETCH)).to_have_attribute("aria-pressed", "true")
+        open_p1_from_the_band(page)
+        tick(page, READ).click()
+        expect(tick(page, READ)).to_have_attribute("aria-pressed", "true")
+        close_with_escape(page, "dlg-day")
+        let_guard_pass(page)
+        open_p2_for_read(page)
+        bead(page, "2026-10-06").click()
+        expect(bead(page, "2026-10-06")).to_have_attribute("aria-pressed", "true")
+        close_with_escape(page, "dlg-year")
+&gt;       open_p4_from_the_band(page)
+
+tests\browser\test_platform.py:556: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\browser\test_platform.py:87: in open_p4_from_the_band
+    click_open(page.locator("section.band button.btn-all"), "dlg-all")
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+control = &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:54829/'&gt; selector='section.band button.btn-all'&gt;
+dialog = 'dlg-all'
+
+    def click_open(control, dialog):
+        """Click `control` and wait until `dialog.&lt;dialog&gt;` is open."""
+        control.click()
+&gt;       expect(control.page.locator(f"dialog.{dialog}")).to_have_attribute("open", "")
+E       AssertionError: Locator expected to have attribute ''
+E       Actual value: None 
+E       Call log:
+E         - Expect "to_have_attribute" with timeout 5000ms
+E         - waiting for locator("dialog.dlg-all")
+E           14 × locator resolved to &lt;dialog aria-modal="true" class="dlg-full dlg-all" aria-describedby="all-sub" aria-labelledby="all-title"&gt;…&lt;/dialog&gt;
+E              - unexpected value "null"
+E       
+E       Aria snapshot:
+E       - banner:
+E         - heading "Streaky Habit" [level=1]
+E         - time: Saturday 10 October
+E       - main:
+E         - region "Last 12 weeks":
+E           - heading "Last 12 weeks" [level=2]
+E           - button "Year view, all habits": Year
+E           - paragraph: Tap a day to change it.
+E           - group "Last 12 weeks":
+E             - button "Mon 20 Jul, 2 of 3 habits"
+E             - button "Tue 21 Jul, 3 of 3 habits"
+E             - button "Wed 22 Jul, 1 of 3 habits"
+E             - button "Thu 23 Jul, 2 of 3 habits"
+E             - button "Fri 24 Jul, 2 of 3 habits"
+E             - button "Sat 25 Jul, 2 of 3 habits"
+E             - button "Sun 26 Jul, 1 of 3 habits"
+E             - button "Mon 27 Jul, 2 of 3 habits"
+E             - button "Tue 28 Jul, 2 of 3 habits"
+E             - button "Wed 29 Jul, 2 of 3 habits"
+E             - button "Thu 30 Jul, 2 of 3 habits"
+E             - button "Fri 31 Jul, 2 of 3 habits"
+E             - button "Sat 1 Aug, 1 of 3 habits"
+E             - button "Sun 2 Aug, 2 of 3 habits"
+E             - button "Mon 3 Aug, 1 of 3 habits"
+E             - button "Tue 4 Aug, 2 of 3 habits"
+E             - button "Wed 5 Aug, 3 of 3 habits"
+E             - button "Thu 6 Aug, 2 of 3 habits"
+E             - button "Fri 7 Aug, 2 of 3 habits"
+E             - button "Sat 8 Aug, 2 of 3 habits"
+E             - button "Sun 9 Aug, 1 of 3 habits"
+E             - button "Mon 10 Aug, 2 of 3 habits"
+E             - button "Tue 11 Aug, 3 of 3 habits"
+E             - button "Wed 12 Aug, 2 of 3 habits"
+E             - button "Thu 13 Aug, 2 of 3 habits"
+E             - button "Fri 14 Aug, 2 of 3 habits"
+E             - button "Sat 15 Aug, 2 of 3 habits"
+E             - button "Sun 16 Aug, 2 of 3 habits"
+E             - button "Mon 17 Aug, 1 of 3 habits"
+E             - button "Tue 18 Aug, 2 of 3 habits"
+E             - button "Wed 19 Aug, 2 of 3 habits"
+E             - button "Thu 20 Aug, 1 of 3 habits"
+E             - button "Fri 21 Aug, 3 of 3 habits"
+E             - button "Sat 22 Aug, 3 of 3 habits"
+E             - button "Sun 23 Aug, 0 of 3 habits"
+E             - button "Mon 24 Aug, 3 of 3 habits"
+E             - button "Tue 25 Aug, 3 of 3 habits"
+E             - button "Wed 26 Aug, 2 of 3 habits"
+E             - button "Thu 27 Aug, 1 of 3 habits"
+E             - button "Fri 28 Aug, 2 of 3 habits"
+E             - button "Sat 29 Aug, 2 of 3 habits"
+E             - button "Sun 30 Aug, 2 of 3 habits"
+E             - button "Mon 31 Aug, 1 of 3 habits"
+E             - button "Tue 1 Sep, 2 of 3 habits"
+E             - button "Wed 2 Sep, 3 of 3 habits"
+E             - button "Thu 3 Sep, 3 of 3 habits"
+E             - button "Fri 4 Sep, 2 of 3 habits"
+E             - button "Sat 5 Sep, 2 of 3 habits"
+E             - button "Sun 6 Sep, 1 of 3 habits"
+E             - button "Mon 7 Sep, 2 of 3 habits"
+E             - button "Tue 8 Sep, 3 of 3 habits"
+E             - button "Wed 9 Sep, 1 of 3 habits"
+E             - button "Thu 10 Sep, 1 of 3 habits"
+E             - button "Fri 11 Sep, 3 of 3 habits"
+E             - button "Sat 12 Sep, 1 of 3 habits"
+E             - button "Sun 13 Sep, 2 of 3 habits"
+E             - button "Mon 14 Sep, 2 of 3 habits"
+E             - button "Tue 15 Sep, 3 of 3 habits"
+E             - button "Wed 16 Sep, 2 of 3 habits"
+E             - button "Thu 17 Sep, 2 of 3 habits"
+E             - button "Fri 18 Sep, 2 of 3 habits"
+E             - button "Sat 19 Sep, 3 of 3 habits"
+E             - button "Sun 20 Sep, 3 of 3 habits"
+E             - button "Mon 21 Sep, 2 of 3 habits"
+E             - button "Tue 22 Sep, 2 of 3 habits"
+E             - button "Wed 23 Sep, 2 of 3 habits"
+E             - button "Thu 24 Sep, 2 of 3 habits"
+E             - button "Fri 25 Sep, 3 of 3 habits"
+E             - button "Sat 26 Sep, 2 of 3 habits"
+E             - button "Sun 27 Sep, 0 of 3 habits"
+E             - button "Mon 28 Sep, 2 of 3 habits"
+E             - button "Tue 29 Sep, 3 of 3 habits"
+E             - button "Wed 30 Sep, 2 of 3 habits"
+E             - button "Thu 1 Oct, 2 of 3 habits"
+E             - button "Fri 2 Oct, 2 of 3 habits"
+E             - button "Sat 3 Oct, 2 of 3 habits"
+E             - button "Sun 4 Oct, 2 of 3 habits"
+E             - button "Mon 5 Oct, 3 of 3 habits"
+E             - button "Tue 6 Oct, 2 of 3 habits"
+E             - button "Wed 7 Oct, 2 of 3 habits"
+E             - button "Thu 8 Oct, 3 of 3 habits"
+E             - button "Fri 9 Oct, 2 of 3 habits"
+E             - button "Sat 10 Oct, 2 of 3 habits"
+E         - heading "Habits" [level=2]
+E         - list "Habits":
+E           - listitem:
+E             - heading "Read 20 pages" [level=3]
+E             - button "Delete \"Read 20 pages\""
+E             - paragraph: Current 7 days Best 13
+E             - button "Year view, Read 20 pages": Year
+E             - button "Done today, Read 20 pages" [pressed]: Done today
+E           - listitem:
+E             - heading "Stretch 10 minutes" [level=3]
+E             - button "Delete \"Stretch 10 minutes\""
+E             - paragraph: Current 3 days Best 5
+E             - button "Year view, Stretch 10 minutes": Year
+E             - button "Done today, Stretch 10 minutes" [pressed]: Done today
+E           - listitem:
+E             - heading "No phone after 11pm" [level=3]
+E             - button "Delete \"No phone after 11pm\""
+E             - paragraph: Current No streak yet Best 14
+E             - button "Year view, No phone after 11pm": Year
+E             - button "Done today, No phone after 11pm": Done today
+E         - text: New habit
+E         - textbox "New habit"
+E         - button "Add"
+
+tests\browser\test_platform.py:56: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R25_the_csp_is_in_force" time="0.650" /><testcase classname="tests.browser.test_platform" name="test_R26_no_sample_data_in_the_shipped_files" time="0.003" /><testcase classname="tests.browser.test_platform" name="test_R26_query_strings_and_fragments_do_not_seed[?demo=1]" time="0.140" /><testcase classname="tests.browser.test_platform" name="test_R26_query_strings_and_fragments_do_not_seed[?seed]" time="0.146" /><testcase classname="tests.browser.test_platform" name="test_R26_query_strings_and_fragments_do_not_seed[#sample]" time="0.149" /><testcase classname="tests.browser.test_platform" name="test_R26_no_globals_and_no_hooks" time="0.274" /></testsuite></testsuites>

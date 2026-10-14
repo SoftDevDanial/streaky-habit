@@ -600,6 +600,37 @@ def mutations(log):
     return log.evaluate("(log) => log.read()")
 
 
+# Each entry names the animation, the element it runs on (with its pseudo-element), that element's classes, the nearest
+# accessible name or id above it, so a test can tell which row, day or tick it belongs to, and its computed duration.
+_ANIMATION_LOG_JS = """() => {
+  const log = [];
+  document.addEventListener('animationstart', (event) => {
+    const target = event.target;
+    const named = target.closest('[aria-label]');
+    log.push({
+      name: event.animationName,
+      tag: target.localName,
+      pseudo: event.pseudoElement || '',
+      classes: Array.from(target.classList),
+      owner: named ? named.getAttribute('aria-label') : target.closest('[id]')?.id ?? '',
+      duration: getComputedStyle(target, event.pseudoElement || null).animationDuration,
+    });
+  }, true);
+  return log;
+}"""
+
+
+def animation_log(page):
+    """A test-side handle on the list of every `animationstart` in the page from now on, read with `animations`.
+    It adds no property to window (qa.md, conftest table)."""
+    return page.evaluate_handle(_ANIMATION_LOG_JS)
+
+
+def animations(log):
+    """The entries `log` holds so far, oldest first, each {"name", "tag", "pseudo", "classes", "owner", "duration"}."""
+    return log.json_value()
+
+
 def write_evidence(name, data):
     """Write `data` as JSON into the run's evidence folder (STREAKS_EVIDENCE_DIR, ending with the engine), when set."""
     if not EVIDENCE_DIR:

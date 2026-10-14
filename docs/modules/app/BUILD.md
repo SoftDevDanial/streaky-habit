@@ -795,3 +795,66 @@ No new copy, icon, motion or shadow. `src/styles.css` unchanged. No timer other 
 - `src/popups.js` gains `openFocusOf`, and `dayEditorFocus` is gone.
 - `src/view.js` gains `firstControl`.
 - The browser suite gains `test_rollover.py`. `conftest.py` gains `tab_to` (moved from `test_delete.py`).
+
+---
+
+## v1.1.0 task 25, the platform checks (2026-10-14)
+> Written by the frontend builder (senior frontend dev agent), 2026-10-14. Requirements R21 to R26. The commit is the one whose message starts `test(app): the platform checks`.
+
+### Phase skills (design row of `docs/phase-skills.md`)
+Both read on disk in this session before any test or code (no Skill tool). `taste-skill` (`taste-skill/1.0.0/skills/taste-skill/SKILL.md`, all 1206 lines) and `frontend-design` (`claude-plugins-official/frontend-design/8d392c816966/skills/frontend-design/SKILL.md`).
+- **What they changed.** Nothing in the look and nothing in `src/`. The platform checks found no defect, so `src/` and `index.html` are unchanged and R2's three changes still hold.
+- **Transferred and checked.** The quality floor of frontend-design (responsive down to a phone, visible keyboard focus, reduced motion respected) is now under test in both engines, the tab order, the focus rings and the reduced motion sweep of every element included. Motion only answers an action (frontend-design, taste-skill 5 "motion must be motivated"), held by the pop test, where exactly what an edit changed moves and nothing moves on load. No em or en dash in any file written (checked with Python).
+- **Not transferred, and why.** React, Tailwind, Motion, fonts and image rules (locked stack). Landing and hero rules (a tool, not a landing page).
+
+### What changed
+- `tests/browser/test_platform.py` (new). Every scenario of qa.md's Feature "Platform" and the three `@R26` scenarios of Feature "Shipped entry point, stylesheet and icon", 44 tests (the Outlines give one test per row). The three rows of "Nothing scrolls at 360 pixels" with no popup are `test_R5_R21_the_page_never_scrolls_and_the_composer_stays_put` in `test_render.py` (360 x 780, the same Then lines), and the icon's load under the CSP is `test_R29_R25_the_page_links_the_icon_and_the_policy_lets_it_load` in `test_entry.py`, so neither is repeated.
+- `tests/browser/conftest.py`. `animation_log` and `animations` (qa.md's conftest table).
+- `docs/modules/app/qa/escape-pace-probe/20261014-231840-chromium-webkit/results.json`, the measurement behind judgment call 3.
+- `spec.md` task 25 ticked. No `src/` change, nothing exposed.
+
+### RED first
+All runs are Chromium, in `docs/modules/app/qa/red-first/`.
+1. `20261014-230132-chromium`, HEAD, the first text of the file. 4 failed, 40 passed. All four were test side. The two size tests read boxes while the popup still rose (45.99994 px for a 46 px cell). The request test opened P4 with no guard pass after the click on a bead, so the page held that click (R14). The pop test found no animation on the Overview button's ring at 1280 px (open question 1).
+2. `20261014-230324-chromium`, HEAD, the fixed text. 44 passed, so every test needed a planted defect.
+3. `20261014-230442-chromium`, stylesheet defects (`--focus` `#EDEEF1`, beads 35 and 33 px, `--dur` 180 ms, `--dur-enter` 230 ms, `sheet` 270 ms, `fade` 190 ms, the reduce block without `transition:none`, the body 400 by 900 px while a dialog is open, a red outline on a focused Done today). 29 failed, each on its property. Scroll sizes 400 and 900, beads 33 and 35, the ring colour `rgb(237, 238, 241)` on the 13 ring rows and the bin, `solid` after a mouse click, durations 0.18s, 0.23s, 0.27s and 0.19s, moving elements under reduce.
+4. `20261014-230539-chromium`, script defects (Year and Done today swapped in a row, Dismiss with `tabindex` -1, the Overview ring never pops, a row name through `innerHTML`, an image request with a query at boot, a sample name in a comment, a seed on any query or fragment, `window.streaksState`). 14 failed, 13 on their properties (the tab orders at index 2 and 85, Dismiss missing from both note rows, the phone pop log, `h3` text '' with a child, `innerHTML` in `view.js`, two stray requests, the sample name, no `li.empty` in the three query rows, `streaksState`). The Dismiss ring row failed on never taking focus, and its ring was seen failing in run 3. The keyboard test held, because Chromium's own focus restore also returns focus after a keyboard open, so that defect was too weak.
+5. `20261014-230712-chromium`, `flagChange` without its layout read, the field focused after P3 closes, and the CSP with `connect-src *`. This run loaded a scratch pytest plugin that adds `--host-resolver-rules=MAP * ~NOTFOUND , EXCLUDE 127.0.0.1` to Chromium's launch arguments only, so the fetch to example.com resolved nothing and no request left the machine (the plugin's header line was read). 3 of 3 failed on their properties, the second Done today replayed the bump only, the Overview button was not focused, and no `securitypolicyviolation` fired.
+6. `20261014-231903-chromium`, the keyboard test after its Escape presses were paced (judgment call 3), against the same focus defect. It failed on the Overview button not focused.
+Every defect was removed through the Edit tool, and `git diff --quiet src/ index.html` then gave exit 0 before each proof run.
+
+### Proof
+- Chromium, **322 passed**, 164.0 s (`docs/modules/app/qa/functional/20261014-231919-chromium/junit.xml`). 278 of task 24, plus 44 new.
+- WebKit, **321 passed, 1 skipped (CO-1, counted with its reason)**, 240.0 s (`docs/modules/app/qa/functional/20261014-232212-webkit/junit.xml`). No WebKit failure.
+- Node, `node --test "tests/**/*.test.js"`, 137 of 137.
+- Kept as history, both on the text before the Escape pacing. `functional/20261014-230858-chromium` (322 passed) and `functional/20261014-231200-webkit` (1 failed, the keyboard test, "no close event within 5 seconds" for P3).
+
+### Judgment calls (named, for the orchestrator)
+1. **No duplicate of what other files hold.** The three no-popup rows of "Nothing scrolls at 360 pixels" stay in `test_render.py`, and the file's docstring names them.
+2. **Sizes are read once no animation runs** (`settle`, bounded at 2 seconds). Mid `rise` the box's transform rounds sizes in the last bits, so a 46 px cell read 45.99994.
+3. **The keyboard test presses Escape once per popup, each after the previous close.** Measured in `qa/escape-pace-probe/20261014-231840-chromium-webkit/` (5 runs per engine and pace). Three presses sent back to back leave P3 open in WebKit 5 of 5 and close all three in Chromium 5 of 5. Paced, both close all three. A person's presses are paced, so this is engine timing, not an app defect, and an app Escape handler would be a non-goal (spec Non-goals, no keyboard shortcuts beyond native dialog behaviour). `test_popups.py` already paces its Escapes the same way.
+4. **P4's day cells are its `.hc` cells without `.lead`**, since a lead cell holds no day. P3's 84 cells include the empty cell of Sun 11 Oct.
+5. **`animation_log` records more than qa.md's name and class list.** Each entry also has the element's tag, its pseudo element, the nearest accessible name or id above it, and its computed duration, so a test can tell which row, day or tick moved and read the duration the scenario names.
+6. **The scans of R24 and R26 read `index.html` and every file under `src/` as bytes decoded leniently**, and assert that `app.js`, `styles.css` and `icon.svg` are among them, so a scan that skips a file fails. This folds in the separate 1.0 guard test, which no qa.md scenario holds.
+7. **The CSP RED used a resolver block** (RED run 5), so the loosened policy could not send a request off the machine.
+8. **A tab order is read as a descriptor per press**, a band day by its date, else the accessible name, else `#id`, so the 95 presses on a desktop compare as one list.
+9. **The pop test at 1280 px asserts what is displayed**, see open question 1.
+
+### Open questions (for the planner, not decided)
+1. **The pop scenario names a ring that is not displayed.** qa.md "A change pops what changed and bumps its number, and replays on the next change" expects at 1280 x 800 an `animationstart` of `pop` on the svg in `span.ov-ring`. From 1024 px the Overview button is not displayed (R4, R38, the goldens), and an element that is not displayed starts no animation (RED run 1, the log held three entries and none for that ring). The test asserts at 1280 that the log holds exactly the dot, the band's 10 October ring and the bump, that `span.ov-ring` carries `pop` with its svg computing `pop` and 0.3s (R32), and at 390 x 844 in a second context that the log holds exactly the dot, the Overview button's ring and the bump. The band is not displayed below 1024 px, so no single width shows all four. Recommendation, the planner names the width at which each ring is read.
+2. **An engine table line.** qa.md's "Engine differences by design" could gain the Escape pacing of judgment call 3, with the probe's numbers. The builder did not edit qa.md.
+
+### Deviations
+- None in the code.
+- Process. None found. Scratch probes (the WebKit check of the new file, the Escape probe and its plugin) wrote only to the session scratchpad, and the probe's results were copied into the evidence folder above with the Write tool.
+
+### Non-goals honoured
+No `src/` or `index.html` change, so no new copy, icon, motion, shadow or keyboard shortcut. No Escape handler. No test hook in the app, and the request, CSP and globals checks read only from the test side.
+
+### How to run and view
+- `python -m pytest tests/browser/test_platform.py -q` (Chromium) and `python -m pytest tests/browser/test_platform.py -q --engine webkit`.
+- Serve the root with `python -m http.server <port> --bind 127.0.0.1` and open `http://127.0.0.1:<port>/` at 360 px wide. Nothing scrolls sideways with any popup open. Tab from the top reaches the Overview button, then each row's bin, Year and Done today, then the field and Add, each with a light ring. With the system's reduced motion setting on, nothing animates.
+
+### For the README reconcile
+- No `src/` change.
+- The browser suite gains `test_platform.py`. `conftest.py` gains `animation_log` and `animations`.

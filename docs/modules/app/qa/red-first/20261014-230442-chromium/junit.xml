@@ -1,0 +1,936 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="29" skipped="0" tests="44" time="15.748" timestamp="2026-10-14T23:04:44.019494+08:00" hostname="{host}"><testcase classname="tests.browser.test_platform" name="test_R21_nothing_scrolls_at_360_pixels_with_a_popup_open[P3]" time="0.969"><failure message="AssertionError: the page scrolls with the popup open: scrollWidth 400, scrollHeight 900&#10;assert (400 &lt;= 360)">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001D2B9671B10&gt;
+popups = &lt;function open_p3 at 0x000001D2B804A1F0&gt;
+
+    @pytest.mark.parametrize(
+        "popups",
+        [
+            pytest.param(open_p3, id="P3"),
+            pytest.param(open_p3_then_p1, id="P3, then P1 for 2026-09-22"),
+            pytest.param(open_p3_then_p4, id="P3, then P4 from its Year"),
+            pytest.param(open_p2_for_read, id="P2 for Read"),
+            pytest.param(open_m1_from_read, id="M1, from 'Delete \"Read 20 pages\"'"),
+        ],
+    )
+    def test_R21_nothing_scrolls_at_360_pixels_with_a_popup_open(app, popups):
+        page = app(viewport=SMALL, storage=SAMPLE)
+        popups(page)
+        width, height = page.evaluate("() =&gt; [document.documentElement.scrollWidth, document.documentElement.scrollHeight]")
+&gt;       assert width &lt;= 360 and height == 780, f"the page scrolls with the popup open: scrollWidth {width}, scrollHeight {height}"
+E       AssertionError: the page scrolls with the popup open: scrollWidth 400, scrollHeight 900
+E       assert (400 &lt;= 360)
+
+tests\browser\test_platform.py:141: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R21_nothing_scrolls_at_360_pixels_with_a_popup_open[P3, then P1 for 2026-09-22]" time="0.449"><failure message="AssertionError: the page scrolls with the popup open: scrollWidth 400, scrollHeight 900&#10;assert (400 &lt;= 360)">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001D2B95DF1C0&gt;
+popups = &lt;function open_p3_then_p1 at 0x000001D2B8049A60&gt;
+
+    @pytest.mark.parametrize(
+        "popups",
+        [
+            pytest.param(open_p3, id="P3"),
+            pytest.param(open_p3_then_p1, id="P3, then P1 for 2026-09-22"),
+            pytest.param(open_p3_then_p4, id="P3, then P4 from its Year"),
+            pytest.param(open_p2_for_read, id="P2 for Read"),
+            pytest.param(open_m1_from_read, id="M1, from 'Delete \"Read 20 pages\"'"),
+        ],
+    )
+    def test_R21_nothing_scrolls_at_360_pixels_with_a_popup_open(app, popups):
+        page = app(viewport=SMALL, storage=SAMPLE)
+        popups(page)
+        width, height = page.evaluate("() =&gt; [document.documentElement.scrollWidth, document.documentElement.scrollHeight]")
+&gt;       assert width &lt;= 360 and height == 780, f"the page scrolls with the popup open: scrollWidth {width}, scrollHeight {height}"
+E       AssertionError: the page scrolls with the popup open: scrollWidth 400, scrollHeight 900
+E       assert (400 &lt;= 360)
+
+tests\browser\test_platform.py:141: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R21_nothing_scrolls_at_360_pixels_with_a_popup_open[P3, then P4 from its Year]" time="0.476"><failure message="AssertionError: the page scrolls with the popup open: scrollWidth 400, scrollHeight 900&#10;assert (400 &lt;= 360)">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001D2B95DEC40&gt;
+popups = &lt;function open_p3_then_p4 at 0x000001D2B804A610&gt;
+
+    @pytest.mark.parametrize(
+        "popups",
+        [
+            pytest.param(open_p3, id="P3"),
+            pytest.param(open_p3_then_p1, id="P3, then P1 for 2026-09-22"),
+            pytest.param(open_p3_then_p4, id="P3, then P4 from its Year"),
+            pytest.param(open_p2_for_read, id="P2 for Read"),
+            pytest.param(open_m1_from_read, id="M1, from 'Delete \"Read 20 pages\"'"),
+        ],
+    )
+    def test_R21_nothing_scrolls_at_360_pixels_with_a_popup_open(app, popups):
+        page = app(viewport=SMALL, storage=SAMPLE)
+        popups(page)
+        width, height = page.evaluate("() =&gt; [document.documentElement.scrollWidth, document.documentElement.scrollHeight]")
+&gt;       assert width &lt;= 360 and height == 780, f"the page scrolls with the popup open: scrollWidth {width}, scrollHeight {height}"
+E       AssertionError: the page scrolls with the popup open: scrollWidth 400, scrollHeight 900
+E       assert (400 &lt;= 360)
+
+tests\browser\test_platform.py:141: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R21_nothing_scrolls_at_360_pixels_with_a_popup_open[P2 for Read]" time="0.202"><failure message="AssertionError: the page scrolls with the popup open: scrollWidth 400, scrollHeight 900&#10;assert (400 &lt;= 360)">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001D2B98E49E0&gt;
+popups = &lt;function open_p2_for_read at 0x000001D2B804A560&gt;
+
+    @pytest.mark.parametrize(
+        "popups",
+        [
+            pytest.param(open_p3, id="P3"),
+            pytest.param(open_p3_then_p1, id="P3, then P1 for 2026-09-22"),
+            pytest.param(open_p3_then_p4, id="P3, then P4 from its Year"),
+            pytest.param(open_p2_for_read, id="P2 for Read"),
+            pytest.param(open_m1_from_read, id="M1, from 'Delete \"Read 20 pages\"'"),
+        ],
+    )
+    def test_R21_nothing_scrolls_at_360_pixels_with_a_popup_open(app, popups):
+        page = app(viewport=SMALL, storage=SAMPLE)
+        popups(page)
+        width, height = page.evaluate("() =&gt; [document.documentElement.scrollWidth, document.documentElement.scrollHeight]")
+&gt;       assert width &lt;= 360 and height == 780, f"the page scrolls with the popup open: scrollWidth {width}, scrollHeight {height}"
+E       AssertionError: the page scrolls with the popup open: scrollWidth 400, scrollHeight 900
+E       assert (400 &lt;= 360)
+
+tests\browser\test_platform.py:141: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R21_nothing_scrolls_at_360_pixels_with_a_popup_open[M1, from 'Delete &quot;Read 20 pages&quot;']" time="0.173"><failure message="AssertionError: the page scrolls with the popup open: scrollWidth 400, scrollHeight 900&#10;assert (400 &lt;= 360)">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001D2B9961B10&gt;
+popups = &lt;function open_m1_from_read at 0x000001D2B804A6C0&gt;
+
+    @pytest.mark.parametrize(
+        "popups",
+        [
+            pytest.param(open_p3, id="P3"),
+            pytest.param(open_p3_then_p1, id="P3, then P1 for 2026-09-22"),
+            pytest.param(open_p3_then_p4, id="P3, then P4 from its Year"),
+            pytest.param(open_p2_for_read, id="P2 for Read"),
+            pytest.param(open_m1_from_read, id="M1, from 'Delete \"Read 20 pages\"'"),
+        ],
+    )
+    def test_R21_nothing_scrolls_at_360_pixels_with_a_popup_open(app, popups):
+        page = app(viewport=SMALL, storage=SAMPLE)
+        popups(page)
+        width, height = page.evaluate("() =&gt; [document.documentElement.scrollWidth, document.documentElement.scrollHeight]")
+&gt;       assert width &lt;= 360 and height == 780, f"the page scrolls with the popup open: scrollWidth {width}, scrollHeight {height}"
+E       AssertionError: the page scrolls with the popup open: scrollWidth 400, scrollHeight 900
+E       assert (400 &lt;= 360)
+
+tests\browser\test_platform.py:141: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R21_sizes_at_360_pixels" time="0.455"><failure message="assert {(33, 33)} == {(34, 34)}&#10;  &#10;  Extra items in the left set:&#10;  (33, 33)&#10;  Extra items in the right set:&#10;  (34, 34)&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001D2B9963270&gt;
+
+    def test_R21_sizes_at_360_pixels(app):
+        page = app(viewport=SMALL, storage=SAMPLE, install_time=NOON)
+        controls = boxes(page.locator("ul.rows button.btn-bin, ul.rows button.btn-year, ul.rows button.btn-done, button.ov-btn"))
+        assert len(controls) == 10 and all(width &gt;= 44 and height &gt;= 44 for width, height in controls), f"under 44 by 44: {controls}"
+        assert [height for _, height in boxes(page.locator("#nh, #add-btn"))] == [48, 48]
+    
+        open_p2_for_read(page)
+        settle(page)
+&gt;       assert sizes(page.locator("dialog.dlg-year span.bead")) == {(34, 34)}
+E       assert {(33, 33)} == {(34, 34)}
+E         
+E         Extra items in the left set:
+E         (33, 33)
+E         Extra items in the right set:
+E         (34, 34)
+E         Use -v to get more diff
+
+tests\browser\test_platform.py:152: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R21_sizes_at_390_pixels" time="0.466"><failure message="assert {(35, 35)} == {(36, 36)}&#10;  &#10;  Extra items in the left set:&#10;  (35, 35)&#10;  Extra items in the right set:&#10;  (36, 36)&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001D2B99E71C0&gt;
+
+    def test_R21_sizes_at_390_pixels(app):
+        page = app(viewport=PHONE, storage=SAMPLE)
+        open_p2_for_read(page)
+        settle(page)
+&gt;       assert sizes(page.locator("dialog.dlg-year span.bead")) == {(36, 36)}
+E       assert {(35, 35)} == {(36, 36)}
+E         
+E         Extra items in the left set:
+E         (35, 35)
+E         Extra items in the right set:
+E         (36, 36)
+E         Use -v to get more diff
+
+tests\browser\test_platform.py:190: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R22_tab_order_on_a_phone" time="0.197" /><testcase classname="tests.browser.test_platform" name="test_R22_R35_tab_order_on_a_desktop" time="0.714" /><testcase classname="tests.browser.test_platform" name="test_R22_R17_tab_order_with_the_note[390x844]" time="0.126" /><testcase classname="tests.browser.test_platform" name="test_R22_R17_tab_order_with_the_note[1280x800]" time="0.685" /><testcase classname="tests.browser.test_platform" name="test_R22_focus_rings_on_keyboard_focus[390x844 Overview]" time="0.154"><failure message="AssertionError: assert ['rgb(237, 23... '2px', '2px'] == ['rgb(237, 23... '2px', '2px']&#10;  &#10;  At index 0 diff: 'rgb(237, 238, 241)' != 'rgb(237, 238, 240)'&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001D2BA1FBA00&gt;
+viewport = (390, 844)
+storage = '{"version":1,"habits":[{"name":"Read 20 pages","done":["2025-10-10","2025-10-11","2025-10-12","2025-10-13","2025-10-1...026-09-29","2026-09-30","2026-10-02","2026-10-03","2026-10-04","2026-10-05","2026-10-06","2026-10-07","2026-10-08"]}]}'
+opened = None, target = &lt;function &lt;lambda&gt; at 0x000001D2B804B3D0&gt;
+on_bead = False, offset = '2px'
+
+    @pytest.mark.parametrize(
+        "viewport, storage, opened, target, on_bead, offset",
+        [
+            pytest.param(PHONE, SAMPLE, None, lambda page: page.locator("button.ov-btn"), False, "2px", id="390x844 Overview"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: year_btn(page, READ), False, "2px", id="390x844 Year view, Read"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: done_btn(page, READ), False, "2px", id="390x844 Done today, Read"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: page.locator("#nh"), False, "2px", id="390x844 the field"),
+            pytest.param(PHONE, SAMPLE, None, add_button, False, "3px", id="390x844 Add"),
+            pytest.param(DESKTOP, SAMPLE, None, lambda page: page.locator("section.band button.btn-all"), False, "2px", id="1280x800 the band's Year"),
+            pytest.param(
+                DESKTOP, SAMPLE, None,
+                lambda page: page.locator("section.band").get_by_role("button", name="Mon 20 Jul, 2 of 3 habits", exact=True),
+                False, "-2px", id="1280x800 the band's Mon 20 Jul",
+            ),
+            pytest.param(PHONE, SAMPLE, p2_by_keyboard, lambda page: page.locator("dialog.dlg-year button.icon-btn"), False, "-2px", id="390x844 P2's Close"),
+            pytest.param(PHONE, SAMPLE, p2_by_keyboard, lambda page: page.locator("dialog.dlg-year button.btn-del"), False, "2px", id="390x844 P2's Delete habit"),
+            pytest.param(
+                PHONE, SAMPLE, p2_by_keyboard,
+                lambda page: page.get_by_role("button", name="Mark Thu 1 Oct 2026 as done", exact=True),
+                True, "3px", id="390x844 the bead Thu 1 Oct 2026",
+            ),
+            pytest.param(DESKTOP, SAMPLE, p1_by_keyboard, lambda page: tick(page, STRETCH), False, "-2px", id="1280x800 P1's tick Stretch"),
+            pytest.param(PHONE, SAMPLE, m1_by_keyboard, lambda page: page.locator("dialog.dlg-del button.btn-secondary"), False, "3px", id="390x844 M1's Cancel"),
+            pytest.param(PHONE, "{", None, lambda page: page.get_by_role("button", name="Dismiss note", exact=True), False, "-2px", id="390x844 Dismiss note"),
+        ],
+    )
+    def test_R22_focus_rings_on_keyboard_focus(app, viewport, storage, opened, target, on_bead, offset):
+        page = app(viewport=viewport, storage=storage)
+        if opened:
+            opened(page)
+        control = target(page)
+        tab_to(page, control)
+&gt;       assert ring(control.locator("span.bead") if on_bead else control) == [FOCUS_COLOUR, "solid", "2px", offset]
+E       AssertionError: assert ['rgb(237, 23... '2px', '2px'] == ['rgb(237, 23... '2px', '2px']
+E         
+E         At index 0 diff: 'rgb(237, 238, 241)' != 'rgb(237, 238, 240)'
+E         Use -v to get more diff
+
+tests\browser\test_platform.py:311: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R22_focus_rings_on_keyboard_focus[390x844 Year view, Read]" time="0.193"><failure message="AssertionError: assert ['rgb(237, 23... '2px', '2px'] == ['rgb(237, 23... '2px', '2px']&#10;  &#10;  At index 0 diff: 'rgb(237, 238, 241)' != 'rgb(237, 238, 240)'&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001D2BA3DEAE0&gt;
+viewport = (390, 844)
+storage = '{"version":1,"habits":[{"name":"Read 20 pages","done":["2025-10-10","2025-10-11","2025-10-12","2025-10-13","2025-10-1...026-09-29","2026-09-30","2026-10-02","2026-10-03","2026-10-04","2026-10-05","2026-10-06","2026-10-07","2026-10-08"]}]}'
+opened = None, target = &lt;function &lt;lambda&gt; at 0x000001D2B804B480&gt;
+on_bead = False, offset = '2px'
+
+    @pytest.mark.parametrize(
+        "viewport, storage, opened, target, on_bead, offset",
+        [
+            pytest.param(PHONE, SAMPLE, None, lambda page: page.locator("button.ov-btn"), False, "2px", id="390x844 Overview"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: year_btn(page, READ), False, "2px", id="390x844 Year view, Read"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: done_btn(page, READ), False, "2px", id="390x844 Done today, Read"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: page.locator("#nh"), False, "2px", id="390x844 the field"),
+            pytest.param(PHONE, SAMPLE, None, add_button, False, "3px", id="390x844 Add"),
+            pytest.param(DESKTOP, SAMPLE, None, lambda page: page.locator("section.band button.btn-all"), False, "2px", id="1280x800 the band's Year"),
+            pytest.param(
+                DESKTOP, SAMPLE, None,
+                lambda page: page.locator("section.band").get_by_role("button", name="Mon 20 Jul, 2 of 3 habits", exact=True),
+                False, "-2px", id="1280x800 the band's Mon 20 Jul",
+            ),
+            pytest.param(PHONE, SAMPLE, p2_by_keyboard, lambda page: page.locator("dialog.dlg-year button.icon-btn"), False, "-2px", id="390x844 P2's Close"),
+            pytest.param(PHONE, SAMPLE, p2_by_keyboard, lambda page: page.locator("dialog.dlg-year button.btn-del"), False, "2px", id="390x844 P2's Delete habit"),
+            pytest.param(
+                PHONE, SAMPLE, p2_by_keyboard,
+                lambda page: page.get_by_role("button", name="Mark Thu 1 Oct 2026 as done", exact=True),
+                True, "3px", id="390x844 the bead Thu 1 Oct 2026",
+            ),
+            pytest.param(DESKTOP, SAMPLE, p1_by_keyboard, lambda page: tick(page, STRETCH), False, "-2px", id="1280x800 P1's tick Stretch"),
+            pytest.param(PHONE, SAMPLE, m1_by_keyboard, lambda page: page.locator("dialog.dlg-del button.btn-secondary"), False, "3px", id="390x844 M1's Cancel"),
+            pytest.param(PHONE, "{", None, lambda page: page.get_by_role("button", name="Dismiss note", exact=True), False, "-2px", id="390x844 Dismiss note"),
+        ],
+    )
+    def test_R22_focus_rings_on_keyboard_focus(app, viewport, storage, opened, target, on_bead, offset):
+        page = app(viewport=viewport, storage=storage)
+        if opened:
+            opened(page)
+        control = target(page)
+        tab_to(page, control)
+&gt;       assert ring(control.locator("span.bead") if on_bead else control) == [FOCUS_COLOUR, "solid", "2px", offset]
+E       AssertionError: assert ['rgb(237, 23... '2px', '2px'] == ['rgb(237, 23... '2px', '2px']
+E         
+E         At index 0 diff: 'rgb(237, 238, 241)' != 'rgb(237, 238, 240)'
+E         Use -v to get more diff
+
+tests\browser\test_platform.py:311: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R22_focus_rings_on_keyboard_focus[390x844 Done today, Read]" time="0.219"><failure message="AssertionError: assert ['rgb(255, 0,... '2px', '2px'] == ['rgb(237, 23... '2px', '2px']&#10;  &#10;  At index 0 diff: 'rgb(255, 0, 0)' != 'rgb(237, 238, 240)'&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001D2BA3DEF00&gt;
+viewport = (390, 844)
+storage = '{"version":1,"habits":[{"name":"Read 20 pages","done":["2025-10-10","2025-10-11","2025-10-12","2025-10-13","2025-10-1...026-09-29","2026-09-30","2026-10-02","2026-10-03","2026-10-04","2026-10-05","2026-10-06","2026-10-07","2026-10-08"]}]}'
+opened = None, target = &lt;function &lt;lambda&gt; at 0x000001D2B804B530&gt;
+on_bead = False, offset = '2px'
+
+    @pytest.mark.parametrize(
+        "viewport, storage, opened, target, on_bead, offset",
+        [
+            pytest.param(PHONE, SAMPLE, None, lambda page: page.locator("button.ov-btn"), False, "2px", id="390x844 Overview"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: year_btn(page, READ), False, "2px", id="390x844 Year view, Read"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: done_btn(page, READ), False, "2px", id="390x844 Done today, Read"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: page.locator("#nh"), False, "2px", id="390x844 the field"),
+            pytest.param(PHONE, SAMPLE, None, add_button, False, "3px", id="390x844 Add"),
+            pytest.param(DESKTOP, SAMPLE, None, lambda page: page.locator("section.band button.btn-all"), False, "2px", id="1280x800 the band's Year"),
+            pytest.param(
+                DESKTOP, SAMPLE, None,
+                lambda page: page.locator("section.band").get_by_role("button", name="Mon 20 Jul, 2 of 3 habits", exact=True),
+                False, "-2px", id="1280x800 the band's Mon 20 Jul",
+            ),
+            pytest.param(PHONE, SAMPLE, p2_by_keyboard, lambda page: page.locator("dialog.dlg-year button.icon-btn"), False, "-2px", id="390x844 P2's Close"),
+            pytest.param(PHONE, SAMPLE, p2_by_keyboard, lambda page: page.locator("dialog.dlg-year button.btn-del"), False, "2px", id="390x844 P2's Delete habit"),
+            pytest.param(
+                PHONE, SAMPLE, p2_by_keyboard,
+                lambda page: page.get_by_role("button", name="Mark Thu 1 Oct 2026 as done", exact=True),
+                True, "3px", id="390x844 the bead Thu 1 Oct 2026",
+            ),
+            pytest.param(DESKTOP, SAMPLE, p1_by_keyboard, lambda page: tick(page, STRETCH), False, "-2px", id="1280x800 P1's tick Stretch"),
+            pytest.param(PHONE, SAMPLE, m1_by_keyboard, lambda page: page.locator("dialog.dlg-del button.btn-secondary"), False, "3px", id="390x844 M1's Cancel"),
+            pytest.param(PHONE, "{", None, lambda page: page.get_by_role("button", name="Dismiss note", exact=True), False, "-2px", id="390x844 Dismiss note"),
+        ],
+    )
+    def test_R22_focus_rings_on_keyboard_focus(app, viewport, storage, opened, target, on_bead, offset):
+        page = app(viewport=viewport, storage=storage)
+        if opened:
+            opened(page)
+        control = target(page)
+        tab_to(page, control)
+&gt;       assert ring(control.locator("span.bead") if on_bead else control) == [FOCUS_COLOUR, "solid", "2px", offset]
+E       AssertionError: assert ['rgb(255, 0,... '2px', '2px'] == ['rgb(237, 23... '2px', '2px']
+E         
+E         At index 0 diff: 'rgb(255, 0, 0)' != 'rgb(237, 238, 240)'
+E         Use -v to get more diff
+
+tests\browser\test_platform.py:311: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R22_focus_rings_on_keyboard_focus[390x844 the field]" time="0.283"><failure message="AssertionError: assert ['rgb(237, 23... '2px', '2px'] == ['rgb(237, 23... '2px', '2px']&#10;  &#10;  At index 0 diff: 'rgb(237, 238, 241)' != 'rgb(237, 238, 240)'&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001D2BA8FEE50&gt;
+viewport = (390, 844)
+storage = '{"version":1,"habits":[{"name":"Read 20 pages","done":["2025-10-10","2025-10-11","2025-10-12","2025-10-13","2025-10-1...026-09-29","2026-09-30","2026-10-02","2026-10-03","2026-10-04","2026-10-05","2026-10-06","2026-10-07","2026-10-08"]}]}'
+opened = None, target = &lt;function &lt;lambda&gt; at 0x000001D2B804B5E0&gt;
+on_bead = False, offset = '2px'
+
+    @pytest.mark.parametrize(
+        "viewport, storage, opened, target, on_bead, offset",
+        [
+            pytest.param(PHONE, SAMPLE, None, lambda page: page.locator("button.ov-btn"), False, "2px", id="390x844 Overview"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: year_btn(page, READ), False, "2px", id="390x844 Year view, Read"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: done_btn(page, READ), False, "2px", id="390x844 Done today, Read"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: page.locator("#nh"), False, "2px", id="390x844 the field"),
+            pytest.param(PHONE, SAMPLE, None, add_button, False, "3px", id="390x844 Add"),
+            pytest.param(DESKTOP, SAMPLE, None, lambda page: page.locator("section.band button.btn-all"), False, "2px", id="1280x800 the band's Year"),
+            pytest.param(
+                DESKTOP, SAMPLE, None,
+                lambda page: page.locator("section.band").get_by_role("button", name="Mon 20 Jul, 2 of 3 habits", exact=True),
+                False, "-2px", id="1280x800 the band's Mon 20 Jul",
+            ),
+            pytest.param(PHONE, SAMPLE, p2_by_keyboard, lambda page: page.locator("dialog.dlg-year button.icon-btn"), False, "-2px", id="390x844 P2's Close"),
+            pytest.param(PHONE, SAMPLE, p2_by_keyboard, lambda page: page.locator("dialog.dlg-year button.btn-del"), False, "2px", id="390x844 P2's Delete habit"),
+            pytest.param(
+                PHONE, SAMPLE, p2_by_keyboard,
+                lambda page: page.get_by_role("button", name="Mark Thu 1 Oct 2026 as done", exact=True),
+                True, "3px", id="390x844 the bead Thu 1 Oct 2026",
+            ),
+            pytest.param(DESKTOP, SAMPLE, p1_by_keyboard, lambda page: tick(page, STRETCH), False, "-2px", id="1280x800 P1's tick Stretch"),
+            pytest.param(PHONE, SAMPLE, m1_by_keyboard, lambda page: page.locator("dialog.dlg-del button.btn-secondary"), False, "3px", id="390x844 M1's Cancel"),
+            pytest.param(PHONE, "{", None, lambda page: page.get_by_role("button", name="Dismiss note", exact=True), False, "-2px", id="390x844 Dismiss note"),
+        ],
+    )
+    def test_R22_focus_rings_on_keyboard_focus(app, viewport, storage, opened, target, on_bead, offset):
+        page = app(viewport=viewport, storage=storage)
+        if opened:
+            opened(page)
+        control = target(page)
+        tab_to(page, control)
+&gt;       assert ring(control.locator("span.bead") if on_bead else control) == [FOCUS_COLOUR, "solid", "2px", offset]
+E       AssertionError: assert ['rgb(237, 23... '2px', '2px'] == ['rgb(237, 23... '2px', '2px']
+E         
+E         At index 0 diff: 'rgb(237, 238, 241)' != 'rgb(237, 238, 240)'
+E         Use -v to get more diff
+
+tests\browser\test_platform.py:311: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R22_focus_rings_on_keyboard_focus[390x844 Add]" time="0.273"><failure message="AssertionError: assert ['rgb(237, 23... '2px', '3px'] == ['rgb(237, 23... '2px', '3px']&#10;  &#10;  At index 0 diff: 'rgb(237, 238, 241)' != 'rgb(237, 238, 240)'&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001D2BA8FEC40&gt;
+viewport = (390, 844)
+storage = '{"version":1,"habits":[{"name":"Read 20 pages","done":["2025-10-10","2025-10-11","2025-10-12","2025-10-13","2025-10-1...026-09-29","2026-09-30","2026-10-02","2026-10-03","2026-10-04","2026-10-05","2026-10-06","2026-10-07","2026-10-08"]}]}'
+opened = None, target = &lt;function add_button at 0x000001D2B7FBB8A0&gt;
+on_bead = False, offset = '3px'
+
+    @pytest.mark.parametrize(
+        "viewport, storage, opened, target, on_bead, offset",
+        [
+            pytest.param(PHONE, SAMPLE, None, lambda page: page.locator("button.ov-btn"), False, "2px", id="390x844 Overview"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: year_btn(page, READ), False, "2px", id="390x844 Year view, Read"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: done_btn(page, READ), False, "2px", id="390x844 Done today, Read"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: page.locator("#nh"), False, "2px", id="390x844 the field"),
+            pytest.param(PHONE, SAMPLE, None, add_button, False, "3px", id="390x844 Add"),
+            pytest.param(DESKTOP, SAMPLE, None, lambda page: page.locator("section.band button.btn-all"), False, "2px", id="1280x800 the band's Year"),
+            pytest.param(
+                DESKTOP, SAMPLE, None,
+                lambda page: page.locator("section.band").get_by_role("button", name="Mon 20 Jul, 2 of 3 habits", exact=True),
+                False, "-2px", id="1280x800 the band's Mon 20 Jul",
+            ),
+            pytest.param(PHONE, SAMPLE, p2_by_keyboard, lambda page: page.locator("dialog.dlg-year button.icon-btn"), False, "-2px", id="390x844 P2's Close"),
+            pytest.param(PHONE, SAMPLE, p2_by_keyboard, lambda page: page.locator("dialog.dlg-year button.btn-del"), False, "2px", id="390x844 P2's Delete habit"),
+            pytest.param(
+                PHONE, SAMPLE, p2_by_keyboard,
+                lambda page: page.get_by_role("button", name="Mark Thu 1 Oct 2026 as done", exact=True),
+                True, "3px", id="390x844 the bead Thu 1 Oct 2026",
+            ),
+            pytest.param(DESKTOP, SAMPLE, p1_by_keyboard, lambda page: tick(page, STRETCH), False, "-2px", id="1280x800 P1's tick Stretch"),
+            pytest.param(PHONE, SAMPLE, m1_by_keyboard, lambda page: page.locator("dialog.dlg-del button.btn-secondary"), False, "3px", id="390x844 M1's Cancel"),
+            pytest.param(PHONE, "{", None, lambda page: page.get_by_role("button", name="Dismiss note", exact=True), False, "-2px", id="390x844 Dismiss note"),
+        ],
+    )
+    def test_R22_focus_rings_on_keyboard_focus(app, viewport, storage, opened, target, on_bead, offset):
+        page = app(viewport=viewport, storage=storage)
+        if opened:
+            opened(page)
+        control = target(page)
+        tab_to(page, control)
+&gt;       assert ring(control.locator("span.bead") if on_bead else control) == [FOCUS_COLOUR, "solid", "2px", offset]
+E       AssertionError: assert ['rgb(237, 23... '2px', '3px'] == ['rgb(237, 23... '2px', '3px']
+E         
+E         At index 0 diff: 'rgb(237, 238, 241)' != 'rgb(237, 238, 240)'
+E         Use -v to get more diff
+
+tests\browser\test_platform.py:311: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R22_focus_rings_on_keyboard_focus[1280x800 the band's Year]" time="0.158"><failure message="AssertionError: assert ['rgb(237, 23... '2px', '2px'] == ['rgb(237, 23... '2px', '2px']&#10;  &#10;  At index 0 diff: 'rgb(237, 238, 241)' != 'rgb(237, 238, 240)'&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001D2BA8699B0&gt;
+viewport = (1280, 800)
+storage = '{"version":1,"habits":[{"name":"Read 20 pages","done":["2025-10-10","2025-10-11","2025-10-12","2025-10-13","2025-10-1...026-09-29","2026-09-30","2026-10-02","2026-10-03","2026-10-04","2026-10-05","2026-10-06","2026-10-07","2026-10-08"]}]}'
+opened = None, target = &lt;function &lt;lambda&gt; at 0x000001D2B804B690&gt;
+on_bead = False, offset = '2px'
+
+    @pytest.mark.parametrize(
+        "viewport, storage, opened, target, on_bead, offset",
+        [
+            pytest.param(PHONE, SAMPLE, None, lambda page: page.locator("button.ov-btn"), False, "2px", id="390x844 Overview"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: year_btn(page, READ), False, "2px", id="390x844 Year view, Read"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: done_btn(page, READ), False, "2px", id="390x844 Done today, Read"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: page.locator("#nh"), False, "2px", id="390x844 the field"),
+            pytest.param(PHONE, SAMPLE, None, add_button, False, "3px", id="390x844 Add"),
+            pytest.param(DESKTOP, SAMPLE, None, lambda page: page.locator("section.band button.btn-all"), False, "2px", id="1280x800 the band's Year"),
+            pytest.param(
+                DESKTOP, SAMPLE, None,
+                lambda page: page.locator("section.band").get_by_role("button", name="Mon 20 Jul, 2 of 3 habits", exact=True),
+                False, "-2px", id="1280x800 the band's Mon 20 Jul",
+            ),
+            pytest.param(PHONE, SAMPLE, p2_by_keyboard, lambda page: page.locator("dialog.dlg-year button.icon-btn"), False, "-2px", id="390x844 P2's Close"),
+            pytest.param(PHONE, SAMPLE, p2_by_keyboard, lambda page: page.locator("dialog.dlg-year button.btn-del"), False, "2px", id="390x844 P2's Delete habit"),
+            pytest.param(
+                PHONE, SAMPLE, p2_by_keyboard,
+                lambda page: page.get_by_role("button", name="Mark Thu 1 Oct 2026 as done", exact=True),
+                True, "3px", id="390x844 the bead Thu 1 Oct 2026",
+            ),
+            pytest.param(DESKTOP, SAMPLE, p1_by_keyboard, lambda page: tick(page, STRETCH), False, "-2px", id="1280x800 P1's tick Stretch"),
+            pytest.param(PHONE, SAMPLE, m1_by_keyboard, lambda page: page.locator("dialog.dlg-del button.btn-secondary"), False, "3px", id="390x844 M1's Cancel"),
+            pytest.param(PHONE, "{", None, lambda page: page.get_by_role("button", name="Dismiss note", exact=True), False, "-2px", id="390x844 Dismiss note"),
+        ],
+    )
+    def test_R22_focus_rings_on_keyboard_focus(app, viewport, storage, opened, target, on_bead, offset):
+        page = app(viewport=viewport, storage=storage)
+        if opened:
+            opened(page)
+        control = target(page)
+        tab_to(page, control)
+&gt;       assert ring(control.locator("span.bead") if on_bead else control) == [FOCUS_COLOUR, "solid", "2px", offset]
+E       AssertionError: assert ['rgb(237, 23... '2px', '2px'] == ['rgb(237, 23... '2px', '2px']
+E         
+E         At index 0 diff: 'rgb(237, 238, 241)' != 'rgb(237, 238, 240)'
+E         Use -v to get more diff
+
+tests\browser\test_platform.py:311: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R22_focus_rings_on_keyboard_focus[1280x800 the band's Mon 20 Jul]" time="0.187"><failure message="AssertionError: assert ['rgb(237, 23...'2px', '-2px'] == ['rgb(237, 23...'2px', '-2px']&#10;  &#10;  At index 0 diff: 'rgb(237, 238, 241)' != 'rgb(237, 238, 240)'&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001D2BA868930&gt;
+viewport = (1280, 800)
+storage = '{"version":1,"habits":[{"name":"Read 20 pages","done":["2025-10-10","2025-10-11","2025-10-12","2025-10-13","2025-10-1...026-09-29","2026-09-30","2026-10-02","2026-10-03","2026-10-04","2026-10-05","2026-10-06","2026-10-07","2026-10-08"]}]}'
+opened = None, target = &lt;function &lt;lambda&gt; at 0x000001D2B804B740&gt;
+on_bead = False, offset = '-2px'
+
+    @pytest.mark.parametrize(
+        "viewport, storage, opened, target, on_bead, offset",
+        [
+            pytest.param(PHONE, SAMPLE, None, lambda page: page.locator("button.ov-btn"), False, "2px", id="390x844 Overview"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: year_btn(page, READ), False, "2px", id="390x844 Year view, Read"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: done_btn(page, READ), False, "2px", id="390x844 Done today, Read"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: page.locator("#nh"), False, "2px", id="390x844 the field"),
+            pytest.param(PHONE, SAMPLE, None, add_button, False, "3px", id="390x844 Add"),
+            pytest.param(DESKTOP, SAMPLE, None, lambda page: page.locator("section.band button.btn-all"), False, "2px", id="1280x800 the band's Year"),
+            pytest.param(
+                DESKTOP, SAMPLE, None,
+                lambda page: page.locator("section.band").get_by_role("button", name="Mon 20 Jul, 2 of 3 habits", exact=True),
+                False, "-2px", id="1280x800 the band's Mon 20 Jul",
+            ),
+            pytest.param(PHONE, SAMPLE, p2_by_keyboard, lambda page: page.locator("dialog.dlg-year button.icon-btn"), False, "-2px", id="390x844 P2's Close"),
+            pytest.param(PHONE, SAMPLE, p2_by_keyboard, lambda page: page.locator("dialog.dlg-year button.btn-del"), False, "2px", id="390x844 P2's Delete habit"),
+            pytest.param(
+                PHONE, SAMPLE, p2_by_keyboard,
+                lambda page: page.get_by_role("button", name="Mark Thu 1 Oct 2026 as done", exact=True),
+                True, "3px", id="390x844 the bead Thu 1 Oct 2026",
+            ),
+            pytest.param(DESKTOP, SAMPLE, p1_by_keyboard, lambda page: tick(page, STRETCH), False, "-2px", id="1280x800 P1's tick Stretch"),
+            pytest.param(PHONE, SAMPLE, m1_by_keyboard, lambda page: page.locator("dialog.dlg-del button.btn-secondary"), False, "3px", id="390x844 M1's Cancel"),
+            pytest.param(PHONE, "{", None, lambda page: page.get_by_role("button", name="Dismiss note", exact=True), False, "-2px", id="390x844 Dismiss note"),
+        ],
+    )
+    def test_R22_focus_rings_on_keyboard_focus(app, viewport, storage, opened, target, on_bead, offset):
+        page = app(viewport=viewport, storage=storage)
+        if opened:
+            opened(page)
+        control = target(page)
+        tab_to(page, control)
+&gt;       assert ring(control.locator("span.bead") if on_bead else control) == [FOCUS_COLOUR, "solid", "2px", offset]
+E       AssertionError: assert ['rgb(237, 23...'2px', '-2px'] == ['rgb(237, 23...'2px', '-2px']
+E         
+E         At index 0 diff: 'rgb(237, 238, 241)' != 'rgb(237, 238, 240)'
+E         Use -v to get more diff
+
+tests\browser\test_platform.py:311: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R22_focus_rings_on_keyboard_focus[390x844 P2's Close]" time="0.244"><failure message="AssertionError: assert ['rgb(237, 23...'2px', '-2px'] == ['rgb(237, 23...'2px', '-2px']&#10;  &#10;  At index 0 diff: 'rgb(237, 238, 241)' != 'rgb(237, 238, 240)'&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001D2BAAC1170&gt;
+viewport = (390, 844)
+storage = '{"version":1,"habits":[{"name":"Read 20 pages","done":["2025-10-10","2025-10-11","2025-10-12","2025-10-13","2025-10-1...026-09-29","2026-09-30","2026-10-02","2026-10-03","2026-10-04","2026-10-05","2026-10-06","2026-10-07","2026-10-08"]}]}'
+opened = &lt;function p2_by_keyboard at 0x000001D2B804B1C0&gt;
+target = &lt;function &lt;lambda&gt; at 0x000001D2B804B7F0&gt;, on_bead = False
+offset = '-2px'
+
+    @pytest.mark.parametrize(
+        "viewport, storage, opened, target, on_bead, offset",
+        [
+            pytest.param(PHONE, SAMPLE, None, lambda page: page.locator("button.ov-btn"), False, "2px", id="390x844 Overview"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: year_btn(page, READ), False, "2px", id="390x844 Year view, Read"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: done_btn(page, READ), False, "2px", id="390x844 Done today, Read"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: page.locator("#nh"), False, "2px", id="390x844 the field"),
+            pytest.param(PHONE, SAMPLE, None, add_button, False, "3px", id="390x844 Add"),
+            pytest.param(DESKTOP, SAMPLE, None, lambda page: page.locator("section.band button.btn-all"), False, "2px", id="1280x800 the band's Year"),
+            pytest.param(
+                DESKTOP, SAMPLE, None,
+                lambda page: page.locator("section.band").get_by_role("button", name="Mon 20 Jul, 2 of 3 habits", exact=True),
+                False, "-2px", id="1280x800 the band's Mon 20 Jul",
+            ),
+            pytest.param(PHONE, SAMPLE, p2_by_keyboard, lambda page: page.locator("dialog.dlg-year button.icon-btn"), False, "-2px", id="390x844 P2's Close"),
+            pytest.param(PHONE, SAMPLE, p2_by_keyboard, lambda page: page.locator("dialog.dlg-year button.btn-del"), False, "2px", id="390x844 P2's Delete habit"),
+            pytest.param(
+                PHONE, SAMPLE, p2_by_keyboard,
+                lambda page: page.get_by_role("button", name="Mark Thu 1 Oct 2026 as done", exact=True),
+                True, "3px", id="390x844 the bead Thu 1 Oct 2026",
+            ),
+            pytest.param(DESKTOP, SAMPLE, p1_by_keyboard, lambda page: tick(page, STRETCH), False, "-2px", id="1280x800 P1's tick Stretch"),
+            pytest.param(PHONE, SAMPLE, m1_by_keyboard, lambda page: page.locator("dialog.dlg-del button.btn-secondary"), False, "3px", id="390x844 M1's Cancel"),
+            pytest.param(PHONE, "{", None, lambda page: page.get_by_role("button", name="Dismiss note", exact=True), False, "-2px", id="390x844 Dismiss note"),
+        ],
+    )
+    def test_R22_focus_rings_on_keyboard_focus(app, viewport, storage, opened, target, on_bead, offset):
+        page = app(viewport=viewport, storage=storage)
+        if opened:
+            opened(page)
+        control = target(page)
+        tab_to(page, control)
+&gt;       assert ring(control.locator("span.bead") if on_bead else control) == [FOCUS_COLOUR, "solid", "2px", offset]
+E       AssertionError: assert ['rgb(237, 23...'2px', '-2px'] == ['rgb(237, 23...'2px', '-2px']
+E         
+E         At index 0 diff: 'rgb(237, 238, 241)' != 'rgb(237, 238, 240)'
+E         Use -v to get more diff
+
+tests\browser\test_platform.py:311: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R22_focus_rings_on_keyboard_focus[390x844 P2's Delete habit]" time="0.240"><failure message="AssertionError: assert ['rgb(237, 23... '2px', '2px'] == ['rgb(237, 23... '2px', '2px']&#10;  &#10;  At index 0 diff: 'rgb(237, 238, 241)' != 'rgb(237, 238, 240)'&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001D2BAAFAF00&gt;
+viewport = (390, 844)
+storage = '{"version":1,"habits":[{"name":"Read 20 pages","done":["2025-10-10","2025-10-11","2025-10-12","2025-10-13","2025-10-1...026-09-29","2026-09-30","2026-10-02","2026-10-03","2026-10-04","2026-10-05","2026-10-06","2026-10-07","2026-10-08"]}]}'
+opened = &lt;function p2_by_keyboard at 0x000001D2B804B1C0&gt;
+target = &lt;function &lt;lambda&gt; at 0x000001D2B804B8A0&gt;, on_bead = False
+offset = '2px'
+
+    @pytest.mark.parametrize(
+        "viewport, storage, opened, target, on_bead, offset",
+        [
+            pytest.param(PHONE, SAMPLE, None, lambda page: page.locator("button.ov-btn"), False, "2px", id="390x844 Overview"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: year_btn(page, READ), False, "2px", id="390x844 Year view, Read"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: done_btn(page, READ), False, "2px", id="390x844 Done today, Read"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: page.locator("#nh"), False, "2px", id="390x844 the field"),
+            pytest.param(PHONE, SAMPLE, None, add_button, False, "3px", id="390x844 Add"),
+            pytest.param(DESKTOP, SAMPLE, None, lambda page: page.locator("section.band button.btn-all"), False, "2px", id="1280x800 the band's Year"),
+            pytest.param(
+                DESKTOP, SAMPLE, None,
+                lambda page: page.locator("section.band").get_by_role("button", name="Mon 20 Jul, 2 of 3 habits", exact=True),
+                False, "-2px", id="1280x800 the band's Mon 20 Jul",
+            ),
+            pytest.param(PHONE, SAMPLE, p2_by_keyboard, lambda page: page.locator("dialog.dlg-year button.icon-btn"), False, "-2px", id="390x844 P2's Close"),
+            pytest.param(PHONE, SAMPLE, p2_by_keyboard, lambda page: page.locator("dialog.dlg-year button.btn-del"), False, "2px", id="390x844 P2's Delete habit"),
+            pytest.param(
+                PHONE, SAMPLE, p2_by_keyboard,
+                lambda page: page.get_by_role("button", name="Mark Thu 1 Oct 2026 as done", exact=True),
+                True, "3px", id="390x844 the bead Thu 1 Oct 2026",
+            ),
+            pytest.param(DESKTOP, SAMPLE, p1_by_keyboard, lambda page: tick(page, STRETCH), False, "-2px", id="1280x800 P1's tick Stretch"),
+            pytest.param(PHONE, SAMPLE, m1_by_keyboard, lambda page: page.locator("dialog.dlg-del button.btn-secondary"), False, "3px", id="390x844 M1's Cancel"),
+            pytest.param(PHONE, "{", None, lambda page: page.get_by_role("button", name="Dismiss note", exact=True), False, "-2px", id="390x844 Dismiss note"),
+        ],
+    )
+    def test_R22_focus_rings_on_keyboard_focus(app, viewport, storage, opened, target, on_bead, offset):
+        page = app(viewport=viewport, storage=storage)
+        if opened:
+            opened(page)
+        control = target(page)
+        tab_to(page, control)
+&gt;       assert ring(control.locator("span.bead") if on_bead else control) == [FOCUS_COLOUR, "solid", "2px", offset]
+E       AssertionError: assert ['rgb(237, 23... '2px', '2px'] == ['rgb(237, 23... '2px', '2px']
+E         
+E         At index 0 diff: 'rgb(237, 238, 241)' != 'rgb(237, 238, 240)'
+E         Use -v to get more diff
+
+tests\browser\test_platform.py:311: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R22_focus_rings_on_keyboard_focus[390x844 the bead Thu 1 Oct 2026]" time="0.322"><failure message="AssertionError: assert ['rgb(237, 23... '2px', '3px'] == ['rgb(237, 23... '2px', '3px']&#10;  &#10;  At index 0 diff: 'rgb(237, 238, 241)' != 'rgb(237, 238, 240)'&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001D2BABBF270&gt;
+viewport = (390, 844)
+storage = '{"version":1,"habits":[{"name":"Read 20 pages","done":["2025-10-10","2025-10-11","2025-10-12","2025-10-13","2025-10-1...026-09-29","2026-09-30","2026-10-02","2026-10-03","2026-10-04","2026-10-05","2026-10-06","2026-10-07","2026-10-08"]}]}'
+opened = &lt;function p2_by_keyboard at 0x000001D2B804B1C0&gt;
+target = &lt;function &lt;lambda&gt; at 0x000001D2B804B950&gt;, on_bead = True
+offset = '3px'
+
+    @pytest.mark.parametrize(
+        "viewport, storage, opened, target, on_bead, offset",
+        [
+            pytest.param(PHONE, SAMPLE, None, lambda page: page.locator("button.ov-btn"), False, "2px", id="390x844 Overview"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: year_btn(page, READ), False, "2px", id="390x844 Year view, Read"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: done_btn(page, READ), False, "2px", id="390x844 Done today, Read"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: page.locator("#nh"), False, "2px", id="390x844 the field"),
+            pytest.param(PHONE, SAMPLE, None, add_button, False, "3px", id="390x844 Add"),
+            pytest.param(DESKTOP, SAMPLE, None, lambda page: page.locator("section.band button.btn-all"), False, "2px", id="1280x800 the band's Year"),
+            pytest.param(
+                DESKTOP, SAMPLE, None,
+                lambda page: page.locator("section.band").get_by_role("button", name="Mon 20 Jul, 2 of 3 habits", exact=True),
+                False, "-2px", id="1280x800 the band's Mon 20 Jul",
+            ),
+            pytest.param(PHONE, SAMPLE, p2_by_keyboard, lambda page: page.locator("dialog.dlg-year button.icon-btn"), False, "-2px", id="390x844 P2's Close"),
+            pytest.param(PHONE, SAMPLE, p2_by_keyboard, lambda page: page.locator("dialog.dlg-year button.btn-del"), False, "2px", id="390x844 P2's Delete habit"),
+            pytest.param(
+                PHONE, SAMPLE, p2_by_keyboard,
+                lambda page: page.get_by_role("button", name="Mark Thu 1 Oct 2026 as done", exact=True),
+                True, "3px", id="390x844 the bead Thu 1 Oct 2026",
+            ),
+            pytest.param(DESKTOP, SAMPLE, p1_by_keyboard, lambda page: tick(page, STRETCH), False, "-2px", id="1280x800 P1's tick Stretch"),
+            pytest.param(PHONE, SAMPLE, m1_by_keyboard, lambda page: page.locator("dialog.dlg-del button.btn-secondary"), False, "3px", id="390x844 M1's Cancel"),
+            pytest.param(PHONE, "{", None, lambda page: page.get_by_role("button", name="Dismiss note", exact=True), False, "-2px", id="390x844 Dismiss note"),
+        ],
+    )
+    def test_R22_focus_rings_on_keyboard_focus(app, viewport, storage, opened, target, on_bead, offset):
+        page = app(viewport=viewport, storage=storage)
+        if opened:
+            opened(page)
+        control = target(page)
+        tab_to(page, control)
+&gt;       assert ring(control.locator("span.bead") if on_bead else control) == [FOCUS_COLOUR, "solid", "2px", offset]
+E       AssertionError: assert ['rgb(237, 23... '2px', '3px'] == ['rgb(237, 23... '2px', '3px']
+E         
+E         At index 0 diff: 'rgb(237, 238, 241)' != 'rgb(237, 238, 240)'
+E         Use -v to get more diff
+
+tests\browser\test_platform.py:311: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R22_focus_rings_on_keyboard_focus[1280x800 P1's tick Stretch]" time="1.070"><failure message="AssertionError: assert ['rgb(237, 23...'2px', '-2px'] == ['rgb(237, 23...'2px', '-2px']&#10;  &#10;  At index 0 diff: 'rgb(237, 238, 241)' != 'rgb(237, 238, 240)'&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001D2BABBF110&gt;
+viewport = (1280, 800)
+storage = '{"version":1,"habits":[{"name":"Read 20 pages","done":["2025-10-10","2025-10-11","2025-10-12","2025-10-13","2025-10-1...026-09-29","2026-09-30","2026-10-02","2026-10-03","2026-10-04","2026-10-05","2026-10-06","2026-10-07","2026-10-08"]}]}'
+opened = &lt;function p1_by_keyboard at 0x000001D2B804B270&gt;
+target = &lt;function &lt;lambda&gt; at 0x000001D2B804BA00&gt;, on_bead = False
+offset = '-2px'
+
+    @pytest.mark.parametrize(
+        "viewport, storage, opened, target, on_bead, offset",
+        [
+            pytest.param(PHONE, SAMPLE, None, lambda page: page.locator("button.ov-btn"), False, "2px", id="390x844 Overview"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: year_btn(page, READ), False, "2px", id="390x844 Year view, Read"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: done_btn(page, READ), False, "2px", id="390x844 Done today, Read"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: page.locator("#nh"), False, "2px", id="390x844 the field"),
+            pytest.param(PHONE, SAMPLE, None, add_button, False, "3px", id="390x844 Add"),
+            pytest.param(DESKTOP, SAMPLE, None, lambda page: page.locator("section.band button.btn-all"), False, "2px", id="1280x800 the band's Year"),
+            pytest.param(
+                DESKTOP, SAMPLE, None,
+                lambda page: page.locator("section.band").get_by_role("button", name="Mon 20 Jul, 2 of 3 habits", exact=True),
+                False, "-2px", id="1280x800 the band's Mon 20 Jul",
+            ),
+            pytest.param(PHONE, SAMPLE, p2_by_keyboard, lambda page: page.locator("dialog.dlg-year button.icon-btn"), False, "-2px", id="390x844 P2's Close"),
+            pytest.param(PHONE, SAMPLE, p2_by_keyboard, lambda page: page.locator("dialog.dlg-year button.btn-del"), False, "2px", id="390x844 P2's Delete habit"),
+            pytest.param(
+                PHONE, SAMPLE, p2_by_keyboard,
+                lambda page: page.get_by_role("button", name="Mark Thu 1 Oct 2026 as done", exact=True),
+                True, "3px", id="390x844 the bead Thu 1 Oct 2026",
+            ),
+            pytest.param(DESKTOP, SAMPLE, p1_by_keyboard, lambda page: tick(page, STRETCH), False, "-2px", id="1280x800 P1's tick Stretch"),
+            pytest.param(PHONE, SAMPLE, m1_by_keyboard, lambda page: page.locator("dialog.dlg-del button.btn-secondary"), False, "3px", id="390x844 M1's Cancel"),
+            pytest.param(PHONE, "{", None, lambda page: page.get_by_role("button", name="Dismiss note", exact=True), False, "-2px", id="390x844 Dismiss note"),
+        ],
+    )
+    def test_R22_focus_rings_on_keyboard_focus(app, viewport, storage, opened, target, on_bead, offset):
+        page = app(viewport=viewport, storage=storage)
+        if opened:
+            opened(page)
+        control = target(page)
+        tab_to(page, control)
+&gt;       assert ring(control.locator("span.bead") if on_bead else control) == [FOCUS_COLOUR, "solid", "2px", offset]
+E       AssertionError: assert ['rgb(237, 23...'2px', '-2px'] == ['rgb(237, 23...'2px', '-2px']
+E         
+E         At index 0 diff: 'rgb(237, 238, 241)' != 'rgb(237, 238, 240)'
+E         Use -v to get more diff
+
+tests\browser\test_platform.py:311: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R22_focus_rings_on_keyboard_focus[390x844 M1's Cancel]" time="0.210"><failure message="AssertionError: assert ['rgb(237, 23... '2px', '3px'] == ['rgb(237, 23... '2px', '3px']&#10;  &#10;  At index 0 diff: 'rgb(237, 238, 241)' != 'rgb(237, 238, 240)'&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001D2BAD7FED0&gt;
+viewport = (390, 844)
+storage = '{"version":1,"habits":[{"name":"Read 20 pages","done":["2025-10-10","2025-10-11","2025-10-12","2025-10-13","2025-10-1...026-09-29","2026-09-30","2026-10-02","2026-10-03","2026-10-04","2026-10-05","2026-10-06","2026-10-07","2026-10-08"]}]}'
+opened = &lt;function m1_by_keyboard at 0x000001D2B804B320&gt;
+target = &lt;function &lt;lambda&gt; at 0x000001D2B804BAB0&gt;, on_bead = False
+offset = '3px'
+
+    @pytest.mark.parametrize(
+        "viewport, storage, opened, target, on_bead, offset",
+        [
+            pytest.param(PHONE, SAMPLE, None, lambda page: page.locator("button.ov-btn"), False, "2px", id="390x844 Overview"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: year_btn(page, READ), False, "2px", id="390x844 Year view, Read"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: done_btn(page, READ), False, "2px", id="390x844 Done today, Read"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: page.locator("#nh"), False, "2px", id="390x844 the field"),
+            pytest.param(PHONE, SAMPLE, None, add_button, False, "3px", id="390x844 Add"),
+            pytest.param(DESKTOP, SAMPLE, None, lambda page: page.locator("section.band button.btn-all"), False, "2px", id="1280x800 the band's Year"),
+            pytest.param(
+                DESKTOP, SAMPLE, None,
+                lambda page: page.locator("section.band").get_by_role("button", name="Mon 20 Jul, 2 of 3 habits", exact=True),
+                False, "-2px", id="1280x800 the band's Mon 20 Jul",
+            ),
+            pytest.param(PHONE, SAMPLE, p2_by_keyboard, lambda page: page.locator("dialog.dlg-year button.icon-btn"), False, "-2px", id="390x844 P2's Close"),
+            pytest.param(PHONE, SAMPLE, p2_by_keyboard, lambda page: page.locator("dialog.dlg-year button.btn-del"), False, "2px", id="390x844 P2's Delete habit"),
+            pytest.param(
+                PHONE, SAMPLE, p2_by_keyboard,
+                lambda page: page.get_by_role("button", name="Mark Thu 1 Oct 2026 as done", exact=True),
+                True, "3px", id="390x844 the bead Thu 1 Oct 2026",
+            ),
+            pytest.param(DESKTOP, SAMPLE, p1_by_keyboard, lambda page: tick(page, STRETCH), False, "-2px", id="1280x800 P1's tick Stretch"),
+            pytest.param(PHONE, SAMPLE, m1_by_keyboard, lambda page: page.locator("dialog.dlg-del button.btn-secondary"), False, "3px", id="390x844 M1's Cancel"),
+            pytest.param(PHONE, "{", None, lambda page: page.get_by_role("button", name="Dismiss note", exact=True), False, "-2px", id="390x844 Dismiss note"),
+        ],
+    )
+    def test_R22_focus_rings_on_keyboard_focus(app, viewport, storage, opened, target, on_bead, offset):
+        page = app(viewport=viewport, storage=storage)
+        if opened:
+            opened(page)
+        control = target(page)
+        tab_to(page, control)
+&gt;       assert ring(control.locator("span.bead") if on_bead else control) == [FOCUS_COLOUR, "solid", "2px", offset]
+E       AssertionError: assert ['rgb(237, 23... '2px', '3px'] == ['rgb(237, 23... '2px', '3px']
+E         
+E         At index 0 diff: 'rgb(237, 238, 241)' != 'rgb(237, 238, 240)'
+E         Use -v to get more diff
+
+tests\browser\test_platform.py:311: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R22_focus_rings_on_keyboard_focus[390x844 Dismiss note]" time="0.205"><failure message="AssertionError: assert ['rgb(237, 23...'2px', '-2px'] == ['rgb(237, 23...'2px', '-2px']&#10;  &#10;  At index 0 diff: 'rgb(237, 238, 241)' != 'rgb(237, 238, 240)'&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001D2BAD7E4B0&gt;
+viewport = (390, 844), storage = '{', opened = None
+target = &lt;function &lt;lambda&gt; at 0x000001D2B804BB60&gt;, on_bead = False
+offset = '-2px'
+
+    @pytest.mark.parametrize(
+        "viewport, storage, opened, target, on_bead, offset",
+        [
+            pytest.param(PHONE, SAMPLE, None, lambda page: page.locator("button.ov-btn"), False, "2px", id="390x844 Overview"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: year_btn(page, READ), False, "2px", id="390x844 Year view, Read"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: done_btn(page, READ), False, "2px", id="390x844 Done today, Read"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: page.locator("#nh"), False, "2px", id="390x844 the field"),
+            pytest.param(PHONE, SAMPLE, None, add_button, False, "3px", id="390x844 Add"),
+            pytest.param(DESKTOP, SAMPLE, None, lambda page: page.locator("section.band button.btn-all"), False, "2px", id="1280x800 the band's Year"),
+            pytest.param(
+                DESKTOP, SAMPLE, None,
+                lambda page: page.locator("section.band").get_by_role("button", name="Mon 20 Jul, 2 of 3 habits", exact=True),
+                False, "-2px", id="1280x800 the band's Mon 20 Jul",
+            ),
+            pytest.param(PHONE, SAMPLE, p2_by_keyboard, lambda page: page.locator("dialog.dlg-year button.icon-btn"), False, "-2px", id="390x844 P2's Close"),
+            pytest.param(PHONE, SAMPLE, p2_by_keyboard, lambda page: page.locator("dialog.dlg-year button.btn-del"), False, "2px", id="390x844 P2's Delete habit"),
+            pytest.param(
+                PHONE, SAMPLE, p2_by_keyboard,
+                lambda page: page.get_by_role("button", name="Mark Thu 1 Oct 2026 as done", exact=True),
+                True, "3px", id="390x844 the bead Thu 1 Oct 2026",
+            ),
+            pytest.param(DESKTOP, SAMPLE, p1_by_keyboard, lambda page: tick(page, STRETCH), False, "-2px", id="1280x800 P1's tick Stretch"),
+            pytest.param(PHONE, SAMPLE, m1_by_keyboard, lambda page: page.locator("dialog.dlg-del button.btn-secondary"), False, "3px", id="390x844 M1's Cancel"),
+            pytest.param(PHONE, "{", None, lambda page: page.get_by_role("button", name="Dismiss note", exact=True), False, "-2px", id="390x844 Dismiss note"),
+        ],
+    )
+    def test_R22_focus_rings_on_keyboard_focus(app, viewport, storage, opened, target, on_bead, offset):
+        page = app(viewport=viewport, storage=storage)
+        if opened:
+            opened(page)
+        control = target(page)
+        tab_to(page, control)
+&gt;       assert ring(control.locator("span.bead") if on_bead else control) == [FOCUS_COLOUR, "solid", "2px", offset]
+E       AssertionError: assert ['rgb(237, 23...'2px', '-2px'] == ['rgb(237, 23...'2px', '-2px']
+E         
+E         At index 0 diff: 'rgb(237, 238, 241)' != 'rgb(237, 238, 240)'
+E         Use -v to get more diff
+
+tests\browser\test_platform.py:311: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R22_a_focused_bin_shows_its_glyph_in_the_danger_colour_and_a_focused_bead_has_no_ring_of_its_own" time="0.178"><failure message="AssertionError: assert ['rgb(237, 23...'2px', '-2px'] == ['rgb(237, 23...'2px', '-2px']&#10;  &#10;  At index 0 diff: 'rgb(237, 238, 241)' != 'rgb(237, 238, 240)'&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001D2BAD89C70&gt;
+
+    def test_R22_a_focused_bin_shows_its_glyph_in_the_danger_colour_and_a_focused_bead_has_no_ring_of_its_own(app):
+        page = app(viewport=PHONE, storage=SAMPLE)
+        read_bin = bin_btn(page, READ)
+        tab_to(page, read_bin)
+&gt;       assert ring(read_bin) == [FOCUS_COLOUR, "solid", "2px", "-2px"]
+E       AssertionError: assert ['rgb(237, 23...'2px', '-2px'] == ['rgb(237, 23...'2px', '-2px']
+E         
+E         At index 0 diff: 'rgb(237, 238, 241)' != 'rgb(237, 238, 240)'
+E         Use -v to get more diff
+
+tests\browser\test_platform.py:318: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R22_a_mouse_click_draws_no_ring" time="0.184"><failure message="AssertionError: assert [False, 'solid'] == [False, 'none']&#10;  &#10;  At index 1 diff: 'solid' != 'none'&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001D2BB2005C0&gt;
+engine = 'chromium'
+
+    def test_R22_a_mouse_click_draws_no_ring(app, engine):
+        page = app(storage=SAMPLE)
+        button = done_btn(page, STRETCH)
+        button.click()
+        expect(button).to_have_attribute("aria-pressed", "true")
+&gt;       assert button.evaluate("(node) =&gt; [node.matches(':focus-visible'), getComputedStyle(node).outlineStyle]") == [False, "none"]
+E       AssertionError: assert [False, 'solid'] == [False, 'none']
+E         
+E         At index 1 diff: 'solid' != 'none'
+E         Use -v to get more diff
+
+tests\browser\test_platform.py:332: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R22_R40_every_popup_can_be_used_with_the_keyboard_alone" time="0.391" /><testcase classname="tests.browser.test_platform" name="test_R23_transitions_without_reduced_motion" time="0.174"><failure message="AssertionError: assert {'button.btn-...'0.18s'}, ...} == {'button.btn-...'0.17s'}, ...}&#10;  &#10;  Differing items:&#10;  {'#add-btn': {'0.18s, 0.12s'}} != {'#add-btn': {'0.17s, 0.12s'}}&#10;  {'button.ov-btn': {'0.18s, 0.12s'}} != {'button.ov-btn': {'0.17s, 0.12s'}}&#10;  {'button.btn-year': {'0.18s, 0.18s, 0.18s, 0.12s'}} != {'button.btn-year': {'0.17s, 0.17s, 0.17s, 0.12s'}}&#10;  {'button.btn-bin': {'0.18s, 0.18s, 0.12s'}} != {'button.btn-bin': {'0.17s, 0.17s, 0.12s'}}&#10;  {'button.hc': {'0.18s'}} != {'button.hc': {'0.17s'}}&#10;  {'button.btn-done': {'0.18s, 0.18s, 0.18s, 0.12s'}} != {'button.btn-done': {'0.17s, 0.17s, 0.17s, 0.12s'}}&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001D2BB3092D0&gt;
+
+    def test_R23_transitions_without_reduced_motion(app):
+        page = app(viewport=DESKTOP, storage=SAMPLE)
+        assert page.evaluate("() =&gt; document.getAnimations().map((animation) =&gt; animation.constructor.name)") == [], "something moved on load"
+        found = {
+            selector: transition_durations(page.locator(selector))
+            for selector in ("button.btn-done", "button.btn-year", "button.btn-bin", "button.hc", "button.ov-btn", "#add-btn")
+        }
+&gt;       assert found == {
+            "button.btn-done": {"0.17s, 0.17s, 0.17s, 0.12s"},
+            "button.btn-year": {"0.17s, 0.17s, 0.17s, 0.12s"},
+            "button.btn-bin": {"0.17s, 0.17s, 0.12s"},
+            "button.hc": {"0.17s"},
+            "button.ov-btn": {"0.17s, 0.12s"},
+            "#add-btn": {"0.17s, 0.12s"},
+        }
+E       AssertionError: assert {'button.btn-...'0.18s'}, ...} == {'button.btn-...'0.17s'}, ...}
+E         
+E         Differing items:
+E         {'#add-btn': {'0.18s, 0.12s'}} != {'#add-btn': {'0.17s, 0.12s'}}
+E         {'button.ov-btn': {'0.18s, 0.12s'}} != {'button.ov-btn': {'0.17s, 0.12s'}}
+E         {'button.btn-year': {'0.18s, 0.18s, 0.18s, 0.12s'}} != {'button.btn-year': {'0.17s, 0.17s, 0.17s, 0.12s'}}
+E         {'button.btn-bin': {'0.18s, 0.18s, 0.12s'}} != {'button.btn-bin': {'0.17s, 0.17s, 0.12s'}}
+E         {'button.hc': {'0.18s'}} != {'button.hc': {'0.17s'}}
+E         {'button.btn-done': {'0.18s, 0.18s, 0.18s, 0.12s'}} != {'button.btn-done': {'0.17s, 0.17s, 0.17s, 0.12s'}}
+E         Use -v to get more diff
+
+tests\browser\test_platform.py:383: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R23_popups_rise_and_backdrops_fade[390x844 P2 for Read]" time="0.231"><failure message="AssertionError: assert ['rise', '0.2...ade', '0.19s'] == ['rise', '0.2...ade', '0.18s']&#10;  &#10;  At index 1 diff: '0.23s' != '0.22s'&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001D2BB30A820&gt;
+viewport = (390, 844)
+opened = &lt;function open_p2_for_read at 0x000001D2B804A560&gt;, dialog = 'dlg-year'
+name = 'rise', duration = '0.22s'
+
+    @pytest.mark.parametrize(
+        "viewport, opened, dialog, name, duration",
+        [
+            pytest.param(PHONE, open_p2_for_read, "dlg-year", "rise", "0.22s", id="390x844 P2 for Read"),
+            pytest.param(PHONE, open_p3, "dlg-ov", "rise", "0.22s", id="390x844 P3"),
+            pytest.param(DESKTOP, open_p4_from_the_band, "dlg-all", "rise", "0.22s", id="1280x800 P4 from the band's Year"),
+            pytest.param(DESKTOP, open_p1_from_the_band, "dlg-day", "sheet", "0.26s", id="1280x800 P1 for 2026-09-22 from the band"),
+            pytest.param(PHONE, open_m1_from_read, "dlg-del", "rise", "0.22s", id="390x844 M1"),
+        ],
+    )
+    def test_R23_popups_rise_and_backdrops_fade(app, viewport, opened, dialog, name, duration):
+        page = app(viewport=viewport, storage=SAMPLE)
+        opened(page)
+        motion = page.locator(f"dialog.{dialog}").evaluate(
+            """(dialog) =&gt; {
+      const box = getComputedStyle(dialog.querySelector(':scope &gt; div.dlg-box'));
+      const backdrop = getComputedStyle(dialog, '::backdrop');
+      return [box.animationName, box.animationDuration, backdrop.animationName, backdrop.animationDuration];
+    }"""
+        )
+&gt;       assert motion == [name, duration, "fade", "0.18s"]
+E       AssertionError: assert ['rise', '0.2...ade', '0.19s'] == ['rise', '0.2...ade', '0.18s']
+E         
+E         At index 1 diff: '0.23s' != '0.22s'
+E         Use -v to get more diff
+
+tests\browser\test_platform.py:419: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R23_popups_rise_and_backdrops_fade[390x844 P3]" time="0.211"><failure message="AssertionError: assert ['rise', '0.2...ade', '0.19s'] == ['rise', '0.2...ade', '0.18s']&#10;  &#10;  At index 1 diff: '0.23s' != '0.22s'&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001D2BB308670&gt;
+viewport = (390, 844), opened = &lt;function open_p3 at 0x000001D2B804A1F0&gt;
+dialog = 'dlg-ov', name = 'rise', duration = '0.22s'
+
+    @pytest.mark.parametrize(
+        "viewport, opened, dialog, name, duration",
+        [
+            pytest.param(PHONE, open_p2_for_read, "dlg-year", "rise", "0.22s", id="390x844 P2 for Read"),
+            pytest.param(PHONE, open_p3, "dlg-ov", "rise", "0.22s", id="390x844 P3"),
+            pytest.param(DESKTOP, open_p4_from_the_band, "dlg-all", "rise", "0.22s", id="1280x800 P4 from the band's Year"),
+            pytest.param(DESKTOP, open_p1_from_the_band, "dlg-day", "sheet", "0.26s", id="1280x800 P1 for 2026-09-22 from the band"),
+            pytest.param(PHONE, open_m1_from_read, "dlg-del", "rise", "0.22s", id="390x844 M1"),
+        ],
+    )
+    def test_R23_popups_rise_and_backdrops_fade(app, viewport, opened, dialog, name, duration):
+        page = app(viewport=viewport, storage=SAMPLE)
+        opened(page)
+        motion = page.locator(f"dialog.{dialog}").evaluate(
+            """(dialog) =&gt; {
+      const box = getComputedStyle(dialog.querySelector(':scope &gt; div.dlg-box'));
+      const backdrop = getComputedStyle(dialog, '::backdrop');
+      return [box.animationName, box.animationDuration, backdrop.animationName, backdrop.animationDuration];
+    }"""
+        )
+&gt;       assert motion == [name, duration, "fade", "0.18s"]
+E       AssertionError: assert ['rise', '0.2...ade', '0.19s'] == ['rise', '0.2...ade', '0.18s']
+E         
+E         At index 1 diff: '0.23s' != '0.22s'
+E         Use -v to get more diff
+
+tests\browser\test_platform.py:419: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R23_popups_rise_and_backdrops_fade[1280x800 P4 from the band's Year]" time="0.226"><failure message="AssertionError: assert ['rise', '0.2...ade', '0.19s'] == ['rise', '0.2...ade', '0.18s']&#10;  &#10;  At index 1 diff: '0.23s' != '0.22s'&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001D2BB30B480&gt;
+viewport = (1280, 800)
+opened = &lt;function open_p4_from_the_band at 0x000001D2B804A770&gt;
+dialog = 'dlg-all', name = 'rise', duration = '0.22s'
+
+    @pytest.mark.parametrize(
+        "viewport, opened, dialog, name, duration",
+        [
+            pytest.param(PHONE, open_p2_for_read, "dlg-year", "rise", "0.22s", id="390x844 P2 for Read"),
+            pytest.param(PHONE, open_p3, "dlg-ov", "rise", "0.22s", id="390x844 P3"),
+            pytest.param(DESKTOP, open_p4_from_the_band, "dlg-all", "rise", "0.22s", id="1280x800 P4 from the band's Year"),
+            pytest.param(DESKTOP, open_p1_from_the_band, "dlg-day", "sheet", "0.26s", id="1280x800 P1 for 2026-09-22 from the band"),
+            pytest.param(PHONE, open_m1_from_read, "dlg-del", "rise", "0.22s", id="390x844 M1"),
+        ],
+    )
+    def test_R23_popups_rise_and_backdrops_fade(app, viewport, opened, dialog, name, duration):
+        page = app(viewport=viewport, storage=SAMPLE)
+        opened(page)
+        motion = page.locator(f"dialog.{dialog}").evaluate(
+            """(dialog) =&gt; {
+      const box = getComputedStyle(dialog.querySelector(':scope &gt; div.dlg-box'));
+      const backdrop = getComputedStyle(dialog, '::backdrop');
+      return [box.animationName, box.animationDuration, backdrop.animationName, backdrop.animationDuration];
+    }"""
+        )
+&gt;       assert motion == [name, duration, "fade", "0.18s"]
+E       AssertionError: assert ['rise', '0.2...ade', '0.19s'] == ['rise', '0.2...ade', '0.18s']
+E         
+E         At index 1 diff: '0.23s' != '0.22s'
+E         Use -v to get more diff
+
+tests\browser\test_platform.py:419: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R23_popups_rise_and_backdrops_fade[1280x800 P1 for 2026-09-22 from the band]" time="0.191"><failure message="AssertionError: assert ['sheet', '0....ade', '0.19s'] == ['sheet', '0....ade', '0.18s']&#10;  &#10;  At index 1 diff: '0.27s' != '0.26s'&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001D2BB612DA0&gt;
+viewport = (1280, 800)
+opened = &lt;function open_p1_from_the_band at 0x000001D2B804A820&gt;
+dialog = 'dlg-day', name = 'sheet', duration = '0.26s'
+
+    @pytest.mark.parametrize(
+        "viewport, opened, dialog, name, duration",
+        [
+            pytest.param(PHONE, open_p2_for_read, "dlg-year", "rise", "0.22s", id="390x844 P2 for Read"),
+            pytest.param(PHONE, open_p3, "dlg-ov", "rise", "0.22s", id="390x844 P3"),
+            pytest.param(DESKTOP, open_p4_from_the_band, "dlg-all", "rise", "0.22s", id="1280x800 P4 from the band's Year"),
+            pytest.param(DESKTOP, open_p1_from_the_band, "dlg-day", "sheet", "0.26s", id="1280x800 P1 for 2026-09-22 from the band"),
+            pytest.param(PHONE, open_m1_from_read, "dlg-del", "rise", "0.22s", id="390x844 M1"),
+        ],
+    )
+    def test_R23_popups_rise_and_backdrops_fade(app, viewport, opened, dialog, name, duration):
+        page = app(viewport=viewport, storage=SAMPLE)
+        opened(page)
+        motion = page.locator(f"dialog.{dialog}").evaluate(
+            """(dialog) =&gt; {
+      const box = getComputedStyle(dialog.querySelector(':scope &gt; div.dlg-box'));
+      const backdrop = getComputedStyle(dialog, '::backdrop');
+      return [box.animationName, box.animationDuration, backdrop.animationName, backdrop.animationDuration];
+    }"""
+        )
+&gt;       assert motion == [name, duration, "fade", "0.18s"]
+E       AssertionError: assert ['sheet', '0....ade', '0.19s'] == ['sheet', '0....ade', '0.18s']
+E         
+E         At index 1 diff: '0.27s' != '0.26s'
+E         Use -v to get more diff
+
+tests\browser\test_platform.py:419: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R23_popups_rise_and_backdrops_fade[390x844 M1]" time="0.188"><failure message="AssertionError: assert ['rise', '0.2...ade', '0.19s'] == ['rise', '0.2...ade', '0.18s']&#10;  &#10;  At index 1 diff: '0.23s' != '0.22s'&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001D2BB612350&gt;
+viewport = (390, 844)
+opened = &lt;function open_m1_from_read at 0x000001D2B804A6C0&gt;, dialog = 'dlg-del'
+name = 'rise', duration = '0.22s'
+
+    @pytest.mark.parametrize(
+        "viewport, opened, dialog, name, duration",
+        [
+            pytest.param(PHONE, open_p2_for_read, "dlg-year", "rise", "0.22s", id="390x844 P2 for Read"),
+            pytest.param(PHONE, open_p3, "dlg-ov", "rise", "0.22s", id="390x844 P3"),
+            pytest.param(DESKTOP, open_p4_from_the_band, "dlg-all", "rise", "0.22s", id="1280x800 P4 from the band's Year"),
+            pytest.param(DESKTOP, open_p1_from_the_band, "dlg-day", "sheet", "0.26s", id="1280x800 P1 for 2026-09-22 from the band"),
+            pytest.param(PHONE, open_m1_from_read, "dlg-del", "rise", "0.22s", id="390x844 M1"),
+        ],
+    )
+    def test_R23_popups_rise_and_backdrops_fade(app, viewport, opened, dialog, name, duration):
+        page = app(viewport=viewport, storage=SAMPLE)
+        opened(page)
+        motion = page.locator(f"dialog.{dialog}").evaluate(
+            """(dialog) =&gt; {
+      const box = getComputedStyle(dialog.querySelector(':scope &gt; div.dlg-box'));
+      const backdrop = getComputedStyle(dialog, '::backdrop');
+      return [box.animationName, box.animationDuration, backdrop.animationName, backdrop.animationDuration];
+    }"""
+        )
+&gt;       assert motion == [name, duration, "fade", "0.18s"]
+E       AssertionError: assert ['rise', '0.2...ade', '0.19s'] == ['rise', '0.2...ade', '0.18s']
+E         
+E         At index 1 diff: '0.23s' != '0.22s'
+E         Use -v to get more diff
+
+tests\browser\test_platform.py:419: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R23_R32_a_change_pops_what_changed_and_bumps_its_number_and_replays_on_the_next_change" time="1.415" /><testcase classname="tests.browser.test_platform" name="test_R23_everything_appears_at_once_under_reduced_motion" time="0.154"><failure message="AssertionError: ['button.ov-btn: 0.18s, 0.12s none', 'button.btn-all: 0.18s, 0.18s, 0.18s, 0.12s none', 'button.hc: 0.18s none', 'button.hc: 0.18s none', 'button.hc: 0.18s none', 'button.hc: 0.18s none', ...]&#10;assert (2238 &gt; 1000 and ['button.ov-b...8s none', ...] == []&#10;  &#10;  Left contains 109 more items, first extra item: 'button.ov-btn: 0.18s, 0.12s none'&#10;  Use -v to get more diff)">app = &lt;function app.&lt;locals&gt;.open_page at 0x000001D2BB510250&gt;
+
+    def test_R23_everything_appears_at_once_under_reduced_motion(app):
+        page = app(viewport=DESKTOP, storage=SAMPLE, reduced_motion="reduce")
+        found = page.evaluate(_MOVING_JS)
+&gt;       assert found["checked"] &gt; 1000 and found["moving"] == [], found["moving"][:10]
+E       AssertionError: ['button.ov-btn: 0.18s, 0.12s none', 'button.btn-all: 0.18s, 0.18s, 0.18s, 0.12s none', 'button.hc: 0.18s none', 'button.hc: 0.18s none', 'button.hc: 0.18s none', 'button.hc: 0.18s none', ...]
+E       assert (2238 &gt; 1000 and ['button.ov-b...8s none', ...] == []
+E         
+E         Left contains 109 more items, first extra item: 'button.ov-btn: 0.18s, 0.12s none'
+E         Use -v to get more diff)
+
+tests\browser\test_platform.py:513: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R24_markup_in_a_name_stays_text_everywhere" time="0.546" /><testcase classname="tests.browser.test_platform" name="test_R24_no_html_sinks_in_the_source" time="0.002" /><testcase classname="tests.browser.test_platform" name="test_R25_every_request_stays_on_the_devices_own_files" time="1.367" /><testcase classname="tests.browser.test_platform" name="test_R25_the_csp_is_in_force" time="0.649" /><testcase classname="tests.browser.test_platform" name="test_R26_no_sample_data_in_the_shipped_files" time="0.002" /><testcase classname="tests.browser.test_platform" name="test_R26_query_strings_and_fragments_do_not_seed[?demo=1]" time="0.124" /><testcase classname="tests.browser.test_platform" name="test_R26_query_strings_and_fragments_do_not_seed[?seed]" time="0.115" /><testcase classname="tests.browser.test_platform" name="test_R26_query_strings_and_fragments_do_not_seed[#sample]" time="0.116" /><testcase classname="tests.browser.test_platform" name="test_R26_no_globals_and_no_hooks" time="0.226" /></testsuite></testsuites>

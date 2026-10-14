@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="14" skipped="0" tests="44" time="39.494" timestamp="2026-10-14T23:05:41.071430+08:00" hostname="{host}"><testcase classname="tests.browser.test_platform" name="test_R21_nothing_scrolls_at_360_pixels_with_a_popup_open[P3]" time="1.098" /><testcase classname="tests.browser.test_platform" name="test_R21_nothing_scrolls_at_360_pixels_with_a_popup_open[P3, then P1 for 2026-09-22]" time="0.487" /><testcase classname="tests.browser.test_platform" name="test_R21_nothing_scrolls_at_360_pixels_with_a_popup_open[P3, then P4 from its Year]" time="0.492" /><testcase classname="tests.browser.test_platform" name="test_R21_nothing_scrolls_at_360_pixels_with_a_popup_open[P2 for Read]" time="0.233" /><testcase classname="tests.browser.test_platform" name="test_R21_nothing_scrolls_at_360_pixels_with_a_popup_open[M1, from 'Delete &quot;Read 20 pages&quot;']" time="0.205" /><testcase classname="tests.browser.test_platform" name="test_R21_sizes_at_360_pixels" time="2.010" /><testcase classname="tests.browser.test_platform" name="test_R21_sizes_at_390_pixels" time="1.176" /><testcase classname="tests.browser.test_platform" name="test_R22_tab_order_on_a_phone" time="0.247"><failure message="AssertionError: assert ['Overview, t...minutes', ...] == ['Overview, t...minutes', ...]&#10;  &#10;  At index 2 diff: 'Done today, Read 20 pages' != 'Year view, Read 20 pages'&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000015D48717CC0&gt;
+
+    def test_R22_tab_order_on_a_phone(app):
+        page = app(viewport=PHONE, storage=SAMPLE)
+&gt;       assert tab_through(page, 12) == ["Overview, today 1 of 3 habits done", *row_controls(READ, STRETCH, NO_PHONE), *COMPOSER]
+E       AssertionError: assert ['Overview, t...minutes', ...] == ['Overview, t...minutes', ...]
+E         
+E         At index 2 diff: 'Done today, Read 20 pages' != 'Year view, Read 20 pages'
+E         Use -v to get more diff
+
+tests\browser\test_platform.py:235: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R22_R35_tab_order_on_a_desktop" time="1.084"><failure message="AssertionError: assert ['Year view, ...6-07-24', ...] == ['Year view, ...6-07-24', ...]&#10;  &#10;  At index 85 diff: 'Done today, Read 20 pages' != 'Year view, Read 20 pages'&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000015D48A17B60&gt;
+
+    def test_R22_R35_tab_order_on_a_desktop(app):
+        page = app(viewport=DESKTOP, storage=SAMPLE)
+        assert BAND_DAYS[-1] == "band 2026-10-10"
+&gt;       assert tab_through(page, 95) == ["Year view, all habits", *BAND_DAYS, *row_controls(READ, STRETCH, NO_PHONE), *COMPOSER]
+E       AssertionError: assert ['Year view, ...6-07-24', ...] == ['Year view, ...6-07-24', ...]
+E         
+E         At index 85 diff: 'Done today, Read 20 pages' != 'Year view, Read 20 pages'
+E         Use -v to get more diff
+
+tests\browser\test_platform.py:241: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R22_R17_tab_order_with_the_note[390x844]" time="0.191"><failure message="AssertionError: assert ['Overview, t...-btn', 'body'] == ['Overview, t...', '#add-btn']&#10;  &#10;  At index 1 diff: '#nh' != 'Dismiss note'&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000015D48F37060&gt;
+viewport = (390, 844), presses = 4
+order = ['Overview, today 0 of 0 habits done', 'Dismiss note', '#nh', '#add-btn']
+
+    @pytest.mark.parametrize(
+        "viewport, presses, order",
+        [
+            pytest.param(PHONE, 4, ["Overview, today 0 of 0 habits done", "Dismiss note", *COMPOSER], id="390x844"),
+            pytest.param(DESKTOP, 87, ["Year view, all habits", *BAND_DAYS, "Dismiss note", *COMPOSER], id="1280x800"),
+        ],
+    )
+    def test_R22_R17_tab_order_with_the_note(app, viewport, presses, order):
+        page = app(viewport=viewport, storage="{")
+&gt;       assert tab_through(page, presses) == order
+E       AssertionError: assert ['Overview, t...-btn', 'body'] == ['Overview, t...', '#add-btn']
+E         
+E         At index 1 diff: '#nh' != 'Dismiss note'
+E         Use -v to get more diff
+
+tests\browser\test_platform.py:253: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R22_R17_tab_order_with_the_note[1280x800]" time="0.956"><failure message="AssertionError: assert ['Year view, ...6-07-24', ...] == ['Year view, ...6-07-24', ...]&#10;  &#10;  At index 84 diff: '#nh' != 'Dismiss note'&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000015D49163C10&gt;
+viewport = (1280, 800), presses = 87
+order = ['Year view, all habits', 'band 2026-07-20', 'band 2026-07-21', 'band 2026-07-22', 'band 2026-07-23', 'band 2026-07-24', ...]
+
+    @pytest.mark.parametrize(
+        "viewport, presses, order",
+        [
+            pytest.param(PHONE, 4, ["Overview, today 0 of 0 habits done", "Dismiss note", *COMPOSER], id="390x844"),
+            pytest.param(DESKTOP, 87, ["Year view, all habits", *BAND_DAYS, "Dismiss note", *COMPOSER], id="1280x800"),
+        ],
+    )
+    def test_R22_R17_tab_order_with_the_note(app, viewport, presses, order):
+        page = app(viewport=viewport, storage="{")
+&gt;       assert tab_through(page, presses) == order
+E       AssertionError: assert ['Year view, ...6-07-24', ...] == ['Year view, ...6-07-24', ...]
+E         
+E         At index 84 diff: '#nh' != 'Dismiss note'
+E         Use -v to get more diff
+
+tests\browser\test_platform.py:253: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R22_focus_rings_on_keyboard_focus[390x844 Overview]" time="0.221" /><testcase classname="tests.browser.test_platform" name="test_R22_focus_rings_on_keyboard_focus[390x844 Year view, Read]" time="0.292" /><testcase classname="tests.browser.test_platform" name="test_R22_focus_rings_on_keyboard_focus[390x844 Done today, Read]" time="0.254" /><testcase classname="tests.browser.test_platform" name="test_R22_focus_rings_on_keyboard_focus[390x844 the field]" time="0.435" /><testcase classname="tests.browser.test_platform" name="test_R22_focus_rings_on_keyboard_focus[390x844 Add]" time="0.390" /><testcase classname="tests.browser.test_platform" name="test_R22_focus_rings_on_keyboard_focus[1280x800 the band's Year]" time="0.231" /><testcase classname="tests.browser.test_platform" name="test_R22_focus_rings_on_keyboard_focus[1280x800 the band's Mon 20 Jul]" time="0.237" /><testcase classname="tests.browser.test_platform" name="test_R22_focus_rings_on_keyboard_focus[390x844 P2's Close]" time="0.296" /><testcase classname="tests.browser.test_platform" name="test_R22_focus_rings_on_keyboard_focus[390x844 P2's Delete habit]" time="0.356" /><testcase classname="tests.browser.test_platform" name="test_R22_focus_rings_on_keyboard_focus[390x844 the bead Thu 1 Oct 2026]" time="0.374" /><testcase classname="tests.browser.test_platform" name="test_R22_focus_rings_on_keyboard_focus[1280x800 P1's tick Stretch]" time="1.338" /><testcase classname="tests.browser.test_platform" name="test_R22_focus_rings_on_keyboard_focus[390x844 M1's Cancel]" time="0.255" /><testcase classname="tests.browser.test_platform" name="test_R22_focus_rings_on_keyboard_focus[390x844 Dismiss note]" time="3.768"><failure message="Failed: &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:22998/'&gt; selector='internal:role=button[name=&quot;Dismiss note&quot;s]'&gt; did not take focus in 200 presses of Tab">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000015D49EEA560&gt;
+viewport = (390, 844), storage = '{', opened = None
+target = &lt;function &lt;lambda&gt; at 0x0000015D46CF7B60&gt;, on_bead = False
+offset = '-2px'
+
+    @pytest.mark.parametrize(
+        "viewport, storage, opened, target, on_bead, offset",
+        [
+            pytest.param(PHONE, SAMPLE, None, lambda page: page.locator("button.ov-btn"), False, "2px", id="390x844 Overview"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: year_btn(page, READ), False, "2px", id="390x844 Year view, Read"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: done_btn(page, READ), False, "2px", id="390x844 Done today, Read"),
+            pytest.param(PHONE, SAMPLE, None, lambda page: page.locator("#nh"), False, "2px", id="390x844 the field"),
+            pytest.param(PHONE, SAMPLE, None, add_button, False, "3px", id="390x844 Add"),
+            pytest.param(DESKTOP, SAMPLE, None, lambda page: page.locator("section.band button.btn-all"), False, "2px", id="1280x800 the band's Year"),
+            pytest.param(
+                DESKTOP, SAMPLE, None,
+                lambda page: page.locator("section.band").get_by_role("button", name="Mon 20 Jul, 2 of 3 habits", exact=True),
+                False, "-2px", id="1280x800 the band's Mon 20 Jul",
+            ),
+            pytest.param(PHONE, SAMPLE, p2_by_keyboard, lambda page: page.locator("dialog.dlg-year button.icon-btn"), False, "-2px", id="390x844 P2's Close"),
+            pytest.param(PHONE, SAMPLE, p2_by_keyboard, lambda page: page.locator("dialog.dlg-year button.btn-del"), False, "2px", id="390x844 P2's Delete habit"),
+            pytest.param(
+                PHONE, SAMPLE, p2_by_keyboard,
+                lambda page: page.get_by_role("button", name="Mark Thu 1 Oct 2026 as done", exact=True),
+                True, "3px", id="390x844 the bead Thu 1 Oct 2026",
+            ),
+            pytest.param(DESKTOP, SAMPLE, p1_by_keyboard, lambda page: tick(page, STRETCH), False, "-2px", id="1280x800 P1's tick Stretch"),
+            pytest.param(PHONE, SAMPLE, m1_by_keyboard, lambda page: page.locator("dialog.dlg-del button.btn-secondary"), False, "3px", id="390x844 M1's Cancel"),
+            pytest.param(PHONE, "{", None, lambda page: page.get_by_role("button", name="Dismiss note", exact=True), False, "-2px", id="390x844 Dismiss note"),
+        ],
+    )
+    def test_R22_focus_rings_on_keyboard_focus(app, viewport, storage, opened, target, on_bead, offset):
+        page = app(viewport=viewport, storage=storage)
+        if opened:
+            opened(page)
+        control = target(page)
+&gt;       tab_to(page, control)
+
+tests\browser\test_platform.py:310: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+page = &lt;Page url='http://127.0.0.1:22998/'&gt;
+target = &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:22998/'&gt; selector='internal:role=button[name="Dismiss note"s]'&gt;
+limit = 200
+
+    def tab_to(page, target, limit=200):
+        """Press Tab until the locator `target` has focus. Fails after `limit` presses. Raw keys, so it works under a
+        paused clock."""
+        for _ in range(limit):
+            if target.evaluate("(node) =&gt; node === document.activeElement"):
+                return
+            page.keyboard.press("Tab")
+&gt;       pytest.fail(f"{target} did not take focus in {limit} presses of Tab")
+E       Failed: &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:22998/'&gt; selector='internal:role=button[name="Dismiss note"s]'&gt; did not take focus in 200 presses of Tab
+
+tests\browser\conftest.py:734: Failed</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R22_a_focused_bin_shows_its_glyph_in_the_danger_colour_and_a_focused_bead_has_no_ring_of_its_own" time="0.652" /><testcase classname="tests.browser.test_platform" name="test_R22_a_mouse_click_draws_no_ring" time="0.231" /><testcase classname="tests.browser.test_platform" name="test_R22_R40_every_popup_can_be_used_with_the_keyboard_alone" time="0.460" /><testcase classname="tests.browser.test_platform" name="test_R23_transitions_without_reduced_motion" time="0.362" /><testcase classname="tests.browser.test_platform" name="test_R23_popups_rise_and_backdrops_fade[390x844 P2 for Read]" time="0.250" /><testcase classname="tests.browser.test_platform" name="test_R23_popups_rise_and_backdrops_fade[390x844 P3]" time="0.216" /><testcase classname="tests.browser.test_platform" name="test_R23_popups_rise_and_backdrops_fade[1280x800 P4 from the band's Year]" time="0.280" /><testcase classname="tests.browser.test_platform" name="test_R23_popups_rise_and_backdrops_fade[1280x800 P1 for 2026-09-22 from the band]" time="0.244" /><testcase classname="tests.browser.test_platform" name="test_R23_popups_rise_and_backdrops_fade[390x844 M1]" time="0.217" /><testcase classname="tests.browser.test_platform" name="test_R23_R32_a_change_pops_what_changed_and_bumps_its_number_and_replays_on_the_next_change" time="1.209"><failure message="AssertionError: at 390 px Done today did not pop and bump exactly what changed&#10;assert [{'name': 'bu...['dot'], ...}] == [{'name': 'bu...es': [], ...}]&#10;  &#10;  Right contains one more item: {'name': 'pop', 'tag': 'svg', 'pseudo': '', 'classes': [], ...}&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000015D4AEC3CC0&gt;
+
+    def test_R23_R32_a_change_pops_what_changed_and_bumps_its_number_and_replays_on_the_next_change(app):
+        # The Overview button is not displayed from 1024 px (R4, the goldens), and an element that is not displayed starts
+        # no animation. So its ring's pop is read as its class and computed animation at 1280 and seen playing at 390,
+        # where that button shows and the band does not (BUILD.md task 25, open question for the planner).
+        phone = app(viewport=PHONE, storage=SAMPLE)
+        log, _ = first_done_today(phone)
+        on_a_phone = [STRETCH_DOT, entry("pop", "svg", [], "Overview, today 2 of 3 habits done", "0.3s"), STRETCH_CURRENT]
+        found = logged_within(log, on_a_phone)
+&gt;       assert sorted(found, key=str) == sorted(on_a_phone, key=str), "at 390 px Done today did not pop and bump exactly what changed"
+E       AssertionError: at 390 px Done today did not pop and bump exactly what changed
+E       assert [{'name': 'bu...['dot'], ...}] == [{'name': 'bu...es': [], ...}]
+E         
+E         Right contains one more item: {'name': 'pop', 'tag': 'svg', 'pseudo': '', 'classes': [], ...}
+E         Use -v to get more diff
+
+tests\browser\test_platform.py:456: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R23_everything_appears_at_once_under_reduced_motion" time="0.326" /><testcase classname="tests.browser.test_platform" name="test_R24_markup_in_a_name_stays_text_everywhere" time="0.294"><failure message="AssertionError: assert ['', 1] == ['&lt;img src=x ...alert(1)&gt;', 0]&#10;  &#10;  At index 0 diff: '' != '&lt;img src=x onerror=alert(1)&gt;'&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000015D4B1E07D0&gt;
+
+    def test_R24_markup_in_a_name_stays_text_everywhere(app):
+        page = app(viewport=DESKTOP, record=True)
+        opened_dialogs = []
+        page.on("dialog", lambda opened: (opened_dialogs.append(opened.message), opened.dismiss()))
+        add_habit(page, MARKUP_NAME)
+        expect(page.locator("ul.rows &gt; li.row")).to_have_count(1)
+&gt;       assert page.locator("h3#rn-1").evaluate(_TEXT_JS) == [MARKUP_NAME, 0]
+E       AssertionError: assert ['', 1] == ['&lt;img src=x ...alert(1)&gt;', 0]
+E         
+E         At index 0 diff: '' != '&lt;img src=x onerror=alert(1)&gt;'
+E         Use -v to get more diff
+
+tests\browser\test_platform.py:536: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R24_no_html_sinks_in_the_source" time="0.003"><failure message="AssertionError: assert [('src/view.js', 'innerHTML')] == []&#10;  &#10;  Left contains one more item: ('src/view.js', 'innerHTML')&#10;  Use -v to get more diff">def test_R24_no_html_sinks_in_the_source():
+        found = [
+            (name, sink)
+            for name, text in shipped_texts().items() if name.startswith("src/")
+            for sink in ("innerHTML", "outerHTML", "insertAdjacentHTML", "document.write", "eval(", "new Function")
+            if sink in text
+        ]
+&gt;       assert found == []
+E       AssertionError: assert [('src/view.js', 'innerHTML')] == []
+E         
+E         Left contains one more item: ('src/view.js', 'innerHTML')
+E         Use -v to get more diff
+
+tests\browser\test_platform.py:572: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R25_every_request_stays_on_the_devices_own_files" time="1.494"><failure message="AssertionError: assert [{'method': '...on.svg', ...}] == []&#10;  &#10;  Left contains 2 more items, first extra item: {'method': 'GET', 'url': 'http://127.0.0.1:22998/src/icon.svg?v=1', 'origin': 'http://127.0.0.1:22998', 'path': '/src/icon.svg', ...}&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000015D4B166A30&gt;
+
+    def test_R25_every_request_stays_on_the_devices_own_files(app):
+        page = app(viewport=DESKTOP, storage=SAMPLE, record=True, install_time=NOON)
+        done_btn(page, STRETCH).click()
+        expect(done_btn(page, STRETCH)).to_have_attribute("aria-pressed", "true")
+        open_p1_from_the_band(page)
+        tick(page, READ).click()
+        expect(tick(page, READ)).to_have_attribute("aria-pressed", "true")
+        close_with_escape(page, "dlg-day")
+        let_guard_pass(page)
+        open_p2_for_read(page)
+        bead(page, "2026-10-06").click()
+        expect(bead(page, "2026-10-06")).to_have_attribute("aria-pressed", "true")
+        close_with_escape(page, "dlg-year")
+        let_guard_pass(page)
+        open_p4_from_the_band(page)
+        close_with_escape(page, "dlg-all")
+        add_habit(page, "Drink water")
+        expect(page.locator("ul.rows &gt; li.row")).to_have_count(4)
+        open_m1_from_read(page)
+        confirm_delete(page, bin_btn(page, READ))
+        expect(page.locator("ul.rows &gt; li.row")).to_have_count(3)
+        page.reload()
+        expect(page.locator("ul.rows &gt; li.row h3")).to_have_text([STRETCH, NO_PHONE, "Drink water"])
+    
+        log = record(page)
+        origin = conftest.BASE_URL.rstrip("/")
+        allowed = {"/", "/index.html", "/favicon.ico", "/src/styles.css", "/src/icon.svg"}
+        allowed |= {f"/{name}" for name in shipped_texts() if name.endswith(".js")}
+        assert log.requests, "no request was recorded"
+        strays = [
+            request for request in log.requests
+            if request["method"] != "GET" or request["origin"] != origin or request["query"] or request["path"] not in allowed
+        ]
+&gt;       assert strays == []
+E       AssertionError: assert [{'method': '...on.svg', ...}] == []
+E         
+E         Left contains 2 more items, first extra item: {'method': 'GET', 'url': 'http://127.0.0.1:22998/src/icon.svg?v=1', 'origin': 'http://127.0.0.1:22998', 'path': '/src/icon.svg', ...}
+E         Use -v to get more diff
+
+tests\browser\test_platform.py:611: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R25_the_csp_is_in_force" time="0.647" /><testcase classname="tests.browser.test_platform" name="test_R26_no_sample_data_in_the_shipped_files" time="0.003"><failure message="AssertionError: assert [('src/app.js...ad 20 pages')] == []&#10;  &#10;  Left contains one more item: ('src/app.js', 'Read 20 pages')&#10;  Use -v to get more diff">def test_R26_no_sample_data_in_the_shipped_files():
+        names =[habit["name"] for habit in json.loads(SAMPLE_FILE.read_text(encoding="utf-8"))["habits"]]
+        assert len(names) == 12
+        found = [(file, word) for file, text in shipped_texts().items() for word in (*names, "sample-history") if word in text]
+&gt;       assert found == []
+E       AssertionError: assert [('src/app.js...ad 20 pages')] == []
+E         
+E         Left contains one more item: ('src/app.js', 'Read 20 pages')
+E         Use -v to get more diff
+
+tests\browser\test_platform.py:636: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R26_query_strings_and_fragments_do_not_seed[?demo=1]" time="5.122"><failure message="AssertionError: Locator expected to have count '1'&#10;Actual value: 0 &#10;Call log:&#10;  - Expect &quot;to_have_count&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;ul.rows &gt; li.empty&quot;)&#10;    14 × locator resolved to 0 elements&#10;       - unexpected value &quot;0&quot;">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000015D4B1E3530&gt;, path = '?demo=1'
+
+    @pytest.mark.parametrize("path", ["?demo=1", "?seed", "#sample"])
+    def test_R26_query_strings_and_fragments_do_not_seed(app, path):
+        page = app(path=path)
+&gt;       expect(page.locator("ul.rows &gt; li.empty")).to_have_count(1)
+E       AssertionError: Locator expected to have count '1'
+E       Actual value: 0 
+E       Call log:
+E         - Expect "to_have_count" with timeout 5000ms
+E         - waiting for locator("ul.rows &gt; li.empty")
+E           14 × locator resolved to 0 elements
+E              - unexpected value "0"
+
+tests\browser\test_platform.py:642: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R26_query_strings_and_fragments_do_not_seed[?seed]" time="5.137"><failure message="AssertionError: Locator expected to have count '1'&#10;Actual value: 0 &#10;Call log:&#10;  - Expect &quot;to_have_count&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;ul.rows &gt; li.empty&quot;)&#10;    14 × locator resolved to 0 elements&#10;       - unexpected value &quot;0&quot;">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000015D4B3C6F00&gt;, path = '?seed'
+
+    @pytest.mark.parametrize("path", ["?demo=1", "?seed", "#sample"])
+    def test_R26_query_strings_and_fragments_do_not_seed(app, path):
+        page = app(path=path)
+&gt;       expect(page.locator("ul.rows &gt; li.empty")).to_have_count(1)
+E       AssertionError: Locator expected to have count '1'
+E       Actual value: 0 
+E       Call log:
+E         - Expect "to_have_count" with timeout 5000ms
+E         - waiting for locator("ul.rows &gt; li.empty")
+E           14 × locator resolved to 0 elements
+E              - unexpected value "0"
+
+tests\browser\test_platform.py:642: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R26_query_strings_and_fragments_do_not_seed[#sample]" time="5.142"><failure message="AssertionError: Locator expected to have count '1'&#10;Actual value: 0 &#10;Call log:&#10;  - Expect &quot;to_have_count&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;ul.rows &gt; li.empty&quot;)&#10;    14 × locator resolved to 0 elements&#10;       - unexpected value &quot;0&quot;">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000015D4B3C7950&gt;, path = '#sample'
+
+    @pytest.mark.parametrize("path", ["?demo=1", "?seed", "#sample"])
+    def test_R26_query_strings_and_fragments_do_not_seed(app, path):
+        page = app(path=path)
+&gt;       expect(page.locator("ul.rows &gt; li.empty")).to_have_count(1)
+E       AssertionError: Locator expected to have count '1'
+E       Actual value: 0 
+E       Call log:
+E         - Expect "to_have_count" with timeout 5000ms
+E         - waiting for locator("ul.rows &gt; li.empty")
+E           14 × locator resolved to 0 elements
+E              - unexpected value "0"
+
+tests\browser\test_platform.py:642: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R26_no_globals_and_no_hooks" time="0.291"><failure message="AssertionError: assert ['streaksState'] == []&#10;  &#10;  Left contains one more item: 'streaksState'&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000015D4B569640&gt;
+
+    def test_R26_no_globals_and_no_hooks(app):
+        page = app(storage=SAMPLE)
+        expect(page.locator("ul.rows &gt; li.row")).to_have_count(3)
+        own_names = "() =&gt; Object.getOwnPropertyNames(window)"
+        on_the_app = set(page.evaluate(own_names))
+        page.goto(conftest.BASE_URL + "__seed__")
+        on_a_plain_page = set(page.evaluate(own_names))
+&gt;       assert sorted(on_the_app - on_a_plain_page) == []
+E       AssertionError: assert ['streaksState'] == []
+E         
+E         Left contains one more item: 'streaksState'
+E         Use -v to get more diff
+
+tests\browser\test_platform.py:654: AssertionError</failure></testcase></testsuite></testsuites>

@@ -495,7 +495,7 @@ No other user-facing string exists.
 22. [x] Delete from a row and from P2, the time-free guard (CG-10), the tap-through guard (CG-11), focus (CG-18), all three ruled 2026-10-13. `tests/browser/test_delete.py`. It removes the last marks (W11, W15 to W18 and W20). → R13, R14, R15
 23. [x] Persistence, the unreadable note, the save warning. `tests/browser/test_storage.py`. → R16, R17, R41
 24. [x] Rollover with popups open (CG-14 and CG-19, ruled 2026-10-13). `tests/browser/test_rollover.py`. → R19, R20
-25. [ ] Platform checks and anything they expose. `tests/browser/test_platform.py`. → R21, R22, R23, R24, R25, R26
+25. [x] Platform checks and anything they expose. `tests/browser/test_platform.py`. → R21, R22, R23, R24, R25, R26
 26. [ ] The fidelity state scripts for the plugin harness, each seed script starting with the clipboard stand-in and each after-load script checking for it before it clicks, and `tests/browser/test_fidelity_inputs.py` (qa.md, Fidelity gate). → R28
     Added 2026-10-14 in execute (planner follow-up, ruled ORCH). Before `test_fidelity_inputs.py` asserts that `document.activeElement` is `body` after each after-load script's `blur()`, task 26 measures that result in WebKit with a popup open, because WebKit leaves focus on the popup's `dialog` after a mouse click inside it (Invariants, engine note). A different WebKit value goes into qa.md's engine table with its measurement, and the scenario asserts each engine's value.
 27. [ ] `tests/browser/live_e2e.py`, the v1.1.0 cold-boot gate in both engines, with its control mode `--control seeded` (qa.md, `@R27`, R27). → R27, R30

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="6.480" timestamp="2026-10-14T23:19:05.378151+08:00" hostname="{host}"><testcase classname="tests.browser.test_platform" name="test_R22_R40_every_popup_can_be_used_with_the_keyboard_alone" time="6.405"><failure message="AssertionError: Locator expected to be focused&#10;Actual value: inactive &#10;Call log:&#10;  - Expect &quot;to_be_focused&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;button.ov-btn&quot;)&#10;    14 × locator resolved to &lt;button type=&quot;button&quot; class=&quot;ov-btn&quot; aria-haspopup=&quot;dialog&quot; aria-label=&quot;Overview, today 1 of 3 habits done&quot;&gt;…&lt;/button&gt;&#10;       - unexpected value &quot;inactive&quot;&#10;&#10;Aria snapshot:&#10;- button &quot;Overview, today 1 of 3 habits done&quot;: Overview">app = &lt;function app.&lt;locals&gt;.open_page at 0x00000242EE355B10&gt;
+
+    def test_R22_R40_every_popup_can_be_used_with_the_keyboard_alone(app):
+        page = app(viewport=PHONE, storage=SAMPLE)
+        overview = page.locator("button.ov-btn")
+        assert page.evaluate(_FOCUS_JS) == "body"
+        page.keyboard.press("Tab")
+        expect(overview).to_be_focused()
+        page.keyboard.press("Enter")
+        expect(page.locator("dialog.dlg-ov")).to_have_attribute("open", "")
+        expect(page.locator("dialog.dlg-ov button.icon-btn")).to_be_focused()
+        page.keyboard.press("Shift+Tab")
+        expect(page.locator("dialog.dlg-ov button.btn-all")).to_be_focused()
+        page.keyboard.press("Enter")
+        expect(page.locator("dialog.dlg-all")).to_have_attribute("open", "")
+        expect(page.locator("dialog.dlg-all button.icon-btn")).to_be_focused()
+        page.keyboard.press("Tab")
+        expect(page.locator("dialog.dlg-all").get_by_role("button", name="Thu 1 Oct 2026, 2 of 3 habits", exact=True)).to_be_focused()
+        page.keyboard.press("Enter")
+        expect(page.locator("dialog.dlg-day")).to_have_attribute("open", "")
+        expect(page.locator("#day-title")).to_have_text("Thursday 1 October")
+        expect(tick(page, READ)).to_be_focused()
+        page.keyboard.press("Space")
+        expect(tick(page, READ)).to_have_attribute("aria-pressed", "false")
+        expect(page.locator("#day-sub")).to_have_text("1 of 3 habits")
+        closed = watch_close(page, "dialog.dlg-ov")
+        # Each press once the popup before it has closed, as a person presses. WebKit drops a press that comes before the
+        # previous close took effect, so three sent back to back leave P3 open (qa/escape-pace-probe, BUILD.md task 25).
+        for dialog in ("dlg-day", "dlg-all", "dlg-ov"):
+            close_with_escape(page, dialog)
+        wait_for_close(closed)  # P3 closes last, so the app's focus is set once its close event has come
+        assert page.locator("dialog[open]").count() == 0
+&gt;       expect(overview).to_be_focused()
+E       AssertionError: Locator expected to be focused
+E       Actual value: inactive 
+E       Call log:
+E         - Expect "to_be_focused" with timeout 5000ms
+E         - waiting for locator("button.ov-btn")
+E           14 × locator resolved to &lt;button type="button" class="ov-btn" aria-haspopup="dialog" aria-label="Overview, today 1 of 3 habits done"&gt;…&lt;/button&gt;
+E              - unexpected value "inactive"
+E       
+E       Aria snapshot:
+E       - button "Overview, today 1 of 3 habits done": Overview
+
+tests\browser\test_platform.py:367: AssertionError</failure></testcase></testsuite></testsuites>

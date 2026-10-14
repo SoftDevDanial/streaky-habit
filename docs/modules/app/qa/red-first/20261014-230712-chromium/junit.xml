@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="3" time="11.515" timestamp="2026-10-14T23:07:14.663903+08:00" hostname="{host}"><testcase classname="tests.browser.test_platform" name="test_R22_R40_every_popup_can_be_used_with_the_keyboard_alone" time="6.382"><failure message="AssertionError: Locator expected to be focused&#10;Actual value: inactive &#10;Call log:&#10;  - Expect &quot;to_be_focused&quot; with timeout 5000ms&#10;  - waiting for locator(&quot;button.ov-btn&quot;)&#10;    14 × locator resolved to &lt;button type=&quot;button&quot; class=&quot;ov-btn&quot; aria-haspopup=&quot;dialog&quot; aria-label=&quot;Overview, today 1 of 3 habits done&quot;&gt;…&lt;/button&gt;&#10;       - unexpected value &quot;inactive&quot;&#10;&#10;Aria snapshot:&#10;- button &quot;Overview, today 1 of 3 habits done&quot;: Overview">app = &lt;function app.&lt;locals&gt;.open_page at 0x000002957D5F6140&gt;
+
+    def test_R22_R40_every_popup_can_be_used_with_the_keyboard_alone(app):
+        page = app(viewport=PHONE, storage=SAMPLE)
+        overview = page.locator("button.ov-btn")
+        assert page.evaluate(_FOCUS_JS) == "body"
+        page.keyboard.press("Tab")
+        expect(overview).to_be_focused()
+        page.keyboard.press("Enter")
+        expect(page.locator("dialog.dlg-ov")).to_have_attribute("open", "")
+        expect(page.locator("dialog.dlg-ov button.icon-btn")).to_be_focused()
+        page.keyboard.press("Shift+Tab")
+        expect(page.locator("dialog.dlg-ov button.btn-all")).to_be_focused()
+        page.keyboard.press("Enter")
+        expect(page.locator("dialog.dlg-all")).to_have_attribute("open", "")
+        expect(page.locator("dialog.dlg-all button.icon-btn")).to_be_focused()
+        page.keyboard.press("Tab")
+        expect(page.locator("dialog.dlg-all").get_by_role("button", name="Thu 1 Oct 2026, 2 of 3 habits", exact=True)).to_be_focused()
+        page.keyboard.press("Enter")
+        expect(page.locator("dialog.dlg-day")).to_have_attribute("open", "")
+        expect(page.locator("#day-title")).to_have_text("Thursday 1 October")
+        expect(tick(page, READ)).to_be_focused()
+        page.keyboard.press("Space")
+        expect(tick(page, READ)).to_have_attribute("aria-pressed", "false")
+        expect(page.locator("#day-sub")).to_have_text("1 of 3 habits")
+        closed = watch_close(page, "dialog.dlg-ov")
+        for _ in range(3):
+            page.keyboard.press("Escape")
+        wait_for_close(closed)  # P3 closes last, so the app's focus is set once its close event has come
+        assert page.locator("dialog[open]").count() == 0
+&gt;       expect(overview).to_be_focused()
+E       AssertionError: Locator expected to be focused
+E       Actual value: inactive 
+E       Call log:
+E         - Expect "to_be_focused" with timeout 5000ms
+E         - waiting for locator("button.ov-btn")
+E           14 × locator resolved to &lt;button type="button" class="ov-btn" aria-haspopup="dialog" aria-label="Overview, today 1 of 3 habits done"&gt;…&lt;/button&gt;
+E              - unexpected value "inactive"
+E       
+E       Aria snapshot:
+E       - button "Overview, today 1 of 3 habits done": Overview
+
+tests\browser\test_platform.py:365: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R23_R32_a_change_pops_what_changed_and_bumps_its_number_and_replays_on_the_next_change" time="1.605"><failure message="AssertionError: the second Done today did not replay the pop and the bump: [{'name': 'bump', 'tag': 'span', 'pseudo': '', 'classes': ['val', 'bump'], 'owner': 'rs-2', 'duration': '0.28s'}]&#10;assert False&#10; +  where False = all(&lt;generator object test_R23_R32_a_change_pops_what_changed_and_bumps_its_number_and_replays_on_the_next_change.&lt;locals&gt;.&lt;genexpr&gt; at 0x000002957D936A40&gt;)">app = &lt;function app.&lt;locals&gt;.open_page at 0x000002957D46FCC0&gt;
+
+    def test_R23_R32_a_change_pops_what_changed_and_bumps_its_number_and_replays_on_the_next_change(app):
+        # The Overview button is not displayed from 1024 px (R4, the goldens), and an element that is not displayed starts
+        # no animation. So its ring's pop is read as its class and computed animation at 1280 and seen playing at 390,
+        # where that button shows and the band does not (BUILD.md task 25, open question for the planner).
+        phone = app(viewport=PHONE, storage=SAMPLE)
+        log, _ = first_done_today(phone)
+        on_a_phone = [STRETCH_DOT, entry("pop", "svg", [], "Overview, today 2 of 3 habits done", "0.3s"), STRETCH_CURRENT]
+        found = logged_within(log, on_a_phone)
+        assert sorted(found, key=str) == sorted(on_a_phone, key=str), "at 390 px Done today did not pop and bump exactly what changed"
+    
+        page = app(viewport=DESKTOP, storage=SAMPLE, install_time=NOON)
+        log, clicked = first_done_today(page)
+        done = done_btn(page, STRETCH)
+        first = [STRETCH_DOT, entry("pop", "svg", [], "Sat 10 Oct, 2 of 3 habits", "0.3s"), STRETCH_CURRENT]
+        found = logged_within(log, first)
+        assert sorted(found, key=str) == sorted(first, key=str), "the first Done today did not pop and bump exactly what changed"
+        overview_ring = page.locator("button.ov-btn &gt; span.ov-ring").evaluate(
+            "(ring) =&gt; [ring.classList.contains('pop'), getComputedStyle(ring.firstElementChild).animationName, getComputedStyle(ring.firstElementChild).animationDuration]"
+        )
+        assert overview_ring == [True, "pop", "0.3s"], "the Overview button's ring does not carry the pop of a changed ring"
+    
+        elapsed = time.monotonic() - clicked
+        if elapsed &gt;= 0.26:
+            pytest.fail(f"the second click could not come while the first pop runs, {elapsed:.3f} s had passed")
+        time.sleep(max(0.0, 0.1 - elapsed))
+        done.click()
+        again = [STRETCH_DOT, STRETCH_CURRENT]
+        found = logged_within(log, again, since=len(first))
+&gt;       assert all(item in found for item in again), f"the second Done today did not replay the pop and the bump: {found}"
+E       AssertionError: the second Done today did not replay the pop and the bump: [{'name': 'bump', 'tag': 'span', 'pseudo': '', 'classes': ['val', 'bump'], 'owner': 'rs-2', 'duration': '0.28s'}]
+E       assert False
+E        +  where False = all(&lt;generator object test_R23_R32_a_change_pops_what_changed_and_bumps_its_number_and_replays_on_the_next_change.&lt;locals&gt;.&lt;genexpr&gt; at 0x000002957D936A40&gt;)
+
+tests\browser\test_platform.py:476: AssertionError</failure></testcase><testcase classname="tests.browser.test_platform" name="test_R25_the_csp_is_in_force" time="3.434"><failure message="AssertionError: assert {'result': 'r...rectives': []} == {'result': 'r...connect-src']}&#10;  &#10;  Omitting 1 identical items, use -vv to show&#10;  Differing items:&#10;  {'directives': []} != {'directives': ['connect-src']}&#10;  Use -v to get more diff">app = &lt;function app.&lt;locals&gt;.open_page at 0x000002957D787110&gt;
+
+    def test_R25_the_csp_is_in_force(app):
+        page = app(storage=SAMPLE)
+&gt;       assert page.evaluate(_REFUSED_FETCH_JS) == {"result": "rejected", "directives": ["connect-src"]}
+E       AssertionError: assert {'result': 'r...rectives': []} == {'result': 'r...connect-src']}
+E         
+E         Omitting 1 identical items, use -vv to show
+E         Differing items:
+E         {'directives': []} != {'directives': ['connect-src']}
+E         Use -v to get more diff
+
+tests\browser\test_platform.py:626: AssertionError</failure></testcase></testsuite></testsuites>
