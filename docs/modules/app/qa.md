@@ -7,6 +7,7 @@
 > Changed 2026-10-13 after the plan check (B1, F1, F3 to F6, F8, F9). The 21 titles that now read "CG-n ruled" first read "pending CG-n" (F1). Other changes carry their own dated note where they were made.
 > Changed 2026-10-13 after the plan re-check (F12, F13, F14, N9). The new section "Scenarios that wait on a later task" names, for W1 to W22, the task from which each is green (F12). "Controls are watched failing first" lists the stubs for names and files under test (F13). Two new scenarios (`@R6 @R32` and `@R32`) succeed two `test_tick.py` tests that had no scenario (F14). The Feature "Two engines" names its two finder checks (N9). Each change carries its own dated note.
 > Changed 2026-10-14 in execute (planner touch-up, ledger H-03, S1 row 8, S7 row 15). H-03, the two P3 rows "2026-07-20" of W22 hold through P3's room for rule 4 (spec R36), built at task 20, and one new `@R36` scenario checks the room. Q1 and Q2, two lines follow the goldens as ruled ORCH (the field's box with twelve habits, the Overview button's computed `flex`). Q3, two scenarios name the popup's `dialog` as WebKit's focus after a click inside a popup. Each change carries its own dated note.
+> Changed 2026-10-14 in execute (planner follow-up, ledger H-03, owner ruling 2026-10-14 16:32 "Same fix for P4 (Recommended)"). The room scenario covers the host of P1, P3 or P4, with two P4 rows, and W22's row "390x844 P4 2025-10-10" holds through P4's room. One new `@R36` scenario holds a gap smaller than a day with twelve habits (ruled ORCH). The fidelity inputs scenario waits on a WebKit measurement at task 26 (ruled ORCH). Each change carries its own dated note.
 > Phase skills. The plan phase has none assigned. The builder of each UI task loads the design row of `docs/phase-skills.md` (`taste-skill`, `frontend-design`) before writing UI (spec, Tasks).
 
 ## How these scenarios run
@@ -94,9 +95,11 @@ Each scenario below sits in a file whose task comes before the task that lands t
 | W19 | A day before a habit was added can be ticked | `test_year.py`, 19 | the scenario | 21 | the add |
 | W20 | Deleting one of twelve opens the composer again | `test_add.py`, 21 | the scenario | 22 | the delete |
 | W21 | Every context has the clipboard stand-in | `test_engines.py` (task 11's file), written at 19 | nothing, no mark | 19 | Year (Done today lands at 16) |
-| W22 | On a phone the chosen day stays in sight above P1 | `test_day_editor.py`, the four P3 rows at 18, the two P4 rows written at 20 | ~~nothing, no mark~~ the two P3 rows "2026-07-20" | ~~18 and 20 by row~~ 18 for the two P3 rows "2026-09-22", 20 for the two P3 rows "2026-07-20" and the two P4 rows | P4, and P3's room for rule 4 (spec R36, H-03) |
+| W22 | On a phone the chosen day stays in sight above P1 | `test_day_editor.py`, the four P3 rows at 18, the two P4 rows written at 20 | ~~nothing, no mark~~ the two P3 rows "2026-07-20" | ~~18 and 20 by row~~ 18 for the two P3 rows "2026-09-22", 20 for the two P3 rows "2026-07-20" and the two P4 rows | P4, and ~~P3's room~~ the room of P1's host, P3 or P4, for rule 4 (spec R36, H-03) |
 
 Changed 2026-10-14 in execute (planner touch-up, ledger H-03, owner ruling 2026-10-14 16:05 "Fix, give P3 room"). W22's two P3 rows "2026-07-20" could not turn green at task 18, because P3 had nothing to scroll on a phone (blocker B1, `BUILD.md` task 18, evidence `docs/modules/app/qa/day-editor-b1/20261014-153746-chromium/`). They hold as written once P3 gets its room (spec R36), which task 20 builds. Today `test_day_editor.py` carries them with the mark `BLOCKED_B1`, which names a blocker, not a task. The builder of task 20 changes it on both rows to `xfail(strict=True, reason="task 20")` and removes it in task 20's commit (spec, task 20). The builder edits the test. The W22 row first read "nothing, no mark" and "18 and 20 by row".
+
+Added 2026-10-14 in execute (planner follow-up, owner ruling H-03 of 16:32 "Same fix for P4 (Recommended)"). W22's row "390x844 P4 2025-10-10" holds as written through P4's room (spec R36), which task 20 builds with P4, so the row carries no mark. Without the room it could not pass, because P4's body ends with October 2025 and 10 October 2025 would stay under P1 even at P4's largest scroll (worked out from `system.css`, task 20 measures it first). The W22 row's last cell first read "P3's room for rule 4".
 
 ### Engine differences by design
 | Behaviour | Chromium | WebKit | Source |
@@ -879,6 +882,10 @@ Feature: The day editor
   # Task 20 also builds P3's room for rule 4 (spec R36, ledger H-03), so it writes the scenario "On a phone P3 gets room
   # while P1 is open over it, and loses it when P1 closes" with no mark, and it turns W22's two P3 rows "2026-07-20"
   # green. Added 2026-10-14 in execute (planner touch-up, ledger H-03).
+  # Changed 2026-10-14 in execute (planner follow-up, owner ruling H-03 of 16:32 "Same fix for P4 (Recommended)").
+  # The room belongs to P1's host, P3 or P4, so that scenario is now titled "On a phone the host of P1 gets room while
+  # P1 is open over it, and loses it when P1 closes" (the title above is struck in its own comment). Task 20 also
+  # writes "With twelve habits on a phone the chosen day's top meets the host's head" with no mark (ruled ORCH).
 
   @R36 @R42
   Scenario: A band day opens P1 (v1.1.0 new)
@@ -912,6 +919,8 @@ Feature: The day editor
     # The two P3 rows "2026-07-20" hold as written through P3's room for rule 4 (spec R36, owner ruling H-03,
     # 2026-10-14 16:05). test_day_editor.py carries them with the mark BLOCKED_B1 until task 20 changes it to
     # xfail(strict=True, reason="task 20") and removes it (W22). Added 2026-10-14 in execute (planner touch-up, H-03).
+    # The P4 row "2025-10-10" holds as written through P4's room (spec R36, owner ruling H-03 of 16:32), built at task
+    # 20 with P4, so it carries no mark. Added 2026-10-14 in execute (planner follow-up, H-03).
     Given the sample day at <viewport>
     When the user opens <host> and clicks its day button for <day>
     Then P1 is open as a sheet at the bottom of the viewport, over <host>
@@ -928,24 +937,49 @@ Feature: The day editor
       | 390x844  | P4 (Overview, then Year)     | 2025-10-10 | above 0, so the host had to scroll        |
 
   @R36
-  Scenario Outline: On a phone P3 gets room while P1 is open over it, and loses it when P1 closes (v1.1.0 new, H-03 ruled)
+  Scenario Outline: On a phone the host of P1 gets room while P1 is open over it, and loses it when P1 closes (v1.1.0 new, H-03 ruled)
     # Added 2026-10-14 in execute (planner touch-up, ledger H-03, owner ruling 2026-10-14 16:05 "Fix, give P3 room").
     # Written at task 20 into test_day_editor.py with no mark, as "A P4 day opens P1 over P4 on a desktop" is.
     # The 800x900 row checks that no room appears from 768 px, where P1 is a centred dialog and rule 4 does not apply.
-    Given the sample day at <viewport> with P3 open
-    Then P3's div.sheet-body has the computed padding-bottom "24px" and its scrollHeight equals its clientHeight
-    When the user clicks P3's button for <day>
-    Then P1 is open over P3, and P3's div.sheet-body has a computed padding-bottom <room>
+    # Changed 2026-10-14 in execute (planner follow-up, owner ruling H-03 of 16:32 "Same fix for P4 (Recommended)").
+    # The title first read ~~On a phone P3 gets room while P1 is open over it, and loses it when P1 closes~~ and every
+    # step named P3. The steps now name the host, the two P4 rows are new, P3's check of scrollHeight before P1 opens is
+    # dropped, and P3's checks of scrollHeight and scrollTop after P1 closes moved into the <after> column, because P4's
+    # body scrolls on its own. Task 20 measures the P4 rows on its code before the room (spec R36) and keeps that RED.
+    Given the sample day at <viewport> with <host> open
+    Then the host's div.sheet-body has the computed padding-bottom "24px" and no inline padding-bottom
+    When the user clicks the host's button for <day>
+    Then P1 is open over the host, and the host's div.sheet-body has a computed padding-bottom <room>
     When the user <action>
-    Then P1 is closed, P3 is open, and focus is on P3's button for <day>
-    And P3's div.sheet-body has the computed padding-bottom "24px" and no inline padding-bottom, its scrollHeight equals its clientHeight, and its scrollTop is 0
+    Then P1 is closed, the host is open, and focus is on the host's button for <day>
+    And the host's div.sheet-body has the computed padding-bottom "24px" and no inline padding-bottom, and the host's button for <day> lies fully inside the visible part of that div.sheet-body
+    And <after>
 
     Examples:
-      | viewport | day        | action                           | room                                                                                                     |
-      | 390x844  | 2026-07-20 | presses Escape                   | within 1 px of the height of dialog.dlg-day, which is the distance from P1's top edge to the viewport's bottom |
-      | 360x780  | 2026-07-20 | clicks Close                     | within 1 px of the height of dialog.dlg-day, which is the distance from P1's top edge to the viewport's bottom |
-      | 390x844  | 2026-09-22 | clicks the viewport point (5, 5) | within 1 px of the height of dialog.dlg-day, which is the distance from P1's top edge to the viewport's bottom |
-      | 800x900  | 2026-07-20 | presses Escape                   | of "24px", the stylesheet's, with no inline padding-bottom                                               |
+      | viewport | host                     | day        | action                           | room                                                                                                     | after |
+      | 390x844  | P3 (Overview)            | 2026-07-20 | presses Escape                   | within 1 px of the height of dialog.dlg-day, which is the distance from P1's top edge to the viewport's bottom | P3's div.sheet-body has its scrollHeight equal to its clientHeight and scrollTop 0 |
+      | 360x780  | P3 (Overview)            | 2026-07-20 | clicks Close                     | within 1 px of the height of dialog.dlg-day, which is the distance from P1's top edge to the viewport's bottom | P3's div.sheet-body has its scrollHeight equal to its clientHeight and scrollTop 0 |
+      | 390x844  | P3 (Overview)            | 2026-09-22 | clicks the viewport point (5, 5) | within 1 px of the height of dialog.dlg-day, which is the distance from P1's top edge to the viewport's bottom | P3's div.sheet-body has its scrollHeight equal to its clientHeight and scrollTop 0 |
+      | 800x900  | P3 (Overview)            | 2026-07-20 | presses Escape                   | of "24px", the stylesheet's, with no inline padding-bottom                                               | P3's div.sheet-body has its scrollHeight equal to its clientHeight and scrollTop 0 |
+      | 390x844  | P4 (Overview, then Year) | 2025-10-10 | presses Escape                   | within 1 px of the height of dialog.dlg-day, and P3's div.sheet-body beneath P4 has no inline padding-bottom | P3 is still open beneath P4, and its div.sheet-body has no inline padding-bottom |
+      | 360x780  | P4 (Overview, then Year) | 2025-10-10 | clicks Close                     | within 1 px of the height of dialog.dlg-day, and P3's div.sheet-body beneath P4 has no inline padding-bottom | P3 is still open beneath P4, and its div.sheet-body has no inline padding-bottom |
+
+  @R36
+  Scenario Outline: With twelve habits on a phone the chosen day's top meets the host's head (v1.1.0 new, ruled ORCH)
+    # Added 2026-10-14 in execute (planner follow-up, ruled ORCH by the orchestrator on the planner touch-up's
+    # contradiction 2, spec R36 "A gap smaller than a day"). Written at task 20 into test_day_editor.py with no mark.
+    # Task 20 measures the gap first and keeps that run as RED. The precondition line below is checked, so a layout
+    # where the whole day fits fails the precondition and never passes the row by accident.
+    Given twelve habits at <viewport>
+    When the user opens <host> and clicks its day button for <day>
+    Then P1 is open as a sheet at the bottom of the viewport, over <host>
+    And the distance from the bottom of the host's div.sheet-head to the top of P1's div.dlg-box is smaller than the height of the host's button for <day> (checked)
+    And the top of the host's button for <day> lies within 1 px of the bottom of the host's div.sheet-head, the host's div.sheet-body has scrollTop above 0, and the button has the class "is-open"
+
+    Examples:
+      | viewport | host                     | day        |
+      | 390x844  | P3 (Overview)            | 2026-07-20 |
+      | 360x780  | P4 (Overview, then Year) | 2025-10-10 |
 
   @R36 @R39
   Scenario: A P4 day opens P1 over P4 on a desktop (v1.1.0 new)
@@ -2362,6 +2396,10 @@ Feature: Looks right
     Then each starts with the exact text of CLIPBOARD_STANDIN from conftest.py, and after it holds one statement, localStorage.setItem("streaks.state", <text>), whose text parses to exactly {"version":1,"habits":<the first three v1.1.0 sample habits>} and {"version":1,"habits":<all twelve>}, as { name, done } objects with each done list ascending
     When a page with the clock fixed at 2026-10-10T09:00:00 local time loads the app with the seed script as an init script and runs an after-load script as the body of an async function
     Then before the after-load script runs, either navigator.clipboard is absent or Clipboard.prototype.writeText is not the browser's native function
+    # Added 2026-10-14 in execute (planner follow-up, ruled ORCH). WebKit's document.activeElement after a scripted
+    # blur() inside an open popup is not measured yet, and a mouse click there leaves focus on the popup's dialog (Engine
+    # differences by design). Task 26 measures it before asserting the next line. A WebKit value other than body goes
+    # into the engine table with its measurement, and this line then asserts each engine's value (spec, task 26).
     And each after-load script leaves the state below, and document.activeElement is body
       | script                 | viewports           | state                                                                                                                           |
       | open-day-editor.js     | 360x780, 390x844    | P3 and P1 open, P1's title "Tuesday 22 September", P3's 2026-09-22 button with "is-open", P3's div.sheet-body at scrollTop 0     |
@@ -2608,7 +2646,7 @@ Feature: Looks right
 - Re-run the Node suite (`node --test "tests/**/*.test.js"`), the browser suite in Chromium and in WebKit (two runs, two evidence folders), the 23 fidelity captures with their controls and the states check in Chromium, and the `@R27` cold-boot gate in Chromium and in WebKit, in the final parallel all-modules pass. Each engine's pass, fail and skip counts and run time go into `docs/regression/REGRESSION.md`.
 
 ## Coverage by R#
-Counted from the Gherkin above on 2026-10-13 by the planner, recounted by script after the plan-check fixes. A scenario with two tags counts for both. An outline counts once. 167 live scenarios (92 new, 71 changed, 4 unchanged from 1.0), 18 retired scenarios kept as text, 1 Chromium-only scenario (CO-1). Every live R# has at least one scenario. Changed 2026-10-13 after the plan check (F5), the live gate's control scenario added one new `@R27` scenario (164 and 89 before). Changed 2026-10-13 after the plan re-check (F14), the two successors of the `test_tick.py` tests added one `@R6 @R32` and one `@R32` scenario (165 and 90 before, R6 5 and R32 12 before). Changed 2026-10-14 in execute (planner touch-up, ledger H-03), the `@R36` scenario of P3's room added one new scenario, so ~~167 live scenarios (92 new~~ 168 live scenarios (93 new, 71 changed, 4 unchanged), and R36 has 7 (6 before). Recounted by script.
+Counted from the Gherkin above on 2026-10-13 by the planner, recounted by script after the plan-check fixes. A scenario with two tags counts for both. An outline counts once. ~~167 live scenarios (92 new, 71 changed, 4 unchanged from 1.0)~~ 169 live scenarios (94 new, 71 changed, 4 unchanged from 1.0, recounted 2026-10-14, see the last two notes of this paragraph), 18 retired scenarios kept as text, 1 Chromium-only scenario (CO-1). Every live R# has at least one scenario. Changed 2026-10-13 after the plan check (F5), the live gate's control scenario added one new `@R27` scenario (164 and 89 before). Changed 2026-10-13 after the plan re-check (F14), the two successors of the `test_tick.py` tests added one `@R6 @R32` and one `@R32` scenario (165 and 90 before, R6 5 and R32 12 before). Changed 2026-10-14 in execute (planner touch-up, ledger H-03), the `@R36` scenario of P3's room added one new scenario, so the counts became 168 live scenarios (93 new, 71 changed, 4 unchanged) and R36 7 (6 before). Recounted by script. Changed 2026-10-14 in execute (planner follow-up, ruled ORCH), the `@R36` scenario of a gap smaller than a day with twelve habits added one new scenario, so 169 live scenarios (94 new, 71 changed, 4 unchanged), and R36 has 8. Recounted by script.
 
 | R# | Spec status | Live scenarios | Retired kept | R# | Spec status | Live scenarios | Retired kept |
 |---|---|---|---|---|---|---|---|
@@ -2626,7 +2664,7 @@ Counted from the Gherkin above on 2026-10-13 by the planner, recounted by script
 | R12 | changed | 3 | 0 | R33 | new | 6 | 0 |
 | R13 | changed | 13 | 3 | R34 | new | 6 | 0 |
 | R14 | changed | 13 | 1 | R35 | new | 6 | 0 |
-| R15 | changed | 12 | 4 | R36 | new | 7 (6 before 2026-10-14, H-03) | 0 |
+| R15 | changed | 12 | 4 | R36 | new | 8 (6 before 2026-10-14, then 7 with H-03's room) | 0 |
 | R16 | changed | 9 | 1 | R37 | new | 5 | 0 |
 | R17 | changed | 6 | 1 | R38 | new | 5 | 0 |
 | R18 | retired | 0 | 2 | R39 | new | 5 | 0 |
