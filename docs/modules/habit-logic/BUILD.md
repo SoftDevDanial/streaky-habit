@@ -57,4 +57,16 @@ From the project root, in the foreground:
 node --test "tests/**/*.test.js"
 ```
 
-No install, no `package.json`, no server, no browser. Node 24 (built on 24.11.1). The tests read `docs/design/sample-history.json` and write nothing under `docs/`.
+No install, no `package.json`, no server, no browser. Node 24 (built on 24.11.1). The tests read `docs/design/sample-history.json` and write nothing under `docs/`. (Changed v1.1.0 task 6: the three 1.0 suites now read `tests/fixtures/sample-history-v1.0.0.json`, see below.)
+
+## v1.1.0 task 6, the test data fix (2026-10-14)
+
+The design finalize of 2026-10-13 replaced `docs/design/sample-history.json`, so the 1.0 suites that read it went red. Task 6 restores the 1.0 data as a test fixture. No change in `src/`.
+
+- `tests/fixtures/sample-history-v1.0.0.json`: the 1.0 file, 5354 bytes, LF line ends.
+- `tests/fixtures/sample.js`: `sampleHabits(file)`, which reads the v1.1.0 sample (a path or URL) and returns habits of the `Habit` shape, using the module's own `addDays`. No test calls it yet, tasks 8 and 9 do. Checked by hand against the current `docs/design/sample-history.json` (12 habits, first habit 250 days, 2025-10-10 to 2026-10-10).
+- `tests/habits.test.js`, `tests/purity.test.js`, `tests/sample-history.test.js`: the JSON import points at the fixture. Nothing else changed in them.
+
+Proof. `node --test "tests/**/*.test.js"` gives 99 tests, 99 pass, 0 fail on the unchanged `src/`. Blob id check, byte exact with `git hash-object --no-filters` (`core.autocrlf` is true here): the fixture gives `62620300113514b9712d0cbdfea2b15534e6d326`, and `git rev-parse v1.0.0:docs/design/sample-history.json` gives the same.
+
+Deviations: none. Non-goals honored: `docs/design/` untouched, no `src/` change.

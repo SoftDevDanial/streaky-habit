@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import sample from "../docs/design/sample-history.json" with { type: "json" };
+import sample from "./fixtures/sample-history-v1.0.0.json" with { type: "json" };
 import { isDateKey, shortDate } from "../src/dates.js";
 import {
   weekWindow,

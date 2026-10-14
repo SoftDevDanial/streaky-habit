@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import sample from "../docs/design/sample-history.json" with { type: "json" };
+import sample from "./fixtures/sample-history-v1.0.0.json" with { type: "json" };
 import * as dates from "../src/dates.js";
 import * as habits from "../src/habits.js";
 
