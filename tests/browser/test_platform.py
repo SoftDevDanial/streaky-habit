@@ -436,6 +436,13 @@ def logged_within(log, wanted, seconds=1.0, since=0):
         time.sleep(0.02)
 
 
+def settled_entries(log, since):
+    """The log's entries from `since` on, read again 100 ms after the wanted ones came, so every animation one edit
+    started in the same frame is among them."""
+    time.sleep(0.1)
+    return animations(log)[since:]
+
+
 STRETCH_DOT = entry("pop", "span", ["dot"], f"Done today, {STRETCH}", "0.26s")
 STRETCH_CURRENT = entry("bump", "span", ["val", "bump"], "rs-2", "0.28s")
 
@@ -480,8 +487,11 @@ def test_R23_R32_a_change_pops_what_changed_and_bumps_its_number_and_replays_on_
     seen = len(animations(log))
     open_p1_from_the_band(page)
     tick(page, READ).click()
-    found = logged_within(log, [entry("pop", "span", ["tbox"], READ, "0.26s")], since=seen)
-    assert entry("pop", "span", ["tbox"], READ, "0.26s") in found, f"the tick did not pop its box: {found}"
+    tick_pop = entry("pop", "span", ["tbox"], READ, "0.26s")
+    found = logged_within(log, [tick_pop], since=seen)
+    assert tick_pop in found, f"the tick did not pop its box: {found}"
+    found = settled_entries(log, seen)
+    assert [item for item in found if item["classes"] == ["tbox"]] == [tick_pop], f"a tick that did not change popped: {found}"
 
     close_with_escape(page, "dlg-day")
     let_guard_pass(page)  # the click on the tick holds the page's clicks for 500 ms (R14)
@@ -491,6 +501,8 @@ def test_R23_R32_a_change_pops_what_changed_and_bumps_its_number_and_replays_on_
     popped = entry("pop", "span", ["bead"], "Mark Tue 6 Oct 2026 as done", "0.26s")
     found = logged_within(log, [popped], since=seen)
     assert popped in found, f"the bead did not pop: {found}"
+    found = settled_entries(log, seen)
+    assert [item for item in found if item["classes"] == ["bead"]] == [popped], f"a bead that did not change popped, a neighbour included: {found}"
 
 
 _MOVING_JS = """() => {

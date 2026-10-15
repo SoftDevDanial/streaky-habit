@@ -292,6 +292,9 @@ def test_R34_R32_ticking_a_day_in_the_year_view(app, engine):
     classes = set(handle.evaluate("(button) => Array.from(button.classList)"))
     assert {"on", "l", "pop"} <= classes and "r" not in classes, classes
     assert "r" in classes_of(bead(page, "2026-10-08"))
+    # The neighbour 2026-10-08 changed its thread, not its done state, so it keeps its bead still (R32, R34).
+    popped = page.evaluate("() => Array.from(document.querySelectorAll('dialog.dlg-year button.yc.pop'), (bead) => bead.dataset.key)")
+    assert popped == ["2026-10-09"], f"a bead that did not change carries pop: {popped}"
     assert stats_tree(year_stats(page)) == [current_block(8, "days"), best_block(14)]
     assert write_count(page) == 1
     assert row_numbers(page, "No phone after 11pm")["current"] == "8 days"

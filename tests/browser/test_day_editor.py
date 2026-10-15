@@ -350,6 +350,8 @@ def test_R37_R32_ticking_a_past_day_in_p1(app, engine):
     assert handle.evaluate("(button) => button.isConnected") is True
     assert handle.get_attribute("aria-pressed") == "true"
     assert handle.evaluate("(button) => ['on', 'pop'].every((name) => button.classList.contains(name))") is True
+    popped = page.evaluate("() => Array.from(document.querySelectorAll('dialog.dlg-day button.tick.pop'), (tick) => tick.getAttribute('aria-label'))")
+    assert popped == ["Read 20 pages"], f"a tick that did not change carries pop (R32): {popped}"
     expect(day_dialog(page)).to_have_attribute("open", "")
     assert tick_stat(page, "Read 20 pages") == [["span.tcur", "Current 4 days"], ["span", "Best 13"]]
     expect(day_dialog(page).locator("p#day-sub")).to_have_text("2 of 3 habits")
