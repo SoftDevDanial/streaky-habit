@@ -1,0 +1,17 @@
+UAT-08 pre-run log. Automated UAT pre-run agent, read-only. Run 20261016-0156, sitting 2.
+Seat: headless WebKit 26.5 on Windows, Playwright's iPhone 13 context (390 x 664 visible, device scale 3, mobile, touch, iPhone Safari user agent), prefers-color-scheme dark, fresh context, real clock Fri 16 Oct 2026 about 01:58 (UTC+08:00). Taps through the touchscreen. Clipboard stand-in loaded, 0 writes.
+This is Safari's engine, not an iPhone. No on-screen keyboard, no Safari interface, no iOS settings. In this engine (hover: hover) is false, (pointer: coarse) is true, maxTouchPoints is 0, and a tap's click reports pointerType "mouse".
+
+Lines (step: line + mark, M matches, X does not match, N not drivable)
+s1: 1M 2M 3M 4M 5M 6M | s2: 1N 2N 3M | s3: 1M 2M 3M 4M | s4: 1M | s5: 1M | s6: 1N 2N | s7: 1M 2M 3M 4M
+s8: 1M 2M 3M 4M 5M 6X 7M 8M 9X 10M | s9: 1M 2M 3M 4M 5M 6M 7M 8M | s10: 1M 2M 3M | s11: 1M 2M | s12: 1M 2M 3M 4M 5M 6M 7M 8M
+s13: 1M | s14: 1M | s15: 1M 2M 3M 4M 5M 6M 7M 8M 9M 10M 11M | s16: 1M | s17: 1M 2M 3M 4M 5M | s18: 1M 2M
+
+s8.l6 X 'The bottom row is 27, 28, 29, 30, 31, 1, 2, labelled Jul'. The row holds those days and the label Jul, but at 664 high the sheet's body scrolls. The row spans y 642 to 690 and the screen ends at 664, so only its top half shows (s08-overview.png).
+s8.l9 X 'The legend under the grid reads None, four small rings, All'. The legend reads that, but it sits at y 702 to 724, below the screen edge, until the sheet is scrolled.
+Both lines match at 390 x 844, see supplementary-390x844/UAT-08.
+Not drivable: s2.l1, s2.l2 (no on-screen keyboard, the field took focus), s6.l1, s6.l2 (no keyboard and no Done bar. The composer sits at the bottom, 12 px from the edge).
+A1 (H-07) white rings, as the sheet describes: s8.l10 round Close, s9.l8 round the Read 20 pages row, s12.l8 round Close, s15.l11 round Close, s17.l5 round Cancel. Each is :focus-visible and painted white.
+
+Gestures: 15 taps hit-tested, 15 on target, 0 missed. Keys: type and Enter for each habit (the Enter key stands in for the keyboard's return key).
+Captures: s01-first-screen.png s02-field-tapped.png s03-added.png s04-added.png s05-added.png s07-done-today.png s07-ov-button-zoom.png s08-overview.png s08-close-zoom.png s09-day-editor-15.png s10-read-ticked.png s11-closed.png s12-all-habits.png s13-back-to-overview.png s14-list.png s15-year-read.png s15-beads-zoom.png s16-list.png s17-delete-dialog.png s17-cancel-zoom.png s18-cancelled.png

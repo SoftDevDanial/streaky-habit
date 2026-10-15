@@ -1,0 +1,16 @@
+UAT-05 pre-run log. Automated UAT pre-run agent, read-only. Run 20261016-0156, sitting 1, same seat and context (continues from UAT-04).
+
+Lines (step: line + mark, M matches, X does not match, N not drivable)
+s0: 1N | s1: 1M 2M | s2: 1N 2N | s3: 1N 2M | s4: 1N 2N | s5: 1N 2N | s6: 1N | s7: 1N
+
+Not drivable, and why
+s0.l1 Windows dark mode. No Windows or Chrome settings in a headless context. The context emulates prefers-color-scheme dark.
+s2.l1, s2.l2, s4.l1, s4.l2 the tab icon. A headless browser draws no tab strip.
+s3.l1 Windows and Chrome turn light. No Windows settings.
+s5.l1, s5.l2, s6.l1, s7.l1 Firefox. No Firefox in the tester seat, and none found at the standard install paths or in the Start menu of this PC.
+Matched
+s1.l1, s1.l2 the header mark is amber (paint) and holds no text element, only paths (s01-mark-zoom.png).
+s3.l2 with prefers-color-scheme emulated as light (a stand-in for the Windows switch) the page background stays near black.
+Context only, not the tab: src/icon.svg opened as a document has fill rgb(255, 176, 32) under dark and rgb(154, 91, 0) under light. The page links it as rel=icon, type image/svg+xml.
+
+Captures: s01-header.png s01-mark-zoom.png s03-page-under-light-preference.png

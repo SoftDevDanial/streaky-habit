@@ -1,0 +1,19 @@
+UAT-01 pre-run log. Automated UAT pre-run agent, read-only. Run 20261016-0156, sitting 1.
+Seat: headless Chromium 149.0.7827.55, 1280 x 800, device scale 2, prefers-color-scheme dark, fresh context, real clock Fri 16 Oct 2026 01:56 (UTC+08:00).
+App: http://127.0.0.1:8741/ (orchestrator's server). Clipboard stand-in loaded before the page, 0 writes recorded.
+Method: every click hit-tested with elementFromPoint at the exact point first. Paint read from a device-scale capture (ring arcs, fills, outlines, threads).
+
+Lines (step: line + mark, M matches, X does not match, N not drivable)
+s0 (starting state and the three adds): 1M 2M 3M 4M 5M 6M 7M 8M 9M 10M
+s1: 1M 2M 3M 4M 5M 6M 7M 8M | s2: 1M 2M 3M 4M 5M | s3: 1M 2M 3M 4M | s4: 1M 2M 3M 4M 5M 6M 7M 8M 9M 10M 11M
+s5: 1M 2M 3M 4M | s6: 1M 2M 3M | s7: 1M 2M 3M 4M | s8: 1M 2M 3M | s9: 1M 2M 3M | s10: 1M 2M 3M 4M 5M 6M 7M 8M
+s11: 1M 2M 3M | s12: 1M 2M 3M 4M 5M 6M | s13: 1M 2M 3M | s14: 1M 2M | s15: 1M 2M 3M
+
+Gestures: 14 clicks and wheels hit-tested, 14 on target, 0 missed. Keys: type and Enter three times (step 0), Escape (steps 14, 15).
+Notes
+s1 15 sits in band column 12, row 4 (Thursday), as the step says.
+s5 wheel over the year window body, 6 turns until scrollTop stopped (cap 40). s11 the same for All habits.
+s3 line 3 wording. "day" sits beside the amber 1 on the line under "Current", not under the 1. The sheet's words "with 1 in amber and "day" under it" read either way.
+s14, s15 after each Esc a white keyboard focus ring shows on the control that opened the popup. Not in the sheet.
+
+Captures: s00a-start.png s00b-three-habits.png s01-day-editor-15.png s01-band-15-zoom.png s02-read-ticked.png s03-closed.png s04-year-stretch.png s05-year-bottom.png s06-bead16.png s07-bead17.png s07-thread-zoom.png s08-bead17-off.png s09-closed.png s10-all-habits.png s11-all-bottom.png s12-day-editor-2025.png s13-nophone-ticked.png s14-esc1.png s14-day16-zoom.png s15-esc2.png

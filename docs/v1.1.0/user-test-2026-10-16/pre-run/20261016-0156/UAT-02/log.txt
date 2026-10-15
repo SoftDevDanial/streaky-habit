@@ -1,0 +1,12 @@
+UAT-02 pre-run log. Automated UAT pre-run agent, read-only. Run 20261016-0156, sitting 1, same seat and context as UAT-01 (continues from it).
+
+Lines (step: line + mark, M matches, X does not match, N not drivable)
+s0 (start state): 1M | s1: 1M 2M 3M 4M | s2: 1M 2M | s3: 1M 2M 3M | s4: 1M 2M 3M | s5: 1M 2M 3M 4M | s6: 1M 2M 3M | s7: 1M 2M 3M 4M | s8: 1M 2M 3M 4M 5M | s9: 1M 2M 3M
+
+Gestures: 7 clicks hit-tested, 7 on target, 0 missed.
+Notes
+s1 Best 1 reads white by computed colour (237, 238, 240) and by paint. Current 1 reads amber by both.
+s8 16 sits in band column 12, row 5 (Friday), as the step says.
+s7 Done today shows the lighter hover amber while the pointer rests on it.
+
+Captures: s00-start.png s01-read-row-zoom.png s03-year-nophone.png s04-bead13.png s05-bead14.png s06-closed.png s07-done-today.png s08-day-editor-16.png s09-closed.png

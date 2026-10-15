@@ -1,0 +1,10 @@
+UAT-06 pre-run log. Automated UAT pre-run agent, read-only. Run 20261016-0156, sitting 1, same seat and context (continues from UAT-05).
+
+Lines (step: line + mark, M matches, X does not match, N not drivable)
+s1: 1N | s2: 1M 2M
+
+s1.l1 N the tab's hover card. A headless browser draws no tab strip and no hover card. Context only: document.title is "Danial's Streaky Habit".
+s2.l1 M the header text reads "Streaky Habit", no "Danial" anywhere in the header.
+s2.l2 M the mark holds no text element, only paths (s02-mark-zoom.png).
+
+Captures: s02-header.png s02-mark-zoom.png

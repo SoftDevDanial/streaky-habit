@@ -1,0 +1,15 @@
+UAT-03 pre-run log. Automated UAT pre-run agent, read-only. Run 20261016-0156, sitting 1, same seat and context (continues from UAT-02).
+
+Lines (step: line + mark, M matches, X does not match, N not drivable)
+s1: 1M 2M 3M 4M | s2: 1M 2M 3M 4M 5M 6M 7M 8M 9M 10M 11M | s3: 1M 2M 3M 4M 5M 6M 7M | s4: 1M 2M 3M 4M | s5: 1M 2M 3M 4M 5M
+s6: 1M 2M 3M 4M 5M | s7: 1M 2M 3M 4M 5M 6M 7M | s8: 1M 2M 3M 4M | s9: 1M
+
+Gestures: 6 clicks and wheels hit-tested, 6 on target, 0 missed. Keys: type and Enter for Habit 4 to Habit 12.
+Notes
+s5 the middle of 16 fills amber (4 of 4 core samples) and its number's fill is rgb(24, 25, 28).
+s7 the composer's bottom edge and the field did not move from step 3 (the note line grows the box upward). Header and band rects unchanged.
+s7 the top fade (frame-wrap ::before) has opacity 1 over the Habit 9 row. s8 the bottom fade has opacity 1 over the Habit 4 row.
+s8 wheel up over the list, 5 turns from scrollTop 579 to 0 (cap 40).
+s9 wheel down over the band's title column, layout and pixels unchanged. A second probe over the grid of days, also unchanged.
+
+Captures: s01-main.png s01-header-zoom.png s02-band-zoom.png s04-read-done.png s05-stretch-done.png s05-day16-zoom.png s06-habit4.png s07-twelve.png s07-list-top-zoom.png s08-list-top.png s08-list-bottom-zoom.png s09-after-band-wheel.png

@@ -1,0 +1,16 @@
+Re-run 2026-10-16 02:17 on the repaired TEST-CASES.md (59422 bytes, 02:09). Automated UAT pre-run agent, read-only.
+Seats as in the first run (pre-run/20261016-0156/). Sitting 1 headless Chromium 149 at 1280 x 800, one fresh context, UAT-01 to UAT-05 in order. Sitting 2 headless WebKit 26.5, iPhone 13 context, one fresh context per size, UAT-08 to UAT-10 in order, at 390 x 664 (this folder) and 390 x 844 (supplementary-390x844/). Real clock, clipboard stand-in in every context (0 writes), every click and tap hit-tested first (0 missed).
+The checks are the first run's (sitting1.py, sitting2.py in the scratchpad), mapped to the repaired wording by rerun1.py and rerun2.py. UAT-09 was rewritten for its new steps 1, 2 and 4.
+UAT-02 and UAT-03 were driven again only to rebuild the state UAT-04 needs. Their captures sit in UAT-02/ and UAT-03/ and were not re-verdicted (all their lines matched).
+
+Line marks (M matches, X does not match, N not drivable)
+UAT-01 80 lines, all M. Step 3 line 3 now reads 'On the Read 20 pages row, under "Current" it reads 1 in amber, then "day"', M.
+UAT-04 28 lines, all M. s3 l1 "A dialog flashes open and closes again at once" M (open 142.5 ms, the second press landed on the dim page). s3 l2 "No dialog is open afterwards" M. s4 l1 "Nothing changes, since no dialog is open" M (no dialog before or after Esc, rows and note unchanged). s9 the click on "habit" came 481 ms after the bin click.
+UAT-05 13 lines, 3 M (s1 l1, s1 l2, s3 l2), 10 N (tab strip, Windows settings, Firefox skipped as steps 5 and 7 allow, step 8 tab icon).
+UAT-08 at 664, 73 lines, 68 M, 1 X, 4 N. X is s8 l6 "Down the left, Oct twice, Sep, Aug and Jul label five of the rows". Oct, Oct, Sep and Aug show, the Jul label sits below the screen edge until the new step 12 scroll. New s12 l1 and l2 M after Tab then End (s12-scrolled.png). Steps 13 to 19 all M, the A1 white rings as before. N are s2 l1, s2 l2, s6 l1, s6 l2 (keyboard).
+UAT-08 at 844, 73 lines, 69 M, 4 N.
+UAT-09 at 664 and at 844, 33 lines each, all M. At 664, s1 l2 needed the scroll the line allows (Tab then End, scroll range 84 px), and s4 l3 needed the scroll up the line allows (Home, focus was on 27). At 844 no scroll was needed.
+UAT-10 at 664 and at 844, 17 lines each, all M. s1 l1's new wording allows the dialog to close at once. It closed after about 140 ms.
+Totals: sitting 1 201 lines (191 M, 10 N). Sitting 2 at 664 123 lines (118 M, 1 X, 4 N). At 844 123 lines (119 M, 4 N).
+
+Captures: UAT-01/ (20), UAT-02/ (9, rebuild), UAT-03/ (12, rebuild), UAT-04/ (14), UAT-05/ (2), UAT-08/ (22), UAT-09/ (13), UAT-10/ (9), supplementary-390x844/UAT-08/ (22), UAT-09/ (11), UAT-10/ (9), probe-P1-H08/ (5 plus log.txt).

@@ -1,0 +1,1542 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UAT sheet</title>
+<!--
+  sdlc UAT test sheet, template (since sdlc 2.2.0). Layout approved by the owner on 2026-10-10.
+
+  The sdlc:uat orchestrator copies this file to ./docs/v<version>/user-test-<date>/TEST-SHEET.html and
+  replaces the JSON inside <script id="sheet-data"> with the sitting's content. TEST-CASES.md stays the
+  record. This page shows the same cases and collects the human's marks, verdicts and notes.
+
+  Rules for the data
+  - No value may contain the text "</script". Write a "<" in any value as the JSON escape for it
+    (backslash, u, 003c), so nothing can close the script tag. No value needs HTML. The page escapes all text.
+  - Mini markup in text fields. *Control* names a control, `typed text` is what to type, [Key] is a key,
+    "on-screen copy" is text the screen shows, {RM 24.90} is a figure the human checks.
+  - Each string in a step's "see" list is ONE checkable line. Every figure on screen gets a line.
+  - user.verdict stays null until the human's own results arrive. Never fill it on their behalf.
+  - retest holds the human's earlier verdict when a fixed case comes back. It is never overwritten.
+
+  No network, no web fonts, no external files. Marks are kept in this browser only (localStorage) and are
+  sent nowhere. The Copy button touches the clipboard only when the human presses it.
+-->
+<style>
+  :root {
+    --rail: #111821;
+    --rail-2: #1b2430;
+    --rail-fg: #e7edf4;
+    --rail-muted: #9aa7b6;
+    --desk: #e6eaef;
+    --paper: #ffffff;
+    --ink: #141c26;
+    --ink-2: #465363;
+    --ink-3: #6b7684;
+    --rule: #d3dae3;
+    --rule-strong: #8f9bab;
+    --tint: #f3f6f9;
+    --accent: #0b5fc4;
+    --pass: #0f7a3c;  --pass-bg: #e5f4ea;  --pass-dot: #3fb36b;
+    --note: #1d4ed8;  --note-bg: #e8eefc;
+    --fail: #b42318;  --fail-bg: #fde9e7;  --fail-dot: #f0645a;
+    --block: #8a5300; --block-bg: #fdf1d8; --block-dot: #e2a93b;
+    --state: #4a5768; --state-bg: #eef1f5;
+    --retest: #6b3fa0; --retest-bg: #f1eafb; --retest-dot: #b48cf0;
+    --limit: #3d4a5c; --limit-bg: #eef1f5;
+    --sans: ui-sans-serif, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, "Cascadia Mono", "SF Mono", Consolas, monospace;
+    --rail-w: 300px;
+    --sheet-pad-y: 40px;
+    --sheet-pad-x: 44px;
+    --r: 14px;
+    --fs-num: 104px;
+    --fs-title: 26px;
+    --fs-label: 12px;
+    --mk: 34px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--desk); color: var(--ink); font: 16px/1.55 var(--sans); }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+  button { font: inherit; }
+  a { color: var(--accent); }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  .app { display: grid; grid-template-columns: var(--rail-w) minmax(0, 1fr); }
+
+  /* Rail */
+  .rail { background: var(--rail); color: var(--rail-fg); padding: 24px 14px; position: sticky; top: 0; align-self: start; height: 100dvh; overflow: auto; }
+  .kicker { font-size: var(--fs-label); font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+  .rail .kicker { color: var(--rail-muted); padding: 0 10px; }
+  .rail-title { font-size: 24px; font-weight: 780; padding: 2px 10px 0; letter-spacing: -.01em; overflow-wrap: anywhere; }
+  .rail-meta { color: var(--rail-muted); font-size: 14px; padding: 0 10px 16px; }
+  .caselist { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+  .rail-sep { height: 1px; background: #2a3442; margin: 8px 10px; list-style: none; }
+  .ci { position: relative; width: 100%; display: grid; grid-template-columns: 48px 1fr; gap: 10px; align-items: center; text-align: left; color: inherit; background: transparent; border: 0; border-radius: 10px; padding: 10px; min-height: 56px; cursor: pointer; }
+  .ci:hover { background: var(--rail-2); }
+  .ci[aria-current="true"] { background: var(--rail-2); box-shadow: inset 3px 0 0 #7fb2ff; }
+  .ci-num { font-size: 26px; font-weight: 800; letter-spacing: -.04em; font-variant-numeric: tabular-nums; line-height: 1; }
+  .ci.doc .ci-num { font-size: 20px; color: var(--rail-muted); }
+  .ci-title { display: block; font-size: 14px; line-height: 1.3; }
+  .ci-v { display: flex; gap: 6px; margin-top: 6px; align-items: center; font-size: 12px; color: var(--rail-muted); }
+  .dot { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; font: 800 11px/1 var(--sans); color: #0d1218; }
+  .d-pass { background: var(--pass-dot); }
+  .d-fail { background: var(--fail-dot); }
+  .d-block { background: var(--block-dot); }
+  .d-retest { background: var(--retest-dot); }
+  .d-none { background: transparent; color: var(--rail-muted); box-shadow: inset 0 0 0 1.5px #5b6878; }
+  .rail-foot { margin-top: 18px; padding: 14px 10px 0; border-top: 1px solid #2a3442; color: var(--rail-muted); font-size: 13px; display: grid; gap: 6px; }
+  .rail-foot kbd { font-family: var(--mono); border: 1px solid #3a4655; border-bottom-width: 2px; border-radius: 4px; padding: 0 5px; color: var(--rail-fg); }
+  .rail-foot b { color: var(--rail-fg); }
+  .results-btn { min-height: 44px; border-radius: 10px; border: 1px solid #7fb2ff; background: transparent; color: #cfe2ff; font-weight: 700; cursor: pointer; margin-bottom: 8px; }
+  .results-btn:hover { background: #17263a; }
+
+  /* Main and sheets */
+  .main { padding: 24px 32px 56px; min-width: 0; }
+  .sheet { max-width: 1000px; margin: 0 auto 20px; background: var(--paper); border-radius: var(--r); padding: var(--sheet-pad-y) var(--sheet-pad-x); box-shadow: 0 1px 2px rgba(20, 28, 38, .06), 0 10px 28px rgba(20, 28, 38, .07); }
+
+  /* Verdict guide */
+  .guide-head { display: flex; align-items: center; gap: 12px; }
+  .guide-head h2 { margin: 0; font-size: 18px; font-weight: 720; }
+  .guide-toggle { margin-left: auto; min-height: 40px; padding: 0 14px; border-radius: 8px; border: 1px solid var(--rule); background: #fff; color: var(--accent); font-weight: 650; cursor: pointer; }
+  .guide-body { margin-top: 14px; }
+  .guide-body[hidden] { display: none; }
+  .guide-intro { margin: 0 0 14px; color: var(--ink-2); }
+  .legend { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .lg { border: 1px solid var(--rule); border-radius: 10px; padding: 14px; display: grid; gap: 8px; align-content: start; }
+  .lg p { margin: 0; font-size: 15px; }
+  .lg .ex { font-size: 14px; color: var(--ink-2); border-top: 1px dashed var(--rule); padding-top: 8px; }
+  .lg .ex b { color: var(--ink); font-weight: 650; }
+  .states { margin-top: 12px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 12px; }
+  .st { border-radius: 10px; background: var(--tint); padding: 12px 14px; font-size: 14px; display: grid; gap: 8px; align-content: start; }
+  .st h3 { margin: 0; font-size: var(--fs-label); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-2); }
+  .st p { margin: 0; display: flex; gap: 10px; align-items: flex-start; }
+  .st p > :first-child { flex: none; }
+  .mk-demo { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 6px; color: #fff; }
+  .mk-demo svg { width: 13px; height: 13px; fill: currentColor; }
+  .mk-demo.ok { background: var(--pass); }
+  .mk-demo.no { background: var(--fail); }
+  .before { margin-top: 18px; }
+
+  /* Verdict chips. Words and colour only, the tick and cross belong to the line marks. */
+  .vchip { display: inline-flex; align-items: center; gap: 6px; font: 700 12px/1 var(--sans); letter-spacing: .06em; padding: 6px 9px; border-radius: 999px; border: 1.5px solid currentColor; white-space: nowrap; }
+  .v-pass { color: var(--pass); background: var(--pass-bg); }
+  .v-note { color: var(--note); background: var(--note-bg); }
+  .v-fail { color: var(--fail); background: var(--fail-bg); }
+  .v-block { color: var(--block); background: var(--block-bg); border-style: dashed; }
+  .v-state { color: var(--state); background: var(--state-bg); border-style: dotted; }
+  .v-retest { color: var(--retest); background: var(--retest-bg); }
+  .vchip.off { color: #8a95a3; background: transparent; border-color: #c9d1db; border-style: solid; }
+
+  /* Case */
+  .case-head { display: grid; grid-template-columns: auto 1fr auto; gap: 28px; align-items: end; padding-bottom: 20px; border-bottom: 3px solid var(--ink); }
+  .case-num { display: grid; line-height: .82; }
+  .case-num .kicker { color: var(--ink-2); padding-left: 4px; }
+  .case-num .digits { font-size: var(--fs-num); font-weight: 820; letter-spacing: -.055em; font-variant-numeric: tabular-nums; }
+  .case-head h1 { font-size: var(--fs-title); line-height: 1.2; margin: 0 0 12px; font-weight: 700; letter-spacing: -.01em; max-width: 30ch; }
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .chip { font-size: 13px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: var(--tint); border: 1px solid var(--rule); color: var(--ink); }
+  .c-nav { display: flex; gap: 8px; }
+  .navbtn { min-height: 44px; padding: 0 14px; border-radius: 10px; border: 1px solid var(--rule); background: #fff; color: var(--ink); cursor: pointer; font-weight: 600; }
+  .navbtn:disabled { color: #8b96a5; cursor: default; }
+
+  table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+  .kv { margin-top: 12px; }
+  .kv th { width: 180px; text-align: left; vertical-align: top; padding: 12px 16px 12px 0; font-size: var(--fs-label); font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2); line-height: 1.9; }
+  .kv td { padding: 12px 0; vertical-align: top; }
+  .kv tr + tr { border-top: 1px solid var(--rule); }
+
+  .progress { position: sticky; top: 0; z-index: 2; display: flex; gap: 14px; align-items: center; margin: 24px calc(var(--sheet-pad-x) * -1) 0; padding: 12px var(--sheet-pad-x); background: rgba(255, 255, 255, .96); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); font-size: 14px; font-weight: 650; }
+  .progress .ct-no { color: var(--fail); }
+  .bar { flex: 1; height: 8px; border-radius: 99px; background: #e3e8ee; overflow: hidden; display: flex; }
+  .bar span { display: block; height: 100%; transition: width .2s ease; }
+  .bar .b-ok { background: var(--pass); }
+  .bar .b-no { background: var(--fail); }
+
+  .steps { margin-top: 8px; }
+  .steps thead th { text-align: left; font-size: var(--fs-label); font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2); padding: 14px 12px 10px; border-bottom: 2px solid var(--ink); }
+  .steps thead th:first-child { width: 56px; padding-left: 0; }
+  .steps thead th.c-do { width: 40%; }
+  .steps tbody td { padding: 14px 12px; vertical-align: top; border-bottom: 1px solid var(--rule); }
+  .steps tbody td.n { padding-left: 0; }
+  .num { display: inline-grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid var(--ink); font-weight: 750; font-size: 14px; font-variant-numeric: tabular-nums; }
+  tr.step.is-done .num { background: var(--ink); color: #fff; }
+  tr.step.has-no .num { background: var(--fail); border-color: var(--fail); color: #fff; }
+  .see-label { display: none; }
+
+  .lines { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+  .line { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start; padding: 3px 6px 3px 3px; border-radius: 8px; }
+  .line .txt { padding-top: 5px; }
+  .line.m-no { background: var(--fail-bg); }
+  .line.m-ok .txt { color: var(--ink-2); }
+  .mks { display: inline-flex; gap: 4px; }
+  .mk { display: inline-grid; place-items: center; width: var(--mk); height: var(--mk); border-radius: 8px; border: 1.5px solid var(--rule); background: #fff; color: var(--ink-3); cursor: pointer; padding: 0; }
+  .mk svg { width: 15px; height: 15px; fill: currentColor; }
+  .mk:hover { border-color: var(--rule-strong); }
+  .mk.ok[aria-pressed="true"] { background: var(--pass); border-color: var(--pass); color: #fff; }
+  .mk.no[aria-pressed="true"] { background: var(--fail); border-color: var(--fail); color: #fff; }
+
+  .fig { font-weight: 680; white-space: nowrap; }
+  .ui { background: var(--tint); border: 1px solid var(--rule); border-radius: 4px; padding: 0 5px; }
+  .ctl { font-weight: 680; border: 1px solid var(--rule-strong); border-radius: 5px; padding: 0 5px; background: #fff; white-space: nowrap; }
+  kbd { font-family: var(--mono); font-size: .88em; }
+  kbd.typed { background: #e9eef5; border-radius: 4px; padding: 1px 6px; }
+  kbd.key { border: 1px solid var(--rule-strong); border-bottom-width: 2px; border-radius: 4px; padding: 0 5px; background: #fff; }
+
+  .mini { margin-top: 8px; width: auto; border: 1px solid var(--rule); border-radius: 8px; border-collapse: separate; border-spacing: 0; overflow: hidden; }
+  .mini th, .mini td { padding: 5px 10px; text-align: right; border-bottom: 1px solid var(--rule); white-space: nowrap; vertical-align: middle; }
+  .mini th { font-size: 12px; color: var(--ink-2); font-weight: 650; }
+  .mini td.nm, .mini th.nm { text-align: left; font-weight: 650; }
+  .mini td.mkc, .mini th.mkc { padding: 4px 4px 4px 6px; text-align: left; }
+  .mini tr:last-child td { border-bottom: 0; }
+  .mini tr.total td { border-top: 2px solid var(--ink); font-weight: 700; }
+  .mini tr.m-no td { background: var(--fail-bg); }
+  .mini td.combo { display: none; }
+
+  tr.noterow td { padding: 0; border-bottom: 0; }
+  .note { display: grid; grid-template-columns: 132px 1fr; gap: 14px; margin: 12px 0 0; padding: 14px 16px; border-radius: 10px; border-left: 4px solid currentColor; }
+  .note .tag { font: 750 12px/1.6 var(--sans); letter-spacing: .1em; text-transform: uppercase; }
+  .note p { margin: 0; color: var(--ink); }
+  .k-note { color: var(--note); background: var(--note-bg); }
+  .k-ask { color: var(--block); background: var(--block-bg); }
+  .k-limit { color: var(--limit); background: var(--limit-bg); }
+
+  /* Verdict table */
+  .verdicts { margin-top: 36px; }
+  .verdicts th, .verdicts td { padding: 14px 12px; vertical-align: top; border-bottom: 1px solid var(--rule); text-align: left; }
+  .verdicts tbody th { padding-left: 0; font-size: 14px; }
+  .verdicts tbody th small { display: block; font-weight: 500; color: var(--ink-2); }
+  .verdicts thead th { color: var(--ink-2); font-size: var(--fs-label); font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 0 12px 10px; border-bottom: 2px solid var(--ink); }
+  .verdicts thead th.c-who { width: 150px; padding-left: 0; }
+  .verdicts thead th.c-v { width: 330px; }
+  .ballot { display: flex; gap: 6px; flex-wrap: wrap; border: 0; margin: 0; padding: 0; }
+  .bopt { position: relative; display: inline-flex; }
+  .bopt input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+  .bopt .vchip { min-height: 40px; padding: 0 14px; font-size: 13px; }
+  .bopt input:focus-visible + .vchip { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .bopt input:not(:checked) + .vchip { color: #6b7684; background: #fff; border-color: #c9d1db; border-style: solid; }
+  .bopt input:not(:checked):hover + .vchip { border-color: var(--rule-strong); }
+  .words { margin: 0; }
+  .muted { color: var(--ink-2); }
+  .note-field { width: 100%; min-height: 84px; font: 15px/1.5 var(--sans); color: var(--ink); border: 1px solid var(--rule); border-radius: 10px; padding: 10px 12px; resize: vertical; }
+  .note-hint { margin: 6px 0 0; font-size: 13px; color: var(--ink-2); }
+  .no-list { margin: 6px 0 0; padding-left: 18px; color: var(--fail); }
+  .no-list li span { color: var(--ink); }
+  .case-foot { display: flex; justify-content: flex-end; margin-top: 16px; }
+  .primary { min-height: 44px; padding: 0 18px; border-radius: 10px; border: 0; background: var(--ink); color: #fff; font-weight: 700; cursor: pointer; }
+
+  /* Handover views */
+  .view-h { margin: 0 0 6px; font-size: var(--fs-title); line-height: 1.2; letter-spacing: -.01em; }
+  .view-intro { margin: 0 0 8px; color: var(--ink-2); }
+  .decision { border-top: 1px solid var(--rule); padding: 18px 0 6px; }
+  .decision h3 { margin: 0 0 10px; font-size: 18px; }
+  .decision table th { width: 180px; text-align: left; vertical-align: top; padding: 8px 16px 8px 0; font-size: var(--fs-label); font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2); line-height: 1.9; }
+  .decision table td { padding: 8px 0; vertical-align: top; }
+  .resid { margin: 0; padding-left: 20px; }
+
+  /* Results dialog */
+  .scrim { position: fixed; inset: 0; background: rgba(13, 18, 24, .55); display: grid; place-items: center; padding: 16px; z-index: 10; }
+  .scrim[hidden] { display: none; }
+  .dialog { width: min(640px, 100%); background: #fff; border-radius: 14px; padding: 24px; box-shadow: 0 20px 60px rgba(13, 18, 24, .35); display: grid; gap: 12px; }
+  .dialog h2 { margin: 0; font-size: 20px; }
+  .dialog p { margin: 0; color: var(--ink-2); }
+  .dialog textarea { width: 100%; min-height: 220px; font: 13px/1.5 var(--mono); border: 1px solid var(--rule); border-radius: 10px; padding: 10px 12px; resize: vertical; color: var(--ink); }
+  .dialog .row { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; }
+  .ghost { min-height: 44px; padding: 0 16px; border-radius: 10px; border: 1px solid var(--rule); background: #fff; color: var(--ink); font-weight: 650; cursor: pointer; }
+  .ghost.danger { color: var(--fail); margin-right: auto; }
+  #rd-status { min-height: 1.5em; color: var(--pass); font-weight: 650; }
+
+  @media (max-width: 1100px) {
+    :root { --rail-w: 250px; --sheet-pad-x: 32px; }
+    .legend { grid-template-columns: 1fr 1fr; }
+    .case-head { grid-template-columns: auto 1fr; }
+    .c-nav { grid-column: 1 / -1; }
+  }
+  @media (max-width: 760px) {
+    :root { --sheet-pad-y: 22px; --sheet-pad-x: 16px; --fs-num: 72px; --fs-title: 21px; --mk: 40px; }
+    .app { grid-template-columns: minmax(0, 1fr); }
+    .rail { position: static; height: auto; padding: 14px 0 10px; min-width: 0; }
+    .rail .kicker, .rail-title, .rail-meta { padding-left: 16px; padding-right: 16px; }
+    .rail-meta { padding-bottom: 10px; }
+    .caselist { display: flex; overflow-x: auto; gap: 6px; padding: 0 16px 6px; }
+    .caselist li { flex: none; }
+    .rail-sep { width: 1px; height: auto; margin: 6px 2px; }
+    .ci { grid-template-columns: auto; width: auto; min-width: 64px; gap: 4px; justify-items: center; padding: 8px 10px; }
+    .ci-title { display: none; }
+    .ci-v { margin-top: 0; }
+    .ci[aria-current="true"] { box-shadow: inset 0 -3px 0 #7fb2ff; }
+    .rail-foot { display: none; }
+    .main { padding: 0 0 40px; }
+    .sheet { border-radius: 0; margin-bottom: 10px; }
+    .legend, .states { grid-template-columns: 1fr; }
+    .case-head { gap: 16px; }
+    .navbtn { flex: 1; }
+    .kv th, .kv td, .decision table th, .decision table td { display: block; width: auto; padding: 0; }
+    .kv th, .decision table th { padding-top: 12px; }
+    .kv td, .decision table td { padding-bottom: 12px; }
+    .steps, .steps tbody { display: block; }
+    .steps thead { display: none; }
+    .steps tbody tr.step { display: grid; grid-template-columns: 44px minmax(0, 1fr); border-bottom: 1px solid var(--rule); padding: 12px 0; }
+    .steps tbody td { border: 0; padding: 0; }
+    .steps tbody td.do { padding-bottom: 8px; }
+    .steps tbody td.see { grid-column: 1 / -1; padding: 10px; background: var(--tint); border-radius: 8px; }
+    .see-label { display: block; font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2); margin-bottom: 6px; }
+    .mini { width: 100%; font-size: 13px; }
+    .mini thead { display: none; }
+    .mini td.fg { display: none; }
+    .mini td.combo { display: table-cell; text-align: left; white-space: normal; font-size: 14px; }
+    .mini td.combo .cp { display: flex; justify-content: space-between; gap: 8px; }
+    .mini td.combo .cp-h { color: var(--ink-2); font-size: 13px; }
+    .mini td.nm { white-space: normal; width: 4.6em; padding-right: 6px; line-height: 1.25; }
+    .mini th, .mini td { padding: 5px 6px; }
+    tr.noterow { display: block; }
+    tr.noterow td { display: block; }
+    .note { grid-template-columns: 1fr; gap: 4px; }
+    .verdicts table, .verdicts tbody, .verdicts tr, .verdicts th, .verdicts td { display: block; width: auto !important; }
+    .verdicts thead { display: none; }
+    .verdicts tbody th { border-bottom: 0; padding-bottom: 4px; }
+    .verdicts tbody td { border-bottom: 0; padding-top: 6px; padding-left: 0; }
+    .verdicts tbody tr { border-bottom: 1px solid var(--rule); }
+    .case-foot .primary { width: 100%; }
+  }
+  @media (prefers-reduced-motion: reduce) { .bar span { transition: none; } }
+</style>
+</head>
+<body>
+
+<script type="application/json" id="sheet-data">
+{
+  "app": "Danial's Streaky Habit",
+  "version": "1.1.0",
+  "date": "2026-10-16",
+  "sitting": 1,
+  "sittings": 2,
+  "minutes": 80,
+  "url": "http://127.0.0.1:8741/",
+  "start": "Nothing saved for this address in Chrome. The header shows the amber mark, \"Streaky Habit\", and \"Friday 16 October\" at the right. Under it the band \"Last 12 weeks\" with a *Year* button and \"Tap a day to change it.\", and a grid of numbered thin grey rings from Monday 27 July to Friday 16 October. Today, 16, has a white outer circle, and the places for Saturday 17 and Sunday 18 are empty. The band's legend reads \"None\", one ring, \"All\". The list box reads \"No habits yet.\" and \"Add one you want to do every day.\" beside a dotted orbit. At the bottom sit \"New habit\", an empty field and an amber *Add*.",
+  "facts": [
+    ["Sittings", "Sitting 1 is UAT-01 to UAT-07 at your desk, in Chrome, about 45 minutes. Sitting 2 is UAT-08 to UAT-12 on your iPhone in Safari, about 35 minutes. The orchestrator gives you the address for your iPhone when you start that sitting."],
+    ["Order", "Work the cases in order. Each one starts where the last one ended."],
+    ["Today", "Every date assumes you test on Friday 16 October 2026. On another day the dates move with today, so tell the orchestrator first and it dates the sheet again."],
+    ["Browser and window", "Use Chrome for sitting 1, since UAT-05 and UAT-07 use Chrome's own settings. Keep the window at least 1024 px wide, a maximised window is fine. Narrower than that, the app switches to its phone layout and sitting 1 no longer matches."],
+    ["Reading a ring", "A day's ring has one arc per habit in list order, clockwise from 12 o'clock. With three habits the first habit is the arc between 12 and 4 o'clock, the second between 4 and 8, the third between 8 and 12. Done is a thick amber arc, not done a thin grey one. When every habit is done the middle fills amber and the number turns dark. Today has a white outer circle."],
+    ["Status OPEN", "Every scope still reads OPEN in the ledger. SHIPPED is written at the seal, so OPEN here means built and reviewed, waiting for your verdict."],
+    ["Tester", "The automated UAT pre-run agent ran every case before you on 16 October 2026, sitting 1 in headless Chromium at 1280 x 800, sitting 2 in headless WebKit, Safari's engine on Windows, at 390 x 664 and 390 x 844. It is not an iPhone and has no Chrome or Safari interface, so each tester note names the lines only you can check. A green tester row proves the script can be run, not that the feature works."]
+  ],
+  "guide": {
+    "PASS": { "ref": "UAT-02, step 7.", "text": "The No phone after 11pm row read Current {1 day} and Best {2}, exactly as listed." },
+    "FAIL": { "ref": "UAT-09, step 2.", "text": "The 27 July day sat half under the day editor, where the sheet says the whole day shows above it." },
+    "BLOCKED": { "ref": "UAT-07, step 2.", "text": "Chrome's page has no line “Not allowed to save data on your device”, so the address could not be blocked." },
+    "NOTE": { "ref": "UAT-08.", "text": "“Pass, but I want no white ring after a tap” becomes your ruling on open item A1 (H-07)." }
+  },
+  "cases": [
+    {
+      "id": "UAT-01",
+      "title": "I can open any past day and fix it, three ways",
+      "scope": "S1 Edit any past day · sitting 1",
+      "status": "OPEN, built",
+      "problem": "In 1.0 you could tick only the last 7 days. Your words at the 1.0 test, “a big limitation is that we cant input something that we did last week or change a specific date habit incase we input it wrong or want to add something we just remembered.” 1.1.0 lets you open any day of the last 12 months and tick or untick it, three ways that you ruled in the design round. A day in the band opens the day editor. A habit's Year opens that habit's year. The band's Year opens every habit's year, and a day there opens the day editor too. Days after today stay closed. The phone part, where a low day stays in sight above the day editor, is UAT-09.",
+      "before": "The starting state above. Add three habits first. Click the *New habit* field at the bottom, type `Read 20 pages` and press [Enter]. Type `Stretch 10 minutes` and press [Enter]. Type `No phone after 11pm` and press [Enter]. The list then holds those three rows in that order, each reading \"Current\" and \"No streak yet\" with no Best.",
+      "steps": [
+        { "do": "In the band, click *15* in the last column, fourth row (the T for Thursday).", "see": [
+          "The day editor opens in the middle of the window over the dimmed page",
+          "Its title reads \"Thursday 15 October\"",
+          "The line under the title reads \"0 of 3 habits\"",
+          "The ring at its top left has three thin grey arcs and no number",
+          "Three rows with an empty circle each, \"Read 20 pages\", \"Stretch 10 minutes\", \"No phone after 11pm\"",
+          "Under each of the three names it reads \"No streak yet\"",
+          "A *Close* x sits at its top right",
+          "In the band behind it, {15} is outlined in amber"
+        ] },
+        { "do": "Click the empty circle beside \"Read 20 pages\".", "see": [
+          "The circle fills amber with a dark check",
+          "Under Read 20 pages it reads \"Current 1 day\" in amber",
+          "Beside that it reads \"Best 1\"",
+          "The line under the title reads \"1 of 3 habits\"",
+          "The ring at the top left shows one thick amber arc between 12 and 4 o'clock"
+        ] },
+        { "do": "Click *Close*, the x at the top right of the day editor.", "see": [
+          "The day editor closes",
+          "In the band, {15} shows one thick amber arc between 12 and 4 o'clock",
+          "On the Read 20 pages row, under \"Current\" it reads {1} in amber, then \"day\"",
+          "It shows \"Best\" with {1} under it"
+        ] },
+        { "do": "On the Stretch 10 minutes row, click *Year*.", "see": [
+          "A large window opens titled \"Stretch 10 minutes\"",
+          "Under the title it reads \"The last 12 months\"",
+          "It shows \"Current\" with \"No streak yet\" under it",
+          "There is no Best",
+          "*Delete habit* with a bin sits at the right",
+          "It reads \"Tap a day to mark it done or not done.\"",
+          "A legend shows an amber dot \"Done\" and an empty circle \"Not done\"",
+          "The top row holds three months, \"October 2026\", \"September 2026\", \"August 2026\"",
+          "In October 2026, {1} to {16} are circled numbers",
+          "{16} has a white ring round it (today)",
+          "{17} to {31} October 2026 are dim numbers with no circle"
+        ] },
+        { "do": "Point at this window and scroll down until it stops.", "see": [
+          "The last month is \"October 2025\", alone at the left of the bottom row",
+          "{1} to {15} October 2025 are blank, with no number",
+          "{16} to {31} October 2025 are circled numbers",
+          "{16} sits under the T for Thursday"
+        ] },
+        { "do": "Click *16* in October 2025.", "see": [
+          "{16} fills amber",
+          "\"Current\" still reads \"No streak yet\"",
+          "\"Best\" appears with {1} under it"
+        ] },
+        { "do": "Click *17* in October 2025, next to it.", "see": [
+          "{17} fills amber",
+          "A short amber thread joins 16 and 17",
+          "\"Best\" reads {2}",
+          "\"Current\" still reads \"No streak yet\""
+        ] },
+        { "do": "Click *17* again.", "see": [
+          "{17} is an empty circle again",
+          "The thread is gone",
+          "\"Best\" reads {1}"
+        ] },
+        { "do": "Click *Close*, the x at the top right of the window.", "see": [
+          "The window closes",
+          "The Stretch 10 minutes row shows \"Current\" with \"No streak yet\" under it",
+          "It shows \"Best\" with {1} under it"
+        ] },
+        { "do": "In the band, click *Year*, beside \"Last 12 weeks\".", "see": [
+          "A large window opens titled \"All habits\"",
+          "Under the title it reads \"The last 12 months\"",
+          "It reads \"Tap a day to change it.\"",
+          "A legend at the right reads \"None\", four small rings, \"All\"",
+          "The top row holds three months, October 2026 first",
+          "{15} October 2026 shows one thick amber arc between 12 and 4 o'clock",
+          "{16} October 2026 has a white outer circle and no amber",
+          "{17} to {31} October 2026 are dim numbers with no ring"
+        ] },
+        { "do": "Point at this window and scroll down until it stops.", "see": [
+          "The last month is \"October 2025\"",
+          "{1} to {15} October 2025 are blank",
+          "{16} October 2025 shows one thick amber arc between 4 and 8 o'clock"
+        ] },
+        { "do": "Click *16* in October 2025.", "see": [
+          "The day editor opens over the year window",
+          "Its title reads \"Thursday 16 October\"",
+          "The line under the title reads \"1 of 3 habits\"",
+          "Read 20 pages has an empty circle, then \"Current 1 day\" and \"Best 1\"",
+          "Stretch 10 minutes has an amber circle with a check, then \"No streak yet\" and \"Best 1\"",
+          "No phone after 11pm has an empty circle, then \"No streak yet\""
+        ] },
+        { "do": "Click the empty circle beside \"No phone after 11pm\".", "see": [
+          "The circle fills amber with a dark check",
+          "Under No phone after 11pm it reads \"No streak yet\", then \"Best 1\"",
+          "The line under the title reads \"2 of 3 habits\""
+        ] },
+        { "do": "Press [Esc].", "see": [
+          "The day editor closes and the year window stays open",
+          "{16} October 2025 shows two thick amber arcs, between 4 and 8 and between 8 and 12 o'clock"
+        ] },
+        { "do": "Press [Esc].", "see": [
+          "The year window closes",
+          "The No phone after 11pm row shows \"Current\" with \"No streak yet\" under it",
+          "It shows \"Best\" with {1} under it"
+        ] }
+      ],
+      "notes": [ { "kind": "note", "text": "Days after today are closed on purpose, so they have no ring and no circle. The day editor's title carries no year, so 16 October 2025 reads \"Thursday 16 October\". Current and Best in the day editor are each habit's numbers today, not as of the chosen day. Current counts yesterday's run while today is not over, which is why step 3 reads {1 day}." } ],
+      "tester": { "verdict": "PASS", "note": "Every line matched in Chromium at 1280 x 800, on the re-run after step 3 was reworded. Nothing here was out of its reach." },
+      "user": { "verdict": null, "note": "", "date": "", "marks": {} },
+      "retest": null,
+      "next": ""
+    },
+    {
+      "id": "UAT-02",
+      "title": "Each streak line names Current and Best",
+      "scope": "S2 The streak line says which is Current and which is Best · sitting 1",
+      "status": "OPEN, built",
+      "problem": "At the 1.0 test you said “I think it needs to show that left side is current and right is best”. Every streak line now carries the labels Current and Best, on the row, in the day editor and in a habit's year. This case makes the two numbers differ, so the labels matter.",
+      "before": "UAT-01 done. Read 20 pages reads Current {1 day} and Best {1}. Stretch 10 minutes and No phone after 11pm each read Current with \"No streak yet\", and Best {1}.",
+      "steps": [
+        { "do": "Look at the Read 20 pages row.", "see": [
+          "A small label \"Current\" sits above its first number",
+          "Under \"Current\" it reads {1} in amber, then \"day\"",
+          "A small label \"Best\" sits to the right",
+          "Under \"Best\" it reads {1} in white"
+        ] },
+        { "do": "Look at the Stretch 10 minutes row.", "see": [
+          "It shows \"Current\" with \"No streak yet\" under it",
+          "It shows \"Best\" with {1} under it"
+        ] },
+        { "do": "On the No phone after 11pm row, click *Year*.", "see": [
+          "A large window opens titled \"No phone after 11pm\"",
+          "It shows \"Current\" with \"No streak yet\" under it",
+          "It shows \"Best\" with {1} under it"
+        ] },
+        { "do": "In October 2026, click *13*.", "see": [
+          "{13} fills amber",
+          "\"Best\" still reads {1}",
+          "\"Current\" still reads \"No streak yet\""
+        ] },
+        { "do": "Click *14*, next to it.", "see": [
+          "{14} fills amber",
+          "A short amber thread joins 13 and 14",
+          "\"Best\" reads {2}",
+          "\"Current\" still reads \"No streak yet\""
+        ] },
+        { "do": "Click *Close*, the x at the top right of the window.", "see": [
+          "The window closes",
+          "The No phone after 11pm row shows \"Current\" with \"No streak yet\" under it",
+          "It shows \"Best\" with {2} under it"
+        ] },
+        { "do": "On the No phone after 11pm row, click *Done today*.", "see": [
+          "Done today turns amber with a dark check",
+          "\"Current\" reads {1} in amber, then \"day\"",
+          "\"Best\" reads {2}",
+          "In the band, {16} shows one thick amber arc between 8 and 12 o'clock"
+        ] },
+        { "do": "In the band, click *16*, the last column, fifth row (the F for Friday).", "see": [
+          "The day editor opens, titled \"Friday 16 October\"",
+          "The line under the title reads \"1 of 3 habits\"",
+          "Read 20 pages has an empty circle, then \"Current 1 day\" and \"Best 1\"",
+          "Stretch 10 minutes has an empty circle, then \"No streak yet\" and \"Best 1\"",
+          "No phone after 11pm has an amber circle with a check, then \"Current 1 day\" and \"Best 2\""
+        ] },
+        { "do": "Click *Close*, the x at the top right of the day editor.", "see": [
+          "The day editor closes",
+          "The Read 20 pages row shows \"Current\" {1} \"day\" and \"Best\" {1}",
+          "The No phone after 11pm row shows \"Current\" {1} \"day\" and \"Best\" {2}"
+        ] }
+      ],
+      "notes": [ { "kind": "note", "text": "Best is worked out from the days ticked as they are now. When Current is 0 the row says \"No streak yet\". When Best is 0 there is no Best at all, as on a new habit." } ],
+      "tester": { "verdict": "PASS", "note": "Every line matched in Chromium at 1280 x 800. Nothing here was out of its reach." },
+      "user": { "verdict": null, "note": "", "date": "", "marks": {} },
+      "retest": null,
+      "next": ""
+    },
+    {
+      "id": "UAT-03",
+      "title": "The new amber look, and a list that scrolls inside its box while the add field stays put",
+      "scope": "S7 A livelier look, chosen from five directions · sitting 1",
+      "status": "OPEN, built",
+      "problem": "You found 1.0 “so dull” and asked for five directions. You picked Orbit Rings' look with a layout of your own (F2 “Orbit List”). In Round 1 you said the list scrolls inside its own box, “Not the page but the div only”, and that many habits must not push the input field down. This case looks at the main screen and fills it to twelve habits. You saw the popups in UAT-01 and UAT-02. The phone look is UAT-08.",
+      "before": "UAT-02 done.",
+      "steps": [
+        { "do": "Look at the header.", "see": [
+          "The page background is near black",
+          "An amber mark sits at the top left",
+          "\"Streaky Habit\" sits beside it in white bold",
+          "\"Friday 16 October\" sits in grey at the right end of the same line"
+        ] },
+        { "do": "Look at the band.", "see": [
+          "It sits in a rounded box under the header",
+          "\"Last 12 weeks\" sits at its top left, with a *Year* button beside it",
+          "\"Tap a day to change it.\" sits under the title",
+          "M T W T F S S run down the left of the grid",
+          "Jul, Aug, Sep and Oct sit above the grid",
+          "Each day is a ring of three thin grey arcs with its number in the middle",
+          "{13} and {14} October show one thick amber arc between 8 and 12 o'clock",
+          "{15} October shows one thick amber arc between 12 and 4 o'clock",
+          "{16} October shows one thick amber arc between 8 and 12 o'clock and a white outer circle",
+          "The places for 17 and 18 October are empty",
+          "The legend at the bottom left reads \"None\", four small rings, \"All\""
+        ] },
+        { "do": "Look at the list and the bottom of the window.", "see": [
+          "Three rows sit in one rounded box under the band",
+          "Each row is one line, the name, a bin, Current, Best, *Year*, *Done today*",
+          "Done today on No phone after 11pm is amber with a dark check",
+          "Done today on the other two is outlined, with an empty circle",
+          "The New habit box sits at the bottom of the window",
+          "Its label \"New habit\" sits left of the field",
+          "An amber *Add* sits at the right of the field"
+        ] },
+        { "do": "On the Read 20 pages row, click *Done today*.", "see": [
+          "Done today turns amber with a dark check",
+          "\"Current\" reads {2}, then \"days\"",
+          "\"Best\" reads {2}",
+          "In the band, {16} shows thick amber arcs between 12 and 4 and between 8 and 12 o'clock"
+        ] },
+        { "do": "On the Stretch 10 minutes row, click *Done today*.", "see": [
+          "Done today turns amber with a dark check",
+          "\"Current\" reads {1}, then \"day\"",
+          "\"Best\" reads {1}",
+          "In the band, all three arcs of {16} are thick amber",
+          "The middle of {16} fills amber and its number turns dark"
+        ] },
+        { "do": "Click the *New habit* field, type `Habit 4` and press [Enter].", "see": [
+          "A fourth row \"Habit 4\" appears under No phone after 11pm",
+          "It shows \"Current\" with \"No streak yet\" and no Best",
+          "The field is empty again",
+          "Every ring in the band now has four arcs",
+          "The middle of {16} is no longer filled"
+        ] },
+        { "do": "In the same way, add `Habit 5`, `Habit 6`, `Habit 7`, `Habit 8`, `Habit 9`, `Habit 10`, `Habit 11` and `Habit 12`, pressing [Enter] after each.", "see": [
+          "\"Habit 12\" is the last row in view",
+          "The list box reaches down to the New habit box, and the rows scroll inside it",
+          "The top edge of the list box fades over the row under it",
+          "The New habit box is still at the bottom of the window, where it was at step 3",
+          "The note above the field reads \"You track 12 habits, the most this app holds. Delete one to add another.\"",
+          "The field and *Add* are greyed out",
+          "The header and the band have not moved"
+        ] },
+        { "do": "Point at the list and scroll the mouse wheel up until it stops.", "see": [
+          "The rows move inside the list box",
+          "\"Read 20 pages\" is the top row again",
+          "The bottom edge of the list box now fades over the row above it",
+          "The header, the band and the New habit box stay where they are"
+        ] },
+        { "do": "Point at the band and scroll the mouse wheel down.", "see": [
+          "Nothing on the page moves"
+        ] }
+      ],
+      "notes": [ { "kind": "note", "text": "The list scrolling inside its box and the add field staying put are your own Round 1 ruling. The note and the grey field at twelve habits are the app's limit of twelve habits." } ],
+      "tester": { "verdict": "PASS", "note": "Every line matched in Chromium at 1280 x 800. The list scrolled inside its box while the header, the band and the New habit box stayed put. Nothing here was out of its reach." },
+      "user": { "verdict": null, "note": "", "date": "", "marks": {} },
+      "retest": null,
+      "next": ""
+    },
+    {
+      "id": "UAT-04",
+      "title": "A double click on a bin never deletes, and Delete habit acts at once",
+      "scope": "S3 A delete guard that does not depend on time · sitting 1",
+      "status": "OPEN, built",
+      "problem": "In 1.0, Delete habit ignored clicks for half a second after the dialog opened. A slower second click could still delete where the bin lay under Delete habit, and a quick deliberate click had to wait. You chose to fix the 1.0 limits. Now a click on the spot of the button that opened the dialog, and the second click of any double click, are ignored, a key press always works, and there is no timer. The tap version on your iPhone is UAT-10.",
+      "before": "UAT-03 done, twelve habits. Point at the list and scroll down until it stops, so Habit 12 is the last row in view.",
+      "steps": [
+        { "do": "On the Habit 12 row, click the bin once, wait about one second, then click the same spot again without moving the mouse.", "see": [
+          "The first click opens a dialog titled Delete \"Habit 12\"?"
+        ] },
+        { "do": "Press [Esc].", "see": [
+          "No dialog is open",
+          "Habit 12 is still the last row",
+          "The note \"You track 12 habits, the most this app holds. Delete one to add another.\" still shows above the field"
+        ] },
+        { "do": "On the Habit 12 row, double-click the bin quickly.", "see": [
+          "A dialog flashes open and closes again at once",
+          "No dialog is open afterwards"
+        ] },
+        { "do": "Press [Esc].", "see": [
+          "Nothing changes, since no dialog is open",
+          "Habit 12 is still the last row",
+          "The twelve-habit note still shows above the field"
+        ] },
+        { "do": "On the Habit 12 row, click *Year*.", "see": [
+          "A large window opens titled \"Habit 12\"",
+          "It shows \"Current\" with \"No streak yet\" under it",
+          "*Delete habit* with a bin sits at its right"
+        ] },
+        { "do": "Double-click *Delete habit* quickly.", "see": [
+          "No delete dialog is open",
+          "The Habit 12 window is still open"
+        ] },
+        { "do": "Click *Close*, the x at the top right of the Habit 12 window.", "see": [
+          "The window closes",
+          "Habit 12 is still the last row",
+          "The twelve-habit note still shows above the field"
+        ] },
+        { "do": "On the Habit 12 row, click the bin once.", "see": [
+          "A dialog opens in the middle of the window",
+          "Its title reads Delete \"Habit 12\"?",
+          "Under it, \"Its history is deleted too.\"",
+          "*Cancel* sits on the left, outlined",
+          "*Delete habit* sits on the right, in red"
+        ] },
+        { "do": "Straight away, click the word habit on the red *Delete habit* button.", "see": [
+          "The dialog closes at once",
+          "Habit 12 is gone",
+          "Habit 11 is the last row",
+          "The twelve-habit note is gone",
+          "The New habit field and *Add* can be used again, and Add is amber"
+        ] }
+      ],
+      "notes": [ { "kind": "note", "text": "Whether the second click of step 1 lands on Delete habit or on the dim page beside the dialog depends on your window's height. Either way it must delete nothing, which step 2 checks. In steps 3 and 6 the second click lands on the dim page around the dialog, which closes it like Cancel and deletes nothing. So in step 3 the dialog only flashes, and step 4's Esc then does nothing. Step 9 names the word habit because a click on the exact spot of the bin you clicked first is ignored on purpose, and on some window heights the left end of Delete habit lies over that bin." } ],
+      "tester": { "verdict": "PASS", "note": "Every line matched in Chromium at 1280 x 800 on the re-run. The quick double click's dialog showed for about 140 ms and closed, Esc then changed nothing, and nothing was deleted. Delete habit acted at once. Its first run was blocked by the old step 3 wording, fixed before you got it." },
+      "user": { "verdict": null, "note": "", "date": "", "marks": {} },
+      "retest": null,
+      "next": ""
+    },
+    {
+      "id": "UAT-05",
+      "title": "The logo in the header and on the browser tab, in light and dark",
+      "scope": "S6 The logo in the app · sitting 1",
+      "status": "OPEN, built",
+      "problem": "At the 1.0 seal you asked “Wheres the logo. I dont see it being used for both”. The mark you approved now shows in the header and as the tab icon. The icon is a bright amber on a dark tab and a darker amber on a light one. Safari shows one colour in both modes, a Safari bug you accepted, which UAT-12 looks at on your iPhone. A home-screen icon is not built in 1.1.0.",
+      "before": "UAT-04 done, in Chrome. Windows is in dark mode (Settings, Personalization, Colors, Choose your mode, Dark). Chrome follows Windows, which is its default. This PC has no Firefox, so steps 5 and 7 are for Firefox only. Skip them, mark each of their lines with a cross, write no Firefox in your note and go on. Those crosses alone do not fail the case.",
+      "steps": [
+        { "do": "Look at the header.", "see": [
+          "An amber mark sits left of \"Streaky Habit\"",
+          "The mark holds no letter and no initial"
+        ] },
+        { "do": "Look at the app's tab at the top of Chrome.", "see": [
+          "The tab shows the same mark as the header",
+          "The mark on the tab is bright amber"
+        ] },
+        { "do": "Switch Windows to light mode (Settings, Personalization, Colors, Choose your mode, Light).", "see": [
+          "Windows and Chrome turn light",
+          "The app's page stays dark, it has one dark look"
+        ] },
+        { "do": "Click the app's tab in Chrome and press [F5].", "see": [
+          "The tab icon is now a darker amber",
+          "The mark is easy to see on the light tab"
+        ] },
+        { "do": "Firefox only, skip it without Firefox. Open Firefox and go to `http://127.0.0.1:8741/`.", "see": [
+          "Firefox shows the first screen with \"No habits yet.\", since each browser keeps its own habits",
+          "The Firefox tab shows the same mark in the darker amber"
+        ] },
+        { "do": "Switch Windows back to dark mode.", "see": [
+          "Windows and Chrome turn dark"
+        ] },
+        { "do": "Firefox only, skip it without Firefox. In Firefox, press [F5].", "see": [
+          "The Firefox tab icon is bright amber again"
+        ] },
+        { "do": "Click the app's tab in Chrome and press [F5].", "see": [
+          "The Chrome tab icon is bright amber again"
+        ] }
+      ],
+      "notes": [ { "kind": "note", "text": "Without Firefox, steps 5 and 7 take a cross on each line and no Firefox in your note, as the start of this case says. Steps 6 and 8 are for everyone, since UAT-06 needs Windows dark and Chrome on the app's tab. Safari on a Mac is not asked for here, see the residuals." } ],
+      "tester": { "verdict": "BLOCKED", "note": "Blocked by its seat, not the app. It could check 3 of 13 lines and all 3 match, the amber mark with no letter and the page staying dark under a light preference. It has no browser tab, no Windows mode switch and no Firefox, so only you can check steps 2, 4, 6 and 8, step 3 line 1, and the Firefox steps 5 and 7." },
+      "user": { "verdict": null, "note": "", "date": "", "marks": {} },
+      "retest": null,
+      "next": ""
+    },
+    {
+      "id": "UAT-06",
+      "title": "The full name on the tab, the short name in the header",
+      "scope": "S8 A name that is free to use · sitting 1",
+      "status": "OPEN, built",
+      "problem": "The name check found “Streaky” used by three habit trackers. You ruled “Danial's Splity Tab and Danial's Streaky Habit. Logo wise, dont need danial or even initial D.” The full name is the page title, the header shows Streaky Habit, and the mark carries no name and no initial. The README header still shows the 1.0 name until the seal, see open item A3.",
+      "before": "UAT-05 done. Back in Chrome on the app's tab, Windows in dark mode.",
+      "steps": [
+        { "do": "Point at the app's tab in Chrome and wait a moment.", "see": [
+          "A card under the tab shows the name \"Danial's Streaky Habit\""
+        ] },
+        { "do": "Look at the header.", "see": [
+          "It reads \"Streaky Habit\", without \"Danial's\"",
+          "The mark beside it holds no D and no initial"
+        ] }
+      ],
+      "notes": [],
+      "tester": { "verdict": "PASS", "note": "The header and the mark matched. It has no tab hover card, so only you can check step 1. The page title does read Danial's Streaky Habit." },
+      "user": { "verdict": null, "note": "", "date": "", "marks": {} },
+      "retest": null,
+      "next": ""
+    },
+    {
+      "id": "UAT-07",
+      "title": "When the browser will not save, the app says so",
+      "scope": "S4 Habits that cannot be saved say so · sitting 1",
+      "status": "OPEN, built",
+      "problem": "In 1.0, when the browser blocked or filled its storage, changes were lost with no message. Now a warning shows while saving fails, also from the first screen when the browser blocks storage outright, and it goes once saving works. Here you block storage for this address in Chrome. Private browsing and Safari's 7-day clean-up cannot show the warning, because the browser reports every save as working. That is a known limit in the README.",
+      "before": "UAT-06 done. Chrome on the app with eleven habits, Read 20 pages first and Habit 11 last.",
+      "steps": [
+        { "do": "Open a new Chrome tab, type `chrome://settings/content/siteData` in the address bar and press [Enter].", "see": [
+          "The settings page \"On-device site data\" opens"
+        ] },
+        { "do": "Under \"Customized behaviors\", click *Add* beside \"Not allowed to save data on your device\".", "see": [
+          "A small box \"Add a site\" opens with a \"Site\" field"
+        ] },
+        { "do": "Type `http://127.0.0.1:8741` and click *Add*.", "see": [
+          "\"http://127.0.0.1:8741\" is listed under \"Not allowed to save data on your device\""
+        ] },
+        { "do": "Click the app's tab and press [F5].", "see": [
+          "A box with an amber edge sits between the band and the list",
+          "It reads \"Your habits are not being saved on this device. Changes will be lost when you close this tab.\"",
+          "It has no close button",
+          "The list reads \"No habits yet.\", since the app cannot read what it saved",
+          "Every ring in the band is one thin grey circle"
+        ] },
+        { "do": "Click the *New habit* field, type `Water` and press [Enter].", "see": [
+          "A row \"Water\" appears with \"Current\" and \"No streak yet\"",
+          "The warning is still there"
+        ] },
+        { "do": "On the Water row, click *Done today*.", "see": [
+          "Done today turns amber with a dark check",
+          "\"Current\" reads {1}, then \"day\"",
+          "\"Best\" reads {1}",
+          "The warning is still there"
+        ] },
+        { "do": "Go back to the settings tab, click the three dots beside \"http://127.0.0.1:8741\" and click *Remove*.", "see": [
+          "\"http://127.0.0.1:8741\" is no longer listed"
+        ] },
+        { "do": "Click the app's tab and press [F5].", "see": [
+          "No warning shows",
+          "Eleven habits are back, Read 20 pages first and Habit 11 last",
+          "Read 20 pages shows \"Current\" {2} \"days\" and \"Best\" {2}",
+          "Water is not in the list"
+        ] }
+      ],
+      "notes": [
+        { "kind": "note", "text": "Reload at step 8 before you change anything. Once the block is gone, a change in the page that was still open saves that page's list, which holds only Water, over your eleven saved habits, see open item H-08. If the eleven habits do not come back at step 8, Chrome dropped the address's saved data when you blocked it. Mark that line with a cross and say so in your note. Chrome may spell Customized behaviors the British way." },
+        { "kind": "limit", "text": "Private browsing and Safari's 7-day clean-up lose every habit with no warning, because the browser reports nothing the page could see. The README says so. Never use a private window to look for this warning." }
+      ],
+      "tester": { "verdict": "PASS", "note": "Every line it could drive matched. It cannot open Chrome's settings pages, so only you can check steps 1, 2, 3 and 7. A stand-in blocked and freed storage in their place, so it could not see whether Chrome keeps the saved habits during a block." },
+      "user": { "verdict": null, "note": "", "date": "", "marks": {} },
+      "retest": null,
+      "next": ""
+    },
+    {
+      "id": "UAT-08",
+      "title": "Every screen on your iPhone, and the white ring after a tap",
+      "scope": "S5 Tested in Safari's engine too, every screen on your iPhone · sitting 2",
+      "status": "OPEN, built",
+      "problem": "Every iPhone browser runs Safari's engine, and 1.0 was tested only in Chrome's. The automated runs now cover Safari's engine too, but not a real iPhone, its touch, its on-screen keyboard or its settings. Your ruling for S5 asked for a few cases on your own iPhone, UAT-08 to UAT-12. This one looks at each screen. It also holds open item A1 (H-07), which only your eyes can rule on.",
+      "before": "Sitting 2 starts here, on your iPhone in Safari. The orchestrator gives you the address for your iPhone when you start this sitting. Use a normal tab, never a Private one. Block All Cookies (Settings, Apps, Safari) is off. Light or dark mode does not matter, the app has one dark look. Nothing is saved for that address on the iPhone, so the app opens on its first screen.",
+      "steps": [
+        { "do": "Open the address in Safari.", "see": [
+          "The amber mark and \"Streaky Habit\" sit at the top left",
+          "An *Overview* button with one thin empty ring sits at the top right",
+          "\"Friday 16 October\" sits on its own line under them",
+          "A box reads \"No habits yet.\" and \"Add one you want to do every day.\" beside a dotted orbit",
+          "The New habit box sits at the bottom of the screen",
+          "\"New habit\" sits above the field, with an amber *Add* at the field's right"
+        ] },
+        { "do": "Tap the *New habit* field.", "see": [
+          "The keyboard opens",
+          "The New habit field is visible above the keyboard",
+          "*Add* is visible beside the field"
+        ] },
+        { "do": "Type `Read 20 pages` and tap the return key at the bottom right of the keyboard.", "see": [
+          "A row \"Read 20 pages\" appears",
+          "Its bin sits at the row's top right",
+          "Its second line shows \"Current\" with \"No streak yet\", then *Year* and *Done today*",
+          "The field is empty again"
+        ] },
+        { "do": "Tap the field, type `Stretch 10 minutes` and tap the return key.", "see": [
+          "A row \"Stretch 10 minutes\" appears under Read 20 pages"
+        ] },
+        { "do": "Tap the field, type `No phone after 11pm` and tap the return key.", "see": [
+          "A row \"No phone after 11pm\" appears under Stretch 10 minutes"
+        ] },
+        { "do": "Tap *Done* above the keyboard.", "see": [
+          "The keyboard closes",
+          "The New habit box is back at the bottom of the screen"
+        ] },
+        { "do": "On the Read 20 pages row, tap *Done today*.", "see": [
+          "Done today turns amber with a dark check",
+          "\"Current\" reads {1}, then \"day\"",
+          "\"Best\" reads {1}",
+          "The ring on the Overview button shows one thick amber arc between 12 and 4 o'clock"
+        ] },
+        { "do": "Tap *Overview*.", "see": [
+          "A full-screen sheet opens titled \"Last 12 weeks\"",
+          "\"Tap a day to change it.\" sits under the title",
+          "*Year* and *Close* (an x) sit at its top right",
+          "M T W T F S S run across the top of the grid",
+          "The newest week is the top row, {12} to {16}, then two empty places",
+          "Down the left, \"Oct\" twice, \"Sep\" and \"Aug\" label rows",
+          "{16} has a white outer circle and one thick amber arc between 12 and 4 o'clock",
+          "A thin white ring is drawn round Close, see the note"
+        ] },
+        { "do": "Tap *15* in the top row.", "see": [
+          "The day editor rises from the bottom",
+          "Its title reads \"Thursday 15 October\"",
+          "The line under the title reads \"0 of 3 habits\"",
+          "Read 20 pages reads \"Current 1 day\" and \"Best 1\"",
+          "Stretch 10 minutes reads \"No streak yet\"",
+          "No phone after 11pm reads \"No streak yet\"",
+          "{15} is outlined in amber above the day editor",
+          "A thin white ring is drawn round the Read 20 pages row, see the note"
+        ] },
+        { "do": "Tap the empty circle beside \"Read 20 pages\".", "see": [
+          "The circle fills amber with a dark check",
+          "Under Read 20 pages it reads \"Current 2 days\" and \"Best 2\"",
+          "The line under the title reads \"1 of 3 habits\""
+        ] },
+        { "do": "Tap *Close*, the x at the top right of the day editor.", "see": [
+          "The day editor goes down and the sheet shows again",
+          "{15} shows one thick amber arc between 12 and 4 o'clock"
+        ] },
+        { "do": "Scroll the sheet down until it stops (swipe up on the grid).", "see": [
+          "The bottom row is 27, 28, 29, 30, 31, 1, 2, labelled \"Jul\"",
+          "The legend under the grid reads \"None\", four small rings, \"All\""
+        ] },
+        { "do": "Tap *Year* at the top right of the sheet.", "see": [
+          "A full-screen sheet opens titled \"All habits\"",
+          "Under the title it reads \"The last 12 months\"",
+          "It reads \"Tap a day to change it.\"",
+          "The legend reads \"None\", four small rings, \"All\"",
+          "One month per row, \"October 2026\" first",
+          "{15} and {16} October 2026 each show one thick amber arc between 12 and 4 o'clock",
+          "{17} to {31} October 2026 are dim numbers with no ring",
+          "A thin white ring is drawn round Close, see the note"
+        ] },
+        { "do": "Tap *Close* on All habits.", "see": [
+          "The Last 12 weeks sheet shows again"
+        ] },
+        { "do": "Tap *Close* on Last 12 weeks.", "see": [
+          "The list shows again with its three rows"
+        ] },
+        { "do": "On the Read 20 pages row, tap *Year*.", "see": [
+          "A full-screen sheet opens titled \"Read 20 pages\"",
+          "Under the title it reads \"The last 12 months\"",
+          "It shows \"Current\" with {2} in amber and \"days\"",
+          "It shows \"Best\" with {2}",
+          "*Delete habit* with a bin sits at the right",
+          "It reads \"Tap a day to mark it done or not done.\"",
+          "A legend shows \"Done\" and \"Not done\"",
+          "One month per row, \"October 2026\" first",
+          "{15} and {16} are amber and joined by a short amber thread",
+          "{16} has a white ring round it (today)",
+          "A thin white ring is drawn round Close, see the note"
+        ] },
+        { "do": "Tap *Close*.", "see": [
+          "The list shows again"
+        ] },
+        { "do": "On the No phone after 11pm row, tap the bin.", "see": [
+          "A dialog opens in the middle of the screen",
+          "Its title reads Delete \"No phone after 11pm\"?",
+          "Under it, \"Its history is deleted too.\"",
+          "*Cancel* sits on the left and a red *Delete habit* on the right",
+          "A thin white ring is drawn round Cancel, see the note"
+        ] },
+        { "do": "Tap *Cancel*.", "see": [
+          "The dialog closes",
+          "No phone after 11pm is still in the list"
+        ] }
+      ],
+      "notes": [ { "kind": "ask", "text": "You are being asked to rule on this, open item A1 (H-07). In Safari's engine a popup opened by a tap draws the white keyboard ring on the control the app focuses first, Close in the sheets, the first habit in the day editor, Cancel in the delete dialog. The design and Chrome draw none. A keyboard user gets the same ring on purpose. Option 1, keep it, a line in the test notes, nothing to build. Option 2, remove it, which goes back to the plan or the design because it changes how focus is set. We recommend option 1, it is Safari's own rule and it helps a keyboard user. Write your choice in your note." } ],
+      "tester": { "verdict": "BLOCKED", "note": "Blocked by the script at 390 x 664, on step 8 line 6 only. The Jul label was below the screen edge there. That line was reworded after the run in the tester's own words and not run again. Every other line it could drive matched at 390 x 664, and every one matched at 390 x 844. It has no on-screen keyboard, so only you can check step 2 and step 6. The white rings of A1 showed round Close, the first habit and Cancel, as listed. It ran Safari's engine on Windows, not an iPhone." },
+      "user": { "verdict": null, "note": "", "date": "", "marks": {} },
+      "retest": null,
+      "next": ""
+    },
+    {
+      "id": "UAT-09",
+      "title": "On the phone, a low day and last year's oldest day stay in sight above the day editor",
+      "scope": "S5 Tested in Safari's engine too, with S1 on your iPhone · sitting 2",
+      "status": "OPEN, built",
+      "problem": "On a phone the overview's twelve weeks fill the screen, so a day in the lower weeks hid under the day editor, and so did last year's oldest days. You ruled “Fix, give P3 room” and “Same fix for P4”. While the day editor is open, the sheet under it gets room at its bottom and scrolls so the chosen day sits above the editor. With nine or more habits only part of the day can show, see open item A4. This case uses three habits.",
+      "before": "UAT-08 done. The list holds Read 20 pages, Stretch 10 minutes and No phone after 11pm. Read 20 pages reads Current {2 days} and Best {2}.",
+      "steps": [
+        { "do": "Tap *Overview*.", "see": [
+          "The Last 12 weeks sheet opens",
+          "Its bottom row, at the foot of the sheet (scroll down if it is cut off), is 27 July to 2 August, labelled \"Jul\""
+        ] },
+        { "do": "Tap *27* in the bottom row, the part that shows is enough.", "see": [
+          "The day editor rises from the bottom",
+          "Its title reads \"Monday 27 July\"",
+          "The line under the title reads \"0 of 3 habits\"",
+          "{27} is outlined in amber",
+          "The whole of 27 shows between the sheet's title area and the top of the day editor"
+        ] },
+        { "do": "Tap the empty circle beside \"Stretch 10 minutes\".", "see": [
+          "The circle fills amber with a dark check",
+          "Under Stretch 10 minutes it reads \"No streak yet\", then \"Best 1\"",
+          "The line under the title reads \"1 of 3 habits\"",
+          "{27} above shows one thick amber arc between 4 and 8 o'clock"
+        ] },
+        { "do": "Tap *Close*, the x at the top right of the day editor.", "see": [
+          "The day editor goes down",
+          "27 July is still in view",
+          "On a screen tall enough for the whole grid the top row, 12 to 16 October, shows too, otherwise scroll up to see it",
+          "{27} July shows one thick amber arc between 4 and 8 o'clock"
+        ] },
+        { "do": "Tap *Year* at the top right of the sheet.", "see": [
+          "The All habits sheet opens, \"October 2026\" first"
+        ] },
+        { "do": "Scroll down inside All habits until it stops.", "see": [
+          "The last month is \"October 2025\"",
+          "{1} to {15} October 2025 are blank",
+          "{16} sits under the T for Thursday"
+        ] },
+        { "do": "Tap *16* in October 2025.", "see": [
+          "The day editor rises from the bottom",
+          "Its title reads \"Thursday 16 October\"",
+          "The line under the title reads \"0 of 3 habits\"",
+          "{16} is outlined in amber",
+          "The whole of 16 shows above the top of the day editor"
+        ] },
+        { "do": "Tap the empty circle beside \"No phone after 11pm\".", "see": [
+          "The circle fills amber with a dark check",
+          "Under No phone after 11pm it reads \"No streak yet\", then \"Best 1\"",
+          "The line under the title reads \"1 of 3 habits\""
+        ] },
+        { "do": "Tap *Close*, the x at the top right of the day editor.", "see": [
+          "The day editor goes down",
+          "{16} October 2025 shows one thick amber arc between 8 and 12 o'clock"
+        ] },
+        { "do": "Tap *Close* on All habits.", "see": [
+          "The Last 12 weeks sheet shows again"
+        ] },
+        { "do": "Tap *Close* on Last 12 weeks.", "see": [
+          "The Stretch 10 minutes row shows \"Current\" with \"No streak yet\" and \"Best\" with {1}",
+          "The No phone after 11pm row shows \"Current\" with \"No streak yet\" and \"Best\" with {1}"
+        ] }
+      ],
+      "notes": [ { "kind": "note", "text": "The room under the day editor exists only while it is open, so the sheet looks as designed the rest of the time. The white rings of UAT-08 show here too, they are part of your ruling on A1." } ],
+      "tester": { "verdict": "PASS", "note": "Every line matched at 390 x 664 and at 390 x 844 on the re-run, in Safari's engine on Windows. At 390 x 664 steps 1 and 4 needed the scrolls their lines allow. 27 July and 16 October 2025 each showed whole above the day editor. Only you can check it on a real iPhone." },
+      "user": { "verdict": null, "note": "", "date": "", "marks": {} },
+      "retest": null,
+      "next": ""
+    },
+    {
+      "id": "UAT-10",
+      "title": "On the phone, double taps on a bin or on Delete habit delete nothing",
+      "scope": "S5 Tested in Safari's engine too, with S3 on your iPhone · sitting 2",
+      "status": "OPEN, built",
+      "problem": "The delete guard of UAT-04 has to hold for taps too, and Safari's engine counts a quick second tap differently from Chrome's. The second tap of a double tap may land on Delete habit, where it is ignored, or on the dim page beside the dialog, which closes it like Cancel. Either way nothing is deleted. A deliberate tap on Delete habit acts at once.",
+      "before": "UAT-09 done, three habits.",
+      "steps": [
+        { "do": "On the Stretch 10 minutes row, double-tap the bin quickly.", "see": [
+          "The first tap opens the delete dialog for Stretch 10 minutes, which may close again at once if the second tap lands on the dim page"
+        ] },
+        { "do": "Tap the date line, \"Friday 16 October\", under the name.", "see": [
+          "No dialog is open",
+          "Stretch 10 minutes is still in the list",
+          "The list still holds three habits"
+        ] },
+        { "do": "On the Stretch 10 minutes row, tap the bin once, wait about one second, then tap the same spot again.", "see": [
+          "The first tap opens a dialog titled Delete \"Stretch 10 minutes\"?"
+        ] },
+        { "do": "Tap the date line, \"Friday 16 October\".", "see": [
+          "No dialog is open",
+          "Stretch 10 minutes is still in the list"
+        ] },
+        { "do": "On the Stretch 10 minutes row, tap *Year*.", "see": [
+          "A full-screen sheet opens titled \"Stretch 10 minutes\"",
+          "*Delete habit* with a bin sits at the right of its numbers"
+        ] },
+        { "do": "Double-tap *Delete habit* quickly.", "see": [
+          "No delete dialog is open",
+          "The Stretch 10 minutes sheet is still open"
+        ] },
+        { "do": "Tap *Delete habit* once.", "see": [
+          "A dialog opens titled Delete \"Stretch 10 minutes\"?",
+          "Under it, \"Its history is deleted too.\"",
+          "*Cancel* sits on the left and a red *Delete habit* on the right"
+        ] },
+        { "do": "Straight away, tap *Delete habit* in the dialog.", "see": [
+          "The dialog and the Stretch 10 minutes sheet close at once",
+          "Stretch 10 minutes is gone",
+          "The list holds Read 20 pages and No phone after 11pm"
+        ] }
+      ],
+      "notes": [ { "kind": "note", "text": "A tap on the date line closes the dialog if it is still open, and does nothing if it is not, so steps 2 and 4 end the same way whatever the second tap did. If Safari zooms in on a double tap, pinch the page back to its normal size before the next step. The zoom is Safari's own." } ],
+      "tester": { "verdict": "PASS", "note": "Every line matched at 390 x 664 and at 390 x 844 on the re-run. Each quick double tap's dialog closed again on the dim page after about 140 ms, and nothing was deleted. Its taps are clicks in Safari's engine on Windows, so how real fingers land is yours to check." },
+      "user": { "verdict": null, "note": "", "date": "", "marks": {} },
+      "retest": null,
+      "next": ""
+    },
+    {
+      "id": "UAT-11",
+      "title": "With Block All Cookies on, the app warns that nothing is saved",
+      "scope": "S5 Tested in Safari's engine too, with S4 on your iPhone · sitting 2",
+      "status": "OPEN, built",
+      "problem": "The save warning of UAT-07, in Safari on your iPhone, with the setting that blocks storage there. A Private tab cannot show the warning, a known limit, so this case never uses one.",
+      "before": "UAT-10 done. The list holds Read 20 pages and No phone after 11pm.",
+      "steps": [
+        { "do": "Open the Settings app, then Apps, then Safari, and turn on *Block All Cookies*.", "see": [
+          "The Block All Cookies switch is on"
+        ] },
+        { "do": "Go back to Safari, tap the address bar and tap *Go* on the keyboard.", "see": [
+          "The page loads again",
+          "A box with an amber edge sits under the date line",
+          "It reads \"Your habits are not being saved on this device. Changes will be lost when you close this tab.\"",
+          "It has no close button",
+          "The list reads \"No habits yet.\"",
+          "The ring on the Overview button is one thin empty circle"
+        ] },
+        { "do": "Tap the *New habit* field, type `Water` and tap the return key.", "see": [
+          "A row \"Water\" appears with \"Current\" and \"No streak yet\"",
+          "The warning is still there"
+        ] },
+        { "do": "Tap *Done* above the keyboard.", "see": [
+          "The keyboard closes"
+        ] },
+        { "do": "On the Water row, tap *Done today*.", "see": [
+          "Done today turns amber with a dark check",
+          "\"Current\" reads {1}, then \"day\"",
+          "\"Best\" reads {1}",
+          "The warning is still there"
+        ] },
+        { "do": "In Settings, Apps, Safari, turn off *Block All Cookies*.", "see": [
+          "The Block All Cookies switch is off"
+        ] },
+        { "do": "Go back to Safari, tap the address bar and tap *Go*.", "see": [
+          "No warning shows",
+          "Read 20 pages and No phone after 11pm are back",
+          "Read 20 pages shows \"Current\" {2} \"days\" and \"Best\" {2}",
+          "Water is not in the list"
+        ] }
+      ],
+      "notes": [
+        { "kind": "note", "text": "If iOS asks you to confirm at step 1, confirm the block. Reload at step 7 before you change anything. Once the block is gone, a change in the page that was still open saves its list, which holds only Water, over your saved habits, see open item H-08. If the two habits do not come back at step 7, Safari dropped the saved data when you blocked it. Mark that line with a cross and say so in your note." },
+        { "kind": "limit", "text": "A Private tab and Safari's 7-day clean-up lose every habit with no warning, because Safari reports every save as working. The README says so." }
+      ],
+      "tester": { "verdict": "PASS", "note": "Every line it could drive matched. It has no iOS Settings and no on-screen keyboard, so only you can check steps 1, 4 and 6. A stand-in blocked and freed storage in place of Block All Cookies, so it could not see what Safari's own setting does to the saved habits." },
+      "user": { "verdict": null, "note": "", "date": "", "marks": {} },
+      "retest": null,
+      "next": ""
+    },
+    {
+      "id": "UAT-12",
+      "title": "The tab icon in Safari in light and dark, and what the home screen shows",
+      "scope": "S5 Tested in Safari's engine too, with S6 on your iPhone · sitting 2",
+      "status": "OPEN, built",
+      "problem": "The tab icon of UAT-05, in Safari on your iPhone. Safari 26 ignores the light and dark switch inside an icon, a Safari bug you accepted for 1.1.0, so the mark is expected in one colour in both modes, most likely the darker amber. A home-screen icon is not built in 1.1.0. The last steps only record what iOS draws from the tab icon, as information for a later version.",
+      "before": "UAT-11 done, Safari on the app. The iPhone is in dark mode (Settings, Display and Brightness, Dark).",
+      "steps": [
+        { "do": "Tap the tabs button at the bottom right of Safari.", "see": [
+          "The tab overview opens",
+          "The app's tab shows the mark beside \"Danial's Streaky Habit\"",
+          "The mark is the darker amber, not the bright amber of Chrome's dark tab"
+        ] },
+        { "do": "Open Settings, then Display and Brightness, and choose *Light*.", "see": [
+          "The iPhone turns light"
+        ] },
+        { "do": "Go back to Safari's tab overview.", "see": [
+          "The mark is the same darker amber as at step 1",
+          "The mark is easy to see on the light tab"
+        ] },
+        { "do": "Tap the app's tab.", "see": [
+          "The app shows again"
+        ] },
+        { "do": "Open Safari's Share menu and tap *Add to Home Screen*.", "see": [
+          "A panel shows the name \"Danial's Streaky Habit\" or a shortened form of it",
+          "An icon sits beside the name"
+        ] },
+        { "do": "Tap *Add*.", "see": [
+          "A new icon for the app sits on your home screen"
+        ] }
+      ],
+      "notes": [ { "kind": "limit", "text": "Information only from step 5. Describe in your note what iOS drew. A home-screen icon needs a filled tile, which goes against your no-tile ruling, so it waits for a later logo round. You can remove the new icon afterwards. Switch the iPhone back to the mode you use." } ],
+      "tester": { "verdict": "BLOCKED", "note": "Blocked by its seat, not the app. Every line needs Safari's tab overview, iOS Settings, the Share menu or the home screen, so the whole case is yours alone." },
+      "user": { "verdict": null, "note": "", "date": "", "marks": {} },
+      "retest": null,
+      "next": ""
+    }
+  ],
+  "open": [
+    { "id": "A1", "title": "The white ring after a tap in Safari (H-07)", "what": "In Safari's engine every popup opened by a tap or a click draws the white keyboard focus ring on the control the app focuses first. That is Close in the three sheets, the first habit in the day editor and Cancel in the delete dialog. The design and Chrome draw none. Opened with the keyboard, both draw it, as designed. You see it in UAT-08.", "why": "It is a visible difference from the approved design on your iPhone, and removing it changes how focus is set or changes the design. It went unseen because the pixel match runs in Chrome's engine only, your ruling for S5.", "options": "(1) Keep it. A line in the test notes and the ledger, nothing to build. (2) Remove it. Back to the plan, which would tell Safari the focus is not from a keyboard against the approved focus rule, or back to the design.", "recommendation": "(1). It is Safari's own rule, and the ring helps someone who uses a keyboard. For v1.2.0, a look check of the open popups in Safari's engine would catch the next difference of this kind.", "ruling": "" },
+    { "id": "H-08", "title": "Saved habits can be overwritten when storage comes back while the page is open", "what": "If the browser blocks storage when the page opens, the page starts with an empty list and shows the save warning. If storage is allowed again while that page is still open, the next tick or add saves the short list over every habit saved before. A reload first keeps them. It was found by reading the code while this script was written, and UAT-07 and UAT-11 reload first so it does not bite. A probe in a test browser confirmed it. Three habits were saved, storage was blocked and the page loaded again, Water was added, then storage came back and Water was ticked with no reload. Only Water was left, and the three earlier habits were gone. The probe used a stand-in that tests the app's own logic, not whether Chrome or Safari let an open page save again.", "why": "It is data loss in a path the contract allows, and any fix changes what the page does after a failed start. That is a logic change, which goes back through the plan.", "options": "(1) After a failed start, save nothing until a reload, so the warning stays and the old habits survive. Anything added in that page is lost, as the warning already says. (2) Before the first save after a failed start, read the saved habits again and refuse to write over any found there, with the warning kept. (3) Keep it, as a limit row in the README.", "recommendation": "(1). It is the simplest rule that never loses saved habits, and the warning already says that page is not saving. Whether it is built in 1.1.0 or 1.2.0 is your call.", "ruling": "" },
+    { "id": "A2", "title": "How your iPhone reaches the app for sitting 2 (new)", "what": "Sitting 2 needs the app on your iPhone. The app runs on this PC at 127.0.0.1, an address only this PC can open.", "why": "The first option opens a port on your home network for the length of the sitting, so it is your call.", "options": "(1) The orchestrator serves the app on this PC's Wi-Fi address for sitting 2 only. Windows asks once whether to let Python through its firewall, and you answer that prompt. The server stops when the sitting ends. (2) The iPhone cases wait for the published page after the seal.", "recommendation": "(1). The iPhone cases are the only check on a real phone, and they should inform the seal, not follow it.", "ruling": "" },
+    { "id": "A3", "title": "The README header shows 1.0 until the seal (review D2)", "what": "The README's top block, the lockup, tagline, badges, screenshot and the name Streaks, still shows 1.0. The rest of the README describes 1.1.0, and a note under the header says so.", "why": "It is a deferral we made. You can overturn it.", "options": "(1) Keep it, and make the header at the seal from the sealed build. (2) Update it now from this build.", "recommendation": "(1), so the pictures show exactly what you seal.", "ruling": "" },
+    { "id": "A4", "title": "Many habits on a phone, the chosen day shows only in part above the day editor (review D4)", "what": "With nine or more habits the day editor reaches its full height, 85 percent of the screen. The day you opened can then show only in part above it, as little as 5 px of a year-view day on a small phone at twelve habits. The sheet scrolls so the top of the day meets the sheet's title area.", "why": "No rule covered it, so we ruled it ourselves. It is visible.", "options": "(1) Accept it for 1.1.0. (2) Ask for a design change in a later version.", "recommendation": "(1). Most lists hold fewer habits, and the day stays outlined. Look at (2) for v1.2.0 if it bothers you.", "ruling": "" },
+    { "id": "A5", "title": "Local paths in the repository before it goes public (off-scope row 20)", "what": "Of 2,163 tracked files, 75 hold D:/ paths and 15 hold your Windows user path. None holds your email or a secret. The published page never serves them, but a public repository would show them.", "why": "Your choice for publish prep, after the seals. The same check is owed for Split.", "options": "(1) Scrub the records before the repository goes public. (2) Publish them as they are.", "recommendation": "No strong recommendation, it is a preference call. Scrubbing hides your user folder name. Keeping them keeps the records exactly as they happened.", "ruling": "" },
+    { "id": "A6", "title": "Smaller calls we made for you", "what": "(a) In a desktop window narrower than 768 px a thin scrollbar shows while the day editor is open over the overview. (b) At a Monday midnight with the day editor open, the redraw can move the chosen day under the editor. (c) With the device clock in the year 10000 or later the year views show odd months or nothing, and nothing is saved or lost, after your 13-month bound. (d) Code tidy-ups wait for the v1.2.0 plan, unused fields, one guard with two names in the tests, a test constant nothing reads, and the wording between 1 and 13 months. (e) The design notes print one colour as #2D271C where the design paints #2C261C, a rounding left to the design phase. (f) The scope statuses move to SHIPPED at the seal. (g) The records are committed at each session end.", "why": "Each one is ours and reversible.", "options": "Accept all, or name the ones you want changed.", "recommendation": "Accept all. None changes what you see in normal use.", "ruling": "" }
+  ],
+  "solved": [
+    { "title": "A low day hid behind the day editor on a phone", "problem": "On a phone the overview's twelve weeks fill the screen with nothing to scroll, so a day in the lower weeks, such as late July, stayed hidden under the day editor. Last year's oldest days in the year of all habits did the same.", "did": "While the day editor is open, the sheet under it gets extra room at its bottom, as tall as the editor, and scrolls so the chosen day sits above the editor. The room goes when the editor closes. The year of all habits works the same way.", "why": "Accepting the gap would have left out of sight the very days you most need to fix. A design change was not needed, because the room hides behind the editor in the designed state. We first told you the year of all habits was fine. The planner then worked out that its oldest month had the same gap, and you ruled the same fix for it." },
+    { "title": "A check failed, and the app was right", "problem": "An automated check on that room failed most of the time in Chrome's engine.", "did": "The check read the page a moment before the app had tidied up after closing the editor. We fixed the check, not the app, and it then passed every time.", "why": "Changing the app to suit a mistimed check would have added a delay that helps no one." },
+    { "title": "Delete no longer depends on time", "problem": "In 1.0, Delete habit ignored clicks for half a second after the dialog opened. A slower second click could still delete where the bin lay under Delete habit, and a quick deliberate click had to wait.", "did": "Delete habit now ignores a click on the exact spot of the button that opened the dialog, and the second click of any double click. A key press always works. There is no timer, so a deliberate click acts at once.", "why": "A longer timer would still let a slower click through and make every deliberate click wait longer. Counting clicks alone misses a slow double click and is not proven for taps in Safari. The one cost is that a click on the part of Delete habit lying exactly over that bin does nothing." },
+    { "title": "Taps that fall through a popup", "problem": "A tap that closes a popup can send the second tap of the same gesture to what lies behind it, a Done today button, a day or a bin.", "did": "You kept the 1.0 half-second hold, and we extended it to every popup. For half a second after a tap inside a popup, a tap on what lies beneath is ignored.", "why": "Dropping it would let double taps act behind the popup. The cost is that a tap on Done today within half a second of closing a sheet is ignored, and a tap a moment later works." },
+    { "title": "A save that fails now says so", "problem": "In 1.0, if the browser blocked or filled its storage, changes were lost with no message.", "did": "A warning shows while saving fails, decided by the latest save, and from the first screen when the browser blocks storage outright. It goes after the next save that works.", "why": "A test write or a timer would add writes and delays for nothing the latest save does not already show. Private browsing and Safari's 7-day clean-up report every save as working, so no page can detect them. The README states that limit instead of claiming a detector." },
+    { "title": "The tab icon as its own file", "problem": "The design carried the tab icon inside the page in a form the app's security rules block.", "did": "The same icon ships as its own small file, byte for byte the design's.", "why": "Loosening the security rules for one icon would weaken them for everything else." },
+    { "title": "Safari's engine in every run", "problem": "1.0 was tested only in Chrome's engine, and every iPhone browser runs Safari's.", "did": "Every behaviour test and the cold-start live check now run in both engines. The pixel match against the design stays in Chrome's engine, as you chose.", "why": "The other option was pixel matching in both engines. You chose tests and live checks. The cost showed up as the white ring of open item A1, which only a look in Safari's engine could catch." },
+    { "title": "Focus after dismissing the reset note at twelve habits", "problem": "With habits added up to twelve while the could-not-be-read note showed, Dismiss sent keyboard focus to nothing, because the field was switched off.", "did": "Focus now goes to the page's first control in that case, the same fallback the app uses after midnight.", "why": "Naming it as a known limit would break the rule that keyboard focus never lands on nothing, and the change was small." },
+    { "title": "The year views and a far-future clock", "problem": "With the device clock set in October to December of the year 10000, opening a year view froze the tab and its memory kept growing.", "did": "The list of months now stops after 13, as the code already promised. The tab answers at once at those dates.", "why": "Accepting it would have left a freeze, which is worse than an error. The fix was small and easy to test. Odd but harmless year views at such dates remain, see A6." },
+    { "title": "A fixer skipped the design guidance", "problem": "A fixer changed interface code without first loading the design guidance the rules require.", "did": "You accepted it. Nothing visible had changed, and the later pixel match found every screen equal to its design. Every later brief that touches the interface names the guidance.", "why": "A review pass for edits that only moved code and comments would have cost a round for no visible gain." },
+    { "title": "The old green page during the build", "problem": "You saw the 1.0 green and white page in the app's browser pane mid-build and stopped everything.", "did": "We checked the new design files against the archive, all equal, and showed you renders. The page you saw was a planned test of the unchanged 1.0 app, run before the rewrite.", "why": "That baseline proved the old checks held in Safari's engine before anything changed. We now warn you before such a run." }
+  ],
+  "residuals": [
+    "Private browsing and Safari's 7-day clean-up lose every habit with no warning. The browser reports nothing the page could show. The README says so.",
+    "Safari shows the tab icon in one colour in both modes. Safari's bug, accepted for 1.1.0, seen in UAT-12.",
+    "No home-screen icon in 1.1.0. It needs a filled tile, against your no-tile ruling. Deferred to a later logo round.",
+    "Two open tabs do not see each other's changes, and the last save wins.",
+    "Another page on the same github.io address can read the saved names.",
+    "A name made of many combining marks draws over its neighbours.",
+    "Firefox is not covered by the automated runs. UAT-05 looks at its tab icon only.",
+    "Safari on a Mac is NOT RUN. The plan lists it for the tab icon, and no case asks for it because this sheet does not assume you have a Mac. Say so if you have one.",
+    "The app left open past midnight is NOT RUN as a case. The automated runs and the review check it.",
+    "A tap on Done today within half a second of closing a popup with a tap is ignored on purpose, see (b)."
+  ]
+}
+</script>
+
+<div class="app">
+  <aside class="rail" aria-label="Cases">
+    <div class="kicker" id="rail-kicker"></div>
+    <div class="rail-title" id="rail-title"></div>
+    <div class="rail-meta" id="rail-meta"></div>
+    <ol class="caselist" id="caselist"></ol>
+    <div class="rail-foot">
+      <button class="results-btn" type="button" data-results>Results for the chat</button>
+      <span><kbd>[</kbd> <kbd>]</kbd> previous and next case</span>
+      <span><b>T</b> tester · <b>U</b> user</span>
+    </div>
+  </aside>
+
+  <main class="main" id="main">
+    <section class="sheet guide" aria-labelledby="guide-h">
+      <div class="guide-head">
+        <h2 id="guide-h">Verdict guide</h2>
+        <button class="guide-toggle" id="guide-toggle" type="button" aria-expanded="true" aria-controls="guide-body">Hide</button>
+      </div>
+      <div class="guide-body" id="guide-body">
+        <p class="guide-intro">Every case gets one verdict, including the ones you could not do. The tester's verdict is already there so you can compare. If it says PASS and you find FAIL, that is one of the most useful things you can tell us.</p>
+        <div class="legend" id="legend"></div>
+        <div class="states">
+          <div class="st">
+            <h3>Mark each line as you check it</h3>
+            <p><span class="mk-demo ok" id="demo-ok"></span><span>It matches the sheet.</span></p>
+            <p><span class="mk-demo no" id="demo-no"></span><span>It does not match. A case can still PASS with a cross when you decide the difference does not matter, and the cross stays on record.</span></p>
+          </div>
+          <div class="st">
+            <h3>Set by the sheet, not by you</h3>
+            <p><span class="vchip v-state">NOT RUN</span><span>No verdict yet. It comes back at the next sitting.</span></p>
+            <p><span class="vchip v-retest">RETEST</span><span>It failed, we fixed it, and it is handed back. Your first verdict stays beside the new one.</span></p>
+          </div>
+        </div>
+        <table class="kv before" id="before"></table>
+      </div>
+    </section>
+
+    <article class="sheet case" id="case"></article>
+  </main>
+</div>
+
+<div class="scrim" id="results" hidden>
+  <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="rd-t">
+    <h2 id="rd-t">Your results, ready for the chat</h2>
+    <p>Paste this into the chat. It holds every verdict, every note and every line you marked with a cross.</p>
+    <textarea id="rd-text" readonly aria-label="Your results"></textarea>
+    <p id="rd-status" role="status"></p>
+    <div class="row">
+      <button class="ghost danger" type="button" id="rd-clear">Clear my marks</button>
+      <button class="ghost" type="button" id="rd-close">Close</button>
+      <button class="primary" type="button" id="rd-copy">Copy results</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const DATA = JSON.parse(document.getElementById("sheet-data").textContent);
+  const CASES = DATA.cases || [];
+  document.title = `UAT ${DATA.app} ${DATA.version}, sitting ${DATA.sitting} of ${DATA.sittings}`;
+
+  const ICON = {
+    check: "M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z",
+    x: "M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"
+  };
+  const svg = (name) => `<svg viewBox='0 0 256 256' aria-hidden='true' focusable='false'><path d='${ICON[name]}'/></svg>`;
+  document.getElementById("demo-ok").innerHTML = svg("check");
+  document.getElementById("demo-no").innerHTML = svg("x");
+
+  const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  // Mini markup. *Control*, `typed text`, [Key], "on-screen copy", {figure}.
+  function rich(s) {
+    let h = esc(s);
+    h = h.replace(/`([^`]+)`/g, "<kbd class='typed'>$1</kbd>");
+    h = h.replace(/\[([A-Za-z0-9+ ]+)\]/g, "<kbd class='key'>$1</kbd>");
+    h = h.replace(/\*([^*]+)\*/g, "<b class='ctl'>$1</b>");
+    h = h.replace(/"([^"]+)"/g, "<span class='ui'>“$1”</span>");
+    h = h.replace(/\{([^{}]+)\}/g, "<span class='fig'>$1</span>");
+    return h;
+  }
+  const figs = (s) => esc(s).replace(/\{([^{}]+)\}/g, "<span class='fig'>$1</span>");
+  // A guide example is { ref, text }. The ref (the case or step it cites) is set in bold.
+  const guideText = (g) => `<b>${esc(g.ref)}</b> ${figs(g.text)}`;
+  const plain = (s) => String(s ?? "").replace(/[*`\[\]{}]/g, "");
+
+  const VERDICTS = ["PASS", "FAIL", "BLOCKED"];
+  const VKEY = { "PASS": "pass", "FAIL": "fail", "BLOCKED": "block", "NOTE": "note", "NOT RUN": "state", "RETEST": "retest" };
+  const chip = (v, off) => `<span class='vchip v-${VKEY[v] || "state"}${off ? " off" : ""}'>${esc(v)}</span>`;
+
+  // Rail head
+  document.getElementById("rail-kicker").textContent = `UAT · sitting ${DATA.sitting} of ${DATA.sittings}`;
+  document.getElementById("rail-title").textContent = `${DATA.app} ${DATA.version}`;
+  document.getElementById("rail-meta").textContent = `${CASES.length} case${CASES.length === 1 ? "" : "s"} · about ${DATA.minutes} minutes`;
+
+  // Guide
+  const MEANING = {
+    PASS: "Every line you checked matches the sheet, or a cross you marked does not matter to you.",
+    FAIL: "A line does not match and it matters. Mark that line with a cross and say in the note what you saw.",
+    BLOCKED: "You could not run it. Say why in the note. The control was not where the sheet said, the start could not be reached, or the result was not something you could see.",
+    NOTE: "Any verdict can carry a note. A wish for a change, what you saw, or why you stopped. A note on a PASS becomes a finding for a later version."
+  };
+  const guide = DATA.guide || {};
+  document.getElementById("legend").innerHTML = ["PASS", "FAIL", "BLOCKED", "NOTE"].map((v) =>
+    `<div class='lg'><div>${chip(v)}</div><p>${esc(MEANING[v])}</p>${guide[v] ? `<p class='ex'>${guideText(guide[v])}</p>` : ""}</div>`).join("");
+  const beforeRows = [["App address", `<a href='${esc(DATA.url)}'>${esc(DATA.url)}</a> started for you. Go to exactly this address.`], ["Starting state", rich(DATA.start)]]
+    .concat((DATA.facts || []).map(([k, v]) => [esc(k), rich(v)]));
+  document.getElementById("before").innerHTML = "<tbody>" + beforeRows.map(([k, v]) => `<tr><th scope='row'>${k}</th><td>${v}</td></tr>`).join("") + "</tbody>";
+
+  const guideToggle = document.getElementById("guide-toggle");
+  const guideBody = document.getElementById("guide-body");
+  guideToggle.addEventListener("click", () => {
+    const open = guideToggle.getAttribute("aria-expanded") === "true";
+    guideToggle.setAttribute("aria-expanded", String(!open));
+    guideToggle.textContent = open ? "Show" : "Hide";
+    guideBody.hidden = open;
+  });
+
+  // Every checkable line of a case, in order. Keys are step-line or step-tRow.
+  function checkables(c) {
+    const out = [];
+    c.steps.forEach((st, si) => {
+      (st.see || []).forEach((l, li) => out.push({ key: `${si}-${li}`, si, text: plain(l) }));
+      if (st.table) st.table.rows.forEach((r, ri) => out.push({ key: `${si}-t${ri}`, si, text: r.map(plain).join(" · ") }));
+    });
+    return out;
+  }
+
+  // State. Starts from what the orchestrator recorded, then the drafts kept in this browser.
+  const KEY = `sdlc-uat:${DATA.app}:${DATA.version}:${DATA.date}:${DATA.sitting}`;
+  const byId = Object.fromEntries(CASES.map((c) => [c.id, c]));
+  let drafts = {};
+  try { drafts = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { drafts = {}; }
+  const state = {};
+  function initState() {
+    CASES.forEach((c) => {
+      const u = c.user || {};
+      const d = drafts[c.id] || {};
+      state[c.id] = { marks: { ...(u.marks || {}), ...(d.marks || {}) }, verdict: d.verdict !== undefined ? d.verdict : (u.verdict || null), note: d.note !== undefined ? d.note : (u.note || "") };
+    });
+  }
+  initState();
+  function save(id) {
+    drafts[id] = state[id];
+    try { localStorage.setItem(KEY, JSON.stringify(drafts)); } catch (e) { /* the sheet still works, the draft is not kept */ }
+  }
+
+  const order = CASES.map((c) => c.id);
+  let current = order[0] || "open";
+
+  function userStatus(id) {
+    const s = state[id], c = byId[id];
+    if (s.verdict) return s.verdict;
+    return c.retest ? "RETEST" : "NOT RUN";
+  }
+  function dot(letter, v, who) {
+    const k = { PASS: "pass", FAIL: "fail", BLOCKED: "block", RETEST: "retest" }[v] || "none";
+    return `<span class='dot d-${k}' aria-hidden='true'>${letter}</span><span class='sr'>${who} ${esc(v)}. </span>`;
+  }
+  function renderList() {
+    const cur = (id) => (id === current ? " aria-current='true'" : "");
+    const items = CASES.map((c) => {
+      const tv = (c.tester && c.tester.verdict) || "NOT RUN";
+      return `<li><button type='button' class='ci' data-id='${esc(c.id)}'${cur(c.id)}>
+        <span class='ci-num'>${esc(c.id.split("-")[1] || c.id)}</span>
+        <span class='ci-body'><span class='ci-title'>${esc(c.title)}</span>
+        <span class='ci-v'>${dot("T", tv, "Tester")}${dot("U", userStatus(c.id), "User")}</span></span></button></li>`;
+    });
+    const docs = [];
+    if ((DATA.open || []).length) docs.push(`<li><button type='button' class='ci doc' data-id='open'${cur("open")}><span class='ci-num'>(a)</span><span class='ci-body'><span class='ci-title'>Needs your decision · ${DATA.open.length}</span></span></button></li>`);
+    if ((DATA.solved || []).length || (DATA.residuals || []).length) docs.push(`<li><button type='button' class='ci doc' data-id='solved'${cur("solved")}><span class='ci-num'>(b)</span><span class='ci-body'><span class='ci-title'>Solved, in plain language</span></span></button></li>`);
+    document.getElementById("caselist").innerHTML = items.join("") + (docs.length ? "<li class='rail-sep' aria-hidden='true'></li>" + docs.join("") : "");
+  }
+
+  function markButtons(key, m, label) {
+    return `<span class='mks' role='group' aria-label='${esc(label)}'>
+      <button type='button' class='mk ok' data-k='${key}' data-m='ok' aria-pressed='${m === "ok"}' aria-label='Matches'>${svg("check")}</button>
+      <button type='button' class='mk no' data-k='${key}' data-m='no' aria-pressed='${m === "no"}' aria-label='Does not match'>${svg("x")}</button></span>`;
+  }
+
+  function seeCell(st, si, s) {
+    const lines = (st.see || []).map((l, li) => {
+      const key = `${si}-${li}`, m = s.marks[key];
+      return `<li class='line${m ? " m-" + m : ""}'>${markButtons(key, m, `Step ${si + 1}, line ${li + 1}`)}<span class='txt'>${rich(l)}</span></li>`;
+    }).join("");
+    let tbl = "";
+    if (st.table) {
+      const t = st.table;
+      tbl = `<table class='mini'><thead><tr><th class='mkc'><span class='sr'>Mark</span></th><th class='nm'><span class='sr'>Name</span></th>${t.head.map((h) => `<th scope='col'>${esc(h)}</th>`).join("")}</tr></thead><tbody>` +
+        t.rows.map((r, ri) => {
+          const key = `${si}-t${ri}`, m = s.marks[key];
+          const total = t.totalRow && ri === t.rows.length - 1 ? " total" : "";
+          const combo = r.slice(1).map((v, i) => `<span class='cp'><span class='cp-h'>${esc(t.head[i])}</span> ${figs(v)}</span>`).join("");
+          return `<tr class='${m ? "m-" + m : ""}${total}'><td class='mkc'>${markButtons(key, m, `Step ${si + 1}, ${plain(r[0])} row`)}</td><td class='nm'>${figs(r[0])}</td>` +
+            r.slice(1).map((v) => `<td class='fg'>${figs(v)}</td>`).join("") + `<td class='combo'>${combo}</td></tr>`;
+        }).join("") + "</tbody></table>";
+    }
+    return `<span class='see-label'>You should see</span><ul class='lines'>${lines}</ul>${tbl}`;
+  }
+  const NOTE_TAG = { note: "Note", ask: "Rule on this", limit: "Known limit" };
+
+  function counts(c) {
+    const all = checkables(c), s = state[c.id];
+    const ok = all.filter((x) => s.marks[x.key] === "ok").length;
+    const noList = all.filter((x) => s.marks[x.key] === "no");
+    return { all, ok, no: noList.length, noList, open: all.length - ok - noList.length };
+  }
+
+  function renderCase() {
+    const c = byId[current], s = state[current];
+    const idx = order.indexOf(current);
+    const ct = counts(c);
+    const stepOpen = (si) => ct.all.some((x) => x.si === si && !s.marks[x.key]);
+    const stepNo = (si) => ct.all.some((x) => x.si === si && s.marks[x.key] === "no");
+
+    const steps = c.steps.map((st, si) => {
+      const cls = ["step", !stepOpen(si) ? "is-done" : "", stepNo(si) ? "has-no" : ""].join(" ").replace(/\s+/g, " ").trim();
+      return `<tr class='${cls}'><td class='n'><span class='num'>${si + 1}</span></td><td class='do'>${rich(st.do)}</td><td class='see'>${seeCell(st, si, s)}</td></tr>`;
+    }).join("");
+    const notes = (c.notes || []).map((n) =>
+      `<tr class='noterow'><td colspan='3'><div class='note k-${esc(n.kind)}'><span class='tag'>${NOTE_TAG[n.kind] || "Note"}</span><p>${rich(n.text)}</p></div></td></tr>`).join("");
+    const ballot = VERDICTS.map((v) =>
+      `<label class='bopt'><input type='radio' name='verdict' value='${v}' ${s.verdict === v ? "checked" : ""}>${chip(v)}</label>`).join("");
+    const tv = c.tester && c.tester.verdict;
+    const testerCell = tv ? VERDICTS.map((v) => chip(v, v !== tv)).join("") : chip("NOT RUN");
+    const total = ct.all.length || 1;
+    const pctOk = Math.round((ct.ok / total) * 100), pctNo = Math.round((ct.no / total) * 100);
+    const noItems = ct.noList.map((x) => `<li><span>Step ${x.si + 1}. ${esc(x.text)}</span></li>`).join("");
+    const retestRow = c.retest ? `<tr><th scope='row'>You, first run<small>${esc(c.retest.date)}</small></th><td>${chip(c.retest.verdict)}</td><td><p class='words'>${figs(c.retest.note)}</p></td></tr>` : "";
+    const statusChip = s.verdict ? "" : (c.retest ? chip("RETEST") : chip("NOT RUN"));
+
+    document.getElementById("case").innerHTML = `
+      <header class='case-head'>
+        <div class='case-num' aria-hidden='true'><span class='kicker'>UAT</span><span class='digits'>${esc(c.id.split("-")[1] || c.id)}</span></div>
+        <div><h1><span class='sr'>${esc(c.id)}. </span>${esc(c.title)}</h1>
+          <div class='chips'><span class='chip'>${esc(c.scope)}</span><span class='chip'>${esc(c.status)}</span><span class='chip'>${c.steps.length} steps · ${ct.all.length} lines to check</span>${statusChip}</div></div>
+        <div class='c-nav'>
+          <button type='button' class='navbtn' data-go='-1' ${idx <= 0 ? "disabled" : ""}>Previous case</button>
+          <button type='button' class='navbtn' data-go='1' ${idx === order.length - 1 ? "disabled" : ""}>Next case</button>
+        </div>
+      </header>
+      <table class='kv'><tbody>
+        <tr><th scope='row'>Scope</th><td>${esc(c.scope)} · ${esc(c.status)}</td></tr>
+        <tr><th scope='row'>The problem</th><td>${rich(c.problem)}</td></tr>
+        <tr><th scope='row'>Before you start</th><td>${rich(c.before)}</td></tr>
+      </tbody></table>
+      <div class='progress' role='status'>
+        <span>${ct.ok + ct.no} of ${ct.all.length} lines checked${ct.no ? ` · <span class='ct-no'>${ct.no} not matching</span>` : ""}</span>
+        <div class='bar' aria-hidden='true'><span class='b-ok' style='width:${pctOk}%'></span><span class='b-no' style='width:${pctNo}%'></span></div>
+      </div>
+      <table class='steps'>
+        <thead><tr><th scope='col'>Step</th><th scope='col' class='c-do'>Do this</th><th scope='col'>You should see, mark each line</th></tr></thead>
+        <tbody>${steps}${notes}</tbody></table>
+      <div class='verdicts'><table>
+        <thead><tr><th scope='col' class='c-who'>Who</th><th scope='col' class='c-v'>Verdict</th><th scope='col'>Note</th></tr></thead>
+        <tbody>
+          <tr><th scope='row'>Tester<small>an AI agent, before you</small></th><td><div class='ballot' role='img' aria-label='Tester verdict ${esc(tv || "NOT RUN")}'>${testerCell}</div></td><td><p class='words'>${figs(c.tester && c.tester.note)}</p></td></tr>
+          ${retestRow}
+          <tr><th scope='row'>You<small>${esc((c.user && c.user.date) || "your verdict")}</small></th><td><fieldset class='ballot'><legend class='sr'>Your verdict</legend>${ballot}</fieldset></td>
+            <td><textarea class='note-field' id='note' aria-label='Your note'>${esc(s.note)}</textarea><p class='note-hint'>Your words, recorded exactly as you write them.</p></td></tr>
+          <tr><th scope='row'>Your marks</th><td colspan='2'>${ct.ok} matching · ${ct.no} not matching · ${ct.open} not marked yet${ct.no ? `<ul class='no-list'>${noItems}</ul>` : ""}</td></tr>
+          <tr><th scope='row'>Next step<small>written by the AI agent, agreed with you</small></th><td colspan='2'>${c.next ? figs(c.next) : "<span class='muted'>Agreed with you after your verdict.</span>"}</td></tr>
+        </tbody></table></div>
+      <div class='case-foot'><button type='button' class='primary' data-results>Results for the chat</button></div>`;
+  }
+
+  function renderOpen() {
+    const items = (DATA.open || []).map((o) => `<section class='decision'><h3>${esc(o.id)}. ${esc(o.title)}</h3><table><tbody>
+      <tr><th scope='row'>What it is</th><td>${rich(o.what)}</td></tr>
+      <tr><th scope='row'>Why it needs you</th><td>${rich(o.why)}</td></tr>
+      <tr><th scope='row'>Options</th><td>${rich(o.options)}</td></tr>
+      <tr><th scope='row'>Recommendation</th><td>${rich(o.recommendation)}</td></tr>
+      <tr><th scope='row'>Your ruling</th><td>${o.ruling ? `“${esc(o.ruling)}”` : "<span class='muted'>Not given yet. Write it in the chat.</span>"}</td></tr>
+    </tbody></table></section>`).join("");
+    document.getElementById("case").innerHTML = `<h1 class='view-h'>(a) Needs your decision</h1>
+      <p class='view-intro'>Every fork we could not settle ourselves. Each one is a decision you make. Deferrals are listed too, because a deferral is a decision we made on your behalf and you can overturn it.</p>${items}`;
+  }
+  function renderSolved() {
+    const items = (DATA.solved || []).map((o) => `<section class='decision'><h3>${esc(o.title)}</h3><table><tbody>
+      <tr><th scope='row'>The problem</th><td>${rich(o.problem)}</td></tr>
+      <tr><th scope='row'>What I did</th><td>${rich(o.did)}</td></tr>
+      <tr><th scope='row'>Why this and not the others</th><td>${rich(o.why)}</td></tr>
+    </tbody></table></section>`).join("");
+    const resid = (DATA.residuals || []).length ? `<section class='decision'><h3>Residuals you should know about, that are not cases</h3><ul class='resid'>${DATA.residuals.map((r) => `<li>${rich(r)}</li>`).join("")}</ul></section>` : "";
+    document.getElementById("case").innerHTML = `<h1 class='view-h'>(b) Solved, in plain language</h1>
+      <p class='view-intro'>Three beats each. The third one says why this and not the others, so any call is cheap to overturn.</p>${items}${resid}`;
+  }
+
+  function render() {
+    renderList();
+    if (current === "open") renderOpen();
+    else if (current === "solved") renderSolved();
+    else renderCase();
+  }
+
+  function go(delta) {
+    const i = order.indexOf(current) + delta;
+    if (i < 0 || i >= order.length) return;
+    current = order[i];
+    render();
+    document.getElementById("case").scrollIntoView({ block: "start" });
+  }
+
+  document.getElementById("caselist").addEventListener("click", (e) => {
+    const b = e.target.closest(".ci");
+    if (!b) return;
+    current = b.dataset.id;
+    render();
+  });
+
+  const caseEl = document.getElementById("case");
+  caseEl.addEventListener("click", (e) => {
+    const nav = e.target.closest("[data-go]");
+    if (nav) { go(Number(nav.dataset.go)); return; }
+    const mk = e.target.closest(".mk");
+    if (!mk || !state[current]) return;
+    const s = state[current], k = mk.dataset.k, m = mk.dataset.m;
+    if (s.marks[k] === m) delete s.marks[k]; else s.marks[k] = m;
+    save(current);
+    const sel = `.mk[data-k='${k}'][data-m='${m}']`;
+    renderCase();
+    const again = caseEl.querySelector(sel);
+    if (again) again.focus({ preventScroll: true });
+  });
+  caseEl.addEventListener("change", (e) => {
+    if (e.target.name === "verdict") { state[current].verdict = e.target.value; save(current); renderList(); }
+  });
+  caseEl.addEventListener("input", (e) => {
+    if (e.target.id === "note") { state[current].note = e.target.value; save(current); }
+  });
+  document.addEventListener("keydown", (e) => {
+    if (!document.getElementById("results").hidden) return;
+    if (e.target.matches("textarea, input[type=text]")) return;
+    if (!byId[current]) return;
+    if (e.key === "]") go(1);
+    if (e.key === "[") go(-1);
+  });
+
+  // Results for the chat
+  const scrim = document.getElementById("results");
+  const rdText = document.getElementById("rd-text");
+  const rdStatus = document.getElementById("rd-status");
+  let opener = null;
+  function resultsText() {
+    const lines = [`UAT results · ${DATA.app} ${DATA.version} · sitting ${DATA.sitting} of ${DATA.sittings} · ${DATA.date}`, ""];
+    CASES.forEach((c) => {
+      const s = state[c.id], ct = counts(c);
+      lines.push(`${c.id} ${s.verdict || userStatus(c.id)}. ${ct.ok} matching, ${ct.no} not matching, ${ct.open} not marked.`);
+      ct.noList.forEach((x) => lines.push(`  ✗ step ${x.si + 1}. ${x.text}`));
+      if (s.note.trim()) lines.push(`  Note "${s.note.trim()}"`);
+    });
+    return lines.join("\n");
+  }
+  function openResults(from) {
+    opener = from;
+    rdText.value = resultsText();
+    rdStatus.textContent = "";
+    scrim.hidden = false;
+    rdText.focus();
+  }
+  function closeResults() {
+    scrim.hidden = true;
+    if (opener) opener.focus();
+  }
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-results]");
+    if (b) openResults(b);
+  });
+  document.getElementById("rd-close").addEventListener("click", closeResults);
+  scrim.addEventListener("click", (e) => { if (e.target === scrim) closeResults(); });
+  scrim.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") { e.preventDefault(); closeResults(); }
+    if (e.key === "Tab") {
+      const f = [...scrim.querySelectorAll("textarea, button")];
+      const first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  });
+  document.getElementById("rd-clear").addEventListener("click", () => {
+    if (!window.confirm("Clear every mark, verdict and note you set in this browser for this sheet?")) return;
+    drafts = {};
+    try { localStorage.removeItem(KEY); } catch (e) { /* nothing kept */ }
+    initState();
+    render();
+    rdText.value = resultsText();
+    rdStatus.style.color = "var(--ink-2)";
+    rdStatus.textContent = "Cleared. The sheet shows what was recorded before.";
+  });
+  // Copies only when the human presses the button.
+  document.getElementById("rd-copy").addEventListener("click", () => {
+    const done = () => { rdStatus.style.color = "var(--pass)"; rdStatus.textContent = "Results copied. Paste them into the chat."; };
+    const fail = () => { rdStatus.style.color = "var(--fail)"; rdStatus.textContent = "Could not copy. Select the text and press Ctrl+C."; };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(rdText.value).then(done, fail);
+    else fail();
+  });
+
+  render();
+</script>
+</body>
+</html>

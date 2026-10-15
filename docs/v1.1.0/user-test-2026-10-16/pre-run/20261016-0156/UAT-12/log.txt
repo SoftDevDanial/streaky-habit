@@ -1,0 +1,7 @@
+UAT-12 pre-run log. Automated UAT pre-run agent, read-only. Run 20261016-0156, sitting 2, same seat and context (continues from UAT-11), 390 x 664.
+No capture. Nothing in this case is drivable from the tester seat, so nothing was pressed.
+
+Lines (step: line + mark, N not drivable)
+s0: 1N | s1: 1N 2N 3N | s2: 1N | s3: 1N 2N | s4: 1N | s5: 1N 2N | s6: 1N
+Why: the tab overview, the Share menu, Add to Home Screen and the home screen are Safari and iOS interface, which a headless engine does not draw. Display and Brightness are iOS Settings.
+Context only, not Safari's tab: document.title is "Danial's Streaky Habit". The page links only rel=icon src/icon.svg (no apple-touch-icon, no manifest). src/icon.svg opened as a document in this WebKit has fill rgb(255, 176, 32) under dark and rgb(154, 91, 0) under light. What Safari 26 draws on its tab is not shown by that.

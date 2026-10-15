@@ -1,0 +1,17 @@
+UAT-04 pre-run log. Automated UAT pre-run agent, read-only. Run 20261016-0156, sitting 1, same seat and context (continues from UAT-03).
+Instruments: a passive observer records each dialog's open attribute over time and each click's detail and target. It reads only.
+
+Lines (step: line + mark, M matches, X does not match, N not drivable)
+s0 (list scrolled to Habit 12): 1M | s1: 1M | s2: 1M 2M 3M | s3: 1X | s4: 1M 2M 3M | s5: 1M 2M 3M | s6: 1M 2M | s7: 1M 2M 3M | s8: 1M 2M 3M 4M 5M | s9: 1M 2M 3M 4M 5M
+
+s3.l1 X 'A dialog titled Delete "Habit 12"? opens'
+  The quick double-click (second press 120 ms after the first, click count 2) opened the dialog at the first press. The second press landed on the dim page (elementFromPoint dialog.dlg-del, the backdrop), which closed it like Cancel. The dialog was open for 131 ms. 120 ms after the gesture no dialog is on screen (s03a), and none after (s03b). Nothing was deleted (step 4 lines match).
+
+Gestures: 8 clicks and wheels hit-tested, 8 on target, 0 missed.
+  s1 second click at the same spot 1 s later landed on dialog.dlg-del (the dim page), which closed the dialog. The line only asks about the first click.
+  s6 second press of the double-click on Delete habit landed on the delete dialog's dim page, so it closed. The Habit 12 window stayed open.
+Notes
+s8 at 1280 x 800 the bin box (x 645, y 616, 44 x 44) does not lie under Delete habit (x 646, y 415, 173 x 48). The bin sits about 200 px below it.
+s9 the click on the word "habit" came 483 ms after the bin click. The dialog had closed 200 ms later (s09a).
+
+Captures: s00-list-bottom.png s01a-after-first-click.png s01b-after-second-click.png s02-esc.png s03a-120ms-after-double-click.png s03b-after-double-click.png s04-esc.png s05-year-habit12.png s06a-120ms-after-double-click.png s06b-after-double-click.png s07-closed.png s08-delete-dialog.png s09a-200ms-after.png s09b-deleted.png

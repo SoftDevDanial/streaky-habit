@@ -1,0 +1,13 @@
+UAT-09 pre-run log. Automated UAT pre-run agent, read-only. Run 20261016-0156, sitting 2, same seat and context as UAT-08 (continues from it), 390 x 664.
+
+Lines (step: line + mark, M matches, X does not match, N not drivable)
+s0: 1M | s1: 1M 2X | s2: 1M 2M 3M 4M 5M | s3: 1M 2M 3M 4M | s4: 1M 2X 3M | s5: 1M | s6: 1M 2M 3M | s7: 1M 2M 3M 4M 5M | s8: 1M 2M 3M | s9: 1M 2M | s10: 1M | s11: 1M 2M
+
+s1.l2 X 'Its bottom row is 27 July to 2 August, labelled Jul'. Right days and label, but only 46 percent of the row shows above the screen edge at 664 high (row y 642 to 690).
+s4.l2 X 'The top row, 12 to 16 October, is in view again'. After Close the sheet stays at its natural end (scrollTop 84 of 84, the editor's room removed) because focus returns to 27, which keeps 27 in view. The top row sits at y 30, under the sheet's title area that ends at y 82. The first row in view is 5 October (s04-closed.png).
+Both lines match at 390 x 844, where the sheet does not scroll (supplementary-390x844/UAT-09).
+Notes
+s2 27 showed only in part before the tap, so the tap went to the middle of the part that shows (x 73, y 653), as a finger would. It opened the day editor for Monday 27 July, and the editor moved 27 whole above itself.
+s6 STAND-IN for the swipe. Mobile WebKit in the driver refuses the mouse wheel and has no swipe, so Tab (focus to the first day, 1 Oct 2026) then End scrolled the sheet body to its end (0 to 3512, 1 End press, cap 4).
+Gestures: 10 taps hit-tested, 10 on target, 0 missed.
+Captures: s01-overview.png s02-day-editor-27.png s02-day27-zoom.png s03-stretch-ticked.png s04-closed.png s05-all-habits.png s06-all-bottom.png s07-day-editor-2025.png s08-nophone-ticked.png s09-closed.png s10-overview-again.png s11-list.png

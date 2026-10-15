@@ -1,0 +1,12 @@
+Supplementary sitting 2 run, 390 x 844. Automated UAT pre-run agent, read-only. Run 20261016-0156.
+Why: at Playwright's iPhone 13 size (390 x 664 visible, Safari's area with its toolbar shown) four lines did not match because the 12-week sheet scrolls. 390 x 844 is the design's phone frame and the whole iPhone 13 screen. Same engine (WebKit 26.5), same device settings except the viewport, a fresh context, the same script from UAT-08 to UAT-12.
+
+Lines (step: line + mark, M matches, X does not match, N not drivable)
+UAT-08 s1: 1M 2M 3M 4M 5M 6M | s2: 1N 2N 3M | s3: 1M 2M 3M 4M | s4: 1M | s5: 1M | s6: 1N 2N | s7: 1M 2M 3M 4M | s8: 1M 2M 3M 4M 5M 6M 7M 8M 9M 10M | s9: 1M 2M 3M 4M 5M 6M 7M 8M | s10: 1M 2M 3M | s11: 1M 2M | s12: 1M 2M 3M 4M 5M 6M 7M 8M | s13: 1M | s14: 1M | s15: 1M to 11M | s16: 1M | s17: 1M to 5M | s18: 1M 2M
+UAT-09 s0: 1M | s1: 1M 2M | s2: 1M to 5M | s3: 1M to 4M | s4: 1M 2M 3M | s5: 1M | s6: 1M 2M 3M | s7: 1M to 5M | s8: 1M 2M 3M | s9: 1M 2M | s10: 1M | s11: 1M 2M
+UAT-10 every line M (s1 to s8). Double-tap dialogs showed 142 ms (s1) and 151 ms (s6), second taps on the dim page, detail 1.
+UAT-11 every drivable line M, s1, s4, s6 N as in the primary run.
+UAT-12 every line N.
+Totals: 135 match, 18 not drivable, 0 do not match. Gestures: 33 hit-tested, 0 missed.
+At 844 the 12-week sheet does not scroll (body scroll range 0). Its bottom row ends at y 690 and its legend at y 724, so the sheet needs about 724 px of screen to show whole.
+Captures: UAT-08/, UAT-09/, UAT-10/, UAT-11/ in this folder, the same file names as the primary run.

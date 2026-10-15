@@ -1,0 +1,12 @@
+UAT-11 pre-run log. Automated UAT pre-run agent, read-only. Run 20261016-0156, sitting 2, same seat and context (continues from UAT-10), 390 x 664.
+STAND-IN. iOS Settings are not reachable from this seat. An init script, loaded before the page and gated by a test cookie set and cleared from outside the page, makes every localStorage access throw a SecurityError while the cookie is set, as Safari does with Block All Cookies on. It cannot show whether Safari drops the saved data when the block is switched on (the sheet's step 7 note).
+
+Lines (step: line + mark, M matches, X does not match, N not drivable)
+s0: 1M | s1: 1N | s2: 1M 2M 3M 4M 5M 6M | s3: 1M 2M | s4: 1N | s5: 1M 2M 3M 4M | s6: 1N | s7: 1M 2M 3M 4M
+
+Not drivable: s1.l1, s6.l1 (iOS Settings, stand-in switched on and lifted instead), s4.l1 (no on-screen keyboard).
+s2, s7 no address bar in a headless engine, so the page was reloaded with the browser's reload command. After s2 localStorage threw SecurityError, after s7 it was readable.
+s2 the warning has an amber edge (paint), sits under the date line, holds no button. The Overview ring is one thin grey circle.
+s7 Read 20 pages and No phone after 11pm came back, Read 20 pages Current 2 days and Best 2, no Water, no warning.
+Gestures: 2 taps hit-tested, 2 on target, 0 missed. Keys: type Water and Enter.
+Captures: s02-blocked-reload.png s03-water.png s05-water-done.png s07-unblocked-reload.png

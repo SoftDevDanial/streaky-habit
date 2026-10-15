@@ -1,0 +1,14 @@
+UAT-07 pre-run log. Automated UAT pre-run agent, read-only. Run 20261016-0156, sitting 1, same seat and context (continues from UAT-06).
+STAND-IN. Chrome's settings pages are not reachable from this seat. An init script, loaded into the context before the page and gated by a test cookie set and cleared from outside the page, makes every localStorage access throw a SecurityError while the cookie is set. That is how a blocked site behaves. It is not Chrome's own block, so it cannot show whether Chrome drops the saved data when the address is blocked (the sheet's step 8 note).
+
+Lines (step: line + mark, M matches, X does not match, N not drivable)
+s0: 1M | s1: 1N | s2: 1N | s3: 1N | s4: 1M 2M 3M 4M 5M | s5: 1M 2M | s6: 1M 2M 3M 4M | s7: 1N | s8: 1M 2M 3M 4M
+
+Not drivable: s1.l1, s2.l1, s3.l1, s7.l1, Chrome's settings pages. The stand-in was switched on before step 4 and lifted before step 8.
+Gestures: 2 clicks hit-tested, 2 on target, 0 missed. Keys: F5 (steps 4, 8), type Water and Enter (step 5).
+Notes
+s4, s8 F5 did not reload the headless page within 3 s. The page was reloaded with the browser's reload command, the same reload F5 gives the human.
+s4 after the reload the stand-in was active (localStorage throws SecurityError). The warning has an amber edge (paint), sits between the band and the list, and holds no button.
+s8 after the reload the stand-in was off (localStorage readable). Eleven habits came back, Read 20 pages Current 2 days and Best 2, no Water, no warning.
+
+Captures: s04-blocked-reload.png s05-water.png s06-water-done.png s08-unblocked-reload.png

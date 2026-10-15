@@ -1,0 +1,18 @@
+Orchestrator probe P1 (H-08). Not a UAT case. Automated UAT pre-run agent, read-only. 2026-10-16 02:17.
+Seat: headless Chromium 149, 1280 x 800, one fresh context, real clock, clipboard stand-in (0 writes), clicks hit-tested (0 missed).
+LIVE STAND-IN. An init script replaces window.localStorage with a getter that checks a test cookie on every access. While the cookie is set every access throws a SecurityError. Clearing the cookie from the test side makes the next access work in the open page, with no reload. The browser's real Storage object is kept as window.__uatRealStorage for test-side reads only. The app was not touched. The stand-in tests the app's own logic. It does not show whether Chrome or Safari themselves let an open page save again once a block is lifted.
+F5 is not honoured by headless Chromium, so each reload used the browser's reload command.
+
+Step, what the page showed, what streaks.state held (the habit names in the stored text)
+a  three habits added by click, type and Enter, then reload. Rows Read 20 pages, Stretch 10 minutes, No phone after 11pm. No warning. Stored the same three. (a-after-reload.png)
+b  stand-in on, reload. Rows none ("No habits yet."), save warning shown, page access throws SecurityError. Stored still the three. (b-blocked-reload.png)
+c  Water added by click, type and Enter. Rows Water, warning shown. Stored still the three, the save failed. (c-water.png)
+d  stand-in off, no reload. Page access readable, rows Water, warning still shown.
+   Raw before (e), read with localStorage.getItem from the test side
+   {"version":1,"habits":[{"name":"Read 20 pages","done":[]},{"name":"Stretch 10 minutes","done":[]},{"name":"No phone after 11pm","done":[]}]}
+e  Done today clicked on Water. The warning went (the save worked). Stored now {"version":1,"habits":[{"name":"Water","done":["2026-10-16"]}]} (e-water-done.png)
+f  reload. Rows Water only, no warning.
+   Raw after (f), read with localStorage.getItem from the test side
+   {"version":1,"habits":[{"name":"Water","done":["2026-10-16"]}]}
+   (f-after-reload.png)
+Result: the three earlier habits did NOT survive. The first change after storage came back saved the page's one-habit list over them. H-08 is confirmed under this stand-in.

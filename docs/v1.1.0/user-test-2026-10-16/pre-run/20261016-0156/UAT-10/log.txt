@@ -1,0 +1,14 @@
+UAT-10 pre-run log. Automated UAT pre-run agent, read-only. Run 20261016-0156, sitting 2, same seat and context (continues from UAT-09), 390 x 664.
+Instruments: a passive observer records each dialog's open attribute over time and each click's detail and target. It reads only.
+
+Lines (step: line + mark, M matches, X does not match, N not drivable)
+s1: 1M | s2: 1M 2M 3M | s3: 1M | s4: 1M 2M | s5: 1M 2M | s6: 1M 2M | s7: 1M 2M 3M | s8: 1M 2M 3M
+
+Double taps (two taps 120 ms apart at one point)
+s1 the first tap opened Delete "Stretch 10 minutes"?. The second tap landed on the dim page (dialog.dlg-del backdrop) and closed it like Cancel. The dialog was on screen for 140 ms. In this engine the second tap's click reports detail 1, not 2.
+s3 tap, 1 s wait, tap at the same spot. The dialog showed for 1076 ms, title readable. The second tap landed on the dim page and closed it.
+s6 the double tap on Delete habit in the sheet opened the delete dialog for 137 ms. The second tap landed on its dim page and closed it. The Stretch 10 minutes sheet stayed open.
+s2, s4 the date-line taps landed on time.date (no dialog was open by then).
+s8 the tap on Delete habit came 485 ms after the dialog opened. Both popups had closed 200 ms later.
+Gestures: 6 taps hit-tested, 6 on target, 0 missed, plus the second taps and date-line taps above, recorded with what lay under them.
+Captures: s01-after-double-tap.png s02-after-date-tap.png s03a-after-first-tap.png s03b-after-second-tap.png s04-after-date-tap.png s05-year-stretch.png s06-after-double-tap.png s07-delete-dialog.png s08-deleted.png
