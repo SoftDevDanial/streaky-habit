@@ -1,84 +1,85 @@
-# Regression, v1.0.0
+# Regression, v1.1.0
 
 | | |
 |---|---|
 | Project | Streaks |
-| Mode | full, under the ORCH economy ruling of 2026-10-09 (CHANGE-LEDGER row 44) |
-| Opened | 2026-10-09, at the tail of execute |
-| Closed | 2026-10-10 12:25 |
-| Run by | the orchestrator, with finder and solver agents |
+| Mode | full, under the ORCH economy ruling of v1.0.0 (1.0 ledger row 44) |
+| Opened | 2026-10-15 18:34, at the tail of execute (ledger S1 row 27) |
+| Closed | 2026-10-15 23:58 |
+| Run by | the orchestrator, with finder, solver and planner agents |
 | Verdict | **PASS** |
+
+The v1.0.0 report is in git history (`git show v1.0.0:docs/regression/REGRESSION.md`).
 
 ## Scope per module
 `--full` asks for every finder on every module. The economy ruling keeps a finder's verdict when the code it judged has not changed
-since, and re-runs every finder whose code no agent has seen. Over-testing is cheap, so the QA finder and the cold boot ran on
-everything.
+since, and re-runs every finder whose code no agent has seen. The QA finder and the cold boot ran on everything.
 
-| Module | Last green | Code since its finders ran | What re-ran | Why the rest stands |
-|---|---|---|---|---|
-| habit-logic | `de0156a` | none, `src/` byte for byte the same | QA finder (32 scenarios), unit suite, cold boot. The app's code review re-read the seam between the two modules | Code review and security were given on this exact code |
-| app | `9ebc54e` | `fa58481..9ebc54e`, the SEC-01 guards and the SEC-02 and SEC-06 title changes, which no code reviewer had seen | Code review on that delta, with a security eye on SEC-06. QA finder (88 items). Cold boot | Fidelity ran on `321329c`, the same `src/` as `9ebc54e` (6 of 6 at 0 px, 71 of 71 rows). Security closed clean after SEC-06 under the stop rule |
+| Module | Code at the start | What re-ran | Why the rest stands |
+|---|---|---|---|
+| habit-logic | `src/` unchanged since `4e860ff` until task 9a | QA finder, unit suite, then a code-review and a security re-check of task 9a | its step 5 code review and security judged the same code until 9a, and the re-checks judged 9a |
+| app | `c271938..HEAD` for code review, `4e860ff..HEAD` for security | QA finder, code review of the delta and a consistency sweep, security of the delta, then the re-checks of 28a and 9a | fidelity stands on today's code, task 28's one-to-one run (ledger S1 row 24) |
 
 ## Finder verdicts
 | Finder | Model | Verdict | Report |
 |---|---|---|---|
-| Code review, app delta | sonnet | 0 BLOCKER, 2 WARNING, 4 INFO. Solved, then a scoped re-check PASS once one spec sentence was reworded (RG-CR-07) | `docs/modules/app/findings/regression-code-review.md` |
-| QA, both modules | haiku | PASS, 120 of 120 scenarios, 0 untested. Five everyday flows driven by hand at 390 x 844, 9 of 9 | `docs/modules/app/findings/regression-qa.md` |
-| Fidelity, app | | stands, 6 of 6 captures at 0 px, 71 of 71 checklist rows | `docs/modules/app/findings/fidelity.md` |
-| Security, both modules | | stands, clean | `docs/modules/*/findings/security.md` |
+| QA, both modules | haiku | PASS. Node 137 of 137, Chromium 358 tests 0 failures, WebKit 358 tests 0 failures 1 skip (CO-1). App 170 of 176 scenarios, the 6 gate scenarios from S1 rows 24 and 25 and the cold boot. habit-logic 42 of 42 | `docs/modules/*/findings/regression-qa.md` |
+| Code review, app delta | opus | CLEAN, 3 INFO (RG-CR-I1 to I3) | `docs/modules/app/findings/regression-code-review.md` |
+| Consistency sweep | opus | 0 BLOCKER, 3 WARNING, 10 INFO | `docs/regression/20261015-185800/consistency.md` |
+| Security, app delta | opus | 1 LOW, SEC-R01 (the year views freeze from October to December of 10000 to 10009). Every T1 to T13 mitigation holds | `docs/modules/app/findings/regression-security.md` |
+| Fidelity, app | | stands, task 28 one-to-one, 23 of 23 at 0 px and 139 rows | `docs/modules/app/findings/fidelity.md` |
+| Code review re-check, 9a and 28a | opus | CLEAN, 2 INFO (RC-9A-1, RC-9A-2), both ruled | `docs/modules/habit-logic/findings/regression-code-review.md`, the re-check section in the app's |
+| Security re-check, 9a | opus | SEC-R01 closed in both engines, 3 INFO, all about the written residual | the re-check section of `docs/modules/app/findings/regression-security.md` |
 
-## Solver rounds
-One round, tests and docs only, no change to `src/`.
-- RG-CR-01. The 500 ms edge tests now press at 499 ms (ignored) and then 1 ms later (acts), with mouse and touch. Five guard mutants that lived before are killed.
-- RG-CR-02. Enter on Delete habit inside the window is ignored, and after it the habit goes. The page guard's keyboard half stays unspecified and the spec says so.
-- RG-CR-04 and RG-CR-05. BUILD.md and qa.md gaps closed.
-- RG-CR-03. Four README lines, reconciled by the orchestrator after the tree settled.
-- RG-CR-06. Long docblocks, accepted.
+## Owner ruling
+H-06 (SEC-R01). Asked 2026-10-15 20:06, ruled USER "1" at 21:03. `yearMonths` stops after the 13 months its doc comment promises.
+The rest of SEC-05 is re-accepted in its v1.1.0 form.
 
-19 of 21 mutants killed. The two that live are ruled (one is unspecified behaviour, one is equivalent). Browser tests went from 176 to 179.
-The scoped re-check found one INFO (RG-CR-07, a spec note gave the wrong reason). The orchestrator reworded it, and code review ended
-for v1.0.0 under the stop rule.
+## Solver and doc rounds
+- Doc pass `b372666` (planner) on the sweep and code review wording, CS-01, CS-02, CS-03, CS-05, CS-09, RG-CR-I3.
+- Planner line `b3183c0`, habit-logic task 9a and app task 28a.
+- Targeted pass (dev solver). `eafc9e5` the bound, RED first in Node in a worker thread with a heap limit and a timer (8 of 151 failed
+  on termination, the control rows passed). `40848ce` the `firstControl` comment, RG-CR-I1. `3e79c85` the proofs.
+- Doc pass `5566e47` (planner), every "contracted and not built" line, the measured SEC-05 form in place of "a prediction".
+- README reconciled by the orchestrator twice, RM-01 to RM-04 in row 27, and the Known limits row from the security re-check.
+
+One solver round for code, one re-check per finder kind, under the stop rule.
 
 ## Cold boot
-Evidence `docs/regression/20261010-122303/`. The shipped `index.html` on a plain static server, no seed, real `localStorage`, real
-clicks and keys, Chromium 149. The run starts on an empty store and ends on what a person would see after a reload.
+Evidence `docs/regression/20261015-185800/` (`live-gate.md` and four run folders). The shipped `index.html` on a plain static server,
+no seed, real `localStorage`, real clicks and keys, one server per engine, the control first.
 
-| # | Step | What it proves | Result |
-|---|---|---|---|
-| 1 | open the app | the empty first screen, today ringed, nothing stored | PASS |
-| 2 | click the field, type a name, click Add | one row with 7 open beads ending on today | PASS |
-| 3 | type a name, press Enter | a second row under the first | PASS |
-| 4 | click today's bead on both rows | 1 day and Best 1 on both rows, today's heatmap cell at level 4 | PASS |
-| 5 | click yesterday's bead on Read | 2 days and Best 2, yesterday's cell at level 2 | PASS |
-| 6 | reload | both rows, beads and streak lines unchanged | PASS |
-| 7 | click Delete Stretch 10 minutes | the dialog asks, Cancel has focus | PASS |
-| 8 | click Cancel | 2 rows remain, focus back on the trash button | PASS |
-| 9 | wait, click the trash button, wait, click Delete habit, wait | 1 row, focus on the field, today's cell counts 1 habit | PASS |
-| 10 | type a duplicate name, press Enter | the duplicate message shows and the text stays | PASS |
-| 11 | reload | exactly one row, 2 days and Best 2 | PASS |
-
-21 requests, every one to the app's own address, 0 outside the rule. 0 console errors, 0 page errors. One screenshot per step
-(`01-first-visit.png` to `11-reloaded-again.png`). Server pid 12816 on port 31368, stopped by PID, the port refuses connections after.
-
-## Suites on the final tree
-Run by the orchestrator on 2026-10-10 at 12:24, after the cold boot.
-
-| Suite | Command | Result |
+| Engine | Control | Green run |
 |---|---|---|
-| Unit | `node --test "tests/**/*.test.js"` | 99 pass, 0 fail |
-| Browser | `python -m pytest tests/browser -q -p no:cacheprovider` | 179 passed in 42.32 s. The suite's own servers (pid 9404 and 3964) stopped, ports refuse connections |
+| Chromium 149 | red at step 01 "first visit" on its property, a stored state where null was expected (`live-e2e-20261015-235513-chromium-control/`) | 21 of 21, 0 console errors, 0 page errors, 0 CSP lines, 30 requests all to the app's own address (`live-e2e-20261015-235524-chromium/`) |
+| WebKit 26.5 | red at step 01 on the same property (`live-e2e-20261015-235556-webkit-control/`) | 21 of 21, the same zero counts, 30 requests (`live-e2e-20261015-235607-webkit/`) |
 
-## Accepted for v1.0, unchanged by this run
-- A click on the page within 500 ms of a mouse press in the delete dialog is dropped without a sign (row 52). Listed for the owner's test pass.
-- A slow double click (519 ms or more) can still delete through the trash and Delete habit overlap (the T7 residual, row 37). v1.1.0 replaces the window with a time-free guard (row 40).
+Step names, expected text, request lists and screenshot counts equal task 28's gate runs. `date_unchanged` true in all four runs.
+Servers 28620 on 4761 and 27696 on 4762, stopped by PID, both ports refuse.
+
+## Suites on the final code
+The code is `40848ce`. Every later commit is docs only. Run by the dev solver on the committed tree.
+
+| Suite | Result | Evidence |
+|---|---|---|
+| Unit, `node --test "tests/**/*.test.js"` | 151 of 151 (137 before, plus the `@R20` test and its 13 rows) | `docs/modules/habit-logic/qa/solver/20261015-224014-node/` |
+| Browser, Chromium | 358 passed, by id equal to the QA finder's run | `docs/modules/habit-logic/qa/solver/20261015-224041-chromium/` |
+| Browser, WebKit | 357 passed, 1 skipped (CO-1), by id equal | `docs/modules/habit-logic/qa/solver/20261015-224353-webkit/` |
+
+## Accepted or deferred by this run
+- SEC-05 in its v1.1.0 form, re-accepted by the owner with H-06. Measured in the app spec's threat model and the README's Known limits.
+- RS-9A-2, a second press of the band's Year opens an empty P4 at January to September clocks of 10000 on (ORCH, part of SEC-05).
+- RC-9A-1, "at most 13 months" also accepts an empty result (ORCH residual, the wording "between 1 and 13 months" goes to the v1.2.0 plan).
+- RG-CR-I2 accepted as documentation. CS-06 accepted. CS-04, CS-07 and CS-08 deferred to the v1.2.0 plan, blocking item none.
 
 The rest of the known limits are in the README.
 
 ## Close
-- CHANGE-LEDGER. A "re-verified, no regression" row in each of C1 to C7, with its proof, plus this run's row.
-- README. Reconciled after the solver (row 48). Nothing a solver touched since.
-- Process ledger. Reconciled 2026-10-10 (`docs/progress/process-ledger.md`).
-- Credential gate. Full sweep from the project root, exit 0.
+- CHANGE-LEDGER. S1 rows 27 to 33, H-06 closed.
+- README. Reconciled after the code settled (row 27 and row 31).
+- Process ledger. Rows 69 to 75, every process stopped and verified.
+- Credential gate. Full sweep from the project root 2026-10-15 23:57, 3616 files, exit 0.
 
 ## Verdict
-**PASS.** Every in-scope finder is green or stands on unchanged code, both suites pass, and the app works live from a cold boot.
+**PASS.** Every in-scope finder is green, re-checked or stands on unchanged code, the one LOW is fixed and re-checked in both engines,
+both suites and the unit suite pass, and the app works live from a cold boot in Chromium and WebKit.
