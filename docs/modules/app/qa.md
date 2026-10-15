@@ -9,6 +9,7 @@
 > Changed 2026-10-14 in execute (planner touch-up, ledger H-03, S1 row 8, S7 row 15). H-03, the two P3 rows "2026-07-20" of W22 hold through P3's room for rule 4 (spec R36), built at task 20, and one new `@R36` scenario checks the room. Q1 and Q2, two lines follow the goldens as ruled ORCH (the field's box with twelve habits, the Overview button's computed `flex`). Q3, two scenarios name the popup's `dialog` as WebKit's focus after a click inside a popup. Each change carries its own dated note.
 > Changed 2026-10-14 in execute (planner follow-up, ledger H-03, owner ruling 2026-10-14 16:32 "Same fix for P4 (Recommended)"). The room scenario covers the host of P1, P3 or P4, with two P4 rows, and W22's row "390x844 P4 2025-10-10" holds through P4's room. One new `@R36` scenario holds a gap smaller than a day with twelve habits (ruled ORCH). The fidelity inputs scenario waits on a WebKit measurement at task 26 (ruled ORCH). Each change carries its own dated note.
 > Changed 2026-10-15 in execute (planner touch after step 5, ledger S1 rows 16 to 20, S3 row 3, S4 row 5, S7 rows 16 and 18). Six new scenarios and one new Examples row give each test that the step 5 solver round added a scenario or row of its own (code review WR-01, WR-04, WR-05 and WR-07, the QA re-check). Eight scenarios gain the lines the round's tests now check (WR-01 to WR-03). The pop scenario names the width each ring is read at (Q-25-1). The engine table gains the focus return on a close (CR-01, WR-06, with the code review re-check's correction) and the Escape pace (Q-25-2). "Controls are watched failing first", the conftest table and one delete scenario record what tasks 21 and 22 found. 175 live scenarios. Each change carries its own dated note.
+> Changed 2026-10-15 in execute, after the owner's ruling (ledger H-05, USER 2026-10-15 16:20, option 1). One new `@R17` Scenario Outline holds where focus goes after Dismiss when the field is disabled (spec R17, task 27a), so 176 live scenarios and R17 has 7. The FE element checklist stays at 139 rows, because no element is added or changed. Each change carries its own dated note.
 > Phase skills. The plan phase has none assigned. The builder of each UI task loads the design row of `docs/phase-skills.md` (`taste-skill`, `frontend-design`) before writing UI (spec, Tasks).
 
 ## How these scenarios run
@@ -110,7 +111,7 @@ Added 2026-10-14 in execute (planner follow-up, owner ruling H-03 of 16:32 "Same
 | Focus after a mouse click on a button | the clicked button | no element (`document.activeElement` is `body`), whatever had focus before | spec Invariants, research webkit-testing section 2. Task 11's probe confirms it |
 | Focus after a mouse click on a button inside an open popup (added at task 18) | the clicked button | the popup's `dialog` element, not `body` (measured at task 18 on P1's ticks, in WebKit 26.5) | WebKit's mouse press finds no mouse-focusable element and focuses the modal dialog. A click on a popup's text with no control focuses the dialog in both engines. Scenarios that read "In WebKit document.activeElement is body" after a click inside a popup assert the dialog. Added 2026-10-14 in execute (planner touch-up, Q3, ruled ORCH). The two such scenarios, "Ticking a past day in P1" and "Ticking a day in the year view", now name the dialog in their own text |
 | Focus after a keyboard press on a button | the button | the button | both engines |
-| Focus the app sets (Cancel on M1, Close on P2, P3 and P4, the first tick on P1, the opener on close, the field after a name error or Dismiss, rule 3 after a delete) | as the requirement says | as the requirement says | spec R40, the app sets it by hand |
+| Focus the app sets (Cancel on M1, Close on P2, P3 and P4, the first tick on P1, the opener on close, the field after a name error or Dismiss, the page's first control after Dismiss with the field disabled (added 2026-10-15 in execute, ledger H-05), rule 3 after a delete) | as the requirement says | as the requirement says | spec R40, the app sets it by hand |
 | Focus back on the opener when a popup closes (R40, added 2026-10-15) | the browser's own restore inside `close()` lands on the same opener before the app's close handler runs | an opener pressed with the mouse never had focus (rows above), so the browser's restore does not land on it and only the app's focus does | Code review WR-06 and its re-check, with a planted defect that sets no focus on close, under which every close-focus test stays green in Chromium and fails in WebKit. So R40's return of focus to the opener is proven by the WebKit run. In Chromium a focus read after the popup's close event (`watch_close` and `wait_for_close` in `conftest.py`) shows that nothing moved focus after the app's handler, not that the app moved it. A test reads what that handler clears (P1's `is-open` marks and the host's room of spec R36) after the close event, never on the opener's focus alone (code review CR-01). Added 2026-10-15 in execute (planner touch after step 5, code review CR-01 and WR-06, with the re-check's correction to the solver's wording) |
 | Tab reaches every button | yes | yes, on Windows | research webkit-testing section 2 |
 | `detail` of the second of two quick taps | 2, and a `dblclick` follows (measured at task 11) | 1, and no `dblclick` (measured at task 11) | no scenario depends on it, the R13 guard is spatial first |
@@ -1667,6 +1668,7 @@ Feature: Delete a habit
 ```gherkin
 Feature: Kept on the device
   # tests/browser/test_storage.py (task 23). The storage unit scenarios are in tests/storage.test.js (task 14)
+  # The H-05 Scenario Outline "Dismiss with the field disabled ..." is written into the same file at task 27a (added 2026-10-15)
 
   @R16 @R41
   Scenario: saveHabits reports whether the write worked, and loadHabits whether the read did (v1.1.0 new)
@@ -1752,6 +1754,8 @@ Feature: Kept on the device
     # Changed 2026-10-15 in execute (planner touch after step 5, code review WR-01 (b)). The Given gained "and
     # count_writes" and the first Then "and no write was made after the reset save". The reset save of R17 is the one
     # save at load, and Dismiss saves nothing (R16).
+    # Added 2026-10-15 in execute, after the owner's ruling (ledger H-05). The field is enabled here, as no habit was
+    # added. With the field disabled, focus goes elsewhere, and the Scenario Outline after this one holds that.
     Given the clock is fixed at 2026-10-10T12:00:00+08:00, storage holds "{", and count_writes
     When the user clicks "Dismiss note"
     Then there is no div.banner.note, li.empty is still shown, the field is document.activeElement in both engines, and no write was made after the reset save
@@ -1759,6 +1763,33 @@ Feature: Kept on the device
     Then there is no div.banner.note
     When storage is set to "{" again through the "__seed__" page and the app is opened again
     Then div.banner.note is shown again
+
+  @R17
+  Scenario Outline: Dismiss with the field disabled moves focus to the page's first control, never to body (v1.1.0 new, H-05 ruled)
+    # Added 2026-10-15 in execute, after the owner's ruling (ledger H-05, USER 2026-10-15 16:20, option 1, spec R17's
+    # paragraph of the same date). Written first at task 27a into tests/browser/test_storage.py.
+    # The state is reached by gesture. The note shows from the unreadable value, the user adds habits one by one, and the
+    # note stays until Dismiss, so the 12th add disables the field (R12) while the note is still there.
+    # RED method (see "Controls are watched failing first"). Run on today's tree, in Chromium and in WebKit, the two
+    # twelve-habit rows fail on the asserted property. document.activeElement is body where the first control is expected,
+    # because dismissNote asks the disabled field for focus, which a disabled field refuses, and the Dismiss button the
+    # click landed on is gone. Both runs are kept in red-first. The eleven-habit row holds on today's tree, since the field is
+    # enabled and takes focus. Its RED comes from a planted defect in a throwaway copy, never committed, a dismissNote
+    # that always sends focus to firstControl(), under which the row fails on "the field is document.activeElement".
+    Given the clock is fixed at 2026-10-10T12:00:00+08:00, the viewport is <viewport>, and storage holds "{"
+    When the user types each of "Habit 1" to "Habit <count>" into the field and presses Enter, one habit at a time
+    Then div.banner.note is still shown, there are <count> li.row, and the field is <field>
+    And stored(page) holds the <count> habits in the order added, and the test keeps that text as S
+    When the user clicks "Dismiss note"
+    Then there is no div.banner.note and there are still <count> li.row
+    And <target> is document.activeElement in both engines, and document.activeElement is not body
+    And the field is still <field> and stored(page) equals S
+
+    Examples:
+      | viewport | count | field    | target                                                           |
+      | 390x844  | 12    | disabled | the Overview button, named "Overview, today 0 of 12 habits done" |
+      | 1280x800 | 12    | disabled | the band's Year, named "Year view, all habits"                   |
+      | 390x844  | 11    | enabled  | the field                                                        |
 
   @R17
   Scenario Outline: The note sits between the top of the page and the list (v1.1.0 changed)
@@ -2771,7 +2802,7 @@ Feature: Looks right
 - Re-run the Node suite (`node --test "tests/**/*.test.js"`), the browser suite in Chromium and in WebKit (two runs, two evidence folders), the 23 fidelity captures with their controls and the states check in Chromium, and the `@R27` cold-boot gate in Chromium and in WebKit, in the final parallel all-modules pass. Each engine's pass, fail and skip counts and run time go into `docs/regression/REGRESSION.md`.
 
 ## Coverage by R#
-Counted from the Gherkin above on 2026-10-13 by the planner, recounted by script after the plan-check fixes. A scenario with two tags counts for both. An outline counts once. ~~167 live scenarios (92 new, 71 changed, 4 unchanged from 1.0)~~ ~~169 live scenarios (94 new, 71 changed, 4 unchanged from 1.0, recounted 2026-10-14, see the last two notes of this paragraph)~~ 175 live scenarios (100 new, 71 changed, 4 unchanged from 1.0, recounted 2026-10-15, see the last note of this paragraph), 18 retired scenarios kept as text, 1 Chromium-only scenario (CO-1). Every live R# has at least one scenario. Changed 2026-10-13 after the plan check (F5), the live gate's control scenario added one new `@R27` scenario (164 and 89 before). Changed 2026-10-13 after the plan re-check (F14), the two successors of the `test_tick.py` tests added one `@R6 @R32` and one `@R32` scenario (165 and 90 before, R6 5 and R32 12 before). Changed 2026-10-14 in execute (planner touch-up, ledger H-03), the `@R36` scenario of P3's room added one new scenario, so the counts became 168 live scenarios (93 new, 71 changed, 4 unchanged) and R36 7 (6 before). Recounted by script. Changed 2026-10-14 in execute (planner follow-up, ruled ORCH), the `@R36` scenario of a gap smaller than a day with twelve habits added one new scenario, so 169 live scenarios (94 new, 71 changed, 4 unchanged), and R36 has 8. Recounted by script. Changed 2026-10-15 in execute (planner touch after step 5), six new scenarios, one each for `@R12`, `@R19`, `@R33`, `@R36`, `@R39` and `@R42`, give the tests of the step 5 solver round their own scenarios, so 175 live scenarios (100 new, 71 changed, 4 unchanged), R12 4, R19 11, R33 7, R36 9, R39 6 and R42 14. The round's eighth backdrop id is a new Examples row of an `@R14` outline, so R14 stays 13. Recounted by script.
+Counted from the Gherkin above on 2026-10-13 by the planner, recounted by script after the plan-check fixes. A scenario with two tags counts for both. An outline counts once. ~~167 live scenarios (92 new, 71 changed, 4 unchanged from 1.0)~~ ~~169 live scenarios (94 new, 71 changed, 4 unchanged from 1.0, recounted 2026-10-14, see the last two notes of this paragraph)~~ ~~175 live scenarios (100 new, 71 changed, 4 unchanged from 1.0, recounted 2026-10-15, see the last note of this paragraph)~~ 176 live scenarios (101 new, 71 changed, 4 unchanged from 1.0, recounted 2026-10-15 after the owner's ruling H-05, see the last sentence of this paragraph), 18 retired scenarios kept as text, 1 Chromium-only scenario (CO-1). Every live R# has at least one scenario. Changed 2026-10-13 after the plan check (F5), the live gate's control scenario added one new `@R27` scenario (164 and 89 before). Changed 2026-10-13 after the plan re-check (F14), the two successors of the `test_tick.py` tests added one `@R6 @R32` and one `@R32` scenario (165 and 90 before, R6 5 and R32 12 before). Changed 2026-10-14 in execute (planner touch-up, ledger H-03), the `@R36` scenario of P3's room added one new scenario, so the counts became 168 live scenarios (93 new, 71 changed, 4 unchanged) and R36 7 (6 before). Recounted by script. Changed 2026-10-14 in execute (planner follow-up, ruled ORCH), the `@R36` scenario of a gap smaller than a day with twelve habits added one new scenario, so 169 live scenarios (94 new, 71 changed, 4 unchanged), and R36 has 8. Recounted by script. Changed 2026-10-15 in execute (planner touch after step 5), six new scenarios, one each for `@R12`, `@R19`, `@R33`, `@R36`, `@R39` and `@R42`, give the tests of the step 5 solver round their own scenarios, so 175 live scenarios (100 new, 71 changed, 4 unchanged), R12 4, R19 11, R33 7, R36 9, R39 6 and R42 14. The round's eighth backdrop id is a new Examples row of an `@R14` outline, so R14 stays 13. Recounted by script. Changed 2026-10-15 in execute, after the owner's ruling (ledger H-05), the `@R17` Scenario Outline "Dismiss with the field disabled moves focus to the page's first control, never to body" added one new scenario, so 176 live scenarios (101 new, 71 changed, 4 unchanged) and R17 has 7 (6 before). The FE element checklist stays at 139 rows. Recounted by script.
 
 | R# | Spec status | Live scenarios | Retired kept | R# | Spec status | Live scenarios | Retired kept |
 |---|---|---|---|---|---|---|---|
@@ -2791,7 +2822,7 @@ Counted from the Gherkin above on 2026-10-13 by the planner, recounted by script
 | R14 | changed | 13 | 1 | R35 | new | 6 | 0 |
 | R15 | changed | 12 | 4 | R36 | new | ~~8~~ 9 (6 before 2026-10-14, then 7 with H-03's room, 8 with the gap smaller than a day, 9 from 2026-10-15) | 0 |
 | R16 | changed | 9 | 1 | R37 | new | 5 | 0 |
-| R17 | changed | 6 | 1 | R38 | new | 5 | 0 |
+| R17 | changed | ~~6~~ 7 (2026-10-15) | 1 | R38 | new | 5 | 0 |
 | R18 | retired | 0 | 2 | R39 | new | ~~5~~ 6 (2026-10-15) | 0 |
 | R19 | changed | ~~10~~ 11 (2026-10-15) | 1 | R40 | new | 10 | 0 |
 | R20 | unchanged | 1 | 0 | R41 | new | 10 | 0 |
