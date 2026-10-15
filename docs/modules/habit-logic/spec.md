@@ -39,7 +39,7 @@ Phase skills: the registry assigns none to plan, and this module has no UI work,
 ## Invariants & assumptions
 - A day is a date key, a string `YYYY-MM-DD` naming a local calendar day (brainstorm: "Days are local calendar days"). No `Date` object crosses the module boundary except the one argument of `localDateKey`.
 - The current day is always passed in as `todayKey`. No function in this module reads the clock.
-- Habit data passed to these functions is already valid: names trimmed, 1 to 40 code points, unique ignoring case, `done` arrays of valid date keys. Data enters the app only through `addHabit` and the app's storage decoder (which uses `validateName` and `isDateKey` from here).
+- Habit data passed to these functions is already valid: names trimmed, 1 to 40 code points, unique ignoring case, `done` arrays of valid date keys. Data enters the app only through `addHabit` and the app's storage decoder (which uses `validateName` and `isDateKey` from here). Changed 2026-10-15 in the v1.1.0 regression (consistency sweep CS-05). `done` ascending without duplicates (the `Habit` type) is enforced in two places with one expression, `toggledHabit` in `src/habits.js` and `readHabit` in `src/storage.js` (the app's decoder). It is a known pair, kept on purpose. Both change for one reason, the `Habit` type, so a change to the type changes both. A shared helper would be a new export for one line, and decoding belongs to the app (Non-goals).
 - Functions never mutate their arguments. Every array or object returned is new.
 - Weeks start on Monday (brainstorm, Heatmap).
 - English only. Weekday and month names come from fixed tables in this module.

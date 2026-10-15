@@ -2,6 +2,7 @@
 
 > Written by: the frontend builder (senior frontend dev agent), 2026-10-09. Source of truth: `spec.md` in this folder. Test contract: `qa.md`. Version v1.0.0.
 > Status: all 10 tasks done and committed. The finders (QA, code review, security, fidelity) and the official cold-boot gate run are not part of this build.
+> Changed 2026-10-15 in the v1.1.0 regression (consistency sweep CS-09). The head sections down to "Handoff" (this Status, Tasks to commits, Test counts, How to run, For the README reconcile and the others) describe 1.0, and many symbols they name no longer exist (for example `renderHabits`, `onDialogClose` and `renderHeatmap`). The v1.1.0 sections follow below the rule, and each gives its own commit, proof and README list.
 
 ## Phase skills loaded (docs/phase-skills.md, design row)
 Both rows were readable on disk and were read before any UI code: `taste-skill` (`taste-skill/1.0.0/skills/taste-skill/SKILL.md`) and `frontend-design` (`claude-plugins-official/frontend-design`). The builder has no Skill tool, so they were applied by reading, not invoked as slash skills.
@@ -1108,7 +1109,7 @@ None.
 - Process. Three read-only commands piped `git` output into `tail`, `grep` or `sed`, which the brief also rules out. Two read `git show --stat` and `git log --oneline` of earlier task commits, and one read the staged list of the docs commit (`git diff --cached --stat` and `--name-only`). None wrote a file, and none was a commit, a test run or a check whose exit code was needed.
 
 ### Non-goals honoured
-No markup, style, copy or motion change. `index.html`, `src/system.css` and `docs/design/` untouched. No hook, flag or seed in the app. Every context of the new test has the clipboard stand-in through `open_app`, and every browser ran headless.
+No markup, style, copy or motion change. `index.html`, ~~`src/system.css`~~ `src/styles.css` and `docs/design/` untouched. No hook, flag or seed in the app. Changed 2026-10-15 in the v1.1.0 regression (app code review RG-CR-I3). The stylesheet is `src/styles.css`, and `src/system.css` is not a file of this project (`system.css` is the golden in `docs/design/`). `src/styles.css` is unchanged in `4af5d75`, which touched only `src/view.js` in `src/` (a diff of `4af5d75~1` to `4af5d75` for `src/styles.css` is empty), so nothing was hidden by the name. Every context of the new test has the clipboard stand-in through `open_app`, and every browser ran headless.
 
 ### How to run and view
 - `python -m pytest "tests/browser/test_storage.py::test_R17_dismiss_with_the_field_disabled_moves_focus_to_the_pages_first_control_never_to_body" -q`, and the same with `--engine webkit`.
