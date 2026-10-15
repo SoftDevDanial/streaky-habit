@@ -245,11 +245,13 @@ def test_R17_readable_edge_cases_load_without_a_note(app, raw, result):
 
 
 def test_R17_R22_dismiss_removes_the_note_moves_focus_to_the_field_and_the_note_does_not_come_back(app):
-    page = app(storage="{")
+    page = app(storage="{", count_writes=True)
+    writes_at_load = write_count(page)  # the reset save of R17, the one save R16 allows that no change caused
     page.get_by_role("button", name="Dismiss note", exact=True).click()
     expect(page.locator("div.banner.note")).to_have_count(0)
     expect(page.locator("ul.rows > li.empty")).to_have_count(1)
     assert field_has_focus(page), "Dismiss did not move focus to the field"
+    assert write_count(page) == writes_at_load, "Dismiss saved"
 
     page.reload()
     expect(page.locator("ul.rows > li.empty")).to_have_count(1)

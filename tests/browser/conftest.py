@@ -853,18 +853,20 @@ def row_numbers(page, name):
 
 
 # Rings read as text, so a whole ring compares in one assert (spec R42). The JS turns each child of a ring svg into a
-# string, and the Python names below build the same strings from the spec's values.
-_RING_PARTS_JS = """const part = (node) => {
+# string, and the Python names below build the same strings from the spec's values. A ring part or ring svg made
+# outside the SVG namespace draws nothing, so it reads with its namespace in front and matches no expected value.
+_RING_PARTS_JS = """const svgName = (node) => (node.namespaceURI === 'http://www.w3.org/2000/svg' ? node.localName : `${node.namespaceURI} ${node.localName}`);
+const part = (node) => {
   const classes = (node.getAttribute('class') || '').split(/\\s+/).filter(Boolean).map((name) => '.' + name).join('');
   const names = { circle: ['cx', 'cy', 'r'], path: ['d'], text: ['x', 'y', 'dy'] }[node.localName] || [];
   const attributes = names.map((name) => `${name}=${node.getAttribute(name)}`).join(' ');
   const text = node.localName === 'text' ? ` "${node.textContent}"` : '';
-  return `${node.localName}${classes}${attributes ? ' ' + attributes : ''}${text}`;
+  return `${svgName(node)}${classes}${attributes ? ' ' + attributes : ''}${text}`;
 };
 const ring = (svg) => svg && {
   viewBox: svg.getAttribute('viewBox'),
   hidden: svg.getAttribute('aria-hidden'),
-  parts: Array.from(svg.children).map(part),
+  parts: [...(svgName(svg) === 'svg' ? [] : [svgName(svg)]), ...Array.from(svg.children).map(part)],
 };"""
 
 _GRID_JS = (
@@ -996,13 +998,18 @@ def focus_after_a_click_in_a_popup(engine, handle, dialog):
 # A subtree as [tag, attributes, own text, children], so the app's markup and a golden's compare in one assert. Classes
 # are a set (sorted) and the motion classes "pop" and "bump" are left out, since they mark an edit, not the state.
 # Whitespace between tags is free (spec Contracts, Rendered markup), so text nodes are trimmed and empty ones dropped.
-_CANON_JS = """const canon = (node) => {
+# The HTML parser puts an svg and all it holds in the SVG namespace and the rest in HTML's. A node in another namespace
+# than that draws nothing, so its tag reads with its namespace in front and matches no golden.
+_CANON_JS = """const parsedNamespace = (node) => (node.localName === 'svg' || node.parentElement?.closest('svg')
+  ? 'http://www.w3.org/2000/svg' : 'http://www.w3.org/1999/xhtml');
+const canon = (node) => {
   const attributes = Array.from(node.attributes).map((attribute) => attribute.name === 'class'
     ? 'class=' + Array.from(node.classList).filter((name) => name !== 'pop' && name !== 'bump').sort().join(' ')
     : attribute.name + '=' + attribute.value).sort();
   const text = Array.from(node.childNodes).filter((child) => child.nodeType === Node.TEXT_NODE)
     .map((child) => child.textContent.trim()).filter(Boolean).join(' ');
-  return [node.localName, attributes, text, Array.from(node.children).map(canon)];
+  const tag = node.namespaceURI === parsedNamespace(node) ? node.localName : `${node.namespaceURI} ${node.localName}`;
+  return [tag, attributes, text, Array.from(node.children).map(canon)];
 };"""
 
 

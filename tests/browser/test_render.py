@@ -16,6 +16,7 @@ from conftest import (
     CIRCLE_SEG,
     CIRCLE_SEG_ON,
     CORE,
+    NOON,
     SAMPLE_HABITS,
     TODAY,
     TODAY_CIRCLE,
@@ -26,6 +27,7 @@ from conftest import (
     done_btn,
     grid_children,
     legend_parts,
+    let_guard_pass,
     number,
     p3_day,
     plain_state,
@@ -635,3 +637,55 @@ def test_R42_small_rings_carry_no_number_and_no_today_circle(app):
     p3_day(page, TODAY).click()
     expect(page.locator("dialog.dlg-day")).to_have_attribute("open", "")
     assert ring_parts(page, "dialog.dlg-day div.day-mini > svg") == ring_of(three)
+
+
+# Every svg, use, path, circle and text in the document, counted by name, and how many lie outside the SVG namespace,
+# where an svg element draws nothing. The 1.0 code review's guard (WR-01), lost when the tests were written again.
+SVG_PARTS_JS = """() => {
+  const nodes = Array.from(document.querySelectorAll('svg, use, path, circle, text'));
+  const counts = {};
+  for (const node of nodes) counts[node.localName] = (counts[node.localName] || 0) + 1;
+  const wrong = nodes.filter((node) => node.namespaceURI !== 'http://www.w3.org/2000/svg');
+  return { counts, wrong: wrong.length, first: wrong.slice(0, 3).map((node) => node.parentElement.outerHTML.slice(0, 120)) };
+}"""
+
+# An element outside the SVG namespace has no getBBox, and draws nothing.
+DRAWN_WIDTH_JS = "(node) => (typeof node.getBBox === 'function' ? node.getBBox().width : 0)"
+
+
+def assert_every_svg_part_is_svg(page, where):
+    found = page.evaluate(SVG_PARTS_JS)
+    assert found["wrong"] == 0, f"{where}: {found}"
+    assert all(found["counts"].get(name, 0) > 0 for name in ("svg", "use", "path", "circle", "text")), f"{where}: {found}"
+
+
+def test_R42_every_svg_part_in_the_page_and_the_popups_is_in_the_svg_namespace_and_draws(app):
+    desktop = app(viewport=(1280, 800), storage=sample_state(), install_time=NOON)
+    band_ring = desktop.locator(f'section.band button.hc[data-key="{TODAY}"] > svg > path').first
+    assert band_ring.evaluate(DRAWN_WIDTH_JS) > 0, "the band's ring for today draws nothing"
+    desktop.locator("section.band button.btn-all").click()
+    expect(desktop.locator("dialog.dlg-all")).to_have_attribute("open", "")
+    desktop.locator('dialog.dlg-all button.hc[data-key="2026-09-22"]').click()
+    expect(desktop.locator("dialog.dlg-day")).to_have_attribute("open", "")
+    assert_every_svg_part_is_svg(desktop, "P1 over P4 at 1280")
+    for name in ("dlg-day", "dlg-all"):
+        desktop.keyboard.press("Escape")
+        expect(desktop.locator(f"dialog.{name}")).not_to_have_attribute("open", "")
+    let_guard_pass(desktop)  # the click on P4's day holds the page's clicks for 500 ms (R14)
+    year_btn(desktop, "Read 20 pages").click()
+    expect(desktop.locator("dialog.dlg-year")).to_have_attribute("open", "")
+    desktop.locator("dialog.dlg-year button.btn-del").click()
+    expect(desktop.locator("dialog.dlg-del")).to_have_attribute("open", "")
+    assert_every_svg_part_is_svg(desktop, "M1 over P2 at 1280")
+
+    phone = app(viewport=(390, 844), storage=sample_state())
+    assert phone.locator("button.ov-btn > span.ov-ring > svg > path").first.evaluate(DRAWN_WIDTH_JS) > 0
+    phone.locator("button.ov-btn").click()
+    expect(phone.locator("dialog.dlg-ov")).to_have_attribute("open", "")
+    assert p3_day(phone, TODAY).locator(":scope > svg > path").first.evaluate(DRAWN_WIDTH_JS) > 0
+    assert_every_svg_part_is_svg(phone, "P3 at 390")
+
+    reset = app(viewport=(390, 844), storage="{")
+    expect(reset.locator("div.banner.note")).to_have_count(1)
+    assert reset.locator("ul.rows > li.empty > svg > circle").first.evaluate(DRAWN_WIDTH_JS) > 0
+    assert_every_svg_part_is_svg(reset, "the empty list with the note at 390")

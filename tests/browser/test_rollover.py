@@ -2,7 +2,8 @@
 Feature "Rolling over midnight").
 
 Each test installs the clock 30 seconds before the instant it pauses at, opens the page and pauses there
-(`page.clock.pause_at`), so no wall time passes before the clock runs (the Feature's header). `run_for` then fires the
+(`page.clock.pause_at`), so no wall time passes before the clock runs (the Feature's header). The cadence test boots
+nine seconds before its pause instead, because the boot instant is what it measures from. `run_for` then fires the
 app's 30 second check past midnight, and the redraw is done when it returns, because the app draws inside that handler
 (spec Invariants). Under a paused clock a locator click can wait forever on animation frames, so presses are keys or raw
 mouse clicks at measured points, each checked to land on its control, and every read is an `evaluate` or an `expect`.
@@ -164,6 +165,18 @@ def test_R19_R35_the_view_moves_to_the_new_day_within_a_minute_while_visible(app
     assert band_today(page) == TODAY, "the band's today moved before local midnight"
 
     page.clock.run_for(61_000)
+    assert_the_page_shows_sunday(page)
+
+
+def test_R19_a_page_booted_ten_seconds_before_midnight_shows_the_new_day_thirty_seconds_after_it(app):
+    """Pins the 30 second check of R19 (the 1.0 code review's guard, WR-04). A page booted at about 23:59:50 checks at
+    about 00:00:20, and a check every 45 seconds or more first runs after 00:00:30. The "within a minute" test reads
+    only at 00:01:00, which any check under about two minutes meets."""
+    page = app(viewport=DESKTOP, storage=sample_state(), install_time="2026-10-10T23:59:50+08:00")
+    page.clock.pause_at("2026-10-10T23:59:59+08:00")
+    page.clock.run_for(900)  # 23:59:59.9, the new day must not show before midnight
+    assert shown_date(page) == [TODAY, "Saturday 10 October"], f"the view changed day before local midnight, {shown_date(page)}"
+    page.clock.run_for(30_100)  # 00:00:30.0
     assert_the_page_shows_sunday(page)
 
 

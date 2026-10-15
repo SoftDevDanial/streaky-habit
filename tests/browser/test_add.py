@@ -33,6 +33,7 @@ from conftest import (
     stored,
     twelve_state,
     type_name,
+    write_count,
 )
 
 PHONE = (390, 844)
@@ -194,7 +195,7 @@ def test_R10_the_frame_scrolls_to_show_the_new_row_cg15(app):
     ],
 )
 def test_R11_rejected_names_keep_the_text_and_show_one_message_above_the_field(app, viewport, typed, message):
-    page = app(viewport=viewport, storage=sample_state())
+    page = app(viewport=viewport, storage=sample_state(), count_writes=True)
     rows = page.locator("ul.rows > li.row")
     expect(rows).to_have_count(3)
     saved = stored(page)
@@ -211,6 +212,8 @@ def test_R11_rejected_names_keep_the_text_and_show_one_message_above_the_field(a
     assert active_control(page) == "field"
     expect(rows).to_have_count(3)
     assert stored(page) == saved
+    # A save of the same habits writes the same text, so only the count shows that a refusal saved nothing (R16).
+    assert write_count(page) == 0
 
 
 def test_R11_exactly_40_characters_is_accepted(app):
