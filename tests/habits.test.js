@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
+import { Worker } from "node:worker_threads";
 import sample from "./fixtures/sample-history-v1.0.0.json" with { type: "json" };
 import {
   MAX_HABITS,
@@ -525,6 +526,107 @@ test("@R20 every call returns new objects", () => {
   assert.deepEqual(first, second);
   assert.notEqual(first, second);
   assert.notEqual(first[0].days, second[0].days);
+});
+
+// A call that never ends would block this file's process for good, and its growing array would exhaust the process's
+// memory, so each row runs yearMonths in a worker with a heap limit and a timer. A worker stopped by either fails its
+// row, not the suite. The timer is many times what the 920-key row needs, so only a call that runs on reaches it.
+// The worker's source is a string, so the test needs no second file, and it reaches the ES module through import().
+const YEAR_MONTHS_HEAP_MB = 256;
+const YEAR_MONTHS_TIMER_MS = 5_000;
+const YEAR_MONTHS_WORKER = `
+  const { parentPort, workerData } = require("node:worker_threads");
+  import(workerData.habitsUrl).then(({ yearMonths }) => {
+    parentPort.postMessage(workerData.keys.map((key) => {
+      try {
+        return { key, months: yearMonths(key).length };
+      } catch (error) {
+        return { key, threw: String(error) };
+      }
+    }));
+  });
+`;
+
+/** `{ ended: true, results }` with one `{ key, months }` or `{ key, threw }` per key, or `{ ended: false, why }`. */
+function yearMonthsInWorker(keys) {
+  return new Promise((resolve) => {
+    const worker = new Worker(YEAR_MONTHS_WORKER, {
+      eval: true,
+      workerData: { habitsUrl: new URL("../src/habits.js", import.meta.url).href, keys },
+      resourceLimits: { maxOldGenerationSizeMb: YEAR_MONTHS_HEAP_MB },
+    });
+    let results = null;
+    let stoppedBy = null;
+    const timer = setTimeout(() => {
+      stoppedBy = `stopped by the timer at ${YEAR_MONTHS_TIMER_MS} ms`;
+      worker.terminate();
+    }, YEAR_MONTHS_TIMER_MS);
+    worker.on("message", (message) => {
+      results = message;
+    });
+    worker.on("error", (error) => {
+      stoppedBy = error.code === "ERR_WORKER_OUT_OF_MEMORY" ? `stopped by the heap limit of ${YEAR_MONTHS_HEAP_MB} MB` : `failed, ${error}`;
+    });
+    worker.on("exit", (code) => {
+      clearTimeout(timer);
+      if (stoppedBy !== null || code !== 0 || results === null) {
+        resolve({ ended: false, why: stoppedBy ?? `exit code ${code}, ${results === null ? "nothing posted" : "a result posted"}` });
+      } else {
+        resolve({ ended: true, results });
+      }
+    });
+  });
+}
+
+// Every day of October, November and December of the years 10000 to 10009, written as localDateKey writes them.
+function farQuarterKeys() {
+  const keys = [];
+  for (let year = 10000; year <= 10009; year++) {
+    for (const [month, length] of [[10, 31], [11, 30], [12, 31]]) {
+      for (let day = 1; day <= length; day++) keys.push(`${year}-${pad2(month)}-${pad2(day)}`);
+    }
+  }
+  return keys;
+}
+
+const OUTCOMES = {
+  "it returned 13 months": ({ months }) => months === 13,
+  "it returned at most 13 months": ({ months }) => months <= 13,
+  "it returned at most 13 months for each key": ({ months }) => months <= 13,
+  "it returned at most 13 months or threw": ({ months, threw }) => threw !== undefined || months <= 13,
+};
+
+test("@R20 yearMonths ends for every key and returns at most 13 months", async (t) => {
+  const farKeys = farQuarterKeys();
+  assert.equal(new Set(farKeys).size, 920, "precondition: 920 distinct keys");
+  assert.ok(farKeys.every((key) => !isDateKey(key)), "precondition: every one of them fails isDateKey");
+
+  const one = (today, outcome) => [today, [today], outcome];
+  const rows = [
+    one("2026-10-10", "it returned 13 months"),
+    one("0001-01-01", "it returned 13 months"),
+    one("9999-12-31", "it returned 13 months"),
+    one("10000-10-01", "it returned at most 13 months"),
+    one("10000-10-15", "it returned at most 13 months"),
+    one("10000-12-31", "it returned at most 13 months"),
+    one("10005-11-20", "it returned at most 13 months"),
+    one("10009-10-01", "it returned at most 13 months"),
+    one("10009-12-31", "it returned at most 13 months"),
+    ["every day of October, November and December of the years 10000 to 10009 (920 keys)", farKeys,
+      "it returned at most 13 months for each key"],
+    one("10000-01-05", "it returned at most 13 months or threw"),
+    one("10010-10-15", "it returned at most 13 months or threw"),
+    one("100000-10-15", "it returned at most 13 months or threw"),
+  ];
+  for (const [today, keys, outcome] of rows) {
+    await t.test(`${today}, ${outcome}`, async () => {
+      const run = await yearMonthsInWorker(keys);
+      assert.ok(run.ended, `did not end, ${run.why}`);
+      assert.equal(run.results.length, keys.length, "one result per key");
+      const broken = run.results.filter((result) => !OUTCOMES[outcome](result));
+      assert.deepEqual(broken, [], `${broken.length} of ${keys.length} keys break "${outcome}"`);
+    });
+  }
 });
 
 const EXISTING_NAMES = ["Read 20 pages", "Stretch 10 minutes", "No phone after 11pm"];

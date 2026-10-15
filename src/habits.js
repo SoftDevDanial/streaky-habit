@@ -29,6 +29,7 @@ const MONTH_PREFIX_WIDTH = "YYYY-MM".length;
 const LEAP_DAY = "-02-29";
 const DAY_BEFORE_LEAP_DAY = "-02-28";
 const HEATMAP_WEEKS = 12;
+const YEAR_VIEW_MONTHS = 13;
 const PREVIOUS_DAY = -1;
 const NEXT_DAY = 1;
 
@@ -219,9 +220,11 @@ function yearMonth(start, firstDay, todayKey) {
 
 /**
  * The calendar of both year views, newest month first, from today's month back to the month of
- * `yearStart`. That is always 13 months, because the start is the same month one year earlier.
+ * `yearStart`. For a key that passes `isDateKey` that is 13 months, because the start is the same month
+ * one year earlier. The walk also stops after 13 months, because a key from a clock past the year 9999 can
+ * give `yearStart` a month the walk never writes, and the walk would then never end (R20, SEC-R01).
  * @param {DateKey} todayKey
- * @returns {YearMonth[]}
+ * @returns {YearMonth[]} 13 months for a key that passes `isDateKey`, never more than 13
  */
 export function yearMonths(todayKey) {
   const firstDay = yearStart(todayKey);
@@ -229,7 +232,7 @@ export function yearMonths(todayKey) {
   let start = monthStart(todayKey);
   for (;;) {
     months.push(yearMonth(start, firstDay, todayKey));
-    if (calendarMonth(start) === calendarMonth(firstDay)) return months;
+    if (calendarMonth(start) === calendarMonth(firstDay) || months.length === YEAR_VIEW_MONTHS) return months;
     start = monthStart(addDays(start, -1));
   }
 }
