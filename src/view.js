@@ -5,11 +5,12 @@
  * Why: one module owns K1's markup and selectors, so app.js never builds or looks up an element of K1 itself.
  * Input: habits, heatmap cells and `todayKey` (never a clock), and `animate`, true when a render answers an edit
  * (R32). Output: changes to the page. Data reaches the DOM only through textContent and setAttribute (R24).
- * It stores nothing and registers no event listener.
+ * It stores nothing and registers no event listener. popups.js draws the same stats and glyphs in P1 and P2, so it
+ * takes `renderStats`, `dayUnit` and `icon` from here.
  */
 import { longDate } from "./dates.js";
 import { bestStreak, currentStreak } from "./habits.js";
-import { dayUnit, drawLegend, drawOverview, drawRing, element, flagChange, icon, ringSvg, svgElement } from "./calendar.js";
+import { drawLegend, drawOverview, drawRing, element, flagChange, ringSvg, svgElement } from "./calendar.js";
 
 const LIMIT_NOTE = "You track 12 habits, the most this app holds. Delete one to add another.";
 const SAVE_WARNING = "Your habits are not being saved on this device. Changes will be lost when you close this tab.";
@@ -23,6 +24,16 @@ const NAME_ERRORS = {
 
 const $ = (selector) => document.querySelector(selector);
 const rowsOf = () => Array.from(document.querySelectorAll("ul.rows > li.row"));
+
+/** The unit after a streak's number, "1 day" and "2 days" (spec Copy). */
+export const dayUnit = (count) => (count === 1 ? "day" : "days");
+
+/** A sprite glyph. Inner svgs carry no `focusable`, as the goldens draw them. */
+export function icon(symbolId, className = "") {
+  const svg = svgElement("svg", className ? { class: className, "aria-hidden": "true" } : { "aria-hidden": "true" });
+  svg.append(svgElement("use", { href: `#${symbolId}` }));
+  return svg;
+}
 
 export function renderDate(todayKey) {
   const date = $("header.top > time.date");
@@ -49,9 +60,10 @@ export function renderBand(cells, todayKey, habitCount, animate) {
 /**
  * One row per habit, or the empty list (R3, R5). The rows are built again only when the habits themselves change
  * (an add or a delete). Otherwise each row is updated in place, so a pressed Done today stays the same element
- * with its focus (R31) and only what changed animates (R32).
+ * with its focus (R31) and only what changed animates (R32). `todayFlags` is habit-logic's `doneFlags` for today,
+ * the one answer to which habits are done today, which the Overview button's ring reads too.
  */
-export function renderRows(habits, todayKey, animate) {
+export function renderRows(habits, todayKey, todayFlags, animate) {
   const list = $("ul.rows");
   if (habits.length === 0) {
     if (!list.querySelector(":scope > li.empty")) list.replaceChildren(emptyList());
@@ -60,7 +72,7 @@ export function renderRows(habits, todayKey, animate) {
   const shown = rowsOf().map((row) => row.querySelector(":scope > div.r-head > h3").textContent);
   const same = shown.length === habits.length && habits.every((habit, index) => habit.name === shown[index]);
   if (!same) list.replaceChildren(...habits.map((habit, index) => createRow(habit.name, index + 1)));
-  rowsOf().forEach((row, index) => syncRow(row, habits[index].done, todayKey, animate));
+  rowsOf().forEach((row, index) => syncRow(row, habits[index].done, todayKey, todayFlags[index], animate));
 }
 
 function emptyList() {
@@ -92,11 +104,11 @@ function createRow(name, position) {
   return row;
 }
 
-function syncRow(row, done, todayKey, animate) {
+function syncRow(row, done, todayKey, doneToday, animate) {
   renderStats(row.querySelector(":scope > p.stats"), currentStreak(done, todayKey), bestStreak(done), animate);
   const button = row.querySelector(":scope > button.btn-done");
   const before = button.getAttribute("aria-pressed");
-  const pressed = String(done.includes(todayKey));
+  const pressed = String(doneToday);
   button.setAttribute("aria-pressed", pressed);
   flagChange(button, "pop", animate && before !== null && before !== pressed);
 }

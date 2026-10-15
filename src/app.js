@@ -51,15 +51,16 @@ let lastPopupPress = null;
 function render(animate) {
   const { habits, todayKey } = state;
   const cells = heatmapCells(habits, todayKey);
+  const todayFlags = doneFlags(habits, todayKey);
   view.renderSaveWarning(state.saveFailed);
-  view.renderOverviewButton(doneFlags(habits, todayKey), animate);
+  view.renderOverviewButton(todayFlags, animate);
   view.renderBand(cells, todayKey, habits.length, animate);
   const open = popups.dialogs();
   if (open.overview.open) popups.renderOverviewPopup(cells, todayKey, habits.length, animate);
   if (open.allHabits.open) popups.renderAllHabitsYear(habits, todayKey, animate);
   if (open.day.open) popups.renderDayEditor(state.day, habits, todayKey, animate);
   if (open.habitYear.open) popups.renderHabitYear(habits[state.year], todayKey, animate);
-  view.renderRows(habits, todayKey, animate);
+  view.renderRows(habits, todayKey, todayFlags, animate);
   view.renderComposerLimit(habits.length >= MAX_HABITS);
   view.renderFrameFades();
 }

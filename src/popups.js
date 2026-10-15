@@ -11,7 +11,6 @@ import { longDate } from "./dates.js";
 import { bestStreak, currentStreak, doneFlags } from "./habits.js";
 import {
   DAY_BUTTON,
-  dayUnit,
   drawAllHabitsYear,
   drawHabitYear,
   drawLegend,
@@ -19,10 +18,9 @@ import {
   drawRing,
   element,
   flagChange,
-  icon,
   ringSvg,
 } from "./calendar.js";
-import { renderStats } from "./view.js";
+import { dayUnit, icon, renderStats } from "./view.js";
 
 /** Below 768 px P1 is a bottom sheet over its host (system.css breakpoint), where rule 4 applies. */
 const PHONE_SHEET = "(max-width: 767px)";

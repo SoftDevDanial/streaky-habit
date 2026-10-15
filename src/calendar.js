@@ -57,9 +57,6 @@ export function dayControlAt({ control, grid, key }) {
   return Array.from(grid.querySelectorAll(DAY_CONTROL)).find((day) => day.getAttribute("data-key") === key) ?? null;
 }
 
-/** The unit after a streak's number, "1 day" and "2 days" (spec Copy). */
-export const dayUnit = (count) => (count === 1 ? "day" : "days");
-
 /** An HTML element with its class, attributes and text. An empty class or text is left unset. */
 export function element(tag, className = "", attributes = {}, text = "") {
   const node = document.createElement(tag);
@@ -74,13 +71,6 @@ export function svgElement(tag, attributes = {}) {
   const node = document.createElementNS(SVG_NAMESPACE, tag);
   for (const [name, value] of Object.entries(attributes)) node.setAttribute(name, value);
   return node;
-}
-
-/** A sprite glyph. Inner svgs carry no `focusable`, as the goldens draw them. */
-export function icon(symbolId, className = "") {
-  const svg = svgElement("svg", className ? { class: className, "aria-hidden": "true" } : { "aria-hidden": "true" });
-  svg.append(svgElement("use", { href: `#${symbolId}` }));
-  return svg;
 }
 
 /** An empty ring, for `drawRing` to fill. */
