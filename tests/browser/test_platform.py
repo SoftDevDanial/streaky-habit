@@ -362,7 +362,7 @@ def test_R22_R40_every_popup_can_be_used_with_the_keyboard_alone(app):
     # previous close took effect, so three sent back to back leave P3 open (qa/escape-pace-probe, BUILD.md task 25).
     for dialog in ("dlg-day", "dlg-all", "dlg-ov"):
         close_with_escape(page, dialog)
-    wait_for_close(closed)  # P3 closes last, so the app's focus is set once its close event has come
+    wait_for_close(closed)  # the app's close handler has run (conftest watch_close)
     assert page.locator("dialog[open]").count() == 0
     expect(overview).to_be_focused()
 

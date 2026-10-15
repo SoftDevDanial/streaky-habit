@@ -263,12 +263,15 @@ function banner(kind, text) {
 export const dismissOf = (target) => target.closest("div.banner.note > button.icon-btn");
 
 /**
- * Dismiss removes the note, changes nothing else, and puts focus on the field (R17, rule 7). The app sets that focus
- * because a click leaves focus on no element in WebKit (spec Invariants, engine note).
+ * Dismiss on the note (R17). Takes no input and returns nothing. It removes the note, changes nothing else, and puts
+ * focus on the field, or on `firstControl()` when twelve habits have disabled the field (R12), because a disabled field
+ * refuses focus and focus would fall to body (rule 7, CG-14). The app sets focus because a click leaves focus on no
+ * element in WebKit (spec Invariants, engine note).
  */
 export function dismissNote() {
   $("div.banners > div.banner.note").remove();
-  $("#nh").focus();
+  const field = $("#nh");
+  (field.disabled ? firstControl() : field).focus();
 }
 
 /**

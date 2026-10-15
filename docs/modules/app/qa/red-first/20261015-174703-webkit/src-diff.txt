@@ -1,0 +1,13 @@
+diff --git a/src/view.js b/src/view.js
+index 566771f..5f3fede 100644
+--- a/src/view.js
++++ b/src/view.js
+@@ -268,7 +268,7 @@ export const dismissOf = (target) => target.closest("div.banner.note > button.ic
+  */
+ export function dismissNote() {
+   $("div.banners > div.banner.note").remove();
+-  $("#nh").focus();
++  firstControl().focus(); // STUB task 27a planted defect, never committed
+ }
+ 
+ /**

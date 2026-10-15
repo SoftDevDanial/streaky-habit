@@ -30,9 +30,11 @@ from conftest import (
     done_btn,
     encode,
     fill_quota,
+    focused,
     let_guard_pass,
     mutation_log,
     mutations,
+    plain_state,
     record,
     row_numbers,
     sample_state,
@@ -261,6 +263,42 @@ def test_R17_R22_dismiss_removes_the_note_moves_focus_to_the_field_and_the_note_
     page.evaluate("() => localStorage.setItem('streaks.state', '{')")
     page.goto(conftest.BASE_URL)
     assert banners(page) == [NOTE_TREE], "a new unreadable value did not show the note again"
+
+
+@pytest.mark.parametrize(
+    "viewport, count, field_state, target, what, name",
+    [
+        pytest.param(PHONE, 12, "disabled", "button.ov-btn", "the Overview button", "Overview, today 0 of 12 habits done", id="390x844-12"),
+        pytest.param(DESKTOP, 12, "disabled", "section.band button.btn-all", "the band's Year", "Year view, all habits", id="1280x800-12"),
+        pytest.param(PHONE, 11, "enabled", "#nh", "the field", None, id="390x844-11"),
+    ],
+)
+def test_R17_dismiss_with_the_field_disabled_moves_focus_to_the_pages_first_control_never_to_body(
+    app, viewport, count, field_state, target, what, name
+):
+    """The habits are added by gesture while the note shows, because only an unreadable value shows the note and a
+    seeded twelve would load without it. The twelfth add disables the field (R12) before Dismiss is pressed."""
+    page = app(viewport=viewport, storage="{")
+    for n in range(1, count + 1):
+        add_habit(page, f"Habit {n}", enter=True)
+        expect(page.locator("ul.rows > li.row")).to_have_count(n)
+    field = page.locator("#nh")
+    expect(page.locator("div.banner.note")).to_have_count(1)
+    assert field.is_disabled() == (field_state == "disabled"), f"precondition, the field is not {field_state}"
+    saved = stored(page)
+    assert saved == plain_state(count), "storage does not hold the habits in the order added"
+
+    page.get_by_role("button", name="Dismiss note", exact=True).click()
+    expect(page.locator("div.banner.note")).to_have_count(0)
+    expect(page.locator("ul.rows > li.row")).to_have_count(count)
+    assert page.locator(target).evaluate("(node) => node === document.activeElement"), (
+        f"document.activeElement is {focused(page)!r}, not {what}"
+    )
+    assert page.evaluate("() => document.activeElement !== document.body"), "document.activeElement is body"
+    if name is not None:
+        expect(page.locator(target)).to_have_attribute("aria-label", name)
+    assert field.is_disabled() == (field_state == "disabled"), f"the field is no longer {field_state}"
+    assert stored(page) == saved, "Dismiss changed what is saved"
 
 
 GAPS_JS = """(above) => {

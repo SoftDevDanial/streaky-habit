@@ -1,0 +1,49 @@
+{
+ "kind": "red-first",
+ "engine": "chromium",
+ "command": [
+  "C:\\Python314\\python.exe",
+  "-B",
+  "-m",
+  "pytest",
+  "tests/browser/test_storage.py::test_R17_dismiss_with_the_field_disabled_moves_focus_to_the_pages_first_control_never_to_body",
+  "-q",
+  "-rA",
+  "-p",
+  "no:cacheprovider",
+  "--engine",
+  "chromium",
+  "--junitxml=docs/modules/app/qa/red-first/20261015-174616-chromium/junit.xml"
+ ],
+ "evidence_dir": "",
+ "head": "bd07675",
+ "src_status_at_start": "",
+ "src_differs_from_head": false,
+ "runner_pid": 5056,
+ "started": "2026-10-15T17:46:17",
+ "timeout_seconds": 300,
+ "status": "finished",
+ "child_pid": 25096,
+ "exit_code": 1,
+ "seconds": 6.2,
+ "ended": "2026-10-15T17:46:23",
+ "src_status_at_end": "",
+ "counts": {
+  "tests": 3,
+  "failures": 2,
+  "errors": 0,
+  "skipped": 0
+ },
+ "failing": [
+  {
+   "id": "tests.browser.test_storage::test_R17_dismiss_with_the_field_disabled_moves_focus_to_the_pages_first_control_never_to_body[390x844-12]",
+   "kind": "failure",
+   "message": "AssertionError: document.activeElement is 'body', not the Overview button"
+  },
+  {
+   "id": "tests.browser.test_storage::test_R17_dismiss_with_the_field_disabled_moves_focus_to_the_pages_first_control_never_to_body[1280x800-12]",
+   "kind": "failure",
+   "message": "AssertionError: document.activeElement is 'body', not the band's Year"
+  }
+ ]
+}
