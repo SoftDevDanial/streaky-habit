@@ -1,0 +1,1884 @@
+{
+ "started": "2026-10-16 00:13:23",
+ "engine": "chromium",
+ "results": [
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "first visit",
+   "check": "nothing stored on a cold boot",
+   "result": "PASS",
+   "seen": 0
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "first visit",
+   "check": "the empty list says how to start",
+   "result": "PASS",
+   "seen": "No habits yet. Add one you want to do every day."
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "name",
+   "check": "the tab title is the full name",
+   "result": "PASS",
+   "seen": "Danial's Streaky Habit"
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "name",
+   "check": "the header shows Streaky Habit only",
+   "result": "PASS",
+   "seen": "Streaky Habit"
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "logo",
+   "check": "the header mark is drawn in amber",
+   "result": "PASS",
+   "seen": "rgb(255, 176, 32)"
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "first visit",
+   "check": "the Overview button shows on a phone, named with today's count",
+   "result": "PASS",
+   "seen": "Overview, today 0 of 0 habits done"
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "first visit",
+   "check": "the band is not shown on a phone",
+   "result": "PASS",
+   "seen": null
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "first visit",
+   "check": "the header date is today",
+   "result": "PASS",
+   "seen": "Friday 16 October"
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "add and name rules",
+   "check": "an empty name says Name the habit first.",
+   "result": "PASS",
+   "seen": "Name the habit first."
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "add and name rules",
+   "check": "the name is trimmed, the habit shows Current and No streak yet, no Best",
+   "result": "PASS",
+   "seen": [
+    [
+     "Read 20 pages"
+    ],
+    [
+     "Current No streak yet"
+    ]
+   ]
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "add and name rules",
+   "check": "new habits go to the bottom",
+   "result": "PASS",
+   "seen": [
+    "Read 20 pages",
+    "Stretch 10 minutes",
+    "No phone after 11pm"
+   ]
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "add and name rules",
+   "check": "a duplicate ignoring case says You already track this habit.",
+   "result": "PASS",
+   "seen": "You already track this habit."
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "add and name rules",
+   "check": "typing clears the message",
+   "result": "PASS",
+   "seen": ""
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "add and name rules",
+   "check": "41 characters says Keep it to 40 characters or fewer.",
+   "result": "PASS",
+   "seen": "Keep it to 40 characters or fewer."
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "done today and labels",
+   "check": "Done today is pressed",
+   "result": "PASS",
+   "seen": null
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "done today and labels",
+   "check": "the row reads Current 1 day and Best 1",
+   "result": "PASS",
+   "seen": [
+    "Current 1 day",
+    "Best 1"
+   ]
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "done today and labels",
+   "check": "the Overview button counts today",
+   "result": "PASS",
+   "seen": "Overview, today 1 of 3 habits done"
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "past day, overview popup and day editor",
+   "check": "P3 opens with Close focused",
+   "result": "PASS",
+   "seen": {
+    "tag": "button",
+    "label": "Close",
+    "key": null,
+    "id": null
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "past day, overview popup and day editor",
+   "check": "P3 names yesterday with its count",
+   "result": "PASS",
+   "seen": "Thu 15 Oct, 0 of 3 habits"
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "past day, overview popup and day editor",
+   "check": "P1 title is the long date of the day",
+   "result": "PASS",
+   "seen": "Thursday 15 October"
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "past day, overview popup and day editor",
+   "check": "P1 subtitle reads 0 of 3 habits",
+   "result": "PASS",
+   "seen": "0 of 3 habits"
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "past day, overview popup and day editor",
+   "check": "the chosen day is marked open in P3",
+   "result": "PASS",
+   "seen": null
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "past day, overview popup and day editor",
+   "check": "the tick is pressed and the subtitle reads 1 of 3 habits",
+   "result": "PASS",
+   "seen": "1 of 3 habits"
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "past day, overview popup and day editor",
+   "check": "the tick reads Current 2 days and Best 2",
+   "result": "PASS",
+   "seen": "Current 2 days | Best 2"
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "past day, overview popup and day editor",
+   "check": "the row behind updates at once",
+   "result": "PASS",
+   "seen": [
+    "Current 2 days",
+    "Best 2"
+   ]
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "past day, overview popup and day editor",
+   "check": "P3's day name updates",
+   "result": "PASS",
+   "seen": "Thu 15 Oct, 1 of 3 habits"
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "past day, overview popup and day editor",
+   "check": "Esc closes P1 only and focus returns to the day",
+   "result": "PASS",
+   "seen": [
+    [
+     "dlg-ov"
+    ],
+    {
+     "tag": "button",
+     "label": "Thu 15 Oct, 1 of 3 habits",
+     "key": "2026-10-15",
+     "id": null
+    }
+   ]
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "rule 4, room under P1 (H-03)",
+   "check": "a day in P3's oldest week (2026-07-29) stays in sight above P1",
+   "result": "PASS",
+   "seen": {
+    "day top": 503,
+    "day bottom": 551,
+    "head bottom": 82,
+    "P1 top": 551
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "past day, overview popup and day editor",
+   "check": "a tick far back reads No streak yet and Best 1",
+   "result": "PASS",
+   "seen": "No streak yet | Best 1"
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "past day, year of all habits",
+   "check": "P4 holds the last 12 months, future days closed",
+   "result": "PASS",
+   "seen": {
+    "open": 366,
+    "closed": 15,
+    "blank": 15
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "past day, year of all habits",
+   "check": "P4 opens with Close focused and its titles",
+   "result": "PASS",
+   "seen": {
+    "tag": "button",
+    "label": "Close",
+    "key": null,
+    "id": null
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "past day, year of all habits",
+   "check": "the oldest open day is the same date last year, named with its year",
+   "result": "PASS",
+   "seen": "Thu 16 Oct 2025, 0 of 3 habits"
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "past day, year of all habits",
+   "check": "no control for the day before the reach or for tomorrow",
+   "result": "PASS",
+   "seen": null
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "rule 4, room under P1 (H-03)",
+   "check": "P4's oldest day (2025-10-16) stays in sight above P1",
+   "result": "PASS",
+   "seen": {
+    "day top": 503,
+    "day bottom": 551,
+    "head bottom": 112,
+    "P1 top": 551
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "past day, year of all habits",
+   "check": "P1 opens on the oldest day",
+   "result": "PASS",
+   "seen": "Thursday 16 October"
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "past day, year of all habits",
+   "check": "the oldest day can be ticked, Best 1",
+   "result": "PASS",
+   "seen": "No streak yet | Best 1"
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "past day, year of all habits",
+   "check": "Esc closes P1, then P4, then P3, focus back on each opener",
+   "result": "PASS",
+   "seen": [
+    [
+     "dlg-all",
+     "dlg-ov"
+    ],
+    [
+     "dlg-ov"
+    ],
+    true,
+    [],
+    true
+   ]
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "past day, year of all habits",
+   "check": "the rows show every past edit",
+   "result": "PASS",
+   "seen": [
+    [
+     "Current 2 days",
+     "Best 2"
+    ],
+    [
+     "Current No streak yet",
+     "Best 1"
+    ],
+    [
+     "Current No streak yet",
+     "Best 1"
+    ]
+   ]
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "past day, the habit's year view",
+   "check": "P2 shows the habit, The last 12 months and the row's Current and Best",
+   "result": "PASS",
+   "seen": [
+    "Read 20 pages",
+    [
+     "Current 2 days",
+     "Best 2"
+    ]
+   ]
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "past day, the habit's year view",
+   "check": "P2 opens with Close focused",
+   "result": "PASS",
+   "seen": {
+    "tag": "button",
+    "label": "Close",
+    "key": null,
+    "id": null
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "past day, the habit's year view",
+   "check": "P2 holds the last 12 months",
+   "result": "PASS",
+   "seen": {
+    "open": 366,
+    "closed": 15,
+    "blank": 15
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "past day, the habit's year view",
+   "check": "today's and yesterday's beads are done",
+   "result": "PASS",
+   "seen": null
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "past day, the habit's year view",
+   "check": "a bead is named Mark <date> as done",
+   "result": "PASS",
+   "seen": "Mark Wed 14 Oct 2026 as done"
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "past day, the habit's year view",
+   "check": "a bead tick reads Current 3 days and Best 3",
+   "result": "PASS",
+   "seen": [
+    "Current 3 days",
+    "Best 3"
+   ]
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "past day, the habit's year view",
+   "check": "five beads 200 days back make Best 5",
+   "result": "PASS",
+   "seen": [
+    "Current 3 days",
+    "Best 5"
+   ]
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "past day, the habit's year view",
+   "check": "the run is drawn on one thread",
+   "result": "PASS",
+   "seen": [
+    "yc on r",
+    "yc on l r",
+    "yc on l pop"
+   ]
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "past day, the habit's year view",
+   "check": "Esc closes P2 and focus returns to the row's Year",
+   "result": "PASS",
+   "seen": {
+    "tag": "button",
+    "label": "Year view, Read 20 pages",
+    "key": null,
+    "id": null
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "past day, the habit's year view",
+   "check": "the row shows the year view's numbers",
+   "result": "PASS",
+   "seen": [
+    "Current 3 days",
+    "Best 5"
+   ]
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "streak rule",
+   "check": "unticking today keeps the run counted from yesterday",
+   "result": "PASS",
+   "seen": [
+    "Current 2 days",
+    "Best 5"
+   ]
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "streak rule",
+   "check": "Done today again",
+   "result": "PASS",
+   "seen": [
+    "Current 3 days",
+    "Best 5"
+   ]
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "delete",
+   "check": "a bin under M1's Delete habit at this size",
+   "result": "INFO",
+   "seen": {
+    "victim": "Stretch 10 minutes",
+    "bin centre inside Delete habit": false,
+    "Delete habit box": {
+     "x": 201,
+     "y": 437,
+     "width": 152,
+     "height": 48
+    }
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "delete",
+   "check": "slow double tap on a bin (800 ms apart) deletes nothing",
+   "result": "PASS",
+   "seen": {
+    "victim": "Stretch 10 minutes",
+    "second press on Delete habit": false,
+    "M1 open after": false
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "delete",
+   "check": "fast double tap on a bin deletes nothing",
+   "result": "PASS",
+   "seen": {
+    "victim": "Stretch 10 minutes",
+    "M1 open after": false
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "delete",
+   "check": "M1 asks the brainstorm's question",
+   "result": "PASS",
+   "seen": "Delete \"⁨No phone after 11pm⁩\"?"
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "delete",
+   "check": "Delete habit acts on the first press, 35 ms after the dialog opened",
+   "result": "PASS",
+   "seen": {
+    "ms": 35,
+    "rows": [
+     "Read 20 pages",
+     "Stretch 10 minutes"
+    ]
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "delete",
+   "check": "focus goes to the bin of the row above",
+   "result": "PASS",
+   "seen": {
+    "tag": "button",
+    "label": "Delete \"Stretch 10 minutes\"",
+    "key": null,
+    "id": null
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "delete",
+   "check": "a slow second tap where P2's Delete habit was deletes nothing",
+   "result": "PASS",
+   "seen": {
+    "second tap inside M1's Delete habit": false,
+    "M1 open after": false
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "delete",
+   "check": "Delete habit from P2 deletes and closes both popups",
+   "result": "PASS",
+   "seen": [
+    [
+     "Read 20 pages"
+    ],
+    []
+   ]
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "delete",
+   "check": "focus goes to the Year of the row above",
+   "result": "PASS",
+   "seen": {
+    "tag": "button",
+    "label": "Year view, Read 20 pages",
+    "key": null,
+    "id": null
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "kept on the device",
+   "check": "a reload shows the same habit and numbers",
+   "result": "PASS",
+   "seen": [
+    [
+     "Read 20 pages"
+    ],
+    [
+     "Current 3 days",
+     "Best 5"
+    ]
+   ]
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "kept on the device",
+   "check": "a closed tab opened again shows the same",
+   "result": "PASS",
+   "seen": [
+    [
+     "Read 20 pages"
+    ],
+    [
+     "Current 3 days",
+     "Best 5"
+    ]
+   ]
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "kept on the device",
+   "check": "a habit deleted and added again starts with no history",
+   "result": "PASS",
+   "seen": [
+    "Current No streak yet"
+   ]
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "tap-through guard (spec R14, owner's CG-11)",
+   "check": "Done today tapped right after closing a popup with a tap, then again 650 ms later",
+   "result": "INFO",
+   "seen": {
+    "first tap counted": false,
+    "ms after the close": 40,
+    "second tap state": "true"
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "twelve habits",
+   "check": "at 12 the field and Add are disabled with the note",
+   "result": "PASS",
+   "seen": "You track 12 habits, the most this app holds. Delete one to add another."
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "twelve habits",
+   "check": "the page does not scroll, the list frame does",
+   "result": "PASS",
+   "seen": {
+    "h": 844,
+    "w": 390,
+    "ih": 844,
+    "iw": 390
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "delete guard at twelve",
+   "check": "a bin under M1's Delete habit at this size",
+   "result": "INFO",
+   "seen": {
+    "victim": "Habit 11",
+    "bin centre inside Delete habit": true,
+    "Delete habit box": {
+     "x": 201,
+     "y": 437,
+     "width": 152,
+     "height": 48
+    }
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "delete guard at twelve",
+   "check": "slow double tap on a bin (800 ms apart) deletes nothing",
+   "result": "PASS",
+   "seen": {
+    "victim": "Habit 11",
+    "second press on Delete habit": true,
+    "M1 open after": true
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "delete guard at twelve",
+   "check": "fast double tap on a bin deletes nothing",
+   "result": "PASS",
+   "seen": {
+    "victim": "Habit 11",
+    "M1 open after": true
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "no network, no errors",
+   "check": "only same-origin GETs for the page's own files",
+   "result": "PASS",
+   "seen": {
+    "requests": 30,
+    "outside the rule": []
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "group": "no network, no errors",
+   "check": "no console error, no page error, no clipboard use",
+   "result": "PASS",
+   "seen": {
+    "console": [],
+    "page": [],
+    "clipboard": []
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 desktop",
+   "group": "first visit",
+   "check": "nothing stored on a cold boot",
+   "result": "PASS",
+   "seen": null
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 desktop",
+   "group": "first visit",
+   "check": "the band shows, the Overview button does not",
+   "result": "PASS",
+   "seen": null
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 desktop",
+   "group": "first visit",
+   "check": "the band holds the last 12 weeks up to today",
+   "result": "PASS",
+   "seen": [
+    82,
+    "Fri 16 Oct, 0 of 0 habits"
+   ]
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 desktop",
+   "group": "add",
+   "check": "three habits in order",
+   "result": "PASS",
+   "seen": [
+    "Read 20 pages",
+    "Stretch 10 minutes",
+    "No phone after 11pm"
+   ]
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 desktop",
+   "group": "done today and labels",
+   "check": "the band's today counts 2 of 3",
+   "result": "PASS",
+   "seen": "Fri 16 Oct, 2 of 3 habits"
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 desktop",
+   "group": "done today and labels",
+   "check": "rows read Current 1 day and Best 1, and No streak yet",
+   "result": "PASS",
+   "seen": [
+    [
+     "Current 1 day",
+     "Best 1"
+    ],
+    [
+     "Current 1 day",
+     "Best 1"
+    ],
+    [
+     "Current No streak yet"
+    ]
+   ]
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 desktop",
+   "group": "past day, band and day editor",
+   "check": "P1 opens centred over the list with the first tick focused",
+   "result": "PASS",
+   "seen": [
+    {
+     "x": 420,
+     "y": 253,
+     "width": 440,
+     "height": 294
+    },
+    {
+     "tag": "button",
+     "label": "Read 20 pages",
+     "key": null,
+     "id": null
+    }
+   ]
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 desktop",
+   "group": "past day, band and day editor",
+   "check": "P1 title and subtitle",
+   "result": "PASS",
+   "seen": [
+    "Thursday 15 October",
+    "0 of 3 habits"
+   ]
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 desktop",
+   "group": "past day, band and day editor",
+   "check": "a tick updates P1, the band and the row at once",
+   "result": "PASS",
+   "seen": [
+    "1 of 3 habits",
+    "Thu 15 Oct, 1 of 3 habits",
+    [
+     "Current 1 day",
+     "Best 1"
+    ]
+   ]
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 desktop",
+   "group": "past day, band and day editor",
+   "check": "a backdrop click closes P1 and focus returns to the band day",
+   "result": "PASS",
+   "seen": {
+    "tag": "button",
+    "label": "Thu 15 Oct, 1 of 3 habits",
+    "key": "2026-10-15",
+    "id": null
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 desktop",
+   "group": "past day, year of all habits",
+   "check": "P4 holds the last 12 months",
+   "result": "PASS",
+   "seen": {
+    "open": 366,
+    "closed": 15,
+    "blank": 15
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 desktop",
+   "group": "past day, year of all habits",
+   "check": "P1 opens over P4 on the oldest day",
+   "result": "PASS",
+   "seen": [
+    "Thursday 16 October",
+    [
+     "dlg-all",
+     "dlg-day"
+    ]
+   ]
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 desktop",
+   "group": "past day, year of all habits",
+   "check": "the oldest day ticks, A keeps Current 1 day and Best 1",
+   "result": "PASS",
+   "seen": "Current 1 day | Best 1"
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 desktop",
+   "group": "past day, year of all habits",
+   "check": "Esc closes P1 then P4, focus back on the day then the band's Year",
+   "result": "PASS",
+   "seen": {
+    "tag": "button",
+    "label": "Year view, all habits",
+    "key": null,
+    "id": null
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 desktop",
+   "group": "past day, the habit's year view",
+   "check": "P2 shows three months across",
+   "result": "PASS",
+   "seen": [
+    [
+     180,
+     217
+    ],
+    [
+     500,
+     217
+    ],
+    [
+     820,
+     217
+    ]
+   ]
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 desktop",
+   "group": "past day, the habit's year view",
+   "check": "a bead tick reads Current 2 days and Best 2",
+   "result": "PASS",
+   "seen": [
+    "Current 2 days",
+    "Best 2"
+   ]
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 desktop",
+   "group": "past day, the habit's year view",
+   "check": "Close returns focus to the row's Year and the row matches",
+   "result": "PASS",
+   "seen": [
+    {
+     "tag": "button",
+     "label": "Year view, Stretch 10 minutes",
+     "key": null,
+     "id": null
+    },
+    [
+     "Current 2 days",
+     "Best 2"
+    ]
+   ]
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 desktop",
+   "group": "delete",
+   "check": "a bin under M1's Delete habit at this size",
+   "result": "INFO",
+   "seen": {
+    "victim": "Read 20 pages",
+    "bin centre inside Delete habit": true,
+    "Delete habit box": {
+     "x": 646,
+     "y": 415,
+     "width": 173,
+     "height": 48
+    }
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 desktop",
+   "group": "delete",
+   "check": "slow double click on a bin (800 ms apart) deletes nothing",
+   "result": "PASS",
+   "seen": {
+    "victim": "Read 20 pages",
+    "second press on Delete habit": true,
+    "M1 open after": true
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 desktop",
+   "group": "delete",
+   "check": "fast double click on a bin deletes nothing",
+   "result": "PASS",
+   "seen": {
+    "victim": "Read 20 pages",
+    "M1 open after": true
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 desktop",
+   "group": "keyboard",
+   "check": "the first Tab lands on the band's Year with a visible ring",
+   "result": "PASS",
+   "seen": [
+    {
+     "tag": "button",
+     "label": "Year view, all habits",
+     "key": null,
+     "id": null
+    },
+    "solid"
+   ]
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 desktop",
+   "group": "keyboard",
+   "check": "Tab reaches a bin",
+   "result": "PASS",
+   "seen": {
+    "tag": "button",
+    "label": "Delete \"No phone after 11pm\"",
+    "key": null,
+    "id": null
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 desktop",
+   "group": "keyboard",
+   "check": "Enter on a bin, Cancel focused, Tab, Enter deletes",
+   "result": "PASS",
+   "seen": [
+    true,
+    [
+     "Read 20 pages",
+     "Stretch 10 minutes"
+    ],
+    {
+     "tag": "button",
+     "label": "Delete \"Stretch 10 minutes\"",
+     "key": null,
+     "id": null
+    }
+   ]
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 desktop",
+   "group": "delete",
+   "check": "M1 asks the brainstorm's question",
+   "result": "PASS",
+   "seen": "Delete \"⁨Stretch 10 minutes⁩\"?"
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 desktop",
+   "group": "delete",
+   "check": "Delete habit acts on the first press, 31 ms after the dialog opened",
+   "result": "PASS",
+   "seen": {
+    "ms": 31,
+    "rows": [
+     "Read 20 pages"
+    ]
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 desktop",
+   "group": "delete",
+   "check": "focus goes to the bin of the row above",
+   "result": "PASS",
+   "seen": {
+    "tag": "button",
+    "label": "Delete \"Read 20 pages\"",
+    "key": null,
+    "id": null
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 desktop",
+   "group": "kept on the device",
+   "check": "a reload shows what is left",
+   "result": "PASS",
+   "seen": [
+    [
+     "Read 20 pages"
+    ],
+    [
+     "Current 1 day",
+     "Best 1"
+    ]
+   ]
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 desktop",
+   "group": "twelve habits",
+   "check": "at 12 the field and Add are disabled with the note, the page does not scroll",
+   "result": "PASS",
+   "seen": [
+    "You track 12 habits, the most this app holds. Delete one to add another.",
+    {
+     "h": 800,
+     "w": 1280,
+     "ih": 800,
+     "iw": 1280
+    }
+   ]
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 desktop",
+   "group": "delete guard at twelve",
+   "check": "a bin under M1's Delete habit at this size",
+   "result": "INFO",
+   "seen": {
+    "victim": "Habit 9",
+    "bin centre inside Delete habit": true,
+    "Delete habit box": {
+     "x": 646,
+     "y": 415,
+     "width": 173,
+     "height": 48
+    }
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 desktop",
+   "group": "delete guard at twelve",
+   "check": "slow double click on a bin (800 ms apart) deletes nothing",
+   "result": "PASS",
+   "seen": {
+    "victim": "Habit 9",
+    "second press on Delete habit": true,
+    "M1 open after": true
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 desktop",
+   "group": "delete guard at twelve",
+   "check": "fast double click on a bin deletes nothing",
+   "result": "PASS",
+   "seen": {
+    "victim": "Habit 9",
+    "M1 open after": true
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 desktop",
+   "group": "no network, no errors",
+   "check": "only same-origin GETs for the page's own files",
+   "result": "PASS",
+   "seen": {
+    "requests": 30,
+    "outside the rule": []
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 desktop",
+   "group": "no network, no errors",
+   "check": "no console error, no page error, no clipboard use",
+   "result": "PASS",
+   "seen": {
+    "console": [],
+    "page": [],
+    "clipboard": []
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 storage",
+   "group": "save warning",
+   "check": "no warning while saving works",
+   "result": "PASS",
+   "seen": null
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 storage",
+   "group": "save warning",
+   "check": "this context's storage is filled to its quota (test context only)",
+   "result": "PASS",
+   "seen": {
+    "keys": 18,
+    "writes": 47,
+    "full": true
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 storage",
+   "group": "save warning",
+   "check": "a failed save shows the warning with the brainstorm's words",
+   "result": "PASS",
+   "seen": "Your habits are not being saved on this device. Changes will be lost when you close this tab."
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 storage",
+   "group": "save warning",
+   "check": "the warning cannot be dismissed",
+   "result": "PASS",
+   "seen": null
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 storage",
+   "group": "save warning",
+   "check": "the change stays on screen",
+   "result": "PASS",
+   "seen": null
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 storage",
+   "group": "save warning",
+   "check": "the app keeps working while saves fail",
+   "result": "PASS",
+   "seen": [
+    "Read 20 pages",
+    "Stretch 10 minutes"
+   ]
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 storage",
+   "group": "save warning",
+   "check": "the warning goes after the next save works",
+   "result": "PASS",
+   "seen": {
+    "fill keys removed": 18
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 storage",
+   "group": "save warning",
+   "check": "after a reload the last working save is what shows",
+   "result": "PASS",
+   "seen": [
+    "Read 20 pages",
+    "Stretch 10 minutes"
+   ]
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 storage",
+   "group": "no network, no errors",
+   "check": "only same-origin GETs for the page's own files",
+   "result": "PASS",
+   "seen": {
+    "requests": 20,
+    "outside the rule": []
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 storage",
+   "group": "no network, no errors",
+   "check": "no console error, no page error, no clipboard use",
+   "result": "PASS",
+   "seen": {
+    "console": [],
+    "page": [],
+    "clipboard": []
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 storage",
+   "group": "save warning",
+   "check": "storage refused at boot shows the warning from the first render, no note",
+   "result": "PASS",
+   "seen": "Your habits are not being saved on this device. Changes will be lost when you close this tab."
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 storage",
+   "group": "save warning",
+   "check": "habits can still be added, the warning stays",
+   "result": "PASS",
+   "seen": [
+    "Read 20 pages"
+   ]
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 storage",
+   "group": "no network, no errors",
+   "check": "only same-origin GETs for the page's own files",
+   "result": "PASS",
+   "seen": {
+    "requests": 10,
+    "outside the rule": []
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 storage",
+   "group": "no network, no errors",
+   "check": "no console error, no page error, no clipboard use",
+   "result": "PASS",
+   "seen": {
+    "console": [],
+    "page": [],
+    "clipboard": []
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 storage",
+   "group": "unreadable data",
+   "check": "unreadable data starts empty with the note",
+   "result": "PASS",
+   "seen": "Your saved habits could not be read, so the list was reset."
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 storage",
+   "group": "unreadable data",
+   "check": "Dismiss removes the note and focus goes to the field",
+   "result": "PASS",
+   "seen": {
+    "tag": "input",
+    "label": null,
+    "key": null,
+    "id": "nh"
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 storage",
+   "group": "no network, no errors",
+   "check": "only same-origin GETs for the page's own files",
+   "result": "PASS",
+   "seen": {
+    "requests": 20,
+    "outside the rule": []
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 storage",
+   "group": "no network, no errors",
+   "check": "no console error, no page error, no clipboard use",
+   "result": "PASS",
+   "seen": {
+    "console": [],
+    "page": [],
+    "clipboard": []
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 rollover",
+   "group": "midnight (clock pinned at 23:59:30, then 70 s)",
+   "check": "the header moves to the new day",
+   "result": "PASS",
+   "seen": "Saturday 17 October"
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 rollover",
+   "group": "midnight (clock pinned at 23:59:30, then 70 s)",
+   "check": "open P4 now ends at the new today",
+   "result": "PASS",
+   "seen": [
+    "dlg-all"
+   ]
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 rollover",
+   "group": "midnight (clock pinned at 23:59:30, then 70 s)",
+   "check": "Done today means the new day, the run still counts",
+   "result": "PASS",
+   "seen": [
+    "Current 1 day",
+    "Best 1"
+   ]
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 rollover",
+   "group": "no network, no errors",
+   "check": "only same-origin GETs for the page's own files",
+   "result": "PASS",
+   "seen": {
+    "requests": 10,
+    "outside the rule": []
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 rollover",
+   "group": "no network, no errors",
+   "check": "no console error, no page error, no clipboard use",
+   "result": "PASS",
+   "seen": {
+    "console": [],
+    "page": [],
+    "clipboard": []
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 look",
+   "group": "look against the goldens (clock pinned to 10 Oct 2026 09:00)",
+   "check": "first visit equals today-empty.html in chromium",
+   "result": "PASS",
+   "seen": {
+    "pixels that differ": 0
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 look",
+   "group": "no network, no errors",
+   "check": "only same-origin GETs for the page's own files",
+   "result": "PASS",
+   "seen": {
+    "requests": 10,
+    "outside the rule": []
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 look",
+   "group": "no network, no errors",
+   "check": "no console error, no page error, no clipboard use",
+   "result": "PASS",
+   "seen": {
+    "console": [],
+    "page": [],
+    "clipboard": []
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 look",
+   "group": "look against the goldens (clock pinned to 10 Oct 2026 09:00)",
+   "check": "first visit equals today-empty.html in chromium",
+   "result": "PASS",
+   "seen": {
+    "pixels that differ": 0
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 look",
+   "group": "no network, no errors",
+   "check": "only same-origin GETs for the page's own files",
+   "result": "PASS",
+   "seen": {
+    "requests": 10,
+    "outside the rule": []
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 look",
+   "group": "no network, no errors",
+   "check": "no console error, no page error, no clipboard use",
+   "result": "PASS",
+   "seen": {
+    "console": [],
+    "page": [],
+    "clipboard": []
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 logo",
+   "group": "logo",
+   "check": "the header mark is the golden's mark",
+   "result": "PASS",
+   "seen": null
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 logo",
+   "group": "logo",
+   "check": "src/icon.svg is the golden's tab icon byte for byte",
+   "result": "PASS",
+   "seen": {
+    "file": 458,
+    "golden": 458
+   }
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 logo",
+   "group": "logo",
+   "check": "the tab icon link points at src/icon.svg",
+   "result": "PASS",
+   "seen": null
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 logo",
+   "group": "logo",
+   "check": "the tab icon loads under the page's CSP",
+   "result": "PASS",
+   "seen": "load"
+  },
+  {
+   "engine": "chromium",
+   "size": null,
+   "group": "process",
+   "check": "own server stopped by PID and its port refuses",
+   "result": "PASS",
+   "seen": {
+    "pid": 8740,
+    "port": 55524,
+    "exit": 1
+   }
+  }
+ ],
+ "shots": [
+  "chromium-390x844-01-first-visit.png",
+  "chromium-390x844-02-name-error.png",
+  "chromium-390x844-03-overview-popup.png",
+  "chromium-390x844-04-day-editor-over-p3.png",
+  "chromium-390x844-05-day-editor-oldest-week.png",
+  "chromium-390x844-06-year-all-habits.png",
+  "chromium-390x844-07-day-editor-over-p4.png",
+  "chromium-390x844-08-year-view-open.png",
+  "chromium-390x844-09-year-view-run.png",
+  "chromium-390x844-10-three-habits.png",
+  "chromium-390x844-11-delete-over-year-view.png",
+  "chromium-390x844-12-twelve.png",
+  "chromium-1280x800-01-first-visit.png",
+  "chromium-1280x800-02-three-habits.png",
+  "chromium-1280x800-03-day-editor.png",
+  "chromium-1280x800-04-year-all-habits.png",
+  "chromium-1280x800-05-year-view.png",
+  "chromium-1280x800-06-twelve.png",
+  "chromium-390x844-01-save-warning.png",
+  "chromium-390x844-02-save-warning-at-boot.png",
+  "chromium-390x844-03-unreadable-note.png",
+  "chromium-390x844-golden-today-empty.png",
+  "chromium-390x844-golden-today.png",
+  "chromium-390x844-app-first-visit-pinned.png",
+  "chromium-1280x800-golden-today-empty.png",
+  "chromium-1280x800-golden-today.png",
+  "chromium-1280x800-app-first-visit-pinned.png",
+  "chromium-1280-logo-header.png",
+  "chromium-16-tab-icon-dark.png",
+  "chromium-16-tab-icon-light.png"
+ ],
+ "network": [
+  {
+   "engine": "chromium",
+   "size": "390x844 phone",
+   "requests": [
+    "GET http://127.0.0.1:55524/",
+    "GET http://127.0.0.1:55524/src/styles.css",
+    "GET http://127.0.0.1:55524/src/app.js",
+    "GET http://127.0.0.1:55524/src/calendar.js",
+    "GET http://127.0.0.1:55524/src/dates.js",
+    "GET http://127.0.0.1:55524/src/habits.js",
+    "GET http://127.0.0.1:55524/src/popups.js",
+    "GET http://127.0.0.1:55524/src/storage.js",
+    "GET http://127.0.0.1:55524/src/view.js",
+    "GET http://127.0.0.1:55524/src/ring.js",
+    "GET http://127.0.0.1:55524/",
+    "GET http://127.0.0.1:55524/src/styles.css",
+    "GET http://127.0.0.1:55524/src/app.js",
+    "GET http://127.0.0.1:55524/src/calendar.js",
+    "GET http://127.0.0.1:55524/src/dates.js",
+    "GET http://127.0.0.1:55524/src/habits.js",
+    "GET http://127.0.0.1:55524/src/popups.js",
+    "GET http://127.0.0.1:55524/src/storage.js",
+    "GET http://127.0.0.1:55524/src/view.js",
+    "GET http://127.0.0.1:55524/src/ring.js",
+    "GET http://127.0.0.1:55524/",
+    "GET http://127.0.0.1:55524/src/styles.css",
+    "GET http://127.0.0.1:55524/src/app.js",
+    "GET http://127.0.0.1:55524/src/calendar.js",
+    "GET http://127.0.0.1:55524/src/dates.js",
+    "GET http://127.0.0.1:55524/src/habits.js",
+    "GET http://127.0.0.1:55524/src/popups.js",
+    "GET http://127.0.0.1:55524/src/storage.js",
+    "GET http://127.0.0.1:55524/src/view.js",
+    "GET http://127.0.0.1:55524/src/ring.js"
+   ],
+   "console_errors": [],
+   "page_errors": [],
+   "clipboard": [],
+   "app": true
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 desktop",
+   "requests": [
+    "GET http://127.0.0.1:55524/",
+    "GET http://127.0.0.1:55524/src/styles.css",
+    "GET http://127.0.0.1:55524/src/app.js",
+    "GET http://127.0.0.1:55524/src/calendar.js",
+    "GET http://127.0.0.1:55524/src/dates.js",
+    "GET http://127.0.0.1:55524/src/habits.js",
+    "GET http://127.0.0.1:55524/src/popups.js",
+    "GET http://127.0.0.1:55524/src/storage.js",
+    "GET http://127.0.0.1:55524/src/view.js",
+    "GET http://127.0.0.1:55524/src/ring.js",
+    "GET http://127.0.0.1:55524/",
+    "GET http://127.0.0.1:55524/src/styles.css",
+    "GET http://127.0.0.1:55524/src/app.js",
+    "GET http://127.0.0.1:55524/src/calendar.js",
+    "GET http://127.0.0.1:55524/src/dates.js",
+    "GET http://127.0.0.1:55524/src/habits.js",
+    "GET http://127.0.0.1:55524/src/popups.js",
+    "GET http://127.0.0.1:55524/src/storage.js",
+    "GET http://127.0.0.1:55524/src/view.js",
+    "GET http://127.0.0.1:55524/src/ring.js",
+    "GET http://127.0.0.1:55524/",
+    "GET http://127.0.0.1:55524/src/styles.css",
+    "GET http://127.0.0.1:55524/src/app.js",
+    "GET http://127.0.0.1:55524/src/calendar.js",
+    "GET http://127.0.0.1:55524/src/dates.js",
+    "GET http://127.0.0.1:55524/src/habits.js",
+    "GET http://127.0.0.1:55524/src/popups.js",
+    "GET http://127.0.0.1:55524/src/storage.js",
+    "GET http://127.0.0.1:55524/src/view.js",
+    "GET http://127.0.0.1:55524/src/ring.js"
+   ],
+   "console_errors": [],
+   "page_errors": [],
+   "clipboard": [],
+   "app": true
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 storage",
+   "requests": [
+    "GET http://127.0.0.1:55524/",
+    "GET http://127.0.0.1:55524/src/styles.css",
+    "GET http://127.0.0.1:55524/src/app.js",
+    "GET http://127.0.0.1:55524/src/calendar.js",
+    "GET http://127.0.0.1:55524/src/dates.js",
+    "GET http://127.0.0.1:55524/src/habits.js",
+    "GET http://127.0.0.1:55524/src/popups.js",
+    "GET http://127.0.0.1:55524/src/storage.js",
+    "GET http://127.0.0.1:55524/src/view.js",
+    "GET http://127.0.0.1:55524/src/ring.js",
+    "GET http://127.0.0.1:55524/",
+    "GET http://127.0.0.1:55524/src/styles.css",
+    "GET http://127.0.0.1:55524/src/app.js",
+    "GET http://127.0.0.1:55524/src/calendar.js",
+    "GET http://127.0.0.1:55524/src/dates.js",
+    "GET http://127.0.0.1:55524/src/habits.js",
+    "GET http://127.0.0.1:55524/src/popups.js",
+    "GET http://127.0.0.1:55524/src/storage.js",
+    "GET http://127.0.0.1:55524/src/view.js",
+    "GET http://127.0.0.1:55524/src/ring.js"
+   ],
+   "console_errors": [],
+   "page_errors": [],
+   "clipboard": [],
+   "app": true
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 storage",
+   "requests": [
+    "GET http://127.0.0.1:55524/",
+    "GET http://127.0.0.1:55524/src/styles.css",
+    "GET http://127.0.0.1:55524/src/app.js",
+    "GET http://127.0.0.1:55524/src/calendar.js",
+    "GET http://127.0.0.1:55524/src/dates.js",
+    "GET http://127.0.0.1:55524/src/habits.js",
+    "GET http://127.0.0.1:55524/src/popups.js",
+    "GET http://127.0.0.1:55524/src/storage.js",
+    "GET http://127.0.0.1:55524/src/view.js",
+    "GET http://127.0.0.1:55524/src/ring.js"
+   ],
+   "console_errors": [],
+   "page_errors": [],
+   "clipboard": [],
+   "app": true
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 storage",
+   "requests": [
+    "GET http://127.0.0.1:55524/",
+    "GET http://127.0.0.1:55524/src/styles.css",
+    "GET http://127.0.0.1:55524/src/app.js",
+    "GET http://127.0.0.1:55524/src/calendar.js",
+    "GET http://127.0.0.1:55524/src/dates.js",
+    "GET http://127.0.0.1:55524/src/habits.js",
+    "GET http://127.0.0.1:55524/src/popups.js",
+    "GET http://127.0.0.1:55524/src/storage.js",
+    "GET http://127.0.0.1:55524/src/view.js",
+    "GET http://127.0.0.1:55524/src/ring.js",
+    "GET http://127.0.0.1:55524/",
+    "GET http://127.0.0.1:55524/src/styles.css",
+    "GET http://127.0.0.1:55524/src/app.js",
+    "GET http://127.0.0.1:55524/src/calendar.js",
+    "GET http://127.0.0.1:55524/src/dates.js",
+    "GET http://127.0.0.1:55524/src/habits.js",
+    "GET http://127.0.0.1:55524/src/popups.js",
+    "GET http://127.0.0.1:55524/src/storage.js",
+    "GET http://127.0.0.1:55524/src/view.js",
+    "GET http://127.0.0.1:55524/src/ring.js"
+   ],
+   "console_errors": [],
+   "page_errors": [],
+   "clipboard": [],
+   "app": true
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 rollover",
+   "requests": [
+    "GET http://127.0.0.1:55524/",
+    "GET http://127.0.0.1:55524/src/styles.css",
+    "GET http://127.0.0.1:55524/src/app.js",
+    "GET http://127.0.0.1:55524/src/calendar.js",
+    "GET http://127.0.0.1:55524/src/dates.js",
+    "GET http://127.0.0.1:55524/src/habits.js",
+    "GET http://127.0.0.1:55524/src/popups.js",
+    "GET http://127.0.0.1:55524/src/storage.js",
+    "GET http://127.0.0.1:55524/src/view.js",
+    "GET http://127.0.0.1:55524/src/ring.js"
+   ],
+   "console_errors": [],
+   "page_errors": [],
+   "clipboard": [],
+   "app": true
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 look",
+   "requests": [
+    "GET http://127.0.0.1:55524/docs/design/today-empty.html",
+    "GET http://127.0.0.1:55524/docs/design/today.html"
+   ],
+   "console_errors": [],
+   "page_errors": [],
+   "clipboard": [],
+   "app": false
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844 look",
+   "requests": [
+    "GET http://127.0.0.1:55524/",
+    "GET http://127.0.0.1:55524/src/styles.css",
+    "GET http://127.0.0.1:55524/src/app.js",
+    "GET http://127.0.0.1:55524/src/calendar.js",
+    "GET http://127.0.0.1:55524/src/dates.js",
+    "GET http://127.0.0.1:55524/src/habits.js",
+    "GET http://127.0.0.1:55524/src/popups.js",
+    "GET http://127.0.0.1:55524/src/storage.js",
+    "GET http://127.0.0.1:55524/src/view.js",
+    "GET http://127.0.0.1:55524/src/ring.js"
+   ],
+   "console_errors": [],
+   "page_errors": [],
+   "clipboard": [],
+   "app": true
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 look",
+   "requests": [
+    "GET http://127.0.0.1:55524/docs/design/today-empty.html",
+    "GET http://127.0.0.1:55524/docs/design/today.html"
+   ],
+   "console_errors": [],
+   "page_errors": [],
+   "clipboard": [],
+   "app": false
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 look",
+   "requests": [
+    "GET http://127.0.0.1:55524/",
+    "GET http://127.0.0.1:55524/src/styles.css",
+    "GET http://127.0.0.1:55524/src/app.js",
+    "GET http://127.0.0.1:55524/src/calendar.js",
+    "GET http://127.0.0.1:55524/src/dates.js",
+    "GET http://127.0.0.1:55524/src/habits.js",
+    "GET http://127.0.0.1:55524/src/popups.js",
+    "GET http://127.0.0.1:55524/src/storage.js",
+    "GET http://127.0.0.1:55524/src/view.js",
+    "GET http://127.0.0.1:55524/src/ring.js"
+   ],
+   "console_errors": [],
+   "page_errors": [],
+   "clipboard": [],
+   "app": true
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 logo",
+   "requests": [
+    "GET http://127.0.0.1:55524/docs/design/today.html",
+    "GET http://127.0.0.1:55524/",
+    "GET http://127.0.0.1:55524/src/styles.css",
+    "GET http://127.0.0.1:55524/src/app.js",
+    "GET http://127.0.0.1:55524/src/calendar.js",
+    "GET http://127.0.0.1:55524/src/dates.js",
+    "GET http://127.0.0.1:55524/src/habits.js",
+    "GET http://127.0.0.1:55524/src/popups.js",
+    "GET http://127.0.0.1:55524/src/storage.js",
+    "GET http://127.0.0.1:55524/src/view.js",
+    "GET http://127.0.0.1:55524/src/ring.js",
+    "GET http://127.0.0.1:55524/src/icon.svg"
+   ],
+   "console_errors": [],
+   "page_errors": [],
+   "clipboard": [],
+   "app": false
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 logo",
+   "requests": [
+    "GET http://127.0.0.1:55524/src/icon.svg"
+   ],
+   "console_errors": [],
+   "page_errors": [],
+   "clipboard": [],
+   "app": false
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800 logo",
+   "requests": [
+    "GET http://127.0.0.1:55524/src/icon.svg"
+   ],
+   "console_errors": [],
+   "page_errors": [],
+   "clipboard": [],
+   "app": false
+  }
+ ]
+}

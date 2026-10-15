@@ -1,0 +1,147 @@
+server pid 19712 port 18253 cwd {workspace}\examples\streaks
+today 2026-10-16 yesterday 2026-10-15 lower P3 day 2026-07-29 year start 2025-10-16 band buttons 82 year {'open': 366, 'closed': 15, 'blank': 15} run 2026-03-30..2026-04-03
+webkit 26.5, headless
+PASS webkit 390x844 phone | first visit | nothing stored on a cold boot | 0
+PASS webkit 390x844 phone | first visit | the empty list says how to start | No habits yet. Add one you want to do every day.
+PASS webkit 390x844 phone | name | the tab title is the full name | Danial's Streaky Habit
+PASS webkit 390x844 phone | name | the header shows Streaky Habit only | Streaky Habit
+PASS webkit 390x844 phone | logo | the header mark is drawn in amber | rgb(255, 176, 32)
+PASS webkit 390x844 phone | first visit | the Overview button shows on a phone, named with today's count | Overview, today 0 of 0 habits done
+PASS webkit 390x844 phone | first visit | the band is not shown on a phone | None
+PASS webkit 390x844 phone | first visit | the header date is today | Friday 16 October
+PASS webkit 390x844 phone | add and name rules | an empty name says Name the habit first. | Name the habit first.
+PASS webkit 390x844 phone | add and name rules | the name is trimmed, the habit shows Current and No streak yet, no Best | [['Read 20 pages'], ['Current No streak yet']]
+PASS webkit 390x844 phone | add and name rules | new habits go to the bottom | ['Read 20 pages', 'Stretch 10 minutes', 'No phone after 11pm']
+PASS webkit 390x844 phone | add and name rules | a duplicate ignoring case says You already track this habit. | You already track this habit.
+PASS webkit 390x844 phone | add and name rules | typing clears the message | 
+PASS webkit 390x844 phone | add and name rules | 41 characters says Keep it to 40 characters or fewer. | Keep it to 40 characters or fewer.
+PASS webkit 390x844 phone | done today and labels | Done today is pressed | None
+PASS webkit 390x844 phone | done today and labels | the row reads Current 1 day and Best 1 | ['Current 1 day', 'Best 1']
+PASS webkit 390x844 phone | done today and labels | the Overview button counts today | Overview, today 1 of 3 habits done
+PASS webkit 390x844 phone | past day, overview popup and day editor | P3 opens with Close focused | {'tag': 'button', 'label': 'Close', 'key': None, 'id': None}
+PASS webkit 390x844 phone | past day, overview popup and day editor | P3 names yesterday with its count | Thu 15 Oct, 0 of 3 habits
+PASS webkit 390x844 phone | past day, overview popup and day editor | P1 title is the long date of the day | Thursday 15 October
+PASS webkit 390x844 phone | past day, overview popup and day editor | P1 subtitle reads 0 of 3 habits | 0 of 3 habits
+PASS webkit 390x844 phone | past day, overview popup and day editor | the chosen day is marked open in P3 | None
+PASS webkit 390x844 phone | past day, overview popup and day editor | the tick is pressed and the subtitle reads 1 of 3 habits | 1 of 3 habits
+PASS webkit 390x844 phone | past day, overview popup and day editor | the tick reads Current 2 days and Best 2 | Current 2 days | Best 2
+PASS webkit 390x844 phone | past day, overview popup and day editor | the row behind updates at once | ['Current 2 days', 'Best 2']
+PASS webkit 390x844 phone | past day, overview popup and day editor | P3's day name updates | Thu 15 Oct, 1 of 3 habits
+PASS webkit 390x844 phone | past day, overview popup and day editor | Esc closes P1 only and focus returns to the day | [['dlg-ov'], {'tag': 'button', 'label': 'Thu 15 Oct, 1 of 3 habits', 'key': '2026-10-15', 'id': None}]
+PASS webkit 390x844 phone | rule 4, room under P1 (H-03) | a day in P3's oldest week (2026-07-29) stays in sight above P1 | {'day top': 503, 'day bottom': 551, 'head bottom': 82, 'P1 top': 551}
+PASS webkit 390x844 phone | past day, overview popup and day editor | a tick far back reads No streak yet and Best 1 | No streak yet | Best 1
+PASS webkit 390x844 phone | past day, year of all habits | P4 holds the last 12 months, future days closed | {'open': 366, 'closed': 15, 'blank': 15}
+PASS webkit 390x844 phone | past day, year of all habits | P4 opens with Close focused and its titles | {'tag': 'button', 'label': 'Close', 'key': None, 'id': None}
+PASS webkit 390x844 phone | past day, year of all habits | the oldest open day is the same date last year, named with its year | Thu 16 Oct 2025, 0 of 3 habits
+PASS webkit 390x844 phone | past day, year of all habits | no control for the day before the reach or for tomorrow | None
+PASS webkit 390x844 phone | rule 4, room under P1 (H-03) | P4's oldest day (2025-10-16) stays in sight above P1 | {'day top': 503, 'day bottom': 551, 'head bottom': 112, 'P1 top': 551}
+PASS webkit 390x844 phone | past day, year of all habits | P1 opens on the oldest day | Thursday 16 October
+PASS webkit 390x844 phone | past day, year of all habits | the oldest day can be ticked, Best 1 | No streak yet | Best 1
+PASS webkit 390x844 phone | past day, year of all habits | Esc closes P1, then P4, then P3, focus back on each opener | [['dlg-all', 'dlg-ov'], ['dlg-ov'], True, [], True]
+PASS webkit 390x844 phone | past day, year of all habits | the rows show every past edit | [['Current 2 days', 'Best 2'], ['Current No streak yet', 'Best 1'], ['Current No streak yet', 'Best 1']]
+PASS webkit 390x844 phone | past day, the habit's year view | P2 shows the habit, The last 12 months and the row's Current and Best | ['Read 20 pages', ['Current 2 days', 'Best 2']]
+PASS webkit 390x844 phone | past day, the habit's year view | P2 opens with Close focused | {'tag': 'button', 'label': 'Close', 'key': None, 'id': None}
+PASS webkit 390x844 phone | past day, the habit's year view | P2 holds the last 12 months | {'open': 366, 'closed': 15, 'blank': 15}
+PASS webkit 390x844 phone | past day, the habit's year view | today's and yesterday's beads are done | None
+PASS webkit 390x844 phone | past day, the habit's year view | a bead is named Mark <date> as done | Mark Wed 14 Oct 2026 as done
+PASS webkit 390x844 phone | past day, the habit's year view | a bead tick reads Current 3 days and Best 3 | ['Current 3 days', 'Best 3']
+PASS webkit 390x844 phone | past day, the habit's year view | five beads 200 days back make Best 5 | ['Current 3 days', 'Best 5']
+PASS webkit 390x844 phone | past day, the habit's year view | the run is drawn on one thread | ['yc on r', 'yc on l r', 'yc on l pop']
+PASS webkit 390x844 phone | past day, the habit's year view | Esc closes P2 and focus returns to the row's Year | {'tag': 'button', 'label': 'Year view, Read 20 pages', 'key': None, 'id': None}
+PASS webkit 390x844 phone | past day, the habit's year view | the row shows the year view's numbers | ['Current 3 days', 'Best 5']
+PASS webkit 390x844 phone | streak rule | unticking today keeps the run counted from yesterday | ['Current 2 days', 'Best 5']
+PASS webkit 390x844 phone | streak rule | Done today again | ['Current 3 days', 'Best 5']
+INFO webkit 390x844 phone | delete | a bin under M1's Delete habit at this size | {'victim': 'Stretch 10 minutes', 'bin centre inside Delete habit': False, 'Delete habit box': {'x': 201, 'y': 437, 'width': 152, 'height': 48}}
+PASS webkit 390x844 phone | delete | slow double tap on a bin (800 ms apart) deletes nothing | {'victim': 'Stretch 10 minutes', 'second press on Delete habit': False, 'M1 open after': False}
+PASS webkit 390x844 phone | delete | fast double tap on a bin deletes nothing | {'victim': 'Stretch 10 minutes', 'M1 open after': False}
+PASS webkit 390x844 phone | delete | M1 asks the brainstorm's question | Delete "⁨No phone after 11pm⁩"?
+PASS webkit 390x844 phone | delete | Delete habit acts on the first press, 20 ms after the dialog opened | {'ms': 20, 'rows': ['Read 20 pages', 'Stretch 10 minutes']}
+PASS webkit 390x844 phone | delete | focus goes to the bin of the row above | {'tag': 'button', 'label': 'Delete "Stretch 10 minutes"', 'key': None, 'id': None}
+PASS webkit 390x844 phone | delete | a slow second tap where P2's Delete habit was deletes nothing | {"second tap inside M1's Delete habit": False, 'M1 open after': False}
+PASS webkit 390x844 phone | delete | Delete habit from P2 deletes and closes both popups | [['Read 20 pages'], []]
+PASS webkit 390x844 phone | delete | focus goes to the Year of the row above | {'tag': 'button', 'label': 'Year view, Read 20 pages', 'key': None, 'id': None}
+PASS webkit 390x844 phone | kept on the device | a reload shows the same habit and numbers | [['Read 20 pages'], ['Current 3 days', 'Best 5']]
+PASS webkit 390x844 phone | kept on the device | a closed tab opened again shows the same | [['Read 20 pages'], ['Current 3 days', 'Best 5']]
+PASS webkit 390x844 phone | kept on the device | a habit deleted and added again starts with no history | ['Current No streak yet']
+INFO webkit 390x844 phone | tap-through guard (spec R14, owner's CG-11) | Done today tapped right after closing a popup with a tap, then again 650 ms later | {'first tap counted': False, 'ms after the close': 113, 'second tap state': 'true'}
+PASS webkit 390x844 phone | twelve habits | at 12 the field and Add are disabled with the note | You track 12 habits, the most this app holds. Delete one to add another.
+PASS webkit 390x844 phone | twelve habits | the page does not scroll, the list frame does | {'h': 844, 'w': 390, 'ih': 844, 'iw': 390}
+INFO webkit 390x844 phone | delete guard at twelve | a bin under M1's Delete habit at this size | {'victim': 'Habit 11', 'bin centre inside Delete habit': True, 'Delete habit box': {'x': 201, 'y': 437, 'width': 152, 'height': 48}}
+PASS webkit 390x844 phone | delete guard at twelve | slow double tap on a bin (800 ms apart) deletes nothing | {'victim': 'Habit 11', 'second press on Delete habit': True, 'M1 open after': True}
+PASS webkit 390x844 phone | delete guard at twelve | fast double tap on a bin deletes nothing | {'victim': 'Habit 11', 'M1 open after': True}
+PASS webkit 390x844 phone | no network, no errors | only same-origin GETs for the page's own files | {'requests': 30, 'outside the rule': []}
+PASS webkit 390x844 phone | no network, no errors | no console error, no page error, no clipboard use | {'console': [], 'page': [], 'clipboard': []}
+walk_phone took 38.0 s
+PASS webkit 1280x800 desktop | first visit | nothing stored on a cold boot | None
+PASS webkit 1280x800 desktop | first visit | the band shows, the Overview button does not | None
+PASS webkit 1280x800 desktop | first visit | the band holds the last 12 weeks up to today | [82, 'Fri 16 Oct, 0 of 0 habits']
+PASS webkit 1280x800 desktop | add | three habits in order | ['Read 20 pages', 'Stretch 10 minutes', 'No phone after 11pm']
+PASS webkit 1280x800 desktop | done today and labels | the band's today counts 2 of 3 | Fri 16 Oct, 2 of 3 habits
+PASS webkit 1280x800 desktop | done today and labels | rows read Current 1 day and Best 1, and No streak yet | [['Current 1 day', 'Best 1'], ['Current 1 day', 'Best 1'], ['Current No streak yet']]
+PASS webkit 1280x800 desktop | past day, band and day editor | P1 opens centred over the list with the first tick focused | [{'x': 420, 'y': 253, 'width': 440, 'height': 294}, {'tag': 'button', 'label': 'Read 20 pages', 'key': None, 'id': None}]
+PASS webkit 1280x800 desktop | past day, band and day editor | P1 title and subtitle | ['Thursday 15 October', '0 of 3 habits']
+PASS webkit 1280x800 desktop | past day, band and day editor | a tick updates P1, the band and the row at once | ['1 of 3 habits', 'Thu 15 Oct, 1 of 3 habits', ['Current 1 day', 'Best 1']]
+PASS webkit 1280x800 desktop | past day, band and day editor | a backdrop click closes P1 and focus returns to the band day | {'tag': 'button', 'label': 'Thu 15 Oct, 1 of 3 habits', 'key': '2026-10-15', 'id': None}
+PASS webkit 1280x800 desktop | past day, year of all habits | P4 holds the last 12 months | {'open': 366, 'closed': 15, 'blank': 15}
+PASS webkit 1280x800 desktop | past day, year of all habits | P1 opens over P4 on the oldest day | ['Thursday 16 October', ['dlg-all', 'dlg-day']]
+PASS webkit 1280x800 desktop | past day, year of all habits | the oldest day ticks, A keeps Current 1 day and Best 1 | Current 1 day | Best 1
+PASS webkit 1280x800 desktop | past day, year of all habits | Esc closes P1 then P4, focus back on the day then the band's Year | {'tag': 'button', 'label': 'Year view, all habits', 'key': None, 'id': None}
+PASS webkit 1280x800 desktop | past day, the habit's year view | P2 shows three months across | [[180, 217], [500, 217], [820, 217]]
+PASS webkit 1280x800 desktop | past day, the habit's year view | a bead tick reads Current 2 days and Best 2 | ['Current 2 days', 'Best 2']
+PASS webkit 1280x800 desktop | past day, the habit's year view | Close returns focus to the row's Year and the row matches | [{'tag': 'button', 'label': 'Year view, Stretch 10 minutes', 'key': None, 'id': None}, ['Current 2 days', 'Best 2']]
+INFO webkit 1280x800 desktop | delete | a bin under M1's Delete habit at this size | {'victim': 'Read 20 pages', 'bin centre inside Delete habit': True, 'Delete habit box': {'x': 646, 'y': 415, 'width': 173, 'height': 48}}
+PASS webkit 1280x800 desktop | delete | slow double click on a bin (800 ms apart) deletes nothing | {'victim': 'Read 20 pages', 'second press on Delete habit': True, 'M1 open after': True}
+PASS webkit 1280x800 desktop | delete | fast double click on a bin deletes nothing | {'victim': 'Read 20 pages', 'M1 open after': True}
+PASS webkit 1280x800 desktop | keyboard | the first Tab lands on the band's Year with a visible ring | [{'tag': 'button', 'label': 'Year view, all habits', 'key': None, 'id': None}, 'solid']
+PASS webkit 1280x800 desktop | keyboard | Tab reaches a bin | {'tag': 'button', 'label': 'Delete "No phone after 11pm"', 'key': None, 'id': None}
+PASS webkit 1280x800 desktop | keyboard | Enter on a bin, Cancel focused, Tab, Enter deletes | [True, ['Read 20 pages', 'Stretch 10 minutes'], {'tag': 'button', 'label': 'Delete "Stretch 10 minutes"', 'key': None, 'id': None}]
+PASS webkit 1280x800 desktop | delete | M1 asks the brainstorm's question | Delete "⁨Stretch 10 minutes⁩"?
+PASS webkit 1280x800 desktop | delete | Delete habit acts on the first press, 66 ms after the dialog opened | {'ms': 66, 'rows': ['Read 20 pages']}
+PASS webkit 1280x800 desktop | delete | focus goes to the bin of the row above | {'tag': 'button', 'label': 'Delete "Read 20 pages"', 'key': None, 'id': None}
+PASS webkit 1280x800 desktop | kept on the device | a reload shows what is left | [['Read 20 pages'], ['Current 1 day', 'Best 1']]
+PASS webkit 1280x800 desktop | twelve habits | at 12 the field and Add are disabled with the note, the page does not scroll | ['You track 12 habits, the most this app holds. Delete one to add another.', {'h': 800, 'w': 1280, 'ih': 800, 'iw': 1280}]
+INFO webkit 1280x800 desktop | delete guard at twelve | a bin under M1's Delete habit at this size | {'victim': 'Habit 9', 'bin centre inside Delete habit': True, 'Delete habit box': {'x': 646, 'y': 415, 'width': 173, 'height': 48}}
+PASS webkit 1280x800 desktop | delete guard at twelve | slow double click on a bin (800 ms apart) deletes nothing | {'victim': 'Habit 9', 'second press on Delete habit': True, 'M1 open after': True}
+PASS webkit 1280x800 desktop | delete guard at twelve | fast double click on a bin deletes nothing | {'victim': 'Habit 9', 'M1 open after': True}
+PASS webkit 1280x800 desktop | no network, no errors | only same-origin GETs for the page's own files | {'requests': 30, 'outside the rule': []}
+PASS webkit 1280x800 desktop | no network, no errors | no console error, no page error, no clipboard use | {'console': [], 'page': [], 'clipboard': []}
+walk_desktop took 26.2 s
+PASS webkit 390x844 storage | save warning | no warning while saving works | None
+PASS webkit 390x844 storage | save warning | this context's storage is filled to its quota (test context only) | {'keys': 18, 'writes': 47, 'full': True}
+PASS webkit 390x844 storage | save warning | a failed save shows the warning with the brainstorm's words | Your habits are not being saved on this device. Changes will be lost when you close this tab.
+PASS webkit 390x844 storage | save warning | the warning cannot be dismissed | None
+PASS webkit 390x844 storage | save warning | the change stays on screen | None
+PASS webkit 390x844 storage | save warning | the app keeps working while saves fail | ['Read 20 pages', 'Stretch 10 minutes']
+PASS webkit 390x844 storage | save warning | the warning goes after the next save works | {'fill keys removed': 18}
+PASS webkit 390x844 storage | save warning | after a reload the last working save is what shows | ['Read 20 pages', 'Stretch 10 minutes']
+PASS webkit 390x844 storage | no network, no errors | only same-origin GETs for the page's own files | {'requests': 20, 'outside the rule': []}
+PASS webkit 390x844 storage | no network, no errors | no console error, no page error, no clipboard use | {'console': [], 'page': [], 'clipboard': []}
+PASS webkit 390x844 storage | save warning | storage refused at boot shows the warning from the first render, no note | Your habits are not being saved on this device. Changes will be lost when you close this tab.
+PASS webkit 390x844 storage | save warning | habits can still be added, the warning stays | ['Read 20 pages']
+PASS webkit 390x844 storage | no network, no errors | only same-origin GETs for the page's own files | {'requests': 10, 'outside the rule': []}
+PASS webkit 390x844 storage | no network, no errors | no console error, no page error, no clipboard use | {'console': [], 'page': [], 'clipboard': []}
+PASS webkit 390x844 storage | unreadable data | unreadable data starts empty with the note | Your saved habits could not be read, so the list was reset.
+PASS webkit 390x844 storage | unreadable data | Dismiss removes the note and focus goes to the field | {'tag': 'input', 'label': None, 'key': None, 'id': 'nh'}
+PASS webkit 390x844 storage | no network, no errors | only same-origin GETs for the page's own files | {'requests': 20, 'outside the rule': []}
+PASS webkit 390x844 storage | no network, no errors | no console error, no page error, no clipboard use | {'console': [], 'page': [], 'clipboard': []}
+walk_storage took 3.9 s
+PASS webkit 1280x800 rollover | midnight (clock pinned at 23:59:30, then 70 s) | the header moves to the new day | Saturday 17 October
+PASS webkit 1280x800 rollover | midnight (clock pinned at 23:59:30, then 70 s) | open P4 now ends at the new today | ['dlg-all']
+PASS webkit 1280x800 rollover | midnight (clock pinned at 23:59:30, then 70 s) | Done today means the new day, the run still counts | ['Current 1 day', 'Best 1']
+PASS webkit 1280x800 rollover | no network, no errors | only same-origin GETs for the page's own files | {'requests': 10, 'outside the rule': []}
+PASS webkit 1280x800 rollover | no network, no errors | no console error, no page error, no clipboard use | {'console': [], 'page': [], 'clipboard': []}
+walk_rollover took 1.5 s
+PASS webkit 390x844 look | look against the goldens (clock pinned to 10 Oct 2026 09:00) | first visit equals today-empty.html in webkit | {'pixels that differ': 0}
+PASS webkit 390x844 look | no network, no errors | only same-origin GETs for the page's own files | {'requests': 10, 'outside the rule': []}
+PASS webkit 390x844 look | no network, no errors | no console error, no page error, no clipboard use | {'console': [], 'page': [], 'clipboard': []}
+PASS webkit 1280x800 look | look against the goldens (clock pinned to 10 Oct 2026 09:00) | first visit equals today-empty.html in webkit | {'pixels that differ': 0}
+PASS webkit 1280x800 look | no network, no errors | only same-origin GETs for the page's own files | {'requests': 10, 'outside the rule': []}
+PASS webkit 1280x800 look | no network, no errors | no console error, no page error, no clipboard use | {'console': [], 'page': [], 'clipboard': []}
+look_compare took 6.2 s
+PASS webkit 1280x800 logo | logo | the header mark is the golden's mark | None
+PASS webkit 1280x800 logo | logo | src/icon.svg is the golden's tab icon byte for byte | {'file': 458, 'golden': 458}
+PASS webkit 1280x800 logo | logo | the tab icon link points at src/icon.svg | None
+PASS webkit 1280x800 logo | logo | the tab icon loads under the page's CSP | load
+logo_checks took 1.1 s
+server pid 19712 stopped, exit 1, port 18253 refuses True
+TOTAL webkit pass 132 fail 0 info 5

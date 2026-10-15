@@ -1,0 +1,262 @@
+{
+ "server": {
+  "pid": 1748,
+  "port": 18426,
+  "stopped": true,
+  "port refuses": true
+ },
+ "runs": [
+  {
+   "engine": "chromium",
+   "size": "390x844",
+   "opened by": "tap",
+   "popup": "P3 overview",
+   "label": "Close",
+   "focusVisible": false,
+   "outline": "none"
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844",
+   "opened by": "tap",
+   "popup": "P1 day editor",
+   "label": "Read 20 pages",
+   "focusVisible": false,
+   "outline": "none"
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844",
+   "opened by": "tap",
+   "popup": "P4 all habits",
+   "label": "Close",
+   "focusVisible": false,
+   "outline": "none"
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844",
+   "opened by": "tap",
+   "popup": "P2 year view",
+   "label": "Close",
+   "focusVisible": false,
+   "outline": "none"
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844",
+   "opened by": "tap",
+   "popup": "M1 delete",
+   "label": "Cancel",
+   "focusVisible": false,
+   "outline": "none"
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800",
+   "opened by": "click",
+   "popup": "P1 day editor",
+   "label": "Read 20 pages",
+   "focusVisible": false,
+   "outline": "none"
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800",
+   "opened by": "click",
+   "popup": "P4 all habits",
+   "label": "Close",
+   "focusVisible": false,
+   "outline": "none"
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800",
+   "opened by": "click",
+   "popup": "P2 year view",
+   "label": "Close",
+   "focusVisible": false,
+   "outline": "none"
+  },
+  {
+   "engine": "chromium",
+   "size": "1280x800",
+   "opened by": "click",
+   "popup": "M1 delete",
+   "label": "Cancel",
+   "focusVisible": false,
+   "outline": "none"
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844",
+   "opened by": "keyboard",
+   "popup": "P3 overview",
+   "label": "Close",
+   "focusVisible": true,
+   "outline": "solid"
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844",
+   "opened by": "keyboard",
+   "popup": "P1 day editor",
+   "label": "Read 20 pages",
+   "focusVisible": true,
+   "outline": "solid"
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844",
+   "opened by": "keyboard",
+   "popup": "P4 all habits",
+   "label": "Close",
+   "focusVisible": true,
+   "outline": "solid"
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844",
+   "opened by": "keyboard",
+   "popup": "P2 year view",
+   "label": "Close",
+   "focusVisible": true,
+   "outline": "solid"
+  },
+  {
+   "engine": "chromium",
+   "size": "390x844",
+   "opened by": "keyboard",
+   "popup": "M1 delete",
+   "label": "Cancel",
+   "focusVisible": true,
+   "outline": "solid"
+  },
+  {
+   "engine": "webkit",
+   "size": "390x844",
+   "opened by": "tap",
+   "popup": "P3 overview",
+   "label": "Close",
+   "focusVisible": true,
+   "outline": "solid"
+  },
+  {
+   "engine": "webkit",
+   "size": "390x844",
+   "opened by": "tap",
+   "popup": "P1 day editor",
+   "label": "Read 20 pages",
+   "focusVisible": true,
+   "outline": "solid"
+  },
+  {
+   "engine": "webkit",
+   "size": "390x844",
+   "opened by": "tap",
+   "popup": "P4 all habits",
+   "label": "Close",
+   "focusVisible": true,
+   "outline": "solid"
+  },
+  {
+   "engine": "webkit",
+   "size": "390x844",
+   "opened by": "tap",
+   "popup": "P2 year view",
+   "label": "Close",
+   "focusVisible": true,
+   "outline": "solid"
+  },
+  {
+   "engine": "webkit",
+   "size": "390x844",
+   "opened by": "tap",
+   "popup": "M1 delete",
+   "label": "Cancel",
+   "focusVisible": true,
+   "outline": "solid"
+  },
+  {
+   "engine": "webkit",
+   "size": "1280x800",
+   "opened by": "click",
+   "popup": "P1 day editor",
+   "label": "Read 20 pages",
+   "focusVisible": true,
+   "outline": "solid"
+  },
+  {
+   "engine": "webkit",
+   "size": "1280x800",
+   "opened by": "click",
+   "popup": "P4 all habits",
+   "label": "Close",
+   "focusVisible": true,
+   "outline": "solid"
+  },
+  {
+   "engine": "webkit",
+   "size": "1280x800",
+   "opened by": "click",
+   "popup": "P2 year view",
+   "label": "Close",
+   "focusVisible": true,
+   "outline": "solid"
+  },
+  {
+   "engine": "webkit",
+   "size": "1280x800",
+   "opened by": "click",
+   "popup": "M1 delete",
+   "label": "Cancel",
+   "focusVisible": true,
+   "outline": "solid"
+  },
+  {
+   "engine": "webkit",
+   "size": "390x844",
+   "opened by": "keyboard",
+   "popup": "P3 overview",
+   "label": "Close",
+   "focusVisible": true,
+   "outline": "solid"
+  },
+  {
+   "engine": "webkit",
+   "size": "390x844",
+   "opened by": "keyboard",
+   "popup": "P1 day editor",
+   "label": "Read 20 pages",
+   "focusVisible": true,
+   "outline": "solid"
+  },
+  {
+   "engine": "webkit",
+   "size": "390x844",
+   "opened by": "keyboard",
+   "popup": "P4 all habits",
+   "label": "Close",
+   "focusVisible": true,
+   "outline": "solid"
+  },
+  {
+   "engine": "webkit",
+   "size": "390x844",
+   "opened by": "keyboard",
+   "popup": "P2 year view",
+   "label": "Close",
+   "focusVisible": true,
+   "outline": "solid"
+  },
+  {
+   "engine": "webkit",
+   "size": "390x844",
+   "opened by": "keyboard",
+   "popup": "M1 delete",
+   "label": "Cancel",
+   "focusVisible": true,
+   "outline": "solid"
+  }
+ ]
+}
