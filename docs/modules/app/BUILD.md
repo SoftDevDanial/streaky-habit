@@ -1043,7 +1043,7 @@ Each new or changed check was run against the finder's planted defect, served fr
 - WR-04 is one dated line in `docs/modules/habit-logic/BUILD.md`, section "Final test run". It says the counts above are 1.0's and each v1.1.0 task section gives its own run. The old lines are untouched.
 
 ### Proof
-Folders are under `docs/modules/app/qa/solver/`. Their exact names, and the counts in each `junit.xml`, are in the solver lines of both findings files.
+Folders are under `docs/modules/app/qa/solver/`. Their exact names, and the counts in each `junit.xml`, are in the solver line for WR-12 in this module's `findings/code-review.md`. WR-04 has no run to name.
 - Comments only. The folder ending `-wr12-comments-only` holds `comments-only.txt` (the check's result and its controls), `word-diff.txt` (`git diff --word-diff` from `c271938` to the commit) and the script. The check compares the five files before and after on three things, the AST with every docstring taken out, the token stream without comments and docstrings, and each docstring by name. It passes with the one allowed docstring change, `watch_close`. Its controls show it can fail, one code token changed is caught, a docstring changed elsewhere is caught, and an added comment is not flagged.
 - The four touched test files, in Chromium and in WebKit, once each after the commit. The folders end `-wr12-chromium` and `-wr12-webkit`, each with `junit.xml` and `pytest.txt`. This is a run of the module's own tests, not a control. The pass changes no behaviour, so a RED capture does not apply.
 

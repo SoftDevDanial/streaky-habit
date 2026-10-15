@@ -240,3 +240,75 @@ Append-only history. STATE.md holds the situation, this file holds what happened
 - final/ copied into docs/design/, 23 files (12 new, 11 replacing 1.0's, 1.0's in tag v1.0.0), SHA-256 equal. v1.1.0 rulings beside 1.0's as RULINGS-v1.1.0.md. checks/ and SELF-CRITIQUE.md stay in design-explore
 - check.py rerun with goldens read from docs/design/, 97 of 97, every section equal to the final/ run (design-explore/v1.1.0/finalize/)
 - Phase skills loaded throughout the round, taste-skill and frontend-design (docs/design/system.md, Skills loaded). Ledger S7 row 11. Next sdlc:plan
+
+## 2026-10-13 plan v1.1.0 done
+- Research, clarify gate parts 1 and 2 (CG-10 to CG-19, all USER as recommended), delta contracts for habit-logic (20 R#, 17 live) and app (42 R#, 38 live), ROADMAP v1.1.0
+- First plan check BLOCK (`5dea5ae`), fix pass, re-check PASS, touch-up of F12 to F15, N8, N9. Done at `f4809de` (23:00). Ledger scopes S1 to S8 name their module R#s
+
+## 2026-10-14 execute v1.1.0 started
+- Resumed by sdlc:continue at 11:54. Ledger current (newest entry 2026-10-13 23:00, newest handoff 19:19). Process sweep by name, age, port and command line found nothing of the project's after the 11:46 reboot
+- Owner said start the build waves now, both apps, and confirmed the WebKit download again
+- Step 0 done 12:34. WebKit 26.5 (webkit-2311) installed and launched headless once. Playwright's install also removed two unreferenced Chromium 1187 folders from its cache. Process ledger row 38, ledger S5 row 3. Next habit-logic task 6
+- 12:34 to 15:05, habit-logic 6 to 9 and app 11 to 17 built and committed. The record is the ledger (S1 rows 6 and 7, S5 row 4, S7 row 15, off-scope rows 14 and 16) and the handoff `handoff-2026-10-14-execute-orchestrator.md`
+
+## 2026-10-14 15:20 resumed by sdlc:continue
+- Ledger current (ledger written 15:07:54, newest handoff 15:07:30). Process sweep by name, command line and listening ports found nothing of either app
+- 15:27 frontend dev (Opus, high) launched for app tasks 18 to 20, stop before a new task past 30 percent context. Split builder runs beside it
+- 15:45 task 18 DONE `d4fd38b` (ledger S1 row 8). Builder stopped at 34 percent context. B1 raised as H-03, Q3 and the `pop` mark ruled ORCH. Process ledger row 47. Orchestrator sweep 15:46 clean
+- 15:50 frontend dev launched for tasks 19 and 20 from `handoff-2026-10-14-execute-streaks-app19.md`, the `BLOCKED_B1` marks left alone
+- 15:53 orchestrator misplaced write, fixed. `git -C <streaks> archive -o streaks-d4fd38b.tar` resolved the output against the repo, so a 65 MB tar of HEAD landed in the project root. Moved by the orchestrator to the session scratchpad within a minute, never staged, `git status` clean of it. Lesson, give `git archive -o` an absolute path
+- 16:05 H-03 ruled USER "Fix, give P3 room" after a three-panel render of the app at `d4fd38b` (scratch only). No golden changes. Planner touch-up next for H-03, Q1, Q2 and Q3 wording, then a builder
+- 16:15 task 19 DONE `9e3dc37` (ledger S1 row 9). Builder stopped at 37 percent context, task 20 handoff written. One `sed -i` named as a deviation, accepted ORCH. Process ledger row 48
+- 16:18 planner launched for the touch-up (H-03 spec and qa lines with its task, Q1, Q2, Q3)
+- 16:29 touch-up DONE `8de943f` (ledger S1 row 10). It found P4's oldest month has the same gap, which corrects the orchestrator's "P4 is fine" to the owner (H-03 correction). Owner ruled 16:32 "Same fix for P4"
+- 20:02 planner resumed for the P4 follow-up commit (after the owner's break)
+- 20:08 follow-up DONE `caa5d23` (ledger S1 row 11). 20:10 frontend dev for task 20
+- 20:35 task 20 DONE `185ad97` (ledger S1 row 12, H-03 built). Builder stopped at 36 percent context, handoff `handoff-2026-10-14-execute-streaks-app21.md`. Process ledger row 49
+- 20:40 orchestrator stopped at 34 percent context and weekly usage 88 percent, no new agent. Handoff in Split's folder, `handoff-2026-10-14-execute-orchestrator-2.md`
+- 20:43 orchestrator resumed after compaction. Owner ruling USER "Keep going ... stop at 98% only this time", so this run's stop line for either usage window is 98 percent. Ledger 20:41 newer than handoff 20:40, current. Sweep found nothing of either app
+- 20:45 frontend dev launched for task 21 from `handoff-2026-10-14-execute-streaks-app21.md`
+- 21:07 task 21 DONE `9881e8e` (ledger S7 row 16), verified on disk (junit counts, `docs/design/` unchanged, no attribution line). Builder stopped at 32 percent context, handoff `handoff-2026-10-14-execute-streaks-app22.md`. Process ledger row 50
+- 21:10 frontend dev launched for task 22
+- 21:59 task 22 DONE `9ed0a21` (ledger S3 row 3), verified on disk (junit counts, no mark left, `docs/design/` unchanged, no attribution line). Builder stopped at 49 percent context, past the 30 percent line inside the task, handoff `handoff-2026-10-14-execute-streaks-app23.md`. Process ledger row 51. Weekly usage 90 percent, under the owner's 98 percent line for this run
+- 22:02 frontend dev launched for task 23
+- 22:24 task 23 DONE `6472bb5` (ledger S4 row 5), verified on disk (junit counts, `docs/design/` unchanged, no attribution line). Builder stopped at 33 percent context, handoff `handoff-2026-10-14-execute-streaks-app24.md`. Process ledger row 52. Q-23-1 to the planner (ORCH). Usage 5 hour 46 percent, weekly 92 percent
+- 22:26 frontend dev launched for task 24
+- 22:51 task 24 DONE `56aee14` and `45eb4e8` (ledger S7 row 17), verified on disk (junit counts, `docs/design/` unchanged, no attribution line). Builder stopped at 36 percent context, handoff `handoff-2026-10-14-execute-streaks-app25.md`. Process ledger row 53. Usage 5 hour 58 percent, weekly 94 percent
+- 22:54 frontend dev launched for task 25
+- 23:26 orchestrator sent the builder the usage deadline (files written by 00:10, no task 26). 5 hour 71 percent, weekly 95 percent, both near 98 percent by 00:35 at the present rate
+- 23:28 task 25 DONE `5f5240b` (ledger S7 row 18), verified on disk (junit counts, `src/`, `index.html` and `docs/design/` unchanged, no attribution line). Builder stopped at 37 percent context, handoff `handoff-2026-10-14-execute-streaks-app26.md`. Process ledger row 54
+- 23:31 frontend dev launched for task 26 with the 00:10 deadline
+- 23:46 task 26 DONE `cf8d5c6` (ledger S7 row 19), verified on disk (junit counts, `src/`, `index.html` and `docs/design/` unchanged, no attribution line). Builder stopped at 18 percent context, handoff `handoff-2026-10-14-execute-streaks-app27.md`. Process ledger row 55
+- 23:48 both lanes held until the usage resets (5 hour 00:50, weekly 01:00), ORCH. Usage 5 hour 77 percent, weekly 96 percent. The orchestrator's timer moved from 00:12 to 01:02 for the resume
+- 2026-10-15 00:25 owner "Wrap up ... Going to put my pc to sleep". 00:26 timer stopped, handoff in Split's folder `handoff-2026-10-15-execute-orchestrator-3.md` with a pointer here, ledger off-scope row 19. Nothing running. Resume with `/sdlc:continue`, NEXT task 27
+
+## 2026-10-15 07:38 execute v1.1.0 resumed, fourth orchestrator session
+- `/sdlc:continue`. Ledger staleness check: newest ledger entry 2026-10-15 00:27, newest handoff 00:26, ledger CURRENT. Sweep 07:39 found nothing of either app (the PC rebooted 07:25, details in Split's STATE-LOG). Usage 5 hour 0 percent, weekly 0 percent
+- 07:42 frontend dev (Opus, high) launched for task 27 from `handoff-2026-10-14-execute-streaks-app27.md`. Split A8 builder beside it
+- 08:05 task 27 DONE `4e860ff` (ledger S5 row 5), verified on disk (each live gate `summary.json`, junit counts, `src/`, `index.html` and `docs/design/` unchanged, no attribution line). Gate PASS 21 of 21 both engines, control RED at "first visit" both engines. Builder stopped at 32 percent context, handoff `handoff-2026-10-15-execute-streaks-app28.md`. Process ledger row 56. Orchestrator added the control command to `CLAUDE.md` and reconciled the README's live gate rows. Usage 5 hour 11 percent, weekly 2 percent
+- 08:12 step 5 finders. The two-agent cap leaves one slot for this lane, so the finders run one at a time (QA, then code review, then security). QA finder launched for both modules on Sonnet, not the roster's Haiku (ORCH), since app qa.md is 230 KB with 169 live scenarios over two engines
+- 08:26 QA finder returned (recorded 11:55, the orchestrator was blocked on an owner question in Split). habit-logic PASS 42 of 42, app 162 pass, 1 fail, 6 wait for task 28. The fail is the `@R36` room release row `360x780 P3 2026-07-20` in Chromium (3 of 4 runs), a one-frame race (ledger S1 row 13). Process ledger row 57. Held for the dev solver until code review and security report
+- 11:58 code-review finder (Opus) launched for both modules. Split A10 builder beside it
+- 13:10 code review returned (ledger S1 row 14). app 1 BLOCKER (CR-01, the `@R36` QA fail is the test's read before `close`, the app is right) and 11 WARNING, habit-logic 3 WARNING. Verified the two verdict files and evidence on disk, no source change. Process ledger row 58. README WR-09 and WR-03 owed by the orchestrator at module close
+- 13:12 security finder (Opus) launched for both modules. Then one dev solver round over QA, code review and security, one re-check
+- 13:56 security PASS both modules, 0 findings (ledger S1 row 15), verified the verdict files and evidence on disk, no source change. Process ledger row 59. O4 (local paths in tracked files) deferred to publish prep, off-scope row 20. Wave 1 complete
+- 14:00 dev solver (Opus, effort max) launched for one round over app QA (the `@R36` row), app code review CR-01 and WR-01 to WR-11 (WR-09 README excluded, the orchestrator's) and habit-logic WR-01 and WR-02 (WR-03 README excluded). Contract lines go to a "For the planner" list in BUILD.md. Re-check after it, QA and code review once (stop rule)
+- 14:40 solver DONE, 12 commits `7d3bd78` to `c271938` (ledger S1 row 16), all 16 findings RESOLVED, verified on disk (commit list, `src/` diff limited to four files and an `index.html` comment, no deletion, `docs/design/` unchanged, no attribution line, junit counts). Chromium 355 tests 0 failures, WebKit 355 0 failures and CO-1, `@R36` 10 of 10. Process ledger row 60. The design row was not loaded for the `src/` edits, to the owner as H-04 (recommendation accept, nothing visible changed). Ten contract lines for the planner in both BUILD.md files
+- 14:46 code-review re-check (Opus) launched, scoped to `4e860ff..c271938` with the round-1 mutants. QA re-check after it
+- 15:03 session handoff in Split's folder `handoff-2026-10-15-execute-orchestrator-4.md` with a pointer here, the re-check still running (ledger off-scope row 21)
+- 15:15 code-review re-check returned, recorded in the ledger (S1 row 17) and the process ledger (row 61) at 15:15. This line written at the 15:27 resume, the earlier session left it out of this log
+
+## 2026-10-15 15:27 execute v1.1.0 resumed, fifth orchestrator session
+- `/sdlc:continue`. Ledger CURRENT (newest entry 15:16, newest handoff 14:41 here, 15:02 in Split's folder). Sweep found nothing of either app, details in Split's STATE-LOG. Usage 5 hour 56 percent, weekly 13 percent
+- STATE's "Next action" still read "App 18 to 20 in flight (15:27)" from 2026-10-14, corrected
+- 15:38 QA finder (sdlc-qa-tester, Sonnet as in round 1, ORCH) launched for the one QA re-check at `c271938`, both modules, Node once, the browser suite once per engine, the `@R36` row ten times in Chromium. Verdict appended as a dated section to both `findings/qa.md`. Split A15 builder beside it
+- 15:55 README reconcile DONE by the orchestrator (code review WR-09 and WR-03, ledger S1 row 18), uncommitted. Header block kept at 1.0 until the seal (ORCH), a note under it says so
+- 15:42 QA re-check DONE (ledger S1 row 19), verified on disk (HEAD `c271938`, junit counts Chromium 355 0 failures, WebKit 355 0 failures 1 skipped CO-1, the `@R36` x10 all pass, Node 137 of 137, `src/`, `tests/`, `index.html` and `docs/design/` unchanged, both re-check sections present). app PASS 163, habit-logic PASS 42. Process ledger row 62
+- 15:50 dev solver (Sonnet, ORCH for a comment-only pass) launched for the targeted pass, WR-12 (one `watch_close` docstring, five test comments) and WR-04 (one dated BUILD.md line), proven by the four touched test files in both engines. Usage 5 hour 62 percent, weekly 14 percent
+- 15:53 targeted pass DONE `a61cfc0` (ledger S1 row 20), verified on disk (seven files, `src/`, `index.html` and `docs/design/` unchanged, no attribution line, comments-only proof PASS with its controls, Chromium 71 and WebKit 71 tests 0 failures from junit). Step 5 closed for both modules. The `test_platform.py` sibling comment goes to the task 28 builder (ORCH). Process ledger row 63
+- 15:57 planner (sdlc-planner) launched for the planner touch, the solver's contract lines with the re-check's corrections, the QA re-check's three gaps, the qa notes of S7 rows 16 and 18, S3 row 3, S4 row 5. Usage 5 hour 66 percent, weekly 14 percent
+- 16:10 planner touch DONE `4304d61` (ledger S1 row 21), verified on disk (three contract files, `app/qa.md` scenario lines 187 to 193, live 169 to 175, no dash, no attribution line, `src/`, `tests/`, `index.html` and `docs/design/` clean). R12 note accepted ORCH. Q-23-1 is a behaviour change, to the owner as H-05 (recommendation the CG-14 fallback). Process ledger row 64
+- 16:14 usage 5 hour 75 percent, the house rule's line. No new agent. Task 28 held until the 17:30 reset, then launched from `handoff-2026-10-15-execute-streaks-app28.md` with the `test_platform.py` sibling comment of S1 row 20
+- 16:20 owner rulings. H-05 USER "Do 1 if simple, else 2", simple (one line in `dismissNote`, `firstControl` exists), option 1, a planner line and a build before task 28. H-04 USER "1" accept, after the orchestrator said the skip was a miss, not intended
+- 16:52 session handoff in Split's folder `handoff-2026-10-15-execute-orchestrator-5.md` with a pointer here (ledger off-scope row 22). Both lanes idle
+

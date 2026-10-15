@@ -1,0 +1,31 @@
+# Handoff, Streaks v1.1.0 execute, app module, resume at task 22
+
+Written 2026-10-14 by the frontend builder (senior frontend dev agent), after task 21, at about 31 percent of its context. The brief says not to start a new task past about 30 percent, so task 22 was not started.
+
+## Where it stands
+- HEAD `9881e8e` `feat(app): the composer, an add, the name errors and twelve habits (task 21, R10, R11, R12)`.
+- Node 137 of 137. Chromium 141 passed, 8 xfailed. WebKit 140 passed, 1 skipped (CO-1), 8 xfailed. No WebKit failure at HEAD.
+- Evidence of task 21 in `docs/modules/app/qa/red-first/20261014-205140-chromium/` (the stub run) and `.../red-first/20261014-205255-chromium/` (the mutant run), and `docs/modules/app/qa/functional/20261014-210239-chromium/` and `.../functional/20261014-210417-webkit/` (the committed tree).
+- `docs/modules/app/BUILD.md` section "v1.1.0 task 21" holds the record, six judgment calls and the README reconcile facts.
+- All 8 xfails left carry `reason="task 22"`. No mark of any other task is left.
+
+## Resume point, task 22 (delete, the guards CG-10 and CG-11, focus CG-18, R13, R14, R15)
+1. Read spec R13, R14, R15, the threat model row T7 and Tasks line 22. qa.md Feature "Delete a habit" (it starts after Feature "Add a habit") and the W table rows W11, W15 to W18 and W20 ("Scenarios that wait on a later task"). Read qa.md's conftest table for the helpers the delete scenarios name.
+2. Write `tests/browser/test_delete.py` from Feature "Delete a habit". Helpers that exist in `conftest.py` are `GUARD_WINDOW_MS`, `let_guard_pass`, `confirm_delete`, `dialog_title`, `bin_btn`, `year_btn`, `focused` and `NOON` and `PAUSE_AT`. qa.md's table also names `press_twice`, `animation_log` and `mutation_log`, which are not in `conftest.py` yet, so add any the scenarios use as test code with their tests. Run them RED in Chromium into `docs/modules/app/qa/red-first/<ts>-chromium/`. At HEAD a bin opens nothing, so most tests fail on M1 not opening (a property). A test whose property already holds before the code needs a planted defect to be seen failing (task 12 and task 21 precedent, BUILD.md task 21 "RED first").
+3. Code. `src/app.js` has no handler for a bin, for P2's Delete habit (`button.btn-del`), or for M1's Cancel and Delete habit. `popups.dialogs().remove` is M1. `popups.closeButtonOf(M1)` is null (M1 has no `icon-btn`), so M1's own buttons need their branches in `onPopupClick`. Needed. M1 from a bin over K1 and from P2 over P2 with `showModal()`, its title with the name between U+2068 and U+2069 and the bidi format characters taken out (SEC-02, SEC-06, spec R13), Cancel focused. The guard of R13 (record the opener's box when M1 opens, ignore a click on Delete habit whose `detail` is above 1 or whose point lies in that box, a keyboard activation with `detail` 0 always acts). Keep (Cancel, Esc, backdrop) puts focus on the opener looked up after any re-render (R14). The tap-through guard of R14 (500 ms after a mouse or touch click inside any popup, measured in `event.timeStamp`, a click on the page or on a popup beneath it is cancelled, clicks in that popup and in popups opened after it are never held, a keyboard close starts no window). Delete through `deleteHabit` and `edit` (one save, R32), M1 closes, P2 closes too when M1 came from it, then focus by rule 3 (CG-18) and the frame scrolls the focused row into view.
+4. Watch `onPopupClose`. It returns focus to each popup's opener. After a delete, focus goes by rule 3 instead, and when P2 closes because of a delete from P2, its opener (a row's Year) may be gone or belong to another habit. `state.year` is cleared there.
+5. Marks to remove at task 22 (eight, the last ones). W20 `test_add.py::test_R12_R15_deleting_one_of_twelve_opens_the_composer_again` (it checks that M1 opened before `confirm_delete`), W11 `test_today.py::test_R32_R16_each_edit_saves_once_and_opening_or_closing_a_popup_saves_nothing`, and in `test_popups.py` the rows "390x844 M1", "1280x800 M1" and "1280x800 P2 then M1" of `test_R40_R14_a_backdrop_click_closes_that_popup_only` (W15), "390x844 M1" of `test_R40_R14_a_click_inside_the_box_or_a_drag_that_leaves_it_closes_nothing` (W16), "390x844 M1" of `test_R40_tab_never_reaches_a_control_outside_the_top_popup` (W17) and "390x844 M1" of `test_R40_every_popup_is_modal_and_the_page_does_not_scroll_under_it` (W18). Read each against its scenario before removing it. Once they go, `wait()` in `test_popups.py` and the docstring sentences about marks (in `test_popups.py`, `test_today.py`, `test_add.py`) describe nothing, so remove them. The spec says no mark is left after task 22.
+6. `view.renderComposerLimit` already opens the composer again below 12 (W20), and it writes only when the 12-habit state changes (task 21).
+7. Run Node, Chromium and WebKit with evidence, BUILD.md section, tick spec task 22, credential gate, commit.
+
+## Gotchas
+- At HEAD a click on Add no longer hangs (task 21 added the `submit` listener). Before task 21 Playwright's click waited on the CSP-blocked form navigation until it timed out.
+- `syncDayButton` in `src/calendar.js` must draw the ring before it reads `animate` (task 20 slip).
+- WebKit lays `100dvh` out in 1/64 px units. Compare boxes within 0.5 px where a box depends on it, as `test_year.py` and `test_overview.py` do.
+- In WebKit a mouse click on a button inside an open popup leaves focus on the popup's `dialog` (qa.md engine table, Q3). `conftest.focus_after_a_click_in_a_popup` asserts it per engine. Outside a popup WebKit leaves `body`.
+- Source and docs through Write and Edit only. No `sed -i`, no shell redirection. Scratch probes write only to the session scratchpad.
+- `grep -P` fails here (locale). Check long dashes with Python (`chr(0x2014)`, `chr(0x2013)`). The house rules also keep colons and semicolons out of prose, comments included.
+- A second builder works in `examples/split`. Its processes and files are not ours.
+
+## Processes
+None left running. Started this session and stopped. The conftest servers of each pytest run (they stop themselves and check the port), and one scratch probe server (`python -m http.server` on 127.0.0.1:17002, PID 8300), stopped by the probe's `finally`, port confirmed refusing. No background shell was started.
