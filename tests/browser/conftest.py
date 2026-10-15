@@ -359,6 +359,15 @@ CLIPBOARD_STANDIN = """(() => {
   }
 })();"""
 
+# Whether CLIPBOARD_STANDIN is in place, read the way the stand-in works: true where it has nothing to replace (no
+# navigator.clipboard, no Clipboard, no writeText), else whether writeText is no longer the browser's native function.
+# Its one home, for test_engines.py, test_fidelity_inputs.py and live_e2e.py. The after-load scripts of
+# tests/browser/fidelity keep their own inline check, because the harness inserts their raw text.
+STANDIN_IN_PLACE_JS = """() => {
+  const writeText = navigator.clipboard && typeof Clipboard === 'function' ? Clipboard.prototype.writeText : undefined;
+  return typeof writeText !== 'function' || !Function.prototype.toString.call(writeText).includes('[native code]');
+}"""
+
 
 def open_app(
     browser,

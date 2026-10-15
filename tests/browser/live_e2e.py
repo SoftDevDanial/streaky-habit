@@ -28,6 +28,7 @@ from conftest import (
     CLIPBOARD_STANDIN,
     ENGINES,
     GUARD_WINDOW_MS,
+    STANDIN_IN_PLACE_JS,
     add_habit,
     band_day,
     bead,
@@ -88,9 +89,8 @@ SNAPSHOT_JS = """([t, y]) => {
   const ring = one(`section.band div.ovg-cols button.hc[data-key="${t}"] > svg`);
   const field = one('#nh');
   const message = one('#nh-msg');
-  const writeText = typeof Clipboard === 'function' ? Clipboard.prototype.writeText : undefined;
   return {
-    standIn: typeof writeText !== 'function' || !Function.prototype.toString.call(writeText).includes('[native code]'),
+    standIn: (""" + STANDIN_IN_PLACE_JS + """)(),
     stored: localStorage.getItem('streaks.state'),
     empty: Array.from(document.querySelectorAll('ul.rows > li.empty'), (item) => [text(item.querySelector('p.lead')), text(item.querySelector('p.line'))]),
     rows: Array.from(document.querySelectorAll('ul.rows > li.row'), (item) => ({

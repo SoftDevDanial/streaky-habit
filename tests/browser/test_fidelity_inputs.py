@@ -14,7 +14,7 @@ import re
 import pytest
 
 import conftest
-from conftest import CLIPBOARD_STANDIN, ROOT, SAMPLE_HABITS, TWELVE, TZ, dialog_title, record, write_evidence
+from conftest import CLIPBOARD_STANDIN, ROOT, SAMPLE_HABITS, STANDIN_IN_PLACE_JS, TWELVE, TZ, dialog_title, record, write_evidence
 
 FIDELITY_DIR = ROOT / "tests" / "browser" / "fidelity"
 SEEDS = {"seed-sample.js": SAMPLE_HABITS, "seed-twelve.js": TWELVE}
@@ -33,9 +33,6 @@ NAVIGATOR_STANDIN = """(() => {
     value: { writeText: refuse, write: refuse, readText: refuse, read: refuse },
   });
 })();"""
-
-STANDIN_IN_PLACE_JS = """() => !navigator.clipboard
-  || !Function.prototype.toString.call(Clipboard.prototype.writeText).includes('[native code]')"""
 
 # One record per dialog of the page, by its class that names the popup, for the state table of the scenario.
 DIALOGS_JS = """() => Array.from(document.querySelectorAll('dialog')).map((dialog) => ({

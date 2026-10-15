@@ -15,7 +15,7 @@ import sys
 from playwright.sync_api import expect
 
 import conftest
-from conftest import LAUNCH_ARGS, ROOT, done_btn, launch, record, sample_state, year_btn
+from conftest import LAUNCH_ARGS, ROOT, STANDIN_IN_PLACE_JS, done_btn, launch, record, sample_state, year_btn
 
 BROWSER_TESTS = ROOT / "tests" / "browser"
 COLLECT_ONLY_SECONDS = 60
@@ -97,15 +97,12 @@ def test_R30_one_helper_launches_every_browser():
     assert not problems, problems
 
 
-# A native method prints "[native code]" as its source, the stand-in prints its own.
-STAND_IN_JS = """() => !navigator.clipboard
-  || !Function.prototype.toString.call(Clipboard.prototype.writeText).includes('[native code]')"""
 CLIPBOARD_MARK = "test:clipboard:"
 
 
 def test_R30_every_context_has_the_clipboard_stand_in(app):
     page = app(storage=sample_state(), record=True)
-    assert page.evaluate(STAND_IN_JS) is True, "navigator.clipboard is the browser's own"
+    assert page.evaluate(STANDIN_IN_PLACE_JS) is True, "navigator.clipboard is the browser's own"
 
     done_btn(page, "Stretch 10 minutes").click()
     expect(done_btn(page, "Stretch 10 minutes")).to_have_attribute("aria-pressed", "true")
