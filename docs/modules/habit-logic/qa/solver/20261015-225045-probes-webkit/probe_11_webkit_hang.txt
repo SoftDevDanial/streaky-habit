@@ -1,0 +1,14 @@
+$ C:\Python314\python.exe -u -B {temp}\claude\{project-id}\9f7a7bfa-f87d-4692-bcb6-d8869bc1b359\scratchpad\streaks-9a\probes\probe_11_year10000.py webkit hang
+[server] started pid=2784 port=13214 dir={workspace}\examples\streaks
+{"engine": "webkit", "version": "26.5", "groups": ["hang"]}
+{"engine": "webkit", "case": "B-P2 10000-10-15", "step": "added Read, clicked Done today", "header": "10000-10-15", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}", "rows": 1, "doneToday": "false", "banners": "", "band": 84, "open": "", "p2Beads": 0, "p4Days": 0, "p1": null, "p1Ticks": "", "focus": "body.", "pageErrors": 0, "standIn": true}
+{"engine": "webkit", "case": "B-P2 10000-10-15", "step": "pressed ul.rows > li.row button.btn-year", "press": "returned", "pressSeconds": 0.13, "pageAnswersWithin3s": true, "waitSeconds": 0.04, "pageErrors": 0, "lastError": null}
+{"engine": "webkit", "case": "B-P2 10000-10-15", "step": "second page of the same context reads storage during the hang", "answered": true, "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}"}
+{"engine": "webkit", "case": "B-P2 10000-10-15", "step": "second page boots the app during the hang", "rows": 1, "banners": "", "header": "10000-10-15", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}"}
+{"engine": "webkit", "case": "B-P2 10000-10-15", "step": "browser closed", "closeSeconds": 0.03, "caseSeconds": 0.94}
+{"engine": "webkit", "case": "B-P4 10000-10-15", "step": "added Read, clicked Done today", "header": "10000-10-15", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}", "rows": 1, "doneToday": "false", "banners": "", "band": 84, "open": "", "p2Beads": 0, "p4Days": 0, "p1": null, "p1Ticks": "", "focus": "body.", "pageErrors": 0, "standIn": true}
+{"engine": "webkit", "case": "B-P4 10000-10-15", "step": "pressed section.band button.btn-all", "press": "returned", "pressSeconds": 0.13, "pageAnswersWithin3s": true, "waitSeconds": 0.02, "pageErrors": 0, "lastError": null}
+{"engine": "webkit", "case": "B-P4 10000-10-15", "step": "second page of the same context reads storage during the hang", "answered": true, "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}"}
+{"engine": "webkit", "case": "B-P4 10000-10-15", "step": "second page boots the app during the hang", "rows": 1, "banners": "", "header": "10000-10-15", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}"}
+{"engine": "webkit", "case": "B-P4 10000-10-15", "step": "browser closed", "closeSeconds": 0.03, "caseSeconds": 0.85}
+[server] stopped pid=2784 exit=1 port 13214 refuses=True

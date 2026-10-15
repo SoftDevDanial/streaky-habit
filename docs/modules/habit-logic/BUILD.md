@@ -15,9 +15,11 @@
 | 7 | v1.1.0. `src/dates.js` gains `yearDate` and `monthTitle` | R17 | `964678b` |
 | 8 | v1.1.0. The year in `src/habits.js` (`yearStart`, `doneFlags`, `yearMonths`, `toggleDay` on the year, `heatmapCells` with `done`), the strip and the level removed | R9, R10, R16, R18, R19, R20 | `9a79991` |
 | 9 | v1.1.0. The v1.1.0 sample checks in `tests/sample-history.test.js` | R10, R19, R20 | `3676fe5` |
+| 9a | v1.1.0 regression (ledger H-06). The bound on `yearMonths`, so it ends for every key and returns at most 13 months, and its `@R20` test in `tests/habits.test.js` | R20, R16 | `eafc9e5` |
 
 5 of 5 tasks done. Every commit was made with the full suite green.
 Changed 2026-10-15 (code-review WR-01, solver). The line above is 1.0's count. Rows 6 to 9 are the v1.1.0 tasks, each built and committed, so 9 of 9 tasks are done. The task sections below give each one's proof.
+Changed 2026-10-15 in the v1.1.0 regression (task 9a, dev solver). Row 9a is built and committed too, so 10 of 10 tasks are done.
 
 ## Final test run
 
@@ -99,6 +101,7 @@ Deviations: none. Non-goals honored: no clock, no `Intl`, no copy beyond the lab
 
 - `yearStart` rebuilds the key from its text (year less one, same month and day). 29 February falls back to 28 February (CG-13). Why text and not date arithmetic, see the comment on `yearStart`.
 - `yearMonths` walks from today's month back until it reaches the month of `yearStart`, so the 13 comes from the rule and not from a constant. Each month is walked day by day with `addDays`, no month-length table.
+  Changed 2026-10-15 in the v1.1.0 regression (task 9a). The walk also stops after 13 months, the constant `YEAR_VIEW_MONTHS`, so it ends for every key. For a key that passes `isDateKey` both stops fall on the same month, so there the 13 still comes from the rule. See the section of task 9a.
 - `doneFlags` is one `includes` per habit. `heatmapCells` calls it once per non-future cell, at most 84 calls (Threat model, responsiveness row).
 - Tests. `tests/habits.test.js`: the `@R5`, `@R8` and `@R11` tests are removed, the `@R9` and `@R10` tests changed, new `@R18`, `@R19`, `@R20` tests. `tests/purity.test.js`: the export list and the frozen-input calls follow the new exports, plus `@R20 @R16 yearMonths reads no clock` (the clock scan became the shared helper `assertNoClockRead`). `tests/sample-history.test.js`: the 1.0 sample checks lose the strip, run flag and level lines and gain the done-flag and count checks (counts 3, 30, 28, 20 for 0 to 3 habits). The qa rows that read the v1.1.0 sample are task 9.
 
@@ -135,3 +138,55 @@ Deviations: none. Non-goals honored: `docs/design/` read only, nothing written t
 - Proof. `docs/modules/app/qa/functional/20261015-142907-node/`, 137 of 137.
 
 For the planner. qa.md "yearMonths reads no clock" reads "Given the purity scan of @R16 over src/habits.js with the new exports / Then it passes, and yearMonths called twice with the same key gives equal results". Recommended. "Given globalThis.Date is a stand-in that throws when it is called with no argument and from Date.now / Then yearMonths called twice with the same key gives equal results and throws nothing, and Date is the real one again after the test".
+
+## v1.1.0 task 9a, the bound on `yearMonths` (2026-10-15)
+> Written by the dev solver (solver role), 2026-10-15, in the v1.1.0 regression's targeted pass (ledger H-06, owner ruling USER 2026-10-15 21:03, option 1, security finder SEC-R01). The code commit is `eafc9e5` `fix(habit-logic): yearMonths stops after 13 months, so it ends for every key (task 9a, R20, SEC-R01)`. App task 28a (`40848ce`, the comment of `firstControl`) was built in the same pass, after it. This section, the spec ticks, the proof folders and the handoff are the docs commit after both.
+
+### Phase skills
+None. Task 9a is logic in `src/habits.js` and task 28a changes a comment, so neither is UI work and the design row of `docs/phase-skills.md` does not apply (its "execute (non-UI)" row assigns none).
+
+### What changed
+- `src/habits.js` `yearMonths`. The walk returns at the month of `yearStart` or once it holds 13 months, whichever comes first. New module constant `YEAR_VIEW_MONTHS` (13), not exported. The doc comment says the 13 is exact for a key that passes `isDateKey`, and why the walk also stops after 13 months (a key from a clock past the year 9999 can give `yearStart` a month the walk never writes). Its `@returns` says "13 months for a key that passes `isDateKey`, never more than 13". No other function, export or import changed.
+- `tests/habits.test.js`. New test `@R20 yearMonths ends for every key and returns at most 13 months`, the qa.md Scenario Outline of that name, its 13 Examples rows as subtests. Each row calls `yearMonths` in a worker thread (`node:worker_threads`, an `eval` source that reaches the module through `import()`) with a heap limit of 256 MB and a timer of 5 s. The worker posts the month count or the error for each key. A worker stopped by either, or one that posts nothing or exits non-zero, fails its row with "did not end". The 920-key row runs all its keys in one worker under one timer. Preconditions, 920 distinct keys and each fails `isDateKey`. New import `Worker`. No existing test changed.
+
+### The timer (the solver's choice, qa.md)
+5 s. On the bounded code a single-key row takes about 20 to 30 ms, worker start included, and the 920-key row about 250 ms (`node-test.txt` of the pre-commit and the Node proof run), so the timer is about 20 times the slowest row. On the unbounded code the workers reached the heap limit after about 3.7 to 4.6 s, so there the timer and the heap limit race and either stop is "did not end". If every row ran on, 13 rows of 5 s is 65 s, inside the finder's 120 s cap.
+
+### RED first
+Two runs of the whole Node suite on HEAD `a6f7e18`, `src/` equal to HEAD and the new test in the working tree, each in its own folder in `docs/modules/habit-logic/qa/red-first/` (`junit.xml`, `node-test.txt`, `run.json`).
+1. `20261015-223128-task9a-node`. 151 tests, 143 pass, 8 fail, 30.8 s, exit 1. The rows 10000-10-01, 10000-10-15, 10000-12-31, 10005-11-20, 10009-10-01, 10009-12-31 and the 920-key row fail, each "did not end, stopped by the heap limit of 256 MB", and so does their parent test. The three valid-key rows (13 months) and the last three rows pass in the same run, the control that the worker harness works. The row titles of this run held the key in quotes, which Node's junit reporter escapes twice (`&amp;quot;`), so the quotes were dropped.
+2. `20261015-223234-task9a-node`, the test as committed. The same 8 fail and 143 pass, 34.3 s. Five far rows were stopped by the timer and two by the heap limit, each "did not end".
+Neither run hung or crashed, and both ended well inside the 120 s cap.
+
+### Green and the differential
+- Pre-commit, the working tree with the bound, `docs/modules/habit-logic/qa/solver/20261015-223406-precommit-node/`, 151 of 151 in 1.1 s. A check, not the proof.
+- The contract's one-off differential, run in the session scratchpad and not committed. `yearMonths` before the bound (`git show ad40779:src/habits.js`, extracted with `git archive`, blob `cee86af` as in that commit) and after it returned deep-equal results (`util.isDeepStrictEqual`) for every day from 1999-01-01 to 2101-12-31 (37,620 keys, 37.7 s) and for the first day of every month of the years 0001 to 9999 (119,988 keys, 120.8 s). 0 differences, and every result held 13 months. Its control in the same run flagged a result cut to 12 months and one with one day's `kind` changed.
+
+### Proof (the committed tree `40848ce`, after app task 28a)
+Each run in its own folder under `docs/modules/habit-logic/qa/solver/`, made with a scratch runner (`streaks-9a/run_suite.py` in the session scratchpad). It bounds the run with a timeout, writes the run's output and `run.json` into a new folder it creates and refuses to reuse, and records `src/`, `tests/` and `index.html` equal to HEAD at the start and the end of every proof run.
+- Node, `20261015-224014-node/`, 151 of 151 (137 before, plus the new test and its 13 rows). By id against `docs/modules/app/qa/regression-qa/20261015-184158-node/`, the 137 ids all pass, 13 rows are added, no outcome changed (`compare-ids.txt`).
+- Chromium, `20261015-224041-chromium/`, 358 passed in 175.2 s. By id against `docs/modules/app/qa/regression-qa/20261015-184210-chromium/`, the same 358 ids and no outcome changed (`compare-ids.txt`).
+- WebKit, `20261015-224353-webkit/`, 357 passed and 1 skipped (CO-1, `chromium_only` with its reason) in 291.0 s, a background job bounded at 1080 s with no other browser run at the same time. By id against `docs/modules/app/qa/regression-qa/20261015-184449-webkit/`, the same 358 ids and the same outcomes (`compare-ids.txt`).
+- The security finder's probes `probe_11_year10000.py` (group `hang`) and `probe_14_rollover_hang.py` with `lib.py`, copied from `docs/modules/app/qa/regression-security/20261015-192841/` into the session scratchpad and run once per engine, captures in `20261015-224907-probes-chromium/` and `20261015-225045-probes-webkit/`. The two probes are byte for byte the finder's (sha256 in each `run.json`). `lib.py` differs in one line, `ROOT`, because the finder's `HERE.parents[5]` finds the project only from a folder at that depth, so the copy names the project root instead.
+  - At 10000-10-15 the row's Year and the band's Year each returned in about 0.05 s and the page answered at once, with 0 page errors, in both engines. The finder's `probe_11_chromium_hang.txt` and `probe_11_webkit_hang.txt` show the same presses timing out after 3 s and the page not answering. They are the control, so the freeze was not run again.
+  - At the midnight into 10000-10-01 with P4 open, after 35 s of real time the page answered, showed 10000-10-01 and still had P4 open, in both engines. Its one page error came before midnight, from the first press of the band's Year in September of a five digit year (`TypeError`, the re-accepted SEC-05 residual). The finder's `probe_14_rollover_hang.txt` shows this case not answering. The control case, nothing open, answered in both runs.
+  - The hang group prints whether the page answers, not what P2 and P4 hold after the press. What a year view shows at those clocks is left to the security re-check.
+
+### Judgment calls (named, for the orchestrator)
+1. The rows are subtests of one `test()`, so the RED capture reports each row pass or fail on its own. Node counts the test and its rows, so the suite count moves from 137 to 151 (`junit.xml` holds 150 testcases, the parent being a testsuite).
+2. The 13 is the named constant `YEAR_VIEW_MONTHS`, as `HEATMAP_WEEKS` names the 12. It is not exported, so the export and purity checks (R16) are unchanged and green.
+3. The bound is checked after the push with `===`, so the walk ends at exactly 13 months, the count the rule gives for a valid key.
+4. The worker runs an `eval` source rather than a second file, so the test lives in `tests/habits.test.js` alone, as the task names.
+
+### Deviations
+None in the code. No dependency, no contract change.
+Process. The runner writes each run's console output and `run.json` with Python into the run's new folder, as the task 27a runner did. Every other file was written with the Write or Edit tool.
+Process slip. Eight commands redirected stderr (`2>&1` or `2>/dev/null`), which the brief's ban on shell redirection covers. Seven were read-only listings or diffs, and one was the `git add` of the docs commit, its output filtered with `grep`. None wrote a file through the redirection.
+
+### Non-goals honoured (spec, Non-goals, ledger H-06)
+No `isDateKey` call in `yearMonths`. No guard for five digit years in `localDateKey`, `yearStart`, `heatmapCells` or `toggleDay`. The result for every key the differential covered is unchanged. No app guard on the year views. `docs/design/` read only and nothing written there.
+
+### For the README reconcile
+- `src/habits.js` `yearMonths` returns at most 13 months for any key and always ends, exactly 13 for a key that passes `isDateKey`. New private constant `YEAR_VIEW_MONTHS`.
+- `tests/habits.test.js` gains `@R20 yearMonths ends for every key and returns at most 13 months` (13 rows). The Node suite is 151 tests.
+- The README's Known limits row on the year 10000 still says that from October to December of those years opening a year view freezes the tab. After the bound the probes show the page answering at 10000-10-15 and at the midnight into 10000-10-01 with P4 open, in both engines.

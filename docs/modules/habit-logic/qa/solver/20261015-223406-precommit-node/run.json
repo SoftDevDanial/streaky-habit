@@ -1,0 +1,37 @@
+{
+ "kind": "node",
+ "engine": "node",
+ "head": "a6f7e18",
+ "runner_pid": 26568,
+ "started": "2026-10-15T22:34:06",
+ "timeout_seconds": 120.0,
+ "tree_status_at_start": "M src/habits.js\n M tests/habits.test.js",
+ "tree_differs_from_head": true,
+ "command": [
+  "node",
+  "--test",
+  "--test-reporter=spec",
+  "--test-reporter-destination=docs/modules/habit-logic/qa/solver/20261015-223406-precommit-node/node-test.txt",
+  "--test-reporter=junit",
+  "--test-reporter-destination=docs/modules/habit-logic/qa/solver/20261015-223406-precommit-node/junit.xml",
+  "tests/**/*.test.js"
+ ],
+ "child_pid": 20904,
+ "exit_code": 0,
+ "status": "finished",
+ "seconds": 1.1,
+ "counts": {
+  "tests": 151,
+  "suites": 0,
+  "pass": 151,
+  "fail": 0,
+  "cancelled": 0,
+  "skipped": 0,
+  "todo": 0,
+  "testcases": 150
+ },
+ "failing": [],
+ "ended": "2026-10-15T22:34:07",
+ "tree_status_at_end": "M src/habits.js\n M tests/habits.test.js",
+ "tree_differs_from_head_at_end": true
+}

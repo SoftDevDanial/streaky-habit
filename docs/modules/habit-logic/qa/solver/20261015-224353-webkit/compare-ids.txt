@@ -1,0 +1,30 @@
+By-id comparison of this run with the last green WebKit run. Written by the dev solver (solver role), 2026-10-15,
+with the Write tool from the output of the read-only scratch script compare_ids.py (an id is classname::name).
+
+$ python -B compare_ids.py docs/modules/app/qa/regression-qa/20261015-184449-webkit/junit.xml docs/modules/habit-logic/qa/solver/20261015-224353-webkit/junit.xml
+{
+ "baseline": "docs/modules/app/qa/regression-qa/20261015-184449-webkit/junit.xml",
+ "new": "docs/modules/habit-logic/qa/solver/20261015-224353-webkit/junit.xml",
+ "baseline_ids": 358,
+ "new_ids": 358,
+ "baseline_outcomes": {
+  "passed": 357,
+  "failed": 0,
+  "skipped": 1
+ },
+ "new_outcomes": {
+  "passed": 357,
+  "failed": 0,
+  "skipped": 1
+ },
+ "ids_gone": [],
+ "ids_added": [],
+ "outcome_changed": [],
+ "not_passed_in_new": [
+  "tests.browser.test_entry::test_R29_the_icon_is_amber_in_a_dark_theme_and_dark_amber_in_a_light_theme: skipped"
+ ]
+}
+
+Reading. The same 358 ids with the same outcomes. The one skip is CO-1, chromium_only with its reason (pytest-rA.txt,
+the SKIPPED line). HEAD 40848ce, src/, tests/ and index.html equal to HEAD at the start and the end of the run
+(run.json). A background job bounded at 1080 s, with no other browser run at the same time.

@@ -1,0 +1,27 @@
+By-id comparison of this run with the last green Chromium run. Written by the dev solver (solver role), 2026-10-15,
+with the Write tool from the output of the read-only scratch script compare_ids.py (an id is classname::name).
+
+$ python -B compare_ids.py docs/modules/app/qa/regression-qa/20261015-184210-chromium/junit.xml docs/modules/habit-logic/qa/solver/20261015-224041-chromium/junit.xml
+{
+ "baseline": "docs/modules/app/qa/regression-qa/20261015-184210-chromium/junit.xml",
+ "new": "docs/modules/habit-logic/qa/solver/20261015-224041-chromium/junit.xml",
+ "baseline_ids": 358,
+ "new_ids": 358,
+ "baseline_outcomes": {
+  "passed": 358,
+  "failed": 0,
+  "skipped": 0
+ },
+ "new_outcomes": {
+  "passed": 358,
+  "failed": 0,
+  "skipped": 0
+ },
+ "ids_gone": [],
+ "ids_added": [],
+ "outcome_changed": [],
+ "not_passed_in_new": []
+}
+
+Reading. The same 358 ids, every one passed in both runs. HEAD 40848ce, src/, tests/ and index.html equal to HEAD at the
+start and the end of the run (run.json).

@@ -1,0 +1,44 @@
+By-id comparison of this run with the last green Node run. Written by the dev solver (solver role), 2026-10-15,
+with the Write tool from the output of the read-only scratch script compare_ids.py. An id is the chain of nested
+testsuite names, then classname::name. node:test writes a test with subtests as a testsuite of its name, so the
+new @R20 test is 13 testcases here and 14 in node's own count (the test and its 13 rows), 137 + 14 = 151.
+
+$ python -B compare_ids.py docs/modules/app/qa/regression-qa/20261015-184158-node/junit.xml docs/modules/habit-logic/qa/solver/20261015-224014-node/junit.xml
+{
+ "baseline": "docs/modules/app/qa/regression-qa/20261015-184158-node/junit.xml",
+ "new": "docs/modules/habit-logic/qa/solver/20261015-224014-node/junit.xml",
+ "baseline_ids": 137,
+ "new_ids": 150,
+ "baseline_outcomes": {
+  "passed": 137,
+  "failed": 0,
+  "skipped": 0
+ },
+ "new_outcomes": {
+  "passed": 150,
+  "failed": 0,
+  "skipped": 0
+ },
+ "ids_gone": [],
+ "ids_added": [
+  "@R20 yearMonths ends for every key and returns at most 13 months/test::0001-01-01, it returned 13 months",
+  "@R20 yearMonths ends for every key and returns at most 13 months/test::10000-01-05, it returned at most 13 months or threw",
+  "@R20 yearMonths ends for every key and returns at most 13 months/test::10000-10-01, it returned at most 13 months",
+  "@R20 yearMonths ends for every key and returns at most 13 months/test::10000-10-15, it returned at most 13 months",
+  "@R20 yearMonths ends for every key and returns at most 13 months/test::10000-12-31, it returned at most 13 months",
+  "@R20 yearMonths ends for every key and returns at most 13 months/test::100000-10-15, it returned at most 13 months or threw",
+  "@R20 yearMonths ends for every key and returns at most 13 months/test::10005-11-20, it returned at most 13 months",
+  "@R20 yearMonths ends for every key and returns at most 13 months/test::10009-10-01, it returned at most 13 months",
+  "@R20 yearMonths ends for every key and returns at most 13 months/test::10009-12-31, it returned at most 13 months",
+  "@R20 yearMonths ends for every key and returns at most 13 months/test::10010-10-15, it returned at most 13 months or threw",
+  "@R20 yearMonths ends for every key and returns at most 13 months/test::2026-10-10, it returned 13 months",
+  "@R20 yearMonths ends for every key and returns at most 13 months/test::9999-12-31, it returned 13 months",
+  "@R20 yearMonths ends for every key and returns at most 13 months/test::every day of October, November and December of the years 10000 to 10009 (920 keys), it returned at most 13 months for each key"
+ ],
+ "outcome_changed": [],
+ "not_passed_in_new": []
+}
+
+Reading. The 137 ids of the last green run are all here and all passed. The 13 added ids are the rows of the new
+@R20 Scenario Outline, all passed. No existing test changed. HEAD 40848ce, src/, tests/ and index.html equal to HEAD at
+the start and the end of the run (run.json).

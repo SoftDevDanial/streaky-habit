@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuites>
+	<testcase name="@R1 @R3 the zone switch is real, so the zone cases are not vacuous" time="0.001865" classname="test" file="{workspace}\examples\streaks\tests\dates.test.js"/>
+	<testcase name="@R1 the local calendar day of an instant" time="0.000417" classname="test" file="{workspace}\examples\streaks\tests\dates.test.js"/>
+	<testcase name="@R1 the UTC date is not used: 00:30 local in Kuala Lumpur is still the day before in UTC" time="0.000320" classname="test" file="{workspace}\examples\streaks\tests\dates.test.js"/>
+	<testcase name="@R1 month and day are zero padded and the year has 4 digits" time="0.000458" classname="test" file="{workspace}\examples\streaks\tests\dates.test.js"/>
+	<testcase name="@R2 valid and invalid date keys" time="0.000391" classname="test" file="{workspace}\examples\streaks\tests\dates.test.js"/>
+	<testcase name="@R2 agrees with a calendar reference for every year-month-day combination 1900 to 2100" time="0.045134" classname="test" file="{workspace}\examples\streaks\tests\dates.test.js"/>
+	<testcase name="@R2 a long hostile string is rejected quickly" time="0.001554" classname="test" file="{workspace}\examples\streaks\tests\dates.test.js"/>
+	<testcase name="@R3 calendar arithmetic that ignores the time zone" time="0.000708" classname="test" file="{workspace}\examples\streaks\tests\dates.test.js"/>
+	<testcase name="@R3 century and year edges" time="0.000126" classname="test" file="{workspace}\examples\streaks\tests\dates.test.js"/>
+	<testcase name="@R3 agrees with UTC reference maths for every day 1900 to 2100 in both zones" time="0.277422" classname="test" file="{workspace}\examples\streaks\tests\dates.test.js"/>
+	<testcase name="@R4 short weekday, day and month for every weekday" time="0.000701" classname="test" file="{workspace}\examples\streaks\tests\dates.test.js"/>
+	<testcase name="@R4 short and long month names for every month" time="0.000160" classname="test" file="{workspace}\examples\streaks\tests\dates.test.js"/>
+	<testcase name="@R4 weekdayIndex counts Monday as 0 to Sunday as 6" time="0.000068" classname="test" file="{workspace}\examples\streaks\tests\dates.test.js"/>
+	<testcase name="@R4 weekday names and indexes agree with a UTC reference for every day 1900 to 2100" time="0.110658" classname="test" file="{workspace}\examples\streaks\tests\dates.test.js"/>
+	<testcase name="@R4 labels do not follow the runtime locale" time="0.050422" classname="test" file="{workspace}\examples\streaks\tests\dates.test.js"/>
+	<testcase name="@R17 labels with the year" time="0.000153" classname="test" file="{workspace}\examples\streaks\tests\dates.test.js"/>
+	<testcase name="@R17 the year is four digits, also before the year 1000" time="0.000063" classname="test" file="{workspace}\examples\streaks\tests\dates.test.js"/>
+	<testcase name="@R17 year labels do not follow the runtime locale" time="0.050802" classname="test" file="{workspace}\examples\streaks\tests\dates.test.js"/>
+	<testcase name="@R13 @R14 the limits are exported" time="0.000935" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R6 a streak does not break until today is over" time="0.000588" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R6 a streak runs across a month, a year and a leap day" time="0.000171" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R6 a streak that crosses a DST change" time="0.000746" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R7 the longest run in the whole history" time="0.000292" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R7 the best run may be old, and a later shorter run does not replace it" time="0.000132" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R7 the best-run walk ends on keys outside the valid range, where the next day repeats itself" time="0.048550" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R6 the current-run walk ends on the cycle below year 0001" time="0.039022" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R7 many spellings of one far-out date that all run into the stuck key cost one pass, not one walk each" time="0.086142" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R6 @R7 keys that fail isDateKey do not count, so a streak counts only valid days" time="0.114520" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R9 ticking a day in the last week of the year" time="0.001252" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R9 days outside the year, bad dates and bad indexes change nothing" time="0.000511" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R9 any day of the last 12 months can be ticked, even before the habit's history" time="0.000204" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R9 both ends of the year are editable and ticking twice restores the habit" time="0.000133" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R9 @R18 on 29 February the year starts on 28 February and holds 367 days" time="0.000060" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R9 an unsorted or duplicated done array comes back ascending without duplicates" time="0.000037" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R9 an empty habit list stays empty" time="0.000028" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R10 the 12-week grid around today" time="0.001635" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R10 a cell carries exactly the contract fields, and a habit counts once per day" time="0.000160" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R10 a fourth habit counts in total and in done" time="0.000276" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R10 @R19 a cell's done is doneFlags of its day" time="0.000296" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R10 the arguments are not changed and the cells are new objects" time="0.000279" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R12 month labels over the first column whose Monday is in the month" time="0.000183" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R12 each label sits on the first column whose Monday is in its month, for more start days" time="0.000972" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R18 the same date last year, and the year's day count" time="0.000761" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R19 which habits are done on a day, one boolean per habit in list order" time="0.000112" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R19 no habits gives an empty list, and every call returns a new array" time="0.000041" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R20 the year of the goldens" time="0.000937" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R20 the year on other days" time="0.002308" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R20 every call returns new objects" time="0.001006" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testsuite name="@R20 yearMonths ends for every key and returns at most 13 months" time="0.524919" disabled="0" errors="0" tests="13" failures="0" skipped="0" hostname="{host}">
+		<testcase name="2026-10-10, it returned 13 months" time="0.027531" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+		<testcase name="0001-01-01, it returned 13 months" time="0.022271" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+		<testcase name="9999-12-31, it returned 13 months" time="0.022969" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+		<testcase name="10000-10-01, it returned at most 13 months" time="0.021866" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+		<testcase name="10000-10-15, it returned at most 13 months" time="0.023186" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+		<testcase name="10000-12-31, it returned at most 13 months" time="0.022424" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+		<testcase name="10005-11-20, it returned at most 13 months" time="0.021370" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+		<testcase name="10009-10-01, it returned at most 13 months" time="0.022886" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+		<testcase name="10009-12-31, it returned at most 13 months" time="0.021229" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+		<testcase name="every day of October, November and December of the years 10000 to 10009 (920 keys), it returned at most 13 months for each key" time="0.255047" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+		<testcase name="10000-01-05, it returned at most 13 months or threw" time="0.021280" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+		<testcase name="10010-10-15, it returned at most 13 months or threw" time="0.020634" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+		<testcase name="100000-10-15, it returned at most 13 months or threw" time="0.020542" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	</testsuite>
+	<testcase name="@R13 name checks in the order empty, too long, duplicate" time="0.000209" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R13 the length rule counts the trimmed name, so padding never makes a 40 character name too long" time="0.000062" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R13 too long is checked before duplicate" time="0.000040" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R13 length counts code points, not UTF-16 units" time="0.000054" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R13 trim removes no-break space, em space and BOM as well as plain spaces, and the duplicate check lower-cases both sides" time="0.000049" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R13 a very long name is rejected without hanging" time="0.000660" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R13 the length check reads at most 41 code points, so a huge stored name costs no more than a short one" time="0.003614" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R14 a new habit goes to the bottom" time="0.000180" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R14 a rejected name returns its error" time="0.000099" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R14 the limit of 12 habits is checked before the name" time="0.000103" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R14 adding to an empty list works" time="0.000040" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R15 deleting a habit" time="0.000286" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R15 deleting from an empty list returns an empty list" time="0.000037" classname="test" file="{workspace}\examples\streaks\tests\habits.test.js"/>
+	<testcase name="@R16 the source has no clock or random read, even in a comment" time="0.000874" classname="test" file="{workspace}\examples\streaks\tests\purity.test.js"/>
+	<testcase name="@R20 @R16 yearMonths reads no clock, so two calls with one key give equal results" time="0.003476" classname="test" file="{workspace}\examples\streaks\tests\purity.test.js"/>
+	<testcase name="@R16 the code has no DOM, storage, network, timer, global or locale access and builds no code from strings" time="0.000431" classname="test" file="{workspace}\examples\streaks\tests\purity.test.js"/>
+	<testcase name="@R16 habits.js imports only ./dates.js and dates.js imports nothing" time="0.000252" classname="test" file="{workspace}\examples\streaks\tests\purity.test.js"/>
+	<testcase name="@R16 only the contracted names are exported" time="0.000102" classname="test" file="{workspace}\examples\streaks\tests\purity.test.js"/>
+	<testcase name="@R16 no exported function writes to its arguments or returns one of them" time="0.003731" classname="test" file="{workspace}\examples\streaks\tests\purity.test.js"/>
+	<testcase name="@R42 arcPath reproduces the goldens' shared arcs" time="0.001781" classname="test" file="{workspace}\examples\streaks\tests\ring.test.js"/>
+	<testcase name="@R42 arcPath(0, 2) for other numbers of habits" time="0.000100" classname="test" file="{workspace}\examples\streaks\tests\ring.test.js"/>
+	<testcase name="@R42 arcPath(1, 2) for other numbers of habits" time="0.000069" classname="test" file="{workspace}\examples\streaks\tests\ring.test.js"/>
+	<testcase name="@R42 arcPath(0, 5) for other numbers of habits" time="0.000052" classname="test" file="{workspace}\examples\streaks\tests\ring.test.js"/>
+	<testcase name="@R42 arcPath(1, 5) for other numbers of habits" time="0.000080" classname="test" file="{workspace}\examples\streaks\tests\ring.test.js"/>
+	<testcase name="@R42 arcPath(2, 5) for other numbers of habits" time="0.000055" classname="test" file="{workspace}\examples\streaks\tests\ring.test.js"/>
+	<testcase name="@R42 arcPath(3, 5) for other numbers of habits" time="0.000058" classname="test" file="{workspace}\examples\streaks\tests\ring.test.js"/>
+	<testcase name="@R42 arcPath(4, 5) for other numbers of habits" time="0.000046" classname="test" file="{workspace}\examples\streaks\tests\ring.test.js"/>
+	<testcase name="@R42 legendCounts(0)" time="0.000501" classname="test" file="{workspace}\examples\streaks\tests\ring.test.js"/>
+	<testcase name="@R42 legendCounts(1)" time="0.000675" classname="test" file="{workspace}\examples\streaks\tests\ring.test.js"/>
+	<testcase name="@R42 legendCounts(2)" time="0.000082" classname="test" file="{workspace}\examples\streaks\tests\ring.test.js"/>
+	<testcase name="@R42 legendCounts(3)" time="0.000044" classname="test" file="{workspace}\examples\streaks\tests\ring.test.js"/>
+	<testcase name="@R42 legendCounts(4)" time="0.000034" classname="test" file="{workspace}\examples\streaks\tests\ring.test.js"/>
+	<testcase name="@R42 legendCounts(5)" time="0.000029" classname="test" file="{workspace}\examples\streaks\tests\ring.test.js"/>
+	<testcase name="@R42 legendCounts(12)" time="0.000024" classname="test" file="{workspace}\examples\streaks\tests\ring.test.js"/>
+	<testcase name="@R42 ring.js is pure" time="0.000467" classname="test" file="{workspace}\examples\streaks\tests\ring.test.js"/>
+	<testcase name="@R6 @R7 @R9 @R10 @R12 fixture check: the sample is today 2026-10-08 with three habits whose days are valid, ascending and unique" time="0.001264" classname="test" file="{workspace}\examples\streaks\tests\sample-history.test.js"/>
+	<testcase name="@R6 @R7 the sample's streaks on the 1.0 key screen" time="0.001227" classname="test" file="{workspace}\examples\streaks\tests\sample-history.test.js"/>
+	<testcase name="@R6 the same sample one day later" time="0.000264" classname="test" file="{workspace}\examples\streaks\tests\sample-history.test.js"/>
+	<testcase name="@R7 the best runs sit in the older history" time="0.000534" classname="test" file="{workspace}\examples\streaks\tests\sample-history.test.js"/>
+	<testcase name="@R10 the 1.0 sample's 12 weeks" time="0.000929" classname="test" file="{workspace}\examples\streaks\tests\sample-history.test.js"/>
+	<testcase name="@R12 the sample's month axis equals the golden: Jul 1, Aug 3, Sep 8, Oct 12" time="0.000214" classname="test" file="{workspace}\examples\streaks\tests\sample-history.test.js"/>
+	<testcase name="@R9 @R10 @R19 fixture check: the v1.1.0 sample is today 2026-10-10 with twelve habits of 366 days" time="0.004236" classname="test" file="{workspace}\examples\streaks\tests\sample-history.test.js"/>
+	<testcase name="@R19 which habits are done on a day, for the v1.1.0 sample's first three habits" time="0.006166" classname="test" file="{workspace}\examples\streaks\tests\sample-history.test.js"/>
+	<testcase name="@R19 all twelve habits on 2026-10-10 give the golden's 7 done, and none on an empty list" time="0.001999" classname="test" file="{workspace}\examples\streaks\tests\sample-history.test.js"/>
+	<testcase name="@R19 @R6 @R7 the goldens' Current and Best come from the v1.1.0 sample" time="0.006670" classname="test" file="{workspace}\examples\streaks\tests\sample-history.test.js"/>
+	<testcase name="@R10 @R19 the v1.1.0 sample's band of 12 weeks" time="0.002028" classname="test" file="{workspace}\examples\streaks\tests\sample-history.test.js"/>
+	<testcase name="@R9 @R6 @R7 ticks on the v1.1.0 sample move Current and Best" time="0.011126" classname="test" file="{workspace}\examples\streaks\tests\sample-history.test.js"/>
+	<testcase name="@R9 the edges of the v1.1.0 year: the day before the start and the day after today change nothing" time="0.002772" classname="test" file="{workspace}\examples\streaks\tests\sample-history.test.js"/>
+	<testcase name="@R20 @R19 the v1.1.0 sample's year has 366 open days and each one reads the file's own character" time="0.004402" classname="test" file="{workspace}\examples\streaks\tests\sample-history.test.js"/>
+	<testcase name="@R16 the storage key is streaks.state" time="0.000785" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js"/>
+	<testcase name="@R17 nothing saved is absent, not unreadable" time="0.000474" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js"/>
+	<testcase name="@R17 unreadable: the empty string" time="0.000092" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js"/>
+	<testcase name="@R17 unreadable: not JSON" time="0.000059" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js"/>
+	<testcase name="@R17 unreadable: JSON null" time="0.000099" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js"/>
+	<testcase name="@R17 unreadable: an array" time="0.000058" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js"/>
+	<testcase name="@R17 unreadable: a number" time="0.000051" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js"/>
+	<testcase name="@R17 unreadable: wrong version" time="0.000064" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js"/>
+	<testcase name="@R17 unreadable: version as text" time="0.000097" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js"/>
+	<testcase name="@R17 unreadable: no version" time="0.000114" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js"/>
+	<testcase name="@R17 unreadable: habits is not an array" time="0.000157" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js"/>
+	<testcase name="@R17 unreadable: 13 habits" time="0.000057" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js"/>
+	<testcase name="@R17 unreadable: a habit that is null" time="0.000102" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js"/>
+	<testcase name="@R17 unreadable: a habit that is an array" time="0.000125" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js"/>
+	<testcase name="@R17 unreadable: an empty name" time="0.000117" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js"/>
+	<testcase name="@R17 unreadable: an untrimmed name" time="0.000076" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js"/>
+	<testcase name="@R17 unreadable: 41 characters" time="0.000038" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js"/>
+	<testcase name="@R17 unreadable: a name that is not text" time="0.000021" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js"/>
+	<testcase name="@R17 unreadable: no done list" time="0.000020" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js"/>
+	<testcase name="@R17 unreadable: done is not a list" time="0.000029" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js"/>
+	<testcase name="@R17 unreadable: an impossible date" time="0.000129" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js"/>
+	<testcase name="@R17 unreadable: a date with a time" time="0.000060" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js"/>
+	<testcase name="@R17 unreadable: a number among the dates" time="0.000030" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js"/>
+	<testcase name="@R17 unreadable: a good date, then another good one, then an impossible one" time="0.000033" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js"/>
+	<testcase name="@R17 unreadable: an impossible date in the second habit" time="0.000072" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js"/>
+	<testcase name="@R17 unreadable: a duplicate name that is not next to its twin" time="0.000051" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js"/>
+	<testcase name="@R17 an empty list and exactly 12 habits are readable" time="0.000097" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js"/>
+	<testcase name="@R17 days come back sorted ascending and without duplicates, whatever order they were saved in" time="0.000074" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js"/>
+	<testcase name="@R17 a day far after today is kept (a clock or time zone change can create one)" time="0.000042" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js"/>
+	<testcase name="@R17 @T2 habits are rebuilt as { name, done }: extra properties and a __proto__ key go nowhere" time="0.000065" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js"/>
+	<testcase name="@R17 @T2 the result is made of new objects, never the parsed ones" time="0.000142" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js"/>
+	<testcase name="@R16 encodeState writes compact JSON with version 1 and only name and done" time="0.000099" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js"/>
+	<testcase name="@R16 @R17 what encodeState writes decodeState reads back unchanged" time="0.000128" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js"/>
+	<testcase name="@R16 @R41 saveHabits returns true when setItem returns, and the store holds encodeState(habits)" time="0.000232" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js"/>
+	<testcase name="@R16 @R41 saveHabits returns false when setItem throws something that is not an Error, and never reads it" time="0.000183" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js"/>
+	<testcase name="@R16 @R41 with a localStorage getter that throws, saveHabits returns false and loadHabits reports the failed read" time="0.000151" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js"/>
+	<testcase name="@R16 @R41 nothing saved loads empty with no failure and writes nothing" time="0.000086" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js"/>
+	<testcase name="@R16 @R41 unreadable saved text whose reset save fails gives reset and saveFailed" time="0.000142" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js"/>
+	<testcase name="@R16 @R41 unreadable saved text is reset to the empty state, and the reset save works" time="0.000067" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js"/>
+	<testcase name="@R16 @R41 readable saved text loads the habits with no reset and no failure, and writes nothing" time="0.000671" classname="test" file="{workspace}\examples\streaks\tests\storage.test.js"/>
+	<!-- tests 151 -->
+	<!-- suites 0 -->
+	<!-- pass 151 -->
+	<!-- fail 0 -->
+	<!-- cancelled 0 -->
+	<!-- skipped 0 -->
+	<!-- todo 0 -->
+	<!-- duration_ms 912.8753 -->
+</testsuites>

@@ -1,0 +1,58 @@
+{
+ "kind": "probes",
+ "engine": "chromium",
+ "head": "40848ce",
+ "runner_pid": 25096,
+ "started": "2026-10-15T22:49:07",
+ "timeout_seconds": 500.0,
+ "tree_status_at_start": "",
+ "tree_differs_from_head": false,
+ "copies": {
+  "lib.py": {
+   "finder": "fc90a3559789d77fb2188092b604ce5e3a5f704d573221df7f0f6d1b79c213d5",
+   "scratch": "25d8fe57ed8210581d83dcbf5d1ede328d2586c0c1283ebb51ec287fb38bd005"
+  },
+  "probe_11_year10000.py": {
+   "finder": "f18ff6882c84149e3ed7b4d4dc0cf232a41d7963042e698f0683be190cfbb825",
+   "scratch": "f18ff6882c84149e3ed7b4d4dc0cf232a41d7963042e698f0683be190cfbb825"
+  },
+  "probe_14_rollover_hang.py": {
+   "finder": "3419ccfdf1fa2f4aea3d561d50468961be096217b7133ea7985998c249a49abb",
+   "scratch": "3419ccfdf1fa2f4aea3d561d50468961be096217b7133ea7985998c249a49abb"
+  }
+ },
+ "runs": [
+  {
+   "capture": "probe_11_chromium_hang.txt",
+   "command": [
+    "C:\\Python314\\python.exe",
+    "-u",
+    "-B",
+    "{temp}\\claude\\{project-id}\\9f7a7bfa-f87d-4692-bcb6-d8869bc1b359\\scratchpad\\streaks-9a\\probes\\probe_11_year10000.py",
+    "chromium",
+    "hang"
+   ],
+   "child_pid": 16188,
+   "exit_code": 0,
+   "status": "finished",
+   "seconds": 4.3
+  },
+  {
+   "capture": "probe_14_chromium.txt",
+   "command": [
+    "C:\\Python314\\python.exe",
+    "-u",
+    "-B",
+    "{temp}\\claude\\{project-id}\\9f7a7bfa-f87d-4692-bcb6-d8869bc1b359\\scratchpad\\streaks-9a\\probes\\probe_14_rollover_hang.py",
+    "chromium"
+   ],
+   "child_pid": 7076,
+   "exit_code": 0,
+   "status": "finished",
+   "seconds": 73.5
+  }
+ ],
+ "ended": "2026-10-15T22:50:25",
+ "tree_status_at_end": "",
+ "tree_differs_from_head_at_end": false
+}

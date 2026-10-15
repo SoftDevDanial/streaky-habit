@@ -1,0 +1,9 @@
+$ C:\Python314\python.exe -u -B {temp}\claude\{project-id}\9f7a7bfa-f87d-4692-bcb6-d8869bc1b359\scratchpad\streaks-9a\probes\probe_14_rollover_hang.py webkit
+[server] started pid=12900 port=13262 dir={workspace}\examples\streaks
+{"engine": "webkit", "case": "control, nothing open", "step": "before midnight", "answers": true, "header": "10000-09-30", "open": "", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}", "pageErrors": 0, "lastError": null}
+{"engine": "webkit", "case": "control, nothing open", "step": "after 35 s of real time", "answers": true, "answerWaitSeconds": 0.01, "header": "10000-10-01", "open": "", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}", "pageErrors": 0, "lastError": null}
+{"engine": "webkit", "case": "control, nothing open", "step": "browser closed", "closeSeconds": 0.03}
+{"engine": "webkit", "case": "P4 open at midnight", "step": "before midnight", "answers": true, "header": "10000-09-30", "open": "dlg-full dlg-all", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}", "pageErrors": 1, "lastError": "undefined is not an object (evaluating 'month.slice')"}
+{"engine": "webkit", "case": "P4 open at midnight", "step": "after 35 s of real time", "answers": true, "answerWaitSeconds": 0.01, "header": "10000-10-01", "open": "dlg-full dlg-all", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}", "pageErrors": 1, "lastError": "undefined is not an object (evaluating 'month.slice')"}
+{"engine": "webkit", "case": "P4 open at midnight", "step": "browser closed", "closeSeconds": 0.03}
+[server] stopped pid=12900 exit=1 port 13262 refuses=True

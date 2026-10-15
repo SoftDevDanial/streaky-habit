@@ -1,0 +1,39 @@
+App task 28a (code review RG-CR-I1), the proof of a comment-only change. Written by the dev solver (solver role),
+2026-10-15, with the Write tool from the output of the two read-only commands below, run on the committed tree.
+
+$ git show -U0 --format="commit %H%nparent %P%nsubject %s" 40848ce
+commit 40848ce4e77e3da3a9e42c3615aece3a6d667d94
+parent eafc9e5d566186519f3ab2197f017640574be93c
+subject docs(app): the comment of firstControl names what it returns and no caller (task 28a, code review RG-CR-I1)
+
+diff --git a/src/view.js b/src/view.js
+index ef8145f..3dda8a4 100644
+--- a/src/view.js
++++ b/src/view.js
+@@ -278,3 +278,2 @@ export function dismissNote() {
+- * The page's first control that can take focus, where focus goes when a new day took away the day that held it and
+- * no popup is open (CG-14). It is the Overview button below 1024 px and the band's Year from 1024 px, where the CSS
+- * hides the Overview button, so it is the first shown control in page order.
++ * The page's first shown control that is not disabled, in page order. It is the Overview button below 1024 px
++ * and the band's Year from 1024 px, where the CSS hides the Overview button.
+
+$ git show --stat --format= 40848ce
+ src/view.js | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+Lines 276 to 282 of src/view.js at 40848ce, numbered. The changed lines 278 and 279 sit between the comment's opening
+line 277 and its closing line 280, which is the doc comment of firstControl. The code line 282 is unchanged.
+276
+277	/**
+278	 * The page's first shown control that is not disabled, in page order. It is the Overview button below 1024 px
+279	 * and the band's Year from 1024 px, where the CSS hides the Overview button.
+280	 */
+281	export const firstControl = () =>
+282	  Array.from(document.querySelectorAll("div.app button, div.app input")).find((control) => !control.disabled && control.getClientRects().length > 0);
+
+Reading. Every removed and every added line starts with " * ", inside the doc comment of firstControl. No code,
+markup, style or copy line changed, and no other file. The comment names no caller. Why a caller uses the function
+stays in the comments of firstFocusOfTopLayer (src/app.js) and dismissNote (src/view.js), both unchanged.
+The suites ran once for the whole pass on this commit (habit-logic task 9a lists the proofs), each green, in
+docs/modules/habit-logic/qa/solver/, folders 20261015-224014-node (151 of 151), 20261015-224041-chromium (358 passed)
+and 20261015-224353-webkit (357 passed, CO-1 skipped).

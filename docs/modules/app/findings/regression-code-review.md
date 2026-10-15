@@ -81,3 +81,10 @@ The whole suite, the fidelity gate and the live gate were not run here. The QA r
 ## PROCESSES
 
 Every process of this review ran in the foreground of its tool call and ended before this file was written. `mutrun.py` ran twice (Chromium, then WebKit), from the session scratchpad folder `streaks-reg-cr/`, each mutant with its own in-process `127.0.0.1` test server on a free port, stopped and recorded refusing (`port_refuses_after` true for all ten in the two `run.json`). Its pytest children (Chromium PIDs 22496, 10216, 11420, 24040, 24048, WebKit PIDs 5204, 18012, 5080, 18800, 8196) exited with each run, with the Playwright drivers and headless browsers they started. The sweep's two scripts are declared in `consistency.md`. A closing sweep at 19:20 by name (python, node, pytest, chrome, headless, webkit, Playwright, bash, sh, cmd), by command line (`streaks-reg-cr`, `mutrun`, `probe_year10000`, `census_run`, `regression-code-review`), by port (the eleven ports used, each refusing) and by the loopback listeners found only the sweep's own shell.
+
+## Solver pass 2026-10-15 (app task 28a)
+Written by the dev solver (solver role). The finder's text above is unchanged. Detail in `docs/modules/app/BUILD.md`, section "v1.1.0 task 28a". RG-CR-I2 and RG-CR-I3 were not routed to this pass.
+
+| Finding | Verdict | Commit | Proof |
+|---|---|---|---|
+| RG-CR-I1 | RESOLVED. The doc comment of `firstControl` says what it returns and names no caller, as the fix direction asks. Comment only | `40848ce` | `docs/modules/app/qa/solver/20261015-224448-task28a-diff/git-show-U0.txt`, comment lines of `firstControl` only. Suites green on `40848ce` (habit-logic `BUILD.md`, "v1.1.0 task 9a", Proof) |

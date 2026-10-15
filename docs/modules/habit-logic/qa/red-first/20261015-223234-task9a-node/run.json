@@ -1,0 +1,45 @@
+{
+ "kind": "node",
+ "engine": "node",
+ "head": "a6f7e18",
+ "runner_pid": 6152,
+ "started": "2026-10-15T22:32:41",
+ "timeout_seconds": 120.0,
+ "tree_status_at_start": "M tests/habits.test.js",
+ "tree_differs_from_head": true,
+ "command": [
+  "node",
+  "--test",
+  "--test-reporter=spec",
+  "--test-reporter-destination=docs/modules/habit-logic/qa/red-first/20261015-223234-task9a-node/node-test.txt",
+  "--test-reporter=junit",
+  "--test-reporter-destination=docs/modules/habit-logic/qa/red-first/20261015-223234-task9a-node/junit.xml",
+  "tests/**/*.test.js"
+ ],
+ "child_pid": 3408,
+ "exit_code": 1,
+ "status": "finished",
+ "seconds": 34.3,
+ "counts": {
+  "tests": 151,
+  "suites": 0,
+  "pass": 143,
+  "fail": 8,
+  "cancelled": 0,
+  "skipped": 0,
+  "todo": 0,
+  "testcases": 150
+ },
+ "failing": [
+  "10000-10-01, it returned at most 13 months",
+  "10000-10-15, it returned at most 13 months",
+  "10000-12-31, it returned at most 13 months",
+  "10005-11-20, it returned at most 13 months",
+  "10009-10-01, it returned at most 13 months",
+  "10009-12-31, it returned at most 13 months",
+  "every day of October, November and December of the years 10000 to 10009 (920 keys), it returned at most 13 months for each key"
+ ],
+ "ended": "2026-10-15T22:33:15",
+ "tree_status_at_end": "M tests/habits.test.js",
+ "tree_differs_from_head_at_end": true
+}

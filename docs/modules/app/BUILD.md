@@ -1119,3 +1119,12 @@ No markup, style, copy or motion change. `index.html`, ~~`src/system.css`~~ `src
 - `src/view.js` `dismissNote`. Dismiss sends focus to the field, or to `firstControl()` when the field is disabled at twelve habits. No other symbol changed.
 - `tests/browser/test_storage.py` gains `test_R17_dismiss_with_the_field_disabled_moves_focus_to_the_pages_first_control_never_to_body` (3 rows). The browser suite is 358 tests in each engine (WebKit 357 passed and CO-1 skipped).
 - No tracked file was deleted.
+
+## v1.1.0 task 28a, the comment of `firstControl` (2026-10-15)
+> Written by the dev solver (solver role), 2026-10-15, in the v1.1.0 regression's targeted pass (ledger H-06, code review RG-CR-I1). The commit is `40848ce` `docs(app): the comment of firstControl names what it returns and no caller (task 28a, code review RG-CR-I1)`, after habit-logic task 9a (`eafc9e5`). This section, the spec tick and the proof folder are in the docs commit after both.
+
+- **What changed.** The doc comment of `firstControl` in `src/view.js` now reads "The page's first shown control that is not disabled, in page order. It is the Overview button below 1024 px and the band's Year from 1024 px, where the CSS hides the Overview button." It names no caller. Why a caller uses it stays in the comments of `firstFocusOfTopLayer` in `src/app.js` (CG-14, CG-19) and `dismissNote` (R17), both unchanged. No code, markup, style or copy change.
+- **Phase skills.** None. A comment is not UI work (`docs/phase-skills.md`, and the task says so).
+- **RED.** None. A comment has no behaviour to assert, so the task adds no test.
+- **Proof.** The commit's diff with no context lines, `docs/modules/app/qa/solver/20261015-224448-task28a-diff/git-show-U0.txt`. Three comment lines out and two in, all inside the doc comment of `firstControl`, and no other file. The suites ran once for the pass on `40848ce` and are green, Node 151 of 151, Chromium 358 passed, WebKit 357 passed and CO-1 skipped (habit-logic `BUILD.md`, "v1.1.0 task 9a", Proof).
+- **For the README reconcile.** No behaviour changed, so nothing to reconcile.

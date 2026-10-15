@@ -1,0 +1,281 @@
+✔ @R1 @R3 the zone switch is real, so the zone cases are not vacuous (1.7583ms)
+✔ @R1 the local calendar day of an instant (0.5704ms)
+✔ @R1 the UTC date is not used: 00:30 local in Kuala Lumpur is still the day before in UTC (0.4296ms)
+✔ @R1 month and day are zero padded and the year has 4 digits (0.2453ms)
+✔ @R2 valid and invalid date keys (0.5271ms)
+✔ @R2 agrees with a calendar reference for every year-month-day combination 1900 to 2100 (56.8318ms)
+✔ @R2 a long hostile string is rejected quickly (1.3657ms)
+✔ @R3 calendar arithmetic that ignores the time zone (0.626ms)
+✔ @R3 century and year edges (0.1215ms)
+✔ @R3 agrees with UTC reference maths for every day 1900 to 2100 in both zones (313.4367ms)
+✔ @R4 short weekday, day and month for every weekday (1.2276ms)
+✔ @R4 short and long month names for every month (0.1978ms)
+✔ @R4 weekdayIndex counts Monday as 0 to Sunday as 6 (0.0807ms)
+✔ @R4 weekday names and indexes agree with a UTC reference for every day 1900 to 2100 (118.1398ms)
+✔ @R4 labels do not follow the runtime locale (60.8159ms)
+✔ @R17 labels with the year (0.1653ms)
+✔ @R17 the year is four digits, also before the year 1000 (0.0724ms)
+✔ @R17 year labels do not follow the runtime locale (55.6147ms)
+✔ @R13 @R14 the limits are exported (0.7353ms)
+✔ @R6 a streak does not break until today is over (0.4167ms)
+✔ @R6 a streak runs across a month, a year and a leap day (0.248ms)
+✔ @R6 a streak that crosses a DST change (1.1928ms)
+✔ @R7 the longest run in the whole history (0.4445ms)
+✔ @R7 the best run may be old, and a later shorter run does not replace it (0.1835ms)
+✔ @R7 the best-run walk ends on keys outside the valid range, where the next day repeats itself (56.8883ms)
+✔ @R6 the current-run walk ends on the cycle below year 0001 (46.2112ms)
+✔ @R7 many spellings of one far-out date that all run into the stuck key cost one pass, not one walk each (93.3844ms)
+✔ @R6 @R7 keys that fail isDateKey do not count, so a streak counts only valid days (136.237ms)
+✔ @R9 ticking a day in the last week of the year (1.3656ms)
+✔ @R9 days outside the year, bad dates and bad indexes change nothing (0.58ms)
+✔ @R9 any day of the last 12 months can be ticked, even before the habit's history (0.2396ms)
+✔ @R9 both ends of the year are editable and ticking twice restores the habit (0.173ms)
+✔ @R9 @R18 on 29 February the year starts on 28 February and holds 367 days (0.0671ms)
+✔ @R9 an unsorted or duplicated done array comes back ascending without duplicates (0.0422ms)
+✔ @R9 an empty habit list stays empty (0.031ms)
+✔ @R10 the 12-week grid around today (1.9853ms)
+✔ @R10 a cell carries exactly the contract fields, and a habit counts once per day (0.1905ms)
+✔ @R10 a fourth habit counts in total and in done (0.3165ms)
+✔ @R10 @R19 a cell's done is doneFlags of its day (0.3105ms)
+✔ @R10 the arguments are not changed and the cells are new objects (0.2849ms)
+✔ @R12 month labels over the first column whose Monday is in the month (0.2426ms)
+✔ @R12 each label sits on the first column whose Monday is in its month, for more start days (1.046ms)
+✔ @R18 the same date last year, and the year's day count (0.815ms)
+✔ @R19 which habits are done on a day, one boolean per habit in list order (0.1433ms)
+✔ @R19 no habits gives an empty list, and every call returns a new array (0.0473ms)
+✔ @R20 the year of the goldens (1.0711ms)
+✔ @R20 the year on other days (2.4383ms)
+✔ @R20 every call returns new objects (1.0356ms)
+▶ @R20 yearMonths ends for every key and returns at most 13 months
+  ✔ "2026-10-10", it returned 13 months (29.735ms)
+  ✔ "0001-01-01", it returned 13 months (25.9615ms)
+  ✔ "9999-12-31", it returned 13 months (25.7806ms)
+  ✖ "10000-10-01", it returned at most 13 months (4168.5614ms)
+  ✖ "10000-10-15", it returned at most 13 months (4443.349ms)
+  ✖ "10000-12-31", it returned at most 13 months (4210.2333ms)
+  ✖ "10005-11-20", it returned at most 13 months (4553.2144ms)
+  ✖ "10009-10-01", it returned at most 13 months (4162.7398ms)
+  ✖ "10009-12-31", it returned at most 13 months (4141.4067ms)
+  ✖ every day of October, November and December of the years 10000 to 10009 (920 keys), it returned at most 13 months for each key (4305.3509ms)
+  ✔ "10000-01-05", it returned at most 13 months or threw (22.9927ms)
+  ✔ "10010-10-15", it returned at most 13 months or threw (23.5261ms)
+  ✔ "100000-10-15", it returned at most 13 months or threw (22.9929ms)
+✖ @R20 yearMonths ends for every key and returns at most 13 months (30138.3232ms)
+✔ @R13 name checks in the order empty, too long, duplicate (0.2418ms)
+✔ @R13 the length rule counts the trimmed name, so padding never makes a 40 character name too long (0.0566ms)
+✔ @R13 too long is checked before duplicate (0.0479ms)
+✔ @R13 length counts code points, not UTF-16 units (0.0768ms)
+✔ @R13 trim removes no-break space, em space and BOM as well as plain spaces, and the duplicate check lower-cases both sides (0.041ms)
+✔ @R13 a very long name is rejected without hanging (0.7028ms)
+✔ @R13 the length check reads at most 41 code points, so a huge stored name costs no more than a short one (4.3331ms)
+✔ @R14 a new habit goes to the bottom (0.2342ms)
+✔ @R14 a rejected name returns its error (0.148ms)
+✔ @R14 the limit of 12 habits is checked before the name (0.1313ms)
+✔ @R14 adding to an empty list works (0.0827ms)
+✔ @R15 deleting a habit (0.3321ms)
+✔ @R15 deleting from an empty list returns an empty list (0.0578ms)
+✔ @R16 the source has no clock or random read, even in a comment (1.0053ms)
+✔ @R20 @R16 yearMonths reads no clock, so two calls with one key give equal results (4.0829ms)
+✔ @R16 the code has no DOM, storage, network, timer, global or locale access and builds no code from strings (0.5007ms)
+✔ @R16 habits.js imports only ./dates.js and dates.js imports nothing (0.3479ms)
+✔ @R16 only the contracted names are exported (0.1692ms)
+✔ @R16 no exported function writes to its arguments or returns one of them (6.4757ms)
+✔ @R42 arcPath reproduces the goldens' shared arcs (3.4536ms)
+✔ @R42 arcPath(0, 2) for other numbers of habits (0.2143ms)
+✔ @R42 arcPath(1, 2) for other numbers of habits (0.1269ms)
+✔ @R42 arcPath(0, 5) for other numbers of habits (0.0959ms)
+✔ @R42 arcPath(1, 5) for other numbers of habits (0.1105ms)
+✔ @R42 arcPath(2, 5) for other numbers of habits (0.0538ms)
+✔ @R42 arcPath(3, 5) for other numbers of habits (0.078ms)
+✔ @R42 arcPath(4, 5) for other numbers of habits (0.0536ms)
+✔ @R42 legendCounts(0) (0.6833ms)
+✔ @R42 legendCounts(1) (0.912ms)
+✔ @R42 legendCounts(2) (0.0844ms)
+✔ @R42 legendCounts(3) (0.0589ms)
+✔ @R42 legendCounts(4) (0.063ms)
+✔ @R42 legendCounts(5) (0.1227ms)
+✔ @R42 legendCounts(12) (0.0616ms)
+✔ @R42 ring.js is pure (0.6858ms)
+✔ @R6 @R7 @R9 @R10 @R12 fixture check: the sample is today 2026-10-08 with three habits whose days are valid, ascending and unique (2.1004ms)
+✔ @R6 @R7 the sample's streaks on the 1.0 key screen (2.4536ms)
+✔ @R6 the same sample one day later (0.3686ms)
+✔ @R7 the best runs sit in the older history (0.682ms)
+✔ @R10 the 1.0 sample's 12 weeks (1.7406ms)
+✔ @R12 the sample's month axis equals the golden: Jul 1, Aug 3, Sep 8, Oct 12 (0.3023ms)
+✔ @R9 @R10 @R19 fixture check: the v1.1.0 sample is today 2026-10-10 with twelve habits of 366 days (6.3512ms)
+✔ @R19 which habits are done on a day, for the v1.1.0 sample's first three habits (9.4549ms)
+✔ @R19 all twelve habits on 2026-10-10 give the golden's 7 done, and none on an empty list (2.5942ms)
+✔ @R19 @R6 @R7 the goldens' Current and Best come from the v1.1.0 sample (8.1296ms)
+✔ @R10 @R19 the v1.1.0 sample's band of 12 weeks (2.469ms)
+✔ @R9 @R6 @R7 ticks on the v1.1.0 sample move Current and Best (13.5001ms)
+✔ @R9 the edges of the v1.1.0 year: the day before the start and the day after today change nothing (3.0601ms)
+✔ @R20 @R19 the v1.1.0 sample's year has 366 open days and each one reads the file's own character (5.0235ms)
+✔ @R16 the storage key is streaks.state (1.1141ms)
+✔ @R17 nothing saved is absent, not unreadable (0.6865ms)
+✔ @R17 unreadable: the empty string (0.1273ms)
+✔ @R17 unreadable: not JSON (0.0699ms)
+✔ @R17 unreadable: JSON null (0.1796ms)
+✔ @R17 unreadable: an array (0.0935ms)
+✔ @R17 unreadable: a number (0.0837ms)
+✔ @R17 unreadable: wrong version (0.141ms)
+✔ @R17 unreadable: version as text (0.1828ms)
+✔ @R17 unreadable: no version (0.1801ms)
+✔ @R17 unreadable: habits is not an array (0.1788ms)
+✔ @R17 unreadable: 13 habits (0.0516ms)
+✔ @R17 unreadable: a habit that is null (0.1059ms)
+✔ @R17 unreadable: a habit that is an array (0.0629ms)
+✔ @R17 unreadable: an empty name (0.0667ms)
+✔ @R17 unreadable: an untrimmed name (0.0638ms)
+✔ @R17 unreadable: 41 characters (0.0289ms)
+✔ @R17 unreadable: a name that is not text (0.0193ms)
+✔ @R17 unreadable: no done list (0.0182ms)
+✔ @R17 unreadable: done is not a list (0.0196ms)
+✔ @R17 unreadable: an impossible date (0.1076ms)
+✔ @R17 unreadable: a date with a time (0.0602ms)
+✔ @R17 unreadable: a number among the dates (0.0286ms)
+✔ @R17 unreadable: a good date, then another good one, then an impossible one (0.0237ms)
+✔ @R17 unreadable: an impossible date in the second habit (0.0654ms)
+✔ @R17 unreadable: a duplicate name that is not next to its twin (0.2958ms)
+✔ @R17 an empty list and exactly 12 habits are readable (0.1241ms)
+✔ @R17 days come back sorted ascending and without duplicates, whatever order they were saved in (0.1398ms)
+✔ @R17 a day far after today is kept (a clock or time zone change can create one) (0.0573ms)
+✔ @R17 @T2 habits are rebuilt as { name, done }: extra properties and a __proto__ key go nowhere (0.0699ms)
+✔ @R17 @T2 the result is made of new objects, never the parsed ones (0.1859ms)
+✔ @R16 encodeState writes compact JSON with version 1 and only name and done (0.2321ms)
+✔ @R16 @R17 what encodeState writes decodeState reads back unchanged (0.1569ms)
+✔ @R16 @R41 saveHabits returns true when setItem returns, and the store holds encodeState(habits) (0.2331ms)
+✔ @R16 @R41 saveHabits returns false when setItem throws something that is not an Error, and never reads it (0.2239ms)
+✔ @R16 @R41 with a localStorage getter that throws, saveHabits returns false and loadHabits reports the failed read (0.1674ms)
+✔ @R16 @R41 nothing saved loads empty with no failure and writes nothing (0.1144ms)
+✔ @R16 @R41 unreadable saved text whose reset save fails gives reset and saveFailed (0.1154ms)
+✔ @R16 @R41 unreadable saved text is reset to the empty state, and the reset save works (0.0798ms)
+✔ @R16 @R41 readable saved text loads the habits with no reset and no failure, and writes nothing (0.7848ms)
+ℹ tests 151
+ℹ suites 0
+ℹ pass 143
+ℹ fail 8
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 30602.6907
+
+✖ failing tests:
+
+test at tests\habits.test.js:622:13
+✖ "10000-10-01", it returned at most 13 months (4168.5614ms)
+  AssertionError [ERR_ASSERTION]: did not end, stopped by the heap limit of 256 MB
+      at TestContext.<anonymous> (file:///{workspace}/examples/streaks/tests/habits.test.js:624:14)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async TestContext.<anonymous> (file:///{workspace}/examples/streaks/tests/habits.test.js:622:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\habits.test.js:622:13
+✖ "10000-10-15", it returned at most 13 months (4443.349ms)
+  AssertionError [ERR_ASSERTION]: did not end, stopped by the heap limit of 256 MB
+      at TestContext.<anonymous> (file:///{workspace}/examples/streaks/tests/habits.test.js:624:14)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async TestContext.<anonymous> (file:///{workspace}/examples/streaks/tests/habits.test.js:622:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\habits.test.js:622:13
+✖ "10000-12-31", it returned at most 13 months (4210.2333ms)
+  AssertionError [ERR_ASSERTION]: did not end, stopped by the heap limit of 256 MB
+      at TestContext.<anonymous> (file:///{workspace}/examples/streaks/tests/habits.test.js:624:14)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async TestContext.<anonymous> (file:///{workspace}/examples/streaks/tests/habits.test.js:622:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\habits.test.js:622:13
+✖ "10005-11-20", it returned at most 13 months (4553.2144ms)
+  AssertionError [ERR_ASSERTION]: did not end, stopped by the heap limit of 256 MB
+      at TestContext.<anonymous> (file:///{workspace}/examples/streaks/tests/habits.test.js:624:14)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async TestContext.<anonymous> (file:///{workspace}/examples/streaks/tests/habits.test.js:622:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\habits.test.js:622:13
+✖ "10009-10-01", it returned at most 13 months (4162.7398ms)
+  AssertionError [ERR_ASSERTION]: did not end, stopped by the heap limit of 256 MB
+      at TestContext.<anonymous> (file:///{workspace}/examples/streaks/tests/habits.test.js:624:14)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async TestContext.<anonymous> (file:///{workspace}/examples/streaks/tests/habits.test.js:622:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\habits.test.js:622:13
+✖ "10009-12-31", it returned at most 13 months (4141.4067ms)
+  AssertionError [ERR_ASSERTION]: did not end, stopped by the heap limit of 256 MB
+      at TestContext.<anonymous> (file:///{workspace}/examples/streaks/tests/habits.test.js:624:14)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async TestContext.<anonymous> (file:///{workspace}/examples/streaks/tests/habits.test.js:622:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\habits.test.js:622:13
+✖ every day of October, November and December of the years 10000 to 10009 (920 keys), it returned at most 13 months for each key (4305.3509ms)
+  AssertionError [ERR_ASSERTION]: did not end, stopped by the heap limit of 256 MB
+      at TestContext.<anonymous> (file:///{workspace}/examples/streaks/tests/habits.test.js:624:14)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async TestContext.<anonymous> (file:///{workspace}/examples/streaks/tests/habits.test.js:622:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

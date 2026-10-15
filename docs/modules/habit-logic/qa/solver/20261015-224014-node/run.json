@@ -1,0 +1,37 @@
+{
+ "kind": "node",
+ "engine": "node",
+ "head": "40848ce",
+ "runner_pid": 6536,
+ "started": "2026-10-15T22:40:14",
+ "timeout_seconds": 120.0,
+ "tree_status_at_start": "",
+ "tree_differs_from_head": false,
+ "command": [
+  "node",
+  "--test",
+  "--test-reporter=spec",
+  "--test-reporter-destination=docs/modules/habit-logic/qa/solver/20261015-224014-node/node-test.txt",
+  "--test-reporter=junit",
+  "--test-reporter-destination=docs/modules/habit-logic/qa/solver/20261015-224014-node/junit.xml",
+  "tests/**/*.test.js"
+ ],
+ "child_pid": 1220,
+ "exit_code": 0,
+ "status": "finished",
+ "seconds": 1.0,
+ "counts": {
+  "tests": 151,
+  "suites": 0,
+  "pass": 151,
+  "fail": 0,
+  "cancelled": 0,
+  "skipped": 0,
+  "todo": 0,
+  "testcases": 150
+ },
+ "failing": [],
+ "ended": "2026-10-15T22:40:15",
+ "tree_status_at_end": "",
+ "tree_differs_from_head_at_end": false
+}

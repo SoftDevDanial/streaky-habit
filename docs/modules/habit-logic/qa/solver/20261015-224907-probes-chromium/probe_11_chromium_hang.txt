@@ -1,0 +1,14 @@
+$ C:\Python314\python.exe -u -B {temp}\claude\{project-id}\9f7a7bfa-f87d-4692-bcb6-d8869bc1b359\scratchpad\streaks-9a\probes\probe_11_year10000.py chromium hang
+[server] started pid=17668 port=27869 dir={workspace}\examples\streaks
+{"engine": "chromium", "version": "149.0.7827.55", "groups": ["hang"]}
+{"engine": "chromium", "case": "B-P2 10000-10-15", "step": "added Read, clicked Done today", "header": "10000-10-15", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}", "rows": 1, "doneToday": "false", "banners": "", "band": 84, "open": "", "p2Beads": 0, "p4Days": 0, "p1": null, "p1Ticks": "", "focus": "button.btn-done", "pageErrors": 0, "standIn": true}
+{"engine": "chromium", "case": "B-P2 10000-10-15", "step": "pressed ul.rows > li.row button.btn-year", "press": "returned", "pressSeconds": 0.05, "pageAnswersWithin3s": true, "waitSeconds": 0.01, "pageErrors": 0, "lastError": null}
+{"engine": "chromium", "case": "B-P2 10000-10-15", "step": "second page of the same context reads storage during the hang", "answered": true, "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}"}
+{"engine": "chromium", "case": "B-P2 10000-10-15", "step": "second page boots the app during the hang", "rows": 1, "banners": "", "header": "10000-10-15", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}"}
+{"engine": "chromium", "case": "B-P2 10000-10-15", "step": "browser closed", "closeSeconds": 0.03, "caseSeconds": 0.47}
+{"engine": "chromium", "case": "B-P4 10000-10-15", "step": "added Read, clicked Done today", "header": "10000-10-15", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}", "rows": 1, "doneToday": "false", "banners": "", "band": 84, "open": "", "p2Beads": 0, "p4Days": 0, "p1": null, "p1Ticks": "", "focus": "button.btn-done", "pageErrors": 0, "standIn": true}
+{"engine": "chromium", "case": "B-P4 10000-10-15", "step": "pressed section.band button.btn-all", "press": "returned", "pressSeconds": 0.04, "pageAnswersWithin3s": true, "waitSeconds": 0.01, "pageErrors": 0, "lastError": null}
+{"engine": "chromium", "case": "B-P4 10000-10-15", "step": "second page of the same context reads storage during the hang", "answered": true, "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}"}
+{"engine": "chromium", "case": "B-P4 10000-10-15", "step": "second page boots the app during the hang", "rows": 1, "banners": "", "header": "10000-10-15", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}"}
+{"engine": "chromium", "case": "B-P4 10000-10-15", "step": "browser closed", "closeSeconds": 0.03, "caseSeconds": 0.38}
+[server] stopped pid=17668 exit=1 port 27869 refuses=True
