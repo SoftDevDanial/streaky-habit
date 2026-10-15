@@ -1,0 +1,11 @@
+command: timeout 120 python -B probe_02b_surrogate_write.py chromium webkit   (exit 0)
+stdout, verbatim:
+[server] started pid=25480 port=36084 dir={workspace}\examples\streaks
+chromium 149.0.7827.55 {"same": true, "storedLength": 306, "plantedLength": 306, "rows": 10, "names": ["0", "61 a 62", "d800", "dc00 78", "202e 20 72 65 76 65 72 73 65 64", "2069 20 63 6c 6f 73 65 72", "200b", "74 61 62 9 6e 61 6d 65", "1f", "85 6e 65 78 74"], "app_setItem_calls": [], "errors": []}
+webkit 26.5 {"same": true, "storedLength": 306, "plantedLength": 306, "rows": 10, "names": ["0", "61 a 62", "d800", "dc00 78", "202e 20 72 65 76 65 72 73 65 64", "2069 20 63 6c 6f 73 65 72", "200b", "74 61 62 9 6e 61 6d 65", "1f", "85 6e 65 78 74"], "app_setItem_calls": [], "errors": []}
+[server] stopped pid=25480 exit=1 port 36084 refuses=True
+
+Reading. Built and compared inside the page, the stored text equals the planted text after load, and the app made
+0 setItem calls. Loading writes nothing (R16). Every name renders code point for code point, NUL, lone surrogates,
+U+202E, U+2069, U+0085 and the tab included. The difference seen in probe_02 came from passing a lone surrogate
+through the Playwright protocol.

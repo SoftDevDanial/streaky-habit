@@ -1,0 +1,304 @@
+FFFFFFF                                                                  [100%]
+================================== FAILURES ===================================
+_ test_R11_rejected_names_keep_the_text_and_show_one_message_above_the_field[390x844-nothing] _
+
+app = <function app.<locals>.open_page at 0x000001CBCD886E50>
+viewport = (390, 844), typed = '', message = 'Name the habit first.'
+
+    @pytest.mark.parametrize(
+        "viewport, typed, message",
+        [
+            pytest.param(PHONE, "", EMPTY, id="390x844-nothing"),
+            pytest.param(PHONE, "   ", EMPTY, id="390x844-three-spaces"),
+            pytest.param(PHONE, "Walk to the end of the street and back after dinner", TOO_LONG, id="390x844-51-characters"),
+            pytest.param(PHONE, "Read twenty pages before bed every night.", TOO_LONG, id="390x844-41-characters"),
+            pytest.param(PHONE, "read 20 pages", DUPLICATE, id="390x844-other-case"),
+            pytest.param(PHONE, " STRETCH 10 MINUTES ", DUPLICATE, id="390x844-spaces-and-capitals"),
+            pytest.param(DESKTOP, "", EMPTY, id="1280x800-nothing"),
+        ],
+    )
+    def test_R11_rejected_names_keep_the_text_and_show_one_message_above_the_field(app, viewport, typed, message):
+        page = app(viewport=viewport, storage=sample_state(), count_writes=True)
+        rows = page.locator("ul.rows > li.row")
+        expect(rows).to_have_count(3)
+        saved = stored(page)
+        top = field_top(page)
+        add_habit(page, typed)
+        state = composer(page)
+        assert state["message"] == error(message), state
+        expect(page.locator("#nh-msg")).to_be_visible()
+        message_bottom = page.locator("#nh-msg").evaluate("(line) => line.getBoundingClientRect().bottom")
+        assert message_bottom <= field_top(page), (message_bottom, field_top(page))
+        assert field_top(page) == top
+        assert (state["invalid"], state["value"]) == ("true", typed), state
+        # The app puts focus on the field in both engines, also after a click on Add (spec R11).
+        assert active_control(page) == "field"
+        expect(rows).to_have_count(3)
+        assert stored(page) == saved
+        # A save of the same habits writes the same text, so only the count shows that a refusal saved nothing (R16).
+>       assert write_count(page) == 0
+E       AssertionError: assert 1 == 0
+E        +  where 1 = write_count(<Page url='http://127.0.0.1:1781/'>)
+
+tests\browser\test_add.py:216: AssertionError
+_ test_R11_rejected_names_keep_the_text_and_show_one_message_above_the_field[390x844-three-spaces] _
+
+app = <function app.<locals>.open_page at 0x000001CBCEC29E80>
+viewport = (390, 844), typed = '   ', message = 'Name the habit first.'
+
+    @pytest.mark.parametrize(
+        "viewport, typed, message",
+        [
+            pytest.param(PHONE, "", EMPTY, id="390x844-nothing"),
+            pytest.param(PHONE, "   ", EMPTY, id="390x844-three-spaces"),
+            pytest.param(PHONE, "Walk to the end of the street and back after dinner", TOO_LONG, id="390x844-51-characters"),
+            pytest.param(PHONE, "Read twenty pages before bed every night.", TOO_LONG, id="390x844-41-characters"),
+            pytest.param(PHONE, "read 20 pages", DUPLICATE, id="390x844-other-case"),
+            pytest.param(PHONE, " STRETCH 10 MINUTES ", DUPLICATE, id="390x844-spaces-and-capitals"),
+            pytest.param(DESKTOP, "", EMPTY, id="1280x800-nothing"),
+        ],
+    )
+    def test_R11_rejected_names_keep_the_text_and_show_one_message_above_the_field(app, viewport, typed, message):
+        page = app(viewport=viewport, storage=sample_state(), count_writes=True)
+        rows = page.locator("ul.rows > li.row")
+        expect(rows).to_have_count(3)
+        saved = stored(page)
+        top = field_top(page)
+        add_habit(page, typed)
+        state = composer(page)
+        assert state["message"] == error(message), state
+        expect(page.locator("#nh-msg")).to_be_visible()
+        message_bottom = page.locator("#nh-msg").evaluate("(line) => line.getBoundingClientRect().bottom")
+        assert message_bottom <= field_top(page), (message_bottom, field_top(page))
+        assert field_top(page) == top
+        assert (state["invalid"], state["value"]) == ("true", typed), state
+        # The app puts focus on the field in both engines, also after a click on Add (spec R11).
+        assert active_control(page) == "field"
+        expect(rows).to_have_count(3)
+        assert stored(page) == saved
+        # A save of the same habits writes the same text, so only the count shows that a refusal saved nothing (R16).
+>       assert write_count(page) == 0
+E       AssertionError: assert 1 == 0
+E        +  where 1 = write_count(<Page url='http://127.0.0.1:1781/'>)
+
+tests\browser\test_add.py:216: AssertionError
+_ test_R11_rejected_names_keep_the_text_and_show_one_message_above_the_field[390x844-51-characters] _
+
+app = <function app.<locals>.open_page at 0x000001CBCED214E0>
+viewport = (390, 844)
+typed = 'Walk to the end of the street and back after dinner'
+message = 'Keep it to 40 characters or fewer.'
+
+    @pytest.mark.parametrize(
+        "viewport, typed, message",
+        [
+            pytest.param(PHONE, "", EMPTY, id="390x844-nothing"),
+            pytest.param(PHONE, "   ", EMPTY, id="390x844-three-spaces"),
+            pytest.param(PHONE, "Walk to the end of the street and back after dinner", TOO_LONG, id="390x844-51-characters"),
+            pytest.param(PHONE, "Read twenty pages before bed every night.", TOO_LONG, id="390x844-41-characters"),
+            pytest.param(PHONE, "read 20 pages", DUPLICATE, id="390x844-other-case"),
+            pytest.param(PHONE, " STRETCH 10 MINUTES ", DUPLICATE, id="390x844-spaces-and-capitals"),
+            pytest.param(DESKTOP, "", EMPTY, id="1280x800-nothing"),
+        ],
+    )
+    def test_R11_rejected_names_keep_the_text_and_show_one_message_above_the_field(app, viewport, typed, message):
+        page = app(viewport=viewport, storage=sample_state(), count_writes=True)
+        rows = page.locator("ul.rows > li.row")
+        expect(rows).to_have_count(3)
+        saved = stored(page)
+        top = field_top(page)
+        add_habit(page, typed)
+        state = composer(page)
+        assert state["message"] == error(message), state
+        expect(page.locator("#nh-msg")).to_be_visible()
+        message_bottom = page.locator("#nh-msg").evaluate("(line) => line.getBoundingClientRect().bottom")
+        assert message_bottom <= field_top(page), (message_bottom, field_top(page))
+        assert field_top(page) == top
+        assert (state["invalid"], state["value"]) == ("true", typed), state
+        # The app puts focus on the field in both engines, also after a click on Add (spec R11).
+        assert active_control(page) == "field"
+        expect(rows).to_have_count(3)
+        assert stored(page) == saved
+        # A save of the same habits writes the same text, so only the count shows that a refusal saved nothing (R16).
+>       assert write_count(page) == 0
+E       AssertionError: assert 1 == 0
+E        +  where 1 = write_count(<Page url='http://127.0.0.1:1781/'>)
+
+tests\browser\test_add.py:216: AssertionError
+_ test_R11_rejected_names_keep_the_text_and_show_one_message_above_the_field[390x844-41-characters] _
+
+app = <function app.<locals>.open_page at 0x000001CBCED22560>
+viewport = (390, 844), typed = 'Read twenty pages before bed every night.'
+message = 'Keep it to 40 characters or fewer.'
+
+    @pytest.mark.parametrize(
+        "viewport, typed, message",
+        [
+            pytest.param(PHONE, "", EMPTY, id="390x844-nothing"),
+            pytest.param(PHONE, "   ", EMPTY, id="390x844-three-spaces"),
+            pytest.param(PHONE, "Walk to the end of the street and back after dinner", TOO_LONG, id="390x844-51-characters"),
+            pytest.param(PHONE, "Read twenty pages before bed every night.", TOO_LONG, id="390x844-41-characters"),
+            pytest.param(PHONE, "read 20 pages", DUPLICATE, id="390x844-other-case"),
+            pytest.param(PHONE, " STRETCH 10 MINUTES ", DUPLICATE, id="390x844-spaces-and-capitals"),
+            pytest.param(DESKTOP, "", EMPTY, id="1280x800-nothing"),
+        ],
+    )
+    def test_R11_rejected_names_keep_the_text_and_show_one_message_above_the_field(app, viewport, typed, message):
+        page = app(viewport=viewport, storage=sample_state(), count_writes=True)
+        rows = page.locator("ul.rows > li.row")
+        expect(rows).to_have_count(3)
+        saved = stored(page)
+        top = field_top(page)
+        add_habit(page, typed)
+        state = composer(page)
+        assert state["message"] == error(message), state
+        expect(page.locator("#nh-msg")).to_be_visible()
+        message_bottom = page.locator("#nh-msg").evaluate("(line) => line.getBoundingClientRect().bottom")
+        assert message_bottom <= field_top(page), (message_bottom, field_top(page))
+        assert field_top(page) == top
+        assert (state["invalid"], state["value"]) == ("true", typed), state
+        # The app puts focus on the field in both engines, also after a click on Add (spec R11).
+        assert active_control(page) == "field"
+        expect(rows).to_have_count(3)
+        assert stored(page) == saved
+        # A save of the same habits writes the same text, so only the count shows that a refusal saved nothing (R16).
+>       assert write_count(page) == 0
+E       AssertionError: assert 1 == 0
+E        +  where 1 = write_count(<Page url='http://127.0.0.1:1781/'>)
+
+tests\browser\test_add.py:216: AssertionError
+_ test_R11_rejected_names_keep_the_text_and_show_one_message_above_the_field[390x844-other-case] _
+
+app = <function app.<locals>.open_page at 0x000001CBCEE7EAE0>
+viewport = (390, 844), typed = 'read 20 pages'
+message = 'You already track this habit.'
+
+    @pytest.mark.parametrize(
+        "viewport, typed, message",
+        [
+            pytest.param(PHONE, "", EMPTY, id="390x844-nothing"),
+            pytest.param(PHONE, "   ", EMPTY, id="390x844-three-spaces"),
+            pytest.param(PHONE, "Walk to the end of the street and back after dinner", TOO_LONG, id="390x844-51-characters"),
+            pytest.param(PHONE, "Read twenty pages before bed every night.", TOO_LONG, id="390x844-41-characters"),
+            pytest.param(PHONE, "read 20 pages", DUPLICATE, id="390x844-other-case"),
+            pytest.param(PHONE, " STRETCH 10 MINUTES ", DUPLICATE, id="390x844-spaces-and-capitals"),
+            pytest.param(DESKTOP, "", EMPTY, id="1280x800-nothing"),
+        ],
+    )
+    def test_R11_rejected_names_keep_the_text_and_show_one_message_above_the_field(app, viewport, typed, message):
+        page = app(viewport=viewport, storage=sample_state(), count_writes=True)
+        rows = page.locator("ul.rows > li.row")
+        expect(rows).to_have_count(3)
+        saved = stored(page)
+        top = field_top(page)
+        add_habit(page, typed)
+        state = composer(page)
+        assert state["message"] == error(message), state
+        expect(page.locator("#nh-msg")).to_be_visible()
+        message_bottom = page.locator("#nh-msg").evaluate("(line) => line.getBoundingClientRect().bottom")
+        assert message_bottom <= field_top(page), (message_bottom, field_top(page))
+        assert field_top(page) == top
+        assert (state["invalid"], state["value"]) == ("true", typed), state
+        # The app puts focus on the field in both engines, also after a click on Add (spec R11).
+        assert active_control(page) == "field"
+        expect(rows).to_have_count(3)
+        assert stored(page) == saved
+        # A save of the same habits writes the same text, so only the count shows that a refusal saved nothing (R16).
+>       assert write_count(page) == 0
+E       AssertionError: assert 1 == 0
+E        +  where 1 = write_count(<Page url='http://127.0.0.1:1781/'>)
+
+tests\browser\test_add.py:216: AssertionError
+_ test_R11_rejected_names_keep_the_text_and_show_one_message_above_the_field[390x844-spaces-and-capitals] _
+
+app = <function app.<locals>.open_page at 0x000001CBCEE7E6C0>
+viewport = (390, 844), typed = ' STRETCH 10 MINUTES '
+message = 'You already track this habit.'
+
+    @pytest.mark.parametrize(
+        "viewport, typed, message",
+        [
+            pytest.param(PHONE, "", EMPTY, id="390x844-nothing"),
+            pytest.param(PHONE, "   ", EMPTY, id="390x844-three-spaces"),
+            pytest.param(PHONE, "Walk to the end of the street and back after dinner", TOO_LONG, id="390x844-51-characters"),
+            pytest.param(PHONE, "Read twenty pages before bed every night.", TOO_LONG, id="390x844-41-characters"),
+            pytest.param(PHONE, "read 20 pages", DUPLICATE, id="390x844-other-case"),
+            pytest.param(PHONE, " STRETCH 10 MINUTES ", DUPLICATE, id="390x844-spaces-and-capitals"),
+            pytest.param(DESKTOP, "", EMPTY, id="1280x800-nothing"),
+        ],
+    )
+    def test_R11_rejected_names_keep_the_text_and_show_one_message_above_the_field(app, viewport, typed, message):
+        page = app(viewport=viewport, storage=sample_state(), count_writes=True)
+        rows = page.locator("ul.rows > li.row")
+        expect(rows).to_have_count(3)
+        saved = stored(page)
+        top = field_top(page)
+        add_habit(page, typed)
+        state = composer(page)
+        assert state["message"] == error(message), state
+        expect(page.locator("#nh-msg")).to_be_visible()
+        message_bottom = page.locator("#nh-msg").evaluate("(line) => line.getBoundingClientRect().bottom")
+        assert message_bottom <= field_top(page), (message_bottom, field_top(page))
+        assert field_top(page) == top
+        assert (state["invalid"], state["value"]) == ("true", typed), state
+        # The app puts focus on the field in both engines, also after a click on Add (spec R11).
+        assert active_control(page) == "field"
+        expect(rows).to_have_count(3)
+        assert stored(page) == saved
+        # A save of the same habits writes the same text, so only the count shows that a refusal saved nothing (R16).
+>       assert write_count(page) == 0
+E       AssertionError: assert 1 == 0
+E        +  where 1 = write_count(<Page url='http://127.0.0.1:1781/'>)
+
+tests\browser\test_add.py:216: AssertionError
+_ test_R11_rejected_names_keep_the_text_and_show_one_message_above_the_field[1280x800-nothing] _
+
+app = <function app.<locals>.open_page at 0x000001CBCEFCFED0>
+viewport = (1280, 800), typed = '', message = 'Name the habit first.'
+
+    @pytest.mark.parametrize(
+        "viewport, typed, message",
+        [
+            pytest.param(PHONE, "", EMPTY, id="390x844-nothing"),
+            pytest.param(PHONE, "   ", EMPTY, id="390x844-three-spaces"),
+            pytest.param(PHONE, "Walk to the end of the street and back after dinner", TOO_LONG, id="390x844-51-characters"),
+            pytest.param(PHONE, "Read twenty pages before bed every night.", TOO_LONG, id="390x844-41-characters"),
+            pytest.param(PHONE, "read 20 pages", DUPLICATE, id="390x844-other-case"),
+            pytest.param(PHONE, " STRETCH 10 MINUTES ", DUPLICATE, id="390x844-spaces-and-capitals"),
+            pytest.param(DESKTOP, "", EMPTY, id="1280x800-nothing"),
+        ],
+    )
+    def test_R11_rejected_names_keep_the_text_and_show_one_message_above_the_field(app, viewport, typed, message):
+        page = app(viewport=viewport, storage=sample_state(), count_writes=True)
+        rows = page.locator("ul.rows > li.row")
+        expect(rows).to_have_count(3)
+        saved = stored(page)
+        top = field_top(page)
+        add_habit(page, typed)
+        state = composer(page)
+        assert state["message"] == error(message), state
+        expect(page.locator("#nh-msg")).to_be_visible()
+        message_bottom = page.locator("#nh-msg").evaluate("(line) => line.getBoundingClientRect().bottom")
+        assert message_bottom <= field_top(page), (message_bottom, field_top(page))
+        assert field_top(page) == top
+        assert (state["invalid"], state["value"]) == ("true", typed), state
+        # The app puts focus on the field in both engines, also after a click on Add (spec R11).
+        assert active_control(page) == "field"
+        expect(rows).to_have_count(3)
+        assert stored(page) == saved
+        # A save of the same habits writes the same text, so only the count shows that a refusal saved nothing (R16).
+>       assert write_count(page) == 0
+E       AssertionError: assert 1 == 0
+E        +  where 1 = write_count(<Page url='http://127.0.0.1:1781/'>)
+
+tests\browser\test_add.py:216: AssertionError
+engine chromium: 0 chromium_only skip(s)
+=========================== short test summary info ===========================
+FAILED tests/browser/test_add.py::test_R11_rejected_names_keep_the_text_and_show_one_message_above_the_field[390x844-nothing]
+FAILED tests/browser/test_add.py::test_R11_rejected_names_keep_the_text_and_show_one_message_above_the_field[390x844-three-spaces]
+FAILED tests/browser/test_add.py::test_R11_rejected_names_keep_the_text_and_show_one_message_above_the_field[390x844-51-characters]
+FAILED tests/browser/test_add.py::test_R11_rejected_names_keep_the_text_and_show_one_message_above_the_field[390x844-41-characters]
+FAILED tests/browser/test_add.py::test_R11_rejected_names_keep_the_text_and_show_one_message_above_the_field[390x844-other-case]
+FAILED tests/browser/test_add.py::test_R11_rejected_names_keep_the_text_and_show_one_message_above_the_field[390x844-spaces-and-capitals]
+FAILED tests/browser/test_add.py::test_R11_rejected_names_keep_the_text_and_show_one_message_above_the_field[1280x800-nothing]
+7 failed in 2.67s

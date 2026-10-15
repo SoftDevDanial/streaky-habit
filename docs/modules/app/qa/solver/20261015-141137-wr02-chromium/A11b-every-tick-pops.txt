@@ -1,0 +1,78 @@
+FF                                                                       [100%]
+================================== FAILURES ===================================
+____________________ test_R37_R32_ticking_a_past_day_in_p1 ____________________
+
+app = <function app.<locals>.open_page at 0x000002140C12DDD0>
+engine = 'chromium'
+
+    def test_R37_R32_ticking_a_past_day_in_p1(app, engine):
+        page = app(viewport=DESKTOP, storage=sample_state(), count_writes=True)
+        open_from_band(page, SEP_22)
+        handle = tick(page, "Read 20 pages").element_handle()
+        handle.click()
+        assert handle.evaluate("(button) => button.isConnected") is True
+        assert handle.get_attribute("aria-pressed") == "true"
+        assert handle.evaluate("(button) => ['on', 'pop'].every((name) => button.classList.contains(name))") is True
+        popped = page.evaluate("() => Array.from(document.querySelectorAll('dialog.dlg-day button.tick.pop'), (tick) => tick.getAttribute('aria-label'))")
+>       assert popped == ["Read 20 pages"], f"a tick that did not change carries pop (R32): {popped}"
+E       AssertionError: a tick that did not change carries pop (R32): ['Read 20 pages', 'Stretch 10 minutes', 'No phone after 11pm']
+E       assert ['Read 20 pag...e after 11pm'] == ['Read 20 pages']
+E         
+E         Left contains 2 more items, first extra item: 'Stretch 10 minutes'
+E         Use -v to get more diff
+
+tests\browser\test_day_editor.py:354: AssertionError
+_ test_R23_R32_a_change_pops_what_changed_and_bumps_its_number_and_replays_on_the_next_change _
+
+app = <function app.<locals>.open_page at 0x000002140D590510>
+
+    def test_R23_R32_a_change_pops_what_changed_and_bumps_its_number_and_replays_on_the_next_change(app):
+        # The Overview button is not displayed from 1024 px (R4, the goldens), and an element that is not displayed starts
+        # no animation. So its ring's pop is read as its class and computed animation at 1280 and seen playing at 390,
+        # where that button shows and the band does not (BUILD.md task 25, open question for the planner).
+        phone = app(viewport=PHONE, storage=SAMPLE)
+        log, _ = first_done_today(phone)
+        on_a_phone = [STRETCH_DOT, entry("pop", "svg", [], "Overview, today 2 of 3 habits done", "0.3s"), STRETCH_CURRENT]
+        found = logged_within(log, on_a_phone)
+        assert sorted(found, key=str) == sorted(on_a_phone, key=str), "at 390 px Done today did not pop and bump exactly what changed"
+    
+        page = app(viewport=DESKTOP, storage=SAMPLE, install_time=NOON)
+        log, clicked = first_done_today(page)
+        done = done_btn(page, STRETCH)
+        first = [STRETCH_DOT, entry("pop", "svg", [], "Sat 10 Oct, 2 of 3 habits", "0.3s"), STRETCH_CURRENT]
+        found = logged_within(log, first)
+        assert sorted(found, key=str) == sorted(first, key=str), "the first Done today did not pop and bump exactly what changed"
+        overview_ring = page.locator("button.ov-btn > span.ov-ring").evaluate(
+            "(ring) => [ring.classList.contains('pop'), getComputedStyle(ring.firstElementChild).animationName, getComputedStyle(ring.firstElementChild).animationDuration]"
+        )
+        assert overview_ring == [True, "pop", "0.3s"], "the Overview button's ring does not carry the pop of a changed ring"
+    
+        elapsed = time.monotonic() - clicked
+        if elapsed >= 0.26:
+            pytest.fail(f"the second click could not come while the first pop runs, {elapsed:.3f} s had passed")
+        time.sleep(max(0.0, 0.1 - elapsed))
+        done.click()
+        again = [STRETCH_DOT, STRETCH_CURRENT]
+        found = logged_within(log, again, since=len(first))
+        assert all(item in found for item in again), f"the second Done today did not replay the pop and the bump: {found}"
+    
+        seen = len(animations(log))
+        open_p1_from_the_band(page)
+        tick(page, READ).click()
+        tick_pop = entry("pop", "span", ["tbox"], READ, "0.26s")
+        found = logged_within(log, [tick_pop], since=seen)
+        assert tick_pop in found, f"the tick did not pop its box: {found}"
+        found = settled_entries(log, seen)
+>       assert [item for item in found if item["classes"] == ["tbox"]] == [tick_pop], f"a tick that did not change popped: {found}"
+E       AssertionError: a tick that did not change popped: [{'name': 'fade', 'tag': 'dialog', 'pseudo': '::backdrop', 'classes': ['dlg-day'], 'owner': '', 'duration': '0.18s'}, {'name': 'sheet', 'tag': 'div', 'pseudo': '', 'classes': ['dlg-box'], 'owner': '', 'duration': '0.26s'}, {'name': 'pop', 'tag': 'svg', 'pseudo': '', 'classes': [], 'owner': 'Tue 22 Sep, 2 of 3 habits', 'duration': '0.3s'}, {'name': 'pop', 'tag': 'span', 'pseudo': '', 'classes': ['tbox'], 'owner': 'Read 20 pages', 'duration': '0.26s'}, {'name': 'pop', 'tag': 'span', 'pseudo': '', 'classes': ['tbox'], 'owner': 'Stretch 10 minutes', 'duration': '0.26s'}, {'name': 'pop', 'tag': 'span', 'pseudo': '', 'classes': ['tbox'], 'owner': 'No phone after 11pm', 'duration': '0.26s'}, {'name': 'bump', 'tag': 'span', 'pseudo': '', 'classes': ['val', 'bump'], 'owner': 'rs-1', 'duration': '0.28s'}]
+E       assert [{'name': 'po...'tbox'], ...}] == [{'name': 'po...'tbox'], ...}]
+E         
+E         Left contains 2 more items, first extra item: {'name': 'pop', 'tag': 'span', 'pseudo': '', 'classes': ['tbox'], ...}
+E         Use -v to get more diff
+
+tests\browser\test_platform.py:494: AssertionError
+engine chromium: 0 chromium_only skip(s)
+=========================== short test summary info ===========================
+FAILED tests/browser/test_day_editor.py::test_R37_R32_ticking_a_past_day_in_p1
+FAILED tests/browser/test_platform.py::test_R23_R32_a_change_pops_what_changed_and_bumps_its_number_and_replays_on_the_next_change
+2 failed in 2.21s

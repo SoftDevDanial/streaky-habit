@@ -1,0 +1,125 @@
+{
+  "requests": [
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:1974/"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:1974/src/styles.css"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:1974/src/app.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:1974/src/calendar.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:1974/src/dates.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:1974/src/habits.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:1974/src/popups.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:1974/src/storage.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:1974/src/view.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:1974/src/ring.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:1974/"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:1974/src/styles.css"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:1974/src/app.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:1974/src/calendar.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:1974/src/dates.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:1974/src/habits.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:1974/src/popups.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:1974/src/storage.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:1974/src/view.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:1974/src/ring.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:1974/"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:1974/src/styles.css"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:1974/src/app.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:1974/src/calendar.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:1974/src/dates.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:1974/src/habits.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:1974/src/popups.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:1974/src/storage.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:1974/src/view.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:1974/src/ring.js"
+    }
+  ],
+  "outside_the_rule": []
+}

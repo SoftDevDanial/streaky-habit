@@ -1,0 +1,29 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+______ test_R12_a_render_at_twelve_habits_does_not_write_the_note_again _______
+
+app = <function app.<locals>.open_page at 0x00000192FA21B270>
+
+    def test_R12_a_render_at_twelve_habits_does_not_write_the_note_again(app):
+        """The note sits in the live region #nh-msg, so writing it again on every render would announce it again."""
+        page = app(storage=twelve_state())
+        assert composer(page)["message"] == NOTE
+        log = mutation_log(page, "#nh-msg")
+        done = page.locator("ul.rows > li.row button.btn-done").first
+        pressed = done.get_attribute("aria-pressed")
+        done.click()
+        expect(done).to_have_attribute("aria-pressed", "false" if pressed == "true" else "true")
+>       assert mutations(log) == {"added": 0, "removed": 0}, "a render wrote the 12-habit note again"
+E       AssertionError: a render wrote the 12-habit note again
+E       assert {'added': 1, 'removed': 1} == {'added': 0, 'removed': 0}
+E         
+E         Differing items:
+E         {'removed': 1} != {'removed': 0}
+E         {'added': 1} != {'added': 0}
+E         Use -v to get more diff
+
+tests\browser\test_add.py:275: AssertionError
+engine chromium: 0 chromium_only skip(s)
+=========================== short test summary info ===========================
+FAILED tests/browser/test_add.py::test_R12_a_render_at_twelve_habits_does_not_write_the_note_again
+1 failed in 1.10s

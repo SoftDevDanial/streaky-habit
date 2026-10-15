@@ -1,0 +1,33 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+____________ test_R36_p1_lists_the_habits_there_are_when_it_opens _____________
+
+app = <function app.<locals>.open_page at 0x0000026BFE2A7B60>
+
+    def test_R36_p1_lists_the_habits_there_are_when_it_opens(app):
+        page = app(viewport=DESKTOP, storage=sample_state(), install_time=NOON)
+    
+        def reopen():
+            open_from_band(page, SEP_22)
+            return page.evaluate(TICK_NAMES_JS), day_dialog(page).locator("p#day-sub").text_content()
+    
+        def close():
+            watch = watch_close(page, "dialog.dlg-day")
+            page.keyboard.press("Escape")
+            wait_for_close(watch)
+    
+        assert reopen() == (["Read 20 pages", "Stretch 10 minutes", "No phone after 11pm"], "1 of 3 habits")
+        close()
+        add_habit(page, "Drink water", enter=True)
+        expect(page.locator("ul.rows > li.row")).to_have_count(4)
+>       assert reopen() == (["Read 20 pages", "Stretch 10 minutes", "No phone after 11pm", "Drink water"], "1 of 4 habits")
+E       AssertionError: assert (['Read 20 pa... of 4 habits') == (['Read 20 pa... of 4 habits')
+E         
+E         At index 0 diff: ['Read 20 pages', 'Stretch 10 minutes', 'No phone after 11pm'] != ['Read 20 pages', 'Stretch 10 minutes', 'No phone after 11pm', 'Drink water']
+E         Use -v to get more diff
+
+tests\browser\test_day_editor.py:353: AssertionError
+engine chromium: 0 chromium_only skip(s)
+=========================== short test summary info ===========================
+FAILED tests/browser/test_day_editor.py::test_R36_p1_lists_the_habits_there_are_when_it_opens
+1 failed in 1.22s

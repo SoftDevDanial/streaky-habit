@@ -1,0 +1,305 @@
+FFF.FF                                                                   [100%]
+================================== FAILURES ===================================
+_ test_R36_on_a_phone_the_host_of_p1_gets_room_while_p1_is_open_over_it_and_loses_it_when_p1_closes[390x844 P3 2026-07-20] _
+
+app = <function app.<locals>.open_page at 0x000001CF9C8C75E0>
+viewport = (390, 844), host = 'P3', key = '2026-07-20'
+action = 'presses Escape', room = "P1's height"
+
+    @pytest.mark.parametrize(
+        "viewport, host, key, action, room",
+        [
+            pytest.param(PHONE, "P3", "2026-07-20", "presses Escape", "P1's height", id="390x844 P3 2026-07-20"),
+            pytest.param((360, 780), "P3", "2026-07-20", "clicks Close", "P1's height", id="360x780 P3 2026-07-20"),
+            pytest.param(PHONE, "P3", SEP_22, "clicks the viewport point (5, 5)", "P1's height", id="390x844 P3 2026-09-22"),
+            pytest.param((800, 900), "P3", "2026-07-20", "presses Escape", "none", id="800x900 P3 2026-07-20"),
+            pytest.param(PHONE, "P4", "2025-10-10", "presses Escape", "P1's height", id="390x844 P4 2025-10-10"),
+            pytest.param((360, 780), "P4", "2025-10-10", "clicks Close", "P1's height", id="360x780 P4 2025-10-10"),
+        ],
+    )
+    def test_R36_on_a_phone_the_host_of_p1_gets_room_while_p1_is_open_over_it_and_loses_it_when_p1_closes(
+        app, viewport, host, key, action, room
+    ):
+        page = app(viewport=viewport, storage=sample_state())
+        cls = open_host(page, host)
+        assert page.evaluate(PADDING_JS, cls) == ["24px", ""]
+    
+        host_day(page, host, key).click()
+        expect(day_dialog(page)).to_have_attribute("open", "")
+        settle(page)
+        found = page.evaluate(SIGHT_JS, [cls, key])
+        assert found["hostOpen"] is True and found["p1Open"] is True, found
+        if room == "none":
+            assert found["padding"] == ["24px", ""], found
+        else:
+            # P1 sits at the bottom, so its height is the distance from its top edge to the viewport's bottom.
+            assert abs(found["p1"]["bottom"] - found["viewport"][1]) <= 1, found
+            assert abs(px(found["padding"][0]) - found["p1"]["height"]) <= 1, found
+            if host == "P4":
+                assert page.evaluate(PADDING_JS, "dlg-ov")[1] == "", "P3 beneath P4 got room"
+    
+        # The room is released in the app's close handler, a queued task. In Chromium the browser's own focus restore can
+        # show the day focused before it runs, so the read waits for the close event (conftest watch_close).
+        watch = watch_close(page, "dialog.dlg-day")
+        if action == "clicks the viewport point (5, 5)":
+            box = found["sheet"]
+            assert not (box["left"] <= 5 <= box["right"] and box["top"] <= 5 <= box["bottom"]), box
+            page.mouse.click(5, 5)
+        else:
+            CLOSE_P1[action](page)
+        wait_for_close(watch)
+        expect(page.locator(f"dialog.{cls}")).to_have_attribute("open", "")
+        expect(host_day(page, host, key)).to_be_focused()
+        after = page.evaluate(SIGHT_JS, [cls, key])
+>       assert after["padding"] == ["24px", ""], after
+E       AssertionError: {'hostOpen': True, 'p1Open': False, 'head': {'top': 0, 'bottom': 82, 'left': 0, 'right': 390, ...}, 'body': {'top': 82, 'bottom': 844, 'left': 0, 'right': 390, ...}, ...}
+E       assert ['293px', '293px'] == ['24px', '']
+E         
+E         At index 0 diff: '293px' != '24px'
+E         Use -v to get more diff
+
+tests\browser\test_day_editor.py:280: AssertionError
+_ test_R36_on_a_phone_the_host_of_p1_gets_room_while_p1_is_open_over_it_and_loses_it_when_p1_closes[360x780 P3 2026-07-20] _
+
+app = <function app.<locals>.open_page at 0x000001CF9DC06E50>
+viewport = (360, 780), host = 'P3', key = '2026-07-20', action = 'clicks Close'
+room = "P1's height"
+
+    @pytest.mark.parametrize(
+        "viewport, host, key, action, room",
+        [
+            pytest.param(PHONE, "P3", "2026-07-20", "presses Escape", "P1's height", id="390x844 P3 2026-07-20"),
+            pytest.param((360, 780), "P3", "2026-07-20", "clicks Close", "P1's height", id="360x780 P3 2026-07-20"),
+            pytest.param(PHONE, "P3", SEP_22, "clicks the viewport point (5, 5)", "P1's height", id="390x844 P3 2026-09-22"),
+            pytest.param((800, 900), "P3", "2026-07-20", "presses Escape", "none", id="800x900 P3 2026-07-20"),
+            pytest.param(PHONE, "P4", "2025-10-10", "presses Escape", "P1's height", id="390x844 P4 2025-10-10"),
+            pytest.param((360, 780), "P4", "2025-10-10", "clicks Close", "P1's height", id="360x780 P4 2025-10-10"),
+        ],
+    )
+    def test_R36_on_a_phone_the_host_of_p1_gets_room_while_p1_is_open_over_it_and_loses_it_when_p1_closes(
+        app, viewport, host, key, action, room
+    ):
+        page = app(viewport=viewport, storage=sample_state())
+        cls = open_host(page, host)
+        assert page.evaluate(PADDING_JS, cls) == ["24px", ""]
+    
+        host_day(page, host, key).click()
+        expect(day_dialog(page)).to_have_attribute("open", "")
+        settle(page)
+        found = page.evaluate(SIGHT_JS, [cls, key])
+        assert found["hostOpen"] is True and found["p1Open"] is True, found
+        if room == "none":
+            assert found["padding"] == ["24px", ""], found
+        else:
+            # P1 sits at the bottom, so its height is the distance from its top edge to the viewport's bottom.
+            assert abs(found["p1"]["bottom"] - found["viewport"][1]) <= 1, found
+            assert abs(px(found["padding"][0]) - found["p1"]["height"]) <= 1, found
+            if host == "P4":
+                assert page.evaluate(PADDING_JS, "dlg-ov")[1] == "", "P3 beneath P4 got room"
+    
+        # The room is released in the app's close handler, a queued task. In Chromium the browser's own focus restore can
+        # show the day focused before it runs, so the read waits for the close event (conftest watch_close).
+        watch = watch_close(page, "dialog.dlg-day")
+        if action == "clicks the viewport point (5, 5)":
+            box = found["sheet"]
+            assert not (box["left"] <= 5 <= box["right"] and box["top"] <= 5 <= box["bottom"]), box
+            page.mouse.click(5, 5)
+        else:
+            CLOSE_P1[action](page)
+        wait_for_close(watch)
+        expect(page.locator(f"dialog.{cls}")).to_have_attribute("open", "")
+        expect(host_day(page, host, key)).to_be_focused()
+        after = page.evaluate(SIGHT_JS, [cls, key])
+>       assert after["padding"] == ["24px", ""], after
+E       AssertionError: {'hostOpen': True, 'p1Open': False, 'head': {'top': 0, 'bottom': 82, 'left': 0, 'right': 360, ...}, 'body': {'top': 82, 'bottom': 780, 'left': 0, 'right': 360, ...}, ...}
+E       assert ['293px', '293px'] == ['24px', '']
+E         
+E         At index 0 diff: '293px' != '24px'
+E         Use -v to get more diff
+
+tests\browser\test_day_editor.py:280: AssertionError
+_ test_R36_on_a_phone_the_host_of_p1_gets_room_while_p1_is_open_over_it_and_loses_it_when_p1_closes[390x844 P3 2026-09-22] _
+
+app = <function app.<locals>.open_page at 0x000001CF9DC06DA0>
+viewport = (390, 844), host = 'P3', key = '2026-09-22'
+action = 'clicks the viewport point (5, 5)', room = "P1's height"
+
+    @pytest.mark.parametrize(
+        "viewport, host, key, action, room",
+        [
+            pytest.param(PHONE, "P3", "2026-07-20", "presses Escape", "P1's height", id="390x844 P3 2026-07-20"),
+            pytest.param((360, 780), "P3", "2026-07-20", "clicks Close", "P1's height", id="360x780 P3 2026-07-20"),
+            pytest.param(PHONE, "P3", SEP_22, "clicks the viewport point (5, 5)", "P1's height", id="390x844 P3 2026-09-22"),
+            pytest.param((800, 900), "P3", "2026-07-20", "presses Escape", "none", id="800x900 P3 2026-07-20"),
+            pytest.param(PHONE, "P4", "2025-10-10", "presses Escape", "P1's height", id="390x844 P4 2025-10-10"),
+            pytest.param((360, 780), "P4", "2025-10-10", "clicks Close", "P1's height", id="360x780 P4 2025-10-10"),
+        ],
+    )
+    def test_R36_on_a_phone_the_host_of_p1_gets_room_while_p1_is_open_over_it_and_loses_it_when_p1_closes(
+        app, viewport, host, key, action, room
+    ):
+        page = app(viewport=viewport, storage=sample_state())
+        cls = open_host(page, host)
+        assert page.evaluate(PADDING_JS, cls) == ["24px", ""]
+    
+        host_day(page, host, key).click()
+        expect(day_dialog(page)).to_have_attribute("open", "")
+        settle(page)
+        found = page.evaluate(SIGHT_JS, [cls, key])
+        assert found["hostOpen"] is True and found["p1Open"] is True, found
+        if room == "none":
+            assert found["padding"] == ["24px", ""], found
+        else:
+            # P1 sits at the bottom, so its height is the distance from its top edge to the viewport's bottom.
+            assert abs(found["p1"]["bottom"] - found["viewport"][1]) <= 1, found
+            assert abs(px(found["padding"][0]) - found["p1"]["height"]) <= 1, found
+            if host == "P4":
+                assert page.evaluate(PADDING_JS, "dlg-ov")[1] == "", "P3 beneath P4 got room"
+    
+        # The room is released in the app's close handler, a queued task. In Chromium the browser's own focus restore can
+        # show the day focused before it runs, so the read waits for the close event (conftest watch_close).
+        watch = watch_close(page, "dialog.dlg-day")
+        if action == "clicks the viewport point (5, 5)":
+            box = found["sheet"]
+            assert not (box["left"] <= 5 <= box["right"] and box["top"] <= 5 <= box["bottom"]), box
+            page.mouse.click(5, 5)
+        else:
+            CLOSE_P1[action](page)
+        wait_for_close(watch)
+        expect(page.locator(f"dialog.{cls}")).to_have_attribute("open", "")
+        expect(host_day(page, host, key)).to_be_focused()
+        after = page.evaluate(SIGHT_JS, [cls, key])
+>       assert after["padding"] == ["24px", ""], after
+E       AssertionError: {'hostOpen': True, 'p1Open': False, 'head': {'top': 0, 'bottom': 82, 'left': 0, 'right': 390, ...}, 'body': {'top': 82, 'bottom': 844, 'left': 0, 'right': 390, ...}, ...}
+E       assert ['293px', '293px'] == ['24px', '']
+E         
+E         At index 0 diff: '293px' != '24px'
+E         Use -v to get more diff
+
+tests\browser\test_day_editor.py:280: AssertionError
+_ test_R36_on_a_phone_the_host_of_p1_gets_room_while_p1_is_open_over_it_and_loses_it_when_p1_closes[390x844 P4 2025-10-10] _
+
+app = <function app.<locals>.open_page at 0x000001CF9DDF97A0>
+viewport = (390, 844), host = 'P4', key = '2025-10-10'
+action = 'presses Escape', room = "P1's height"
+
+    @pytest.mark.parametrize(
+        "viewport, host, key, action, room",
+        [
+            pytest.param(PHONE, "P3", "2026-07-20", "presses Escape", "P1's height", id="390x844 P3 2026-07-20"),
+            pytest.param((360, 780), "P3", "2026-07-20", "clicks Close", "P1's height", id="360x780 P3 2026-07-20"),
+            pytest.param(PHONE, "P3", SEP_22, "clicks the viewport point (5, 5)", "P1's height", id="390x844 P3 2026-09-22"),
+            pytest.param((800, 900), "P3", "2026-07-20", "presses Escape", "none", id="800x900 P3 2026-07-20"),
+            pytest.param(PHONE, "P4", "2025-10-10", "presses Escape", "P1's height", id="390x844 P4 2025-10-10"),
+            pytest.param((360, 780), "P4", "2025-10-10", "clicks Close", "P1's height", id="360x780 P4 2025-10-10"),
+        ],
+    )
+    def test_R36_on_a_phone_the_host_of_p1_gets_room_while_p1_is_open_over_it_and_loses_it_when_p1_closes(
+        app, viewport, host, key, action, room
+    ):
+        page = app(viewport=viewport, storage=sample_state())
+        cls = open_host(page, host)
+        assert page.evaluate(PADDING_JS, cls) == ["24px", ""]
+    
+        host_day(page, host, key).click()
+        expect(day_dialog(page)).to_have_attribute("open", "")
+        settle(page)
+        found = page.evaluate(SIGHT_JS, [cls, key])
+        assert found["hostOpen"] is True and found["p1Open"] is True, found
+        if room == "none":
+            assert found["padding"] == ["24px", ""], found
+        else:
+            # P1 sits at the bottom, so its height is the distance from its top edge to the viewport's bottom.
+            assert abs(found["p1"]["bottom"] - found["viewport"][1]) <= 1, found
+            assert abs(px(found["padding"][0]) - found["p1"]["height"]) <= 1, found
+            if host == "P4":
+                assert page.evaluate(PADDING_JS, "dlg-ov")[1] == "", "P3 beneath P4 got room"
+    
+        # The room is released in the app's close handler, a queued task. In Chromium the browser's own focus restore can
+        # show the day focused before it runs, so the read waits for the close event (conftest watch_close).
+        watch = watch_close(page, "dialog.dlg-day")
+        if action == "clicks the viewport point (5, 5)":
+            box = found["sheet"]
+            assert not (box["left"] <= 5 <= box["right"] and box["top"] <= 5 <= box["bottom"]), box
+            page.mouse.click(5, 5)
+        else:
+            CLOSE_P1[action](page)
+        wait_for_close(watch)
+        expect(page.locator(f"dialog.{cls}")).to_have_attribute("open", "")
+        expect(host_day(page, host, key)).to_be_focused()
+        after = page.evaluate(SIGHT_JS, [cls, key])
+>       assert after["padding"] == ["24px", ""], after
+E       AssertionError: {'hostOpen': True, 'p1Open': False, 'head': {'top': 0, 'bottom': 112, 'left': 0, 'right': 390, ...}, 'body': {'top': 112, 'bottom': 844, 'left': 0, 'right': 390, ...}, ...}
+E       assert ['293px', '293px'] == ['24px', '']
+E         
+E         At index 0 diff: '293px' != '24px'
+E         Use -v to get more diff
+
+tests\browser\test_day_editor.py:280: AssertionError
+_ test_R36_on_a_phone_the_host_of_p1_gets_room_while_p1_is_open_over_it_and_loses_it_when_p1_closes[360x780 P4 2025-10-10] _
+
+app = <function app.<locals>.open_page at 0x000001CF9DDFB1C0>
+viewport = (360, 780), host = 'P4', key = '2025-10-10', action = 'clicks Close'
+room = "P1's height"
+
+    @pytest.mark.parametrize(
+        "viewport, host, key, action, room",
+        [
+            pytest.param(PHONE, "P3", "2026-07-20", "presses Escape", "P1's height", id="390x844 P3 2026-07-20"),
+            pytest.param((360, 780), "P3", "2026-07-20", "clicks Close", "P1's height", id="360x780 P3 2026-07-20"),
+            pytest.param(PHONE, "P3", SEP_22, "clicks the viewport point (5, 5)", "P1's height", id="390x844 P3 2026-09-22"),
+            pytest.param((800, 900), "P3", "2026-07-20", "presses Escape", "none", id="800x900 P3 2026-07-20"),
+            pytest.param(PHONE, "P4", "2025-10-10", "presses Escape", "P1's height", id="390x844 P4 2025-10-10"),
+            pytest.param((360, 780), "P4", "2025-10-10", "clicks Close", "P1's height", id="360x780 P4 2025-10-10"),
+        ],
+    )
+    def test_R36_on_a_phone_the_host_of_p1_gets_room_while_p1_is_open_over_it_and_loses_it_when_p1_closes(
+        app, viewport, host, key, action, room
+    ):
+        page = app(viewport=viewport, storage=sample_state())
+        cls = open_host(page, host)
+        assert page.evaluate(PADDING_JS, cls) == ["24px", ""]
+    
+        host_day(page, host, key).click()
+        expect(day_dialog(page)).to_have_attribute("open", "")
+        settle(page)
+        found = page.evaluate(SIGHT_JS, [cls, key])
+        assert found["hostOpen"] is True and found["p1Open"] is True, found
+        if room == "none":
+            assert found["padding"] == ["24px", ""], found
+        else:
+            # P1 sits at the bottom, so its height is the distance from its top edge to the viewport's bottom.
+            assert abs(found["p1"]["bottom"] - found["viewport"][1]) <= 1, found
+            assert abs(px(found["padding"][0]) - found["p1"]["height"]) <= 1, found
+            if host == "P4":
+                assert page.evaluate(PADDING_JS, "dlg-ov")[1] == "", "P3 beneath P4 got room"
+    
+        # The room is released in the app's close handler, a queued task. In Chromium the browser's own focus restore can
+        # show the day focused before it runs, so the read waits for the close event (conftest watch_close).
+        watch = watch_close(page, "dialog.dlg-day")
+        if action == "clicks the viewport point (5, 5)":
+            box = found["sheet"]
+            assert not (box["left"] <= 5 <= box["right"] and box["top"] <= 5 <= box["bottom"]), box
+            page.mouse.click(5, 5)
+        else:
+            CLOSE_P1[action](page)
+        wait_for_close(watch)
+        expect(page.locator(f"dialog.{cls}")).to_have_attribute("open", "")
+        expect(host_day(page, host, key)).to_be_focused()
+        after = page.evaluate(SIGHT_JS, [cls, key])
+>       assert after["padding"] == ["24px", ""], after
+E       AssertionError: {'hostOpen': True, 'p1Open': False, 'head': {'top': 0, 'bottom': 112, 'left': 0, 'right': 360, ...}, 'body': {'top': 112, 'bottom': 780, 'left': 0, 'right': 360, ...}, ...}
+E       assert ['293px', '293px'] == ['24px', '']
+E         
+E         At index 0 diff: '293px' != '24px'
+E         Use -v to get more diff
+
+tests\browser\test_day_editor.py:280: AssertionError
+engine chromium: 0 chromium_only skip(s)
+=========================== short test summary info ===========================
+FAILED tests/browser/test_day_editor.py::test_R36_on_a_phone_the_host_of_p1_gets_room_while_p1_is_open_over_it_and_loses_it_when_p1_closes[390x844 P3 2026-07-20]
+FAILED tests/browser/test_day_editor.py::test_R36_on_a_phone_the_host_of_p1_gets_room_while_p1_is_open_over_it_and_loses_it_when_p1_closes[360x780 P3 2026-07-20]
+FAILED tests/browser/test_day_editor.py::test_R36_on_a_phone_the_host_of_p1_gets_room_while_p1_is_open_over_it_and_loses_it_when_p1_closes[390x844 P3 2026-09-22]
+FAILED tests/browser/test_day_editor.py::test_R36_on_a_phone_the_host_of_p1_gets_room_while_p1_is_open_over_it_and_loses_it_when_p1_closes[390x844 P4 2025-10-10]
+FAILED tests/browser/test_day_editor.py::test_R36_on_a_phone_the_host_of_p1_gets_room_while_p1_is_open_over_it_and_loses_it_when_p1_closes[360x780 P4 2025-10-10]
+5 failed, 1 passed in 6.14s

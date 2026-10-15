@@ -1,0 +1,42 @@
+"""Code-review re-check probe (WR-11), scratch copy only, never in the repository.
+
+STANDIN_IN_PLACE_JS read in contexts with and without CLIPBOARD_STANDIN, with writeText removed from Clipboard.prototype
+(the case where the two 1.0 pytest copies threw a TypeError and the gate's copy said true) and with navigator.clipboard
+removed. Then the gate's SNAPSHOT_JS is checked to embed the same predicate text, so the gate and pytest give one answer.
+"""
+import json
+
+import live_e2e
+from conftest import BASE_URL, CLIPBOARD_STANDIN, STANDIN_IN_PLACE_JS
+
+CASES = {
+    "with the stand-in": [CLIPBOARD_STANDIN],
+    "without the stand-in": [],
+    "writeText removed, no stand-in": ["delete Clipboard.prototype.writeText;"],
+    "writeText removed, then the stand-in": ["delete Clipboard.prototype.writeText;", CLIPBOARD_STANDIN],
+    "navigator.clipboard removed, no stand-in": [
+        "Object.defineProperty(Navigator.prototype, 'clipboard', { get: () => undefined, configurable: true });"
+    ],
+}
+
+
+def test_probe_standin_predicate_cases(browser):
+    found = {}
+    for name, scripts in CASES.items():
+        context = browser.new_context()
+        try:
+            for script in scripts:
+                context.add_init_script(script)
+            page = context.new_page()
+            page.goto(BASE_URL)
+            try:
+                found[name] = page.evaluate(STANDIN_IN_PLACE_JS)
+            except Exception as error:  # the 1.0 pytest copies threw here when writeText was missing
+                found[name] = f"threw {type(error).__name__}"
+        finally:
+            context.close()
+    print("PROBE " + json.dumps(found))
+    assert found["with the stand-in"] is True, found
+    assert found["without the stand-in"] is False, found
+    assert found["writeText removed, no stand-in"] is True, found
+    assert ("standIn: (" + STANDIN_IN_PLACE_JS + ")()") in live_e2e.SNAPSHOT_JS

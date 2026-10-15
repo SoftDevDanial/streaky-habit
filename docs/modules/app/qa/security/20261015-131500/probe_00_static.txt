@@ -1,0 +1,78 @@
+command: cd docs/modules/app/qa/security/20261015-131500 && timeout 120 python -B probe_00_static.py   (2026-10-15 13:2x, HEAD 4e860ff, exit 0)
+stdout, verbatim:
+== 1. CSP
+csp metas: 1
+equals R1 string: True
+equals ROADMAP D2 string: True
+head order: ['<meta charset="utf-8">', '<meta http-equiv="Content-Security-Polic', '<meta name="viewport" content="width=dev', '<title>', '<link rel="icon" type="image/svg+xml" hr', '<link rel="stylesheet" href="src/styles.', '<script type="module" src="src/app.js">']
+CSP before every link and script: True
+== 2. index.html markup
+script elements: 1 inline bodies non-empty: 0
+script tags: ['<script type="module" src="src/app.js">']
+on* attributes: []
+javascript: urls: []
+xmlns attributes: []
+href/src values: ['#i-plus', '#i-trash', '#i-x', 'src/app.js', 'src/icon.svg', 'src/styles.css']
+absolute or scheme urls: []
+style attributes: ['style="position:absolute"']
+non-ascii bytes in index.html: 0
+== 3. banned APIs in src/*.js (code lines)
+  app.js:107 [dataset / data- from data] state.day = dayButton.getAttribute("data-key");
+  app.js:265 [dataset / data- from data] if (bead) tickDay(state.year, bead.getAttribute("data-key"));
+  calendar.js:48 [dataset / data- from data] return { control, grid: control.closest(DAY_GRID), key: control.getAttribute("data-key") };
+  calendar.js:57 [dataset / data- from data] return Array.from(grid.querySelectorAll(DAY_CONTROL)).find((day) => day.getAttribute("data-key") === key) ?? null;
+  calendar.js:182 [dataset / data- from data] const cell = cellOf.get(button.getAttribute("data-key"));
+  calendar.js:203 [dataset / data- from data] const key = button.getAttribute("data-key");
+  calendar.js:214 [dataset / data- from data] const day = dayParts(button.getAttribute("data-key")).day;
+  calendar.js:252 [dataset / data- from data] const button = element("button", "hc", { type: "button", "data-key": key, "aria-haspopup": "dialog" });
+  calendar.js:336 [dataset / data- from data] const button = element("button", "yc", { type: "button", "data-key": day.key, "aria-label": `Mark ${yearDate(day.key)} as done` });
+  popups.js:186 [dataset / data- from data] for (const button of document.querySelectorAll(DAY_BUTTON)) button.classList.toggle("is-open", button.getAttribute("data-key") === dayKey);
+  (the "data-key" rule is informational: every value is computed by habit-logic from todayKey, compared with ===, never put in a selector. No other banned pattern hit.)
+== 4. non-ascii bytes per src file
+  app.js: 16602 bytes, non-ascii 0
+  calendar.js: 17778 bytes, non-ascii 0
+  dates.js: 6024 bytes, non-ascii 0
+  habits.js: 11570 bytes, non-ascii 0
+  icon.svg: 458 bytes, non-ascii 0
+  popups.js: 11576 bytes, non-ascii 0
+  ring.js: 1733 bytes, non-ascii 0
+  storage.js: 4480 bytes, non-ascii 0
+  styles.css: 29519 bytes, non-ascii 0
+  view.js: 14078 bytes, non-ascii 0
+== 5. icon.svg against the goldens (R29, T13)
+goldens with an icon link: ['day-editor.html', 'delete-dialog.html', 'overview-year.html', 'overview.html', 'today-empty.html', 'today-full.html', 'today.html', 'year-view.html']
+distinct payloads: 1
+icon.svg equals every payload: True
+  icon script: []
+  icon on* attribute: []
+  icon href/xlink: []
+  icon url(: []
+  icon @import: []
+  icon foreignObject: []
+  icon entity/DOCTYPE: []
+  icon external scheme: []
+icon sha256: e064a981c8f0b5b4c3ee943a8646137fa0f3828ffd3256b5c4d5f46f60930382
+== 6. habit data in shipped files (R26)
+sample names checked: 12 hits: []
+== 7. publish set (CLAUDE.md Publish: index.html, src/, .nojekyll)
+  index.html 7455 bytes sha256 933cb8877d535adf
+  src/app.js 16602 bytes sha256 2296ffa1c093c8b8
+  src/calendar.js 17778 bytes sha256 8fc8270dfb19008e
+  src/dates.js 6024 bytes sha256 19e0082181243c94
+  src/habits.js 11570 bytes sha256 b6e15e60c673d3fe
+  src/icon.svg 458 bytes sha256 e064a981c8f0b5b4
+  src/popups.js 11576 bytes sha256 1dacf6ed7dd80785
+  src/ring.js 1733 bytes sha256 508a60495957f15b
+  src/storage.js 4480 bytes sha256 c0fe1f0886c6c592
+  src/styles.css 29519 bytes sha256 5a22cf07ea7b24a5
+  src/view.js 14078 bytes sha256 8d963adb55b16ef6
+src entries: ['app.js', 'calendar.js', 'dates.js', 'habits.js', 'icon.svg', 'popups.js', 'ring.js', 'storage.js', 'styles.css', 'view.js']
+.nojekyll at root: False
+tracked shipped files: ['index.html', 'src/app.js', 'src/calendar.js', 'src/dates.js', 'src/habits.js', 'src/icon.svg', 'src/popups.js', 'src/ring.js', 'src/storage.js', 'src/styles.css', 'src/view.js']
+shipped files referring to docs/, tests/, harness/ or ../: [('styles.css', 'docs/')]
+deploy workflow files: []
+== 8. credential-shaped files and strings (names only, never values)
+credential-shaped file names: []
+secret-pattern scan of shipped files done
+
+follow-up grep (same session): src/styles.css:1 is the header comment "It is docs/design/system.css from its first rule ...", a comment, no url(), @import or http in styles.css. window use in src/: app.js:369 addEventListener("resize"), popups.js:197 matchMedia, popups.js:202 innerHeight, all reads. No window or globalThis write.

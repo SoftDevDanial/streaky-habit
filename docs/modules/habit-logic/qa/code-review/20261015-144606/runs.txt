@@ -1,0 +1,24 @@
+# Code-review finder (read-only), habit-logic, v1.1.0 step 5 re-check, 2026-10-15. HEAD c271938.
+# The runner is round 1's (docs/modules/app/qa/code-review/20261015-125001/tools/mutrun.py.txt). Its run_node applies a
+# mutant in memory through the load hook of docs/modules/habit-logic/qa/code-review/20261015-125001/tools/ (unchanged).
+# The copy is c271938 from `git -c core.autocrlf=false archive`, in the session scratchpad (cr-recheck/copy-lf).
+# Nothing was written to src/. Lines as printed, the copy path left out.
+
+$ python -B mutrun.py recheck-node.json chromium all   (14:47:42 to 14:47:46)
+{"runner_pid": 13196}
+{"id": "N0-pristine", "kind": "node", "pid": 5712, "exit": 0, "timed_out": false, "seconds": 0.8, "counts": {"tests": 137, "pass": 137, "fail": 0, "cancelled": 0}, "failing": [], "hook_error": false, "verdict": "CONTROL GREEN"}
+{"id": "N1-control-max-habits", "kind": "node", "pid": 23956, "exit": 1, "timed_out": false, "seconds": 0.7, "counts": {"tests": 43, "pass": 41, "fail": 2, "cancelled": 0}, "failing": ["@R13 @R14 the limits are exported", "@R14 the limit of 12 habits is checked before the name"], "hook_error": false, "verdict": "KILLED"}
+{"id": "H12-aliased-clock-read-in-yearMonths", "kind": "node", "pid": 20780, "exit": 1, "timed_out": false, "seconds": 0.8, "counts": {"tests": 137, "pass": 136, "fail": 1, "cancelled": 0}, "failing": ["@R20 @R16 yearMonths reads no clock, so two calls with one key give equal results"], "hook_error": false, "verdict": "KILLED"}
+{"id": "H13-yearMonths-from-the-device-month", "kind": "node", "pid": 20212, "exit": 1, "timed_out": false, "seconds": 0.2, "counts": {"tests": 6, "pass": 5, "fail": 1, "cancelled": 0}, "failing": ["@R20 @R16 yearMonths reads no clock, so two calls with one key give equal results"], "hook_error": false, "verdict": "KILLED"}
+{"id": "H14-module-level-alias-read-in-yearMonths", "kind": "node", "pid": 24336, "exit": 0, "timed_out": false, "seconds": 0.9, "counts": {"tests": 137, "pass": 137, "fail": 0, "cancelled": 0}, "failing": [], "hook_error": false, "verdict": "SURVIVED"}
+{"id": "H15-date-called-as-a-function-in-yearMonths", "kind": "node", "pid": 25588, "exit": 1, "timed_out": false, "seconds": 0.2, "counts": {"tests": 6, "pass": 5, "fail": 1, "cancelled": 0}, "failing": ["@R20 @R16 yearMonths reads no clock, so two calls with one key give equal results"], "hook_error": false, "verdict": "KILLED"}
+{"id": "H16-aliased-now-in-yearMonths", "kind": "node", "pid": 928, "exit": 1, "timed_out": false, "seconds": 0.2, "counts": {"tests": 6, "pass": 5, "fail": 1, "cancelled": 0}, "failing": ["@R20 @R16 yearMonths reads no clock, so two calls with one key give equal results"], "hook_error": false, "verdict": "KILLED"}
+
+$ MUT_SPEC=<H12> NODE_OPTIONS=--import=<nodemut.mjs> timeout 60 node --test tests/purity.test.js   (on the copy, the message only)
+✖ @R20 @R16 yearMonths reads no clock, so two calls with one key give equal results
+ℹ pass 5
+ℹ fail 1
+  Error: a clock read, new Date() with no argument
+
+$ for f in dates habits sample-history purity ring storage: timeout 60 node --test tests/$f.test.js   (on the copy)
+dates 18, habits 43, sample-history 14, purity 6, ring 16, storage 40 tests, 0 fail each

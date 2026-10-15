@@ -1,0 +1,24 @@
+command: timeout 300 python -B probe_01_names.py chromium webkit   (first version of the probe, superseded by run 2)
+server pid 9944 port 48966, stopped, port refuses=True. 72 request lines, all GET, paths / /__seed__ /src/*.js /src/styles.css.
+
+Why superseded. This version pressed Escape and then the next row's Year with no wait between them. The app's
+`close` event is a queued task, and the next key press was often handled before it. The run therefore drove the
+app out of step. The record is kept because it shows how the app behaves when a popup is reopened before the
+previous close event has run (see probe_06_close_race).
+
+Extract of stdout (exact strings, problems abridged by count):
+chromium 149.0.7827.55
+  planted 1280x800: rows 12, ticks 12, problems 1 (M1 title of the previous habit while P2 showed "javascript:alert(4)")
+    errors: ["Cannot read properties of undefined (reading 'name')"]
+    census: img 0, script 1, iframe 0, style 0, a 0, base 0, object 0, embed 0, link 2, meta 3, form 1, onAttrs [], baseURI http://127.0.0.1:48966/
+    dialogs [], csp [], clipboard [], stored_unchanged true
+    window_added ["__pwClock"] (Playwright's clock, the baseline page had no clock), window_missing []
+  planted 390x844: rows 12, ticks 12, problems 7 (P2 and M1 titles of the previous habit), same single page error, census identical, stored_unchanged true
+  typed 1280x800: problems 7 of the same kind, errors x3 "Cannot read properties of undefined (reading 'name')", stored names equal the 12 typed names
+webkit 26.5
+  planted 1280x800: problems 28, "left open" 1 or 2 dialogs after Escape Escape, errors ["undefined is not an object (evaluating 'state.habits[index].name')"]
+  planted 390x844: problems 35, P2 and M1 titles empty, stored_unchanged false (a key press landed on a control of an open popup)
+  typed 1280x800: problems 26, the same page error once
+  every census: img 0, script 1, iframe 0, style 0, a 0, base 0, link 2, meta 3, onAttrs []
+  window_added ["__pwClock", "cancelIdleCallback", "requestIdleCallback"] (clock install), dialogs [], csp [], clipboard []
+requests in every session: GET / and src/app.js, calendar.js, dates.js, habits.js, popups.js, ring.js, storage.js, styles.css, view.js, all http://127.0.0.1:48966

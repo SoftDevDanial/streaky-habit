@@ -1,0 +1,163 @@
+"""Mutation runner of the code-review finder (read-only on the repository).
+
+Serves the throwaway copy COPY with one in-memory substitution (the mutant) and runs the named pytest node ids
+of that copy against it with STREAKS_BASE_URL, so no file is written anywhere. Node mutants are applied the same
+way, in memory, through a module load hook (nodehooks.mjs). Prints one JSON line per mutant run.
+
+Usage: python mutrun.py <mutants.json> <engine> <id> [<id> ...]   (id "all" runs every mutant)
+A mutant may carry "args" (extra pytest arguments) and "show" (print the lines of the output that start with one
+of these prefixes).
+"""
+import http.server
+import json
+import os
+import pathlib
+import re
+import socket
+import subprocess
+import sys
+import threading
+import time
+
+TOOLS = pathlib.Path(__file__).resolve().parent
+COPY = TOOLS.parent / "copy-lf"
+RUN_SECONDS = 540
+
+
+def mutated_text(mutant):
+    text = (COPY / mutant["file"]).read_text(encoding="utf-8")
+    count = text.count(mutant["old"])
+    wanted = mutant.get("count", 1)
+    if count != wanted:
+        raise SystemExit(f"{mutant['id']}: old text found {count} times in {mutant['file']}, expected {wanted}")
+    return text.replace(mutant["old"], mutant["new"])
+
+
+def handler_for(mutant, body):
+    class Handler(http.server.SimpleHTTPRequestHandler):
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, directory=str(COPY), **kwargs)
+
+        def log_message(self, *args):
+            pass
+
+        def do_GET(self):
+            path = self.path.split("?", 1)[0].split("#", 1)[0]
+            if mutant is not None and path == "/" + mutant["file"]:
+                data = body.encode("utf-8")
+                self.send_response(200)
+                self.send_header("Content-Type", self.guess_type(path))
+                self.send_header("Content-Length", str(len(data)))
+                self.end_headers()
+                self.wfile.write(data)
+                return
+            super().do_GET()
+
+    return Handler
+
+
+def port_accepts(port):
+    try:
+        socket.create_connection(("127.0.0.1", port), timeout=0.5).close()
+    except OSError:
+        return False
+    return True
+
+
+def kill_tree(pid):
+    subprocess.run(["taskkill", "/PID", str(pid), "/T", "/F"], capture_output=True, timeout=30)
+
+
+def run_process(command, env):
+    started = time.monotonic()
+    process = subprocess.Popen(command, cwd=str(COPY), env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                               encoding="utf-8", errors="replace", creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+    timed_out = False
+    try:
+        output, _ = process.communicate(timeout=RUN_SECONDS)
+    except subprocess.TimeoutExpired:
+        timed_out = True
+        kill_tree(process.pid)
+        output, _ = process.communicate(timeout=30)
+    return process, output, timed_out, round(time.monotonic() - started, 1)
+
+
+def run_browser(mutant, engine):
+    body = mutated_text(mutant) if mutant.get("file") else None
+    server = http.server.ThreadingHTTPServer(("127.0.0.1", 0), handler_for(mutant if body is not None else None, body))
+    port = server.server_address[1]
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    env = dict(os.environ, STREAKS_BASE_URL=f"http://127.0.0.1:{port}/", PYTHONDONTWRITEBYTECODE="1")
+    env.pop("STREAKS_SUBPATH_URL", None)
+    env.pop("STREAKS_EVIDENCE_DIR", None)
+    command = [sys.executable, "-B", "-m", "pytest", "-p", "no:cacheprovider", "-q", "-rf", "--engine", engine,
+               *mutant.get("args", []), *mutant["tests"]]
+    try:
+        process, output, timed_out, seconds = run_process(command, env)
+    finally:
+        server.shutdown()
+        server.server_close()
+    lines = output.strip().splitlines()
+    last = lines[-1] if lines else ""
+    counts = {}
+    for key in ("passed", "failed", "error", "errors", "skipped", "xfailed"):
+        found = re.findall(rf"(\d+) {key}\b", last)
+        if found:
+            counts[key] = int(found[-1])
+    failing = re.findall(r"^(?:FAILED|ERROR) (\S+)(?: - (.{0,160}))?", output, re.M)
+    bad = counts.get("failed", 0) + counts.get("error", 0) + counts.get("errors", 0)
+    result = {
+        "id": mutant["id"], "kind": "browser", "engine": engine, "pid": process.pid, "exit": process.returncode,
+        "timed_out": timed_out, "seconds": seconds, "counts": counts,
+        "failing": [f"{name} - {why}" if why else name for name, why in failing[:14]], "last_line": last,
+        "server_port": port, "server_port_refuses_after": not port_accepts(port),
+        "verdict": ("KILLED" if bad else "SURVIVED") if mutant.get("file") else ("CONTROL GREEN" if not bad and counts.get("passed") else "CONTROL NOT GREEN"),
+    }
+    prefixes = tuple(mutant.get("show", []))
+    if prefixes:
+        result["shown"] = [line.strip() for line in lines if line.strip().startswith(prefixes) or any(p in line for p in prefixes)][:20]
+    if process.returncode not in (0, 1):
+        result["tail"] = lines[-15:]
+    print(json.dumps(result), flush=True)
+
+
+def run_node(mutant):
+    env = dict(os.environ)
+    if mutant.get("file"):
+        mutated_text(mutant)  # the count check only, the hook does the substitution in memory
+        env["MUT_SPEC"] = json.dumps({"file": mutant["file"], "old": mutant["old"], "new": mutant["new"]})
+        env["NODE_OPTIONS"] = "--import=" + (TOOLS / "nodemut.mjs").as_uri()
+    process, output, timed_out, seconds = run_process(["node", "--test", *mutant["tests"]], env)
+    counts = {}
+    for key in ("tests", "pass", "fail", "cancelled"):
+        found = re.findall(rf"^\S+ {key} (\d+)\s*$", output, re.M)
+        if found:
+            counts[key] = int(found[-1])
+    failing = sorted(set(re.findall(r"^✖ (@R.+?) \(\d", output, re.M)))
+    result = {
+        "id": mutant["id"], "kind": "node", "pid": process.pid, "exit": process.returncode, "timed_out": timed_out,
+        "seconds": seconds, "counts": counts, "failing": failing[:14],
+        "hook_error": "mutant hook: old text not found" in output,
+        "verdict": ("KILLED" if counts.get("fail", 0) > 0 else "SURVIVED") if mutant.get("file") else
+                   ("CONTROL GREEN" if counts.get("fail", 1) == 0 and counts.get("pass") else "CONTROL NOT GREEN"),
+    }
+    print(json.dumps(result), flush=True)
+
+
+def main():
+    mutants = json.loads(pathlib.Path(sys.argv[1]).read_text(encoding="utf-8"))
+    engine = sys.argv[2]
+    wanted = sys.argv[3:]
+    print(json.dumps({"runner_pid": os.getpid(), "engine": engine, "copy": str(COPY)}), flush=True)
+    for mutant in mutants:
+        if "all" not in wanted and mutant["id"] not in wanted:
+            continue
+        if mutant.get("kind") == "node":
+            run_node(mutant)
+        else:
+            run_browser(mutant, engine)
+
+
+if __name__ == "__main__":
+    main()

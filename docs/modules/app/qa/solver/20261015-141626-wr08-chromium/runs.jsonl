@@ -1,0 +1,1 @@
+{"id": "WR08-control", "engine": "chromium", "planted": false, "pid": 19884, "exit": 0, "timed_out": false, "seconds": 4.2, "counts": {"passed": 6, "skipped": 1}, "last_line": "6 passed, 1 skipped in 3.48s", "failing": [], "server_port": 3047, "server_port_refuses_after": true, "verdict": "GREEN"}

@@ -1,0 +1,673 @@
+FFFFFFFFFFFFFFFF                                                         [100%]
+================================== FAILURES ===================================
+____ test_R36_R40_p1_closes_and_gives_focus_back_to_its_day[clicks Close] _____
+
+app = <function app.<locals>.open_page at 0x000001EA42F24B40>
+action = 'clicks Close'
+
+    @pytest.mark.parametrize("action", ["clicks Close", "presses Escape", "clicks the viewport point (5, 5)"])
+    def test_R36_R40_p1_closes_and_gives_focus_back_to_its_day(app, action):
+        page = app(viewport=DESKTOP, storage=sample_state())
+        open_from_band(page, SEP_22)
+        watch = watch_close(page, "dialog.dlg-day")
+        if action == "clicks Close":
+            day_dialog(page).get_by_role("button", name="Close", exact=True).click()
+        elif action == "presses Escape":
+            page.keyboard.press("Escape")
+        else:
+            box = day_dialog(page).locator(":scope > div.dlg-box").bounding_box()
+            assert not (box["x"] <= 5 <= box["x"] + box["width"] and box["y"] <= 5 <= box["y"] + box["height"]), box
+            page.mouse.click(5, 5)
+        wait_for_close(watch)  # the app's close handler has run, so the reads below are the app's (conftest watch_close)
+        expect(page.locator("button.hc.is-open")).to_have_count(0)
+>       expect(band_day(page, SEP_22)).to_be_focused()
+E       AssertionError: Locator expected to be focused
+E       Actual value: inactive 
+E       Call log:
+E         - Expect "to_be_focused" with timeout 5000ms
+E         - waiting for locator("section.band div.ovg-cols button.hc[data-key=\"2026-09-22\"]")
+E           14 � locator resolved to <button class="hc" type="button" data-key="2026-09-22" aria-haspopup="dialog" aria-label="Tue 22 Sep, 1 of 3 habits">�</button>
+E              - unexpected value "inactive"
+E       
+E       Aria snapshot:
+E       - button "Tue 22 Sep, 1 of 3 habits"
+
+tests\browser\test_day_editor.py:142: AssertionError
+___ test_R36_R40_p1_closes_and_gives_focus_back_to_its_day[presses Escape] ____
+
+app = <function app.<locals>.open_page at 0x000001EA442EAC40>
+action = 'presses Escape'
+
+    @pytest.mark.parametrize("action", ["clicks Close", "presses Escape", "clicks the viewport point (5, 5)"])
+    def test_R36_R40_p1_closes_and_gives_focus_back_to_its_day(app, action):
+        page = app(viewport=DESKTOP, storage=sample_state())
+        open_from_band(page, SEP_22)
+        watch = watch_close(page, "dialog.dlg-day")
+        if action == "clicks Close":
+            day_dialog(page).get_by_role("button", name="Close", exact=True).click()
+        elif action == "presses Escape":
+            page.keyboard.press("Escape")
+        else:
+            box = day_dialog(page).locator(":scope > div.dlg-box").bounding_box()
+            assert not (box["x"] <= 5 <= box["x"] + box["width"] and box["y"] <= 5 <= box["y"] + box["height"]), box
+            page.mouse.click(5, 5)
+        wait_for_close(watch)  # the app's close handler has run, so the reads below are the app's (conftest watch_close)
+        expect(page.locator("button.hc.is-open")).to_have_count(0)
+>       expect(band_day(page, SEP_22)).to_be_focused()
+E       AssertionError: Locator expected to be focused
+E       Actual value: inactive 
+E       Call log:
+E         - Expect "to_be_focused" with timeout 5000ms
+E         - waiting for locator("section.band div.ovg-cols button.hc[data-key=\"2026-09-22\"]")
+E           14 � locator resolved to <button class="hc" type="button" data-key="2026-09-22" aria-haspopup="dialog" aria-label="Tue 22 Sep, 1 of 3 habits">�</button>
+E              - unexpected value "inactive"
+E       
+E       Aria snapshot:
+E       - button "Tue 22 Sep, 1 of 3 habits"
+
+tests\browser\test_day_editor.py:142: AssertionError
+_ test_R36_R40_p1_closes_and_gives_focus_back_to_its_day[clicks the viewport point (5, 5)] _
+
+app = <function app.<locals>.open_page at 0x000001EA443A9D20>
+action = 'clicks the viewport point (5, 5)'
+
+    @pytest.mark.parametrize("action", ["clicks Close", "presses Escape", "clicks the viewport point (5, 5)"])
+    def test_R36_R40_p1_closes_and_gives_focus_back_to_its_day(app, action):
+        page = app(viewport=DESKTOP, storage=sample_state())
+        open_from_band(page, SEP_22)
+        watch = watch_close(page, "dialog.dlg-day")
+        if action == "clicks Close":
+            day_dialog(page).get_by_role("button", name="Close", exact=True).click()
+        elif action == "presses Escape":
+            page.keyboard.press("Escape")
+        else:
+            box = day_dialog(page).locator(":scope > div.dlg-box").bounding_box()
+            assert not (box["x"] <= 5 <= box["x"] + box["width"] and box["y"] <= 5 <= box["y"] + box["height"]), box
+            page.mouse.click(5, 5)
+        wait_for_close(watch)  # the app's close handler has run, so the reads below are the app's (conftest watch_close)
+        expect(page.locator("button.hc.is-open")).to_have_count(0)
+>       expect(band_day(page, SEP_22)).to_be_focused()
+E       AssertionError: Locator expected to be focused
+E       Actual value: inactive 
+E       Call log:
+E         - Expect "to_be_focused" with timeout 5000ms
+E         - waiting for locator("section.band div.ovg-cols button.hc[data-key=\"2026-09-22\"]")
+E           14 � locator resolved to <button class="hc" type="button" data-key="2026-09-22" aria-haspopup="dialog" aria-label="Tue 22 Sep, 1 of 3 habits">�</button>
+E              - unexpected value "inactive"
+E       
+E       Aria snapshot:
+E       - button "Tue 22 Sep, 1 of 3 habits"
+
+tests\browser\test_day_editor.py:142: AssertionError
+_____________ test_R36_R39_a_p4_day_opens_p1_over_p4_on_a_desktop _____________
+
+app = <function app.<locals>.open_page at 0x000001EA443A90C0>
+
+    def test_R36_R39_a_p4_day_opens_p1_over_p4_on_a_desktop(app):
+        page = app(viewport=DESKTOP, storage=sample_state())
+        page.locator("section.band button.btn-all").click()
+        expect(page.locator("dialog.dlg-all")).to_have_attribute("open", "")
+        page.locator("dialog.dlg-all").get_by_role("button", name="Tue 22 Sep 2026, 1 of 3 habits", exact=True).click()
+        expect(day_dialog(page)).to_have_attribute("open", "")
+        expect(day_dialog(page).locator("h2#day-title")).to_have_text("Tuesday 22 September")
+        expect(page.locator("dialog.dlg-all")).to_have_attribute("open", "")
+        expect(band_day(page, SEP_22)).to_have_class(re.compile(r"\bis-open\b"))
+        expect(p4_day(page, SEP_22)).to_have_class(re.compile(r"\bis-open\b"))
+    
+        watch = watch_close(page, "dialog.dlg-day")
+        page.keyboard.press("Escape")
+        wait_for_close(watch)
+        expect(page.locator("dialog.dlg-all")).to_have_attribute("open", "")
+>       expect(p4_day(page, SEP_22)).to_be_focused()
+E       AssertionError: Locator expected to be focused
+E       Actual value: inactive 
+E       Call log:
+E         - Expect "to_be_focused" with timeout 5000ms
+E         - waiting for locator("dialog.dlg-all div.months button.hc[data-key=\"2026-09-22\"]")
+E           14 � locator resolved to <button class="hc" type="button" data-key="2026-09-22" aria-haspopup="dialog" aria-label="Tue 22 Sep 2026, 1 of 3 habits">�</button>
+E              - unexpected value "inactive"
+E       
+E       Aria snapshot:
+E       - button "Tue 22 Sep 2026, 1 of 3 habits"
+
+tests\browser\test_day_editor.py:331: AssertionError
+____ test_R38_R40_p3_closes_and_gives_focus_back_to_overview[clicks Close] ____
+
+app = <function app.<locals>.open_page at 0x000001EA444D31C0>
+action = 'clicks Close'
+
+    @pytest.mark.parametrize("action", ["clicks Close", "presses Escape"])
+    def test_R38_R40_p3_closes_and_gives_focus_back_to_overview(app, action):
+        page = app(viewport=PHONE, storage=sample_state())
+        page.locator("button.ov-btn").click()
+        dialog = page.locator("dialog.dlg-ov")
+        expect(dialog).to_have_attribute("open", "")
+        watch = watch_close(page, "dialog.dlg-ov")
+        if action == "clicks Close":
+            dialog.get_by_role("button", name="Close", exact=True).click()
+        else:
+            page.keyboard.press("Escape")
+        wait_for_close(watch)  # the app's close handler has run, so the focus read is the app's (conftest watch_close)
+>       expect(page.locator("button.ov-btn")).to_be_focused()
+E       AssertionError: Locator expected to be focused
+E       Actual value: inactive 
+E       Call log:
+E         - Expect "to_be_focused" with timeout 5000ms
+E         - waiting for locator("button.ov-btn")
+E           14 � locator resolved to <button type="button" class="ov-btn" aria-haspopup="dialog" aria-label="Overview, today 1 of 3 habits done">�</button>
+E              - unexpected value "inactive"
+E       
+E       Aria snapshot:
+E       - button "Overview, today 1 of 3 habits done": Overview
+
+tests\browser\test_overview.py:130: AssertionError
+___ test_R38_R40_p3_closes_and_gives_focus_back_to_overview[presses Escape] ___
+
+app = <function app.<locals>.open_page at 0x000001EA444D2DA0>
+action = 'presses Escape'
+
+    @pytest.mark.parametrize("action", ["clicks Close", "presses Escape"])
+    def test_R38_R40_p3_closes_and_gives_focus_back_to_overview(app, action):
+        page = app(viewport=PHONE, storage=sample_state())
+        page.locator("button.ov-btn").click()
+        dialog = page.locator("dialog.dlg-ov")
+        expect(dialog).to_have_attribute("open", "")
+        watch = watch_close(page, "dialog.dlg-ov")
+        if action == "clicks Close":
+            dialog.get_by_role("button", name="Close", exact=True).click()
+        else:
+            page.keyboard.press("Escape")
+        wait_for_close(watch)  # the app's close handler has run, so the focus read is the app's (conftest watch_close)
+>       expect(page.locator("button.ov-btn")).to_be_focused()
+E       AssertionError: Locator expected to be focused
+E       Actual value: inactive 
+E       Call log:
+E         - Expect "to_be_focused" with timeout 5000ms
+E         - waiting for locator("button.ov-btn")
+E           14 � locator resolved to <button type="button" class="ov-btn" aria-haspopup="dialog" aria-label="Overview, today 1 of 3 habits done">�</button>
+E              - unexpected value "inactive"
+E       
+E       Aria snapshot:
+E       - button "Overview, today 1 of 3 habits done": Overview
+
+tests\browser\test_overview.py:130: AssertionError
+_ test_R39_R40_p4_closes_and_gives_focus_back_to_the_year_that_opened_it[1280x800 band Close] _
+
+app = <function app.<locals>.open_page at 0x000001EA44561640>
+viewport = (1280, 800), opener = "the band's Year", action = 'clicks Close'
+
+    @pytest.mark.parametrize(
+        "viewport, opener, action",
+        [
+            pytest.param(DESKTOP, "the band's Year", "clicks Close", id="1280x800 band Close"),
+            pytest.param(DESKTOP, "the band's Year", "presses Escape", id="1280x800 band Escape"),
+            pytest.param(DESKTOP, "the band's Year", "clicks the viewport point (5, 5)", id="1280x800 band backdrop"),
+            pytest.param(PHONE, "P3's Year", "clicks Close", id="390x844 P3 Close"),
+            pytest.param(PHONE, "P3's Year", "presses Escape", id="390x844 P3 Escape"),
+        ],
+    )
+    def test_R39_R40_p4_closes_and_gives_focus_back_to_the_year_that_opened_it(app, viewport, opener, action):
+        page = app(viewport=viewport, storage=sample_state())
+        if opener == "the band's Year":
+            year = page.locator("section.band button.btn-all")
+            year.click()
+            expect(page.locator("dialog.dlg-all")).to_have_attribute("open", "")
+        else:
+            open_p4_from_p3(page)
+            year = page.locator("dialog.dlg-ov button.btn-all")
+        dialog = page.locator("dialog.dlg-all")
+        watch = watch_close(page, "dialog.dlg-all")
+        if action == "clicks Close":
+            dialog.get_by_role("button", name="Close", exact=True).click()
+        elif action == "presses Escape":
+            page.keyboard.press("Escape")
+        else:
+            box = dialog.locator(":scope > div.dlg-box").bounding_box()
+            assert not (box["x"] <= 5 <= box["x"] + box["width"] and box["y"] <= 5 <= box["y"] + box["height"]), box
+            page.mouse.click(5, 5)
+        wait_for_close(watch)  # the app's close handler has run, so the focus read is the app's (conftest watch_close)
+        still_open = page.evaluate("() => Array.from(document.querySelectorAll('dialog')).filter((d) => d.open).map((d) => d.classList[d.classList.length - 1])")
+        assert still_open == ([] if opener == "the band's Year" else ["dlg-ov"]), still_open
+>       expect(year).to_be_focused()
+E       AssertionError: Locator expected to be focused
+E       Actual value: inactive 
+E       Call log:
+E         - Expect "to_be_focused" with timeout 5000ms
+E         - waiting for locator("section.band button.btn-all")
+E           14 � locator resolved to <button type="button" class="btn-all" aria-haspopup="dialog" aria-label="Year view, all habits">Year</button>
+E              - unexpected value "inactive"
+E       
+E       Aria snapshot:
+E       - button "Year view, all habits": Year
+
+tests\browser\test_overview.py:336: AssertionError
+_ test_R39_R40_p4_closes_and_gives_focus_back_to_the_year_that_opened_it[1280x800 band Escape] _
+
+app = <function app.<locals>.open_page at 0x000001EA4461CCA0>
+viewport = (1280, 800), opener = "the band's Year", action = 'presses Escape'
+
+    @pytest.mark.parametrize(
+        "viewport, opener, action",
+        [
+            pytest.param(DESKTOP, "the band's Year", "clicks Close", id="1280x800 band Close"),
+            pytest.param(DESKTOP, "the band's Year", "presses Escape", id="1280x800 band Escape"),
+            pytest.param(DESKTOP, "the band's Year", "clicks the viewport point (5, 5)", id="1280x800 band backdrop"),
+            pytest.param(PHONE, "P3's Year", "clicks Close", id="390x844 P3 Close"),
+            pytest.param(PHONE, "P3's Year", "presses Escape", id="390x844 P3 Escape"),
+        ],
+    )
+    def test_R39_R40_p4_closes_and_gives_focus_back_to_the_year_that_opened_it(app, viewport, opener, action):
+        page = app(viewport=viewport, storage=sample_state())
+        if opener == "the band's Year":
+            year = page.locator("section.band button.btn-all")
+            year.click()
+            expect(page.locator("dialog.dlg-all")).to_have_attribute("open", "")
+        else:
+            open_p4_from_p3(page)
+            year = page.locator("dialog.dlg-ov button.btn-all")
+        dialog = page.locator("dialog.dlg-all")
+        watch = watch_close(page, "dialog.dlg-all")
+        if action == "clicks Close":
+            dialog.get_by_role("button", name="Close", exact=True).click()
+        elif action == "presses Escape":
+            page.keyboard.press("Escape")
+        else:
+            box = dialog.locator(":scope > div.dlg-box").bounding_box()
+            assert not (box["x"] <= 5 <= box["x"] + box["width"] and box["y"] <= 5 <= box["y"] + box["height"]), box
+            page.mouse.click(5, 5)
+        wait_for_close(watch)  # the app's close handler has run, so the focus read is the app's (conftest watch_close)
+        still_open = page.evaluate("() => Array.from(document.querySelectorAll('dialog')).filter((d) => d.open).map((d) => d.classList[d.classList.length - 1])")
+        assert still_open == ([] if opener == "the band's Year" else ["dlg-ov"]), still_open
+>       expect(year).to_be_focused()
+E       AssertionError: Locator expected to be focused
+E       Actual value: inactive 
+E       Call log:
+E         - Expect "to_be_focused" with timeout 5000ms
+E         - waiting for locator("section.band button.btn-all")
+E           14 � locator resolved to <button type="button" class="btn-all" aria-haspopup="dialog" aria-label="Year view, all habits">Year</button>
+E              - unexpected value "inactive"
+E       
+E       Aria snapshot:
+E       - button "Year view, all habits": Year
+
+tests\browser\test_overview.py:336: AssertionError
+_ test_R39_R40_p4_closes_and_gives_focus_back_to_the_year_that_opened_it[1280x800 band backdrop] _
+
+app = <function app.<locals>.open_page at 0x000001EA446D9F30>
+viewport = (1280, 800), opener = "the band's Year"
+action = 'clicks the viewport point (5, 5)'
+
+    @pytest.mark.parametrize(
+        "viewport, opener, action",
+        [
+            pytest.param(DESKTOP, "the band's Year", "clicks Close", id="1280x800 band Close"),
+            pytest.param(DESKTOP, "the band's Year", "presses Escape", id="1280x800 band Escape"),
+            pytest.param(DESKTOP, "the band's Year", "clicks the viewport point (5, 5)", id="1280x800 band backdrop"),
+            pytest.param(PHONE, "P3's Year", "clicks Close", id="390x844 P3 Close"),
+            pytest.param(PHONE, "P3's Year", "presses Escape", id="390x844 P3 Escape"),
+        ],
+    )
+    def test_R39_R40_p4_closes_and_gives_focus_back_to_the_year_that_opened_it(app, viewport, opener, action):
+        page = app(viewport=viewport, storage=sample_state())
+        if opener == "the band's Year":
+            year = page.locator("section.band button.btn-all")
+            year.click()
+            expect(page.locator("dialog.dlg-all")).to_have_attribute("open", "")
+        else:
+            open_p4_from_p3(page)
+            year = page.locator("dialog.dlg-ov button.btn-all")
+        dialog = page.locator("dialog.dlg-all")
+        watch = watch_close(page, "dialog.dlg-all")
+        if action == "clicks Close":
+            dialog.get_by_role("button", name="Close", exact=True).click()
+        elif action == "presses Escape":
+            page.keyboard.press("Escape")
+        else:
+            box = dialog.locator(":scope > div.dlg-box").bounding_box()
+            assert not (box["x"] <= 5 <= box["x"] + box["width"] and box["y"] <= 5 <= box["y"] + box["height"]), box
+            page.mouse.click(5, 5)
+        wait_for_close(watch)  # the app's close handler has run, so the focus read is the app's (conftest watch_close)
+        still_open = page.evaluate("() => Array.from(document.querySelectorAll('dialog')).filter((d) => d.open).map((d) => d.classList[d.classList.length - 1])")
+        assert still_open == ([] if opener == "the band's Year" else ["dlg-ov"]), still_open
+>       expect(year).to_be_focused()
+E       AssertionError: Locator expected to be focused
+E       Actual value: inactive 
+E       Call log:
+E         - Expect "to_be_focused" with timeout 5000ms
+E         - waiting for locator("section.band button.btn-all")
+E           14 � locator resolved to <button type="button" class="btn-all" aria-haspopup="dialog" aria-label="Year view, all habits">Year</button>
+E              - unexpected value "inactive"
+E       
+E       Aria snapshot:
+E       - button "Year view, all habits": Year
+
+tests\browser\test_overview.py:336: AssertionError
+_ test_R39_R40_p4_closes_and_gives_focus_back_to_the_year_that_opened_it[390x844 P3 Close] _
+
+app = <function app.<locals>.open_page at 0x000001EA447CC3B0>
+viewport = (390, 844), opener = "P3's Year", action = 'clicks Close'
+
+    @pytest.mark.parametrize(
+        "viewport, opener, action",
+        [
+            pytest.param(DESKTOP, "the band's Year", "clicks Close", id="1280x800 band Close"),
+            pytest.param(DESKTOP, "the band's Year", "presses Escape", id="1280x800 band Escape"),
+            pytest.param(DESKTOP, "the band's Year", "clicks the viewport point (5, 5)", id="1280x800 band backdrop"),
+            pytest.param(PHONE, "P3's Year", "clicks Close", id="390x844 P3 Close"),
+            pytest.param(PHONE, "P3's Year", "presses Escape", id="390x844 P3 Escape"),
+        ],
+    )
+    def test_R39_R40_p4_closes_and_gives_focus_back_to_the_year_that_opened_it(app, viewport, opener, action):
+        page = app(viewport=viewport, storage=sample_state())
+        if opener == "the band's Year":
+            year = page.locator("section.band button.btn-all")
+            year.click()
+            expect(page.locator("dialog.dlg-all")).to_have_attribute("open", "")
+        else:
+            open_p4_from_p3(page)
+            year = page.locator("dialog.dlg-ov button.btn-all")
+        dialog = page.locator("dialog.dlg-all")
+        watch = watch_close(page, "dialog.dlg-all")
+        if action == "clicks Close":
+            dialog.get_by_role("button", name="Close", exact=True).click()
+        elif action == "presses Escape":
+            page.keyboard.press("Escape")
+        else:
+            box = dialog.locator(":scope > div.dlg-box").bounding_box()
+            assert not (box["x"] <= 5 <= box["x"] + box["width"] and box["y"] <= 5 <= box["y"] + box["height"]), box
+            page.mouse.click(5, 5)
+        wait_for_close(watch)  # the app's close handler has run, so the focus read is the app's (conftest watch_close)
+        still_open = page.evaluate("() => Array.from(document.querySelectorAll('dialog')).filter((d) => d.open).map((d) => d.classList[d.classList.length - 1])")
+        assert still_open == ([] if opener == "the band's Year" else ["dlg-ov"]), still_open
+>       expect(year).to_be_focused()
+E       AssertionError: Locator expected to be focused
+E       Actual value: inactive 
+E       Call log:
+E         - Expect "to_be_focused" with timeout 5000ms
+E         - waiting for locator("dialog.dlg-ov button.btn-all")
+E           14 � locator resolved to <button type="button" class="btn-all" aria-haspopup="dialog" aria-label="Year view, all habits">Year</button>
+E              - unexpected value "inactive"
+E       
+E       Aria snapshot:
+E       - button "Year view, all habits": Year
+
+tests\browser\test_overview.py:336: AssertionError
+_ test_R39_R40_p4_closes_and_gives_focus_back_to_the_year_that_opened_it[390x844 P3 Escape] _
+
+app = <function app.<locals>.open_page at 0x000001EA447CDD20>
+viewport = (390, 844), opener = "P3's Year", action = 'presses Escape'
+
+    @pytest.mark.parametrize(
+        "viewport, opener, action",
+        [
+            pytest.param(DESKTOP, "the band's Year", "clicks Close", id="1280x800 band Close"),
+            pytest.param(DESKTOP, "the band's Year", "presses Escape", id="1280x800 band Escape"),
+            pytest.param(DESKTOP, "the band's Year", "clicks the viewport point (5, 5)", id="1280x800 band backdrop"),
+            pytest.param(PHONE, "P3's Year", "clicks Close", id="390x844 P3 Close"),
+            pytest.param(PHONE, "P3's Year", "presses Escape", id="390x844 P3 Escape"),
+        ],
+    )
+    def test_R39_R40_p4_closes_and_gives_focus_back_to_the_year_that_opened_it(app, viewport, opener, action):
+        page = app(viewport=viewport, storage=sample_state())
+        if opener == "the band's Year":
+            year = page.locator("section.band button.btn-all")
+            year.click()
+            expect(page.locator("dialog.dlg-all")).to_have_attribute("open", "")
+        else:
+            open_p4_from_p3(page)
+            year = page.locator("dialog.dlg-ov button.btn-all")
+        dialog = page.locator("dialog.dlg-all")
+        watch = watch_close(page, "dialog.dlg-all")
+        if action == "clicks Close":
+            dialog.get_by_role("button", name="Close", exact=True).click()
+        elif action == "presses Escape":
+            page.keyboard.press("Escape")
+        else:
+            box = dialog.locator(":scope > div.dlg-box").bounding_box()
+            assert not (box["x"] <= 5 <= box["x"] + box["width"] and box["y"] <= 5 <= box["y"] + box["height"]), box
+            page.mouse.click(5, 5)
+        wait_for_close(watch)  # the app's close handler has run, so the focus read is the app's (conftest watch_close)
+        still_open = page.evaluate("() => Array.from(document.querySelectorAll('dialog')).filter((d) => d.open).map((d) => d.classList[d.classList.length - 1])")
+        assert still_open == ([] if opener == "the band's Year" else ["dlg-ov"]), still_open
+>       expect(year).to_be_focused()
+E       AssertionError: Locator expected to be focused
+E       Actual value: inactive 
+E       Call log:
+E         - Expect "to_be_focused" with timeout 5000ms
+E         - waiting for locator("dialog.dlg-ov button.btn-all")
+E           14 � locator resolved to <button type="button" class="btn-all" aria-haspopup="dialog" aria-label="Year view, all habits">Year</button>
+E              - unexpected value "inactive"
+E       
+E       Aria snapshot:
+E       - button "Year view, all habits": Year
+
+tests\browser\test_overview.py:336: AssertionError
+___ test_R33_R40_p2_closes_and_gives_focus_back_to_its_year[390x844 Close] ____
+
+app = <function app.<locals>.open_page at 0x000001EA447CECF0>
+viewport = (390, 844), action = 'clicks Close'
+
+    @pytest.mark.parametrize(
+        "viewport, action",
+        [
+            pytest.param(PHONE, "clicks Close", id="390x844 Close"),
+            pytest.param(PHONE, "presses Escape", id="390x844 Escape"),
+            pytest.param(DESKTOP, "clicks Close", id="1280x800 Close"),
+            pytest.param(DESKTOP, "presses Escape", id="1280x800 Escape"),
+            pytest.param(DESKTOP, "clicks the viewport point (5, 5)", id="1280x800 backdrop"),
+        ],
+    )
+    def test_R33_R40_p2_closes_and_gives_focus_back_to_its_year(app, viewport, action):
+        page = app(viewport=viewport, storage=sample_state())
+        open_year(page, "Read 20 pages")
+        dialog = year_dialog(page)
+        watch = watch_close(page, "dialog.dlg-year")
+        if action == "clicks Close":
+            dialog.get_by_role("button", name="Close", exact=True).click()
+        elif action == "presses Escape":
+            page.keyboard.press("Escape")
+        else:
+            box = dialog.locator(":scope > div.dlg-box").bounding_box()
+            assert not (box["x"] <= 5 <= box["x"] + box["width"] and box["y"] <= 5 <= box["y"] + box["height"]), box
+            page.mouse.click(5, 5)
+        wait_for_close(watch)  # the app's close handler has run, so the focus read is the app's (conftest watch_close)
+>       expect(year_btn(page, "Read 20 pages")).to_be_focused()
+E       AssertionError: Locator expected to be focused
+E       Actual value: inactive 
+E       Call log:
+E         - Expect "to_be_focused" with timeout 5000ms
+E         - waiting for get_by_role("button", name="Year view, Read 20 pages", exact=True)
+E           14 � locator resolved to <button type="button" class="btn-year" aria-haspopup="dialog" aria-label="Year view, Read 20 pages">Year</button>
+E              - unexpected value "inactive"
+E       
+E       Aria snapshot:
+E       - button "Year view, Read 20 pages": Year
+
+tests\browser\test_year.py:262: AssertionError
+___ test_R33_R40_p2_closes_and_gives_focus_back_to_its_year[390x844 Escape] ___
+
+app = <function app.<locals>.open_page at 0x000001EA447CF740>
+viewport = (390, 844), action = 'presses Escape'
+
+    @pytest.mark.parametrize(
+        "viewport, action",
+        [
+            pytest.param(PHONE, "clicks Close", id="390x844 Close"),
+            pytest.param(PHONE, "presses Escape", id="390x844 Escape"),
+            pytest.param(DESKTOP, "clicks Close", id="1280x800 Close"),
+            pytest.param(DESKTOP, "presses Escape", id="1280x800 Escape"),
+            pytest.param(DESKTOP, "clicks the viewport point (5, 5)", id="1280x800 backdrop"),
+        ],
+    )
+    def test_R33_R40_p2_closes_and_gives_focus_back_to_its_year(app, viewport, action):
+        page = app(viewport=viewport, storage=sample_state())
+        open_year(page, "Read 20 pages")
+        dialog = year_dialog(page)
+        watch = watch_close(page, "dialog.dlg-year")
+        if action == "clicks Close":
+            dialog.get_by_role("button", name="Close", exact=True).click()
+        elif action == "presses Escape":
+            page.keyboard.press("Escape")
+        else:
+            box = dialog.locator(":scope > div.dlg-box").bounding_box()
+            assert not (box["x"] <= 5 <= box["x"] + box["width"] and box["y"] <= 5 <= box["y"] + box["height"]), box
+            page.mouse.click(5, 5)
+        wait_for_close(watch)  # the app's close handler has run, so the focus read is the app's (conftest watch_close)
+>       expect(year_btn(page, "Read 20 pages")).to_be_focused()
+E       AssertionError: Locator expected to be focused
+E       Actual value: inactive 
+E       Call log:
+E         - Expect "to_be_focused" with timeout 5000ms
+E         - waiting for get_by_role("button", name="Year view, Read 20 pages", exact=True)
+E           14 � locator resolved to <button type="button" class="btn-year" aria-haspopup="dialog" aria-label="Year view, Read 20 pages">Year</button>
+E              - unexpected value "inactive"
+E       
+E       Aria snapshot:
+E       - button "Year view, Read 20 pages": Year
+
+tests\browser\test_year.py:262: AssertionError
+___ test_R33_R40_p2_closes_and_gives_focus_back_to_its_year[1280x800 Close] ___
+
+app = <function app.<locals>.open_page at 0x000001EA44903B60>
+viewport = (1280, 800), action = 'clicks Close'
+
+    @pytest.mark.parametrize(
+        "viewport, action",
+        [
+            pytest.param(PHONE, "clicks Close", id="390x844 Close"),
+            pytest.param(PHONE, "presses Escape", id="390x844 Escape"),
+            pytest.param(DESKTOP, "clicks Close", id="1280x800 Close"),
+            pytest.param(DESKTOP, "presses Escape", id="1280x800 Escape"),
+            pytest.param(DESKTOP, "clicks the viewport point (5, 5)", id="1280x800 backdrop"),
+        ],
+    )
+    def test_R33_R40_p2_closes_and_gives_focus_back_to_its_year(app, viewport, action):
+        page = app(viewport=viewport, storage=sample_state())
+        open_year(page, "Read 20 pages")
+        dialog = year_dialog(page)
+        watch = watch_close(page, "dialog.dlg-year")
+        if action == "clicks Close":
+            dialog.get_by_role("button", name="Close", exact=True).click()
+        elif action == "presses Escape":
+            page.keyboard.press("Escape")
+        else:
+            box = dialog.locator(":scope > div.dlg-box").bounding_box()
+            assert not (box["x"] <= 5 <= box["x"] + box["width"] and box["y"] <= 5 <= box["y"] + box["height"]), box
+            page.mouse.click(5, 5)
+        wait_for_close(watch)  # the app's close handler has run, so the focus read is the app's (conftest watch_close)
+>       expect(year_btn(page, "Read 20 pages")).to_be_focused()
+E       AssertionError: Locator expected to be focused
+E       Actual value: inactive 
+E       Call log:
+E         - Expect "to_be_focused" with timeout 5000ms
+E         - waiting for get_by_role("button", name="Year view, Read 20 pages", exact=True)
+E           14 � locator resolved to <button type="button" class="btn-year" aria-haspopup="dialog" aria-label="Year view, Read 20 pages">Year</button>
+E              - unexpected value "inactive"
+E       
+E       Aria snapshot:
+E       - button "Year view, Read 20 pages": Year
+
+tests\browser\test_year.py:262: AssertionError
+__ test_R33_R40_p2_closes_and_gives_focus_back_to_its_year[1280x800 Escape] ___
+
+app = <function app.<locals>.open_page at 0x000001EA449022A0>
+viewport = (1280, 800), action = 'presses Escape'
+
+    @pytest.mark.parametrize(
+        "viewport, action",
+        [
+            pytest.param(PHONE, "clicks Close", id="390x844 Close"),
+            pytest.param(PHONE, "presses Escape", id="390x844 Escape"),
+            pytest.param(DESKTOP, "clicks Close", id="1280x800 Close"),
+            pytest.param(DESKTOP, "presses Escape", id="1280x800 Escape"),
+            pytest.param(DESKTOP, "clicks the viewport point (5, 5)", id="1280x800 backdrop"),
+        ],
+    )
+    def test_R33_R40_p2_closes_and_gives_focus_back_to_its_year(app, viewport, action):
+        page = app(viewport=viewport, storage=sample_state())
+        open_year(page, "Read 20 pages")
+        dialog = year_dialog(page)
+        watch = watch_close(page, "dialog.dlg-year")
+        if action == "clicks Close":
+            dialog.get_by_role("button", name="Close", exact=True).click()
+        elif action == "presses Escape":
+            page.keyboard.press("Escape")
+        else:
+            box = dialog.locator(":scope > div.dlg-box").bounding_box()
+            assert not (box["x"] <= 5 <= box["x"] + box["width"] and box["y"] <= 5 <= box["y"] + box["height"]), box
+            page.mouse.click(5, 5)
+        wait_for_close(watch)  # the app's close handler has run, so the focus read is the app's (conftest watch_close)
+>       expect(year_btn(page, "Read 20 pages")).to_be_focused()
+E       AssertionError: Locator expected to be focused
+E       Actual value: inactive 
+E       Call log:
+E         - Expect "to_be_focused" with timeout 5000ms
+E         - waiting for get_by_role("button", name="Year view, Read 20 pages", exact=True)
+E           14 � locator resolved to <button type="button" class="btn-year" aria-haspopup="dialog" aria-label="Year view, Read 20 pages">Year</button>
+E              - unexpected value "inactive"
+E       
+E       Aria snapshot:
+E       - button "Year view, Read 20 pages": Year
+
+tests\browser\test_year.py:262: AssertionError
+_ test_R33_R40_p2_closes_and_gives_focus_back_to_its_year[1280x800 backdrop] __
+
+app = <function app.<locals>.open_page at 0x000001EA44AC47D0>
+viewport = (1280, 800), action = 'clicks the viewport point (5, 5)'
+
+    @pytest.mark.parametrize(
+        "viewport, action",
+        [
+            pytest.param(PHONE, "clicks Close", id="390x844 Close"),
+            pytest.param(PHONE, "presses Escape", id="390x844 Escape"),
+            pytest.param(DESKTOP, "clicks Close", id="1280x800 Close"),
+            pytest.param(DESKTOP, "presses Escape", id="1280x800 Escape"),
+            pytest.param(DESKTOP, "clicks the viewport point (5, 5)", id="1280x800 backdrop"),
+        ],
+    )
+    def test_R33_R40_p2_closes_and_gives_focus_back_to_its_year(app, viewport, action):
+        page = app(viewport=viewport, storage=sample_state())
+        open_year(page, "Read 20 pages")
+        dialog = year_dialog(page)
+        watch = watch_close(page, "dialog.dlg-year")
+        if action == "clicks Close":
+            dialog.get_by_role("button", name="Close", exact=True).click()
+        elif action == "presses Escape":
+            page.keyboard.press("Escape")
+        else:
+            box = dialog.locator(":scope > div.dlg-box").bounding_box()
+            assert not (box["x"] <= 5 <= box["x"] + box["width"] and box["y"] <= 5 <= box["y"] + box["height"]), box
+            page.mouse.click(5, 5)
+        wait_for_close(watch)  # the app's close handler has run, so the focus read is the app's (conftest watch_close)
+>       expect(year_btn(page, "Read 20 pages")).to_be_focused()
+E       AssertionError: Locator expected to be focused
+E       Actual value: inactive 
+E       Call log:
+E         - Expect "to_be_focused" with timeout 5000ms
+E         - waiting for get_by_role("button", name="Year view, Read 20 pages", exact=True)
+E           14 � locator resolved to <button type="button" class="btn-year" aria-haspopup="dialog" aria-label="Year view, Read 20 pages">Year</button>
+E              - unexpected value "inactive"
+E       
+E       Aria snapshot:
+E       - button "Year view, Read 20 pages": Year
+
+tests\browser\test_year.py:262: AssertionError
+engine webkit: 0 chromium_only skip(s)
+=========================== short test summary info ===========================
+FAILED tests/browser/test_day_editor.py::test_R36_R40_p1_closes_and_gives_focus_back_to_its_day[clicks Close]
+FAILED tests/browser/test_day_editor.py::test_R36_R40_p1_closes_and_gives_focus_back_to_its_day[presses Escape]
+FAILED tests/browser/test_day_editor.py::test_R36_R40_p1_closes_and_gives_focus_back_to_its_day[clicks the viewport point (5, 5)]
+FAILED tests/browser/test_day_editor.py::test_R36_R39_a_p4_day_opens_p1_over_p4_on_a_desktop
+FAILED tests/browser/test_overview.py::test_R38_R40_p3_closes_and_gives_focus_back_to_overview[clicks Close]
+FAILED tests/browser/test_overview.py::test_R38_R40_p3_closes_and_gives_focus_back_to_overview[presses Escape]
+FAILED tests/browser/test_overview.py::test_R39_R40_p4_closes_and_gives_focus_back_to_the_year_that_opened_it[1280x800 band Close]
+FAILED tests/browser/test_overview.py::test_R39_R40_p4_closes_and_gives_focus_back_to_the_year_that_opened_it[1280x800 band Escape]
+FAILED tests/browser/test_overview.py::test_R39_R40_p4_closes_and_gives_focus_back_to_the_year_that_opened_it[1280x800 band backdrop]
+FAILED tests/browser/test_overview.py::test_R39_R40_p4_closes_and_gives_focus_back_to_the_year_that_opened_it[390x844 P3 Close]
+FAILED tests/browser/test_overview.py::test_R39_R40_p4_closes_and_gives_focus_back_to_the_year_that_opened_it[390x844 P3 Escape]
+FAILED tests/browser/test_year.py::test_R33_R40_p2_closes_and_gives_focus_back_to_its_year[390x844 Close]
+FAILED tests/browser/test_year.py::test_R33_R40_p2_closes_and_gives_focus_back_to_its_year[390x844 Escape]
+FAILED tests/browser/test_year.py::test_R33_R40_p2_closes_and_gives_focus_back_to_its_year[1280x800 Close]
+FAILED tests/browser/test_year.py::test_R33_R40_p2_closes_and_gives_focus_back_to_its_year[1280x800 Escape]
+FAILED tests/browser/test_year.py::test_R33_R40_p2_closes_and_gives_focus_back_to_its_year[1280x800 backdrop]
+16 failed in 91.10s (0:01:31)

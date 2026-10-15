@@ -1,0 +1,23 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+_ test_R17_R22_dismiss_removes_the_note_moves_focus_to_the_field_and_the_note_does_not_come_back _
+
+app = <function app.<locals>.open_page at 0x0000029E8EC00CA0>
+
+    def test_R17_R22_dismiss_removes_the_note_moves_focus_to_the_field_and_the_note_does_not_come_back(app):
+        page = app(storage="{", count_writes=True)
+        writes_at_load = write_count(page)  # the reset save of R17, the one save R16 allows that no change caused
+        page.get_by_role("button", name="Dismiss note", exact=True).click()
+        expect(page.locator("div.banner.note")).to_have_count(0)
+        expect(page.locator("ul.rows > li.empty")).to_have_count(1)
+        assert field_has_focus(page), "Dismiss did not move focus to the field"
+>       assert write_count(page) == writes_at_load, "Dismiss saved"
+E       AssertionError: Dismiss saved
+E       assert 2 == 1
+E        +  where 2 = write_count(<Page url='http://127.0.0.1:52903/'>)
+
+tests\browser\test_storage.py:254: AssertionError
+engine chromium: 0 chromium_only skip(s)
+=========================== short test summary info ===========================
+FAILED tests/browser/test_storage.py::test_R17_R22_dismiss_removes_the_note_moves_focus_to_the_field_and_the_note_does_not_come_back
+1 failed in 1.12s

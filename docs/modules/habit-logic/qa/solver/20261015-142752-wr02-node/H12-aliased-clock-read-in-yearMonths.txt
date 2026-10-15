@@ -1,0 +1,29 @@
+✔ @R16 the source has no clock or random read, even in a comment (0.8282ms)
+✖ @R20 @R16 yearMonths reads no clock, so two calls with one key give equal results (0.1566ms)
+✔ @R16 the code has no DOM, storage, network, timer, global or locale access and builds no code from strings (0.3068ms)
+✔ @R16 habits.js imports only ./dates.js and dates.js imports nothing (0.5557ms)
+✔ @R16 only the contracted names are exported (0.5421ms)
+✔ @R16 no exported function writes to its arguments or returns one of them (3.8137ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 5
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 99.573
+
+✖ failing tests:
+
+test at tests\purity.test.js:79:1
+✖ @R20 @R16 yearMonths reads no clock, so two calls with one key give equal results (0.1566ms)
+  Error: a clock read, new Date() with no argument
+      at new ClockReadDate (file:///{workspace}/examples/streaks/tests/purity.test.js:70:34)
+      at Module.yearMonths (file:///{workspace}/examples/streaks/src/habits.js:228:43)
+      at TestContext.<anonymous> (file:///{workspace}/examples/streaks/tests/purity.test.js:85:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)

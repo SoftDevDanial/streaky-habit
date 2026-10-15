@@ -1,0 +1,5 @@
+// Registers the in-memory mutant hook (code-review finder, scratch only). MUT_SPEC is {"file", "old", "new"}.
+import { register } from "node:module";
+
+const spec = process.env.MUT_SPEC ? JSON.parse(process.env.MUT_SPEC) : null;
+if (spec) register(new URL("./nodehooks.mjs", import.meta.url), { data: spec });

@@ -1,0 +1,140 @@
+.....FFF                                                                 [100%]
+================================== FAILURES ===================================
+_ test_R14_a_double_press_on_a_backdrop_does_not_reach_the_control_behind_it[390x844-mouse-P3-then-P1] _
+
+app = <function app.<locals>.open_page at 0x000001A0652273D0>
+viewport = (390, 844), how = 'mouse', popups = 'P3, then P1 for 2026-09-22'
+behind = "dialog.dlg-ov button.hc[data-key='2026-10-05']", at = None
+result = <function p3_open_and_no_p1 at 0x000001A063B97060>
+
+    @pytest.mark.parametrize(
+        "viewport, how, popups, behind, at, result",
+        [
+            pytest.param(PHONE, "mouse", "M1 from Read's bin", done_selector("Stretch 10 minutes"), None, stretch_not_done, id="390x844-mouse-M1"),
+            pytest.param(PHONE, "touch", "M1 from Read's bin", done_selector("Stretch 10 minutes"), None, stretch_not_done, id="390x844-touch-M1"),
+            pytest.param(DESKTOP, "mouse", "M1 from Read's bin", BAND_JULY_20, None, no_p1, id="1280x800-mouse-M1"),
+            pytest.param(DESKTOP, "touch", "M1 from Read's bin", BAND_JULY_20, None, no_p1, id="1280x800-touch-M1"),
+            pytest.param(DESKTOP, "mouse", "P1 for 2026-09-22 from the band", BAND_JULY_20, None, no_p1, id="1280x800-mouse-P1"),
+            pytest.param(PHONE, "mouse", "P3, then P1 for 2026-09-22", P3_OCTOBER_5, None, p3_open_and_no_p1, id="390x844-mouse-P3-then-P1"),
+            pytest.param(PHONE, "touch", "P3, then P1 for 2026-09-22", P3_OCTOBER_5, None, p3_open_and_no_p1, id="390x844-touch-P3-then-P1"),
+            pytest.param(DESKTOP, "mouse", "P2 for Read, then M1 from its Delete habit", P2_BACKDROP, (5, 5), p2_still_open, id="1280x800-mouse-P2-then-M1"),
+        ],
+    )
+    def test_R14_a_double_press_on_a_backdrop_does_not_reach_the_control_behind_it(app, viewport, how, popups, behind, at, result):
+        """`at` is the press point, or None for the centre of `behind`."""
+        before = pretty(SAMPLE_HABITS)
+        page = app(viewport=viewport, storage=before, touch=how == "touch", install_time=NOON)
+        top = open_and_pause(page, popups)
+        point = at or centre(page.locator(behind))
+        assert not inside(point, page.locator(f"dialog.{top} > div.dlg-box").bounding_box()), f"{behind} lies inside the top popup's box"
+    
+        press_twice(page, *point, how)
+    
+>       expect(dialog(page, top)).not_to_have_attribute("open", "")
+E       AssertionError: Locator expected not to have attribute ''
+E       Actual value:  
+E       Call log:
+E         - Expect "to_have_attribute" with timeout 5000ms
+E         - waiting for locator("dialog.dlg-day")
+E           14 � locator resolved to <dialog open="" class="dlg-day" aria-modal="true" aria-describedby="day-sub" aria-labelledby="day-title">�</dialog>
+E              - unexpected value ""
+E       
+E       Aria snapshot:
+E       - dialog "Monday 5 October":
+E         - heading "Monday 5 October" [level=2]
+E         - paragraph: 3 of 3 habits
+E         - button "Close"
+E         - list
+
+tests\browser\test_delete.py:669: AssertionError
+_ test_R14_a_double_press_on_a_backdrop_does_not_reach_the_control_behind_it[390x844-touch-P3-then-P1] _
+
+app = <function app.<locals>.open_page at 0x000001A064D9A350>
+viewport = (390, 844), how = 'touch', popups = 'P3, then P1 for 2026-09-22'
+behind = "dialog.dlg-ov button.hc[data-key='2026-10-05']", at = None
+result = <function p3_open_and_no_p1 at 0x000001A063B97060>
+
+    @pytest.mark.parametrize(
+        "viewport, how, popups, behind, at, result",
+        [
+            pytest.param(PHONE, "mouse", "M1 from Read's bin", done_selector("Stretch 10 minutes"), None, stretch_not_done, id="390x844-mouse-M1"),
+            pytest.param(PHONE, "touch", "M1 from Read's bin", done_selector("Stretch 10 minutes"), None, stretch_not_done, id="390x844-touch-M1"),
+            pytest.param(DESKTOP, "mouse", "M1 from Read's bin", BAND_JULY_20, None, no_p1, id="1280x800-mouse-M1"),
+            pytest.param(DESKTOP, "touch", "M1 from Read's bin", BAND_JULY_20, None, no_p1, id="1280x800-touch-M1"),
+            pytest.param(DESKTOP, "mouse", "P1 for 2026-09-22 from the band", BAND_JULY_20, None, no_p1, id="1280x800-mouse-P1"),
+            pytest.param(PHONE, "mouse", "P3, then P1 for 2026-09-22", P3_OCTOBER_5, None, p3_open_and_no_p1, id="390x844-mouse-P3-then-P1"),
+            pytest.param(PHONE, "touch", "P3, then P1 for 2026-09-22", P3_OCTOBER_5, None, p3_open_and_no_p1, id="390x844-touch-P3-then-P1"),
+            pytest.param(DESKTOP, "mouse", "P2 for Read, then M1 from its Delete habit", P2_BACKDROP, (5, 5), p2_still_open, id="1280x800-mouse-P2-then-M1"),
+        ],
+    )
+    def test_R14_a_double_press_on_a_backdrop_does_not_reach_the_control_behind_it(app, viewport, how, popups, behind, at, result):
+        """`at` is the press point, or None for the centre of `behind`."""
+        before = pretty(SAMPLE_HABITS)
+        page = app(viewport=viewport, storage=before, touch=how == "touch", install_time=NOON)
+        top = open_and_pause(page, popups)
+        point = at or centre(page.locator(behind))
+        assert not inside(point, page.locator(f"dialog.{top} > div.dlg-box").bounding_box()), f"{behind} lies inside the top popup's box"
+    
+        press_twice(page, *point, how)
+    
+>       expect(dialog(page, top)).not_to_have_attribute("open", "")
+E       AssertionError: Locator expected not to have attribute ''
+E       Actual value:  
+E       Call log:
+E         - Expect "to_have_attribute" with timeout 5000ms
+E         - waiting for locator("dialog.dlg-day")
+E           14 � locator resolved to <dialog open="" class="dlg-day" aria-modal="true" aria-describedby="day-sub" aria-labelledby="day-title">�</dialog>
+E              - unexpected value ""
+E       
+E       Aria snapshot:
+E       - dialog "Monday 5 October":
+E         - heading "Monday 5 October" [level=2]
+E         - paragraph: 3 of 3 habits
+E         - button "Close"
+E         - list
+
+tests\browser\test_delete.py:669: AssertionError
+_ test_R14_a_double_press_on_a_backdrop_does_not_reach_the_control_behind_it[1280x800-mouse-P2-then-M1] _
+
+app = <function app.<locals>.open_page at 0x000001A065227690>
+viewport = (1280, 800), how = 'mouse'
+popups = 'P2 for Read, then M1 from its Delete habit'
+behind = 'dialog.dlg-year', at = (5, 5)
+result = <function p2_still_open at 0x000001A063B97110>
+
+    @pytest.mark.parametrize(
+        "viewport, how, popups, behind, at, result",
+        [
+            pytest.param(PHONE, "mouse", "M1 from Read's bin", done_selector("Stretch 10 minutes"), None, stretch_not_done, id="390x844-mouse-M1"),
+            pytest.param(PHONE, "touch", "M1 from Read's bin", done_selector("Stretch 10 minutes"), None, stretch_not_done, id="390x844-touch-M1"),
+            pytest.param(DESKTOP, "mouse", "M1 from Read's bin", BAND_JULY_20, None, no_p1, id="1280x800-mouse-M1"),
+            pytest.param(DESKTOP, "touch", "M1 from Read's bin", BAND_JULY_20, None, no_p1, id="1280x800-touch-M1"),
+            pytest.param(DESKTOP, "mouse", "P1 for 2026-09-22 from the band", BAND_JULY_20, None, no_p1, id="1280x800-mouse-P1"),
+            pytest.param(PHONE, "mouse", "P3, then P1 for 2026-09-22", P3_OCTOBER_5, None, p3_open_and_no_p1, id="390x844-mouse-P3-then-P1"),
+            pytest.param(PHONE, "touch", "P3, then P1 for 2026-09-22", P3_OCTOBER_5, None, p3_open_and_no_p1, id="390x844-touch-P3-then-P1"),
+            pytest.param(DESKTOP, "mouse", "P2 for Read, then M1 from its Delete habit", P2_BACKDROP, (5, 5), p2_still_open, id="1280x800-mouse-P2-then-M1"),
+        ],
+    )
+    def test_R14_a_double_press_on_a_backdrop_does_not_reach_the_control_behind_it(app, viewport, how, popups, behind, at, result):
+        """`at` is the press point, or None for the centre of `behind`."""
+        before = pretty(SAMPLE_HABITS)
+        page = app(viewport=viewport, storage=before, touch=how == "touch", install_time=NOON)
+        top = open_and_pause(page, popups)
+        point = at or centre(page.locator(behind))
+        assert not inside(point, page.locator(f"dialog.{top} > div.dlg-box").bounding_box()), f"{behind} lies inside the top popup's box"
+    
+        press_twice(page, *point, how)
+    
+        expect(dialog(page, top)).not_to_have_attribute("open", "")
+>       assert result(page), (result.__name__, open_dialogs(page))
+E       AssertionError: ('p2_still_open', [])
+E       assert False
+E        +  where False = <function p2_still_open at 0x000001A063B97110>(<Page url='http://127.0.0.1:53059/'>)
+
+tests\browser\test_delete.py:670: AssertionError
+engine chromium: 0 chromium_only skip(s)
+=========================== short test summary info ===========================
+FAILED tests/browser/test_delete.py::test_R14_a_double_press_on_a_backdrop_does_not_reach_the_control_behind_it[390x844-mouse-P3-then-P1]
+FAILED tests/browser/test_delete.py::test_R14_a_double_press_on_a_backdrop_does_not_reach_the_control_behind_it[390x844-touch-P3-then-P1]
+FAILED tests/browser/test_delete.py::test_R14_a_double_press_on_a_backdrop_does_not_reach_the_control_behind_it[1280x800-mouse-P2-then-M1]
+3 failed, 5 passed in 15.47s

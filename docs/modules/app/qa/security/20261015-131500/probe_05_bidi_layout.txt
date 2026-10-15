@@ -1,0 +1,32 @@
+command: timeout 300 python -u -B probe_05_bidi_layout.py chromium webkit   (exit 0)
+stdout, verbatim, with the 11 name lines of WebKit folded where they equal Chromium's except the h2 style:
+[server] started pid=7428 port=24560 dir={workspace}\examples\streaks
+engine: "chromium"
+version: "149.0.7827.55"
+RLO prefix: {"p1 tstat": {"text": "Current 2 daysBest 2", "inOrder": true}, "p1 second tick": true, "tick, tname styles": ["grid/normal", "block/normal"], "p2 stats": {"text": "Current2daysBest2", "inOrder": true}, "p2 sub": true, "h2 style": "block/isolate", "m1 quotes in place": true, "row stats": true, "errors": []}
+RLO middle: (same values)
+RLE: (same values)
+LRI after alef: (same values)
+FSI after alef: (same values)
+PDI then RLO: (same values)
+U+2029 then RLO: (same values)
+U+0085 then RLO: (same values)
+40 x RLO: (same values)
+Hebrew word: (same values)
+plain control: (same values)
+layout 360x780: {"K1": [360, 780], "P1 over P3": [360, 360], "P2 and M1, name 1": [360, 360, 344, 323], "P2 and M1, name 2": [360, 360, 344, 323], "P2 and M1, name 4": [360, 360, 344, 323], "P2 and M1, name 10": [360, 360, 344, 323], "errors": []}
+engine: "webkit"
+version: "26.5"
+every name line: {"p1 tstat": {"text": "Current 2 daysBest 2", "inOrder": true}, "p1 second tick": true, "tick, tname styles": ["grid/normal", "block/normal"], "p2 stats": {"text": "Current2daysBest2", "inOrder": true}, "p2 sub": true, "h2 style": "block/normal", "m1 quotes in place": true, "row stats": true, "errors": []}
+layout 360x780: {"K1": [360, 780], "P1 over P3": [360, 360], "P2 and M1, name 1": [360, 360, 344, 323], "P2 and M1, name 2": [360, 360, 344, 323], "P2 and M1, name 4": [360, 360, 344, 323], "P2 and M1, name 10": [360, 360, 344, 323], "errors": []}
+[server] stopped pid=7428 exit=1 port 24560 refuses=True
+
+Reading.
+- 11 names with overrides, embeddings, unmatched isolates, PDI, paragraph separators, 40 overrides and Hebrew. In P1
+  the tick is a grid and .tname a block, so the name is its own paragraph and the stats after it ("Current 2 days",
+  "Best 2") keep their reading order. P2's stats and subtitle keep theirs. The row's stats keep theirs. M1's closing
+  quote and question mark stay right of the name for every name (the 1.0 strip, now in popups.js, holds).
+- WebKit reports h2 unicode-bidi "normal" where Chromium reports "isolate". It does not matter here, because the
+  h2 is a block and its siblings are separate blocks.
+- At 360 x 780 with 12 names of 40 wide, combining, ZWJ, zero-width, override, Arabic and CJK characters, the page
+  never scrolls sideways (scrollWidth 360) with K1, P1 over P3, P2 and M1 showing. M1's box ends at 344 and Delete habit at 323.

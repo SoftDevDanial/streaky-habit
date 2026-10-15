@@ -1,0 +1,26 @@
+
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+Error: mutant hook: old text not found in file:///{workspace}/examples/streaks/src/habits.js
+    at load (file:///{temp}/claude/{project-id}/fa48b885-8115-4183-bf6e-2b81c6cb7b40/scratchpad/solver/nodehooks.mjs:12:39)
+    at async nextLoad (node:internal/modules/esm/hooks:785:22)
+    at async AsyncLoaderHooksOnLoaderHookWorker.load (node:internal/modules/esm/hooks:416:20)
+    at async handleMessage (node:internal/modules/esm/worker:251:18)
+
+Node.js v24.11.1
+✖ tests\purity.test.js (64.649ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 69.5855
+
+✖ failing tests:
+
+test at tests\purity.test.js:1:1
+✖ tests\purity.test.js (64.649ms)
+  'test failed'

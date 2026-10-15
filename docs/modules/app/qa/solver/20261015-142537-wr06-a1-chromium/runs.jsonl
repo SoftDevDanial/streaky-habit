@@ -1,0 +1,1 @@
+{"id": "A1-no-app-focus-return", "engine": "chromium", "planted": true, "pid": 17616, "exit": 0, "timed_out": false, "seconds": 7.6, "counts": {"passed": 16}, "last_line": "16 passed in 7.00s", "failing": [], "server_port": 16471, "server_port_refuses_after": true, "verdict": "GREEN, the planted defect survived"}

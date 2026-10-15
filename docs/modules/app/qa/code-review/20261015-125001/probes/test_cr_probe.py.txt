@@ -1,0 +1,104 @@
+"""Code-review finder probes, scratch copy only, never in the repository.
+
+1. Does stopPropagation in a capture listener on the event's target keep the target's own bubble listener from
+   running? (The reason the comment in app.js guardTapThrough gives for stopImmediatePropagation.)
+2. A held second click that lands on the backdrop of a popup open beneath (target is that dialog element itself).
+3. Does a popup's body open at its top after it was closed while scrolled (R33, R38, R39 "scrolled to its top")?
+"""
+import json
+
+from playwright.sync_api import expect
+
+from conftest import NOON, PAUSE_AT, let_guard_pass, press_twice, sample_state, year_btn
+
+CAPTURE_PROBE_JS = """() => {
+  const el = document.createElement('div');
+  document.body.append(el);
+  const log = [];
+  el.addEventListener('click', (e) => { log.push('capture'); e.stopPropagation(); }, true);
+  el.addEventListener('click', () => log.push('bubble'));
+  el.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+  el.remove();
+  return log;
+}"""
+
+OPEN_JS = "() => Array.from(document.querySelectorAll('dialog')).filter((d) => d.open).map((d) => d.classList[d.classList.length - 1])"
+
+
+def settle(page, cls):
+    page.locator(f"dialog.{cls}").evaluate("(node) => Promise.all(node.getAnimations({ subtree: true }).map((a) => a.finished)).then(() => true)")
+
+
+def test_probe_capture_stop_propagation_at_target(app):
+    page = app(viewport=(1280, 800))
+    log = page.evaluate(CAPTURE_PROBE_JS)
+    print("CAPTURE_PROBE", json.dumps(log))
+    assert log == ["capture"], log
+
+
+def test_probe_held_click_on_a_beneath_popups_backdrop(app):
+    page = app(viewport=(1280, 800), storage=sample_state(), install_time=NOON)
+    year_btn(page, "Read 20 pages").click()
+    expect(page.locator("dialog.dlg-year")).to_have_attribute("open", "")
+    settle(page, "dlg-year")
+    let_guard_pass(page)
+    page.locator("dialog.dlg-year button.btn-del").click()
+    expect(page.locator("dialog.dlg-del")).to_have_attribute("open", "")
+    settle(page, "dlg-del")
+    page.clock.pause_at(PAUSE_AT)
+    for cls in ("dlg-del", "dlg-year"):
+        box = page.locator(f"dialog.{cls} > div.dlg-box").bounding_box()
+        assert not (box["x"] <= 5 <= box["x"] + box["width"] and box["y"] <= 5 <= box["y"] + box["height"]), (cls, box)
+    target = page.evaluate("() => { const n = document.elementFromPoint(5, 5); return n.localName + '.' + n.className; }")
+    print("TARGET_AT_5_5", target)
+    press_twice(page, 5, 5, "mouse")
+    expect(page.locator("dialog.dlg-del")).not_to_have_attribute("open", "")
+    page.wait_for_timeout(300)
+    still = page.evaluate(OPEN_JS)
+    print("OPEN_AFTER", json.dumps(still))
+    assert still == ["dlg-year"], still
+
+
+def test_probe_p2_reopens_at_its_top(app):
+    page = app(viewport=(390, 844), storage=sample_state())
+    year_btn(page, "Read 20 pages").click()
+    body = page.locator("dialog.dlg-year div.sheet-body")
+    expect(page.locator("dialog.dlg-year")).to_have_attribute("open", "")
+    body.evaluate("(node) => { node.scrollTop = 900; }")
+    before = body.evaluate("(node) => node.scrollTop")
+    page.keyboard.press("Escape")
+    page.wait_for_function("() => !document.querySelector('dialog.dlg-year').open")
+    page.wait_for_timeout(200)
+    year_btn(page, "Read 20 pages").click()
+    expect(page.locator("dialog.dlg-year")).to_have_attribute("open", "")
+    after = body.evaluate("(node) => node.scrollTop")
+    print("P2_SCROLL", json.dumps({"before_close": before, "after_reopen": after}))
+    assert before > 0
+    assert after == 0, after
+
+
+def test_probe_p4_reopens_at_its_top_after_rule_4(app):
+    page = app(viewport=(390, 844), storage=sample_state())
+    page.locator("button.ov-btn").click()
+    expect(page.locator("dialog.dlg-ov")).to_have_attribute("open", "")
+    page.wait_for_timeout(600)
+    page.locator("dialog.dlg-ov button.btn-all").click()
+    expect(page.locator("dialog.dlg-all")).to_have_attribute("open", "")
+    page.wait_for_timeout(600)
+    page.locator('dialog.dlg-all button.hc[data-key="2025-10-10"]').click()
+    expect(page.locator("dialog.dlg-day")).to_have_attribute("open", "")
+    body = page.locator("dialog.dlg-all div.sheet-body")
+    during = body.evaluate("(node) => node.scrollTop")
+    page.keyboard.press("Escape")
+    page.wait_for_function("() => !document.querySelector('dialog.dlg-day').open")
+    page.wait_for_timeout(200)
+    page.keyboard.press("Escape")
+    page.wait_for_function("() => !document.querySelector('dialog.dlg-all').open")
+    page.wait_for_timeout(200)
+    page.wait_for_timeout(600)
+    page.locator("dialog.dlg-ov button.btn-all").click()
+    expect(page.locator("dialog.dlg-all")).to_have_attribute("open", "")
+    after = body.evaluate("(node) => node.scrollTop")
+    print("P4_SCROLL", json.dumps({"with_p1_open": during, "after_reopen": after}))
+    assert during > 0
+    assert after == 0, after

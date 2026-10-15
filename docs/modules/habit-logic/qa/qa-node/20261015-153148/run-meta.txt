@@ -1,0 +1,5 @@
+HEAD c271938d5dd1d6ec6059b31eee9dc578f4825c7f
+cmd --test --test-reporter=spec tests/**/*.test.js
+exit 0
+seconds 0.7
+gave_up_after_120s False

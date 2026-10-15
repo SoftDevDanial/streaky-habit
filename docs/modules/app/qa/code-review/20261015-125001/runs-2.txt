@@ -1,0 +1,15 @@
+# Code-review finder (read-only), app, the second set of runs, after the first draft of the verdict. Same runner and copy
+# as runs.txt. The JSON lines are as printed. The definitions are those of A11, A11b and A17 in mutants/definitions.jsonl,
+# run against the whole repository suite with the three scratch probe files ignored
+# ("--ignore=tests/browser/test_cr_r36_sync.py", "--ignore=tests/browser/test_cr_probe.py", "--ignore=tests/browser/test_cr_fades.py").
+
+$ python -B mutrun.py mutants10.json chromium A11-every-bead-pops-repo-suite A11b-every-tick-pops-repo-suite   (12:59:13 to 13:03:58)
+{"runner_pid": 22852, "engine": "chromium", "copy": "...\\scratchpad\\cr-streaks\\copy-lf"}
+{"id": "A11-every-bead-pops-repo-suite", "kind": "browser", "engine": "chromium", "pid": 4632, "exit": 1, "timed_out": false, "seconds": 143.1, "counts": {"passed": 346, "failed": 1, "skipped": 1}, "failing": ["tests/browser/test_day_editor.py::test_R36_on_a_phone_the_host_of_p1_gets_room_while_p1_is_open_over_it_and_loses_it_when_p1_closes[360x780"], "last_line": "1 failed, 346 passed, 1 skipped in 142.03s (0:02:22)", "server_port": 51548, "server_port_refuses_after": true, "verdict": "KILLED"}
+{"id": "A11b-every-tick-pops-repo-suite", "kind": "browser", "engine": "chromium", "pid": 24056, "exit": 0, "timed_out": false, "seconds": 141.0, "counts": {"passed": 347, "skipped": 1}, "failing": [], "last_line": "347 passed, 1 skipped in 139.91s (0:02:19)", "server_port": 4178, "server_port_refuses_after": true, "verdict": "SURVIVED"}
+# Read. A11's one red row is the CR-01 release race row (360x780 P3 2026-07-20), which reads padding and no pop, so A11 is not
+# killed by any test of its property. A11b passes the whole repository suite.
+
+$ python -B mutrun.py mutants10.json chromium A17-no-scroll-to-top-repo-suite   (13:04:04 to 13:06:28)
+{"runner_pid": 20532, "engine": "chromium", "copy": "...\\scratchpad\\cr-streaks\\copy-lf"}
+{"id": "A17-no-scroll-to-top-repo-suite", "kind": "browser", "engine": "chromium", "pid": 17736, "exit": 0, "timed_out": false, "seconds": 142.9, "counts": {"passed": 347, "skipped": 1}, "failing": [], "last_line": "347 passed, 1 skipped in 141.86s (0:02:21)", "server_port": 59996, "server_port_refuses_after": true, "verdict": "SURVIVED"}

@@ -1,0 +1,8 @@
+engine webkit
+head a61cfc0
+touched test files modified in the working tree (empty means the run is of the commit): ''
+started 2026-10-15T15:50:03+08:00
+runner pid 11128, pytest pid 19548
+command C:\Python314\python.exe -B -m pytest tests/browser/test_day_editor.py tests/browser/test_overview.py tests/browser/test_year.py tests/browser/test_popups.py -q -p no:cacheprovider --junitxml docs/modules/app/qa/solver/20261015-155002-wr12-webkit/junit.xml --engine webkit
+exit 0
+finished 2026-10-15T15:51:01+08:00

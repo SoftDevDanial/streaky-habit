@@ -1,0 +1,119 @@
+T8 and the year-view cost with planted values. Commands and stdout, verbatim, each run with python -u -B from this folder.
+
+probe_03a_quota.py (timeout 280 each, exit 0):
+[server] started pid=520 port=43347
+engine chromium 149.0.7827.55
+try 1048576 -> True in 3 ms
+try 2097152 -> True in 4 ms
+try 4194304 -> True in 8 ms
+try 8388608 -> False in 2 ms
+quota_chars between 5241856 and 5242880
+[server] stopped pid=520 exit=1 port 43347 refuses=True
+[server] started pid=21468 port=60407
+engine webkit 26.5
+try 1048576 -> True in 2 ms
+try 2097152 -> True in 1 ms
+try 4194304 -> True in 1 ms
+try 8388608 -> False in 1 ms
+quota_chars between 5241856 and 5242880
+[server] stopped pid=21468 exit=1 port 60407 refuses=True
+
+probe_03_planted_size.py chromium 60 real
+stored_chars 285219
+boot (goto to first row): 0.10 s
+rows 12 note 0
+Done today tick, no popup (was true): 0.07 s
+open P4 from the band: 0.08 s
+open P1 over P4 for 2026-01-15: 0.08 s
+tick in P1 over P4 (was true): 0.13 s
+Esc P1: 0.02 s
+Esc P4: 0.01 s
+open P2: 0.04 s
+bead tick in P2 for 2026-01-15 (was false): 0.07 s
+page errors []
+[server] stopped pid=23516 exit=1 port 29414 refuses=True
+
+probe_03_planted_size.py chromium 60 1 20000      (stored_chars 260052)
+boot 0.08 s, Done today 0.06 s, open P4 0.06 s, open P1 over P4 0.05 s, tick in P1 over P4 0.10 s, Esc P1 0.01 s, Esc P4 0.01 s, open P2 0.05 s, bead tick 0.07 s, page errors [], server pid=15444 stopped, port 55823 refuses=True
+
+probe_03_planted_size.py chromium 120 1 80000     (stored_chars 1040052)
+boot 0.19 s, Done today 0.16 s, open P4 0.12 s, open P1 over P4 0.13 s, tick in P1 over P4 0.35 s, Esc P1 0.01 s, Esc P4 0.03 s, open P2 0.14 s, bead tick 0.27 s, page errors [], server pid=19516 stopped, port 9785 refuses=True
+
+probe_03_planted_size.py chromium 120 1 395000
+engine chromium 149.0.7827.55 shape 1 x 395000 from 1000-01-01 cap 120
+stored_chars 5135052
+boot (goto to first row): 1.06 s
+rows 1 note 0
+Done today tick, no popup (was true): 0.96 s
+open P4 from the band: 0.52 s
+open P1 over P4 for 2026-01-15: 0.90 s
+tick in P1 over P4 (was true): 1.86 s
+Esc P1: 0.04 s
+Esc P4: 0.01 s
+open P2: 0.69 s
+bead tick in P2 for 2026-01-15 (was false): 1.77 s
+page errors []
+[server] stopped pid=22160 exit=1 port 28836 refuses=True
+total 9.4 s
+
+probe_03_planted_size.py chromium 120 12 32900
+engine chromium 149.0.7827.55 shape 12 x 32900 from 1000-01-01 cap 120
+stored_chars 5132763
+boot (goto to first row): 0.83 s
+rows 12 note 0
+Done today tick, no popup (was false): 0.74 s
+open P4 from the band: 0.53 s
+open P1 over P4 for 2026-01-15: 0.64 s
+tick in P1 over P4 (was false): 1.78 s
+Esc P1: 0.05 s
+Esc P4: 0.01 s
+open P2: 0.08 s
+bead tick in P2 for 2026-01-15 (was true): 0.75 s
+page errors []
+[server] stopped pid=6044 exit=1 port 36966 refuses=True
+total 7.0 s
+
+probe_03_planted_size.py webkit 60 real            (stored_chars 285219)
+boot 0.14 s, Done today 0.08 s, open P4 0.09 s, open P1 over P4 0.15 s, tick in P1 over P4 0.11 s, Esc P1 0.04 s, Esc P4 0.07 s, open P2 0.09 s, bead tick 0.07 s, page errors [], server pid=23484 stopped, port 27020 refuses=True
+
+probe_03_planted_size.py webkit 120 1 395000
+engine webkit 26.5 shape 1 x 395000 from 1000-01-01 cap 120
+stored_chars 5135052
+boot (goto to first row): 1.14 s
+rows 1 note 0
+Done today tick, no popup (was true): 0.92 s
+open P4 from the band: 0.35 s
+open P1 over P4 for 2026-01-15: 0.75 s
+tick in P1 over P4 (was true): 1.55 s
+Esc P1: 0.02 s
+Esc P4: 0.07 s
+open P2: 0.69 s
+bead tick in P2 for 2026-01-15 (was false): 1.72 s
+page errors []
+[server] stopped pid=12616 exit=1 port 27039 refuses=True
+total 8.5 s
+
+probe_03_planted_size.py webkit 120 12 32900
+engine webkit 26.5 shape 12 x 32900 from 1000-01-01 cap 120
+stored_chars 5132763
+boot (goto to first row): 0.82 s
+rows 12 note 0
+Done today tick, no popup (was false): 0.59 s
+open P4 from the band: 0.40 s
+open P1 over P4 for 2026-01-15: 0.56 s
+tick in P1 over P4 (was false): 1.29 s
+Esc P1: 0.09 s
+Esc P4: 0.06 s
+open P2: 0.11 s
+bead tick in P2 for 2026-01-15 (was true): 0.61 s
+page errors []
+[server] stopped pid=19728 exit=1 port 5861 refuses=True
+total 5.8 s
+
+Process notes. A first version of probe_03 (one script for every shape, buffered stdout, a 300 s cap per step and a
+tick check that waited for "true" only) ran into the shell's 590 s timeout with no output. Its tick checks could never
+be met when the day was already done, so each waited out its cap. The process list right after showed none of its
+processes alive (no chrome.exe, no http.server of mine, only another agent's pytest WebKit run, pid 23720, started
+13:29, parent 3784, left alone). The probe was then split and fixed (flip check, unbuffered output) as on disk.
+The quota is the same 5,242,880 UTF-16 units (5 MiB) in both engines. A 5.1 M character value is the worst case.
+Desktop numbers only. Another agent's WebKit test run was on the machine during these runs, so times may be high.

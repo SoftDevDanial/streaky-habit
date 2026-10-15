@@ -1,0 +1,12 @@
+comments-only check, before c271938, after a61cfc0
+tests/browser/conftest.py: SAME CODE; docstrings changed: ['watch_close']
+tests/browser/test_day_editor.py: SAME CODE; docstrings changed: none
+tests/browser/test_overview.py: SAME CODE; docstrings changed: none
+tests/browser/test_year.py: SAME CODE; docstrings changed: none
+tests/browser/test_popups.py: SAME CODE; docstrings changed: none
+controls (each changes an in-memory copy of the before side, no file is written):
+  C0 before against itself: equal
+  C1 one code token changed (click(5, 5) to click(6, 5)): CAUGHT ['AST differs', 'code tokens differ']
+  C2 the docstring of wait_for_close changed: CAUGHT ["docstring changed that is not allowed: ['wait_for_close']"]
+  C3 a comment added: equal, as it must be
+RESULT: PASS, comments and the watch_close docstring only

@@ -1,0 +1,50 @@
+command: cd docs/modules/habit-logic/qa/security/20261015-131500 && timeout 300 node probe-v110.mjs   (Node v24.11.1, win32, HEAD 4e860ff, exit 0, foreground, no child process)
+stdout, verbatim:
+== 1. source scan
+dates.js {"bytes":6024,"clockHits":[],"banned":[],"regexes":["/^\\d{4}-\\d{2}-\\d{2}$/"],"imports":[],"objectCopies":[]}
+habits.js {"bytes":11570,"clockHits":[],"banned":[],"regexes":[],"imports":["./dates.js"],"objectCopies":[]}
+== 2. runtime traps while every export runs
+calls recorded: [] globals added: [] exports: ["addDays","dayParts","isDateKey","localDateKey","longDate","monthTitle","shortDate","weekdayIndex","yearDate","MAX_HABITS","MAX_NAME_LENGTH","addHabit","bestStreak","currentStreak","deleteHabit","doneFlags","heatmapCells","monthLabels","toggleDay","validateName","yearMonths","yearStart"]
+== 3. frozen and proxied inputs
+writes: [] throws: [] result shares an input object: false
+== 4. toggleDay range fuzz
+cases: 42000 disagreements with the rule: [] count 0
+== 5. index edge values
+{"2":{"toggled":[false,false],"afterDelete":["Read 20 pages","Stretch"]},"'0'":{"toggled":[false,false],"afterDelete":["Read 20 pages","Stretch"]},"0.5":{"toggled":[false,false],"afterDelete":["Read 20 pages","Stretch"]},"-0":{"toggled":[true,false],"afterDelete":["Stretch"]},"NaN":{"toggled":[false,false],"afterDelete":["Read 20 pages","Stretch"]},"-1":{"toggled":[false,false],"afterDelete":["Read 20 pages","Stretch"]},"1e300":{"toggled":[false,false],"afterDelete":["Read 20 pages","Stretch"]},"true":{"toggled":[false,false],"afterDelete":["Read 20 pages","Stretch"]},"null":{"toggled":[false,false],"afterDelete":["Read 20 pages","Stretch"]},"undefined":{"toggled":[false,false],"afterDelete":["Read 20 pages","Stretch"]},"[0]":{"toggled":[false,false],"afterDelete":["Read 20 pages","Stretch"]}}
+== 6. doneFlags reads per call
+one call, 12 habits: {"includes":12,"iterate":0,"index":24}
+heatmapCells, 12 habits: {"includes":996,"iterate":0,"index":1980} (84 cells, 83 not future)
+== 7. yearMonths
+{"0001-01-01":{"months":13,"open":367,"first":"0001-01-01","last":"0000-01-01","ms":1},"0002-02-28":{"months":13,"open":366,"first":"0002-02-01","last":"0001-02-01","ms":1},"1999-12-31":{"months":13,"open":366,"first":"1999-12-01","last":"1998-12-01","ms":1},"2000-02-29":{"months":13,"open":367,"first":"2000-02-01","last":"1999-02-01","ms":1},"2001-03-01":{"months":13,"open":366,"first":"2001-03-01","last":"2000-03-01","ms":1},"2026-10-10":{"months":13,"open":366,"first":"2026-10-01","last":"2025-10-01","ms":1},"2028-02-29":{"months":13,"open":367,"first":"2028-02-01","last":"2027-02-01","ms":1},"2100-02-28":{"months":13,"open":366,"first":"2100-02-01","last":"2099-02-01","ms":0},"2100-03-01":{"months":13,"open":366,"first":"2100-03-01","last":"2099-03-01","ms":1},"2400-02-29":{"months":13,"open":367,"first":"2400-02-01","last":"2399-02-01","ms":0},"9999-12-31":{"months":13,"open":366,"first":"9999-12-01","last":"9998-12-01","ms":0}}
+10000-01-05 throws TypeError Cannot read properties of undefined (reading 'slice') 0 ms
+10000-01-05 yearStart 09990-01-05 toggleDay 1000-06-01 changes: ["1000-06-01","2026-10-08","2026-10-09"]
+99999-12-31 returned 11 months
+99999-12-31 yearStart 99989-12-31 toggleDay 1000-06-01 changes: ["2026-10-08","2026-10-09"]
+every day 2024-01-01 to 2028-12-31: 1827 days, wrong shape: []
+== 8. prototype integrity
+own keys of results: [["done,name"],["done,name","done,name"],["done,name"]] prototypes plain: true ({}).polluted: undefined Object.prototype keys: 12
+== 9. cost, one habit with 395,000 valid days from 1000-01-01, and 12 x 32,900
+1 x 395000: band 64 ms, P4 doneFlags x366 307 ms, streaks of every habit 985 ms, toggleDay 28 ms
+12 x 32900: band 89 ms, P4 doneFlags x366 400 ms, streaks of every habit 642 ms, toggleDay 2 ms
+
+Reading.
+1. No clock, random, network, storage, timer, global, Intl or code-from-string word in the code of either file. The
+   only regular expression is the anchored KEY_PATTERN. habits.js imports only ./dates.js, dates.js nothing. No
+   Object.assign and no object spread.
+2. 0 clock, random, network or timer calls and 0 globals added while every one of the 22 exports ran three times.
+3. 0 writes to frozen, proxied arguments of every export, the new ones included. Results share no object with inputs.
+4. 42,000 toggleDay calls over 7 todays (leap days, year ends, year 0002, year 9999) agree with the rule written
+   independently in the probe (a valid key from the same date last year, 28 February for 29 February, to today):
+   0 disagreements. The other habit is never changed.
+5. Indexes "0", 0.5, NaN, -1, 2, 1e300, true, null, undefined and [0] change nothing. -0 acts as 0, which is the same
+   integer index, so it is no defect.
+6. One doneFlags call does one includes per habit (12 for 12 habits), and the band does 83 x 12. No nested scan
+   (habit-logic threat model, "Responsiveness of the year views", holds).
+7. yearMonths gives 13 months and the 366 or 367 open days of the rule on 11 edge days and on every day from
+   2024-01-01 to 2028-12-31 (1827 days). With a five-digit year key (a device clock in year 10000, the accepted 1.0
+   residual SEC-05) yearMonths throws at once or returns 11 months, and yearStart and toggleDay compare keys as text,
+   so toggleDay(…, "1000-06-01", "10000-01-05") adds 1000-06-01. No control of the app offers such a day (probe
+   notes in the findings), so it is recorded as an observation under SEC-05, not a finding.
+8. Parsed __proto__, constructor.prototype and extra keys never reach a result: own keys are exactly done,name.
+9. A quota-size planted list costs at most about 0.4 s for the 366 doneFlags calls of one P4 draw in Node, and the
+   streaks of every habit cost more than the year view (about 1 s). Linear, as the threat model says.

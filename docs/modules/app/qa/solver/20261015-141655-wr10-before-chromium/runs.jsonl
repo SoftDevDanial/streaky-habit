@@ -1,0 +1,1 @@
+{"id": "WR10-suite-before", "engine": "chromium", "planted": false, "pid": 3500, "exit": 0, "timed_out": false, "seconds": 153.5, "counts": {"passed": 354, "skipped": 1}, "last_line": "354 passed, 1 skipped in 152.26s (0:02:32)", "failing": [], "server_port": 48500, "server_port_refuses_after": true, "verdict": "GREEN"}

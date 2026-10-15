@@ -1,0 +1,22 @@
+"""The re-check's runner. It is mutrun.py (round 1, unchanged) with one difference, the failing lines of pytest's short
+summary are read whole, so a parametrized id with spaces keeps its reason. Usage as mutrun.py.
+"""
+import re
+import sys
+
+import mutrun
+
+_findall = re.findall
+
+
+def _findall_whole_ids(pattern, text, flags=0):
+    if pattern.startswith("^(?:FAILED|ERROR)"):
+        found = _findall(r"^(?:FAILED|ERROR) (.+?)(?: - (.{0,220}))?$", text, re.M)
+        return [(name.replace("tests/browser/", ""), why) for name, why in found]
+    return _findall(pattern, text, flags)
+
+
+mutrun.re.findall = _findall_whole_ids
+
+if __name__ == "__main__":
+    mutrun.main()

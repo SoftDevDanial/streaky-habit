@@ -1,0 +1,28 @@
+command: timeout 450 python -u -B probe_06_close_race.py chromium webkit   (run 2, the probe as on disk, exit 0)
+stdout, verbatim:
+[server] started pid=14568 port=17248 dir={workspace}\examples\streaks
+chromium A {"M1 names None, deleted []: nothing": 4, "M1 names H2, deleted ['H2']: matches title": 8} page errors ["Cannot read properties of undefined (reading 'name')"]
+chromium B {"M1 names H2, deleted ['H2']: matches title": 8, "M1 names H2, deleted []: nothing": 4} page errors ["Cannot read properties of null (reading 'openerBox')"]
+chromium C {"P1 ['Friday 9 October', 'H1'], changed [('H1', ['2026-10-09'])]: matches P1": 6, "P1 ['Saturday 10 October', 'H1'], changed [('H1', ['2026-10-10'])]: matches P1": 3, "P1 ['Friday 9 October', 'H1'], changed []: nothing": 3} page errors []
+webkit A {"M1 names None, deleted []: nothing": 11, "M1 names H1, deleted ['H1']: matches title": 1} page errors ["undefined is not an object (evaluating 'state.habits[index].name')"]
+webkit B {"M1 names H2, deleted ['H2']: matches title": 12} page errors []
+webkit C {"P1 ['Friday 9 October', 'H1'], changed []: nothing": 5, "P1 ['Saturday 10 October', 'H1'], changed [('H1', ['2026-10-10'])]: matches P1": 5, "P1 False, changed [('H1', ['2026-10-10'])]: MISMATCH": 1, "P1 ['Friday 9 October', 'H1'], changed [('H1', ['2026-10-09'])]: matches P1": 1} page errors []
+[server] stopped pid=14568 exit=1 port 17248 refuses=True
+
+Run 1 (same command, earlier version that read the name with title[8:-3], which kept U+2068): every "MISMATCH" in
+cases A and B there was a title "<U+2068>H2" with H2 deleted or "<U+2068>H1" with H1 deleted, so the same matches.
+Run 1 case C, chromium: matches 5, nothing 7. webkit: matches 3, nothing 6, and no P1 False line.
+
+Reading.
+- 72 trials in all. Every delete removed exactly the habit M1's title named (28 of 28). Every P1 tick changed
+  exactly the day and habit P1 showed (16), or nothing.
+- "nothing" with a page error (A, B) or with no error (C) is the reopened popup having lost its state: the
+  previous popup's queued `close` handler ran after the reopen and set state.year, state.remove or state.day to
+  null. Delete habit then throws (no delete), P2's Delete habit throws (M1 does not open), and a P1 tick is
+  refused by toggleDay (no change). It fails safe.
+- WebKit C, 1 of 12, "P1 False": P1 was already closed 150 ms after the keys, and today was ticked for H1, the
+  day and habit P1 showed before the Escape. The capture does not prove the order. The likely one is that WebKit
+  handled the Enter in P1 before the Escape's close, so the tick went to the popup still on screen. No other habit
+  or day changed.
+- Reached only by key presses faster than the app's queued close event (automation speed, no wait between keys).
+  Not a trust-boundary issue. Reported as an observation for code review, not as a security finding.

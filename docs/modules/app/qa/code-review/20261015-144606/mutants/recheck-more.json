@@ -1,0 +1,20 @@
+{
+  "note": "The re-check's other run sets, as run. lines (A2 with --tb=line), standin (WR-11 probes), gate (pristine gate), full (the whole suite, the two probes left out), r36x (the room test 8 more times, and A65c).",
+  "lines": [
+    {"id": "A2-room-kept-lines", "file": "src/app.js", "old": "    popups.clearDayRoom();", "new": "    void 0;", "tests": ["tests/browser/test_day_editor.py::test_R36_on_a_phone_the_host_of_p1_gets_room_while_p1_is_open_over_it_and_loses_it_when_p1_closes"], "args": ["--tb=line"], "show": ["test_day_editor.py:"]}
+  ],
+  "standin": [
+    {"id": "S0-predicate-cases", "tests": ["tests/browser/test_cr_recheck_standin.py"], "args": ["-s"], "show": ["PROBE"]},
+    {"id": "S1-standin-removed-engines-and-fidelity", "tests": ["tests/browser/test_cr_recheck_a_nostandin.py", "tests/browser/test_engines.py::test_R30_every_context_has_the_clipboard_stand_in"]}
+  ],
+  "gate": [
+    {"id": "G0-gate-pristine"}
+  ],
+  "full": [
+    {"id": "F0-full-suite-pristine", "tests": ["tests/browser"], "args": ["--ignore=tests/browser/test_cr_recheck_a_nostandin.py", "--ignore=tests/browser/test_cr_recheck_standin.py"]}
+  ],
+  "r36x": [
+    {"id": "R36-room-x1 to R36-room-x8", "tests": ["tests/browser/test_day_editor.py::test_R36_on_a_phone_the_host_of_p1_gets_room_while_p1_is_open_over_it_and_loses_it_when_p1_closes"]},
+    {"id": "A65c-legend-not-redrawn-downward", "file": "src/calendar.js", "old": "if (drawnLegends.get(legend) === habitCount) return;", "new": "if ((drawnLegends.get(legend) ?? -1) >= habitCount) return;", "tests": ["tests/browser/test_delete.py::test_R15_R32_deleting_from_a_bin_moves_focus_to_the_next_bin_and_recounts", "tests/browser/test_delete.py::test_R15_R3_deleting_the_only_habit_shows_the_empty_list"]}
+  ]
+}

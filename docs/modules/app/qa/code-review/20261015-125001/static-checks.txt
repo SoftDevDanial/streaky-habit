@@ -1,0 +1,97 @@
+# Code-review finder (read-only), app, 2026-10-15. Read-only checks run on the working tree at HEAD 4e860ff
+# (git status shows no change under src/, tests/ or index.html). Each block is the command and its output as printed.
+
+## 1. R2, src/styles.css against docs/design/system.css from ":root{" to "/* ---------- golden stand-ins", comments and white space removed
+$ python -B -c "<normalise both, difflib.unified_diff>"
+@@ -126,2 +126,2 @@
+-dialog::backdrop{background:var(--scrim);}
+-.dlg-day::backdrop{background:var(--scrim-soft);}
++dialog::backdrop{background:var(--scrim,rgba(10,11,13,.74));}
++.dlg-day::backdrop{background:var(--scrim-soft,rgba(10,11,13,.52));}
+@@ -213 +213 @@
+-dialog[open]::backdrop,.scrim{animation:fade 180ms var(--ease);}
++dialog[open]::backdrop{animation:fade 180ms var(--ease);}
+(exactly the three changes R2 lists, nothing else)
+
+## 2. Non-goal and sink scan of the shipped files
+$ grep -nE "keydown|keyup|inert|\.show\(|addEventListener\(\"storage|requestAnimationFrame|setTimeout|queueMicrotask|Observer|innerHTML|outerHTML|insertAdjacentHTML|document\.write|eval\(|new Function|window\.[a-zA-Z_]+ *=|scrim|location\.|URLSearchParams|fetch\(|navigator\.|Intl|toLocale|Math\.random|Date\.now" src/*.js index.html
+src/habits.js:251: * units would count one emoji as two, and grapheme counting needs Intl.
+src/popups.js:73: * Opens `dialog` with showModal (R40), so it stacks over what is open and everything under it is inert, with its
+(two comment lines only, no code)
+$ grep -n "addEventListener" src/*.js
+src/app.js:364..377  click (capture, guard) and click on div.app, submit on form.composer, input on #nh, scroll on div.frame,
+                     resize on window, and on each dialog click (capture, guard), pointerdown, click and close, visibilitychange on document
+
+## 3. Em and en dashes in index.html, src/*, tests/**/*.js, tests/browser/*.py, README.md, CLAUDE.md, both spec.md and both BUILD.md
+$ python -B -c "<scan for U+2013 and U+2014>"
+scan done   (no line found)
+
+## 4. file:line citations, TODO, FIXME, debugger, console.log in src/ and index.html
+$ grep -nE "\.(js|py|md|html|css):[0-9]+|line [0-9]+" src/*.js index.html tests/*.js tests/browser/*.py ; grep -nE "TODO|FIXME|XXX|console\.log|debugger" src/*.js index.html
+(no output)
+
+## 5. Symbols the README names, looked up in src/ and index.html
+$ for s in weekWindow heatLevel guardDialogClick swallowTapThrough DIALOG_GUARD_MS onDialogClose TITLE_STRIPPED checkDay readToday STORAGE_KEY encodeState decodeState loadHabits saveHabits; do grep -rl "\b$s\b" src index.html; done
+weekWindow         (none)
+heatLevel          (none)
+guardDialogClick   (none)
+swallowTapThrough  (none)
+DIALOG_GUARD_MS    (none)
+onDialogClose      (none)
+TITLE_STRIPPED     src/popups.js
+checkDay           src/app.js
+readToday          src/app.js
+STORAGE_KEY        src/storage.js
+encodeState        src/storage.js
+decodeState        src/storage.js
+loadHabits         src/app.js src/storage.js
+saveHabits         src/app.js src/storage.js
+
+## 6. Where the shared helpers of src/calendar.js are used (occurrences per file, the definition included)
+$ for n in dayUnit element svgElement icon ringSvg flagChange drawRing drawLegend DAY_BUTTON; do grep -c "\b$n\b" <each file>; done
+dayUnit      calendar.js:1 view.js:2 popups.js:2 app.js:0     (calendar.js holds only the definition)
+element      calendar.js:24 view.js:27 popups.js:11 app.js:0
+svgElement   calendar.js:9 view.js:4 popups.js:0 app.js:0
+icon         calendar.js:1 view.js:6 popups.js:4 app.js:0     (calendar.js holds only the definition)
+ringSvg      calendar.js:4 view.js:2 popups.js:2 app.js:0
+flagChange   calendar.js:3 view.js:3 popups.js:3 app.js:0
+drawRing     calendar.js:4 view.js:2 popups.js:2 app.js:0
+drawLegend   calendar.js:1 view.js:2 popups.js:3 app.js:0
+DAY_BUTTON   calendar.js:5 view.js:0 popups.js:2 app.js:0
+
+## 7. habit-logic exports the app imports, against the spec's "Uses from habit-logic" list
+$ grep -n "^import" src/app.js src/view.js src/calendar.js src/popups.js src/storage.js src/ring.js
+src/app.js:10:import { localDateKey } from "./dates.js";
+src/app.js:11:import { MAX_HABITS, addHabit, deleteHabit, doneFlags, heatmapCells, toggleDay } from "./habits.js";
+src/view.js:10:import { longDate } from "./dates.js";
+src/view.js:11:import { bestStreak, currentStreak } from "./habits.js";
+src/calendar.js:11:import { dayParts, shortDate, yearDate } from "./dates.js";
+src/calendar.js:12:import { doneFlags, monthLabels, yearMonths } from "./habits.js";
+src/popups.js:10:import { longDate } from "./dates.js";
+src/popups.js:11:import { bestStreak, currentStreak, doneFlags } from "./habits.js";
+src/popups.js:25:import { renderStats } from "./view.js";
+src/storage.js:9:import { isDateKey } from "./dates.js";
+src/storage.js:10:import { MAX_HABITS, validateName } from "./habits.js";
+(the spec list names monthTitle and yearStart too, no app file imports either, both are reached only inside yearMonths and toggleDay)
+
+## 8. The clipboard stand-in predicate, the two spellings run on three cases (node -e)
+{"case":"writeText missing","test_engines_and_fidelity_inputs":"throws TypeError","live_gate":true}
+{"case":"writeText stand-in","test_engines_and_fidelity_inputs":true,"live_gate":true}
+{"case":"writeText native","test_engines_and_fidelity_inputs":false,"live_gate":false}
+(test_engines.py STAND_IN_JS and test_fidelity_inputs.py STANDIN_IN_PLACE_JS are the same text, live_e2e.py SNAPSHOT_JS key standIn is the other spelling)
+
+## 9. The 1.0 cadence guard, which the v1.1.0 rewrite of test_rollover.py does not carry
+$ git show v1.0.0:tests/browser/test_rollover.py | grep -n "23:59:5\|cadence\|30100\|run_for"
+117:    """Pins the cadence. The other tests boot so that some check lands in their window whatever the
+120:    page = app(storage=pretty_sample_state(), install_time="2026-10-08T23:59:50+08:00", count_writes=True)
+122:    page.clock.pause_at("2026-10-08T23:59:59+08:00")
+124:    page.clock.run_for(900)  # 23:59:59.9, the new day must not show before midnight
+129:    page.clock.run_for(30100)  # 00:00:30.0
+$ grep -n "cadence\|23:59:5" docs/modules/app/qa.md
+375:      | 2026-10-07T23:59:59+08:00 | 2026-10-07 | Wednesday 7 October |     (an R4 row, no cadence scenario)
+
+## 10. What the test-side tree and ring readers compare (conftest.py)
+_CANON_JS (canon_tree) returns [node.localName, attributes, text, children]; _RING_PARTS_JS returns node.localName with classes and
+geometry attributes. Neither reads namespaceURI, so an svg, path, circle or text made in the HTML namespace (which draws nothing)
+reads the same as the real one. The 1.0 suite compared namespaces (code review WR-01, solver commit e8bd2c9); that helper,
+canonical_pair, left with the 1.0 files at task 12.

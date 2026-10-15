@@ -1,0 +1,19 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+______________ test_R30_every_context_has_the_clipboard_stand_in ______________
+
+app = <function app.<locals>.open_page at 0x000001B74BCB4F60>
+
+    def test_R30_every_context_has_the_clipboard_stand_in(app):
+        page = app(storage=sample_state(), record=True)
+>       assert page.evaluate(STANDIN_IN_PLACE_JS) is True, "navigator.clipboard is the browser's own"
+E       AssertionError: navigator.clipboard is the browser's own
+E       assert False is True
+E        +  where False = evaluate("() => {\n  const writeText = navigator.clipboard && typeof Clipboard === 'function' ? Clipboard.prototype.writeText :...  return typeof writeText !== 'function' || !Function.prototype.toString.call(writeText).includes('[native code]');\n}")
+E        +    where evaluate = <Page url='http://127.0.0.1:39472/'>.evaluate
+
+tests\browser\test_engines.py:105: AssertionError
+engine chromium: 0 chromium_only skip(s)
+=========================== short test summary info ===========================
+FAILED tests/browser/test_engines.py::test_R30_every_context_has_the_clipboard_stand_in
+1 failed in 1.04s

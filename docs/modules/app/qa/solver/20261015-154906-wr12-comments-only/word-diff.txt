@@ -1,0 +1,73 @@
+git diff --word-diff c271938 a61cfc0 -- the five test files below
+
+diff --git a/tests/browser/conftest.py b/tests/browser/conftest.py
+index 5f2aa25..83a6274 100644
+--- a/tests/browser/conftest.py
++++ b/tests/browser/conftest.py
+@@ -790,7 +790,10 @@ def watch_close(page, selector):
+
+    The close event is a queued task, so right after a gesture closes a dialog the app's close handler may not have
+    run yet, and in Chromium the browser's own focus restore can already show the opener focused. This test-side
+    listener is added after the app's, so once it has run the app's handler has run [-too.-]{+too, and what that handler+}
+{+    clears (P1's open mark and room) can be read. It does not show who moved focus. In Chromium the browser's own+}
+{+    restore lands on the same opener, so R40's return of focus is proven by the WebKit run, not by a Chromium read.+}
+    It adds no property to window.
+    """
+    return page.locator(selector).evaluate_handle(_CLOSE_WATCH_JS)
+
+diff --git a/tests/browser/test_day_editor.py b/tests/browser/test_day_editor.py
+index 025a1c2..0b2e13b 100644
+--- a/tests/browser/test_day_editor.py
++++ b/tests/browser/test_day_editor.py
+@@ -137,7 +137,7 @@ def test_R36_R40_p1_closes_and_gives_focus_back_to_its_day(app, action):
+        box = day_dialog(page).locator(":scope > div.dlg-box").bounding_box()
+        assert not (box["x"] <= 5 <= box["x"] + box["width"] and box["y"] <= 5 <= box["y"] + box["height"]), box
+        page.mouse.click(5, 5)
+    wait_for_close(watch)  # the app's close handler has [-run, so the reads below are the app's-]{+run+} (conftest watch_close)
+    expect(page.locator("button.hc.is-open")).to_have_count(0)
+    expect(band_day(page, SEP_22)).to_be_focused()
+
+diff --git a/tests/browser/test_overview.py b/tests/browser/test_overview.py
+index 7b43171..3a6176a 100644
+--- a/tests/browser/test_overview.py
++++ b/tests/browser/test_overview.py
+@@ -126,7 +126,7 @@ def test_R38_R40_p3_closes_and_gives_focus_back_to_overview(app, action):
+        dialog.get_by_role("button", name="Close", exact=True).click()
+    else:
+        page.keyboard.press("Escape")
+    wait_for_close(watch)  # the app's close handler has [-run, so the focus read is the app's-]{+run+} (conftest watch_close)
+    expect(page.locator("button.ov-btn")).to_be_focused()
+
+
+@@ -330,7 +330,7 @@ def test_R39_R40_p4_closes_and_gives_focus_back_to_the_year_that_opened_it(app,
+        box = dialog.locator(":scope > div.dlg-box").bounding_box()
+        assert not (box["x"] <= 5 <= box["x"] + box["width"] and box["y"] <= 5 <= box["y"] + box["height"]), box
+        page.mouse.click(5, 5)
+    wait_for_close(watch)  # the app's close handler has [-run, so the focus read is the app's-]{+run+} (conftest watch_close)
+    still_open = page.evaluate("() => Array.from(document.querySelectorAll('dialog')).filter((d) => d.open).map((d) => d.classList[d.classList.length - 1])")
+    assert still_open == ([] if opener == "the band's Year" else ["dlg-ov"]), still_open
+    expect(year).to_be_focused()
+diff --git a/tests/browser/test_popups.py b/tests/browser/test_popups.py
+index e0a99b7..4519d22 100644
+--- a/tests/browser/test_popups.py
++++ b/tests/browser/test_popups.py
+@@ -150,7 +150,7 @@ def test_R40_R14_a_backdrop_click_closes_that_popup_only(app, viewport, popups,
+    watch = watch_close(page, f"dialog.{top}")
+    page.mouse.click(5, 5)
+    wait_closed(page, top)
+    wait_for_close(watch)  # the app's close handler has [-run, so the focus read below is the app's-]{+run (conftest watch_close)+}
+    assert open_dialogs(page) == still_open
+    expect(FOCUS[focus](page)).to_be_focused()
+
+diff --git a/tests/browser/test_year.py b/tests/browser/test_year.py
+index b711457..f38c5bc 100644
+--- a/tests/browser/test_year.py
++++ b/tests/browser/test_year.py
+@@ -258,7 +258,7 @@ def test_R33_R40_p2_closes_and_gives_focus_back_to_its_year(app, viewport, actio
+        box = dialog.locator(":scope > div.dlg-box").bounding_box()
+        assert not (box["x"] <= 5 <= box["x"] + box["width"] and box["y"] <= 5 <= box["y"] + box["height"]), box
+        page.mouse.click(5, 5)
+    wait_for_close(watch)  # the app's close handler has [-run, so the focus read is the app's-]{+run+} (conftest watch_close)
+    expect(year_btn(page, "Read 20 pages")).to_be_focused()
+
+

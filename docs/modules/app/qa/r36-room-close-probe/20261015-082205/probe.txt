@@ -1,0 +1,29 @@
+run: QA finder, step 5, probe of the one Chromium failure (R36 "host of P1 gets room ... loses it when P1 closes", row 360x780 P3 2026-07-20, clicks Close)
+HEAD: 4e860ff5c84b18c2777ebce8c203b963bd7c3610
+started: 20261015-082205
+what: a standalone read-only Playwright script (kept in the session scratchpad, not in the project) repeats the row's steps with the suite's own open_app,
+  sample_state and launch helpers, then reads P3's div.sheet-body padding-bottom (computed, inline) right after dialog.dlg-day.open turns false,
+  and again every 10 ms until the inline value is gone (2000 ms cap). It starts one http.server (stopped in finally) and one headless browser per engine.
+command: python r36_close_probe.py . chromium 8   then   python r36_close_probe.py . webkit 4
+result: the room is released 10 to 17 ms after open turns false, in both engines. The suite test reads it in that window.
+------------------------------------------------------------------------
+http.server pid 24152 port 59237
+chromium 149.0.7827.55
+try 1: room while open 293px, right after open=false ['293px', '293px'], released after 11 ms, last ['24px', '']
+try 2: room while open 293px, right after open=false ['293px', '293px'], released after 10 ms, last ['24px', '']
+try 3: room while open 293px, right after open=false ['293px', '293px'], released after 10 ms, last ['24px', '']
+try 4: room while open 293px, right after open=false ['293px', '293px'], released after 11 ms, last ['24px', '']
+try 5: room while open 293px, right after open=false ['293px', '293px'], released after 11 ms, last ['24px', '']
+try 6: room while open 293px, right after open=false ['293px', '293px'], released after 10 ms, last ['24px', '']
+try 7: room while open 293px, right after open=false ['293px', '293px'], released after 11 ms, last ['24px', '']
+try 8: room while open 293px, right after open=false ['293px', '293px'], released after 11 ms, last ['24px', '']
+http.server pid 24152 stopped, port 59237 refuses connections: True
+EXIT=0
+http.server pid 20736 port 47620
+webkit 26.5
+try 1: room while open 293px, right after open=false ['24px', ''], released after 0 ms, last ['24px', '']
+try 2: room while open 293px, right after open=false ['293px', '293px'], released after 17 ms, last ['24px', '']
+try 3: room while open 293px, right after open=false ['293px', '293px'], released after 17 ms, last ['24px', '']
+try 4: room while open 293px, right after open=false ['293px', '293px'], released after 16 ms, last ['24px', '']
+http.server pid 20736 stopped, port 47620 refuses connections: True
+EXIT=0

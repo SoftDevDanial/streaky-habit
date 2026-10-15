@@ -1,0 +1,7 @@
+run: QA finder, step 5, targeted repro 1 of 3 of the one Chromium failure
+HEAD: 4e860ff5c84b18c2777ebce8c203b963bd7c3610
+command: STREAKS_EVIDENCE_DIR=docs/modules/app/qa/functional/20261015-081804-r36-repro1-chromium timeout 120 python -m pytest "tests/browser/test_day_editor.py::test_R36_on_a_phone_the_host_of_p1_gets_room_while_p1_is_open_over_it_and_loses_it_when_p1_closes[360x780 P3 2026-07-20]" -q -rA --tb=line --junitxml docs/modules/app/qa/functional/20261015-081804-r36-repro1-chromium/junit.xml
+(stdout was filtered through grep for PASSED, FAILED, passed, failed, Error and 293px, so only those lines were seen)
+result seen: PASSED, "1 passed in 1.63s", EXIT=0
+the three repros are 20261015-081804-r36-repro1-chromium (pass), 20261015-081810-r36-repro2-chromium (fail) and 20261015-081817-r36-repro3-chromium (fail), each with its own junit.xml
+failure text of repro 2 and 3: assert ['293px', '293px'] == ['24px', ''], tests\browser\test_day_editor.py:274

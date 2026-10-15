@@ -1,0 +1,81 @@
+# Code-review finder (read-only), app, v1.1.0 step 5 re-check, 2026-10-15. HEAD c271938.
+# Each block is a command, its clock times and the JSON lines it printed. Verdicts, counts, PIDs, ports and times are as
+# printed. Long "failing" reasons are cut at "...", and the copy path is left out of the runner lines.
+# The copy is c271938 from `git -c core.autocrlf=false archive`, extracted in the session scratchpad (cr-recheck/copy-lf).
+# Every mutant was served from memory by mutrun.py's ThreadingHTTPServer on 127.0.0.1. No file of src/ was written anywhere.
+
+$ python -B mutrun.py recheck-browser.json chromium C0-pristine-targeted A2-room-kept A16-is-open-kept A1-no-app-focus-return   (14:48:35 to 14:49:46)
+{"runner_pid": 15988, "engine": "chromium"}
+{"id": "C0-pristine-targeted", "pid": 10488, "exit": 0, "seconds": 28.6, "counts": {"passed": 58}, "last_line": "58 passed in 27.88s", "server_port": 17826, "server_port_refuses_after": true, "verdict": "CONTROL GREEN"}
+{"id": "A2-room-kept", "pid": 25248, "exit": 1, "seconds": 6.9, "counts": {"passed": 1, "failed": 5}, "last_line": "5 failed, 1 passed in 6.23s", "server_port": 3189, "server_port_refuses_after": true, "verdict": "KILLED"}
+{"id": "A16-is-open-kept", "pid": 5912, "exit": 1, "seconds": 17.7, "counts": {"failed": 3}, "last_line": "3 failed in 16.95s", "server_port": 20832, "server_port_refuses_after": true, "verdict": "KILLED"}
+{"id": "A1-no-app-focus-return", "pid": 20356, "exit": 0, "seconds": 15.2, "counts": {"passed": 30}, "last_line": "30 passed in 14.47s", "server_port": 21283, "server_port_refuses_after": true, "verdict": "SURVIVED"}
+
+# mutrun.py cut a parametrized id at its first space, so the reasons were lost. mutrun2.py (tools/) reads the line whole.
+$ python -B mutrun2.py recheck-browser.json chromium A2-room-kept A16-is-open-kept   (14:50:03 to 14:50:29)
+{"runner_pid": 23888, "engine": "chromium"}
+{"id": "A2-room-kept", "pid": 25564, "exit": 1, "seconds": 6.7, "counts": {"passed": 1, "failed": 5}, "failing": ["[390x844 P3 2026-07-20]", "[360x780 P3 2026-07-20]", "[390x844 P3 2026-09-22]", "[390x844 P4 2025-10-10]", "[360x780 P4 2025-10-10]"], "server_port": 10904, "server_port_refuses_after": true, "verdict": "KILLED"}
+{"id": "A16-is-open-kept", "pid": 2000, "exit": 1, "seconds": 17.5, "counts": {"failed": 3}, "failing": ["[clicks Close]", "[presses Escape]", "[clicks the viewport point (5, 5)]"], "server_port": 1993, "server_port_refuses_after": true, "verdict": "KILLED"}
+
+$ COLUMNS=600 python -B mutrun2.py recheck-browser.json chromium A2-room-kept   (14:50:36 to 14:50:43)
+{"runner_pid": 20936, "engine": "chromium"}
+{"id": "A2-room-kept", "pid": 10620, "exit": 1, "seconds": 6.6, "counts": {"passed": 1, "failed": 5}, "failing": ["[390x844 P3 2026-07-20] - AssertionError: {'hostOpen': True, 'p1Open': False, 'head': {'top': 0, 'bottom': 82, ...", "(the same for 360x780 P3 2026-07-20, 390x844 P3 2026-09-22, 390x844 P4 2025-10-10, 360x780 P4 2025-10-10)"], "server_port": 51935, "server_port_refuses_after": true, "verdict": "KILLED"}
+
+$ COLUMNS=600 python -B mutrun2.py recheck-lines.json chromium all   (14:50:56 to 14:51:04, A2 with --tb=line)
+{"id": "A2-room-kept-lines", "pid": 9948, "counts": {"passed": 1, "failed": 5}, "server_port_refuses_after": true, "verdict": "KILLED", "shown": ["...\\tests\\browser\\test_day_editor.py:285: AssertionError: {'hostOpen': True, 'p1Open': False, ...} (five times, once per room row)"]}
+# test_day_editor.py line 285 of c271938 is `assert after["padding"] == ["24px", ""], after`, the release of the room.
+
+$ COLUMNS=600 python -B mutrun2.py recheck-browser.json chromium B1 B1b B3 B4 A51 A51b A51c A51d   (14:51:10 to 14:51:37)
+{"runner_pid": 10680, "engine": "chromium"}
+{"id": "B1-svg-in-html-namespace", "pid": 20244, "exit": 1, "seconds": 8.1, "counts": {"passed": 29, "failed": 9}, "failing": ["test_R3_R35_R42_the_empty_first_screen - AssertionError: 2026-07-20", "test_R35_R42_the_band_on_a_desktop - AssertionError: 2026-07-20", "test_R42_a_rings_parts_and_their_order", "test_R42_rings_for_no_habit_and_for_one_habit (3 rows)", "test_R42_twelve_habits_draw_twelve_segments", "test_R42_small_rings_carry_no_number_and_no_today_circle", "test_R42_every_svg_part_in_the_page_and_the_popups_is_in_the_svg_namespace_and_draws - AssertionError: the band's ring for today draws nothing"], "server_port": 2839, "server_port_refuses_after": true, "verdict": "KILLED"}
+{"id": "B1b-glyph-use-in-html-namespace", "pid": 15992, "exit": 1, "seconds": 1.9, "counts": {"failed": 1}, "failing": ["test_R42_every_svg_part_... - AssertionError: P1 over P4 at 1280: {'counts': {'svg': 497, 'path': 1382, 'circle': 121, 'text': 470, 'use': 15}, 'wrong': 9, 'first': ['<svg class=\"ph\" aria-hidden=\"true\"><use href=\"#i-trash\"></use></svg>', ...]}"], "server_port": 41047, "server_port_refuses_after": true, "verdict": "KILLED"}
+{"id": "B3-dismiss-saves", "pid": 25252, "exit": 1, "seconds": 1.6, "counts": {"failed": 1}, "failing": ["test_R17_R22_dismiss_... - AssertionError: Dismiss saved"], "server_port": 7978, "server_port_refuses_after": true, "verdict": "KILLED"}
+{"id": "B4-rejected-name-saves", "pid": 4528, "exit": 1, "seconds": 3.4, "counts": {"failed": 7}, "failing": ["test_R11_rejected_names_... [each of the 7 rows] - AssertionError: assert 1 == 0"], "server_port": 29412, "server_port_refuses_after": true, "verdict": "KILLED"}
+{"id": "A51-check-every-45s", "pid": 5096, "exit": 1, "seconds": 1.6, "counts": {"failed": 1}, "failing": ["test_R19_a_page_booted_ten_seconds_before_midnight_... - AssertionError: the header shows ['2026-10-10', 'Saturday 10 October']"], "server_port": 42695, "server_port_refuses_after": true, "verdict": "KILLED"}
+{"id": "A51b-check-every-60s", "pid": 2000, "exit": 1, "seconds": 1.6, "counts": {"failed": 1}, "failing": ["(the same)"], "server_port": 44435, "server_port_refuses_after": true, "verdict": "KILLED"}
+{"id": "A51c-check-every-85s", "pid": 1824, "exit": 1, "seconds": 1.6, "counts": {"failed": 1}, "failing": ["(the same)"], "server_port": 28170, "server_port_refuses_after": true, "verdict": "KILLED"}
+{"id": "A51d-check-every-115s", "pid": 19160, "exit": 1, "seconds": 1.6, "counts": {"failed": 1}, "failing": ["(the same)"], "server_port": 7305, "server_port_refuses_after": true, "verdict": "KILLED"}
+
+$ COLUMNS=600 python -B mutrun2.py recheck-browser.json chromium A11 A11g A11b A65 A17 A60 A9 P-G0 P-G1 A50   (14:51:43 to 14:52:52)
+{"runner_pid": 11628, "engine": "chromium"}
+{"id": "A11-every-bead-pops", "pid": 8992, "exit": 1, "seconds": 3.8, "counts": {"failed": 2}, "failing": ["test_R34_R32_ticking_a_day_in_the_year_view - AssertionError: a bead that did not change carries pop: ['2026-10-01', '2026-10-02', ...", "test_R23_R32_a_change_pops_... - AssertionError: a bead that did not change popped, a neighbour included: [...]"], "server_port": 5434, "server_port_refuses_after": true, "verdict": "KILLED"}
+{"id": "A11g-a-bead-whose-thread-changed-pops", "pid": 24356, "exit": 1, "seconds": 3.6, "counts": {"failed": 2}, "failing": ["test_R34_R32_ticking_a_day_in_the_year_view - AssertionError: a bead that did not change carries pop: ['2026-10-08', '2026-10-09']", "test_R23_R32_a_change_pops_... - AssertionError: a bead that did not change popped, a neighbour included: [...]"], "server_port": 50264, "server_port_refuses_after": true, "verdict": "KILLED"}
+{"id": "A11b-every-tick-pops", "pid": 25352, "exit": 1, "seconds": 3.0, "counts": {"failed": 2}, "failing": ["test_R37_R32_ticking_a_past_day_in_p1 - AssertionError: a tick that did not change carries pop (R32): ['Read 20 pages', 'Stretch 10 minutes', 'No phone after 11pm']", "test_R23_R32_a_change_pops_... - AssertionError: a tick that did not change popped: [...]"], "server_port": 14829, "server_port_refuses_after": true, "verdict": "KILLED"}
+{"id": "A65-legend-drawn-once", "pid": 19704, "exit": 1, "seconds": 2.3, "counts": {"passed": 1, "failed": 2}, "failing": ["test_R10_R32_enter_adds_... - AssertionError: the legend did not recount", "test_R15_R32_deleting_from_a_bin_... - AssertionError: the legend did not recount"], "server_port": 22703, "server_port_refuses_after": true, "verdict": "KILLED"}
+{"id": "A17-no-scroll-to-top", "pid": 8284, "exit": 1, "seconds": 2.9, "counts": {"failed": 2}, "failing": ["test_R33_p2_opens_again_... - AssertionError: P2 opened again where it was scrolled to", "test_R39_p4_opens_again_... - AssertionError: P4 opened again where it was scrolled to"], "server_port": 42601, "server_port_refuses_after": true, "verdict": "KILLED"}
+{"id": "A60-day-list-built-once", "pid": 11460, "exit": 1, "seconds": 1.7, "counts": {"failed": 1}, "failing": ["test_R36_p1_lists_the_habits_there_are_when_it_opens - AssertionError: assert (['Read 20 pa... of 4 habits') == (['Read 20 pa... of 4 habits')"], "server_port": 19947, "server_port_refuses_after": true, "verdict": "KILLED"}
+{"id": "A9-note-rewritten-each-render", "pid": 20748, "exit": 1, "seconds": 1.6, "counts": {"failed": 1}, "failing": ["test_R12_a_render_at_twelve_habits_... - AssertionError: a render wrote the 12-habit note again"], "server_port": 21392, "server_port_refuses_after": true, "verdict": "KILLED"}
+{"id": "P-G0-no-hold-at-all", "pid": 19828, "exit": 1, "seconds": 21.1, "counts": {"failed": 8}, "failing": ["(all 8 rows, the new one) [1280x800-mouse-P2-then-M1] - AssertionError: ('p2_still_open', [])"], "server_port": 32201, "server_port_refuses_after": true, "verdict": "KILLED"}
+{"id": "P-G1-no-hold-dialog-layer", "pid": 21192, "exit": 1, "seconds": 16.0, "counts": {"passed": 5, "failed": 3}, "failing": ["[390x844-mouse-P3-then-P1]", "[390x844-touch-P3-then-P1]", "[1280x800-mouse-P2-then-M1] - AssertionError: ('p2_still_open', [])"], "server_port": 53214, "server_port_refuses_after": true, "verdict": "KILLED"}
+{"id": "A50-stop-propagation-only", "pid": 12460, "exit": 0, "seconds": 5.9, "counts": {"passed": 8}, "server_port": 53023, "server_port_refuses_after": true, "verdict": "SURVIVED"}
+
+$ COLUMNS=600 python -B mutrun2.py recheck-browser.json webkit C0 A1 A2 A11 A11g A11b A17 A51 P-G1   (14:53:00 to 14:57:43)
+{"runner_pid": 9644, "engine": "webkit"}
+{"id": "C0-pristine-targeted", "pid": 3128, "exit": 0, "seconds": 57.7, "counts": {"passed": 58}, "last_line": "58 passed in 57.00s", "server_port": 15019, "server_port_refuses_after": true, "verdict": "CONTROL GREEN"}
+{"id": "A2-room-kept", "pid": 21408, "exit": 1, "seconds": 8.8, "counts": {"passed": 1, "failed": 5}, "failing": ["(the same five room rows)"], "server_port": 1979, "server_port_refuses_after": true, "verdict": "KILLED"}
+{"id": "A1-no-app-focus-return", "pid": 4128, "exit": 1, "seconds": 174.7, "counts": {"failed": 30}, "failing": ["(all 30 rows) - AssertionError: Locator expected to be focused"], "server_port": 2446, "server_port_refuses_after": true, "verdict": "KILLED"}
+{"id": "A51-check-every-45s", "pid": 1572, "exit": 1, "seconds": 1.4, "counts": {"failed": 1}, "failing": ["AssertionError: the header shows ['2026-10-10', 'Saturday 10 October']"], "server_port": 47362, "server_port_refuses_after": true, "verdict": "KILLED"}
+{"id": "A11-every-bead-pops", "pid": 19584, "exit": 1, "seconds": 4.4, "counts": {"failed": 2}, "server_port": 47377, "server_port_refuses_after": true, "verdict": "KILLED"}
+{"id": "A11g-a-bead-whose-thread-changed-pops", "pid": 11448, "exit": 1, "seconds": 4.2, "counts": {"failed": 2}, "failing": ["test_R34_R32_ticking_a_day_in_the_year_view - AssertionError: a bead that did not change carries pop: ['2026-10-08', '2026-10-09']", "test_R23_R32_..."], "server_port": 47415, "server_port_refuses_after": true, "verdict": "KILLED"}
+{"id": "A11b-every-tick-pops", "pid": 5496, "exit": 1, "seconds": 3.4, "counts": {"failed": 2}, "server_port": 47453, "server_port_refuses_after": true, "verdict": "KILLED"}
+{"id": "A17-no-scroll-to-top", "pid": 19640, "exit": 1, "seconds": 3.5, "counts": {"failed": 2}, "server_port": 47490, "server_port_refuses_after": true, "verdict": "KILLED"}
+{"id": "P-G1-no-hold-dialog-layer", "pid": 2436, "exit": 1, "seconds": 17.7, "counts": {"passed": 5, "failed": 3}, "failing": ["(the two P3 rows and [1280x800-mouse-P2-then-M1] - AssertionError: ('p2_still_open', []))"], "server_port": 47517, "server_port_refuses_after": true, "verdict": "KILLED"}
+
+$ COLUMNS=600 python -B mutrun2.py recheck-standin.json chromium all ; ... webkit S0-predicate-cases   (14:58:43 to 14:58:51)
+{"id": "S0-predicate-cases", "engine": "chromium", "pid": 8620, "exit": 0, "counts": {"passed": 1}, "server_port": 2346, "server_port_refuses_after": true, "shown": ["PROBE {\"with the stand-in\": true, \"without the stand-in\": false, \"writeText removed, no stand-in\": true, \"writeText removed, then the stand-in\": true, \"navigator.clipboard removed, no stand-in\": true}"]}
+{"id": "S1-standin-removed-engines-and-fidelity", "engine": "chromium", "pid": 24288, "exit": 1, "counts": {"passed": 1, "failed": 1}, "failing": ["test_engines.py::test_R30_every_context_has_the_clipboard_stand_in - AssertionError: navigator.clipboard is the browser's own"], "server_port": 36066, "server_port_refuses_after": true, "verdict": "CONTROL NOT GREEN (wanted, the stand-in was removed)"}
+{"id": "S0-predicate-cases", "engine": "webkit", "pid": 20276, "exit": 0, "counts": {"passed": 1}, "server_port": 7908, "server_port_refuses_after": true, "shown": ["PROBE (the same five answers as Chromium)"]}
+
+$ python -B gaterun.py gate.json chromium all ; python -B gate_nostandin.py chromium   (14:59:18 to 14:59:37)
+{"id": "G0-gate-pristine", "engine": "chromium", "pid": 21324, "exit": 0, "seconds": 10.5, "steps_run": 21, "first_fail": null, "gate": "GATE PASS", "out_in_copy": "docs/cr-gate/G0-gate-pristine-chromium-20261015-145918", "server_port_refuses_after": true, "verdict": "CONTROL GREEN"}
+{"id": "G-nostandin", "engine": "chromium", "pid": 20984, "exit": 1, "seconds": 6.5, "lines": ["FAIL 01 first visit", "    Clipboard.prototype.writeText is absent or is not the browser's native function, found false, expected true", "GATE FAIL -> (the copy)\\docs\\cr-gate\\nostandin-chromium-20261015-145930"], "server_port": 45083, "server_port_refuses_after": true}
+
+$ COLUMNS=600 python -B mutrun2.py full.json chromium all   (14:59:48 to 15:02:12)
+{"id": "F0-full-suite-pristine", "engine": "chromium", "pid": 7828, "exit": 0, "seconds": 143.3, "counts": {"passed": 354, "skipped": 1}, "last_line": "354 passed, 1 skipped in 142.17s (0:02:22)", "server_port": 35140, "server_port_refuses_after": true, "verdict": "CONTROL GREEN"}
+
+$ COLUMNS=600 python -B mutrun2.py full.json webkit all   (15:02:17 to 15:06:08)
+{"id": "F0-full-suite-pristine", "engine": "webkit", "pid": 3756, "exit": 0, "seconds": 230.2, "counts": {"passed": 353, "skipped": 2}, "last_line": "353 passed, 2 skipped in 229.12s (0:03:49)", "server_port": 16165, "server_port_refuses_after": true, "verdict": "CONTROL GREEN"}
+
+$ COLUMNS=600 python -B mutrun2.py r36x.json chromium all   (15:06:23 to 15:07:25)
+{"id": "R36-room-x1" to "R36-room-x8", "pids": [22684, 9548, 21312, 9508, 24116, 19728, 22972, 8292], "counts": "6 passed each, 48 of 48", "server_ports": [20111, 31031, 53776, 49630, 65178, 16458, 17405, 31046], "server_port_refuses_after": true, "verdict": "CONTROL GREEN, 8 of 8"}
+{"id": "A65c-legend-not-redrawn-downward", "pid": 11080, "exit": 1, "seconds": 2.0, "counts": {"failed": 2}, "failing": ["test_R15_R32_deleting_from_a_bin_... - AssertionError: the legend did not recount", "test_R15_R3_deleting_the_only_habit_shows_the_empty_list - AssertionError: the legend is not the one thin circle"], "server_port": 4755, "server_port_refuses_after": true, "verdict": "KILLED"}

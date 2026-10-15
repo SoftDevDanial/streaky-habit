@@ -1,0 +1,150 @@
+F...........                                                             [100%]
+================================== FAILURES ===================================
+_ test_R42_every_svg_part_in_the_page_and_the_popups_is_in_the_svg_namespace_and_draws _
+
+app = <function app.<locals>.open_page at 0x0000025CBDE057A0>
+
+    def test_R42_every_svg_part_in_the_page_and_the_popups_is_in_the_svg_namespace_and_draws(app):
+        desktop = app(viewport=(1280, 800), storage=sample_state())
+        band_ring = desktop.locator(f'section.band button.hc[data-key="{TODAY}"] > svg > path').first
+        assert band_ring.evaluate(DRAWN_WIDTH_JS) > 0, "the band's ring for today draws nothing"
+        desktop.locator("section.band button.btn-all").click()
+        expect(desktop.locator("dialog.dlg-all")).to_have_attribute("open", "")
+        desktop.locator('dialog.dlg-all button.hc[data-key="2026-09-22"]').click()
+        expect(desktop.locator("dialog.dlg-day")).to_have_attribute("open", "")
+        assert_every_svg_part_is_svg(desktop, "P1 over P4 at 1280")
+        for name in ("dlg-day", "dlg-all"):
+            desktop.keyboard.press("Escape")
+            expect(desktop.locator(f"dialog.{name}")).not_to_have_attribute("open", "")
+        year_btn(desktop, "Read 20 pages").click()
+>       expect(desktop.locator("dialog.dlg-year")).to_have_attribute("open", "")
+E       AssertionError: Locator expected to have attribute ''
+E       Actual value: None 
+E       Call log:
+E         - Expect "to_have_attribute" with timeout 5000ms
+E         - waiting for locator("dialog.dlg-year")
+E           14 � locator resolved to <dialog aria-modal="true" class="dlg-full dlg-year" aria-describedby="yr-sub" aria-labelledby="yr-title">�</dialog>
+E              - unexpected value "null"
+E       
+E       Aria snapshot:
+E       - banner:
+E         - heading "Streaky Habit" [level=1]
+E         - time: Saturday 10 October
+E       - main:
+E         - region "Last 12 weeks":
+E           - heading "Last 12 weeks" [level=2]
+E           - button "Year view, all habits": Year
+E           - paragraph: Tap a day to change it.
+E           - group "Last 12 weeks":
+E             - button "Mon 20 Jul, 2 of 3 habits"
+E             - button "Tue 21 Jul, 3 of 3 habits"
+E             - button "Wed 22 Jul, 1 of 3 habits"
+E             - button "Thu 23 Jul, 2 of 3 habits"
+E             - button "Fri 24 Jul, 2 of 3 habits"
+E             - button "Sat 25 Jul, 2 of 3 habits"
+E             - button "Sun 26 Jul, 1 of 3 habits"
+E             - button "Mon 27 Jul, 2 of 3 habits"
+E             - button "Tue 28 Jul, 2 of 3 habits"
+E             - button "Wed 29 Jul, 2 of 3 habits"
+E             - button "Thu 30 Jul, 2 of 3 habits"
+E             - button "Fri 31 Jul, 2 of 3 habits"
+E             - button "Sat 1 Aug, 1 of 3 habits"
+E             - button "Sun 2 Aug, 2 of 3 habits"
+E             - button "Mon 3 Aug, 1 of 3 habits"
+E             - button "Tue 4 Aug, 2 of 3 habits"
+E             - button "Wed 5 Aug, 3 of 3 habits"
+E             - button "Thu 6 Aug, 2 of 3 habits"
+E             - button "Fri 7 Aug, 2 of 3 habits"
+E             - button "Sat 8 Aug, 2 of 3 habits"
+E             - button "Sun 9 Aug, 1 of 3 habits"
+E             - button "Mon 10 Aug, 2 of 3 habits"
+E             - button "Tue 11 Aug, 3 of 3 habits"
+E             - button "Wed 12 Aug, 2 of 3 habits"
+E             - button "Thu 13 Aug, 2 of 3 habits"
+E             - button "Fri 14 Aug, 2 of 3 habits"
+E             - button "Sat 15 Aug, 2 of 3 habits"
+E             - button "Sun 16 Aug, 2 of 3 habits"
+E             - button "Mon 17 Aug, 1 of 3 habits"
+E             - button "Tue 18 Aug, 2 of 3 habits"
+E             - button "Wed 19 Aug, 2 of 3 habits"
+E             - button "Thu 20 Aug, 1 of 3 habits"
+E             - button "Fri 21 Aug, 3 of 3 habits"
+E             - button "Sat 22 Aug, 3 of 3 habits"
+E             - button "Sun 23 Aug, 0 of 3 habits"
+E             - button "Mon 24 Aug, 3 of 3 habits"
+E             - button "Tue 25 Aug, 3 of 3 habits"
+E             - button "Wed 26 Aug, 2 of 3 habits"
+E             - button "Thu 27 Aug, 1 of 3 habits"
+E             - button "Fri 28 Aug, 2 of 3 habits"
+E             - button "Sat 29 Aug, 2 of 3 habits"
+E             - button "Sun 30 Aug, 2 of 3 habits"
+E             - button "Mon 31 Aug, 1 of 3 habits"
+E             - button "Tue 1 Sep, 2 of 3 habits"
+E             - button "Wed 2 Sep, 3 of 3 habits"
+E             - button "Thu 3 Sep, 3 of 3 habits"
+E             - button "Fri 4 Sep, 2 of 3 habits"
+E             - button "Sat 5 Sep, 2 of 3 habits"
+E             - button "Sun 6 Sep, 1 of 3 habits"
+E             - button "Mon 7 Sep, 2 of 3 habits"
+E             - button "Tue 8 Sep, 3 of 3 habits"
+E             - button "Wed 9 Sep, 1 of 3 habits"
+E             - button "Thu 10 Sep, 1 of 3 habits"
+E             - button "Fri 11 Sep, 3 of 3 habits"
+E             - button "Sat 12 Sep, 1 of 3 habits"
+E             - button "Sun 13 Sep, 2 of 3 habits"
+E             - button "Mon 14 Sep, 2 of 3 habits"
+E             - button "Tue 15 Sep, 3 of 3 habits"
+E             - button "Wed 16 Sep, 2 of 3 habits"
+E             - button "Thu 17 Sep, 2 of 3 habits"
+E             - button "Fri 18 Sep, 2 of 3 habits"
+E             - button "Sat 19 Sep, 3 of 3 habits"
+E             - button "Sun 20 Sep, 3 of 3 habits"
+E             - button "Mon 21 Sep, 2 of 3 habits"
+E             - button "Tue 22 Sep, 1 of 3 habits"
+E             - button "Wed 23 Sep, 2 of 3 habits"
+E             - button "Thu 24 Sep, 2 of 3 habits"
+E             - button "Fri 25 Sep, 3 of 3 habits"
+E             - button "Sat 26 Sep, 2 of 3 habits"
+E             - button "Sun 27 Sep, 0 of 3 habits"
+E             - button "Mon 28 Sep, 2 of 3 habits"
+E             - button "Tue 29 Sep, 3 of 3 habits"
+E             - button "Wed 30 Sep, 2 of 3 habits"
+E             - button "Thu 1 Oct, 2 of 3 habits"
+E             - button "Fri 2 Oct, 2 of 3 habits"
+E             - button "Sat 3 Oct, 2 of 3 habits"
+E             - button "Sun 4 Oct, 2 of 3 habits"
+E             - button "Mon 5 Oct, 3 of 3 habits"
+E             - button "Tue 6 Oct, 1 of 3 habits"
+E             - button "Wed 7 Oct, 2 of 3 habits"
+E             - button "Thu 8 Oct, 3 of 3 habits"
+E             - button "Fri 9 Oct, 2 of 3 habits"
+E             - button "Sat 10 Oct, 1 of 3 habits"
+E         - heading "Habits" [level=2]
+E         - list "Habits":
+E           - listitem:
+E             - heading "Read 20 pages" [level=3]
+E             - button "Delete \"Read 20 pages\""
+E             - paragraph: Current 4 days Best 9
+E             - button "Year view, Read 20 pages": Year
+E             - button "Done today, Read 20 pages" [pressed]: Done today
+E           - listitem:
+E             - heading "Stretch 10 minutes" [level=3]
+E             - button "Delete \"Stretch 10 minutes\""
+E             - paragraph: Current 2 days Best 5
+E             - button "Year view, Stretch 10 minutes": Year
+E             - button "Done today, Stretch 10 minutes": Done today
+E           - listitem:
+E             - heading "No phone after 11pm" [level=3]
+E             - button "Delete \"No phone after 11pm\""
+E             - paragraph: Current No streak yet Best 14
+E             - button "Year view, No phone after 11pm": Year
+E             - button "Done today, No phone after 11pm": Done today
+E         - text: New habit
+E         - textbox "New habit"
+E         - button "Add"
+
+tests\browser\test_render.py:673: AssertionError
+engine chromium: 0 chromium_only skip(s)
+=========================== short test summary info ===========================
+FAILED tests/browser/test_render.py::test_R42_every_svg_part_in_the_page_and_the_popups_is_in_the_svg_namespace_and_draws
+1 failed, 11 passed in 9.11s

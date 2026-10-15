@@ -1,0 +1,19 @@
+{
+  "control": null,
+  "engine": "chromium",
+  "browser_version": "149.0.7827.55",
+  "base_url": "http://127.0.0.1:1974/",
+  "start_date": "2026-10-15",
+  "end_date": "2026-10-15",
+  "date_unchanged": true,
+  "steps_planned": 21,
+  "steps_run": 21,
+  "steps_passed": 21,
+  "first_failing_step": null,
+  "requests": 30,
+  "requests_outside_the_rule": 0,
+  "console_errors": 0,
+  "page_errors": 0,
+  "clipboard_marks": 0,
+  "pass": true
+}

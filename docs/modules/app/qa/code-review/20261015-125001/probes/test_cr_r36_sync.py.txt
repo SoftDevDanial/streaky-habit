@@ -1,0 +1,36 @@
+"""Code-review finder probe, scratch copy only. The R36 room row "360x780 P3 2026-07-20" (clicks Close) read in two ways.
+
+"as_written" waits as test_day_editor.py does (dialog.open false, then the day focused) and reads the padding once.
+"after_close_event" adds the suite's own watch_close before the gesture and wait_for_close before the read.
+Each runs REPEAT times. Prints one line per try with the padding it read.
+"""
+import json
+
+import pytest
+from playwright.sync_api import expect
+
+from conftest import sample_state, wait_for_close, watch_close
+from test_day_editor import SIGHT_JS, day_dialog, host_day, open_host, settle
+
+REPEAT = 8
+
+
+@pytest.mark.parametrize("sync", ["as_written", "after_close_event"])
+@pytest.mark.parametrize("attempt", range(REPEAT))
+def test_r36_room_release_read(app, sync, attempt):
+    page = app(viewport=(360, 780), storage=sample_state())
+    cls = open_host(page, "P3")
+    host_day(page, "P3", "2026-07-20").click()
+    expect(day_dialog(page)).to_have_attribute("open", "")
+    settle(page)
+    watch = watch_close(page, "dialog.dlg-day") if sync == "after_close_event" else None
+    day_dialog(page).get_by_role("button", name="Close", exact=True).click()
+    if watch is None:
+        page.wait_for_function("() => !document.querySelector('dialog.dlg-day').open", timeout=5000)
+        expect(host_day(page, "P3", "2026-07-20")).to_be_focused()
+    else:
+        wait_for_close(watch)
+        expect(host_day(page, "P3", "2026-07-20")).to_be_focused()
+    after = page.evaluate(SIGHT_JS, [cls, "2026-07-20"])
+    print("R36_READ", json.dumps({"sync": sync, "attempt": attempt, "padding": after["padding"]}))
+    assert after["padding"] == ["24px", ""], after["padding"]

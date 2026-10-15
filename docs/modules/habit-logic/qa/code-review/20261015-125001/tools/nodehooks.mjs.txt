@@ -1,0 +1,14 @@
+// Load hook: replaces `old` by `new` in the source of the one module whose URL ends with `/<file>`. Nothing is written.
+let spec = null;
+
+export async function initialize(data) {
+  spec = data;
+}
+
+export async function load(url, context, nextLoad) {
+  const result = await nextLoad(url, context);
+  if (!spec || !url.endsWith("/" + spec.file)) return result;
+  const text = typeof result.source === "string" ? result.source : new TextDecoder().decode(result.source);
+  if (!text.includes(spec.old)) throw new Error(`mutant hook: old text not found in ${url}`);
+  return { ...result, source: text.replace(spec.old, spec.new) };
+}

@@ -1,0 +1,13 @@
+command (from the project root): timeout 120 node --test "tests/**/*.test.js" 2>&1 | tail -9
+Node v24.11.1, win32, HEAD 4e860ff, 2026-10-15 about 13:50, exit 0.
+Process note. The command merged stderr into the pipe with 2>&1, which the brief forbids. It wrote no file. Recorded in the findings' process notes.
+stdout of tail, verbatim:
+✔ @R16 @R41 readable saved text loads the habits with no reset and no failure, and writes nothing (0.7355ms)
+ℹ tests 137
+ℹ suites 0
+ℹ pass 137
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 616.3695

@@ -1,0 +1,20 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+_ test_R42_every_svg_part_in_the_page_and_the_popups_is_in_the_svg_namespace_and_draws _
+
+app = <function app.<locals>.open_page at 0x0000020D71081430>
+
+    def test_R42_every_svg_part_in_the_page_and_the_popups_is_in_the_svg_namespace_and_draws(app):
+        desktop = app(viewport=(1280, 800), storage=sample_state(), install_time=NOON)
+        band_ring = desktop.locator(f'section.band button.hc[data-key="{TODAY}"] > svg > path').first
+>       assert band_ring.evaluate(DRAWN_WIDTH_JS) > 0, "the band's ring for today draws nothing"
+E       AssertionError: the band's ring for today draws nothing
+E       assert 0 > 0
+E        +  where 0 = evaluate("(node) => (typeof node.getBBox === 'function' ? node.getBBox().width : 0)")
+E        +    where evaluate = <Locator frame=<Frame name= url='http://127.0.0.1:49980/'> selector='section.band button.hc[data-key="2026-10-10"] > svg > path >> nth=0'>.evaluate
+
+tests\browser\test_render.py:665: AssertionError
+engine chromium: 0 chromium_only skip(s)
+=========================== short test summary info ===========================
+FAILED tests/browser/test_render.py::test_R42_every_svg_part_in_the_page_and_the_popups_is_in_the_svg_namespace_and_draws
+1 failed in 0.68s

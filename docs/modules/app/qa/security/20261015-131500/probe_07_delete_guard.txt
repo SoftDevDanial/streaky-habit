@@ -1,0 +1,30 @@
+commands: timeout 580 python -u -B run_07.py chromium, then the same with webkit   (run_07.py runs probe_07_delete_guard.py, exit 0 both)
+Chromium 149.0.7827.55, server pid=8528 port=64840 stopped, port refuses=True.
+WebKit 26.5, server pid=7568 port=28153 stopped, port refuses=True.
+
+Geometry lines, verbatim (Chromium; WebKit's differ only in P2's opener top, 89 to 118 instead of 92 to 124):
+360x780 geometry {"bin": {"row": 4, "opener": [301, 443, 345, 487], "overlap": [301, 443, 323, 461]}, "p2": {"opener": [215, 92, 348, 136], "overlap": null}}
+390x844 geometry {"bin": {"row": 4, "opener": [325, 443, 369, 487], "overlap": [325, 445, 353, 487]}, "p2": {"opener": [241, 95, 374, 139], "overlap": null}}
+412x915 geometry {"bin": {"row": 4, "opener": [347, 443, 391, 487], "overlap": [347, 480, 375, 487]}, "p2": {"opener": [263, 95, 396, 139], "overlap": null}}
+768x1024 geometry {"bin": null, "p2": {"opener": [586, 124, 719, 168], "overlap": null}}
+1024x768 geometry {"bin": {"row": 1, "opener": [509, 436, 553, 480], "overlap": [518, 436, 553, 455]}, "p2": {"opener": [842, 124, 975, 168], "overlap": null}}
+1280x800 geometry {"bin": {"row": 1, "opener": [645, 436, 689, 480], "overlap": [646, 436, 689, 471]}, "p2": {"opener": [972, 124, 1105, 168], "overlap": null}}
+1440x900 geometry {"bin": {"row": 1, "opener": [725, 436, 769, 480], "overlap": [726, 473, 769, 480]}, "p2": {"opener": [1052, 124, 1185, 168], "overlap": null}}
+1920x1080 geometry {"bin": {"row": 3, "opener": [965, 574, 1009, 618], "overlap": [966, 574, 1009, 611]}, "p2": {"opener": [1292, 124, 1425, 168], "overlap": null}}
+
+Gesture lines, folded. In both engines every line had the same values for its kind:
+bin, at the centre of the overlap (7 viewports, 768x1024 has none):
+  single {"deleted": [], "m1_open": true}   dblclick {"deleted": [], "m1_open": true}   tap {"deleted": [], "m1_open": true}
+  slow (second click 700 ms later) {"deleted": [], "m1_open": true}   triple {"deleted": [], "m1_open": true}
+  outside (click on Delete habit beside the bin's box) {"deleted": ["Habit <row>"], "m1_open": false}
+  enter (Enter on Delete habit) {"deleted": ["Habit <row>"], "m1_open": false}
+p2, at the centre of P2's Delete habit (8 viewports, no overlap with M1's Delete habit anywhere):
+  single {"deleted": [], "m1_open": true}   dblclick, tap, slow, triple {"deleted": [], "m1_open": false} (the second press lands on M1's backdrop and keeps)
+  outside {"deleted": ["Habit 1"], "m1_open": false}   enter {"deleted": ["Habit 1"], "m1_open": false}
+"errors": [] in all 210 gesture sessions (105 per engine).
+
+Reading. The bin overlaps M1's Delete habit at 7 of 8 viewports (2 to 43 px wide). A mouse double click, a touch double
+tap, a second click 700 ms later with detail 1 and a triple click at the overlap delete nothing in either engine, so the
+in-box rule and not the click count is what holds the slow click. A deliberate click on Delete habit outside the
+opener's box and Enter both delete the named habit. P2's Delete habit never overlaps M1's. T7 and R13 hold.
+WebKit on Windows is not an iPhone. The iPhone double tap stays with UAT as T7 says.

@@ -1,0 +1,3 @@
+FAIL 01 first visit
+    Clipboard.prototype.writeText is absent or is not the browser's native function, found false, expected true
+GATE FAIL -> {temp}\claude\{project-id}\fa48b885-8115-4183-bf6e-2b81c6cb7b40\scratchpad\solver\copy-no-standin\docs\gate-out\20261015-142435-chromium

@@ -1,0 +1,13 @@
+"""Code-review re-check probe (WR-11), scratch copy only, never in the repository.
+
+Named first on the command line, this module is imported before the tests named after it, and it takes the clipboard
+stand-in out of every context `open_app` opens in this session. The tests named after it must go red on their
+stand-in check. Run alone with them, never with the whole suite.
+"""
+import conftest
+
+conftest.CLIPBOARD_STANDIN = "/* code-review re-check: the clipboard stand-in removed */"
+
+
+def test_probe_the_standin_is_removed_for_this_session():
+    assert "removed" in conftest.CLIPBOARD_STANDIN

@@ -1,0 +1,39 @@
+"""Code-review finder probe, scratch copy only. R5's more-below at the end of the list frame on a high-density screen.
+
+A wheel scroll to the frame's end, at device scale factors 1, 2 and 3 and at 390 x 844 and 360 x 780, then the frame's
+scroll numbers and the wrap's classes. Prints one line per case.
+"""
+import json
+
+import pytest
+
+from conftest import BASE_URL, CLIPBOARD_STANDIN, NOON, TZ, twelve_state
+
+READ_JS = """() => {
+  const frame = document.querySelector('div.frame');
+  return { scrollTop: frame.scrollTop, clientHeight: frame.clientHeight, scrollHeight: frame.scrollHeight,
+           wrap: frame.parentElement.className };
+}"""
+
+
+@pytest.mark.parametrize("scale", [1, 2, 3, 2.625])
+@pytest.mark.parametrize("viewport", [(390, 844), (360, 780)])
+def test_cr_fades_at_the_end(browser, scale, viewport):
+    context = browser.new_context(viewport={"width": viewport[0], "height": viewport[1]}, device_scale_factor=scale,
+                                  timezone_id=TZ, color_scheme="dark")
+    context.add_init_script(CLIPBOARD_STANDIN)
+    context.clock.set_fixed_time(NOON)
+    page = context.new_page()
+    page.goto(BASE_URL + "__seed__")
+    page.evaluate("(text) => localStorage.setItem('streaks.state', text)", twelve_state())
+    page.goto(BASE_URL)
+    page.wait_for_selector("ul.rows > li.row")
+    box = page.locator("div.frame").bounding_box()
+    page.mouse.move(box["x"] + box["width"] / 2, box["y"] + box["height"] / 2)
+    for _ in range(40):
+        page.mouse.wheel(0, 120)
+    page.wait_for_timeout(600)
+    found = page.evaluate(READ_JS)
+    print("FADE_END", json.dumps({"scale": scale, "viewport": viewport, **found}))
+    context.close()
+    assert "more-below" not in found["wrap"].split(), found

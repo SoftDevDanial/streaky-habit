@@ -1,0 +1,3 @@
+{"id": "H-control", "kind": "node", "planted": false, "pid": 6180, "exit": 0, "timed_out": false, "seconds": 0.2, "counts": {"tests": 6, "pass": 6, "fail": 0}, "failing": [], "hook_error": false, "verdict": "GREEN"}
+{"id": "H12-aliased-clock-read-in-yearMonths", "kind": "node", "planted": true, "pid": 2404, "exit": 1, "timed_out": false, "seconds": 0.2, "counts": {"tests": 1, "pass": 0, "fail": 1}, "failing": [], "hook_error": true, "verdict": "RED"}
+{"id": "H13-yearMonths-from-the-device-month", "kind": "node", "planted": true, "pid": 4508, "exit": 1, "timed_out": false, "seconds": 0.2, "counts": {"tests": 1, "pass": 0, "fail": 1}, "failing": [], "hook_error": true, "verdict": "RED"}

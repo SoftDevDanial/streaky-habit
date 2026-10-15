@@ -1,0 +1,8 @@
+.                                                                        [100%]streaks tests: stopped http.server pid 9856, 127.0.0.1:43880 refuses connections
+streaks tests: stopped http.server pid 24376, 127.0.0.1:43877 refuses connections
+
+=================================== PASSES ====================================
+engine chromium: 0 chromium_only skip(s)
+=========================== short test summary info ===========================
+PASSED tests/browser/test_day_editor.py::test_R36_on_a_phone_the_host_of_p1_gets_room_while_p1_is_open_over_it_and_loses_it_when_p1_closes[360x780 P3 2026-07-20]
+1 passed in 1.68s

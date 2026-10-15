@@ -1,0 +1,36 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+_ test_R19_a_page_booted_ten_seconds_before_midnight_shows_the_new_day_thirty_seconds_after_it _
+
+app = <function app.<locals>.open_page at 0x000001DC2D2675E0>
+
+    def test_R19_a_page_booted_ten_seconds_before_midnight_shows_the_new_day_thirty_seconds_after_it(app):
+        """Pins the 30 second check of R19 (the 1.0 code review's guard, WR-04). A page booted at about 23:59:50 checks at
+        about 00:00:20, and a check every 45 seconds or more first runs after 00:00:30. The "within a minute" test reads
+        only at 00:01:00, which any check under about two minutes meets."""
+        page = app(viewport=DESKTOP, storage=sample_state(), install_time="2026-10-10T23:59:50+08:00")
+        page.clock.pause_at("2026-10-10T23:59:59+08:00")
+        page.clock.run_for(900)  # 23:59:59.9, the new day must not show before midnight
+        assert shown_date(page) == [TODAY, "Saturday 10 October"], f"the view changed day before local midnight, {shown_date(page)}"
+        page.clock.run_for(30_100)  # 00:00:30.0
+>       assert_the_page_shows_sunday(page)
+
+tests\browser\test_rollover.py:180: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+page = <Page url='http://127.0.0.1:16453/'>
+
+    def assert_the_page_shows_sunday(page):
+        """K1 after the rollover from Saturday 10 to Sunday 11 October 2026, spec R19's worked example."""
+>       assert shown_date(page) == ["2026-10-11", "Sunday 11 October"], f"the header shows {shown_date(page)}"
+E       AssertionError: the header shows ['2026-10-10', 'Saturday 10 October']
+E       assert ['2026-10-10'...y 10 October'] == ['2026-10-11'...y 11 October']
+E         
+E         At index 0 diff: '2026-10-10' != '2026-10-11'
+E         Use -v to get more diff
+
+tests\browser\test_rollover.py:144: AssertionError
+engine chromium: 0 chromium_only skip(s)
+=========================== short test summary info ===========================
+FAILED tests/browser/test_rollover.py::test_R19_a_page_booted_ten_seconds_before_midnight_shows_the_new_day_thirty_seconds_after_it
+1 failed in 0.62s

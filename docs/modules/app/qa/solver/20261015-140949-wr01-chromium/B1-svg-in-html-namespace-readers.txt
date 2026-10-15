@@ -1,0 +1,126 @@
+FF                                                                       [100%]
+================================== FAILURES ===================================
+___________________ test_R42_a_rings_parts_and_their_order ____________________
+
+app = <function app.<locals>.open_page at 0x0000012B64A837F0>
+
+    def test_R42_a_rings_parts_and_their_order(app):
+        page = app(viewport=(1280, 800), storage=sample_state())
+        expect(page.locator("section.band div.ovg-cols > button.hc")).to_have_count(83)
+>       assert band_ring(page, "2026-10-10") == ring_of(
+            [TODAY_CIRCLE, seg(ARCS3[0], True), seg(ARCS3[1], False), seg(ARCS3[2], False), number(10)]
+        )
+E       assert {'viewBox': '....352em "10"']} == {'viewBox': '....352em "10"']}
+E         
+E         Omitting 2 identical items, use -vv to show
+E         Differing items:
+E         {'parts': ['http://www.w3.org/1999/xhtml svg', 'http://www.w3.org/1999/xhtml circle.c-today cx=20 cy=20 r=19.2', 'http...ml path.seg d=M5.82 24.88A15 15 0 0 1 17.14 5.28', 'http://www.w3.org/1999/xhtml text.c-num x=20 y=20 dy=.352em "10"']} != {'parts': ['circle.c-today cx=20 cy=20 r=19.2', 'path.seg.on d=M22.86 5.28A15 15 0 0 1 34.18 24.88', 'path.seg d=M31.32 29.84A15 15 0 0 1 8.68 29.84', 'path.seg d=M5.82 24.88A15 15 0 0 1 17.14 5.28', 'text.c-num x=20 y=20 dy=.352em "10"']}
+E         Use -v to get more diff
+
+tests\browser\test_render.py:582: AssertionError
+_________________ test_R33_R6_year_opens_the_habits_year_view _________________
+
+app = <function app.<locals>.open_page at 0x0000012B65EAF530>
+
+    def test_R33_R6_year_opens_the_habits_year_view(app):
+        page = app(viewport=PHONE, storage=sample_state())
+        year_btn(page, "Read 20 pages").click()
+        dialog = year_dialog(page)
+        expect(dialog).to_have_attribute("open", "")
+        assert dialog.evaluate("(d) => d.matches(':modal')") is True
+        expect(dialog.get_by_role("button", name="Close", exact=True)).to_be_focused()
+        assert dialog.locator("div.sheet-body").evaluate("(body) => body.scrollTop") == 0
+    
+        expect(dialog.locator("h2#yr-title")).to_have_text("Read 20 pages")
+        expect(dialog.locator("p#yr-sub")).to_have_text("The last 12 months")
+        assert stats_tree(year_stats(page)) == [current_block(4, "days"), best_block(9)]
+        assert page.evaluate(HEAD_JS) == {
+            "mid": ["p.yr-stats", "button.btn-del"],
+            "remove": ["button", None, "true", "#i-trash", "Delete habit"],
+            "tools": ["p.hint", "p.yr-legend"],
+            "hint": "Tap a day to mark it done or not done.",
+            "legend": ["true", [["span.mini.on", ""], ["span", "Done"], ["span.mini", ""], ["span", "Not done"]]],
+        }
+    
+        sections = page.evaluate(MONTHS_JS)
+        months = months_newest_first()
+        ids = [f"mo-{year}-{month}" for year, month in months]
+        assert len(months) == 13 and len(sections) == 13, [section["labelledby"] for section in sections]
+        assert [section["tag"] for section in sections] == ["section.month"] * 13
+        assert [section["labelledby"] for section in sections] == ids
+        assert [section["heading"] for section in sections] == [[id_, month_title(*month)] for id_, month in zip(ids, months)]
+        assert sections[0]["heading"][1] == "October 2026" and sections[-1]["heading"][1] == "October 2025"
+    
+        beads, closed, blank, lead = [], [], [], []
+        for section, (year, month), id_ in zip(sections, months, ids):
+            assert section["parts"] == ["h3", "div.mgrid"], id_
+            assert section["grid"] == ["group", id_], id_
+            cells = section["cells"]
+            assert [(c["tag"], c["classes"], c["hidden"], c["text"]) for c in cells[:7]] == [
+                ("span", ["mwd"], "true", letter) for letter in "MTWTFSS"
+            ], id_
+            leading = datetime.date(year, month, 1).weekday()
+            assert [(c["tag"], c["classes"]) for c in cells[7:7 + leading]] == [("span", ["lead", "yc"])] * leading, id_
+            lead += cells[7:7 + leading]
+            days = cells[7 + leading:]
+            assert len(days) == calendar.monthrange(year, month)[1], id_
+            for day, cell in enumerate(days, 1):
+                cell["date"] = (f"{year:04d}-{month:02d}-{day:02d}", day)
+                if cell["tag"] == "button":
+                    beads.append(cell)
+                elif "closed" in cell["classes"]:
+                    closed.append(cell)
+                else:
+                    blank.append(cell)
+    
+        assert len(beads) == 366
+        assert sorted(cell["date"][0] for cell in beads) == days_between(YEAR_START, TODAY)
+        for cell in beads:
+            key, day = cell["date"]
+            assert (cell["key"], cell["type"], cell["label"]) == (key, "button", f"Mark {year_date(key)} as done"), cell
+            assert cell["children"] == 1 and cell["face"] == [1, "true", [["text", "50%", "50%", ".352em", str(day)]]], cell
+        names = {cell["key"]: cell["label"] for cell in beads}
+        assert (names[YEAR_START], names[TODAY]) == ("Mark Fri 10 Oct 2025 as done", "Mark Sat 10 Oct 2026 as done")
+    
+        done = [cell for cell in beads if cell["pressed"] == "true"]
+        not_done = [cell for cell in beads if cell["pressed"] == "false"]
+        assert (len(done), len(not_done)) == (250, 116)
+        assert all("on" in cell["classes"] for cell in done)
+        assert all(not {"on", "l", "r"} & set(cell["classes"]) for cell in not_done)
+        threads = [frozenset(cell["classes"]) - {"yc", "today"} for cell in done]
+        assert {kind: threads.count(kind) for kind in set(threads)} == {
+            frozenset({"on", "l", "r"}): 127,
+            frozenset({"on", "l"}): 56,
+            frozenset({"on", "r"}): 56,
+            frozenset({"on"}): 11,
+        }
+        today = [cell for cell in beads if "today" in cell["classes"] or cell["current"] is not None]
+        assert [(cell["key"], cell["current"]) for cell in today] == [(TODAY, "date")]
+        assert {"on", "l"} <= set(today[0]["classes"]) and "r" not in today[0]["classes"]
+        oldest = next(cell for cell in beads if cell["key"] == YEAR_START)
+        assert {"on", "r"} <= set(oldest["classes"]) and "l" not in oldest["classes"]
+    
+        assert [cell["date"][0] for cell in closed] == days_between("2026-10-11", "2026-10-31")
+        for cell in closed:
+            assert (cell["tag"], cell["classes"], cell["hidden"], cell["key"]) == ("span", ["closed", "yc"], "true", None), cell
+            assert cell["face"] == [1, "true", [["text", "50%", "50%", ".352em", str(cell["date"][1])]]], cell
+        assert [cell["date"][0] for cell in blank] == days_between("2025-10-01", "2025-10-09")
+        assert len(lead) == 39
+        for cell in blank + lead:
+            assert (cell["tag"], cell["hidden"], cell["children"], cell["text"]) == ("span", "true", 0, ""), cell
+        assert all(cell["classes"] == ["blank", "yc"] for cell in blank)
+    
+        # The whole popup, head and months, against the golden: the bead classes match it day by day.
+        difference = first_difference(
+            canon_tree(page, "dialog.dlg-year > div.dlg-box"), canon_tree(page, "dialog.dlg-year > div.dlg-box", golden="year-view.html")
+        )
+>       assert difference is None, difference
+E       AssertionError: /div[1]/div[0]/div[0]/section[1]/div[10]/button[0]/span[0]/http://www.w3.org/1999/xhtml svg: ['http://www.w3.org/1999/xhtml svg', ['aria-hidden=true'], ''] != ['svg', ['aria-hidden=true'], '']
+E       assert "/div[1]/div[0]/div[0]/section[1]/div[10]/button[0]/span[0]/http://www.w3.org/1999/xhtml svg: ['http://www.w3.org/1999/xhtml svg', ['aria-hidden=true'], ''] != ['svg', ['aria-hidden=true'], '']" is None
+
+tests\browser\test_year.py:235: AssertionError
+engine chromium: 0 chromium_only skip(s)
+=========================== short test summary info ===========================
+FAILED tests/browser/test_render.py::test_R42_a_rings_parts_and_their_order
+FAILED tests/browser/test_year.py::test_R33_R6_year_opens_the_habits_year_view
+2 failed in 1.49s

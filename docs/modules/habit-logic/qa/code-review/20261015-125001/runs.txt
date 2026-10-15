@@ -1,0 +1,56 @@
+# Code-review finder (read-only), habit-logic, v1.1.0 step 5, 2026-10-15. HEAD 4e860ff.
+# Each block is a command and the JSON lines it printed. The runner is the app evidence's tools/mutrun.py.txt
+# (docs/modules/app/qa/code-review/20261015-125001/), whose run_node applies a mutant in memory through the module load
+# hook in tools/ here (NODE_OPTIONS=--import=<nodemut.mjs>, MUT_SPEC = {file, old, new}). Nothing was written to src/.
+# The throwaway copy is HEAD 4e860ff from git -c core.autocrlf=false archive, in the session scratchpad.
+
+$ python -B mutrun.py mutants.json chromium N0-pristine N1-control-max-habits H1 ... H11   (about 11:58 to 12:02)
+{"id": "N0-pristine", "kind": "node", "pid": 17736, "exit": 0, "timed_out": false, "seconds": 0.8, "counts": {"tests": 137, "pass": 137, "fail": 0, "cancelled": 0}, "failing": [], "hook_error": false, "verdict": "CONTROL GREEN"}
+{"id": "N1-control-max-habits", "kind": "node", "pid": 24708, "exit": 1, "timed_out": false, "seconds": 0.7, "counts": {"tests": 43, "pass": 41, "fail": 2, "cancelled": 0}, "failing": ["@R13 @R14 the limits are exported", "@R14 the limit of 12 habits is checked before the name"], "hook_error": false, "verdict": "KILLED"}
+{"id": "H1-no-leap-fallback", "kind": "node", "pid": 19728, "exit": 1, "timed_out": false, "seconds": 0.7, "counts": {"tests": 57, "pass": 54, "fail": 3, "cancelled": 0}, "failing": ["@R18 the same date last year, and the year's day count", "@R20 the year on other days", "@R9 @R18 on 29 February the year starts on 28 February and holds 367 days"], "hook_error": false, "verdict": "KILLED"}
+{"id": "H2-year-start-exclusive", "kind": "node", "pid": 3288, "exit": 1, "timed_out": false, "seconds": 0.7, "counts": {"tests": 57, "pass": 53, "fail": 4, "cancelled": 0}, "failing": ["@R9 @R18 on 29 February the year starts on 28 February and holds 367 days", "@R9 @R6 @R7 ticks on the v1.1.0 sample move Current and Best", "@R9 any day of the last 12 months can be ticked, even before the habit's history", "@R9 both ends of the year are editable and ticking twice restores the habit"], "hook_error": false, "verdict": "KILLED"}
+{"id": "H3-no-isDateKey-in-toggle", "kind": "node", "pid": 17988, "exit": 1, "timed_out": false, "seconds": 0.7, "counts": {"tests": 57, "pass": 56, "fail": 1, "cancelled": 0}, "failing": ["@R9 days outside the year, bad dates and bad indexes change nothing"], "hook_error": false, "verdict": "KILLED"}
+{"id": "H4-count-is-length", "kind": "node", "pid": 2676, "exit": 1, "timed_out": false, "seconds": 0.7, "counts": {"tests": 57, "pass": 53, "fail": 4, "cancelled": 0}, "failing": ["@R10 @R19 the v1.1.0 sample's band of 12 weeks", "@R10 a cell carries exactly the contract fields, and a habit counts once per day", "@R10 a fourth habit counts in total and in done", "@R10 the 1.0 sample's 12 weeks"], "hook_error": false, "verdict": "KILLED"}
+{"id": "H5-year-start-day-empty", "kind": "node", "pid": 15844, "exit": 1, "timed_out": false, "seconds": 0.7, "counts": {"tests": 57, "pass": 54, "fail": 3, "cancelled": 0}, "failing": ["@R20 @R19 the v1.1.0 sample's year has 366 open days and each one reads the file's own character", "@R20 the year of the goldens", "@R20 the year on other days"], "hook_error": false, "verdict": "KILLED"}
+{"id": "H6-lead-off-by-one", "kind": "node", "pid": 9088, "exit": 1, "timed_out": false, "seconds": 0.7, "counts": {"tests": 57, "pass": 56, "fail": 1, "cancelled": 0}, "failing": ["@R20 the year of the goldens"], "hook_error": false, "verdict": "KILLED"}
+{"id": "H7-month-title-no-pad", "kind": "node", "pid": 16140, "exit": 1, "timed_out": false, "seconds": 0.8, "counts": {"tests": 61, "pass": 60, "fail": 1, "cancelled": 0}, "failing": ["@R17 the year is four digits, also before the year 1000"], "hook_error": false, "verdict": "KILLED"}
+{"id": "H8-twelve-months", "kind": "node", "pid": 19684, "exit": 1, "timed_out": false, "seconds": 0.7, "counts": {"tests": 57, "pass": 54, "fail": 3, "cancelled": 0}, "failing": ["@R20 @R19 the v1.1.0 sample's year has 366 open days and each one reads the file's own character", "@R20 the year of the goldens", "@R20 the year on other days"], "hook_error": false, "verdict": "KILLED"}
+{"id": "H9-tomorrow-editable", "kind": "node", "pid": 12440, "exit": 1, "timed_out": false, "seconds": 0.7, "counts": {"tests": 57, "pass": 54, "fail": 3, "cancelled": 0}, "failing": ["@R9 @R18 on 29 February the year starts on 28 February and holds 367 days", "@R9 days outside the year, bad dates and bad indexes change nothing", "@R9 the edges of the v1.1.0 year: the day before the start and the day after today change nothing"], "hook_error": false, "verdict": "KILLED"}
+{"id": "H10-year-date-no-pad", "kind": "node", "pid": 11428, "exit": 1, "timed_out": false, "seconds": 0.8, "counts": {"tests": 18, "pass": 17, "fail": 1, "cancelled": 0}, "failing": ["@R17 the year is four digits, also before the year 1000"], "hook_error": false, "verdict": "KILLED"}
+{"id": "H11-today-is-future", "kind": "node", "pid": 10504, "exit": 1, "timed_out": false, "seconds": 0.7, "counts": {"tests": 57, "pass": 52, "fail": 5, "cancelled": 0}, "failing": ["@R10 @R19 the v1.1.0 sample's band of 12 weeks", "@R10 a cell carries exactly the contract fields, and a habit counts once per day", "@R10 a fourth habit counts in total and in done", "@R10 the 1.0 sample's 12 weeks", "@R10 the 12-week grid around today"], "hook_error": false, "verdict": "KILLED"}
+
+$ python -B mutrun.py mutants5.json chromium all   (aliased clock reads, the residual R16 names)
+{"id": "H12-aliased-clock-read-in-yearMonths", "kind": "node", "pid": 3408, "exit": 0, "timed_out": false, "seconds": 0.8, "counts": {"tests": 137, "pass": 137, "fail": 0, "cancelled": 0}, "failing": [], "hook_error": false, "verdict": "SURVIVED"}
+{"id": "H13-yearMonths-from-the-device-month", "kind": "node", "pid": 3784, "exit": 0, "timed_out": false, "seconds": 0.2, "counts": {"tests": 6, "pass": 6, "fail": 0, "cancelled": 0}, "failing": [], "hook_error": false, "verdict": "SURVIVED"}
+
+# Mutant definitions (old -> new, all in src/ of the copy, applied in memory)
+# N1  habits.js  "export const MAX_HABITS = 12;" -> "export const MAX_HABITS = 13;"   (the hook's own control)
+# H1  habits.js  yearStart returns `${previousYear}${monthAndDay}` (no 29 February fallback)
+# H2  habits.js  "dateKey >= yearStart(todayKey)" -> "dateKey > yearStart(todayKey)"
+# H3  habits.js  "const editable = isDateKey(dateKey) && dateKey" -> "const editable = dateKey"
+# H4  habits.js  count = done.length instead of done.filter(Boolean).length
+# H5  habits.js  dayKind "key < firstDay" -> "key <= firstDay"
+# H6  habits.js  lead = weekdayIndex(addDays(start, 1))
+# H7  dates.js   monthTitle without pad(year, 4)
+# H8  habits.js  yearMonths stops at 12 months
+# H9  habits.js  "dateKey <= todayKey;" -> "dateKey <= addDays(todayKey, 1);"
+# H10 dates.js   yearDate without pad(year, 4)
+# H11 habits.js  "const future = key > todayKey;" -> "const future = key >= todayKey;"
+# H12 habits.js  yearMonths: "const Clock = Date;" then firstDay + (new Clock().getFullYear() > 9999 ? "!" : "")   (whole unit suite)
+# H13 habits.js  yearMonths starts from the device's month through `const Clock = Date; const now = new Clock();`   (purity.test.js only)
+
+$ node --input-type=module -e "<yearStart, yearMonths, heatmapCells at the edges>"   (on the working tree, read only)
+todayKey year 10000: 10000-01-05 yearStart: 09990-01-05
+9999-12-31 months 13 first 9999-12-01
+0001-03-01 yearStart 0000-03-01
+0001-03-01 months 13
+exit 0
+$ timeout 15 node --input-type=module -e "<heatmapCells, monthLabels, currentStreak, toggleDay, then yearMonths('10000-01-05')>"
+heatmapCells 84 monthLabels [{"column":1,"month":"Oct"},{"column":3,"month":"Nov"},{"column":8,"month":"Dec"},{"column":12,"month":"Jan"}]
+currentStreak 0 toggle [{"name":"a","done":[]}]
+calling yearMonths(10000-01-05)
+TypeError: Cannot read properties of undefined (reading 'slice')
+    at dayParts (src/dates.js:135:18)
+    at yearMonth (src/habits.js:215:27)
+    at yearMonths (src/habits.js:231:17)
+exit 1

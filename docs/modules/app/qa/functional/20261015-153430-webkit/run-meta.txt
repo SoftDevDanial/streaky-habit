@@ -1,0 +1,6 @@
+HEAD c271938d5dd1d6ec6059b31eee9dc578f4825c7f
+cmd -m pytest tests/browser -q -rA --junitxml {workspace}\examples\streaks\docs/modules/app/qa/functional/20261015-153430-webkit\junit.xml --engine webkit
+STREAKS_EVIDENCE_DIR docs/modules/app/qa/functional/20261015-153430-webkit
+exit 0
+seconds 233.2
+gave_up_after_560s False

@@ -1,0 +1,46 @@
+"""Runs the copy's live gate with the clipboard stand-in taken out of its context (code-review re-check, WR-11).
+
+The copy is served unmutated from memory by mutrun's handler. The child imports live_e2e from the copy, replaces its
+CLIPBOARD_STANDIN name and calls run(). The gate writes its evidence inside the copy only (docs/cr-gate/...).
+Usage: python gate_nostandin.py <engine>
+"""
+import http.server
+import json
+import os
+import sys
+import threading
+import time
+
+from mutrun import handler_for, port_accepts, run_process
+
+CHILD = (
+    "import pathlib, sys\n"
+    "sys.path.insert(0, 'tests/browser')\n"
+    "import live_e2e\n"
+    "live_e2e.CLIPBOARD_STANDIN = '/* code-review re-check: the clipboard stand-in removed */'\n"
+    "sys.exit(live_e2e.run(sys.argv[1], sys.argv[2], pathlib.Path(sys.argv[3]).resolve(), None))\n"
+)
+
+
+def main():
+    engine = sys.argv[1]
+    server = http.server.ThreadingHTTPServer(("127.0.0.1", 0), handler_for(None, None))
+    port = server.server_address[1]
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    out = f"docs/cr-gate/nostandin-{engine}-{time.strftime('%Y%m%d-%H%M%S')}"
+    command = [sys.executable, "-B", "-c", CHILD, engine, f"http://127.0.0.1:{port}/", out]
+    try:
+        process, output, timed_out, seconds = run_process(command, dict(os.environ, PYTHONDONTWRITEBYTECODE="1"))
+    finally:
+        server.shutdown()
+        server.server_close()
+    lines = [line.rstrip() for line in output.splitlines() if line.startswith(("PASS", "FAIL", "GATE", "CONTROL", "    "))][:12]
+    print(json.dumps({
+        "id": "G-nostandin", "engine": engine, "pid": process.pid, "exit": process.returncode, "timed_out": timed_out,
+        "seconds": seconds, "lines": lines, "tail": output.strip().splitlines()[-4:], "out_in_copy": out,
+        "server_port": port, "server_port_refuses_after": not port_accepts(port),
+    }), flush=True)
+
+
+if __name__ == "__main__":
+    main()
