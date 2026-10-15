@@ -1,0 +1,49 @@
+..........................................                               [100%]streaks tests: stopped http.server pid 23056, 127.0.0.1:43776 refuses connections
+streaks tests: stopped http.server pid 10944, 127.0.0.1:43774 refuses connections
+
+=================================== PASSES ====================================
+engine webkit: 0 chromium_only skip(s)
+=========================== short test summary info ===========================
+PASSED tests/browser/test_storage.py::test_R16_R32_changes_survive_a_reload_and_a_closed_tab
+PASSED tests/browser/test_storage.py::test_R16_loading_writes_nothing
+PASSED tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[not JSON]
+PASSED tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[JSON null]
+PASSED tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[an array]
+PASSED tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[wrong version]
+PASSED tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[version as text]
+PASSED tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[no habits array]
+PASSED tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[13 habits]
+PASSED tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[empty name]
+PASSED tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[untrimmed name]
+PASSED tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[41 characters]
+PASSED tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[duplicate ignoring case]
+PASSED tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[name not text]
+PASSED tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[done not a list]
+PASSED tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[impossible date]
+PASSED tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[date with a time]
+PASSED tests/browser/test_storage.py::test_R17_unreadable_saved_data_resets_the_list_and_shows_the_note[habit is null]
+PASSED tests/browser/test_storage.py::test_R17_readable_edge_cases_load_without_a_note[no habits]
+PASSED tests/browser/test_storage.py::test_R17_readable_edge_cases_load_without_a_note[extra fields]
+PASSED tests/browser/test_storage.py::test_R17_readable_edge_cases_load_without_a_note[a repeated day]
+PASSED tests/browser/test_storage.py::test_R17_readable_edge_cases_load_without_a_note[a day after today]
+PASSED tests/browser/test_storage.py::test_R17_readable_edge_cases_load_without_a_note[__proto__ key]
+PASSED tests/browser/test_storage.py::test_R17_R22_dismiss_removes_the_note_moves_focus_to_the_field_and_the_note_does_not_come_back
+PASSED tests/browser/test_storage.py::test_R17_dismiss_with_the_field_disabled_moves_focus_to_the_pages_first_control_never_to_body[390x844-12]
+PASSED tests/browser/test_storage.py::test_R17_dismiss_with_the_field_disabled_moves_focus_to_the_pages_first_control_never_to_body[1280x800-12]
+PASSED tests/browser/test_storage.py::test_R17_dismiss_with_the_field_disabled_moves_focus_to_the_pages_first_control_never_to_body[390x844-11]
+PASSED tests/browser/test_storage.py::test_R17_the_note_sits_between_the_top_of_the_page_and_the_list[390x844]
+PASSED tests/browser/test_storage.py::test_R17_the_note_sits_between_the_top_of_the_page_and_the_list[1280x800]
+PASSED tests/browser/test_storage.py::test_R17_R41_an_unreadable_value_whose_reset_save_fails_shows_the_warning_above_the_note
+PASSED tests/browser/test_storage.py::test_R17_R41_R28_the_banners_have_the_markup_of_the_golden
+PASSED tests/browser/test_storage.py::test_R41_a_cold_boot_with_working_storage_shows_no_warning_and_writes_nothing[a fresh day]
+PASSED tests/browser/test_storage.py::test_R41_a_cold_boot_with_working_storage_shows_no_warning_and_writes_nothing[the sample day]
+PASSED tests/browser/test_storage.py::test_R41_a_cold_boot_with_working_storage_shows_no_warning_and_writes_nothing[twelve habits]
+PASSED tests/browser/test_storage.py::test_R41_the_first_failing_save_shows_the_warning_and_the_change_stays
+PASSED tests/browser/test_storage.py::test_R41_while_saves_keep_failing_the_warning_stays_the_same_element
+PASSED tests/browser/test_storage.py::test_R41_the_next_working_save_removes_the_warning_and_storage_then_holds_what_is_on_screen
+PASSED tests/browser/test_storage.py::test_R41_storage_refused_at_boot_shows_the_warning_in_the_first_render_and_clears_when_storage_returns
+PASSED tests/browser/test_storage.py::test_R41_a_read_that_throws_at_boot_shows_the_warning_and_the_first_working_save_clears_it
+PASSED tests/browser/test_storage.py::test_R41_a_real_full_quota_shows_the_warning_and_clears_when_space_returns
+PASSED tests/browser/test_storage.py::test_R41_the_app_never_reads_the_error_it_catches
+PASSED tests/browser/test_platform.py::test_R22_R40_every_popup_can_be_used_with_the_keyboard_alone
+42 passed in 30.47s

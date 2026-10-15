@@ -1,0 +1,158 @@
+{
+ "frame": {
+  "x": 17,
+  "y": 95,
+  "width": 356,
+  "height": 578
+ },
+ "rows": [
+  {
+   "name": "Read 20 pages",
+   "bin": {
+    "x": 325,
+    "y": 98,
+    "width": 44,
+    "height": 44
+   },
+   "deleteHabit": {
+    "x": 201,
+    "y": 437,
+    "width": 152,
+    "height": 48
+   },
+   "overlap": null
+  },
+  {
+   "name": "Stretch 10 minutes",
+   "bin": {
+    "x": 325,
+    "y": 213,
+    "width": 44,
+    "height": 44
+   },
+   "deleteHabit": {
+    "x": 201,
+    "y": 437,
+    "width": 152,
+    "height": 48
+   },
+   "overlap": null
+  },
+  {
+   "name": "No phone after 11pm",
+   "bin": {
+    "x": 325,
+    "y": 328,
+    "width": 44,
+    "height": 44
+   },
+   "deleteHabit": {
+    "x": 201,
+    "y": 437,
+    "width": 152,
+    "height": 48
+   },
+   "overlap": null
+  },
+  {
+   "name": "Drink 2 litres of water",
+   "bin": {
+    "x": 325,
+    "y": 443,
+    "width": 44,
+    "height": 44
+   },
+   "deleteHabit": {
+    "x": 201,
+    "y": 437,
+    "width": 152,
+    "height": 48
+   },
+   "overlap": {
+    "x": 325,
+    "y": 443,
+    "width": 28,
+    "height": 42
+   }
+  },
+  {
+   "name": "Walk 8,000 steps",
+   "bin": {
+    "x": 325,
+    "y": 558,
+    "width": 44,
+    "height": 44
+   },
+   "deleteHabit": {
+    "x": 201,
+    "y": 437,
+    "width": 152,
+    "height": 48
+   },
+   "overlap": null
+  },
+  {
+   "name": "Journal one page",
+   "bin": {
+    "x": 325,
+    "y": 673,
+    "width": 44,
+    "height": 44
+   }
+  },
+  {
+   "name": "Practise guitar",
+   "bin": {
+    "x": 325,
+    "y": 788,
+    "width": 44,
+    "height": 44
+   }
+  },
+  {
+   "name": "Cook dinner at home",
+   "bin": {
+    "x": 325,
+    "y": 903,
+    "width": 44,
+    "height": 44
+   }
+  },
+  {
+   "name": "Lights out by midnight",
+   "bin": {
+    "x": 325,
+    "y": 1018,
+    "width": 44,
+    "height": 44
+   }
+  },
+  {
+   "name": "Meditate 5 minutes",
+   "bin": {
+    "x": 325,
+    "y": 1133,
+    "width": 44,
+    "height": 44
+   }
+  },
+  {
+   "name": "Floss",
+   "bin": {
+    "x": 325,
+    "y": 1248,
+    "width": 44,
+    "height": 44
+   }
+  },
+  {
+   "name": "Learn 10 Malay words",
+   "bin": {
+    "x": 325,
+    "y": 1363,
+    "width": 44,
+    "height": 44
+   }
+  }
+ ]
+}

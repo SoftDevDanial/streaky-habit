@@ -1,0 +1,33 @@
+{
+ "kind": "functional",
+ "engine": "node",
+ "command": [
+  "node",
+  "--test",
+  "--test-reporter=spec",
+  "--test-reporter-destination=stdout",
+  "--test-reporter=junit",
+  "--test-reporter-destination=docs/modules/app/qa/functional/20261015-174935-node/junit.xml",
+  "tests/**/*.test.js"
+ ],
+ "evidence_dir": "",
+ "head": "4af5d75",
+ "src_status_at_start": "",
+ "src_differs_from_head": false,
+ "runner_pid": 2844,
+ "started": "2026-10-15T17:49:35",
+ "timeout_seconds": 300,
+ "status": "finished",
+ "child_pid": 11720,
+ "exit_code": 0,
+ "seconds": 0.8,
+ "ended": "2026-10-15T17:49:36",
+ "src_status_at_end": "",
+ "counts": {
+  "tests": 137,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0
+ },
+ "failing": []
+}

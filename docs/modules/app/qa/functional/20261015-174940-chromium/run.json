@@ -1,0 +1,38 @@
+{
+ "kind": "functional",
+ "engine": "chromium",
+ "command": [
+  "C:\\Python314\\python.exe",
+  "-B",
+  "-m",
+  "pytest",
+  "tests/browser",
+  "-q",
+  "-rA",
+  "-p",
+  "no:cacheprovider",
+  "--engine",
+  "chromium",
+  "--junitxml=docs/modules/app/qa/functional/20261015-174940-chromium/junit.xml"
+ ],
+ "evidence_dir": "docs/modules/app/qa/functional/20261015-174940-chromium",
+ "head": "4af5d75",
+ "src_status_at_start": "",
+ "src_differs_from_head": false,
+ "runner_pid": 20436,
+ "started": "2026-10-15T17:49:40",
+ "timeout_seconds": 540,
+ "status": "finished",
+ "child_pid": 2776,
+ "exit_code": 0,
+ "seconds": 147.2,
+ "ended": "2026-10-15T17:52:07",
+ "src_status_at_end": "",
+ "counts": {
+  "tests": 358,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0
+ },
+ "failing": []
+}

@@ -1055,3 +1055,66 @@ Folders are under `docs/modules/app/qa/solver/`. Their exact names, and the coun
 
 ### Deviations
 - None from the spec. No dependency, no contract change.
+
+---
+
+## v1.1.0 task 27a, Dismiss with the field disabled (2026-10-15)
+> Written by the frontend builder (senior frontend dev agent), 2026-10-15. Requirement R17, owner ruling H-05 (USER 2026-10-15 16:20, option 1). The code commit is `4af5d75` `feat(app): Dismiss with the field disabled moves focus to the page's first control (task 27a, R17)`. This section, the spec tick and the proof folders are the docs commit after it.
+
+### Phase skills (design row of `docs/phase-skills.md`)
+Read on disk in full before any other work, with no Skill tool. `taste-skill` (`taste-skill/1.0.0/skills/taste-skill/SKILL.md`, all 1207 lines) and `frontend-design` (`claude-plugins-official/frontend-design/c2bdb427efe8/skills/frontend-design/SKILL.md`, all 71 lines).
+- **What they changed.** Nothing in the code. The change moves focus and adds no markup, style, copy or motion.
+- **Transferred and checked.** frontend-design's quality floor, "visible keyboard focus", is what the change serves. With the field disabled, focus now lands on a control that draws its focus ring instead of on `body`. taste-skill 11.C, "Honor existing accessibility wins. Do not regress focus states ... keyboard nav". With the field enabled, Dismiss still sends focus to the field (the `390x844-11` row and the existing Dismiss test). taste-skill 9.G, no em or en dash in any file written (checked with Python).
+- **Not transferred, and why.** The design read, the dials, and every look, type, colour, layout, motion, image, icon and copy rule. Nothing visible is built. No golden draws the note with the field disabled, and every state a golden draws is unchanged.
+
+### What changed
+- `src/view.js` `dismissNote`. After it removes the note it focuses the field, or `firstControl()` when the field is disabled. Its doc comment now says what it does, why, its input (none) and its output (none). `firstControl` is unchanged. No other file of `src/`, and not `index.html`.
+- `tests/browser/test_storage.py`. New `test_R17_dismiss_with_the_field_disabled_moves_focus_to_the_pages_first_control_never_to_body`, the qa.md `@R17` Scenario Outline "Dismiss with the field disabled moves focus to the page's first control, never to body", its three Examples rows as the ids `390x844-12`, `1280x800-12` and `390x844-11`. It imports `focused` and `plain_state` from `conftest.py`.
+- `tests/browser/test_platform.py`. In `test_R22_R40_every_popup_can_be_used_with_the_keyboard_alone` the comment on `wait_for_close(closed)` now reads `# the app's close handler has run (conftest watch_close)`, as the five comments of WR-12 do (the sibling of ledger S1 row 20, named under "Seen and not touched" above). Comment only.
+- `spec.md` task 27a ticked.
+
+### RED first
+Four runs in `docs/modules/app/qa/red-first/`, each at HEAD `bd07675` with the new test in the working tree. Each folder holds `junit.xml`, `pytest-rA.txt` and `run.json` (the command, HEAD, the state of `src/` at the start and the end, the counts and the failing ids). The two planted runs also hold `src-diff.txt`, the diff of `src/` against HEAD during the run.
+1. `20261015-174616-chromium`, today's tree (`src/` equal to HEAD). 2 failed, 1 passed. `390x844-12` fails on "document.activeElement is 'body', not the Overview button" and `1280x800-12` on "document.activeElement is 'body', not the band's Year". `390x844-11` passes, because the field is enabled and takes focus.
+2. `20261015-174632-webkit`, today's tree. The same two failures with the same messages, and `390x844-11` passes.
+3. `20261015-174651-chromium`, the planted defect. 1 failed, 2 passed. `390x844-11` fails on "document.activeElement is 'Overview, today 0 of 11 habits done', not the field". The two twelve-habit rows pass under it.
+4. `20261015-174703-webkit`, the planted defect. The same result and message.
+
+Every failure is the focus line the scenario asserts, read after the note is gone and the rows are counted. None is a timeout or a missing element.
+
+The planted defect is the scenario's own, a `dismissNote` that always sends focus to `firstControl()`. Its last line `$("#nh").focus();` became `firstControl().focus(); // STUB task 27a planted defect, never committed`. It was put in and taken out with the Edit tool and was never staged or committed. After it was taken out, `git diff --quiet src/` exited 0 and `grep -rn STUB src/` found nothing, and only then was the build line written.
+
+### Proof
+Every run was made with a scratch runner in the session scratchpad (`streaks-27a/run_suite.py`). It writes each run's log, `junit.xml` and `run.json` into a new folder it creates and refuses to reuse, and bounds the run with a timeout.
+The three proof runs ran on the committed tree, HEAD `4af5d75`. `src/` and `index.html` equal HEAD at the start and the end of each (`run.json`), and no file of `src/` or `index.html` was modified after 17:49:35, the start of the first one (`find -newermt`). `src/view.js` was last written at 17:47:39.
+- Node, `functional/20261015-174935-node/`, 137 of 137 (`junit.xml`, `node-test.txt`).
+- Chromium, `functional/20261015-174940-chromium/`, `junit.xml` tests 358, failures 0, errors 0, skipped 0, in 147.2 s. By test id, the 355 of the solver round's `20261015-142914-chromium` plus this task's 3 rows, with no outcome changed.
+- WebKit, `functional/20261015-175213-webkit/`, `junit.xml` tests 358, failures 0, errors 0, skipped 1, in 238.4 s. A background job bounded at 600 s, with no Chromium job at the same time. The skip is CO-1, `test_R29_the_icon_is_amber_in_a_dark_theme_and_dark_amber_in_a_light_theme`, `chromium_only` with its reason.
+  By test id against task 27's `20261015-075929-webkit` (348 tests, 347 passed, CO-1 skipped). No id is gone, no outcome changed, and CO-1 is the only test not passed. The 10 new ids all pass. They are the solver round's 7 (`test_R12_a_render_at_twelve_habits_does_not_write_the_note_again`, `test_R36_p1_lists_the_habits_there_are_when_it_opens`, the row `1280x800-mouse-P2-then-M1` of `test_R14_a_double_press_on_a_backdrop_does_not_reach_the_control_behind_it`, `test_R39_p4_opens_again_at_its_top_after_it_closed_scrolled`, `test_R42_every_svg_part_in_the_page_and_the_popups_is_in_the_svg_namespace_and_draws`, `test_R19_a_page_booted_ten_seconds_before_midnight_shows_the_new_day_thirty_seconds_after_it`, `test_R33_p2_opens_again_at_its_top_after_it_closed_scrolled`) and this task's 3. Against the solver round's `20261015-143150-webkit` (355 tests) the only new ids are this task's 3.
+- Before the commit, the working tree with the build line (the same `src/` diff as `4af5d75`, kept in each folder's `src-diff.txt`) ran `test_storage.py` and the keyboard test once per engine, 42 of 42 in each, `functional/20261015-174756-precommit-chromium/` and `functional/20261015-174822-precommit-webkit/`. They are a check, not the proof.
+
+### Judgment calls (named, for the orchestrator)
+1. **The focus line is one read after a sync point, not a retrying wait.** The test waits until the note is gone and the rows are counted, then reads `document.activeElement` once. `dismissNote` removes the note and sets focus in the same click handler, so once the note is gone the focus is final. A failure names what holds focus (`focused` of `conftest.py`), so a RED cannot be a timeout.
+2. **The target's name is asserted after the focus line**, so the RED of the twelve-habit rows is on focus and not on a name. Both names hold on today's tree.
+3. **The planted defect sat in the working tree**, put in and taken out with the Edit tool as the brief says. qa.md's scenario comment says "in a throwaway copy". Either way it was never staged or committed, and the two checks above show it gone.
+4. **Habits are added with `add_habit(page, name, enter=True)`**, the helper the other add tests use. It clicks the field before typing. After the first add the field already has focus, so the click changes nothing.
+
+### Open questions
+None.
+
+### Deviations
+- None in the code. No dependency, no contract change.
+- Process. The message of commit `4af5d75` reached `git commit -F -` through a quoted heredoc, a form the brief rules out. It wrote no file, the message holds no backslash, and `git log -1 --format=%B 4af5d75` shows it exactly as meant. The docs commit passes its message with `-m`.
+- Process. Three read-only commands piped `git` output into `tail`, `grep` or `sed`, which the brief also rules out. Two read `git show --stat` and `git log --oneline` of earlier task commits, and one read the staged list of the docs commit (`git diff --cached --stat` and `--name-only`). None wrote a file, and none was a commit, a test run or a check whose exit code was needed.
+
+### Non-goals honoured
+No markup, style, copy or motion change. `index.html`, `src/system.css` and `docs/design/` untouched. No hook, flag or seed in the app. Every context of the new test has the clipboard stand-in through `open_app`, and every browser ran headless.
+
+### How to run and view
+- `python -m pytest "tests/browser/test_storage.py::test_R17_dismiss_with_the_field_disabled_moves_focus_to_the_pages_first_control_never_to_body" -q`, and the same with `--engine webkit`.
+- By hand. Serve the root, set `localStorage["streaks.state"]` to `{` and open the app, add twelve habits while the note shows, then click Dismiss note. Below 1024 px the Overview button has focus, from 1024 px the band's Year.
+
+### For the README reconcile
+- `src/view.js` `dismissNote`. Dismiss sends focus to the field, or to `firstControl()` when the field is disabled at twelve habits. No other symbol changed.
+- `tests/browser/test_storage.py` gains `test_R17_dismiss_with_the_field_disabled_moves_focus_to_the_pages_first_control_never_to_body` (3 rows). The browser suite is 358 tests in each engine (WebKit 357 passed and CO-1 skipped).
+- No tracked file was deleted.

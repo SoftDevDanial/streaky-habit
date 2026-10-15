@@ -1,0 +1,39 @@
+{
+ "kind": "functional",
+ "engine": "webkit",
+ "command": [
+  "C:\\Python314\\python.exe",
+  "-B",
+  "-m",
+  "pytest",
+  "tests/browser/test_storage.py",
+  "tests/browser/test_platform.py::test_R22_R40_every_popup_can_be_used_with_the_keyboard_alone",
+  "-q",
+  "-rA",
+  "-p",
+  "no:cacheprovider",
+  "--engine",
+  "webkit",
+  "--junitxml=docs/modules/app/qa/functional/20261015-174822-precommit-webkit/junit.xml"
+ ],
+ "evidence_dir": "",
+ "head": "bd07675",
+ "src_status_at_start": " M src/view.js\n",
+ "src_differs_from_head": true,
+ "runner_pid": 10644,
+ "started": "2026-10-15T17:48:22",
+ "timeout_seconds": 300,
+ "status": "finished",
+ "child_pid": 24348,
+ "exit_code": 0,
+ "seconds": 33.3,
+ "ended": "2026-10-15T17:48:55",
+ "src_status_at_end": " M src/view.js\n",
+ "counts": {
+  "tests": 42,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0
+ },
+ "failing": []
+}

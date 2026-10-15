@@ -1,0 +1,38 @@
+{
+ "kind": "functional",
+ "engine": "webkit",
+ "command": [
+  "C:\\Python314\\python.exe",
+  "-B",
+  "-m",
+  "pytest",
+  "tests/browser",
+  "-q",
+  "-rA",
+  "-p",
+  "no:cacheprovider",
+  "--engine",
+  "webkit",
+  "--junitxml=docs/modules/app/qa/functional/20261015-175213-webkit/junit.xml"
+ ],
+ "evidence_dir": "docs/modules/app/qa/functional/20261015-175213-webkit",
+ "head": "4af5d75",
+ "src_status_at_start": "",
+ "src_differs_from_head": false,
+ "runner_pid": 23824,
+ "started": "2026-10-15T17:52:13",
+ "timeout_seconds": 600,
+ "status": "finished",
+ "child_pid": 14056,
+ "exit_code": 0,
+ "seconds": 238.4,
+ "ended": "2026-10-15T17:56:12",
+ "src_status_at_end": "",
+ "counts": {
+  "tests": 358,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 1
+ },
+ "failing": []
+}
