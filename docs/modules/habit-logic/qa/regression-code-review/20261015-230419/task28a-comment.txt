@@ -1,0 +1,32 @@
+App task 28a (40848ce), the comment of firstControl. Re-check by the code-review finder (read-only), 2026-10-15.
+
+1. `git show 40848ce --numstat --format=`
+2	3	src/view.js
+
+2. `git show 40848ce -U0 --format=` (verbatim)
+diff --git a/src/view.js b/src/view.js
+index ef8145f..3dda8a4 100644
+--- a/src/view.js
++++ b/src/view.js
+@@ -278,3 +278,2 @@ export function dismissNote() {
+- * The page's first control that can take focus, where focus goes when a new day took away the day that held it and
+- * no popup is open (CG-14). It is the Overview button below 1024 px and the band's Year from 1024 px, where the CSS
+- * hides the Overview button, so it is the first shown control in page order.
++ * The page's first shown control that is not disabled, in page order. It is the Overview button below 1024 px
++ * and the band's Year from 1024 px, where the CSS hides the Overview button.
+
+Every changed line is a ` * ` line of the doc comment of `firstControl`. The arrow function below it is unchanged.
+
+3. Is the new comment true of the code (read, HEAD c00bc8c, src/ equal to 40848ce)
+- "first shown control that is not disabled, in page order". The body is
+  `Array.from(document.querySelectorAll("div.app button, div.app input")).find((control) => !control.disabled && control.getClientRects().length > 0)`.
+  querySelectorAll returns document order, `getClientRects().length > 0` is "shown", `!control.disabled` is "not disabled". True.
+- "the Overview button below 1024 px". In index.html the first control inside `div.app` is `button.ov-btn` in `header.top`.
+  The popups are `dialog` elements after `div.app` closes, so they are not in this list. Below 1024 px `.band{ display:none; }`
+  (src/styles.css, the base rule) and the Overview button shows. True.
+- "the band's Year from 1024 px, where the CSS hides the Overview button". `@media (min-width: 1024px)` holds
+  `.ov-btn{ display:none; }` and shows `.band`, whose first control is `section.band button.btn-all` ("Year"), before
+  `.ovg-cols`, the rows and the composer. True.
+- The why stays with the callers, as task 28a asks. `firstFocusOfTopLayer` in src/app.js: "Where focus goes when the day that
+  held it is no longer shown (CG-14, CG-19) ...". `dismissNote` in src/view.js names `firstControl()` for the disabled field
+  (R12, R17, rule 7, CG-14). No caller is named in the new comment, and it cites no line number.

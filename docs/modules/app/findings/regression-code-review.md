@@ -88,3 +88,14 @@ Written by the dev solver (solver role). The finder's text above is unchanged. D
 | Finding | Verdict | Commit | Proof |
 |---|---|---|---|
 | RG-CR-I1 | RESOLVED. The doc comment of `firstControl` says what it returns and names no caller, as the fix direction asks. Comment only | `40848ce` | `docs/modules/app/qa/solver/20261015-224448-task28a-diff/git-show-U0.txt`, comment lines of `firstControl` only. Suites green on `40848ce` (habit-logic `BUILD.md`, "v1.1.0 task 9a", Proof) |
+
+## Re-check 2026-10-15, task 28a
+Written by the code-review finder (read-only), 2026-10-15, on HEAD `c00bc8c`, whose `src/` equals `40848ce`. The text above is unchanged. Scope is `git show 40848ce -- src`. Evidence, `docs/modules/habit-logic/qa/regression-code-review/20261015-230419/task28a-comment.txt`. The habit-logic part of the same pass (task 9a) is judged in `docs/modules/habit-logic/findings/regression-code-review.md`.
+
+**RG-CR-I1 is closed. Task 28a is clean, 0 BLOCKER, 0 WARNING, 0 INFO.**
+- **Comment lines only.** `git show 40848ce --numstat` gives `2 3 src/view.js`, and `git show 40848ce -U0` shows only ` * ` lines of the doc comment of `firstControl`. The arrow function below it is unchanged. No markup, style, copy or test changed.
+- **The new comment is true of the code.** "First shown control that is not disabled, in page order" is the body's `querySelectorAll` (document order) with `!control.disabled` and `getClientRects().length > 0`. The popups are `dialog` elements after `div.app`, so they are not in the list. Below 1024 px the base rule `.band{ display:none; }` hides the band and `button.ov-btn` is the first control in `div.app`. From 1024 px `@media (min-width: 1024px)` holds `.ov-btn{ display:none; }` and shows the band, whose first control is `section.band button.btn-all` (Year).
+- **It names no caller and cites no line number**, as the task asks. The why stays with the callers. `firstFocusOfTopLayer` in `src/app.js` says where focus goes when the day that held it is gone (CG-14, CG-19), and `dismissNote` names `firstControl()` for the disabled field (R12, R17, rule 7, CG-14).
+- **Reverse audit.** The change is the comment task 28a contracts (R19, R17). Nothing else was built.
+
+PROCESSES: none for this section. It was judged by reading and by `git show`. The processes of the whole re-check are listed in the habit-logic verdict.

@@ -1,0 +1,47 @@
+Mutant runs of the @R20 test "yearMonths ends for every key and returns at most 13 months"
+Written by the code-review finder (read-only), 2026-10-15, re-check of habit-logic task 9a (eafc9e5).
+
+Method
+- Each tree is a scratch copy (session scratchpad, folder streaks-rc-9a/<name>/) of src/*.js, tests/habits.test.js
+  and tests/fixtures/* from the working tree at HEAD c00bc8c. src/ and tests/ there equal 40848ce
+  (git diff --stat 40848ce HEAD -- src tests index.html is empty).
+- base/src/habits.js equals `git show 40848ce:src/habits.js` apart from CRLF line ends (diff --strip-trailing-cr, no output).
+- One mutation per tree, applied with sed in the scratch copy only. Nothing under the project root was changed.
+- Command, from each tree: timeout 150 node --test --test-reporter=spec tests/habits.test.js   (Node v24.11.1)
+
+The mutations (diff --strip-trailing-cr against base/src/habits.js)
+- m1-nobound      line 235  `|| months.length === YEAR_VIEW_MONTHS` removed (the code before the bound)
+- m2-bound14      line 32   `const YEAR_VIEW_MONTHS = 14;`
+- m3-bound12      line 32   `const YEAR_VIEW_MONTHS = 12;`
+- m4-gt           line 235  `months.length > YEAR_VIEW_MONTHS` (off by one, 14 months)
+- m5-guard-empty  new line 230 `if (!isDateKey(todayKey)) return [];`   (the spec's non-goal, validation of todayKey)
+- m6-guard-throw  new line 230 `if (!isDateKey(todayKey)) throw new RangeError("todayKey");`   (the same non-goal)
+
+sha256 of each habits.js
+  base            aeecff6999e505efd0eee00081f8d7e7a55f55f412d23891d2a353c1f38f217d
+  m1-nobound      c29b9fee28f363c94d8b5a5daf56a4f823119385bab05d9fc21ae87dc64dbc99
+  m2-bound14      f23610f58177671391997c50fd94df5d6d8c248f7584b834c72afc533b815d81
+  m3-bound12      b9d565971248107c61a469c59d3ceabeaccfda3848e1e5aff2bf23388f6d1321
+  m4-gt           33a5e5e3262b7f1282971e41c64399b9b4fe079a2b7b072050385e00393c7e5b
+  m5-guard-empty  abfd4dcd739eb2ca834b98cd3c28591a6312cdcb7779115587ebb89076e10da8
+  m6-guard-throw  d2ce0d6189ec72918465566f6a86003e5a683d80cf027da0a68bc2de508e2c29
+
+Results (tests/habits.test.js only, 57 tests counted by node --test)
+| tree           | pass | fail | exit | seconds | what failed |
+|----------------|------|------|------|---------|-------------|
+| base           | 57   | 0    | 0    | 1       | nothing |
+| m1-nobound     | 49   | 8    | 1    | 31      | the 6 far rows and the 920-key row, each "did not end, stopped by the heap limit of 256 MB" (4.06 to 4.67 s), and the parent |
+| m2-bound14     | 49   | 8    | 1    | 1       | the 6 far rows ("1 of 1 keys break") and the 920-key row ("920 of 920 keys break"), and the parent |
+| m3-bound12     | 51   | 6    | 1    | 1       | the 3 valid-key rows ("1 of 1 keys break \"it returned 13 months\""), the parent, "@R20 the year of the goldens", "@R20 the year on other days" |
+| m4-gt          | 49   | 8    | 1    | 1       | as m2 |
+| m5-guard-empty | 57   | 0    | 0    | 1       | NOTHING. The mutant survives (finding RC-9A-1) |
+| m6-guard-throw | 49   | 8    | 1    | 1       | the 6 far rows and the 920-key row (a throw is not "returned at most 13 months"), and the parent |
+
+m1 reproduces the solver's RED on this machine. No run hung and none crashed. The heap limit stopped each m1 worker before
+the 5 s timer, and the main process ended by itself (exit 1) in 31 s.
+
+m5 run against every Node test file, `timeout 150 node --test "tests/**/*.test.js"` from the m5 tree.
+- First run (tests/*.test.js copied in, no goldens). 96 pass, 3 fail, all 3 from the scratch tree (ENOENT on
+  docs/design/ files, so sample-history.test.js and storage.test.js did not load). Not a result, kept here as a record.
+- Second run, with docs/design/*.html and *.json copied (read only from the project) into the scratch tree.
+  151 tests, 151 pass, 0 fail, exit 0. No Node test kills m5. The browser suite was not run on m5.

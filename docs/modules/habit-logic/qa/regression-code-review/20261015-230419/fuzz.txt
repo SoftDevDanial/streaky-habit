@@ -1,0 +1,24 @@
+"Every other todayKey returns at most 13 months or throws, it never runs on" (habit-logic R20, the bound)
+Written by the code-review finder (read-only), 2026-10-15. Subject: base/src/habits.js (40848ce, see mutants.txt).
+
+Script: fuzz.mjs in the session scratchpad folder streaks-rc-9a/ (sha256 6110eaecfedfea6fa9b0e4ce00c8876e151266a0d8ae0eb8b3abd5fb9e15b996).
+Command: timeout 110 node fuzz.mjs   (Node v24.11.1, one process, every call timed)
+
+Keys, written the way localDateKey writes them (pad 4 / 2 / 2), 12 days per year (01-01, 01-31, 02-28, 02-29, 03-01,
+06-15, 09-30, 10-01, 10-15, 11-30, 12-01, 12-31), for
+- every year 9990 to 10100, every year 99990 to 100010, every year 275750 to 275760 (the end of Date's range),
+- every year -30 to 0 and -271821 to -271811 (the start of Date's range),
+- every 7th year from 10000 to 99999,
+plus localDateKey of an Invalid Date ("NaN-NaN-NaN") and 13 odd strings ("", "x", "1e300-10-15", "1e+300-10-15", "10000-1",
+"2026-10", "2026-13-45", "2026-00-00", "9007199254740993-10-15", "0000-00-00", "-0001-10-15", "10000-10-01T00", " 2026-10-10").
+
+Output (verbatim)
+156530 keys, returned 65126, threw 91404, max months 13, over 13 0
+slowest call 3.35 ms for "9990-01-31", all in 3.5 s
+exit=0
+
+Reading. No key ran on, no result held more than 13 months, and the slowest call took 3.35 ms. Why the inner walk of
+`yearMonth` also ends (read from the code, `src/dates.js` and `src/habits.js`). A NaN year, month or day makes `dayParts` read
+WEEKDAYS or MONTHS out of range and throw on the first day, before any `addDays` step. A key with a year of 6 or more digits
+gives `monthStart` a month of 0 or no day, which throws the same way. Otherwise `addDays` moves one real day forward and
+writes a canonical key, so the month prefix changes within at most 366 steps.

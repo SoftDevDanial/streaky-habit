@@ -1,0 +1,37 @@
+Differential of yearMonths before the bound and after it, for keys that pass isDateKey (habit-logic R20, the bound,
+"returns exactly the 13 months it returns before this change, entry for entry")
+Written by the code-review finder (read-only), 2026-10-15. Independent of the solver's differential: other key sets.
+
+Before: `git show a6f7e18:src/habits.js` and `git show a6f7e18:src/dates.js` (habits.js sha256
+134f27af166dd6ad7477aeffb146ef3099358baeae37c98303c0c38ea86730f3, the blob before eafc9e5).
+After: base/src/habits.js, equal to 40848ce apart from line ends (see mutants.txt). src/dates.js has no change between the two.
+Script: differential.mjs in the session scratchpad folder streaks-rc-9a/. Comparison util.isDeepStrictEqual, every key
+asserted isDateKey first. Node v24.11.1.
+
+Key sets
+- lastDayOfEveryMonth. The last day of every month of the years 0001 to 9999 (119,988 keys).
+- leapAndNeighbours. 28 February and 1 March of every year 0001 to 9999, and 29 February of every leap year (22,422 keys,
+  the CG-13 fallback of yearStart).
+- everyDayOfYears0001to0002. Every day of the years 0001 and 0002 (730 keys, the year-0 start).
+- everyDayOfYears9998to9999. Every day of the years 9998 and 9999 (730 keys).
+
+Run 1, `timeout 560 node differential.mjs`, background, exit 1 (output verbatim, stack shortened)
+  lastDayOfEveryMonth: 119988 keys, 0 differences
+  leapAndNeighbours: 22422 keys, 0 differences
+  everyDayOfYears0001to0002: 730 keys, 0 differences
+  Error: not a valid key 10000-01-01
+The fault was the script's. Its day loop stopped on `k <= to`, a text comparison, and "10000-01-01" sorts before
+"9999-12-31", so it walked past the last day. The script's own isDateKey precondition stopped it, before any comparison of
+that key. The first three sets had run in full. The loop was changed to stop on `k === to`
+(script sha256 after the change 4d75c15b408fab627ed7563ba9d462eef44bd31fe319a259c414953678f175b1).
+
+Run 2, `ONLY_SETS=everyDayOfYears9998to9999 timeout 120 node differential.mjs`, exit 0 (output verbatim)
+  everyDayOfYears9998to9999: 730 keys, 0 differences
+  total 730 keys, 0 differences, result lengths seen 13
+  control flagged: cut to 12 months true, one kind changed true
+  seconds 0.7
+
+Result. 143,870 valid keys, 0 differences. The control in run 2 shows the comparison sees a result cut to 12 months and one
+day whose kind changed. By reading, the same holds for every valid key. The walk starts at today's month and steps one month
+back per push, and the month of yearStart is the same month one year earlier, so the first stop is met on the 13th push,
+which is also when months.length reaches YEAR_VIEW_MONTHS. The new stop can never fire first for such a key.
