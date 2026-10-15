@@ -150,7 +150,7 @@ def test_R40_R14_a_backdrop_click_closes_that_popup_only(app, viewport, popups, 
     watch = watch_close(page, f"dialog.{top}")
     page.mouse.click(5, 5)
     wait_closed(page, top)
-    wait_for_close(watch)  # the app's close handler has run, so the focus read below is the app's
+    wait_for_close(watch)  # the app's close handler has run (conftest watch_close)
     assert open_dialogs(page) == still_open
     expect(FOCUS[focus](page)).to_be_focused()
 

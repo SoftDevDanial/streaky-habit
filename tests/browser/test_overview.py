@@ -126,7 +126,7 @@ def test_R38_R40_p3_closes_and_gives_focus_back_to_overview(app, action):
         dialog.get_by_role("button", name="Close", exact=True).click()
     else:
         page.keyboard.press("Escape")
-    wait_for_close(watch)  # the app's close handler has run, so the focus read is the app's (conftest watch_close)
+    wait_for_close(watch)  # the app's close handler has run (conftest watch_close)
     expect(page.locator("button.ov-btn")).to_be_focused()
 
 
@@ -330,7 +330,7 @@ def test_R39_R40_p4_closes_and_gives_focus_back_to_the_year_that_opened_it(app, 
         box = dialog.locator(":scope > div.dlg-box").bounding_box()
         assert not (box["x"] <= 5 <= box["x"] + box["width"] and box["y"] <= 5 <= box["y"] + box["height"]), box
         page.mouse.click(5, 5)
-    wait_for_close(watch)  # the app's close handler has run, so the focus read is the app's (conftest watch_close)
+    wait_for_close(watch)  # the app's close handler has run (conftest watch_close)
     still_open = page.evaluate("() => Array.from(document.querySelectorAll('dialog')).filter((d) => d.open).map((d) => d.classList[d.classList.length - 1])")
     assert still_open == ([] if opener == "the band's Year" else ["dlg-ov"]), still_open
     expect(year).to_be_focused()

@@ -137,7 +137,7 @@ def test_R36_R40_p1_closes_and_gives_focus_back_to_its_day(app, action):
         box = day_dialog(page).locator(":scope > div.dlg-box").bounding_box()
         assert not (box["x"] <= 5 <= box["x"] + box["width"] and box["y"] <= 5 <= box["y"] + box["height"]), box
         page.mouse.click(5, 5)
-    wait_for_close(watch)  # the app's close handler has run, so the reads below are the app's (conftest watch_close)
+    wait_for_close(watch)  # the app's close handler has run (conftest watch_close)
     expect(page.locator("button.hc.is-open")).to_have_count(0)
     expect(band_day(page, SEP_22)).to_be_focused()
 

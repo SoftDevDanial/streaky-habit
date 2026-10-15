@@ -1030,3 +1030,28 @@ Each new or changed check was run against the finder's planted defect, served fr
 ### Deviations
 - None from the spec. No dependency, no contract change.
 - Process. Two read-only shell commands used a redirection the brief rules out (`2>&1` on an `ls`, `2>/dev/null` on an `ls`). Neither wrote a file. The design row was not loaded (above).
+
+---
+
+## Targeted pass 2026-10-15 (WR-12, WR-04)
+> Written by the dev solver (solver role), 2026-10-15, for the code-review re-check's WR-12 (this module, `findings/code-review.md` section "Re-check 2026-10-15") and WR-04 (habit-logic). One pass under the stop rule, with no finder round after it. The design row was not loaded, the pass is test comments and one docstring with no UI or fidelity work.
+
+### What changed
+- WR-12. The docstring of `watch_close` in `tests/browser/conftest.py` now says it once. Waiting for the close event proves the app's close handler has run, so what the handler clears (P1's open mark and room) can be read. It does not show who moved focus. In Chromium the browser's own restore lands on the same opener, so R40's return of focus is proven by the WebKit run, not by a Chromium read.
+- The five comments that said the focus read after the close event is the app's now read `# the app's close handler has run (conftest watch_close)`. They sit after `wait_for_close(watch)` in `test_R36_R40_p1_closes_and_gives_focus_back_to_its_day` (`test_day_editor.py`), `test_R38_R40_p3_closes_and_gives_focus_back_to_overview` and `test_R39_R40_p4_closes_and_gives_focus_back_to_the_year_that_opened_it` (`test_overview.py`), `test_R33_R40_p2_closes_and_gives_focus_back_to_its_year` (`test_year.py`) and `test_R40_R14_a_backdrop_click_closes_that_popup_only` (`test_popups.py`).
+- Comments and that one docstring only. No code token, no test body and no `src/` file changed.
+- WR-04 is one dated line in `docs/modules/habit-logic/BUILD.md`, section "Final test run". It says the counts above are 1.0's and each v1.1.0 task section gives its own run. The old lines are untouched.
+
+### Proof
+Folders are under `docs/modules/app/qa/solver/`. Their exact names, and the counts in each `junit.xml`, are in the solver lines of both findings files.
+- Comments only. The folder ending `-wr12-comments-only` holds `comments-only.txt` (the check's result and its controls), `word-diff.txt` (`git diff --word-diff` from `c271938` to the commit) and the script. The check compares the five files before and after on three things, the AST with every docstring taken out, the token stream without comments and docstrings, and each docstring by name. It passes with the one allowed docstring change, `watch_close`. Its controls show it can fail, one code token changed is caught, a docstring changed elsewhere is caught, and an added comment is not flagged.
+- The four touched test files, in Chromium and in WebKit, once each after the commit. The folders end `-wr12-chromium` and `-wr12-webkit`, each with `junit.xml` and `pytest.txt`. This is a run of the module's own tests, not a control. The pass changes no behaviour, so a RED capture does not apply.
+
+### For the planner
+- Nothing new. The re-check's corrections to R36's wording (item 1) and to the qa.md "Engine differences by design" row (item 10) stay with the planner.
+
+### Seen and not touched
+- `test_platform.py`, in `test_R22_R40_every_popup_can_be_used_with_the_keyboard_alone`, the comment on `wait_for_close(closed)` reads "P3 closes last, so the app's focus is set once its close event has come". It is the same pattern as the five. It is not in WR-12's list and not in this pass's files, so it is left for the orchestrator to rule on.
+
+### Deviations
+- None from the spec. No dependency, no contract change.

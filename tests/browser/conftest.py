@@ -790,7 +790,10 @@ def watch_close(page, selector):
 
     The close event is a queued task, so right after a gesture closes a dialog the app's close handler may not have
     run yet, and in Chromium the browser's own focus restore can already show the opener focused. This test-side
-    listener is added after the app's, so once it has run the app's handler has run too. It adds no property to window.
+    listener is added after the app's, so once it has run the app's handler has run too, and what that handler
+    clears (P1's open mark and room) can be read. It does not show who moved focus. In Chromium the browser's own
+    restore lands on the same opener, so R40's return of focus is proven by the WebKit run, not by a Chromium read.
+    It adds no property to window.
     """
     return page.locator(selector).evaluate_handle(_CLOSE_WATCH_JS)
 

@@ -27,6 +27,7 @@ After the code-review fixes of 2026-10-09: 61 tests, 61 pass, 0 fail. The one ad
 Changed 2026-10-09 (security SEC-01 to SEC-03, ORCH): the two struck lines were the first build's counts and no longer hold. `node --test "tests/**/*.test.js"` now gives 64 tests, 64 pass, 0 fail, exit 0 (about 0.6 s, `eb2003b`). Per file: `dates.test.js` 15, `habits.test.js` 37, `sample-history.test.js` 7, `purity.test.js` 5. The three added tests are in `habits.test.js`: two streak-walk tests (SEC-01) and the name-length read count (SEC-02). SEC-03 widened two `purity.test.js` tests in place.
 Changed 2026-10-09 (security re-check SEC-01, ORCH): the 64 above held at `eb2003b`. After the re-check's SEC-01 fix the suite gives 66 tests, 66 pass, 0 fail, exit 0. Per file: `dates.test.js` 15, `habits.test.js` 39, `sample-history.test.js` 7, `purity.test.js` 5. The two added tests are in `habits.test.js`: 20,000 spellings of one far-out date in one pass, and invalid keys not counted.
 Every `test()` title starts with its `@R#` tag.
+Changed 2026-10-15 (code-review re-check WR-04). The counts above are 1.0's and no longer hold. Each v1.1.0 task section below gives its own run.
 
 ## Deviations
 

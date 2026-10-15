@@ -258,7 +258,7 @@ def test_R33_R40_p2_closes_and_gives_focus_back_to_its_year(app, viewport, actio
         box = dialog.locator(":scope > div.dlg-box").bounding_box()
         assert not (box["x"] <= 5 <= box["x"] + box["width"] and box["y"] <= 5 <= box["y"] + box["height"]), box
         page.mouse.click(5, 5)
-    wait_for_close(watch)  # the app's close handler has run, so the focus read is the app's (conftest watch_close)
+    wait_for_close(watch)  # the app's close handler has run (conftest watch_close)
     expect(year_btn(page, "Read 20 pages")).to_be_focused()
 
 
