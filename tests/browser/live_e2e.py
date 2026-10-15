@@ -52,8 +52,9 @@ READ, STRETCH = "Read 20 pages", "Stretch 10 minutes"
 PHONE, DESKTOP = (390, 844), (1280, 800)
 STEP_SECONDS = 5  # qa.md, 5 seconds per expectation
 POLL_MS = 100
-# A check that holds is read once more after this pause. The close event is a queued task, so in Chromium the browser's
-# own focus restore can show the opener focused before the app's close handler has run, and that must not pass a step.
+# A check that holds is read once more after this pause, so a step fails when something changes later, such as focus
+# moved away. It cannot tell the app's focus from the browser's. In Chromium the browser's own restore inside close()
+# lands on the same opener the app picks, so R40's return of focus is proven by the WebKit run.
 SETTLE_MS = 150
 PAUSE_MS = GUARD_WINDOW_MS + 100  # qa.md's 600 ms after a click inside a popup, for the page guard of R14
 CONTROLS = ("seeded",)
