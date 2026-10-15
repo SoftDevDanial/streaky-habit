@@ -134,13 +134,14 @@ def settle(page, cls):
 
 UNDER_JS = """([x, y, selector]) => {
   const node = document.elementFromPoint(x, y);
-  const control = node && node.closest('button, input');
+  const control = node && (node.localName === 'dialog' ? node : node.closest('button, input'));
   return !!control && control === node.closest(selector);
 }"""
 
 
 def under(page, point, selector):
-    """True when the topmost control at `point` is the one `selector` matches."""
+    """True when the topmost control at `point` is the one `selector` matches. A dialog element found at `point` is
+    its backdrop, the point lying outside its box."""
     return page.evaluate(UNDER_JS, [point[0], point[1], selector])
 
 
@@ -589,6 +590,14 @@ def open_p2_for_read(page):
     return "dlg-year"
 
 
+def open_p2_then_m1(page):
+    open_p2_for_read(page)
+    expect(dialog(page, "dlg-year")).to_have_attribute("open", "")
+    settle(page, "dlg-year")
+    p2_delete(page).click()
+    return "dlg-del"
+
+
 OPEN = {
     "M1 from Read's bin": open_m1_from_read,
     "P1 for 2026-09-22 from the band": open_p1_from_the_band,
@@ -596,6 +605,7 @@ OPEN = {
     "P3, then P1 for 2026-09-22": open_p3_then_p1,
     "P3, then P4 from its Year": open_p3_then_p4,
     "P2 for Read": open_p2_for_read,
+    "P2 for Read, then M1 from its Delete habit": open_p2_then_m1,
 }
 
 
@@ -625,23 +635,33 @@ def p3_open_and_no_p1(page):
     return open_dialogs(page) == ["dlg-ov"]
 
 
+def p2_still_open(page):
+    return open_dialogs(page) == ["dlg-year"]
+
+
+# A press outside a popup's box lands on the dialog element itself, its backdrop (UNDER_JS takes it as what lies there).
+P2_BACKDROP = "dialog.dlg-year"
+
+
 @pytest.mark.parametrize(
-    "viewport, how, popups, behind, result",
+    "viewport, how, popups, behind, at, result",
     [
-        pytest.param(PHONE, "mouse", "M1 from Read's bin", done_selector("Stretch 10 minutes"), stretch_not_done, id="390x844-mouse-M1"),
-        pytest.param(PHONE, "touch", "M1 from Read's bin", done_selector("Stretch 10 minutes"), stretch_not_done, id="390x844-touch-M1"),
-        pytest.param(DESKTOP, "mouse", "M1 from Read's bin", BAND_JULY_20, no_p1, id="1280x800-mouse-M1"),
-        pytest.param(DESKTOP, "touch", "M1 from Read's bin", BAND_JULY_20, no_p1, id="1280x800-touch-M1"),
-        pytest.param(DESKTOP, "mouse", "P1 for 2026-09-22 from the band", BAND_JULY_20, no_p1, id="1280x800-mouse-P1"),
-        pytest.param(PHONE, "mouse", "P3, then P1 for 2026-09-22", P3_OCTOBER_5, p3_open_and_no_p1, id="390x844-mouse-P3-then-P1"),
-        pytest.param(PHONE, "touch", "P3, then P1 for 2026-09-22", P3_OCTOBER_5, p3_open_and_no_p1, id="390x844-touch-P3-then-P1"),
+        pytest.param(PHONE, "mouse", "M1 from Read's bin", done_selector("Stretch 10 minutes"), None, stretch_not_done, id="390x844-mouse-M1"),
+        pytest.param(PHONE, "touch", "M1 from Read's bin", done_selector("Stretch 10 minutes"), None, stretch_not_done, id="390x844-touch-M1"),
+        pytest.param(DESKTOP, "mouse", "M1 from Read's bin", BAND_JULY_20, None, no_p1, id="1280x800-mouse-M1"),
+        pytest.param(DESKTOP, "touch", "M1 from Read's bin", BAND_JULY_20, None, no_p1, id="1280x800-touch-M1"),
+        pytest.param(DESKTOP, "mouse", "P1 for 2026-09-22 from the band", BAND_JULY_20, None, no_p1, id="1280x800-mouse-P1"),
+        pytest.param(PHONE, "mouse", "P3, then P1 for 2026-09-22", P3_OCTOBER_5, None, p3_open_and_no_p1, id="390x844-mouse-P3-then-P1"),
+        pytest.param(PHONE, "touch", "P3, then P1 for 2026-09-22", P3_OCTOBER_5, None, p3_open_and_no_p1, id="390x844-touch-P3-then-P1"),
+        pytest.param(DESKTOP, "mouse", "P2 for Read, then M1 from its Delete habit", P2_BACKDROP, (5, 5), p2_still_open, id="1280x800-mouse-P2-then-M1"),
     ],
 )
-def test_R14_a_double_press_on_a_backdrop_does_not_reach_the_control_behind_it(app, viewport, how, popups, behind, result):
+def test_R14_a_double_press_on_a_backdrop_does_not_reach_the_control_behind_it(app, viewport, how, popups, behind, at, result):
+    """`at` is the press point, or None for the centre of `behind`."""
     before = pretty(SAMPLE_HABITS)
     page = app(viewport=viewport, storage=before, touch=how == "touch", install_time=NOON)
     top = open_and_pause(page, popups)
-    point = centre(page.locator(behind))
+    point = at or centre(page.locator(behind))
     assert not inside(point, page.locator(f"dialog.{top} > div.dlg-box").bounding_box()), f"{behind} lies inside the top popup's box"
 
     press_twice(page, *point, how)

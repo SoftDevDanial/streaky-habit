@@ -282,7 +282,8 @@ function guardTapThrough(event) {
   const held = lastPopupPress && event.timeStamp - lastPopupPress.at < TAP_THROUGH_MS && lastPopupPress.beneath.includes(layer);
   if (held) {
     event.preventDefault();
-    // Immediate, because a click on a backdrop targets the dialog itself, where its own click listener would still run.
+    // A held click on a backdrop targets the dialog itself. Capture listeners run first at the target, so stopping here
+    // already keeps the dialog's own click listener from running. Immediate also stops a later capture listener here.
     event.stopImmediatePropagation();
     return;
   }
