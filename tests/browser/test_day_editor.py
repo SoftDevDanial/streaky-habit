@@ -27,6 +27,8 @@ from conftest import (
     stored,
     tick,
     twelve_state,
+    wait_for_close,
+    watch_close,
     write_count,
 )
 
@@ -121,6 +123,7 @@ def test_R36_R42_a_band_day_opens_p1(app):
 def test_R36_R40_p1_closes_and_gives_focus_back_to_its_day(app, action):
     page = app(viewport=DESKTOP, storage=sample_state())
     open_from_band(page, SEP_22)
+    watch = watch_close(page, "dialog.dlg-day")
     if action == "clicks Close":
         day_dialog(page).get_by_role("button", name="Close", exact=True).click()
     elif action == "presses Escape":
@@ -129,7 +132,7 @@ def test_R36_R40_p1_closes_and_gives_focus_back_to_its_day(app, action):
         box = day_dialog(page).locator(":scope > div.dlg-box").bounding_box()
         assert not (box["x"] <= 5 <= box["x"] + box["width"] and box["y"] <= 5 <= box["y"] + box["height"]), box
         page.mouse.click(5, 5)
-    page.wait_for_function("() => !document.querySelector('dialog.dlg-day').open", timeout=5000)
+    wait_for_close(watch)  # the app's close handler has run, so the reads below are the app's (conftest watch_close)
     expect(page.locator("button.hc.is-open")).to_have_count(0)
     expect(band_day(page, SEP_22)).to_be_focused()
 
@@ -261,13 +264,16 @@ def test_R36_on_a_phone_the_host_of_p1_gets_room_while_p1_is_open_over_it_and_lo
         if host == "P4":
             assert page.evaluate(PADDING_JS, "dlg-ov")[1] == "", "P3 beneath P4 got room"
 
+    # The room is released in the app's close handler, a queued task. In Chromium the browser's own focus restore can
+    # show the day focused before it runs, so the read waits for the close event (conftest watch_close).
+    watch = watch_close(page, "dialog.dlg-day")
     if action == "clicks the viewport point (5, 5)":
         box = found["sheet"]
         assert not (box["left"] <= 5 <= box["right"] and box["top"] <= 5 <= box["bottom"]), box
         page.mouse.click(5, 5)
     else:
         CLOSE_P1[action](page)
-    page.wait_for_function("() => !document.querySelector('dialog.dlg-day').open", timeout=5000)
+    wait_for_close(watch)
     expect(page.locator(f"dialog.{cls}")).to_have_attribute("open", "")
     expect(host_day(page, host, key)).to_be_focused()
     after = page.evaluate(SIGHT_JS, [cls, key])
@@ -313,8 +319,9 @@ def test_R36_R39_a_p4_day_opens_p1_over_p4_on_a_desktop(app):
     expect(band_day(page, SEP_22)).to_have_class(re.compile(r"\bis-open\b"))
     expect(p4_day(page, SEP_22)).to_have_class(re.compile(r"\bis-open\b"))
 
+    watch = watch_close(page, "dialog.dlg-day")
     page.keyboard.press("Escape")
-    page.wait_for_function("() => !document.querySelector('dialog.dlg-day').open", timeout=5000)
+    wait_for_close(watch)
     expect(page.locator("dialog.dlg-all")).to_have_attribute("open", "")
     expect(p4_day(page, SEP_22)).to_be_focused()
 

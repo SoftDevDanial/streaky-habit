@@ -28,6 +28,8 @@ from conftest import (
     sample_state,
     stats_tree,
     stored,
+    wait_for_close,
+    watch_close,
     write_count,
     year_btn,
     year_date,
@@ -247,6 +249,7 @@ def test_R33_R40_p2_closes_and_gives_focus_back_to_its_year(app, viewport, actio
     page = app(viewport=viewport, storage=sample_state())
     open_year(page, "Read 20 pages")
     dialog = year_dialog(page)
+    watch = watch_close(page, "dialog.dlg-year")
     if action == "clicks Close":
         dialog.get_by_role("button", name="Close", exact=True).click()
     elif action == "presses Escape":
@@ -255,7 +258,7 @@ def test_R33_R40_p2_closes_and_gives_focus_back_to_its_year(app, viewport, actio
         box = dialog.locator(":scope > div.dlg-box").bounding_box()
         assert not (box["x"] <= 5 <= box["x"] + box["width"] and box["y"] <= 5 <= box["y"] + box["height"]), box
         page.mouse.click(5, 5)
-    page.wait_for_function("() => !document.querySelector('dialog.dlg-year').open", timeout=5000)
+    wait_for_close(watch)  # the app's close handler has run, so the focus read is the app's (conftest watch_close)
     expect(year_btn(page, "Read 20 pages")).to_be_focused()
 
 
