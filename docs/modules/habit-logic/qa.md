@@ -4,6 +4,7 @@
 > Written by: the solutions architect (sdlc planner), 2026-10-08.
 > v1.1.0 delta by the planner (solutions architect role), 2026-10-13. Scenarios marked `(v1.1.0 changed)` replace their 1.0 form (kept in tag `v1.0.0`). Scenarios of retired requirements (R5, R11) are kept as text only under "Feature: Retired in v1.1.0" at the end of the Gherkin, each with a `# Retired in v1.1.0` comment, and their tests are removed. New scenarios carry `(v1.1.0 new)`. Every new or changed R# (R9, R10, R17, R18, R19, R20) has at least one scenario. Changed 2026-10-13 after the plan check (F10). The three retired scenarios first sat inside the live Features "Week strip and streaks" and "Heatmap", and one comment covered both `@R11` scenarios, so a tag count read `No habits means level 0` as live.
 > Changed 2026-10-15 in execute (planner touch after step 5, code review WR-02 of this module). The scenario "yearMonths reads no clock" now states what its test checks, a `Date` stand-in that throws on a clock read. The change carries its dated note. No scenario was added or removed.
+> Changed 2026-10-15 in the v1.1.0 regression (planner, solutions architect role, ledger H-06, owner ruling USER 2026-10-15 21:03, option 1). One `@R20` Scenario Outline is added, "yearMonths ends for every key and returns at most 13 months", for the bound on `yearMonths`. It is a contract. The test is written at task 9a and nothing is built yet. The file now holds 43 live scenarios and 3 retired ones, counted by script.
 
 ## How these scenarios run
 - This module has no UI. Its "running app" is the module code itself, exercised by Node's built-in test runner.
@@ -491,6 +492,45 @@ Feature: The year (v1.1.0 new)
     # included. An alias taken at module scope is the residual R16 names.
     Given globalThis.Date is a stand-in that throws when it is called with no argument and from Date.now
     Then yearMonths called twice with the same key gives equal results and throws nothing
+
+  @R20
+  Scenario Outline: yearMonths ends for every key and returns at most 13 months (v1.1.0 regression, H-06)
+    # Added 2026-10-15 in the v1.1.0 regression (planner, ledger H-06, owner ruling USER 2026-10-15 21:03, option 1,
+    # security finder SEC-R01). Contracted here and built at task 9a, not built yet. The two scenarios above keep the
+    # exact months of the valid keys and stay unchanged. This one holds only that the call ends and how many months
+    # it returns.
+    # Method. A call that may never end cannot be failed from its own thread. Each row calls yearMonths inside a worker
+    # thread (node:worker_threads) that has a heap limit and is stopped by a timer. The worker posts the number of
+    # months it got, or the error it threw. A worker stopped by the heap limit or by the timer, or one that posts
+    # nothing, is the outcome "did not end" and fails the row. The model is the security finder's probe_10_yearmonths.mjs
+    # in docs/modules/app/qa/regression-security/20261015-192841/, whose 256 MB heap limit the unchanged function
+    # reached in about 3.3 s. The timer is the solver's choice, with a wide margin over the bounded call (about a
+    # millisecond). The row for every day runs its loop in one worker, and the timer covers the whole loop.
+    # RED method. Before the bound lands, the rows for October to December of 10000 to 10009 fail with "did not end"
+    # and the three valid-key rows pass in the same run, which is the control that the worker harness works. The
+    # capture goes to docs/modules/habit-logic/qa/red-first/<datetimestamp>/. A hung or crashed runner, or a run cut
+    # off by the 120 second cap, is not a RED.
+    # The last three rows pin termination only. They do not pin the TypeError or the 11 months, which are the
+    # re-accepted SEC-05 residual (app spec, Threat model).
+    When yearMonths is called with "<today>" inside such a worker
+    Then the worker ends by itself within the timer and the heap limit
+    And <outcome>
+
+    Examples:
+      | today                                                                           | outcome                                    |
+      | 2026-10-10                                                                      | it returned 13 months                      |
+      | 0001-01-01                                                                      | it returned 13 months                      |
+      | 9999-12-31                                                                      | it returned 13 months                      |
+      | 10000-10-01                                                                     | it returned at most 13 months              |
+      | 10000-10-15                                                                     | it returned at most 13 months              |
+      | 10000-12-31                                                                     | it returned at most 13 months              |
+      | 10005-11-20                                                                     | it returned at most 13 months              |
+      | 10009-10-01                                                                     | it returned at most 13 months              |
+      | 10009-12-31                                                                     | it returned at most 13 months              |
+      | every day of October, November and December of the years 10000 to 10009 (920 keys) | it returned at most 13 months for each key |
+      | 10000-01-05                                                                     | it returned at most 13 months or threw     |
+      | 10010-10-15                                                                     | it returned at most 13 months or threw     |
+      | 100000-10-15                                                                    | it returned at most 13 months or threw     |
 
 Feature: Names and the habit list
 
