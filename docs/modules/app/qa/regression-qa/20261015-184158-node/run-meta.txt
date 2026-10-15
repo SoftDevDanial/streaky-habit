@@ -1,0 +1,10 @@
+suite: node
+stamp: 20261015-184158
+folder: {workspace}/examples/streaks/docs/modules/app/qa/regression-qa/20261015-184158-node
+head: ddf43f67ae8bd2b5c2e57df5db3344481daac0df
+command: node --test --test-reporter=spec --test-reporter-destination=stdout --test-reporter=junit --test-reporter-destination={workspace}/examples/streaks/docs/modules/app/qa/regression-qa/20261015-184158-node/junit.xml tests/**/*.test.js
+STREAKS_EVIDENCE_DIR: (unset)
+pid: 14340
+exit: 0
+status: finished
+seconds: 0.7

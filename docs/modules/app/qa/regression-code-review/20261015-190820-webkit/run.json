@@ -1,0 +1,137 @@
+{
+ "head": "ddf43f67ae8bd2b5c2e57df5db3344481daac0df",
+ "engine": "webkit",
+ "copy": "{temp}\\claude\\{project-id}\\34019cfb-f1a7-415f-a7eb-c47e4619e819\\scratchpad\\streaks-reg-cr\\tree-20261015-190820-webkit",
+ "test": "tests/browser/test_storage.py::test_R17_dismiss_with_the_field_disabled_moves_focus_to_the_pages_first_control_never_to_body",
+ "started": "2026-10-15T19:08:24",
+ "runs": [
+  {
+   "mutant": "C0",
+   "what": "control, HEAD unchanged",
+   "replace": null,
+   "with": null,
+   "pytest_pid": 5204,
+   "exit": 0,
+   "seconds": 7.8,
+   "port": 23833,
+   "port_refuses_after": true,
+   "rows": {
+    "390x844-12": "passed",
+    "1280x800-12": "passed",
+    "390x844-11": "passed"
+   },
+   "messages": {},
+   "expected_red": [],
+   "observed_red": [],
+   "as_expected": true
+  },
+  {
+   "mutant": "M1",
+   "what": "dismissNote as before task 27a, focus to the field always",
+   "replace": "  (field.disabled ? firstControl() : field).focus();",
+   "with": "  field.focus();",
+   "pytest_pid": 18012,
+   "exit": 1,
+   "seconds": 7.7,
+   "port": 37931,
+   "port_refuses_after": true,
+   "rows": {
+    "390x844-12": "failed",
+    "1280x800-12": "failed",
+    "390x844-11": "passed"
+   },
+   "messages": {
+    "390x844-12": "AssertionError: document.activeElement is 'body', not the Overview button\nassert False\n +  where False = evaluate('(node) => node === document.activeElement')\n +    where evaluate = <Locator frame=<Frame name= url='http://127.0.0.1:37931/'> selector='button.ov-btn'>.evaluate\n +      where <Locator f",
+    "1280x800-12": "AssertionError: document.activeElement is 'body', not the band's Year\nassert False\n +  where False = evaluate('(node) => node === document.activeElement')\n +    where evaluate = <Locator frame=<Frame name= url='http://127.0.0.1:37931/'> selector='section.band button.btn-all'>.evaluate\n +      where "
+   },
+   "expected_red": [
+    "1280x800-12",
+    "390x844-12"
+   ],
+   "observed_red": [
+    "1280x800-12",
+    "390x844-12"
+   ],
+   "as_expected": true
+  },
+  {
+   "mutant": "M2",
+   "what": "focus to firstControl() always (the builder's planted defect)",
+   "replace": "  (field.disabled ? firstControl() : field).focus();",
+   "with": "  firstControl().focus();",
+   "pytest_pid": 5080,
+   "exit": 1,
+   "seconds": 7.6,
+   "port": 53064,
+   "port_refuses_after": true,
+   "rows": {
+    "390x844-12": "passed",
+    "1280x800-12": "passed",
+    "390x844-11": "failed"
+   },
+   "messages": {
+    "390x844-11": "AssertionError: document.activeElement is 'Overview, today 0 of 11 habits done', not the field\nassert False\n +  where False = evaluate('(node) => node === document.activeElement')\n +    where evaluate = <Locator frame=<Frame name= url='http://127.0.0.1:53064/'> selector='#nh'>.evaluate\n +      where"
+   },
+   "expected_red": [
+    "390x844-11"
+   ],
+   "observed_red": [
+    "390x844-11"
+   ],
+   "as_expected": true
+  },
+  {
+   "mutant": "M3",
+   "what": "the Overview button hard-coded in place of firstControl()",
+   "replace": "  (field.disabled ? firstControl() : field).focus();",
+   "with": "  (field.disabled ? $(\"button.ov-btn\") : field).focus();",
+   "pytest_pid": 18800,
+   "exit": 1,
+   "seconds": 7.6,
+   "port": 14942,
+   "port_refuses_after": true,
+   "rows": {
+    "390x844-12": "passed",
+    "1280x800-12": "failed",
+    "390x844-11": "passed"
+   },
+   "messages": {
+    "1280x800-12": "AssertionError: document.activeElement is 'body', not the band's Year\nassert False\n +  where False = evaluate('(node) => node === document.activeElement')\n +    where evaluate = <Locator frame=<Frame name= url='http://127.0.0.1:14942/'> selector='section.band button.btn-all'>.evaluate\n +      where "
+   },
+   "expected_red": [
+    "1280x800-12"
+   ],
+   "observed_red": [
+    "1280x800-12"
+   ],
+   "as_expected": true
+  },
+  {
+   "mutant": "M4",
+   "what": "firstControl() without its shown-control filter",
+   "replace": ".find((control) => !control.disabled && control.getClientRects().length > 0);",
+   "with": ".find((control) => !control.disabled);",
+   "pytest_pid": 8196,
+   "exit": 1,
+   "seconds": 7.6,
+   "port": 22376,
+   "port_refuses_after": true,
+   "rows": {
+    "390x844-12": "passed",
+    "1280x800-12": "failed",
+    "390x844-11": "passed"
+   },
+   "messages": {
+    "1280x800-12": "AssertionError: document.activeElement is 'body', not the band's Year\nassert False\n +  where False = evaluate('(node) => node === document.activeElement')\n +    where evaluate = <Locator frame=<Frame name= url='http://127.0.0.1:22376/'> selector='section.band button.btn-all'>.evaluate\n +      where "
+   },
+   "expected_red": [
+    "1280x800-12"
+   ],
+   "observed_red": [
+    "1280x800-12"
+   ],
+   "as_expected": true
+  }
+ ],
+ "finished": "2026-10-15T19:09:04"
+}

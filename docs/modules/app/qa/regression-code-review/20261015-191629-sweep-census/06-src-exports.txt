@@ -1,0 +1,91 @@
+HEAD ddf43f67ae8bd2b5c2e57df5db3344481daac0df
+command: git -C {workspace}\examples\streaks grep -n ^export HEAD -- src
+exit: 0
+
+HEAD:src/calendar.js:24:export const DAY_BUTTON = "button.hc";
+HEAD:src/calendar.js:27:export const dayButtonOf = (target) => target.closest(DAY_BUTTON);
+HEAD:src/calendar.js:33:export const beadOf = (target) => target.closest(BEAD);
+HEAD:src/calendar.js:46:export function dayPlace(control) {
+HEAD:src/calendar.js:55:export function dayControlAt({ control, grid, key }) {
+HEAD:src/calendar.js:61:export function element(tag, className = "", attributes = {}, text = "") {
+HEAD:src/calendar.js:70:export function svgElement(tag, attributes = {}) {
+HEAD:src/calendar.js:77:export function ringSvg() {
+HEAD:src/calendar.js:84:export function flagChange(node, className, changed) {
+HEAD:src/calendar.js:104:export function drawRing(svg, flags, { today = false, day } = {}) {
+HEAD:src/calendar.js:143:export function drawLegend(legend, habitCount) {
+HEAD:src/calendar.js:165:export function drawOverview(grid, cells, todayKey, { newestFirst, animate }) {
+HEAD:src/calendar.js:186:export function drawAllHabitsYear(months, habits, todayKey, animate) {
+HEAD:src/calendar.js:303:export function drawHabitYear(months, done, todayKey, animate) {
+HEAD:src/dates.js:76:export function localDateKey(date) {
+HEAD:src/dates.js:86:export function isDateKey(value) {
+HEAD:src/dates.js:98:export function addDays(key, days) {
+HEAD:src/dates.js:110:export function weekdayIndex(key) {
+HEAD:src/dates.js:130:export function dayParts(key) {
+HEAD:src/dates.js:143:export function shortDate(key) {
+HEAD:src/dates.js:151:export function longDate(key) {
+HEAD:src/dates.js:160:export function yearDate(key) {
+HEAD:src/dates.js:168:export function monthTitle(key) {
+HEAD:src/habits.js:23:export const MAX_HABITS = 12;
+HEAD:src/habits.js:24:export const MAX_NAME_LENGTH = 40;
+HEAD:src/habits.js:68:export function currentStreak(done, todayKey) {
+HEAD:src/habits.js:80:export function bestStreak(done) {
+HEAD:src/habits.js:96:export function yearStart(todayKey) {
+HEAD:src/habits.js:124:export function toggleDay(habits, index, dateKey, todayKey) {
+HEAD:src/habits.js:138:export function doneFlags(habits, dateKey) {
+HEAD:src/habits.js:165:export function heatmapCells(habits, todayKey) {
+HEAD:src/habits.js:192:export function monthLabels(todayKey) {
+HEAD:src/habits.js:226:export function yearMonths(todayKey) {
+HEAD:src/habits.js:256:export function validateName(raw, existingNames) {
+HEAD:src/habits.js:274:export function addHabit(habits, raw) {
+HEAD:src/habits.js:287:export function deleteHabit(habits, index) {
+HEAD:src/popups.js:31:export const dialogs = () => ({
+HEAD:src/popups.js:43:export const closeButtonOf = (dialog) => dialog.querySelector("button.icon-btn, div.dlg-actions > button.btn-secondary");
+HEAD:src/popups.js:46:export const confirmDeleteOf = (target) => target.closest("dialog.dlg-del button.btn-danger");
+HEAD:src/popups.js:49:export const yearDeleteOf = (target) => target.closest("dialog.dlg-year button.btn-del");
+HEAD:src/popups.js:66:export function renderDeleteTitle(name) {
+HEAD:src/popups.js:74:export function showPopup(dialog, focusTarget) {
+HEAD:src/popups.js:85:export function onBackdrop(dialog, event) {
+HEAD:src/popups.js:95:export function renderHabitYear(habit, todayKey, animate) {
+HEAD:src/popups.js:103:export function renderOverviewPopup(cells, todayKey, habitCount, animate) {
+HEAD:src/popups.js:110:export function renderAllHabitsYear(habits, todayKey, animate) {
+HEAD:src/popups.js:120:export function buildDayList(habits) {
+HEAD:src/popups.js:141:export function renderDayEditor(dayKey, habits, todayKey, animate) {
+HEAD:src/popups.js:172:export function openFocusOf(dialog) {
+HEAD:src/popups.js:177:export function tickIndexOf(target) {
+HEAD:src/popups.js:183:export function markOpenDay(dayKey) {
+HEAD:src/popups.js:193:export function keepDayInSight(dayButton) {
+HEAD:src/popups.js:212:export function clearDayRoom() {
+HEAD:src/ring.js:26:export function arcPath(i, n) {
+HEAD:src/ring.js:37:export function legendCounts(n) {
+HEAD:src/storage.js:12:export const STORAGE_KEY = "streaks.state";
+HEAD:src/storage.js:47:export function decodeState(raw) {
+HEAD:src/storage.js:61:export function encodeState(habits) {
+HEAD:src/storage.js:74:export function loadHabits() {
+HEAD:src/storage.js:95:export function saveHabits(habits) {
+HEAD:src/view.js:29:export const dayUnit = (count) => (count === 1 ? "day" : "days");
+HEAD:src/view.js:32:export function icon(symbolId, className = "") {
+HEAD:src/view.js:38:export function renderDate(todayKey) {
+HEAD:src/view.js:45:export function renderOverviewButton(todayFlags, animate) {
+HEAD:src/view.js:55:export function renderBand(cells, todayKey, habitCount, animate) {
+HEAD:src/view.js:66:export function renderRows(habits, todayKey, todayFlags, animate) {
+HEAD:src/view.js:122:export function renderStats(stats, current, best, animate) {
+HEAD:src/view.js:165:export function renderComposerLimit(full) {
+HEAD:src/view.js:181:export const composerText = () => $("#nh").value;
+HEAD:src/view.js:187:export function showNameError(error) {
+HEAD:src/view.js:195:export function clearNameError() {
+HEAD:src/view.js:202:export function emptyComposer() {
+HEAD:src/view.js:216:export function renderFrameFades() {
+HEAD:src/view.js:227:export function showLastRow() {
+HEAD:src/view.js:238:export function renderSaveWarning(failing) {
+HEAD:src/view.js:247:export function showResetNote() {
+HEAD:src/view.js:263:export const dismissOf = (target) => target.closest("div.banner.note > button.icon-btn");
+HEAD:src/view.js:271:export function dismissNote() {
+HEAD:src/view.js:282:export const firstControl = () =>
+HEAD:src/view.js:286:export const containers = () => ({ page: $("div.app"), frame: $("div.frame"), composer: $("form.composer"), field: $("#nh") });
+HEAD:src/view.js:292:export const habitIndexOf = (control) => rowsOf().indexOf(control.closest("li.row"));
+HEAD:src/view.js:295:export function doneTodayIndexOf(target) {
+HEAD:src/view.js:301:export const binOf = (target) => target.closest("button.btn-bin");
+HEAD:src/view.js:309:export function focusAfterDelete(position, fromYear) {
+HEAD:src/view.js:321:export const overviewButtonOf = (target) => target.closest("button.ov-btn");
+HEAD:src/view.js:324:export const allHabitsButtonOf = (target) => target.closest("button.btn-all");
+HEAD:src/view.js:327:export const yearButtonOf = (target) => target.closest("button.btn-year");

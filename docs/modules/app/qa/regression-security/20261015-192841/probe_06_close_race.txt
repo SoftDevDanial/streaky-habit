@@ -1,0 +1,14 @@
+$ timeout 400 python -u -B probe_06_close_race.py chromium webkit   (19:50:21 to 19:51:08, HEAD ddf43f6, the probe of 4e860ff unchanged, stdout saved with the Write tool)
+[server] started pid=15852 port=8126 dir={workspace}\examples\streaks
+chromium A {"M1 names H2, deleted ['H2']: matches title": 5, "M1 names None, deleted []: nothing": 6, "M1 names H1, deleted ['H1']: matches title": 1} page errors ["Cannot read properties of undefined (reading 'name')"]
+chromium B {"M1 names H2, deleted []: nothing": 4, "M1 names H2, deleted ['H2']: matches title": 8} page errors ["Cannot read properties of null (reading 'openerBox')"]
+chromium C {"P1 ['Friday 9 October', 'H1'], changed []: nothing": 7, "P1 ['Friday 9 October', 'H1'], changed [('H1', ['2026-10-09'])]: matches P1": 5} page errors []
+webkit A {"M1 names None, deleted []: nothing": 10, "M1 names H2, deleted ['H2']: matches title": 1, "M1 names H1, deleted ['H1']: matches title": 1} page errors ["undefined is not an object (evaluating 'state.habits[index].name')"]
+webkit B {"M1 names H2, deleted ['H2']: matches title": 12} page errors []
+webkit C {"P1 ['Friday 9 October', 'H1'], changed [('H1', ['2026-10-09'])]: matches P1": 4, "P1 ['Saturday 10 October', 'H1'], changed [('H1', ['2026-10-10'])]: matches P1": 2, "P1 ['Friday 9 October', 'H1'], changed []: nothing": 6} page errors []
+[server] stopped pid=15852 exit=1 port 8126 refuses=True
+
+Reading. 72 trials at automation speed. Every delete removed exactly the habit M1's title named (28 of 28), every
+tick changed exactly the day and habit P1 showed (11 of 11), and the other 33 did nothing. The same outcome classes as
+at 4e860ff (observation O1 there, it fails safe). The page errors are the known throws of a popup reopened before
+its previous close event ran.

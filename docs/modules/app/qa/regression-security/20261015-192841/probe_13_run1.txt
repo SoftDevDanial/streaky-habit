@@ -1,0 +1,26 @@
+$ timeout 400 python -u -B probe_13_delta.py chromium webkit   (run 1, 19:52:04 to 19:52:24, stdout saved with the Write tool)
+Run 1 is kept as a record. Chromium ran through. WebKit stopped at 390 x 844 in part 1, an instrument fault. The probe
+pressed Escape twice with no wait, the second before P1's close had settled, so P3 stayed open and the next click on
+a row's Year was intercepted by P3 (Playwright "dialog.dlg-full dlg-ov subtree intercepts pointer events", timeout
+5000 ms). Run 2 waits for each popup's close event before the next key, as the 4e860ff probes do.
+
+[server] started pid=22768 port=6347 dir={workspace}\examples\streaks
+{"engine": "chromium", "version": "149.0.7827.55"}
+Part 1, Chromium, 24 lines (2 states x 2 widths x 6 steps). Every line had "rowsMatchStored": true,
+"namesMatchStored": true, "overviewMatchesRows": true, "pageErrors": 0. Pressed counts by step for the three-habit
+state: boot 2, every row by keyboard 1, row 1 by mouse 2, P1 tick 1, P2 bead 0, rollover 1, at both widths. For the
+twelve object-key names: 6, 6, 7, 6, 5, 6, at both widths. The rollover lines read "today": "2026-10-11".
+Part 2, Chromium:
+{"engine": "chromium", "part": "Dismiss", "viewport": "390x844", "how": "mouse", "noteAtBoot": 1, "habitsAdded": 12, "fieldDisabled": true, "storedUnchangedByDismiss": true, "noteAfterDismiss": 0, "focus": "button.ov-btn", "noteAfterReload": 0, "rowsAfterReload": 12, "pageErrors": [], "clipboard": []}
+{"engine": "chromium", "part": "Dismiss", "viewport": "390x844", "how": "keyboard", "noteAtBoot": 1, "habitsAdded": 12, "fieldDisabled": true, "storedUnchangedByDismiss": true, "noteAfterDismiss": 0, "focus": "button.ov-btn", "noteAfterReload": 0, "rowsAfterReload": 12, "pageErrors": [], "clipboard": []}
+{"engine": "chromium", "part": "Dismiss", "viewport": "390x844", "how": "control field enabled", "noteAtBoot": 1, "habitsAdded": 0, "fieldDisabled": false, "storedUnchangedByDismiss": true, "noteAfterDismiss": 0, "focus": "input.input#nh", "noteAfterReload": 0, "rowsAfterReload": 0, "pageErrors": [], "clipboard": []}
+{"engine": "chromium", "part": "Dismiss", "viewport": "1280x800", "how": "mouse", "noteAtBoot": 1, "habitsAdded": 12, "fieldDisabled": true, "storedUnchangedByDismiss": true, "noteAfterDismiss": 0, "focus": "button.btn-all", "noteAfterReload": 0, "rowsAfterReload": 12, "pageErrors": [], "clipboard": []}
+{"engine": "chromium", "part": "Dismiss", "viewport": "1280x800", "how": "keyboard", "noteAtBoot": 1, "habitsAdded": 12, "fieldDisabled": true, "storedUnchangedByDismiss": true, "noteAfterDismiss": 0, "focus": "button.btn-all", "noteAfterReload": 0, "rowsAfterReload": 12, "pageErrors": [], "clipboard": []}
+{"engine": "chromium", "part": "Dismiss", "viewport": "1280x800", "how": "control field enabled", "noteAtBoot": 1, "habitsAdded": 0, "fieldDisabled": false, "storedUnchangedByDismiss": true, "noteAfterDismiss": 0, "focus": "input.input#nh", "noteAfterReload": 0, "rowsAfterReload": 0, "pageErrors": [], "clipboard": []}
+{"engine": "webkit", "version": "26.5"}
+Part 1, WebKit, the first 10 lines (the three-habit state, 1280 all six steps, 390 up to "P1 tick of today on row 2")
+all had "rowsMatchStored": true, "namesMatchStored": true, "overviewMatchesRows": true, "pageErrors": 0.
+[server] stopped pid=22768 exit=1 port 6347 refuses=True
+Traceback (most recent call last): ... probe_13_delta.py line 84, part1: s.page.locator("ul.rows > li.row button.btn-year").nth(0).click()
+playwright._impl._errors.TimeoutError: Locator.click: Timeout 5000ms exceeded.
+  - <svg aria-hidden="true" viewBox="0 0 40 40">...</svg> from <dialog open="" aria-modal="true" class="dlg-full dlg-ov" aria-labelledby="ov-title">...</dialog> subtree intercepts pointer events

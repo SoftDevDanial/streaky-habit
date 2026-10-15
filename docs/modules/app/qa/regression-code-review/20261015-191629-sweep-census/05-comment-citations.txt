@@ -1,0 +1,10 @@
+HEAD ddf43f67ae8bd2b5c2e57df5db3344481daac0df
+command: C:\Python314\python.exe -B {temp}\claude\{project-id}\34019cfb-f1a7-415f-a7eb-c47e4619e819\scratchpad\streaks-reg-cr\comment_citations.py {workspace}\examples\streaks
+exit: 0
+
+tests\dates.test.js:36: `${pad(date.getUTCFullYear(), 4)}-${pad(date.getUTCMonth() + 1, 2)}-${pad(date.getUTCDate(), 2)}` cites getUTCFullYear
+tests\dates.test.js:36: `${pad(date.getUTCFullYear(), 4)}-${pad(date.getUTCMonth() + 1, 2)}-${pad(date.getUTCDate(), 2)}` cites getUTCMonth
+tests\purity.test.js:28: `Temporal.PlainDate` cites PlainDate
+tests\purity.test.js:65: `const Clock = Date` cites Clock
+tests\browser\conftest.py:965: `test_R10_R32_enter_adds_...` cites test_R10_R32_enter_adds_
+tests\browser\test_platform.py:7: `test_R29_R25_...` cites test_R29_R25_

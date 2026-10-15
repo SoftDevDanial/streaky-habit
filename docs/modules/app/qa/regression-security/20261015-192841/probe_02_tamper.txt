@@ -1,0 +1,54 @@
+$ timeout 580 python -u -B probe_02_tamper.py chromium webkit   (19:42:30 to 19:42:50, HEAD ddf43f6, the probe of 4e860ff unchanged, stdout saved with the Write tool)
+[server] started pid=22752 port=3478 dir={workspace}\examples\streaks
+engine: "chromium"
+version: "149.0.7827.55"
+U not json: {"reset_with_note": true, "proto_clean": true, "errors": [], "console_errors": []}
+U json null: {"reset_with_note": true, "proto_clean": true, "errors": [], "console_errors": []}
+U array: {"reset_with_note": true, "proto_clean": true, "errors": [], "console_errors": []}
+U version 2: {"reset_with_note": true, "proto_clean": true, "errors": [], "console_errors": []}
+U version string: {"reset_with_note": true, "proto_clean": true, "errors": [], "console_errors": []}
+U habits missing: {"reset_with_note": true, "proto_clean": true, "errors": [], "console_errors": []}
+U habits object: {"reset_with_note": true, "proto_clean": true, "errors": [], "console_errors": []}
+U 13 habits: {"reset_with_note": true, "proto_clean": true, "errors": [], "console_errors": []}
+U duplicate ignoring case: {"reset_with_note": true, "proto_clean": true, "errors": [], "console_errors": []}
+U untrimmed name: {"reset_with_note": true, "proto_clean": true, "errors": [], "console_errors": []}
+U empty name: {"reset_with_note": true, "proto_clean": true, "errors": [], "console_errors": []}
+U 41 code points: {"reset_with_note": true, "proto_clean": true, "errors": [], "console_errors": []}
+U 41 emoji: {"reset_with_note": true, "proto_clean": true, "errors": [], "console_errors": []}
+U name number: {"reset_with_note": true, "proto_clean": true, "errors": [], "console_errors": []}
+U done string: {"reset_with_note": true, "proto_clean": true, "errors": [], "console_errors": []}
+U done 29 Feb 2026: {"reset_with_note": true, "proto_clean": true, "errors": [], "console_errors": []}
+U done 2026-1-1: {"reset_with_note": true, "proto_clean": true, "errors": [], "console_errors": []}
+U done leading space: {"reset_with_note": true, "proto_clean": true, "errors": [], "console_errors": []}
+U done trailing newline: {"reset_with_note": true, "proto_clean": true, "errors": [], "console_errors": []}
+U done number: {"reset_with_note": true, "proto_clean": true, "errors": [], "console_errors": []}
+U done object: {"reset_with_note": true, "proto_clean": true, "errors": [], "console_errors": []}
+U done year 0000: {"reset_with_note": true, "proto_clean": true, "errors": [], "console_errors": []}
+U done year 10000: {"reset_with_note": true, "proto_clean": true, "errors": [], "console_errors": []}
+U done far key: {"reset_with_note": true, "proto_clean": true, "errors": [], "console_errors": []}
+U done fullwidth digits: {"reset_with_note": true, "proto_clean": true, "errors": [], "console_errors": []}
+U habit as array: {"reset_with_note": true, "proto_clean": true, "errors": [], "console_errors": []}
+U habit null: {"reset_with_note": true, "proto_clean": true, "errors": [], "console_errors": []}
+U name only in __proto__: {"reset_with_note": true, "proto_clean": true, "errors": [], "console_errors": []}
+U version only in __proto__: {"reset_with_note": true, "proto_clean": true, "errors": [], "console_errors": []}
+R extra and __proto__ keys: {"view": {"rows": 1, "empty": 0, "note": 0, "warn": 0}, "stored_unchanged_after_load": true, "proto_clean": true, "p4_day_keys": [366, "2025-10-10", "2026-10-10"], "p2_bead_keys": [366, "2025-10-10", "2026-10-10"], "p2_stats": "Current1dayBest1", "band_day_keys": [83, "2026-07-20", "2026-10-10"], "p1_title": "Saturday 10 October", "saved_top_keys": ["habits", "version"], "saved_habit_keys": ["done", "name"], "saved_names_equal": true, "errors": [], "console_errors": []}
+R unsorted with duplicates: {"view": {"rows": 1, "empty": 0, "note": 0, "warn": 0}, "stored_unchanged_after_load": true, "proto_clean": true, "p4_day_keys": [366, "2025-10-10", "2026-10-10"], "p2_bead_keys": [366, "2025-10-10", "2026-10-10"], "p2_stats": "Current1dayBest2", "band_day_keys": [83, "2026-07-20", "2026-10-10"], "p1_title": "Saturday 10 October", "saved_top_keys": ["habits", "version"], "saved_habit_keys": ["done", "name"], "saved_names_equal": true, "errors": [], "console_errors": []}
+R dates outside the year: {"view": {"rows": 1, "empty": 0, "note": 0, "warn": 0}, "stored_unchanged_after_load": true, "proto_clean": true, "p4_day_keys": [366, "2025-10-10", "2026-10-10"], "p2_bead_keys": [366, "2025-10-10", "2026-10-10"], "p2_stats": "Current2daysBest4", "band_day_keys": [83, "2026-07-20", "2026-10-10"], "p1_title": "Saturday 10 October", "saved_top_keys": ["habits", "version"], "saved_habit_keys": ["done", "name"], "saved_names_equal": true, "saved_done": ["0001-01-01", "1999-12-31", "2025-10-08", "2025-10-09", "2025-10-10", "2026-10-09", "2026-10-11", "2026-10-12", "2027-01-01", "9999-12-31"], "errors": [], "console_errors": []}
+R object-key names: {"view": {"rows": 12, "empty": 0, "note": 0, "warn": 0}, "stored_unchanged_after_load": true, "proto_clean": true, "p4_day_keys": [366, "2025-10-10", "2026-10-10"], "p2_bead_keys": [366, "2025-10-10", "2026-10-10"], "p2_stats": "CurrentNo streak yet", "band_day_keys": [83, "2026-07-20", "2026-10-10"], "p1_title": "Saturday 10 October", "saved_top_keys": ["habits", "version"], "saved_habit_keys": ["done", "name"], "saved_names_equal": true, "errors": [], "console_errors": []}
+R control and lone surrogate names: {"view": {"rows": 10, "empty": 0, "note": 0, "warn": 0}, "stored_unchanged_after_load": false, "proto_clean": true, "p4_day_keys": [366, "2025-10-10", "2026-10-10"], "p2_bead_keys": [366, "2025-10-10", "2026-10-10"], "p2_stats": "CurrentNo streak yet", "band_day_keys": [83, "2026-07-20", "2026-10-10"], "p1_title": "Saturday 10 October", "saved_top_keys": ["habits", "version"], "saved_habit_keys": ["done", "name"], "saved_names_equal": true, "errors": [], "console_errors": []}
+R deep nesting in an extra key: {"view": {"rows": 0, "empty": 1, "note": 0, "warn": 0}, "stored_unchanged_after_load": true, "proto_clean": true, "errors": [], "console_errors": []}
+R 4 MB extra string: {"view": {"rows": 1, "empty": 0, "note": 0, "warn": 0}, "stored_unchanged_after_load": true, "proto_clean": true, "p4_day_keys": [366, "2025-10-10", "2026-10-10"], "p2_bead_keys": [366, "2025-10-10", "2026-10-10"], "p2_stats": "CurrentNo streak yet", "band_day_keys": [83, "2026-07-20", "2026-10-10"], "p1_title": "Saturday 10 October", "saved_top_keys": ["habits", "version"], "saved_habit_keys": ["done", "name"], "saved_names_equal": true, "errors": [], "console_errors": []}
+DOM data-key edits: {"band '2027-01-01'": {"p1_title": "Friday 1 January", "stored_unchanged": true}, "band '2025-10-09'": {"p1_title": "Thursday 9 October", "stored_unchanged": true}, "band '1999-01-01'": {"p1_title": "Friday 1 January", "stored_unchanged": true}, "band '__proto__'": {"p1_title": "undefined undefined undefined", "stored_unchanged": true}, "band ''": {"p1_title": "undefined undefined undefined", "stored_unchanged": true}, "band '2026-02-30'": {"p1_title": "Monday 30 February", "stored_unchanged": true}, "band '2026-10-01x2026-10-01'": {"p1_title": "undefined NaN October", "stored_unchanged": true}, "bead '2027-01-01'": {"stored_unchanged": true}, "bead '2025-10-09'": {"stored_unchanged": true}, "bead '__proto__'": {"stored_unchanged": true}, "errors": []}
+[chromium] 6.6 s
+engine: "webkit"
+version: "26.5"
+U lines: all 29 identical to chromium's above, each {"reset_with_note": true, "proto_clean": true, "errors": [], "console_errors": []} (checked line by line on screen before writing this file)
+R lines: all 7 identical to chromium's above, field for field (the same stored_unchanged_after_load false for "control and lone surrogate names")
+DOM data-key edits: identical to chromium's above, every stored_unchanged true, "errors": []
+[webkit] 11.3 s
+[server] stopped pid=22752 exit=1 port 3478 refuses=True
+[server] non-GET lines: []
+
+Reading. The same results as the 4e860ff run (docs/modules/app/qa/security/20261015-131500/probe_02_tamper.txt).
+The one false, stored_unchanged_after_load for "control and lone surrogate names", is the probe's read through the
+Playwright protocol, not a write. probe_02b_surrogate_write.txt compares inside the page.

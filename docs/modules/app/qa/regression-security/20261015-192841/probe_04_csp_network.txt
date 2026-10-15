@@ -1,0 +1,39 @@
+$ timeout 580 python -u -B run_04.py chromium webkit   (19:43:52 to 19:44:11, HEAD ddf43f6, the probe of 4e860ff unchanged, stdout saved with the Write tool)
+[server] started pid=22912 port=3316 dir={workspace}\examples\streaks
+[server] started pid=23728 port=58456 dir={workspace}\examples\streaks\docs\modules\app\qa\regression-security\20261015-192841
+engine: "chromium"
+version: "149.0.7827.55"
+attempts: {"fetch cross-origin": "threw: TypeError", "fetch same-origin": "threw: TypeError", "xhr": "threw: Error", "websocket": "threw: Error", "eventsource": "ran: error event", "sendBeacon": "ran: true", "img": "ran: error", "stylesheet link": "ran: error", "inline style @import and url()": "ran: added", "style attribute url()": "ran: url(\"http://127.0.0.1:58456/at", "iframe": "ran: load", "object": "ran: added", "embed": "ran: added", "audio": "ran: error", "prefetch link": "ran: added", "external script": "ran: error", "inline script": "ran: added", "inline handler": "ran: added", "eval": "threw: EvalError", "new Function": "threw: EvalError", "string setTimeout": "ran: scheduled", "dynamic import": "threw: TypeError", "blob worker": "ran: [object Worker]", "base element": "ran: http://127.0.0.1:3316/", "form submit": "ran: submitted"}
+canary_lines_from_attempts: []
+violations: ["base-uri", "connect-src", "default-src", "form-action", "frame-src", "img-src", "media-src", "object-src", "script-src", "script-src-attr", "script-src-elem", "style-src-elem", "worker-src"]
+pwned_markers: []
+attempt_page_errors: []
+popups_opened: 0
+flows 1280x800: {"warning_shown_on_failed_save": 1, "date_after_rollover": "Sunday 11 October", "thrown_value_read": [], "requests": ["GET /", "GET /src/app.js", "GET /src/calendar.js", "GET /src/dates.js", "GET /src/habits.js", "GET /src/popups.js", "GET /src/ring.js", "GET /src/storage.js", "GET /src/styles.css", "GET /src/view.js"], "query_strings": [], "violations": [], "errors": [], "console_errors": [], "clipboard": [], "window_added": [], "window_missing": []}
+flows 390x844: {"warning_shown_on_failed_save": 1, "date_after_rollover": "Sunday 11 October", "thrown_value_read": [], "requests": ["GET /", "GET /src/app.js", "GET /src/calendar.js", "GET /src/dates.js", "GET /src/habits.js", "GET /src/popups.js", "GET /src/ring.js", "GET /src/storage.js", "GET /src/styles.css", "GET /src/view.js"], "query_strings": [], "violations": [], "errors": [], "console_errors": [], "clipboard": [], "window_added": [], "window_missing": []}
+boot with storage denied: {"warn": 1, "rows_or_empty": 1, "errors": [], "requests": ["GET /", "GET /src/app.js", "GET /src/calendar.js", "GET /src/dates.js", "GET /src/habits.js", "GET /src/popups.js", "GET /src/ring.js", "GET /src/storage.js", "GET /src/styles.css", "GET /src/view.js"]}
+query and fragment: {"?demo=1": {"body_equal": true, "storage_keys": 0}, "?seed": {"body_equal": true, "storage_keys": 0}, "#sample": {"body_equal": true, "storage_keys": 0}, "?sample=1&seed=1&demo=true#sample": {"body_equal": true, "storage_keys": 0}, "?state=%7B%22version%22%3A1%7D": {"body_equal": true, "storage_keys": 0}, "index.html?debug=1": {"body_equal": true, "storage_keys": 0}}
+icon as image: ["load", 150]
+icon violations: []
+engine: "webkit"
+version: "26.5"
+attempts: {"fetch cross-origin": "threw: TypeError", "fetch same-origin": "threw: TypeError", "xhr": "threw: Error", "websocket": "threw: SecurityError", "eventsource": "threw: SecurityError", "sendBeacon": "ran: true", "img": "ran: error", "stylesheet link": "ran: error", "inline style @import and url()": "ran: added", "style attribute url()": "ran: url(\"http://127.0.0.1:58456/at", "iframe": "ran: no event", "object": "ran: added", "embed": "ran: added", "audio": "ran: error", "prefetch link": "ran: added", "external script": "ran: error", "inline script": "ran: added", "inline handler": "ran: added", "eval": "threw: EvalError", "new Function": "threw: EvalError", "string setTimeout": "ran: scheduled", "dynamic import": "threw: TypeError", "blob worker": "ran: [object Worker]", "base element": "ran: http://127.0.0.1:3316/", "form submit": "ran: submitted"}
+canary_lines_from_attempts: []
+violations: ["base-uri", "connect-src", "form-action", "frame-src", "img-src", "media-src", "object-src", "script-src", "script-src-attr", "script-src-elem", "style-src-elem", "worker-src"]
+pwned_markers: []
+attempt_page_errors: []
+popups_opened: 0
+flows 1280x800: {"warning_shown_on_failed_save": 1, "date_after_rollover": "Sunday 11 October", "thrown_value_read": [], "requests": ["GET /", "GET /src/app.js", "GET /src/calendar.js", "GET /src/dates.js", "GET /src/habits.js", "GET /src/popups.js", "GET /src/ring.js", "GET /src/storage.js", "GET /src/styles.css", "GET /src/view.js"], "query_strings": [], "violations": [], "errors": [], "console_errors": [], "clipboard": [], "window_added": [], "window_missing": []}
+flows 390x844: {"warning_shown_on_failed_save": 1, "date_after_rollover": "Sunday 11 October", "thrown_value_read": [], "requests": ["GET /", "GET /src/app.js", "GET /src/calendar.js", "GET /src/dates.js", "GET /src/habits.js", "GET /src/popups.js", "GET /src/ring.js", "GET /src/storage.js", "GET /src/styles.css", "GET /src/view.js"], "query_strings": [], "violations": [], "errors": [], "console_errors": [], "clipboard": [], "window_added": [], "window_missing": []}
+boot with storage denied: {"warn": 1, "rows_or_empty": 1, "errors": [], "requests": ["GET /", "GET /src/app.js", "GET /src/calendar.js", "GET /src/dates.js", "GET /src/habits.js", "GET /src/popups.js", "GET /src/ring.js", "GET /src/storage.js", "GET /src/styles.css", "GET /src/view.js"]}
+query and fragment: {"?demo=1": {"body_equal": true, "storage_keys": 0}, "?seed": {"body_equal": true, "storage_keys": 0}, "#sample": {"body_equal": true, "storage_keys": 0}, "?sample=1&seed=1&demo=true#sample": {"body_equal": true, "storage_keys": 0}, "?state=%7B%22version%22%3A1%7D": {"body_equal": true, "storage_keys": 0}, "index.html?debug=1": {"body_equal": true, "storage_keys": 0}}
+icon as image: ["load", 150]
+icon violations: []
+[server] stopped pid=23728 exit=1 port 58456 refuses=True
+[server] stopped pid=22912 exit=1 port 3316 refuses=True
+[canary] all lines: []
+[app server] non-GET or query lines: ['127.0.0.1 - - [15/Oct/2026 19:44:00] "GET /?demo=1 HTTP/1.1" 200 -', '127.0.0.1 - - [15/Oct/2026 19:44:00] "GET /?seed HTTP/1.1" 200 -', '127.0.0.1 - - [15/Oct/2026 19:44:01] "GET /?sample=1&seed=1&demo=true HTTP/1.1" 200 -', '127.0.0.1 - - [15/Oct/2026 19:44:01] "GET /?state=%7B%22version%22%3A1%7D HTTP/1.1" 200 -', '127.0.0.1 - - [15/Oct/2026 19:44:01] "GET /index.html?debug=1 HTTP/1.1" 200 -', '127.0.0.1 - - [15/Oct/2026 19:44:09] "GET /?demo=1 HTTP/1.1" 200 -', '127.0.0.1 - - [15/Oct/2026 19:44:09] "GET /?seed HTTP/1.1" 200 -', '127.0.0.1 - - [15/Oct/2026 19:44:10] "GET /?sample=1&seed=1&demo=true HTTP/1.1" 200 -', '127.0.0.1 - - [15/Oct/2026 19:44:10] "GET /?state=%7B%22version%22%3A1%7D HTTP/1.1" 200 -', '127.0.0.1 - - [15/Oct/2026 19:44:10] "GET /index.html?debug=1 HTTP/1.1" 200 -']
+
+Reading. The canary origin logged 0 requests from 25 attempts in each engine. The query-string lines of the app
+server are the probe's own Part 3 navigations, which boot exactly like "/". The flows made only same-origin GET
+requests with no query string, 0 console or page errors, 0 window properties added, 0 clipboard markers.

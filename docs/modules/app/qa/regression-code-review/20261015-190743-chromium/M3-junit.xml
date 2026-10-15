@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="3" time="2.997" timestamp="2026-10-15T19:08:01.173284+08:00" hostname="{host}"><testcase classname="tests.browser.test_storage" name="test_R17_dismiss_with_the_field_disabled_moves_focus_to_the_pages_first_control_never_to_body[390x844-12]" time="1.148" /><testcase classname="tests.browser.test_storage" name="test_R17_dismiss_with_the_field_disabled_moves_focus_to_the_pages_first_control_never_to_body[1280x800-12]" time="1.012"><failure message="AssertionError: document.activeElement is 'body', not the band's Year&#10;assert False&#10; +  where False = evaluate('(node) =&gt; node === document.activeElement')&#10; +    where evaluate = &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:47205/'&gt; selector='section.band button.btn-all'&gt;.evaluate&#10; +      where &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:47205/'&gt; selector='section.band button.btn-all'&gt; = locator('section.band button.btn-all')&#10; +        where locator = &lt;Page url='http://127.0.0.1:47205/'&gt;.locator">app = &lt;function app.&lt;locals&gt;.open_page at 0x0000025C2B7C40F0&gt;
+viewport = (1280, 800), count = 12, field_state = 'disabled'
+target = 'section.band button.btn-all', what = "the band's Year"
+name = 'Year view, all habits'
+
+    @pytest.mark.parametrize(
+        "viewport, count, field_state, target, what, name",
+        [
+            pytest.param(PHONE, 12, "disabled", "button.ov-btn", "the Overview button", "Overview, today 0 of 12 habits done", id="390x844-12"),
+            pytest.param(DESKTOP, 12, "disabled", "section.band button.btn-all", "the band's Year", "Year view, all habits", id="1280x800-12"),
+            pytest.param(PHONE, 11, "enabled", "#nh", "the field", None, id="390x844-11"),
+        ],
+    )
+    def test_R17_dismiss_with_the_field_disabled_moves_focus_to_the_pages_first_control_never_to_body(
+        app, viewport, count, field_state, target, what, name
+    ):
+        """The habits are added by gesture while the note shows, because only an unreadable value shows the note and a
+        seeded twelve would load without it. The twelfth add disables the field (R12) before Dismiss is pressed."""
+        page = app(viewport=viewport, storage="{")
+        for n in range(1, count + 1):
+            add_habit(page, f"Habit {n}", enter=True)
+            expect(page.locator("ul.rows &gt; li.row")).to_have_count(n)
+        field = page.locator("#nh")
+        expect(page.locator("div.banner.note")).to_have_count(1)
+        assert field.is_disabled() == (field_state == "disabled"), f"precondition, the field is not {field_state}"
+        saved = stored(page)
+        assert saved == plain_state(count), "storage does not hold the habits in the order added"
+    
+        page.get_by_role("button", name="Dismiss note", exact=True).click()
+        expect(page.locator("div.banner.note")).to_have_count(0)
+        expect(page.locator("ul.rows &gt; li.row")).to_have_count(count)
+&gt;       assert page.locator(target).evaluate("(node) =&gt; node === document.activeElement"), (
+            f"document.activeElement is {focused(page)!r}, not {what}"
+        )
+E       AssertionError: document.activeElement is 'body', not the band's Year
+E       assert False
+E        +  where False = evaluate('(node) =&gt; node === document.activeElement')
+E        +    where evaluate = &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:47205/'&gt; selector='section.band button.btn-all'&gt;.evaluate
+E        +      where &lt;Locator frame=&lt;Frame name= url='http://127.0.0.1:47205/'&gt; selector='section.band button.btn-all'&gt; = locator('section.band button.btn-all')
+E        +        where locator = &lt;Page url='http://127.0.0.1:47205/'&gt;.locator
+
+tests\browser\test_storage.py:294: AssertionError</failure></testcase><testcase classname="tests.browser.test_storage" name="test_R17_dismiss_with_the_field_disabled_moves_focus_to_the_pages_first_control_never_to_body[390x844-11]" time="0.788" /></testsuite></testsuites>

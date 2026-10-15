@@ -1,0 +1,19 @@
+HEAD ddf43f67ae8bd2b5c2e57df5db3344481daac0df
+command: C:\Python314\python.exe -B {temp}\claude\{project-id}\34019cfb-f1a7-415f-a7eb-c47e4619e819\scratchpad\streaks-reg-cr\js_unused_imports.py {workspace}\examples\streaks\src\app.js {workspace}\examples\streaks\src\calendar.js {workspace}\examples\streaks\src\dates.js {workspace}\examples\streaks\src\habits.js {workspace}\examples\streaks\src\popups.js {workspace}\examples\streaks\src\ring.js {workspace}\examples\streaks\src\storage.js {workspace}\examples\streaks\src\view.js {workspace}\examples\streaks\tests\dates.test.js {workspace}\examples\streaks\tests\habits.test.js {workspace}\examples\streaks\tests\purity.test.js {workspace}\examples\streaks\tests\ring.test.js {workspace}\examples\streaks\tests\sample-history.test.js {workspace}\examples\streaks\tests\storage.test.js {workspace}\examples\streaks\tests\fixtures\sample.js
+exit: 0
+
+app.js: clean
+calendar.js: clean
+dates.js: clean
+habits.js: clean
+popups.js: ['local $ never used']
+ring.js: clean
+storage.js: clean
+view.js: ['local $ never used']
+dates.test.js: clean
+habits.test.js: clean
+purity.test.js: ['local readSource never used']
+ring.test.js: clean
+sample-history.test.js: clean
+storage.test.js: clean
+sample.js: clean

@@ -28,7 +28,7 @@
 
 ## What it does
 
-- **Add a habit**, up to 12, each with a name of up to 40 characters. A name error shows above the field when you press Add, and typing clears it.
+- **Add a habit**, up to 12, each with a name of up to 40 characters. A name error shows above the field when you press Add or Enter, and typing clears it.
 - **Done today.** Each habit row has a Done today button. Press it again to untick today.
 - **Current and Best.** Each row shows the current streak and the best one, each with its label.
 - **Edit any past day, up to 12 months back.** Tap a day in the overview to open the day editor, a list of every habit with a tick for that day.
@@ -109,7 +109,7 @@ model notes) and `docs/modules/app/findings/security.md`.
 | If storage is blocked or full, changes stay on screen but are not saved, with no message | 1.0.0 | 1.1.0 shows a warning while saving fails |
 | Private browsing, Safari's 7-day clean-up of site data and clearing site data lose every habit, with no failure the page can see | 1.1.0 | kept, the browser reports nothing the page could show |
 | A name made of many combining marks draws over its neighbours | 1.0.0 | kept, cosmetic, typed by the user or planted by another page on the same origin |
-| With the device clock set to the year 10000 or later, the app saves a day it cannot read back, and the next load resets every habit. In 1.1.0 the year views also do not open | 1.0.0 | kept |
+| With the device clock set to the year 10000 or later, Done today does nothing and the year views and the overview popup fail to open, but nothing unreadable is saved and a reload keeps every habit (1.0 reset every habit). From October to December of those years, opening a year view freezes the tab, open with the owner (ledger H-06) | 1.0.0 | kept |
 | In a desktop browser window narrower than 768 px with classic scrollbars, the overview popup shows a thin scrollbar while the day editor is open over it | 1.1.0 | kept, the room that keeps the chosen day in sight makes the popup scroll |
 | Only Chromium is tested. Safari and Firefox are not verified | 1.0.0 | 1.1.0 tests Chromium and WebKit, Safari's engine. Firefox is not verified |
 
@@ -127,9 +127,9 @@ calendar dates written `YYYY-MM-DD`.
 
 **`app`** (`index.html` and the rest of `src/`) is the page.
 - `src/app.js` boots the page (`boot`) and handles every gesture. `readToday` is the only place the clock is read. After every edit, `edit` saves once (`saveHabits`) and `render` redraws every view and every open popup. `checkDay` moves the page to a new day every 30 seconds (`DAY_CHECK_MS`) and when the tab is shown again.
-- `src/view.js` owns the page's selectors and draws the main column, the rows (`renderRows`), the streak line (`renderStats`), the composer and the two banners (`renderSaveWarning`, `showResetNote`).
+- `src/view.js` owns the main column's selectors and draws the main column, the rows (`renderRows`), the streak line (`renderStats`), the composer and the two banners (`renderSaveWarning`, `showResetNote`).
 - `src/calendar.js` draws the rings and day grids of the overview band and popup (`drawOverview`) and of the year views (`drawHabitYear`, `drawAllHabitsYear`). `src/ring.js` holds the ring geometry (`arcPath`, `legendCounts`).
-- `src/popups.js` fills the five popups (`renderDayEditor`, `renderHabitYear`, `renderOverviewPopup`, `renderAllHabitsYear`, `renderDeleteTitle`) and names the first focus of each (`openFocusOf`). On a phone, when the day editor opens over the overview, `keepDayInSight` gives that popup room so the chosen day stays in sight, and `clearDayRoom` takes the room back when the editor closes.
+- `src/popups.js` fills the five popups (`renderDayEditor`, `renderHabitYear`, `renderOverviewPopup`, `renderAllHabitsYear`, `renderDeleteTitle`) and names the first focus of each (`openFocusOf`). On a phone, when the day editor opens over the overview or over the all-habits year, `keepDayInSight` gives that popup room so the chosen day stays in sight, and `clearDayRoom` takes the room back from both when the editor closes.
 - `src/storage.js` saves and loads the list (`STORAGE_KEY`, `encodeState`, `decodeState`, `loadHabits`, `saveHabits`). `saveHabits` reports whether the save worked.
 - Every popup opens with `showModal()`. `onPopupClose` decides what a close does next, focus back to the control that opened it, or to `firstFocusOfTopLayer` when that control is gone. The delete guard is `isStrayPress`. `guardTapThrough` is the tap-through guard (`TAP_THROUGH_MS`), registered first, for the capture phase.
 - The delete dialog's title wraps the name in an isolate and leaves the name's text-direction control characters out of that copy (`TITLE_STRIPPED`), so a crafted name cannot reorder the question. The saved name is unchanged.

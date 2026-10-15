@@ -1,0 +1,24 @@
+$ timeout 500 python -u -B probe_05_bidi_layout.py chromium webkit   (19:44:51 to 19:45:04, HEAD ddf43f6, the probe of 4e860ff unchanged, stdout saved with the Write tool)
+[server] started pid=12936 port=5566 dir={workspace}\examples\streaks
+engine: "chromium"
+version: "149.0.7827.55"
+RLO prefix: {"p1 tstat": {"text": "Current 2 daysBest 2", "inOrder": true}, "p1 second tick": true, "tick, tname styles": ["grid/normal", "block/normal"], "p2 stats": {"text": "Current2daysBest2", "inOrder": true}, "p2 sub": true, "h2 style": "block/isolate", "m1 quotes in place": true, "row stats": true, "errors": []}
+RLO middle: {"p1 tstat": {"text": "Current 2 daysBest 2", "inOrder": true}, "p1 second tick": true, "tick, tname styles": ["grid/normal", "block/normal"], "p2 stats": {"text": "Current2daysBest2", "inOrder": true}, "p2 sub": true, "h2 style": "block/isolate", "m1 quotes in place": true, "row stats": true, "errors": []}
+RLE: {"p1 tstat": {"text": "Current 2 daysBest 2", "inOrder": true}, "p1 second tick": true, "tick, tname styles": ["grid/normal", "block/normal"], "p2 stats": {"text": "Current2daysBest2", "inOrder": true}, "p2 sub": true, "h2 style": "block/isolate", "m1 quotes in place": true, "row stats": true, "errors": []}
+LRI after alef: {"p1 tstat": {"text": "Current 2 daysBest 2", "inOrder": true}, "p1 second tick": true, "tick, tname styles": ["grid/normal", "block/normal"], "p2 stats": {"text": "Current2daysBest2", "inOrder": true}, "p2 sub": true, "h2 style": "block/isolate", "m1 quotes in place": true, "row stats": true, "errors": []}
+FSI after alef: {"p1 tstat": {"text": "Current 2 daysBest 2", "inOrder": true}, "p1 second tick": true, "tick, tname styles": ["grid/normal", "block/normal"], "p2 stats": {"text": "Current2daysBest2", "inOrder": true}, "p2 sub": true, "h2 style": "block/isolate", "m1 quotes in place": true, "row stats": true, "errors": []}
+PDI then RLO: {"p1 tstat": {"text": "Current 2 daysBest 2", "inOrder": true}, "p1 second tick": true, "tick, tname styles": ["grid/normal", "block/normal"], "p2 stats": {"text": "Current2daysBest2", "inOrder": true}, "p2 sub": true, "h2 style": "block/isolate", "m1 quotes in place": true, "row stats": true, "errors": []}
+U+2029 then RLO: {"p1 tstat": {"text": "Current 2 daysBest 2", "inOrder": true}, "p1 second tick": true, "tick, tname styles": ["grid/normal", "block/normal"], "p2 stats": {"text": "Current2daysBest2", "inOrder": true}, "p2 sub": true, "h2 style": "block/isolate", "m1 quotes in place": true, "row stats": true, "errors": []}
+U+0085 then RLO: {"p1 tstat": {"text": "Current 2 daysBest 2", "inOrder": true}, "p1 second tick": true, "tick, tname styles": ["grid/normal", "block/normal"], "p2 stats": {"text": "Current2daysBest2", "inOrder": true}, "p2 sub": true, "h2 style": "block/isolate", "m1 quotes in place": true, "row stats": true, "errors": []}
+40 x RLO: {"p1 tstat": {"text": "Current 2 daysBest 2", "inOrder": true}, "p1 second tick": true, "tick, tname styles": ["grid/normal", "block/normal"], "p2 stats": {"text": "Current2daysBest2", "inOrder": true}, "p2 sub": true, "h2 style": "block/isolate", "m1 quotes in place": true, "row stats": true, "errors": []}
+Hebrew word: {"p1 tstat": {"text": "Current 2 daysBest 2", "inOrder": true}, "p1 second tick": true, "tick, tname styles": ["grid/normal", "block/normal"], "p2 stats": {"text": "Current2daysBest2", "inOrder": true}, "p2 sub": true, "h2 style": "block/isolate", "m1 quotes in place": true, "row stats": true, "errors": []}
+plain control: {"p1 tstat": {"text": "Current 2 daysBest 2", "inOrder": true}, "p1 second tick": true, "tick, tname styles": ["grid/normal", "block/normal"], "p2 stats": {"text": "Current2daysBest2", "inOrder": true}, "p2 sub": true, "h2 style": "block/isolate", "m1 quotes in place": true, "row stats": true, "errors": []}
+layout 360x780: {"K1": [360, 780], "P1 over P3": [360, 360], "P2 and M1, name 1": [360, 360, 344, 323], "P2 and M1, name 2": [360, 360, 344, 323], "P2 and M1, name 4": [360, 360, 344, 323], "P2 and M1, name 10": [360, 360, 344, 323], "errors": []}
+engine: "webkit"
+version: "26.5"
+(the 11 name lines equal Chromium's above field for field, except "h2 style": "block/normal" in every one, as at 4e860ff)
+layout 360x780: {"K1": [360, 780], "P1 over P3": [360, 360], "P2 and M1, name 1": [360, 360, 344, 323], "P2 and M1, name 2": [360, 360, 344, 323], "P2 and M1, name 4": [360, 360, 344, 323], "P2 and M1, name 10": [360, 360, 344, 323], "errors": []}
+[server] stopped pid=12936 exit=1 port 5566 refuses=True
+
+Reading. Every bidi name leaves P1's tick numbers, P2's stats and the row's stats in order, M1's quotes stay in place,
+and no hostile name widens the page at 360 x 780, in both engines. The same as at 4e860ff.

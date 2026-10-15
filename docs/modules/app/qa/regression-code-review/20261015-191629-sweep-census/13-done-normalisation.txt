@@ -1,0 +1,9 @@
+HEAD ddf43f67ae8bd2b5c2e57df5db3344481daac0df
+command: git -C {workspace}\examples\streaks grep -n new Set( HEAD -- src
+exit: 0
+
+HEAD:src/calendar.js:312:  const doneDays = new Set(done);
+HEAD:src/habits.js:48:  return new Set(done.filter(isDateKey));
+HEAD:src/habits.js:107:  const days = new Set(habit.done);
+HEAD:src/ring.js:38:  return [...new Set([0, Math.ceil(n / 3), Math.ceil((2 * n) / 3), n])];
+HEAD:src/storage.js:29:  return { name: entry.name, done: [...new Set(entry.done)].sort() };

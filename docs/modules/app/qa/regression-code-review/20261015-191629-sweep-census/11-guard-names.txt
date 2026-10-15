@@ -1,0 +1,21 @@
+HEAD ddf43f67ae8bd2b5c2e57df5db3344481daac0df
+command: git -C {workspace}\examples\streaks grep -n -i -e page guard -e tap-through -e GUARD_WINDOW_MS -e TAP_THROUGH_MS HEAD -- src tests README.md
+exit: 0
+
+HEAD:README.md:134:- Every popup opens with `showModal()`. `onPopupClose` decides what a close does next, focus back to the control that opened it, or to `firstFocusOfTopLayer` when that control is gone. The delete guard is `isStrayPress`. `guardTapThrough` is the tap-through guard (`TAP_THROUGH_MS`), registered first, for the capture phase.
+HEAD:src/app.js:17:const TAP_THROUGH_MS = 500;
+HEAD:src/app.js:276: * The tap-through guard (R14, CG-11). A click that closes a popup sends the second click of the same gesture to the
+HEAD:src/app.js:277: * layer behind it. So for TAP_THROUGH_MS after a mouse or touch click inside a popup (its backdrop included), measured
+HEAD:src/app.js:283:  const held = lastPopupPress && event.timeStamp - lastPopupPress.at < TAP_THROUGH_MS && lastPopupPress.beneath.includes(layer);
+HEAD:tests/browser/conftest.py:55:# The page guard of spec R14 (CG-11). For this long after a mouse or touch click inside a popup, the page and any
+HEAD:tests/browser/conftest.py:58:GUARD_WINDOW_MS = 500
+HEAD:tests/browser/conftest.py:688:    """Let the page guard's window (GUARD_WINDOW_MS) pass, as the time between two deliberate clicks does.
+HEAD:tests/browser/conftest.py:694:    page.clock.run_for(GUARD_WINDOW_MS + 100)
+HEAD:tests/browser/live_e2e.py:30:    GUARD_WINDOW_MS,
+HEAD:tests/browser/live_e2e.py:59:PAUSE_MS = GUARD_WINDOW_MS + 100  # qa.md's 600 ms after a click inside a popup, for the page guard of R14
+HEAD:tests/browser/live_e2e.py:264:    reloads and one viewport change. Each pause waits out the page guard of R14 after a click inside a popup.
+HEAD:tests/browser/test_delete.py:2:(CG-10), the tap-through guard of every popup (CG-11) and focus after a delete (CG-18) (app qa.md, Feature "Delete a
+HEAD:tests/browser/test_delete.py:19:    GUARD_WINDOW_MS,
+HEAD:tests/browser/test_delete.py:558:# ------------------------------------------------------------------------------ the tap-through guard (R14, CG-11)
+HEAD:tests/browser/test_delete.py:755:    page.clock.run_for(GUARD_WINDOW_MS - 1)
+HEAD:tests/browser/test_delete.py:815:    page.clock.run_for(GUARD_WINDOW_MS)

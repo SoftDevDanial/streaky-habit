@@ -2,227 +2,82 @@
 module: app
 kind: code-review
 run: regression
-status: pass
-counts: { blocker: 0, warning: 0, info: 0 }
+status: clean
+counts: { blocker: 0, warning: 0, info: 3 }
 ---
-# Code review, regression pass: app
+# Code review, regression pass, app (v1.1.0)
 
-Written by the code-review finder (read-only), regression --full under the ORCH economy ruling (ledger row 44). Base: `git diff fa58481 9ebc54e -- src index.html tests`, project HEAD `b5b1f86` (src, `index.html` and tests are identical to `9ebc54e`; `git diff e42eb2f 9ebc54e --stat -- src index.html tests` is empty). `findings/code-review.md` (the first review and its solver section) was not touched. Evidence: `docs/modules/app/qa/regression-code-review/20261009T221155/`.
+Written by the code-review finder (read-only), 2026-10-15, for `sdlc:regression --full` at the tail of execute. HEAD `ddf43f6`. It replaces the 1.0 regression verdict of this file (2026-10-09, kept in git history). The step 5 verdict and its re-check stay in `findings/code-review.md`, untouched.
+
+Scope is `git diff c271938 HEAD -- src index.html tests`, the delta since the code-review re-check judged `c271938` (ledger S1 rows 14 and 17). It holds
+- task 27a, `dismissNote` in `src/view.js` (R17, owner ruling H-05, `4af5d75`) and its test `test_R17_dismiss_with_the_field_disabled_moves_focus_to_the_pages_first_control_never_to_body` in `tests/browser/test_storage.py`,
+- the targeted pass `a61cfc0` (WR-12, the `watch_close` docstring in `tests/browser/conftest.py` and five test comments, and habit-logic's WR-04 line in its `BUILD.md`),
+- one comment in `test_R22_R40_every_popup_can_be_used_with_the_keyboard_alone` (`tests/browser/test_platform.py`).
+
+habit-logic's `src/` is unchanged since `4e860ff`, so it has no delta here and its verdict stands. The cross-module sweep of the whole codebase is a separate verdict, `docs/regression/20261015-185800/consistency.md`.
+
+Evidence is under `docs/modules/app/qa/regression-code-review/`. Every run served a throwaway `git archive` copy of `ddf43f6` from the session scratchpad, with each mutant held in memory by the test server and never written to disk. Every browser was headless and every context had the suite's clipboard stand-in (`open_app` adds `CLIPBOARD_STANDIN`).
+- `20261015-190743-chromium/` and `20261015-190820-webkit/`, the mutant runs of the new test (`run.json` first, then each `<id>-pytest.txt` and `<id>-junit.xml`).
+- `20261015-191629-sweep-census/`, the read-only static checks (exports, imports, unread names, comment citations).
 
 ## Verdict
 
-**issues_found. 0 BLOCKER, 2 WARNING, 4 INFO.** The shipped source in the delta is correct. I found no bug, no unrequested code and no non-goal in the SEC-01 guards, the SEC-02 isolate or the SEC-06 strip, and the habit-logic seam is clean. What is weak is what the tests pin. I planted 21 mutants of the delta in memory and ran them against the committed tests: 15 died, 6 lived. One of the 6 is equivalent today. The other 5 are two real gaps in the SEC-01 tests, both on a requirement the spec states (RG-CR-01 and RG-CR-02). The rest is doc rot of the kind the constitution gives the reviewer to raise: four stale or loose lines in the README, a stale reconcile list in BUILD.md, a stale helper description in qa.md and two over-long comments.
+**clean. 0 BLOCKER, 0 WARNING, 3 INFO.** The task 27a change is correct, maps to R17 and its H-05 paragraph, and builds nothing the spec does not ask for. Its test is a real control in both engines. Four mutants of `dismissNote` and `firstControl` each die on the row that should catch them and on no other, and the control passes. The targeted pass changed only comments and one docstring, and they now say what the code does. The three INFO items are a function comment that names one of its two uses, a test line that can never be the one that fails, and a record that names a file that does not exist.
 
-Suites on the current tree: `node --test "tests/**/*.test.js"` 99 pass, 0 fail. `python -m pytest tests/browser -q -p no:cacheprovider` 176 passed, 0 skipped, both conftest servers stopped and refusing connections.
+### The mutant runs
+
+The test has three rows, `390x844-12` (the field disabled, the Overview button expected), `1280x800-12` (the field disabled, the band's Year expected) and `390x844-11` (the field enabled, the field expected).
+
+| Id | Mutant | Rows red, Chromium | Rows red, WebKit | Reading |
+|---|---|---|---|---|
+| C0 | none, HEAD as committed | none | none | the control passes |
+| M1 | `dismissNote` as before 27a, `field.focus()` always | `390x844-12`, `1280x800-12` | the same | the H-05 defect, "document.activeElement is 'body'" |
+| M2 | `firstControl().focus()` always | `390x844-11` | the same | the over-broad fix, focus on "Overview, today 0 of 11 habits done" |
+| M3 | the Overview button written in place of `firstControl()` | `1280x800-12` | the same | from 1024 px the CSS hides the Overview button, so focus falls to `body` |
+| M4 | `firstControl` without its filter `getClientRects().length > 0` | `1280x800-12` | the same | the same fall to `body` |
+
+M1 and M2 repeat the builder's RED of task 27a. M3 and M4 are new and show what the desktop row is for. It is the only row of the outline that guards the "first shown control" half of R17's rule, so a later thinning of the Examples table must keep it.
 
 ## BLOCKER
 
-None. Checked for the BLOCKER class and clean:
-- **Reverse audit.** Every new symbol maps to a dated ORCH note of R13: `DIALOG_GUARD_MS`, `withinGuard`, `dialogOpenedAt`, `dialogPressedAt`, `guardDialogClick`, `swallowTapThrough`, the `openingClick` parameter of `askToDelete` (SEC-01 note and Contracts "Guard window"); `view.containers().page` and `view.confirmButtonOf` (the same guards, BUILD judgment call 6); the `U+2068`/`U+2069` pair (SEC-02 note); `TITLE_STRIPPED` (SEC-06 note). The test helpers map to the same notes. No symbol maps to nothing.
-- **Non-goals.** None built. The page guard is a click swallow, not an `inert` attribute and not a `.scrim`. No timer, no clock read of its own (`readToday` is still the only `new Date`), no new copy string, no toast, no network, no `window` property (grep of `src/`).
-- **SEC-06 strip, security eye.** Details in "What I checked" below. It removes exactly the 14 code points of the R13 note, it cannot throw, and it touches only the title's copy.
-- **`src/view.js` bytes.** 13300 bytes, 0 non-ASCII bytes (read as bytes, not as text). The escapes are `\u{...}` text. `src/app.js`, `src/storage.js`, `src/dates.js`, `src/habits.js`, `src/styles.css`, `index.html` also hold 0 non-ASCII bytes.
+None. Checked for this class.
+- **Reverse audit.** The one changed function, `dismissNote`, maps to R17's paragraph of 2026-10-15 (H-05), the Events and focus line for R17, and task 27a. `firstControl` is unchanged and already maps to R19 (CG-14). The test maps to the `@R17` Scenario Outline "Dismiss with the field disabled moves focus to the page's first control, never to body". Nothing maps to no R#.
+- **Non-goals.** No markup, style, copy, motion, storage, timer, listener or `window` property added. `git diff c271938 HEAD --stat -- src index.html` shows `src/view.js` only.
+- **Behaviour traced.** The note is removed before `firstControl()` runs, so the Dismiss button cannot pick itself. With the field disabled there are twelve habits, so a shown, enabled control always exists (the Overview button below 1024 px, the band's Year from 1024 px), and `firstControl()` cannot return `undefined` on this path. A modal popup makes the page inert, so Dismiss cannot be pressed while one is open. Both widths agree with R22's tab order, whose first stop is the same control.
 
 ## WARNING
 
-### RG-CR-01: the 500 ms window is pinned only to "somewhere from 401 to 600 ms"   (test-strength)
-- **File and symbol:** `tests/browser/test_delete.py::test_SEC01_R13_a_click_inside_the_window_is_ignored_and_one_after_it_deletes` (`run_for(GUARD_WINDOW_MS - 100)`, then `run_for(200)`) and `::test_SEC01_R14_the_page_listens_again_once_the_window_has_passed` (the same pair). `tests/browser/conftest.py`: `GUARD_WINDOW_MS`, `let_guard_pass` (`GUARD_WINDOW_MS + 100`). Against `src/app.js`: `DIALOG_GUARD_MS`, `withinGuard`.
-- **Issue:** spec R13 says 500 ms and "less than 500 ms". The only tests that look at the edge click at 400 ms (must be ignored) and 600 ms (must act). Every other SEC-01 test presses twice at the same frozen instant (0 ms) or waits the full `let_guard_pass`. So any window length from 401 to 600 ms, and `<` versus `<=`, pass. `GUARD_WINDOW_MS` repeats the number, and "Keep it equal to DIALOG_GUARD_MS in src/app.js" is a comment nothing enforces.
-- **Proof (mutants, in memory):** `DIALOG_GUARD_MS = 450` (G-450), `= 600` (G-600) and `<=` in `withinGuard` (G-le) all leave `test_delete.py` at 65 of 65 and the whole suite at 175 passed, 1 skipped (the skip is the sub-path test, which the runner does not serve). 300 (G-300) and 700 (G-700) do die, so the tests bound the window, only loosely. The edge is measurable to the millisecond: `probe_edge.py` (paused clock, same setup as the suite) shows the pristine app holds at 400 and 499 ms and acts at 500, 501 and 600 ms, for the Delete habit guard, the page guard and the keyboard path. G-450 acts at 499, G-600 holds at 500 and 501, G-le holds at 500.
-- **Fix:** in the two tests replace the 400 ms and 200 ms steps with `page.clock.run_for(GUARD_WINDOW_MS - 1)` (still ignored) and then `page.clock.run_for(1)` (now acts). Keep `GUARD_WINDOW_MS = 500` as the spec number, so the tests fail for any other constant. The comment "Keep it equal" can then go, because the tests are what enforces it.
-
-### RG-CR-02: the keyboard paths of both guards have no committed test, and spec R13 states one of them   (test-strength)
-- **File and symbol:** `src/app.js::guardDialogClick` (no `event.detail` condition on the Delete habit veto) and `swallowTapThrough` (no `detail` condition either). Tests: none. `tests/browser/test_delete.py` has `test_SEC01_R15_enter_on_delete_habit_after_the_window_deletes` (after the window) and `test_SEC01_R14_closing_with_the_keyboard_does_not_hold_the_next_click` (the keyboard does not START the page window), but nothing presses Enter on "Delete habit" inside the window, and nothing sends a keyboard click to the page inside the page window.
-- **Issue:** spec R13: "Delete habit ignores any activation (mouse, touch or keyboard) that comes less than 500 ms after the click that opened the dialog". qa.md has no scenario for it either. The behaviour is real (the security re-check measured it: Enter, Tab, Enter at about 250 ms is held, and Tab, Enter at 677 ms deletes), but only in a re-check probe script (`security-recheck/20261009T201546/probe_03_keyboard_and_reopen.py`), not in a test. The page-guard half (a keyboard click on the page inside the window is also swallowed) is recorded in findings/security.md, re-check "Observations (not filed)" item 3, and R13 is silent on it.
-- **Proof (mutants, in memory):** G-kbd-delete-open (`if (event.detail > 0 && view.confirmButtonOf(...) && withinGuard(...))`, so a keyboard activation inside the window deletes) lives against `test_delete.py` and against the whole suite (175 passed, 1 skipped). P-kbd-click-passes (`swallowTapThrough` returns early when `event.detail === 0`) lives the same way. `probe_edge.py` row `kbd-delete-guard`: pristine holds at 400 and 499 ms, the mouse-only mutant lets the delete through at 400 ms.
-- **Fix:** add one test in the SEC-01 block: under `pause_at`, focus "Delete Stretch 10 minutes", press Enter (dialog opens), Tab, Enter at the same instant, and assert the dialog is open, 3 rows, `write_count` 0 and `stored` unchanged. Then `run_for(GUARD_WINDOW_MS)`, Enter, and assert the delete. Add the matching scenario to qa.md next to "Enter on Delete habit after the window deletes". For the page half, the orchestrator should rule: either pin it (mouse Cancel, then Enter on the focused trash button at the same instant opens nothing) and add one sentence to R13, or leave it unspecified and accept that P-kbd-click-passes lives.
+None.
 
 ## INFO
 
-### RG-CR-03: README lines that are stale or say more than the code does   (doc rot, fallback owner)
-- **File:** `README.md`. Each line checked against the code, the ledger and spec.
-  1. **Status table, `app` row, "gates green, closing".** The app is closed (STATE.md, ledger row 43, "CLOSED 2026-10-09"). Fix: "closed 2026-10-09", as the `habit-logic` row says.
-  2. **"`src/view.js` owns every DOM lookup and write."** `src/app.js` also reads the DOM (`tick` calls `dayButton.getAttribute("data-date")`, `onDialogClose` reads `event.currentTarget.returnValue`, `onDialogPointerDown` and `onDialogClick` feed `isOutside` with `dialog.getBoundingClientRect()`) and writes it (`onDialogClick` calls `dialog.close("cancel")`). What WR-12 and BUILD judgment call 5 established is that every selector lives in `view.js`. Fix: "owns every selector and builds and updates the page's elements".
-  3. **"Known limits" against spec and ledger.** The year-10000 row says "saves a day the app cannot read back". The spec SEC-05 note and findings/security.md SEC-05 say what follows: the next load calls the whole state unreadable and resets every habit with the S5 note. The combining-marks row says "only the user can type it"; the spec (SEC-02 threat-model note) says "only the person typing, or a sibling page on the origin (T9)" can plant such a name. The table also omits two accepted residuals the ledger carries: two open tabs, last save wins (CG-9, ledger Clarify-gate rulings) and blocked or full storage losing changes on reload with no message (CG-5). README "Saved data" says only that the page "keeps working in memory without a message". Fix: "the next load resets the whole list" in the year-10000 row, "typed by the user or planted by another page on the same origin" in the marks row, and two rows for CG-9 and CG-5 (or say the table lists only the limits found by the reviews).
-  4. **"176 browser tests and 99 unit tests pass."** True now (run, see Evidence). An absolute count rots on the next added test, and v1.1.0 is planned to add some (ledger row 40). Fix: "all browser and unit tests pass (commands under Test it)", or keep the counts and label them "at 9ebc54e".
-- **Proof:** `README.md` lines read against `src/app.js`, `docs/v1.0.0/CHANGE-LEDGER.md` and `docs/modules/app/spec.md`. Symbols the README cites all exist (grep): `localDateKey`, `addDays`, `weekWindow`, `toggleDay`, `currentStreak`, `bestStreak`, `heatmapCells`, `heatLevel`, `monthLabels`, `validateName`, `addHabit`, `deleteHabit`, `readToday`, `checkDay`, `STORAGE_KEY`, `encodeState`, `decodeState`, `loadHabits`, `saveHabits`, `onDialogClose`, `guardDialogClick`, `swallowTapThrough`, `DIALOG_GUARD_MS`, `TITLE_STRIPPED`.
+### RG-CR-I1. `firstControl`'s comment names only one of its two uses (doc rot, low)
+- **Symbol.** The doc comment of `firstControl` in `src/view.js`.
+- **Failure scenario.** It says the function is "where focus goes when a new day took away the day that held it and no popup is open (CG-14)". Since task 27a, `dismissNote` also sends focus there when the field is disabled (R17, H-05). A reader who changes `firstControl` for the rollover case reads nothing that warns them the Dismiss path depends on it too. M3 and M4 show the Dismiss path does depend on it.
+- **Fix direction.** Say what the function returns, not who calls it. For example, "The page's first shown control that is not disabled, in page order. The Overview button below 1024 px, the band's Year from 1024 px, where the CSS hides the Overview button." The callers' own comments (`firstFocusOfTopLayer`, `dismissNote`) already say why they use it. Comment only.
 
-### RG-CR-04: BUILD.md "For the README reconcile" lists do not have the SEC-01 names   (doc rot)
-- **File:** `docs/modules/app/BUILD.md`, section "For the README reconcile", the `src/app.js` and `src/view.js` bullets.
-- **Issue:** the `src/app.js` bullet does not list `guardDialogClick`, `swallowTapThrough`, `withinGuard` or `DIALOG_GUARD_MS`. The `src/view.js` exports bullet does not list `confirmButtonOf` (added by `12445c9`), and the SEC-06 sentence under it, "the export list is unchanged", sits over a list that is already one export short. Judgment call 6 does name the guard symbols and the README has them, so no reader is misled today. The section calls itself the input of the README reconcile, so the next reconcile (v1.1.0 changes the guard) starts from a stale list.
-- **Proof:** `grep -n "^export" src/view.js` shows `confirmButtonOf`; `grep -n "confirmButtonOf\|guardDialogClick\|swallowTapThrough" docs/modules/app/BUILD.md` finds them only in judgment call 6.
-- **Fix:** add the four names to the `app.js` bullet and `confirmButtonOf` to the `view.js` bullet, or replace both lists with "the functions and exports of the files (grep `^export`)" so they cannot go stale.
+### RG-CR-I2. One line of the new test can never be the line that fails (test strength, low)
+- **Symbol.** `assert page.evaluate("() => document.activeElement !== document.body")` in `test_R17_dismiss_with_the_field_disabled_moves_focus_to_the_pages_first_control_never_to_body`.
+- **Failure scenario.** The line before it asserts that the target element (`#nh`, `button.ov-btn` or `section.band button.btn-all`) is `document.activeElement`. None of those is `body`, so whenever focus is on `body` the line before fails first, and its message already says so through `focused` ("document.activeElement is 'body'", as M1, M3 and M4 show). The second line adds no check. It mirrors qa.md's Then "and document.activeElement is not body", which follows from the Then before it.
+- **Fix direction.** Drop the line, or keep it as the visible form of the scenario's title. Either is fine. No behaviour is at stake.
 
-### RG-CR-05: qa.md restates a derived number and an old helper signature   (doc rot)
-- **File:** `docs/modules/app/qa.md`, "conftest.py (shared fixtures and helpers)": the SEC-01 paragraph and the `open_app(...)` row.
-- **Issue:** the paragraph says `let_guard_pass(page)` is "`page.clock.run_for(600)`". In code it is `GUARD_WINDOW_MS + 100`, so the 600 is a number derived from another number and rots with it (RG-CR-01's fix makes the same point for the tests). The `open_app` row is the 2026-10-08 shape and lacks `base_url` and `count_writes` (added by the code-review round, before `fa58481`, so not part of this delta; `touch` is covered by the dated paragraph below the table).
-- **Fix:** "runs the clock past the guard window" instead of 600, and add `base_url=None, count_writes=False` to the row (or say the row is "at least these").
+### RG-CR-I3. The task 27a record names `src/system.css`, a file that does not exist (records)
+- **Symbols.** `BUILD.md` section "v1.1.0 task 27a", "Non-goals honoured" ("`index.html`, `src/system.css` and `docs/design/` untouched"). The same name is in the ledger's S1 row 23 and in `docs/progress/handoff/handoff-2026-10-15-execute-streaks-app28b.md` (`12-src-system-css-mentions.txt` in the census folder).
+- **Failure scenario.** The stylesheet is `src/styles.css`. `system.css` is the golden in `docs/design/`. A claim that a file which does not exist is untouched cannot fail, so the record does not show what it means to show. Nothing is hidden by it, because `git diff c271938 HEAD -- src/styles.css` is empty.
+- **Fix direction.** A dated correction that names `src/styles.css`, additive in the ledger. The orchestrator owns the ledger and the handoff. The builder's record is `BUILD.md`.
 
-### RG-CR-06: two docblocks are essays and restate what the spec already holds   (comment rule, DRY across code and docs)
-- **File and symbol:** `src/view.js::TITLE_STRIPPED` (a 9-line docblock) and `src/app.js::DIALOG_GUARD_MS` (7 lines), plus one sentence of `src/app.js::guardDialogClick`.
-- **Issue:** the constitution asks for concise WHY comments and one home for a derivation. The mechanism behind `TITLE_STRIPPED` (an isolate opener in the name takes the title's U+2069, the isolate runs to the end of the line, after a right-to-left letter the quotes land on the wrong side) is in the code comment, in the spec R13 SEC-06 note and again in the SEC-06 threat-model note. The `DIALOG_GUARD_MS` story (the second click lands where the first one left the screen) is in the comment, in R13 SEC-01 and in T7. BUILD.md already points at the comment instead of restating it (judgment calls 6 and 10), which is the right direction, so the duplication is between code and spec. Separately, `guardDialogClick` says the capture phase is used "so that a later listener on the button or the form cannot stop the event before this runs". No such listener exists, and registering it for the bubble phase changes nothing (mutant G-bubble lives the whole suite and is equivalent). A future reader cannot tell whether the capture flag matters.
-- **Fix:** keep what the code is and the one non-obvious why in 2 or 3 lines each, with "spec R13 note, SEC-06" and "spec R13 note, SEC-01 and T7" as the pointer. For the capture flag, either drop the hypothetical ("kept in the capture phase so nothing registered later can hide the click") or register in the bubble phase.
+## What I checked and found right
 
-## What I checked and how
+- **`dismissNote`'s comment** follows the comment rule. It gives what, why, input and output, cites R17, R12, rule 7, CG-14 and the WebKit engine note, and cites no line number.
+- **The test.** The habits are added by gesture while the note shows, the only way to reach the state (a seeded twelve would load without the note), and the docstring says so. The precondition lines (`field.is_disabled()`, the stored twelve or eleven) fail on a wrong setup, not on the property. The focus line reads once after the sync point (the note gone and the rows counted), which holds because `dismissNote` removes the note and sets focus in one click handler. The trailing checks (the field still disabled or enabled, `stored(page)` equal to S) would fail on a Dismiss that enabled the field to focus it or that saved a different text.
+- **"Nothing is saved" on the disabled path.** The outline compares the saved text, so a second save of the same text would pass it. The field-enabled Dismiss test counts writes (`count_writes`, code review WR-01 (b)), and both paths run the same branch of `onPageClick` and the same `dismissNote`. A save in the disabled branch alone would have to live in `view.js`, which imports no storage (spec Files). Not a gap.
+- **The targeted pass.** The `watch_close` docstring is true. The test-side listener is added after the app's `close` listener, so it runs after `onPopupClose`, and it says it does not show who moved focus. The five comments and the `test_platform.py` comment point to it and claim nothing more. habit-logic's `BUILD.md` "Final test run" now carries the dated line that its counts are 1.0's.
+- **Static checks** (census folder). No unused import in any browser test file or in `src/`. No backticked name in a comment of `src/` or `tests/` that the code lacks. The new imports `focused` and `plain_state` are used.
 
-| Area | Method | Result |
-|---|---|---|
-| Delta source | read `src/app.js` and `src/view.js` whole, `src/storage.js` as the seam, the three source commits as diffs | no bug. Guards: the `-Infinity` start values make the first window false, each opening restarts it, the veto sits on a capture listener of the dialog, the swallow sits on `.page` so the dialog's own clicks are never held, keyboard clicks (`detail` 0) never start the page window, Cancel, Esc and the backdrop are never held |
-| R# trace | each new symbol against the R13 SEC-01/SEC-02/SEC-06 notes, Contracts "Guard window", T7 | all map, no hallucination, no non-goal |
-| SEC-06 strip: coverage | extracted the regex source from `src/view.js`, ran it over every code point U+0000 to U+10FFFF (surrogates skipped) | exactly 14 matches: U+001C, U+001D, U+001E, U+0085, U+2029, U+202A to U+202E, U+2066 to U+2069. Equal to the R13 list. The Unicode `Bidi_Control` set is U+061C, U+200E, U+200F plus the two ranges, so the three marks are the only bidi controls not stripped, by design (strong marks, they cannot open or close an isolate) |
-| SEC-06 strip: can it throw | `replace` with a literal `/gu` regex on a string; names are strings by `decodeState` and `validateName`; lone surrogates pass through untouched (checked); the `g` regex is only used with `replace`, which resets `lastIndex`, so no shared state; no dynamic pattern, so no backtracking | cannot throw |
-| SEC-06 strip: reach | `TITLE_STRIPPED` has one use, `openDeleteDialog`; the stored name, `fillRow`, the trash `aria-label` and storage are untouched (also pinned by the solver's mutants and by `test_SEC06_R13_only_the_titles_copy_loses_the_characters_and_the_habit_named_in_it_is_the_one_deleted`) | title only |
-| SEC-06 strip: completeness | read the solver's `probe_12_bmp_sweep.py` and its evidence (every BMP code point, three name shapes, plus a 30336-name pair sweep, exact left edges) | none still moves the quotes. LF, CR and U+2028 were in that sweep. I did not re-run it |
-| Tests of the delta | read `test_delete.py` whole, the diffs of `conftest.py`, `live_e2e.py`, the fidelity script and the small test edits; 21 mutants (below); `probe_edge.py` | the controls are real: `overlap_point` asserts the overlap and the hit targets, each tap-through test asserts a bead or Add lies under the second press, the Add test asserts the field keeps its text, every SEC-06 character is in or out of two lists of 14 and 16. Gaps: RG-CR-01, RG-CR-02 |
-| Cross-module seam | `git diff de0156a 9ebc54e -- src/dates.js src/habits.js`, and `git diff de0156a HEAD -- src/dates.js src/habits.js tests/dates.test.js tests/habits.test.js tests/purity.test.js` | both empty. App imports only `localDateKey`, `MAX_HABITS`, `addHabit`, `deleteHabit`, `toggleDay`, `dayParts`, `longDate`, `shortDate`, `bestStreak`, `currentStreak`, `heatmapCells`, `monthLabels`, `runContinues`, `weekWindow`, `isDateKey`, `validateName`, and every one is an export. Grep for date and streak arithmetic in app, view and storage: the only clock read is `new Date()` in `readToday`, passed to `localDateKey`. No `getDay`, `% 7`, `toISOString`, `Intl`, no day arithmetic. `storage.js` sorts date keys with the same default `sort()` that `habits.js` `toggledHabit` uses (spec Storage contract), which is a stored-format rule, not a streak rule |
-| README | every cited symbol grepped; `node --test` (99), `pytest` (176), the server command and the live-gate command run; limits table against the ledger and spec; CSP string against `index.html` (identical); CSS "three marked changes" against `src/styles.css` (three `Change n` markers); gate numbers against `summary.json` of the official live run (11 of 11) and `findings/fidelity.md` (6 of 6, 71 of 71); `git diff 321329c 9ebc54e -- src index.html` empty, so the fidelity verdict stands | RG-CR-03 |
-| Doc drift | spec R13/R14/R15, Contracts, T7 and the SEC-02/SEC-05/SEC-06 notes, qa.md SEC-01/SEC-02/SEC-06 scenarios and conftest table, BUILD.md calls 6 and 10, against the code | consistent apart from RG-CR-04 and RG-CR-05. No `file:line` citation in `src/` or `tests/` (grep); `findings/security.md` keeps point-in-time `file:line` citations, which is an audit record, not a comment |
-| Hygiene | byte scan for non-ASCII characters (so no em or en dash) in `README.md`, `CLAUDE.md`, the changed code and tests, BUILD.md; `git log fa58481..9ebc54e` messages | none. No vendor watermark in any commit message |
-| Accepted limits | the slow double click past 500 ms, shared-origin read, year 10000, combining-mark overprint, unverified Safari and Firefox | not findings, as ruled |
+## Not covered
 
-## Mutants (in memory, `mut.py` of the first review, served from the working tree, no project file written)
+The whole suite, the fidelity gate and the live gate were not run here. The QA regression finder ran the suites (`docs/modules/app/qa/regression-qa/20261015-184158-node/`, `-184210-chromium/`, `-184449-webkit/`). This review ran the new test's three rows five times in each engine, as listed above.
 
-Run 1 against `tests/browser/test_delete.py` (65 tests, baseline 65 passed), run 2 against the whole suite for the six that lived.
+## PROCESSES
 
-| Mutant | What it changes | Verdict | Failed |
-|---|---|---|---|
-| G-450 | `DIALOG_GUARD_MS` 450 | **lived** (whole suite too) | 0 |
-| G-600 | `DIALOG_GUARD_MS` 600 | **lived** (whole suite too) | 0 |
-| G-le | `withinGuard` uses `<=` | **lived** (whole suite too) | 0 |
-| G-kbd-delete-open | Delete habit held only when `event.detail > 0` | **lived** (whole suite too) | 0 |
-| P-kbd-click-passes | page swallow ignores clicks with `detail` 0 | **lived** (whole suite too) | 0 |
-| G-bubble | `guardDialogClick` in the bubble phase | lived, equivalent today (RG-CR-06) | 0 |
-| G-300, G-700 | window 300, 700 | killed | 2, 7 |
-| G-no-open-stamp, G-open-stamp-once | opening time never or only once recorded | killed | 6, 5 |
-| P-no-stop, P-no-prevent | swallow without `stopPropagation`, without `preventDefault` | killed | 13, 2 |
-| P-bubble, P-on-document | swallow in the bubble phase, on the document | killed | 13, 2 |
-| P-stamp-always, P-stamp-never-on-delete, P-stamp-only-backdrop | which clicks start the page window | killed | 2, 2, 6 |
-| T-strip-whole, T-open-lri, T-close-missing, T-name-lowercased | strip over the finished title, FSI to LRI, no PDI, lower-cased name | killed | 26, 27, 26, 11 |
-
-The SEC-06 regex itself was mutated 22 times by the solver (all killed, `security-solver/20261009T205500/`). I did not repeat those.
-
-## Evidence
-
-Folder `docs/modules/app/qa/regression-code-review/20261009T221155/`:
-- `mutants_regression.py`, `run_mutants.py` (the 21 mutants and the runner that feeds them to the first review's `mut.py`), `mutants_output.txt` (run 1), `mutants_survivors_full_suite_output.txt` (run 2).
-- `probe_edge.py`, `probe_edge_output.txt`: the 500 ms edge at 400, 499, 500, 501 and 600 ms for the pristine app and four mutants, three trials each (Delete habit guard, page guard, keyboard Delete habit).
-- `readme_commands_check.py`, `readme_commands_output.txt`, `live-e2e-check/` (11 screenshots, `steps.json`, `console.json`, `network.json`, `summary.json`): the README server and live-gate commands run as written, 11 of 11, 0 console errors, 0 page errors, 0 requests outside the rule. It wrote into this folder, not into the official `qa/live-e2e/`, and it is not the official gate.
-- Suite runs are in `readme_commands_output.txt` (99 unit, 176 browser, and the bare `node --test tests/` failing as the README says).
-
-## Processes
-
-PROCESSES: started, all stopped.
-- `node --test` runs (two) and a few read-only `node -e` scripts (byte scan, regex enumeration), all exited.
-- `python -m pytest tests/browser`: conftest's two `http.server` children (pid 50956 on 127.0.0.1:21781, pid 51992 on 127.0.0.1:21779), stopped by conftest, which printed that both ports refuse connections.
-- Mutant runners (background shells, task ids `bl24hj289` and `b5em3xylc`, python runner pids 6968 and 47756): each ran one in-process server thread and one pytest child per mutant, waited for by the runner, both exited with code 0. A baseline run in the foreground before them.
-- `probe_edge.py`: one `http.server` (pid 48208, port 30881) and one headless Chromium, stopped by exact PID with the port-refused check printed.
-- `readme_commands_check.py`: one `http.server` (pid 49468, port 7939), stopped by exact PID with the port-refused check printed; `live_e2e.py` closed its own Chromium.
-- Final sweep by command line (`Get-CimInstance Win32_Process`, matching python, node, `http.server`, pytest, headless, chrome, and my script and folder names): no python, node, `http.server`, pytest or Chromium process left. The only matches were the sweep's own shell chain and conhost helpers of the desktop app.
-- Seen and not mine, not touched: another agent's `python -m pytest tests/browser` (pid 43160) with an `http.server` on port 3182 (pid 48068), present while the mutants ran (so wall times in `mutants_output.txt` are longer than the baseline's) and gone by the final sweep.
-- Writes: only through the Write tool, into the evidence folder and this file. Scripts print to stdout, and `live_e2e.py` wrote its own output into `live-e2e-check/`. No heredoc, no redirection. `src/` was never touched (mutants are served from memory; `git status` shows only the untracked evidence folder). The clipboard was never touched.
-
-## Solver (2026-10-09)
-
-Written by the dev solver, ORCH rulings of 2026-10-09 (reversible). Test and doc work only: `src/`, `index.html`, `docs/design/` and `README.md` untouched, so the fidelity and live-gate verdicts stand. The finder's sections above are unchanged. Evidence: `docs/modules/app/qa/regression-solver/20261009T224718/` (`evidence.md`, `mutants_output.txt`, the two extra mutants and their runner).
-
-### Status
-
-| Finding | Status | Commits | Red | Green |
-|---|---|---|---|---|
-| RG-CR-01 (WARNING) | **RESOLVED** | `3c9afdf` tests, `e26edaa` qa.md | G-450, G-600, G-le (and my G-499, G-501) lived the old tests and each fails 4 of the new edge cases | the shipped code passes all four edge cases; full suite green |
-| RG-CR-02 (WARNING) | **RESOLVED** for "Delete habit". The page guard's keyboard half is left unspecified by ruling | `dd86356` test, `b30c6c8` qa.md and spec.md | G-kbd-delete-open lived the old suite and fails the new test | the new test passes on the shipped code; full suite green |
-| RG-CR-03 (INFO) | not mine: the orchestrator reconciles the README after the solver | none | n/a | n/a |
-| RG-CR-04 (INFO) | **RESOLVED** | `137e90c` | `grep -n "^export" src/view.js` lists 22 names and the old bullet had 21; the old `app.js` bullet lacked four guard symbols | the bullets now hold all of them (checked by reading the list against the grep) |
-| RG-CR-05 (INFO) | **RESOLVED** | `1ed506c` | qa.md said `run_for(600)` (also in the SEC-01 comment on `confirm_delete`) and the `open_app` row lacked `base_url` and `count_writes` | the text says `GUARD_WINDOW_MS + 100` and the row lists the signature of `conftest.py::open_app` as it is |
-| RG-CR-06 (INFO) | accepted by ruling, not touched; G-bubble still lives and is still equivalent | none | n/a | n/a |
-
-### What changed (for the README reconcile)
-
-- `tests/browser/test_delete.py`: the two window-edge tests press at `GUARD_WINDOW_MS - 1` (ignored, `write_count` 0, `stored` unchanged) and then 1 ms later (acts), and now run for a mouse and a touch, because the ruling named both. New helpers `press_once` and `open_by_press` (`open_by_mouse` calls the second). New test `test_SEC01_R13_enter_on_delete_habit_inside_the_window_is_ignored_and_one_after_it_deletes`. The file has 68 tests (65 before).
-- `tests/browser/conftest.py`: the comment on `GUARD_WINDOW_MS` says why the number is written out and not read from `src/` ("Keep it equal" is gone, the edge tests enforce it).
-- `qa.md`: two scenarios became outlines at 499 ms and 1 ms more; a new Enter scenario; `let_guard_pass` described by `GUARD_WINDOW_MS + 100`; the `open_app` row complete; dated paragraphs for RG-CR-01 and RG-CR-05.
-- `spec.md`, R13 note: one dated sentence that the page guard's keyboard half is unspecified and unpinned (v1.1.0 replaces the time window with a time-free guard).
-- `BUILD.md`, "For the README reconcile": `guardDialogClick`, `swallowTapThrough`, `withinGuard`, `DIALOG_GUARD_MS` and `confirmButtonOf` listed.
-- README lines this touches (RG-CR-03, the orchestrator's): "176 browser tests" is 179 now (the finder's point 4 already suggests dropping the absolute count). No other README line cites a changed name or number.
-
-### Mutants (finder's runner, `-k test_delete`)
-
-"Before" is the tests of `a3d3ed1`: the finder's own run for the killed ones, and my re-run of the six survivors (same verdicts, baseline 65 passed). "After" is my run against the final tests (HEAD `1ed506c`).
-
-| Mutant | Before | After |
-|---|---|---|
-| G-450 | lived | KILLED, 4 failed |
-| G-600 | lived | KILLED, 5 failed |
-| G-le | lived | KILLED, 5 failed |
-| G-kbd-delete-open | lived | KILLED, 1 failed |
-| P-kbd-click-passes | lived | lives, unspecified by ruling |
-| G-bubble | lived, equivalent | lives, equivalent (RG-CR-06) |
-| G-499, G-501 (extra) | lived | KILLED, 4 failed each |
-| the other 15 | killed (2 to 27 failed) | killed (2 to 27 failed) |
-
-Of the finder's 21: 15 killed before, 19 now. The full per-mutant table with failure counts is in `evidence.md`; the runner's raw output is `mutants_output.txt`.
-
-### Suites
-
-`python -m pytest tests/browser -q -p no:cacheprovider`: 179 passed, 0 skipped (176 before: +2 for the touch variants of the two edge tests, +1 for the keyboard test). `node --test "tests/**/*.test.js"`: 99 pass, 0 fail (unchanged). Both run before every commit and at the end; the credential gate exited 0 before every commit. Fidelity and the live gate were not re-run: there is no `src/` change.
-
-### Observations (not findings)
-
-1. The old touch tests of SEC-01 press twice at one frozen instant, so they never showed that a touch tap's `event.timeStamp` follows Playwright's installed clock. The touch edge cases now do (the same mutants die for a touch as for a mouse).
-2. `qa.md` still says "600 ms" in a few places that describe real waits or scenario steps (the Gherkin steps "600 ms pass", the @R27 gate "waits 600 ms for real", the gate's gesture note). They are values of a real pause, not a description of `let_guard_pass`, and `live_e2e.py` derives them the same way (`GUARD_WINDOW_MS + 100`); I left them as RG-CR-05 names the helper only.
-3. P-kbd-click-passes (RG-CR-02, page-guard half) and G-bubble (RG-CR-06) still live. That is the ruled state; v1.1.0 replaces the time window, and its tests are the place to pin the new guard's keyboard behaviour.
-
-## Re-check (2026-10-09)
-
-**Verdict: FAIL, 0 BLOCKER, 0 WARNING, 1 INFO (RG-CR-07, one sentence of spec.md).** RG-CR-01, RG-CR-02, RG-CR-03, RG-CR-04 and RG-CR-05 hold as fixed. The fix of RG-CR-07 is a wording change and needs no code or test change.
-
-Written by the code-review finder (read-only), scoped re-check of `a3d3ed1..83396f6` under the stop rule (ORCH ruling, ledger row 46). `git diff --quiet a3d3ed1 HEAD -- src index.html` exits 0 (empty), and the same against `9ebc54e`: nothing the fidelity and live-gate verdicts rest on has moved. `git status` shows only my untracked evidence folder. Evidence: `docs/modules/app/qa/regression-recheck/20261009T231957/` (`evidence.md` indexes it).
-
-### New finding
-
-#### RG-CR-07 (INFO): the dated note under R13 says "unspecified" next to two sentences that specify it, and gives a v1.1.0 reason the plan of record does not carry   (doc rot, spec)
-- **File and symbol:** `docs/modules/app/spec.md`, R13, the line starting "Noted 2026-10-09 (regression code review RG-CR-02, ORCH)" (line 106). Against R13 item 2 (line 104, "the page ignores clicks for 500 ms: the click is cancelled and goes no further"), the Contracts bullet "Guard window" (line 274, `swallowTapThrough` "calls `preventDefault()` and `stopPropagation()` on a click within the window of `dialogPressedAt`") and ledger rows 37, 40 and 46.
-- **Issue:** two points, both about what the sentence claims.
-  1. "left unspecified": item 2 and the Contracts bullet say "clicks" and "a click" with no mouse or touch qualifier on the swallowing side (the qualifier `event.detail` above 0 is on what starts the window, and the code agrees: `swallowTapThrough` has no `detail` condition). Read as written, the spec already says a click made with the keyboard inside the window is swallowed, so mutant P-kbd-click-passes breaks the text and its survival is a test gap, not a gap in the spec. The note and the two sentences it sits among now disagree for a reader who does not know ruling 46.
-  2. "because v1.1.0 replaces the time window with a time-free guard": the v1.1.0 scope on record (ledger row 40, row 37, README limits row 1) is one time-free control for the "Delete habit" under the trash button overlap, which is guard 1. Nothing on record replaces guard 2, the page swallow after a click in the dialog (a different gesture: the double click on the backdrop or Cancel). Ruling 46 uses the same words, so the sentence matches the ruling, but the premise is wider than the plan. If v1.1.0 keeps guard 2, the stated reason for leaving it unpinned stops being true and nobody will notice.
-- **Proof:** `grep -n "Noted 2026-10-09" docs/modules/app/spec.md` (line 106), `sed -n 104p` and `sed -n 274p` of the same file, `grep -n "time-free" docs/v1.0.0/CHANGE-LEDGER.md` (rows 37, 40, 46). `src/app.js::swallowTapThrough` reads `if (!withinGuard(event, dialogPressedAt)) return;` and nothing about `detail`.
-- **Fix (orchestrator, spec.md only, no round needed):** "Noted 2026-10-09 (regression code review RG-CR-02, ORCH): item 2 and the Contracts bullet are written for the mouse and touch double click. The code also swallows a click made with the keyboard inside the window (`swallowTapThrough` has no `detail` test). No requirement asks for that or against it and no test pins it, so a later guard may change it (ledger row 46)." Drop "because v1.1.0 replaces the time window", or, if kept, say what row 40 says: "v1.1.0 plans a time-free guard for the 'Delete habit' overlap".
-
-Nothing else is open. RG-CR-06 and the other accepted limits (slow double click past 500 ms, shared-origin read, year 10000, combining-mark overprint, unverified Safari and Firefox, two tabs, blocked storage) were not re-filed.
-
-### What held
-
-| # | Item | Measurement | Result |
-|---|---|---|---|
-| 1 | RG-CR-01 mutants, finder's runner `run_mutants.py` + `mutants_regression.py`, in memory, `-k test_delete` | baseline 68 passed. G-450 KILLED, 4 failed (the two edge tests, mouse and touch). G-600 KILLED, 5 failed (those 4 and the Enter test). G-le KILLED, 5 failed (same 5). Failure counts equal the solver's table | held |
-| 1 | RG-CR-02 mutant G-kbd-delete-open | KILLED, 1 failed: `test_SEC01_R13_enter_on_delete_habit_inside_the_window_is_ignored_and_one_after_it_deletes` | held |
-| 1 | Expected survivors | P-kbd-click-passes SURVIVED: 68 passed on `test_delete`, and the whole browser suite 178 passed, 1 skipped (the sub-path test, which the runner does not serve). G-bubble SURVIVED: 68 passed, whole suite 178 passed, 1 skipped. Ruled unspecified and equivalent, as expected | held |
-| 1 | Does the clock move `Event.timeStamp`? (the wrong-reason question) | `probe_timestamp.py`, bare page, suite's setup (context with touch, clock installed at noon, paused at 12:00:20, `run_for`). Difference of two clicks' `event.timeStamp` after `run_for(499)`, `(500)`, `(1)`: 499.000, 500.000, 1.000 for a mouse click, a tap and an Enter-made click (`detail` 0), equal to the `performance.now()` and `Date.now()` differences. Control: 700 ms of REAL waiting with the clock paused moves it by 0.000 for all three. So the stamps follow the installed clock exactly and ignore real time: the edge tests are not measuring real elapsed time, and a "499 ms" press is 499 ms | held |
-| 1 | Does each edge test pin its own guard, and not pass on the other's account? | four extra mutants that move one guard only (`mutants_recheck.py`): S-G1-499 and S-G1-501 ("Delete habit" guard) KILLED by the `a_click_inside_the_window` test only (2 and 3 failed: mouse and touch, plus the Enter test for 501). S-G2-499 and S-G2-501 (page guard) KILLED by the `page_listens_again` test only (2 failed each, mouse and touch) | held |
-| 1 | Positive controls: could a refused press be a press that missed? | each edge test presses the same point 1 ms later and asserts the delete or the tick. A miss would fail there. Any integer window other than 500 fails one of the two presses (below 500 acts at 499, above 500 holds at 500), so the `GUARD_WINDOW_MS` comment ("fail for any other `DIALOG_GUARD_MS`") is true, and the windows 450, 499, 501 and 600 confirm it | held |
-| 1 | Names against assertions | the three tests assert what they say: ignored means dialog open, 3 rows, `write_count` 0, `stored` equal to the indented seed (a save would rewrite it compact); acts means the dialog closed, the right rows, one write. The Enter test asserts focus on Cancel, then on "Delete habit" before and after the held Enter | held |
-| 2 | RG-CR-04, BUILD.md `view.js` exports | `scan_hygiene.py`: 22 exports in `src/view.js`, 22 in the bullet, none missing either way (`confirmButtonOf` present). `containers()` returns `page` (read) | held |
-| 2 | RG-CR-04, BUILD.md `app.js` bullet | 17 names, every one a top-level declaration of `src/app.js`, none invented. `guardDialogClick`, `swallowTapThrough`, `withinGuard`, `DIALOG_GUARD_MS` present. `app.js` has no `export` | held |
-| 2 | RG-CR-05, qa.md | `open_app(...)` row: `viewport, locale, reduced_motion, fixed_time, install_time, storage, init_script, record, path, base_url, count_writes, touch`, same names, order and defaults as `conftest.py::open_app`. `let_guard_pass` described as `GUARD_WINDOW_MS + 100`, equals `conftest.py::let_guard_pass`. The `count_writes` paragraph matches `_WRITE_COUNTER_SCRIPT` and the order in `open_app` (counter added after the seed) | held |
-| 3 | spec R13 note against ruling 46 | same substance as ruling 46 (page guard keyboard half unspecified, v1.1.0 replaces the window); the code and the survival of P-kbd-click-passes agree with "no test pins it" | consistent with the ruling, but see RG-CR-07 for the wording against R13 item 2 and ledger row 40 |
-| 4 | README status row | "closed 2026-10-09" equals STATE.md app row ("CLOSED 2026-10-09") and the `habit-logic` row's form | held |
-| 4 | README view.js sentence | `src/app.js` holds no selector (grep for `querySelector`, `getElementById`, `closest(`, `.matches(`, `$(`: 0 hits; its DOM touches are `getAttribute("data-date")`, `returnValue`, `getBoundingClientRect`, `dialog.close("cancel")`). All selectors live in `src/view.js` (`$`, `$$`, the `...Of` helpers, `containers`). "owns every selector and builds and updates the page's elements" is true | held |
-| 4 | README limits table | 7 rows. Slow double click and "fixed in v1.1.0 with a guard that does not depend on time": ledger rows 37, 40. Shared origin: spec T9 and SEC-03, security.md SEC-03. Two tabs: spec Invariants "One tab at a time" (line 29), T12, CG-9. Blocked or full storage: R18, T6, CG-5. Combining marks "typed by the user or planted by another page on the same origin": spec SEC-02 note "Only the person typing, or a sibling page on the origin (T9)". Year 10000 "the next load resets every habit": spec SEC-05 note "the next load resets every habit with the S5 note", security.md SEC-05. Safari and Firefox: as ruled. The new intro line names `spec.md` and `findings/security.md`, both exist | held |
-| 4 | README cited symbols | `scan_hygiene.py`: 26 identifiers in the code map, all found as words in `src/` | held |
-| 4 | README counts | `node --test "tests/**/*.test.js"`: 99 pass, 0 fail. `python -m pytest tests/browser -q -p no:cacheprovider`: 179 passed in 44.72 s, both conftest servers printed "refuses connections". README says "At v1.0.0, 179 browser tests and 99 unit tests pass" | held |
-| - | Hygiene | 0 added lines with a non-ASCII byte in `a3d3ed1..HEAD` (solver evidence folder excluded); README, CLAUDE.md, BUILD.md, qa.md, both test files and `src/` all 0 non-ASCII bytes. `spec.md` has 10 U+2192 arrows, the same 10 at `a3d3ed1`, no dash. 0 commit lines naming a vendor or Co-Authored-By in the 8 commits | held |
-| - | Reverse audit | new tests and helpers (`press_once`, `open_by_press`, the Enter test, the touch parameters) map to R13 item 1 and 2 (SEC-01 note) and to ruling 46; no unrequested code, no non-goal. `src/` untouched | held |
-
-### Not filed (observations)
-
-1. `BUILD.md` `app.js` bullet still omits `onListClick`, `isOutside` and `ROLLOVER_CHECK_MS`. They were omitted before the delta, RG-CR-04 named four other symbols, and the bullet does not claim to be complete. Note for the v1.1.0 reconcile.
-2. README "At v1.0.0, 179 browser tests and 99 unit tests pass" is true today. v1.0.0 is not sealed, and the QA finder's round may add a test. If it does, the orchestrator refreshes the number at the seal (the finder's option was to drop it or name a commit).
-3. `conftest.py::GUARD_WINDOW_MS` comment and the qa.md RG-CR-01 paragraph give the same reason for writing the number out. It is the class of duplication RG-CR-06 accepted, and both are one sentence.
-4. qa.md keeps "600 ms" in several scenario steps. It equals `GUARD_WINDOW_MS + 100`, and the edge tests now fix the window at 500, so the number cannot drift without a test failing.
-5. I re-ran 6 of the finder's 21 mutants and 4 of my own, as scoped. The other 15 are the solver's recorded kills (2 to 27 failed each) and were not re-run.
-6. STATE.md app row still shows "176 browser + 99 unit" against `last green 9ebc54e`, a snapshot at that commit and true there.
-
-## ORCH ruling on the re-check (2026-10-09)
-
-- **RG-CR-07 (INFO) fixed by the orchestrator** in spec.md R13: the RG-CR-02 note no longer gives v1.1.0 as the reason (the v1.1.0 scope on record replaces only the Delete habit window). It now says what the code does (the page guard also swallows a keyboard-made click inside the window) and that no requirement or test covers it.
-- RG-CR-01, RG-CR-02, RG-CR-04 and RG-CR-05 are closed on the re-check evidence. RG-CR-03 was closed by the README reconcile and re-verified. RG-CR-06 is accepted. No finding is open, so the frontmatter reads pass. The stop rule ends code review for v1.0.0.
+Every process of this review ran in the foreground of its tool call and ended before this file was written. `mutrun.py` ran twice (Chromium, then WebKit), from the session scratchpad folder `streaks-reg-cr/`, each mutant with its own in-process `127.0.0.1` test server on a free port, stopped and recorded refusing (`port_refuses_after` true for all ten in the two `run.json`). Its pytest children (Chromium PIDs 22496, 10216, 11420, 24040, 24048, WebKit PIDs 5204, 18012, 5080, 18800, 8196) exited with each run, with the Playwright drivers and headless browsers they started. The sweep's two scripts are declared in `consistency.md`. A closing sweep at 19:20 by name (python, node, pytest, chrome, headless, webkit, Playwright, bash, sh, cmd), by command line (`streaks-reg-cr`, `mutrun`, `probe_year10000`, `census_run`, `regression-code-review`), by port (the eleven ports used, each refusing) and by the loopback listeners found only the sweep's own shell.

@@ -1,0 +1,53 @@
+.F.                                                                      [100%]
+================================== FAILURES ===================================
+_ test_R17_dismiss_with_the_field_disabled_moves_focus_to_the_pages_first_control_never_to_body[1280x800-12] _
+
+app = <function app.<locals>.open_page at 0x000001D152D99E80>
+viewport = (1280, 800), count = 12, field_state = 'disabled'
+target = 'section.band button.btn-all', what = "the band's Year"
+name = 'Year view, all habits'
+
+    @pytest.mark.parametrize(
+        "viewport, count, field_state, target, what, name",
+        [
+            pytest.param(PHONE, 12, "disabled", "button.ov-btn", "the Overview button", "Overview, today 0 of 12 habits done", id="390x844-12"),
+            pytest.param(DESKTOP, 12, "disabled", "section.band button.btn-all", "the band's Year", "Year view, all habits", id="1280x800-12"),
+            pytest.param(PHONE, 11, "enabled", "#nh", "the field", None, id="390x844-11"),
+        ],
+    )
+    def test_R17_dismiss_with_the_field_disabled_moves_focus_to_the_pages_first_control_never_to_body(
+        app, viewport, count, field_state, target, what, name
+    ):
+        """The habits are added by gesture while the note shows, because only an unreadable value shows the note and a
+        seeded twelve would load without it. The twelfth add disables the field (R12) before Dismiss is pressed."""
+        page = app(viewport=viewport, storage="{")
+        for n in range(1, count + 1):
+            add_habit(page, f"Habit {n}", enter=True)
+            expect(page.locator("ul.rows > li.row")).to_have_count(n)
+        field = page.locator("#nh")
+        expect(page.locator("div.banner.note")).to_have_count(1)
+        assert field.is_disabled() == (field_state == "disabled"), f"precondition, the field is not {field_state}"
+        saved = stored(page)
+        assert saved == plain_state(count), "storage does not hold the habits in the order added"
+    
+        page.get_by_role("button", name="Dismiss note", exact=True).click()
+        expect(page.locator("div.banner.note")).to_have_count(0)
+        expect(page.locator("ul.rows > li.row")).to_have_count(count)
+>       assert page.locator(target).evaluate("(node) => node === document.activeElement"), (
+            f"document.activeElement is {focused(page)!r}, not {what}"
+        )
+E       AssertionError: document.activeElement is 'body', not the band's Year
+E       assert False
+E        +  where False = evaluate('(node) => node === document.activeElement')
+E        +    where evaluate = <Locator frame=<Frame name= url='http://127.0.0.1:14942/'> selector='section.band button.btn-all'>.evaluate
+E        +      where <Locator frame=<Frame name= url='http://127.0.0.1:14942/'> selector='section.band button.btn-all'> = locator('section.band button.btn-all')
+E        +        where locator = <Page url='http://127.0.0.1:14942/'>.locator
+
+tests\browser\test_storage.py:294: AssertionError
+=================================== PASSES ====================================
+engine webkit: 0 chromium_only skip(s)
+=========================== short test summary info ===========================
+PASSED tests/browser/test_storage.py::test_R17_dismiss_with_the_field_disabled_moves_focus_to_the_pages_first_control_never_to_body[390x844-12]
+PASSED tests/browser/test_storage.py::test_R17_dismiss_with_the_field_disabled_moves_focus_to_the_pages_first_control_never_to_body[390x844-11]
+FAILED tests/browser/test_storage.py::test_R17_dismiss_with_the_field_disabled_moves_focus_to_the_pages_first_control_never_to_body[1280x800-12]
+1 failed, 2 passed in 6.72s

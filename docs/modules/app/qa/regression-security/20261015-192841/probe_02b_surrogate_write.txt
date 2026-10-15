@@ -1,0 +1,7 @@
+$ timeout 120 python -u -B probe_02b_surrogate_write.py chromium webkit   (19:43:30 to 19:43:33, HEAD ddf43f6, stdout saved with the Write tool)
+[server] started pid=19520 port=44396 dir={workspace}\examples\streaks
+chromium 149.0.7827.55 {"same": true, "storedLength": 306, "plantedLength": 306, "rows": 10, "names": ["0", "61 a 62", "d800", "dc00 78", "202e 20 72 65 76 65 72 73 65 64", "2069 20 63 6c 6f 73 65 72", "200b", "74 61 62 9 6e 61 6d 65", "1f", "85 6e 65 78 74"], "app_setItem_calls": [], "errors": []}
+webkit 26.5 {"same": true, "storedLength": 306, "plantedLength": 306, "rows": 10, "names": ["0", "61 a 62", "d800", "dc00 78", "202e 20 72 65 76 65 72 73 65 64", "2069 20 63 6c 6f 73 65 72", "200b", "74 61 62 9 6e 61 6d 65", "1f", "85 6e 65 78 74"], "app_setItem_calls": [], "errors": []}
+[server] stopped pid=19520 exit=1 port 44396 refuses=True
+
+Reading. Loading writes nothing (0 setItem calls, stored text equal to the planted text, compared inside the page).

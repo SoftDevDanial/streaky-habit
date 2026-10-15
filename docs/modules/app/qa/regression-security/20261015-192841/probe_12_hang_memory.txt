@@ -1,0 +1,19 @@
+$ timeout 300 python -u -B probe_12_hang_memory.py   (about 19:37, saved 19:37:38, headless Chromium 149.0.7827.55, stdout saved with the Write tool)
+[server] started pid=23036 port=53707 dir={workspace}\examples\streaks
+{"case": "control 9999-10-15", "press": "returned", "pressMs": 63, "open": "dlg-full dlg-year"}
+{"case": "10000-10-15", "step": "before the press", "rendererCpu": {"19808": 0.09}, "rendererMiB": {"19808": 107}}
+{"case": "10000-10-15", "step": "pressed the row's Year", "press": "timed out after 1 s"}
+{"case": "10000-10-15", "step": "sample at 1.0 s", "rendererCpu": {"19808": 1.31}, "rendererMiB": {"19808": 334}}
+{"case": "10000-10-15", "step": "sample at 4.0 s", "rendererCpu": {"19808": 4.67}, "rendererMiB": {"19808": 581}}
+{"case": "10000-10-15", "step": "sample at 8.0 s", "rendererCpu": {"19808": 9.03}, "rendererMiB": {"19808": 947}}
+{"case": "10000-10-15", "step": "sample at 12.0 s", "rendererCpu": {"19808": 13.29}, "rendererMiB": {"19808": 1301}}
+{"step": "browser closed", "closeSeconds": 0.05, "runSeconds": 13.8}
+[server] stopped pid=23036 exit=1 port 53707 refuses=True
+
+Reading notes (finder). rendererCpu is CPU seconds of the renderer process from the browser's CDP
+SystemInfo.getProcessInfo, rendererMiB its working set from Get-Process for that PID only. From the press, the
+renderer used one full core (about 1.1 CPU seconds per second) and its working set grew by about 90 MiB per
+second, 107 to 1,301 MiB in 12 s, with no sign of levelling off. Node's run of the same function hit a 256 MB heap
+cap in about 3.3 s (probe_10_yearmonths.txt). The browser was closed by the probe after the last sample, and renderer
+19808 went with it. Its PID was then reused by the bash.exe of the finder's next sweep command, so a Get-Process on
+19808 right after named "bash" with StartTime 19:37:42. probe_12b_pid_check.txt shows the CDP ids are OS PIDs.

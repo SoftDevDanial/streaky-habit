@@ -1,0 +1,24 @@
+HEAD ddf43f67ae8bd2b5c2e57df5db3344481daac0df
+command: git -C {workspace}\examples\streaks grep -n -e ^import -e ^} from HEAD -- src
+exit: 0
+
+HEAD:src/app.js:9:import { beadOf, dayButtonOf, dayControlAt, dayPlace } from "./calendar.js";
+HEAD:src/app.js:10:import { localDateKey } from "./dates.js";
+HEAD:src/app.js:11:import { MAX_HABITS, addHabit, deleteHabit, doneFlags, heatmapCells, toggleDay } from "./habits.js";
+HEAD:src/app.js:12:import * as popups from "./popups.js";
+HEAD:src/app.js:13:import { loadHabits, saveHabits } from "./storage.js";
+HEAD:src/app.js:14:import * as view from "./view.js";
+HEAD:src/calendar.js:11:import { dayParts, shortDate, yearDate } from "./dates.js";
+HEAD:src/calendar.js:12:import { doneFlags, monthLabels, yearMonths } from "./habits.js";
+HEAD:src/calendar.js:13:import { arcPath, legendCounts } from "./ring.js";
+HEAD:src/habits.js:7:import { addDays, dayParts, isDateKey, monthTitle, weekdayIndex } from "./dates.js";
+HEAD:src/popups.js:10:import { longDate } from "./dates.js";
+HEAD:src/popups.js:11:import { bestStreak, currentStreak, doneFlags } from "./habits.js";
+HEAD:src/popups.js:12:import {
+HEAD:src/popups.js:22:} from "./calendar.js";
+HEAD:src/popups.js:23:import { dayUnit, icon, renderStats } from "./view.js";
+HEAD:src/storage.js:9:import { isDateKey } from "./dates.js";
+HEAD:src/storage.js:10:import { MAX_HABITS, validateName } from "./habits.js";
+HEAD:src/view.js:11:import { longDate } from "./dates.js";
+HEAD:src/view.js:12:import { bestStreak, currentStreak } from "./habits.js";
+HEAD:src/view.js:13:import { drawLegend, drawOverview, drawRing, element, flagChange, ringSvg, svgElement } from "./calendar.js";

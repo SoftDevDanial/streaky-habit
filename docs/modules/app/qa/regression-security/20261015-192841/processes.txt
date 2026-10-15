@@ -1,0 +1,48 @@
+Processes started by the security finder (regression, 2026-10-15, 19:28 to 19:59), all foreground, all STOPPED.
+
+Every browser probe started one `python -B -m http.server <port> --bind 127.0.0.1` from the project root through
+lib.start_server and stopped it by its PID in a finally block, then checked that the port refuses connections
+(each capture prints "[server] stopped pid=... refuses=True"). Every probe launched its headless browsers through
+Playwright (conftest.launch) and closed them in finally blocks. The Playwright driver (node.exe) of each
+sync_playwright session exited with the probe. No background shell, watcher or poll loop was started.
+
+| Probe (capture) | Server PID, port | Browser |
+|---|---|---|
+| probe_10_yearmonths.mjs | none (node, in-process worker threads, each terminated) | none |
+| probe_11 run 1 (probe_11_run1_note.txt) | 5264, 63030 | Chromium |
+| probe_11 chromium basic phone | 5520, 6793 | Chromium |
+| probe_11 chromium far rollover bcontrol | 21116, 60772 | Chromium |
+| probe_11 chromium hang | 23532, 20195 | Chromium, two more browsers for the hang cases |
+| probe_12_hang_memory | 23036, 53707 | Chromium, renderer PID 19808 (hung, closed with its browser) |
+| probe_12b_pid_check | none | Chromium, browser 22768, renderer 25432, GPU 25092, network 23864 |
+| probe_11 webkit basic phone | 5096, 33322 | WebKit |
+| probe_11 webkit far rollover bcontrol | 16660, 46750 | WebKit |
+| probe_11 webkit hang | 9948, 44794 | WebKit, two more browsers for the hang cases |
+| probe_01_names | 22752, 44842 | Chromium, WebKit |
+| probe_02_tamper | 22752, 3478 (PID reused by the OS) | Chromium, WebKit |
+| probe_02b_surrogate_write | 19520, 44396 | Chromium, WebKit |
+| run_04 (probe_04_csp_network) | 22912, 3316, canary 23728, 58456 | Chromium, WebKit |
+| probe_05_bidi_layout | 12936, 5566 | Chromium, WebKit |
+| run_07 (probe_07_delete_guard) | 23856, 62799 | Chromium, WebKit |
+| probe_03_planted_size, six shapes | 25592/42899, 2204/4373, 24520/58142, 9500/4733, 16520/4900, 2176/5461 | Chromium, WebKit |
+| probe_06_close_race | 15852, 8126 | Chromium, WebKit |
+| probe_13 run 1 | 22768, 6347 | Chromium, WebKit |
+| probe_13 run 2 | 13172, 50916 | Chromium, WebKit |
+| probe_14_rollover_hang | 8860, 64650 (Chromium run), 21056, 33926 (WebKit run) | two browsers per run |
+
+Closing sweep at 19:59:18. Get-CimInstance Win32_Process filtered by name on python, node, chrome, headless,
+playwright, webkit, MiniBrowser, bash, sh.exe and cmd.exe, listed with parent, creation time and command line, found
+only the three bash.exe of the sweep command itself (5096, 1364, 23316, created 19:59:18). The PIDs 5096 and 19808
+of this table were reused by later shells after the probes that owned them had stopped. Get-NetTCPConnection
+-State Listen on 127.0.0.1 showed 8 ports (1549, 1579, 2051, 2053, 4709, 6463, 50911, 50912), owned by
+BaseCamp.Service, MountainDisplayPadWorker, steam, wpscloudsvr, Discord, ss_conn_service and ss_conn_service2,
+none started by this finder. A sweep at 19:33 had shown python processes 8084 and 6492 (a pytest run from the shared
+session scratchpad) and at 19:37 a fidelity run (python 20972, 5652, http.server 24184 on port 19553, node 24192,
+chrome-headless-shell 21280 and children). Neither was started by this finder and neither was touched.
+
+Lapses against the brief, recorded here and in the findings file.
+- 19:28, one command used `2>&1` (`ls docs/modules/app/qa/regression-security 2>&1`, to see whether the folder
+  existed before the run). It wrote no file.
+- About 19:54, the credential gate (credential_sweep.py of the sdlc plugin cache, 2.6.0) was refused by the permission
+  classifier and was NOT RUN. probe_00_static.txt section 8 holds this finder's own scan of the shipped files
+  (secret patterns) and of credential-shaped file names in the project (none).

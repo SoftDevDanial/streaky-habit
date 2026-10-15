@@ -1,0 +1,8 @@
+HEAD ddf43f67ae8bd2b5c2e57df5db3344481daac0df
+command: git -C {workspace}\examples\streaks grep -n -e \.close() -e showModal() HEAD -- src
+exit: 0
+
+HEAD:src/app.js:162:  dialog.close();
+HEAD:src/app.js:238:    dialog.close();
+HEAD:src/popups.js:75:  dialog.showModal();
+HEAD:src/styles.css:3:   (1) The stand-ins block is left out. The app opens every popup with showModal(), so the top layer and the native

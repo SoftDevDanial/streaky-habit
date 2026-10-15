@@ -1,0 +1,111 @@
+T8 at HEAD ddf43f6. The probe of 4e860ff unchanged, six of its shapes, 19:49:13 to 19:49:55, each command
+"timeout 280 python -u -B probe_03_planted_size.py <args>" in one shell loop. Stdout saved with the Write tool.
+The quota (5,242,880 UTF-16 units in both engines) is taken from the 4e860ff run's probe_03a, not measured again.
+
+=== probe_03_planted_size.py chromium 60 real
+[server] started pid=25592 port=42899 dir={workspace}\examples\streaks
+engine chromium 149.0.7827.55 shape real 12 x 1826 from 2021-10-11 cap 60
+stored_chars 285219
+boot (goto to first row): 0.10 s
+rows 12 note 0
+Done today tick, no popup (was true): 0.07 s
+open P4 from the band: 0.08 s
+open P1 over P4 for 2026-01-15: 0.07 s
+tick in P1 over P4 (was true): 0.13 s
+Esc P1: 0.02 s
+Esc P4: 0.01 s
+open P2: 0.04 s
+bead tick in P2 for 2026-01-15 (was false): 0.07 s
+page errors []
+[server] stopped pid=25592 exit=1 port 42899 refuses=True
+total 2.0 s
+=== probe_03_planted_size.py chromium 120 1 395000
+[server] started pid=2204 port=4373 dir={workspace}\examples\streaks
+engine chromium 149.0.7827.55 shape 1 x 395000 from 1000-01-01 cap 120
+stored_chars 5135052
+boot (goto to first row): 1.11 s
+rows 1 note 0
+Done today tick, no popup (was true): 1.00 s
+open P4 from the band: 0.52 s
+open P1 over P4 for 2026-01-15: 0.91 s
+tick in P1 over P4 (was true): 1.93 s
+Esc P1: 0.01 s
+Esc P4: 0.01 s
+open P2: 0.69 s
+bead tick in P2 for 2026-01-15 (was false): 1.79 s
+page errors []
+[server] stopped pid=2204 exit=1 port 4373 refuses=True
+total 9.5 s
+=== probe_03_planted_size.py chromium 120 12 32900
+[server] started pid=24520 port=58142 dir={workspace}\examples\streaks
+engine chromium 149.0.7827.55 shape 12 x 32900 from 1000-01-01 cap 120
+stored_chars 5132763
+boot (goto to first row): 0.85 s
+rows 12 note 0
+Done today tick, no popup (was false): 0.72 s
+open P4 from the band: 0.54 s
+open P1 over P4 for 2026-01-15: 0.64 s
+tick in P1 over P4 (was false): 1.78 s
+Esc P1: 0.04 s
+Esc P4: 0.03 s
+open P2: 0.08 s
+bead tick in P2 for 2026-01-15 (was true): 0.76 s
+page errors []
+[server] stopped pid=24520 exit=1 port 58142 refuses=True
+total 6.9 s
+=== probe_03_planted_size.py webkit 60 real
+[server] started pid=9500 port=4733 dir={workspace}\examples\streaks
+engine webkit 26.5 shape real 12 x 1826 from 2021-10-11 cap 60
+stored_chars 285219
+boot (goto to first row): 0.13 s
+rows 12 note 0
+Done today tick, no popup (was true): 0.09 s
+open P4 from the band: 0.14 s
+open P1 over P4 for 2026-01-15: 0.10 s
+tick in P1 over P4 (was true): 0.12 s
+Esc P1: 0.09 s
+Esc P4: 0.06 s
+open P2: 0.09 s
+bead tick in P2 for 2026-01-15 (was false): 0.07 s
+page errors []
+[server] stopped pid=9500 exit=1 port 4733 refuses=True
+total 1.9 s
+=== probe_03_planted_size.py webkit 120 1 395000
+[server] started pid=16520 port=4900 dir={workspace}\examples\streaks
+engine webkit 26.5 shape 1 x 395000 from 1000-01-01 cap 120
+stored_chars 5135052
+boot (goto to first row): 1.17 s
+rows 1 note 0
+Done today tick, no popup (was true): 0.97 s
+open P4 from the band: 0.33 s
+open P1 over P4 for 2026-01-15: 0.81 s
+tick in P1 over P4 (was true): 1.53 s
+Esc P1: 0.07 s
+Esc P4: 0.06 s
+open P2: 0.64 s
+bead tick in P2 for 2026-01-15 (was false): 1.66 s
+page errors []
+[server] stopped pid=16520 exit=1 port 4900 refuses=True
+total 8.3 s
+=== probe_03_planted_size.py webkit 120 12 32900
+[server] started pid=2176 port=5461 dir={workspace}\examples\streaks
+engine webkit 26.5 shape 12 x 32900 from 1000-01-01 cap 120
+stored_chars 5132763
+boot (goto to first row): 0.82 s
+rows 12 note 0
+Done today tick, no popup (was false): 0.57 s
+open P4 from the band: 0.37 s
+open P1 over P4 for 2026-01-15: 0.53 s
+tick in P1 over P4 (was false): 1.29 s
+Esc P1: 0.09 s
+Esc P4: 0.07 s
+open P2: 0.11 s
+bead tick in P2 for 2026-01-15 (was true): 0.60 s
+page errors []
+[server] stopped pid=2176 exit=1 port 5461 refuses=True
+total 5.5 s
+
+Reading. At the quota the worst step is a tick in P1 over P4, 1.93 s in Chromium and 1.53 s in WebKit, against 1.86 s
+at 4e860ff for the same shape. The step 5 render change (one doneFlags for today, shared by the Overview button and
+the rows) did not make any step slower beyond run-to-run noise. Five years of daily use for 12 habits stays at or
+under 0.14 s everywhere. T8's residual ("slow to open", nothing hangs) holds as stated.

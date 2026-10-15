@@ -1,0 +1,9 @@
+HEAD ddf43f67ae8bd2b5c2e57df5db3344481daac0df
+command: C:\Python314\python.exe -B {temp}\claude\{project-id}\34019cfb-f1a7-415f-a7eb-c47e4619e819\scratchpad\streaks-reg-cr\dead_names.py {workspace}\examples\streaks\tests\browser\conftest.py {workspace}\examples\streaks\tests\browser\conftest.py {workspace}\examples\streaks\tests\browser\live_e2e.py {workspace}\examples\streaks\tests\browser\test_add.py {workspace}\examples\streaks\tests\browser\test_day_editor.py {workspace}\examples\streaks\tests\browser\test_delete.py {workspace}\examples\streaks\tests\browser\test_engines.py {workspace}\examples\streaks\tests\browser\test_entry.py {workspace}\examples\streaks\tests\browser\test_fidelity_inputs.py {workspace}\examples\streaks\tests\browser\test_overview.py {workspace}\examples\streaks\tests\browser\test_platform.py {workspace}\examples\streaks\tests\browser\test_popups.py {workspace}\examples\streaks\tests\browser\test_render.py {workspace}\examples\streaks\tests\browser\test_rollover.py {workspace}\examples\streaks\tests\browser\test_storage.py {workspace}\examples\streaks\tests\browser\test_today.py {workspace}\examples\streaks\tests\browser\test_year.py
+exit: 0
+
+UNREAD const    STORAGE_KEY
+UNREAD hook     pytest_addoption
+UNREAD hook     pytest_collection_modifyitems
+UNREAD hook     pytest_terminal_summary
+checked 133 top-level names against 15 files

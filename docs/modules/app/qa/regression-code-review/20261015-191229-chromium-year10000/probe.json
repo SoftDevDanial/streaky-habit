@@ -1,0 +1,156 @@
+{
+ "copy": "{temp}\\claude\\{project-id}\\34019cfb-f1a7-415f-a7eb-c47e4619e819\\scratchpad\\streaks-reg-cr\\tree-20261015-190743-chromium",
+ "port": 59991,
+ "engine": "chromium",
+ "headless": true,
+ "browser_version": "149.0.7827.55",
+ "control_2026": {
+  "clock_seconds": 1791604800,
+  "steps": [
+   {
+    "step": "boot, empty storage",
+    "year": 2026,
+    "header": "2026-10-10",
+    "stored": null,
+    "rows": 0,
+    "banners": [],
+    "bandButtons": 83,
+    "doneToday": null,
+    "openDialogs": [],
+    "standIn": true,
+    "page_errors_so_far": 0
+   },
+   {
+    "step": "added Read with Enter",
+    "year": 2026,
+    "header": "2026-10-10",
+    "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}",
+    "rows": 1,
+    "banners": [],
+    "bandButtons": 83,
+    "doneToday": "false",
+    "openDialogs": [],
+    "standIn": true,
+    "page_errors_so_far": 0
+   },
+   {
+    "step": "clicked Done today",
+    "year": 2026,
+    "header": "2026-10-10",
+    "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[\"2026-10-10\"]}]}",
+    "rows": 1,
+    "banners": [],
+    "bandButtons": 83,
+    "doneToday": "true",
+    "openDialogs": [],
+    "standIn": true,
+    "page_errors_so_far": 0
+   },
+   {
+    "step": "clicked the row's Year",
+    "year": 2026,
+    "header": "2026-10-10",
+    "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[\"2026-10-10\"]}]}",
+    "rows": 1,
+    "banners": [],
+    "bandButtons": 83,
+    "doneToday": "true",
+    "openDialogs": [
+     "dlg-full dlg-year"
+    ],
+    "standIn": true,
+    "page_errors_so_far": 0
+   },
+   {
+    "step": "reloaded",
+    "year": 2026,
+    "header": "2026-10-10",
+    "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[\"2026-10-10\"]}]}",
+    "rows": 1,
+    "banners": [],
+    "bandButtons": 83,
+    "doneToday": "true",
+    "openDialogs": [],
+    "standIn": true,
+    "page_errors_so_far": 0
+   }
+  ],
+  "page_errors": [],
+  "console_errors": []
+ },
+ "year_10000": {
+  "clock_seconds": 253402660800,
+  "steps": [
+   {
+    "step": "boot, empty storage",
+    "year": 10000,
+    "header": "10000-01-05",
+    "stored": null,
+    "rows": 0,
+    "banners": [],
+    "bandButtons": 5,
+    "doneToday": null,
+    "openDialogs": [],
+    "standIn": true,
+    "page_errors_so_far": 0
+   },
+   {
+    "step": "added Read with Enter",
+    "year": 10000,
+    "header": "10000-01-05",
+    "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}",
+    "rows": 1,
+    "banners": [],
+    "bandButtons": 5,
+    "doneToday": "false",
+    "openDialogs": [],
+    "standIn": true,
+    "page_errors_so_far": 0
+   },
+   {
+    "step": "clicked Done today",
+    "year": 10000,
+    "header": "10000-01-05",
+    "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}",
+    "rows": 1,
+    "banners": [],
+    "bandButtons": 5,
+    "doneToday": "false",
+    "openDialogs": [],
+    "standIn": true,
+    "page_errors_so_far": 0
+   },
+   {
+    "step": "clicked the row's Year",
+    "year": 10000,
+    "header": "10000-01-05",
+    "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}",
+    "rows": 1,
+    "banners": [],
+    "bandButtons": 5,
+    "doneToday": "false",
+    "openDialogs": [],
+    "standIn": true,
+    "page_errors_so_far": 1
+   },
+   {
+    "step": "reloaded",
+    "year": 10000,
+    "header": "10000-01-05",
+    "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}",
+    "rows": 1,
+    "banners": [],
+    "bandButtons": 5,
+    "doneToday": "false",
+    "openDialogs": [],
+    "standIn": true,
+    "page_errors_so_far": 1
+   }
+  ],
+  "page_errors": [
+   "Cannot read properties of undefined (reading 'slice')"
+  ],
+  "console_errors": []
+ },
+ "port_refuses_after": true
+}

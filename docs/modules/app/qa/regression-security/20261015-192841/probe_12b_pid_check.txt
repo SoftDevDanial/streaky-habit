@@ -1,0 +1,11 @@
+$ timeout 120 python -u -B probe_12b_pid_check.py   (about 19:38, stdout saved with the Write tool)
+{"cdpProcesses": [["browser", 22768], ["renderer", 25432], ["GPU", 25092], ["network.mojom.NetworkService", 23864]]}
+{"osView": ["22768|chrome-headless-shell.exe|23140|15/10/2026 7:38:18 PM|76", "25092|chrome-headless-shell.exe|22768|15/10/2026 7:38:18 PM|79", "23864|chrome-headless-shell.exe|22768|15/10/2026 7:38:18 PM|62", "25432|chrome-headless-shell.exe|22768|15/10/2026 7:38:18 PM|67"]}
+{"allHeadlessRenderersOnMachine": ["25432|22768|15/10/2026", "7:38:18", "PM"]}
+
+Why this was run. Right after probe_12, a Get-Process on PID 19808 (probe_12's renderer) returned a process named
+"bash" with StartTime 19:37:42, after probe_12 had closed its browser at about 19:37:30. This check shows that the
+ids of CDP SystemInfo.getProcessInfo are the OS PIDs (each id is a chrome-headless-shell.exe, the renderer a child of
+the browser process), so probe_12 measured its own renderer. The "bash" was a later process that reused PID 19808
+after the renderer exited, the bash.exe of the finder's own sweep command, which ran at 19:37:42. A second look a
+minute later found no process 19808. This browser was closed by the script (sweep in processes.txt).

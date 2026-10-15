@@ -1,0 +1,11 @@
+HEAD ddf43f67ae8bd2b5c2e57df5db3344481daac0df
+command: git -C {workspace}\examples\streaks grep -n -e STORAGE_KEY -e streaks.state HEAD -- tests/browser/*.py
+exit: 0
+
+HEAD:tests/browser/conftest.py:47:STORAGE_KEY = "streaks.state"
+HEAD:tests/browser/conftest.py:421:        page.evaluate("(text) => localStorage.setItem('streaks.state', text)", storage)
+HEAD:tests/browser/conftest.py:467:    return page.evaluate("() => localStorage.getItem('streaks.state')")
+HEAD:tests/browser/live_e2e.py:95:    stored: localStorage.getItem('streaks.state'),
+HEAD:tests/browser/live_e2e.py:585:    page.evaluate("(text) => localStorage.setItem('streaks.state', text)", sample_state())
+HEAD:tests/browser/test_fidelity_inputs.py:120:    assert calls == [["streaks.state", json.loads(match.group(1))]], f"{name} does not make exactly one setItem call"
+HEAD:tests/browser/test_storage.py:263:    page.evaluate("() => localStorage.setItem('streaks.state', '{')")

@@ -1,0 +1,18 @@
+$ timeout 300 python -u -B probe_11_year10000.py webkit hang   (run 2, 19:41:05 to 19:41:20, stdout saved with the Write tool)
+[server] started pid=9948 port=44794 dir={workspace}\examples\streaks
+{"engine": "webkit", "version": "26.5", "groups": ["hang"]}
+{"engine": "webkit", "case": "B-P2 10000-10-15", "step": "added Read, clicked Done today", "header": "10000-10-15", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}", "rows": 1, "doneToday": "false", "banners": "", "band": 84, "open": "", "p2Beads": 0, "p4Days": 0, "p1": null, "p1Ticks": "", "focus": "body.", "pageErrors": 0, "standIn": true}
+{"engine": "webkit", "case": "B-P2 10000-10-15", "step": "pressed ul.rows > li.row button.btn-year", "press": "timed out after 3 s", "pressSeconds": 3.0, "pageAnswersWithin3s": false, "waitSeconds": 3.02, "pageErrors": 0, "lastError": null}
+{"engine": "webkit", "case": "B-P2 10000-10-15", "step": "second page of the same context reads storage during the hang", "answered": true, "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}"}
+{"engine": "webkit", "case": "B-P2 10000-10-15", "step": "second page boots the app during the hang", "rows": 1, "banners": "", "header": "10000-10-15", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}"}
+{"engine": "webkit", "case": "B-P2 10000-10-15", "step": "browser closed", "closeSeconds": 0.02, "caseSeconds": 6.73}
+{"engine": "webkit", "case": "B-P4 10000-10-15", "step": "added Read, clicked Done today", "header": "10000-10-15", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}", "rows": 1, "doneToday": "false", "banners": "", "band": 84, "open": "", "p2Beads": 0, "p4Days": 0, "p1": null, "p1Ticks": "", "focus": "body.", "pageErrors": 0, "standIn": true}
+{"engine": "webkit", "case": "B-P4 10000-10-15", "step": "pressed section.band button.btn-all", "press": "timed out after 3 s", "pressSeconds": 3.01, "pageAnswersWithin3s": false, "waitSeconds": 3.01, "pageErrors": 0, "lastError": null}
+{"engine": "webkit", "case": "B-P4 10000-10-15", "step": "second page of the same context reads storage during the hang", "answered": true, "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}"}
+{"engine": "webkit", "case": "B-P4 10000-10-15", "step": "second page boots the app during the hang", "rows": 1, "banners": "", "header": "10000-10-15", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}"}
+{"engine": "webkit", "case": "B-P4 10000-10-15", "step": "browser closed", "closeSeconds": 0.02, "caseSeconds": 6.61}
+[server] stopped pid=9948 exit=1 port 44794 refuses=True
+
+Reading notes (finder). The same as Chromium. The control, 9999-10-15, opened P2 and P4 at once with 366 days each
+(probe_11_webkit_far_rollover_bcontrol.txt). At 10000-10-15 both presses never finished and the page did not answer
+for 3 s more. Nothing was saved or lost, and a second page booted the app with the stored habit and no banner.

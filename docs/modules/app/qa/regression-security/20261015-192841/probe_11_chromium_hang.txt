@@ -1,0 +1,20 @@
+$ timeout 300 python -u -B probe_11_year10000.py chromium hang   (run 2, about 19:36, saved 19:37:06, stdout saved with the Write tool)
+[server] started pid=23532 port=20195 dir={workspace}\examples\streaks
+{"engine": "chromium", "version": "149.0.7827.55", "groups": ["hang"]}
+{"engine": "chromium", "case": "B-P2 10000-10-15", "step": "added Read, clicked Done today", "header": "10000-10-15", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}", "rows": 1, "doneToday": "false", "banners": "", "band": 84, "open": "", "p2Beads": 0, "p4Days": 0, "p1": null, "p1Ticks": "", "focus": "button.btn-done", "pageErrors": 0, "standIn": true}
+{"engine": "chromium", "case": "B-P2 10000-10-15", "step": "pressed ul.rows > li.row button.btn-year", "press": "timed out after 3 s", "pressSeconds": 3.01, "pageAnswersWithin3s": false, "waitSeconds": 3.01, "pageErrors": 0, "lastError": null}
+{"engine": "chromium", "case": "B-P2 10000-10-15", "step": "second page of the same context reads storage during the hang", "answered": true, "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}"}
+{"engine": "chromium", "case": "B-P2 10000-10-15", "step": "second page boots the app during the hang", "rows": 1, "banners": "", "header": "10000-10-15", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}"}
+{"engine": "chromium", "case": "B-P2 10000-10-15", "step": "browser closed", "closeSeconds": 0.03, "caseSeconds": 6.41}
+{"engine": "chromium", "case": "B-P4 10000-10-15", "step": "added Read, clicked Done today", "header": "10000-10-15", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}", "rows": 1, "doneToday": "false", "banners": "", "band": 84, "open": "", "p2Beads": 0, "p4Days": 0, "p1": null, "p1Ticks": "", "focus": "button.btn-done", "pageErrors": 0, "standIn": true}
+{"engine": "chromium", "case": "B-P4 10000-10-15", "step": "pressed section.band button.btn-all", "press": "timed out after 3 s", "pressSeconds": 3.01, "pageAnswersWithin3s": false, "waitSeconds": 3.01, "pageErrors": 0, "lastError": null}
+{"engine": "chromium", "case": "B-P4 10000-10-15", "step": "second page of the same context reads storage during the hang", "answered": true, "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}"}
+{"engine": "chromium", "case": "B-P4 10000-10-15", "step": "second page boots the app during the hang", "rows": 1, "banners": "", "header": "10000-10-15", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}"}
+{"engine": "chromium", "case": "B-P4 10000-10-15", "step": "browser closed", "closeSeconds": 0.05, "caseSeconds": 6.34}
+[server] stopped pid=23532 exit=1 port 20195 refuses=True
+
+Reading notes (finder). The control of this case is B-control at 9999-10-15 in probe_11_chromium_far_rollover_bcontrol.txt,
+where the same two presses open P2 and P4 at once with 366 days each. At 10000-10-15 the press itself never finished
+(Playwright's click waits for the page to take the input) and the page did not answer a trivial wait for 3 s more.
+Nothing was saved and nothing was lost. A second tab of the same browser, in its own process, read the same stored
+habit and booted the app with it, no banner.

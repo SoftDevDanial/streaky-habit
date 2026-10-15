@@ -1,0 +1,16 @@
+probe_11_year10000.py, run 1 (about 19:32, Chromium 149.0.7827.55), an instrument fault, kept as a record. Stdout was cut by
+the tool in the middle, so only what was seen is written here.
+
+1. The control at 2026-10-10 showed P2 and P4 NOT opening on "clicked the row's Year" and "clicked the band's Year".
+   Cause, the probe's own pace. It pressed Year within 500 ms of a mouse click on P1's tick, and the R14 tap-through
+   guard (`guardTapThrough`) held that click, as the spec requires. Focus was on the pressed Year, no dialog open,
+   0 page errors. Fix in run 2, the probe waits 600 ms after a click inside a popup before it clicks the page.
+2. Case C stopped with "Clock.run_for: TypeError: Cannot read properties of undefined (reading 'slice')", stack
+   dayParts < yearMonth < yearMonths < layOutMonths < drawHabitYear < renderHabitYear < render < checkDay. Playwright's
+   fake clock rethrows an exception from a timer callback into run_for. In a real browser the interval's exception is
+   an uncaught page error. Fix in run 2, run_for is wrapped and the exception recorded as the rollover's page error.
+3. Seen before the stop, and consistent with run 2: at 10000-01-05 the header read 10000-01-05 "Wednesday 5 January",
+   the band held 5 buttons 10000-01-01 to 10000-01-05, 0 page errors at boot. At 10015-11-20 P2 opened with 10 bead
+   buttons keyed "10015-1-01", "10014-1-01", ..., a bead press saved nothing, the band's Year did not open P4.
+   At 9999-12-31 Done today saved "9999-12-31" and P2 opened with 366 beads.
+The server of run 1 (pid 5264, port 63030) stopped in the probe's finally, port refused after.

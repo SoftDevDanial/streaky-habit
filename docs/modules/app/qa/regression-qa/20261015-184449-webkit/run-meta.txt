@@ -1,0 +1,10 @@
+suite: webkit
+stamp: 20261015-184449
+folder: {workspace}/examples/streaks/docs/modules/app/qa/regression-qa/20261015-184449-webkit
+head: ddf43f67ae8bd2b5c2e57df5db3344481daac0df
+command: C:\Python314\python.exe -m pytest tests/browser -q -rA -p no:cacheprovider --junitxml={workspace}/examples/streaks/docs/modules/app/qa/regression-qa/20261015-184449-webkit/junit.xml --engine webkit
+STREAKS_EVIDENCE_DIR: {workspace}/examples/streaks/docs/modules/app/qa/regression-qa/20261015-184449-webkit
+pid: 20580
+exit: 0
+status: finished
+seconds: 237.6

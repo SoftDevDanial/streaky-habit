@@ -1,0 +1,10 @@
+HEAD ddf43f67ae8bd2b5c2e57df5db3344481daac0df
+command: git -C {workspace}\examples\streaks grep -n -E cell\.|\.count\b|\.total\b HEAD -- src/app.js src/view.js src/popups.js src/calendar.js
+exit: 0
+
+HEAD:src/calendar.js:170:  const cellOf = new Map(cells.map((cell) => [cell.key, cell]));
+HEAD:src/calendar.js:173:    syncDayButton(button, shortDate(cell.key), cell.done, cell.today, animate);
+HEAD:src/calendar.js:236:  if (cell.future) return element("span", "hc", { "aria-hidden": "true" });
+HEAD:src/calendar.js:237:  return dayButton(cell.key, cell.today);
+HEAD:src/calendar.js:253:  cell.append(svg);
+HEAD:src/calendar.js:334:  cell.append(beadFace(day.day));

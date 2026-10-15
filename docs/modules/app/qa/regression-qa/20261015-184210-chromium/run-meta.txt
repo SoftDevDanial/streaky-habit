@@ -1,0 +1,10 @@
+suite: chromium
+stamp: 20261015-184210
+folder: {workspace}/examples/streaks/docs/modules/app/qa/regression-qa/20261015-184210-chromium
+head: ddf43f67ae8bd2b5c2e57df5db3344481daac0df
+command: C:\Python314\python.exe -m pytest tests/browser -q -rA -p no:cacheprovider --junitxml={workspace}/examples/streaks/docs/modules/app/qa/regression-qa/20261015-184210-chromium/junit.xml
+STREAKS_EVIDENCE_DIR: {workspace}/examples/streaks/docs/modules/app/qa/regression-qa/20261015-184210-chromium
+pid: 23400
+exit: 0
+status: finished
+seconds: 148.1

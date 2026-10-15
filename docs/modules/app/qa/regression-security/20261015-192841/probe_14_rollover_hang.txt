@@ -1,0 +1,25 @@
+$ timeout 300 python -u -B probe_14_rollover_hang.py chromium   (19:56:20 to 19:57:36, HEAD ddf43f6, stdout saved with the Write tool)
+[server] started pid=8860 port=64650 dir={workspace}\examples\streaks
+{"engine": "chromium", "case": "control, nothing open", "step": "before midnight", "answers": true, "header": "10000-09-30", "open": "", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}", "pageErrors": 0, "lastError": null}
+{"engine": "chromium", "case": "control, nothing open", "step": "after 35 s of real time", "answers": true, "answerWaitSeconds": 0.0, "header": "10000-10-01", "open": "", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}", "pageErrors": 0, "lastError": null}
+{"engine": "chromium", "case": "control, nothing open", "step": "browser closed", "closeSeconds": 0.05}
+{"engine": "chromium", "case": "P4 open at midnight", "step": "before midnight", "answers": true, "header": "10000-09-30", "open": "dlg-full dlg-all", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}", "pageErrors": 1, "lastError": "Cannot read properties of undefined (reading 'slice')"}
+{"engine": "chromium", "case": "P4 open at midnight", "step": "after 35 s of real time", "answers": false, "answerWaitSeconds": 3.01, "pageErrors": 1, "lastError": "Cannot read properties of undefined (reading 'slice')"}
+{"engine": "chromium", "case": "P4 open at midnight", "step": "browser closed", "closeSeconds": 0.07}
+[server] stopped pid=8860 exit=1 port 64650 refuses=True
+
+$ timeout 300 python -u -B probe_14_rollover_hang.py webkit   (19:57:41 to 19:58:57)
+[server] started pid=21056 port=33926 dir={workspace}\examples\streaks
+{"engine": "webkit", "case": "control, nothing open", "step": "before midnight", "answers": true, "header": "10000-09-30", "open": "", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}", "pageErrors": 0, "lastError": null}
+{"engine": "webkit", "case": "control, nothing open", "step": "after 35 s of real time", "answers": true, "answerWaitSeconds": 0.01, "header": "10000-10-01", "open": "", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}", "pageErrors": 0, "lastError": null}
+{"engine": "webkit", "case": "control, nothing open", "step": "browser closed", "closeSeconds": 0.02}
+{"engine": "webkit", "case": "P4 open at midnight", "step": "before midnight", "answers": true, "header": "10000-09-30", "open": "dlg-full dlg-all", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}", "pageErrors": 1, "lastError": "undefined is not an object (evaluating 'month.slice')"}
+{"engine": "webkit", "case": "P4 open at midnight", "step": "after 35 s of real time", "answers": false, "answerWaitSeconds": 3.01, "pageErrors": 1, "lastError": "undefined is not an object (evaluating 'month.slice')"}
+{"engine": "webkit", "case": "P4 open at midnight", "step": "browser closed", "closeSeconds": 0.02}
+[server] stopped pid=21056 exit=1 port 33926 refuses=True
+
+Reading. With nothing open the day check passed midnight into 10000-10-01 and the page kept answering, in both engines.
+With P4 open (the second press of the band's Year, after the first press threw, opens P4 on the layout left behind
+because drawAllHabitsYear records the day before layOutMonths runs), the same midnight froze the page with no press,
+in both engines. The day check's render redrew P4 for 10000-10-01, which calls yearMonths, which never returns
+(probe_10_yearmonths.txt).
