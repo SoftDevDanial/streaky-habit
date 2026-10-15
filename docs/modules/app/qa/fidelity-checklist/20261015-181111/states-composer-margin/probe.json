@@ -1,0 +1,69 @@
+{
+ "server": {
+  "pid": 24464,
+  "port": 43947,
+  "command": [
+   "C:\\Python314\\python.exe",
+   "-m",
+   "http.server",
+   "43947",
+   "--bind",
+   "127.0.0.1"
+  ]
+ },
+ "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+ "viewports": {
+  "360x780": {
+   "sheet_s2a": {
+    "computed_margin_top": "0px",
+    "declared": [],
+    "parent": "section.spec",
+    "parent_display": "grid",
+    "parent_flex_direction": "row"
+   },
+   "app_K1_before_submit": {
+    "computed_margin_top": "216px",
+    "declared": [],
+    "parent": "main.main",
+    "parent_display": "flex",
+    "parent_flex_direction": "column"
+   },
+   "app_after_empty_submit": {
+    "computed_margin_top": "188px",
+    "declared": [],
+    "parent": "main.main",
+    "parent_display": "flex",
+    "parent_flex_direction": "column"
+   }
+  },
+  "1280x800": {
+   "sheet_s2a": {
+    "computed_margin_top": "0px",
+    "declared": [],
+    "parent": "section.spec",
+    "parent_display": "grid",
+    "parent_flex_direction": "row"
+   },
+   "app_K1_before_submit": {
+    "computed_margin_top": "70px",
+    "declared": [],
+    "parent": "main.main",
+    "parent_display": "flex",
+    "parent_flex_direction": "column"
+   },
+   "app_after_empty_submit": {
+    "computed_margin_top": "42px",
+    "declared": [],
+    "parent": "main.main",
+    "parent_display": "flex",
+    "parent_flex_direction": "column"
+   }
+  }
+ },
+ "stopped": {
+  "server_pid": 24464,
+  "port": 43947,
+  "exit_code": 1,
+  "port_refuses": true
+ }
+}

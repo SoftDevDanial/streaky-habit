@@ -1,0 +1,54 @@
+{
+ "command": [
+  "C:\\Python314\\python.exe",
+  "-B",
+  "{sdlc}/harness/fidelity.py",
+  "--golden",
+  "./docs/design/year-view.html",
+  "--candidate",
+  "http://127.0.0.1:65295/",
+  "--viewport",
+  "390x844",
+  "--dpr",
+  "1",
+  "--color-scheme",
+  "dark",
+  "--fixed-time",
+  "2026-10-10T09:00:00",
+  "--candidate-init-script",
+  "tests/browser/fidelity/seed-sample.js",
+  "--candidate-after-load",
+  "tests/browser/fidelity/open-year-view.js",
+  "--out",
+  "docs/modules/app/qa/fidelity-year-view-390x844/20261015-180933/"
+ ],
+ "cwd": "{workspace}\\examples\\streaks",
+ "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+ "server": {
+  "pid": 6492,
+  "port": 65295,
+  "command": [
+   "C:\\Python314\\python.exe",
+   "-m",
+   "http.server",
+   "65295",
+   "--bind",
+   "127.0.0.1"
+  ]
+ },
+ "started": "2026-10-15T18:09:33",
+ "seconds": 3.9,
+ "harness_pid": 14064,
+ "exit_code": 0,
+ "status": "finished",
+ "stdout": "{\"mismatch_pct\": 0.0, \"dimensions_match\": true, \"golden_size\": [390, 844], \"candidate_size\": [390, 844], \"out\": \"docs\\\\modules\\\\app\\\\qa\\\\fidelity-year-view-390x844\\\\20261015-180933\"}",
+ "stderr": "",
+ "exact": {
+  "golden_sha256": "b6f158b57f347f42cc7a7baf3bd9172e5fb67a3920aa23a4339fb51044d10ad2",
+  "candidate_sha256": "b6f158b57f347f42cc7a7baf3bd9172e5fb67a3920aa23a4339fb51044d10ad2",
+  "png_bytes_identical": true,
+  "recount_mismatch_at_0_1": 0,
+  "pixels_differing_any_level": 0,
+  "max_channel_delta": 0
+ }
+}

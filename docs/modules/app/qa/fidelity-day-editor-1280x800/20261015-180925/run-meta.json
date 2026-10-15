@@ -1,0 +1,54 @@
+{
+ "command": [
+  "C:\\Python314\\python.exe",
+  "-B",
+  "{sdlc}/harness/fidelity.py",
+  "--golden",
+  "./docs/design/day-editor.html",
+  "--candidate",
+  "http://127.0.0.1:65295/",
+  "--viewport",
+  "1280x800",
+  "--dpr",
+  "1",
+  "--color-scheme",
+  "dark",
+  "--fixed-time",
+  "2026-10-10T09:00:00",
+  "--candidate-init-script",
+  "tests/browser/fidelity/seed-sample.js",
+  "--candidate-after-load",
+  "tests/browser/fidelity/open-day-editor.js",
+  "--out",
+  "docs/modules/app/qa/fidelity-day-editor-1280x800/20261015-180925/"
+ ],
+ "cwd": "{workspace}\\examples\\streaks",
+ "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+ "server": {
+  "pid": 6492,
+  "port": 65295,
+  "command": [
+   "C:\\Python314\\python.exe",
+   "-m",
+   "http.server",
+   "65295",
+   "--bind",
+   "127.0.0.1"
+  ]
+ },
+ "started": "2026-10-15T18:09:25",
+ "seconds": 3.9,
+ "harness_pid": 15488,
+ "exit_code": 0,
+ "status": "finished",
+ "stdout": "{\"mismatch_pct\": 0.0, \"dimensions_match\": true, \"golden_size\": [1280, 800], \"candidate_size\": [1280, 800], \"out\": \"docs\\\\modules\\\\app\\\\qa\\\\fidelity-day-editor-1280x800\\\\20261015-180925\"}",
+ "stderr": "",
+ "exact": {
+  "golden_sha256": "3af491aa341949c973e787bdffad53d8388b9d4e5e475c0135bd3ed531a6bee3",
+  "candidate_sha256": "3af491aa341949c973e787bdffad53d8388b9d4e5e475c0135bd3ed531a6bee3",
+  "png_bytes_identical": true,
+  "recount_mismatch_at_0_1": 0,
+  "pixels_differing_any_level": 0,
+  "max_channel_delta": 0
+ }
+}

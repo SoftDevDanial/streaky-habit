@@ -1,0 +1,311 @@
+{
+ "capture": "today-empty-390x844",
+ "golden_elements": 405,
+ "candidate_elements": 482,
+ "matched": 405,
+ "by_kind": {
+  "text-whitespace-only": 4,
+  "candidate-only": 8
+ },
+ "by_property": {},
+ "meta": {
+  "title": {
+   "golden": "Danial's Streaky Habit",
+   "candidate": "Danial's Streaky Habit"
+  },
+  "icons": {
+   "golden": [
+    {
+     "type": "",
+     "href_start": "data:image/svg+xml,%3Csvg xmlns='http://",
+     "href_length": 503
+    }
+   ],
+   "candidate": [
+    {
+     "type": "image/svg+xml",
+     "href_start": "src/icon.svg",
+     "href_length": 12
+    }
+   ]
+  },
+  "active": {
+   "golden": "BODY",
+   "candidate": "BODY"
+  },
+  "now": {
+   "golden": "Sat Oct 10 2026 09:00:00 GMT+0800 (Malaysia Time)",
+   "candidate": "Sat Oct 10 2026 09:00:00 GMT+0800 (Malaysia Time)"
+  },
+  "tz": {
+   "golden": "Asia/Kuala_Lumpur",
+   "candidate": "Asia/Kuala_Lumpur"
+  },
+  "scroll": {
+   "golden": [
+    0,
+    0,
+    390,
+    844
+   ],
+   "candidate": [
+    0,
+    0,
+    390,
+    844
+   ]
+  },
+  "open_dialogs": {
+   "golden": [],
+   "candidate": []
+  }
+ },
+ "examples": {
+  "text-whitespace-only": [
+   {
+    "path": "body",
+    "golden": "\n\n\n\n\n\n\n\n",
+    "candidate": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+   },
+   {
+    "path": "body>svg",
+    "golden": "\n  \n  \n",
+    "candidate": "\n  \n  \n  \n  \n"
+   },
+   {
+    "path": "body>div.app>main.main>section.band>div.ovg-cols",
+    "golden": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n      ",
+    "candidate": ""
+   },
+   {
+    "path": "body>div.app>main.main>div.frame-wrap>div.frame>ul.rows",
+    "golden": "\n\n        ",
+    "candidate": ""
+   }
+  ],
+  "candidate-only": [
+   {
+    "path": "body>svg>symbol#i-x",
+    "rect": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "attrs": {
+     "id": "i-x",
+     "viewBox": "0 0 256 256"
+    },
+    "descendants": 2
+   },
+   {
+    "path": "body>svg>symbol#i-check",
+    "rect": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "attrs": {
+     "id": "i-check",
+     "viewBox": "0 0 256 256"
+    },
+    "descendants": 2
+   },
+   {
+    "path": "body>svg>symbol#i-trash",
+    "rect": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "attrs": {
+     "id": "i-trash",
+     "viewBox": "0 0 256 256"
+    },
+    "descendants": 2
+   },
+   {
+    "path": "body>dialog.dlg-full.dlg-ov",
+    "rect": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "attrs": {
+     "aria-modal": "true",
+     "aria-labelledby": "ov-title"
+    },
+    "descendants": 14
+   },
+   {
+    "path": "body>dialog.dlg-full.dlg-all",
+    "rect": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "attrs": {
+     "aria-modal": "true",
+     "aria-labelledby": "all-title",
+     "aria-describedby": "all-sub"
+    },
+    "descendants": 15
+   }
+  ]
+ },
+ "items": [
+  {
+   "kind": "text-whitespace-only",
+   "path": "body",
+   "golden": "\n\n\n\n\n\n\n\n",
+   "candidate": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+  },
+  {
+   "kind": "text-whitespace-only",
+   "path": "body>svg",
+   "golden": "\n  \n  \n",
+   "candidate": "\n  \n  \n  \n  \n"
+  },
+  {
+   "kind": "candidate-only",
+   "path": "body>svg>symbol#i-x",
+   "rect": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "attrs": {
+    "id": "i-x",
+    "viewBox": "0 0 256 256"
+   },
+   "descendants": 2
+  },
+  {
+   "kind": "candidate-only",
+   "path": "body>svg>symbol#i-check",
+   "rect": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "attrs": {
+    "id": "i-check",
+    "viewBox": "0 0 256 256"
+   },
+   "descendants": 2
+  },
+  {
+   "kind": "candidate-only",
+   "path": "body>svg>symbol#i-trash",
+   "rect": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "attrs": {
+    "id": "i-trash",
+    "viewBox": "0 0 256 256"
+   },
+   "descendants": 2
+  },
+  {
+   "kind": "text-whitespace-only",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols",
+   "golden": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n      ",
+   "candidate": ""
+  },
+  {
+   "kind": "text-whitespace-only",
+   "path": "body>div.app>main.main>div.frame-wrap>div.frame>ul.rows",
+   "golden": "\n\n        ",
+   "candidate": ""
+  },
+  {
+   "kind": "candidate-only",
+   "path": "body>dialog.dlg-full.dlg-ov",
+   "rect": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "attrs": {
+    "aria-modal": "true",
+    "aria-labelledby": "ov-title"
+   },
+   "descendants": 14
+  },
+  {
+   "kind": "candidate-only",
+   "path": "body>dialog.dlg-full.dlg-all",
+   "rect": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "attrs": {
+    "aria-modal": "true",
+    "aria-labelledby": "all-title",
+    "aria-describedby": "all-sub"
+   },
+   "descendants": 15
+  },
+  {
+   "kind": "candidate-only",
+   "path": "body>dialog.dlg-full.dlg-year",
+   "rect": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "attrs": {
+    "aria-modal": "true",
+    "aria-labelledby": "yr-title",
+    "aria-describedby": "yr-sub"
+   },
+   "descendants": 24
+  },
+  {
+   "kind": "candidate-only",
+   "path": "body>dialog.dlg-day",
+   "rect": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "attrs": {
+    "aria-modal": "true",
+    "aria-labelledby": "day-title",
+    "aria-describedby": "day-sub"
+   },
+   "descendants": 11
+  },
+  {
+   "kind": "candidate-only",
+   "path": "body>dialog.dlg-del",
+   "rect": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "attrs": {
+    "role": "alertdialog",
+    "aria-modal": "true",
+    "aria-labelledby": "del-title",
+    "aria-describedby": "del-body"
+   },
+   "descendants": 7
+  }
+ ]
+}

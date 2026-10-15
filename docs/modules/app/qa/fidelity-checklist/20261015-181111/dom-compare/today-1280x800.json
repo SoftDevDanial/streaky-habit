@@ -1,0 +1,2984 @@
+{
+ "capture": "today-1280x800",
+ "golden_elements": 682,
+ "candidate_elements": 737,
+ "matched": 402,
+ "by_kind": {
+  "text-whitespace-only": 4,
+  "golden-only": 1,
+  "use-vs-path-pair": 264,
+  "use-vs-path-style": 264,
+  "candidate-only": 5
+ },
+ "by_property": {
+  "use-vs-path-style:d": 264
+ },
+ "meta": {
+  "title": {
+   "golden": "Danial's Streaky Habit",
+   "candidate": "Danial's Streaky Habit"
+  },
+  "icons": {
+   "golden": [
+    {
+     "type": "",
+     "href_start": "data:image/svg+xml,%3Csvg xmlns='http://",
+     "href_length": 503
+    }
+   ],
+   "candidate": [
+    {
+     "type": "image/svg+xml",
+     "href_start": "src/icon.svg",
+     "href_length": 12
+    }
+   ]
+  },
+  "active": {
+   "golden": "BODY",
+   "candidate": "BODY"
+  },
+  "now": {
+   "golden": "Sat Oct 10 2026 09:00:00 GMT+0800 (Malaysia Time)",
+   "candidate": "Sat Oct 10 2026 09:00:00 GMT+0800 (Malaysia Time)"
+  },
+  "tz": {
+   "golden": "Asia/Kuala_Lumpur",
+   "candidate": "Asia/Kuala_Lumpur"
+  },
+  "scroll": {
+   "golden": [
+    0,
+    0,
+    1280,
+    800
+   ],
+   "candidate": [
+    0,
+    0,
+    1280,
+    800
+   ]
+  },
+  "open_dialogs": {
+   "golden": [],
+   "candidate": []
+  }
+ },
+ "examples": {
+  "text-whitespace-only": [
+   {
+    "path": "body",
+    "golden": "\n\n\n\n\n\n\n\n",
+    "candidate": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+   },
+   {
+    "path": "body>svg",
+    "golden": "\n  \n  \n  \n  \n  \n  \n  \n",
+    "candidate": "\n  \n  \n  \n  \n"
+   },
+   {
+    "path": "body>div.app>main.main>section.band>div.ovg-cols",
+    "golden": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n      ",
+    "candidate": ""
+   },
+   {
+    "path": "body>div.app>main.main>div.frame-wrap>div.frame>ul.rows",
+    "golden": "\n\n\n\n        ",
+    "candidate": ""
+   }
+  ],
+  "golden-only": [
+   {
+    "path": "body>svg>defs",
+    "rect": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "attrs": {},
+    "descendants": 16
+   }
+  ],
+  "use-vs-path-pair": [
+   {
+    "path": "body>div.app>header.top>button.ov-btn>span.ov-ring>svg>use.seg.on~path.seg.on"
+   },
+   {
+    "path": "body>div.app>header.top>button.ov-btn>span.ov-ring>svg>use.seg~path.seg"
+   },
+   {
+    "path": "body>div.app>header.top>button.ov-btn>span.ov-ring>svg>use.seg~path.seg"
+   },
+   {
+    "path": "body>div.app>main.main>section.band>div.band-meta>div.legend>svg>use.seg~path.seg"
+   },
+   {
+    "path": "body>div.app>main.main>section.band>div.band-meta>div.legend>svg>use.seg~path.seg"
+   }
+  ],
+  "use-vs-path-style:d": [
+   {
+    "path": "body>div.app>header.top>button.ov-btn>span.ov-ring>svg>use.seg.on~path.seg.on",
+    "golden": "none",
+    "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+   },
+   {
+    "path": "body>div.app>header.top>button.ov-btn>span.ov-ring>svg>use.seg~path.seg",
+    "golden": "none",
+    "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+   },
+   {
+    "path": "body>div.app>header.top>button.ov-btn>span.ov-ring>svg>use.seg~path.seg",
+    "golden": "none",
+    "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+   },
+   {
+    "path": "body>div.app>main.main>section.band>div.band-meta>div.legend>svg>use.seg~path.seg",
+    "golden": "none",
+    "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+   },
+   {
+    "path": "body>div.app>main.main>section.band>div.band-meta>div.legend>svg>use.seg~path.seg",
+    "golden": "none",
+    "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+   }
+  ],
+  "candidate-only": [
+   {
+    "path": "body>dialog.dlg-full.dlg-ov",
+    "rect": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "attrs": {
+     "aria-modal": "true",
+     "aria-labelledby": "ov-title"
+    },
+    "descendants": 14
+   },
+   {
+    "path": "body>dialog.dlg-full.dlg-all",
+    "rect": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "attrs": {
+     "aria-modal": "true",
+     "aria-labelledby": "all-title",
+     "aria-describedby": "all-sub"
+    },
+    "descendants": 15
+   },
+   {
+    "path": "body>dialog.dlg-full.dlg-year",
+    "rect": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "attrs": {
+     "aria-modal": "true",
+     "aria-labelledby": "yr-title",
+     "aria-describedby": "yr-sub"
+    },
+    "descendants": 24
+   },
+   {
+    "path": "body>dialog.dlg-day",
+    "rect": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "attrs": {
+     "aria-modal": "true",
+     "aria-labelledby": "day-title",
+     "aria-describedby": "day-sub"
+    },
+    "descendants": 11
+   },
+   {
+    "path": "body>dialog.dlg-del",
+    "rect": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "attrs": {
+     "role": "alertdialog",
+     "aria-modal": "true",
+     "aria-labelledby": "del-title",
+     "aria-describedby": "del-body"
+    },
+    "descendants": 7
+   }
+  ]
+ },
+ "items": [
+  {
+   "kind": "text-whitespace-only",
+   "path": "body",
+   "golden": "\n\n\n\n\n\n\n\n",
+   "candidate": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+  },
+  {
+   "kind": "text-whitespace-only",
+   "path": "body>svg",
+   "golden": "\n  \n  \n  \n  \n  \n  \n  \n",
+   "candidate": "\n  \n  \n  \n  \n"
+  },
+  {
+   "kind": "golden-only",
+   "path": "body>svg>defs",
+   "rect": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "attrs": {},
+   "descendants": 16
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>header.top>button.ov-btn>span.ov-ring>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>header.top>button.ov-btn>span.ov-ring>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>header.top>button.ov-btn>span.ov-ring>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>header.top>button.ov-btn>span.ov-ring>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>header.top>button.ov-btn>span.ov-ring>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>header.top>button.ov-btn>span.ov-ring>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.band-meta>div.legend>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.band-meta>div.legend>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.band-meta>div.legend>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.band-meta>div.legend>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.band-meta>div.legend>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.band-meta>div.legend>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.band-meta>div.legend>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.band-meta>div.legend>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.band-meta>div.legend>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.band-meta>div.legend>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.band-meta>div.legend>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.band-meta>div.legend>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.band-meta>div.legend>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.band-meta>div.legend>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.band-meta>div.legend>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.band-meta>div.legend>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.band-meta>div.legend>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.band-meta>div.legend>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.band-meta>div.legend>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.band-meta>div.legend>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.band-meta>div.legend>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.band-meta>div.legend>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.band-meta>div.legend>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.band-meta>div.legend>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "text-whitespace-only",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols",
+   "golden": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n      ",
+   "candidate": ""
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-20]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-20]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-20]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-20]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-20]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-20]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-21]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-21]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-21]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-21]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-21]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-21]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-22]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-22]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-22]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-22]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-22]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-22]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-23]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-23]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-23]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-23]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-23]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-23]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-24]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-24]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-24]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-24]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-24]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-24]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-25]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-25]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-25]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-25]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-25]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-25]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-26]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-26]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-26]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-26]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-26]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-26]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-27]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-27]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-27]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-27]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-27]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-27]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-28]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-28]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-28]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-28]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-28]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-28]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-29]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-29]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-29]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-29]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-29]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-29]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-30]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-30]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-30]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-30]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-30]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-30]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-31]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-31]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-31]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-31]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-31]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-07-31]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-01]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-01]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-01]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-01]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-01]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-01]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-02]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-02]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-02]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-02]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-02]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-02]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-03]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-03]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-03]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-03]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-03]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-03]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-04]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-04]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-04]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-04]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-04]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-04]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-05]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-05]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-05]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-05]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-05]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-05]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-06]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-06]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-06]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-06]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-06]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-06]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-07]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-07]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-07]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-07]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-07]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-07]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-08]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-08]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-08]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-08]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-08]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-08]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-09]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-09]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-09]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-09]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-09]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-09]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-10]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-10]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-10]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-10]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-10]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-10]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-11]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-11]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-11]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-11]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-11]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-11]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-12]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-12]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-12]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-12]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-12]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-12]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-13]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-13]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-13]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-13]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-13]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-13]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-14]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-14]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-14]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-14]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-14]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-14]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-15]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-15]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-15]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-15]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-15]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-15]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-16]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-16]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-16]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-16]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-16]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-16]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-17]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-17]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-17]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-17]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-17]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-17]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-18]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-18]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-18]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-18]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-18]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-18]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-19]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-19]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-19]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-19]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-19]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-19]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-20]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-20]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-20]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-20]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-20]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-20]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-21]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-21]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-21]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-21]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-21]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-21]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-22]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-22]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-22]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-22]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-22]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-22]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-23]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-23]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-23]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-23]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-23]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-23]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-24]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-24]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-24]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-24]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-24]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-24]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-25]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-25]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-25]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-25]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-25]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-25]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-26]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-26]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-26]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-26]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-26]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-26]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-27]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-27]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-27]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-27]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-27]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-27]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-28]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-28]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-28]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-28]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-28]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-28]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-29]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-29]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-29]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-29]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-29]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-29]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-30]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-30]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-30]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-30]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-30]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-30]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-31]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-31]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-31]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-31]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-31]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-08-31]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-01]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-01]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-01]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-01]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-01]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-01]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-02]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-02]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-02]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-02]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-02]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-02]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-03]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-03]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-03]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-03]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-03]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-03]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-04]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-04]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-04]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-04]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-04]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-04]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-05]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-05]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-05]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-05]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-05]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-05]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-06]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-06]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-06]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-06]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-06]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-06]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-07]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-07]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-07]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-07]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-07]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-07]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-08]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-08]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-08]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-08]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-08]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-08]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-09]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-09]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-09]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-09]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-09]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-09]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-10]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-10]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-10]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-10]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-10]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-10]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-11]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-11]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-11]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-11]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-11]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-11]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-12]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-12]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-12]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-12]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-12]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-12]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-13]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-13]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-13]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-13]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-13]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-13]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-14]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-14]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-14]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-14]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-14]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-14]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-15]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-15]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-15]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-15]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-15]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-15]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-16]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-16]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-16]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-16]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-16]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-16]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-17]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-17]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-17]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-17]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-17]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-17]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-18]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-18]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-18]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-18]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-18]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-18]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-19]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-19]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-19]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-19]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-19]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-19]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-20]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-20]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-20]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-20]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-20]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-20]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-21]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-21]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-21]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-21]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-21]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-21]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-22]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-22]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-22]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-22]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-22]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-22]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-23]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-23]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-23]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-23]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-23]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-23]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-24]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-24]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-24]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-24]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-24]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-24]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-25]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-25]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-25]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-25]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-25]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-25]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-26]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-26]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-26]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-26]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-26]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-26]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-27]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-27]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-27]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-27]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-27]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-27]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-28]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-28]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-28]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-28]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-28]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-28]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-29]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-29]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-29]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-29]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-29]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-29]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-30]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-30]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-30]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-30]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-30]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-09-30]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-01]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-01]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-01]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-01]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-01]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-01]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-02]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-02]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-02]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-02]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-02]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-02]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-03]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-03]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-03]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-03]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-03]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-03]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-04]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-04]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-04]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-04]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-04]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-04]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-05]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-05]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-05]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-05]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-05]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-05]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-06]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-06]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-06]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-06]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-06]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-06]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-07]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-07]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-07]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-07]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-07]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-07]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-08]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-08]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-08]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-08]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-08]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-08]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-09]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-09]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-09]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-09]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-09]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-09]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-10]>svg>use.seg.on~path.seg.on"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-10]>svg>use.seg.on~path.seg.on",
+   "golden": "none",
+   "candidate": "path(\"M 22.86 5.28 A 15 15 0 0 1 34.18 24.88\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-10]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-10]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 31.32 29.84 A 15 15 0 0 1 8.68 29.84\")"
+  },
+  {
+   "kind": "use-vs-path-pair",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-10]>svg>use.seg~path.seg"
+  },
+  {
+   "kind": "use-vs-path-style:d",
+   "path": "body>div.app>main.main>section.band>div.ovg-cols>button.hc[2026-10-10]>svg>use.seg~path.seg",
+   "golden": "none",
+   "candidate": "path(\"M 5.82 24.88 A 15 15 0 0 1 17.14 5.28\")"
+  },
+  {
+   "kind": "text-whitespace-only",
+   "path": "body>div.app>main.main>div.frame-wrap>div.frame>ul.rows",
+   "golden": "\n\n\n\n        ",
+   "candidate": ""
+  },
+  {
+   "kind": "candidate-only",
+   "path": "body>dialog.dlg-full.dlg-ov",
+   "rect": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "attrs": {
+    "aria-modal": "true",
+    "aria-labelledby": "ov-title"
+   },
+   "descendants": 14
+  },
+  {
+   "kind": "candidate-only",
+   "path": "body>dialog.dlg-full.dlg-all",
+   "rect": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "attrs": {
+    "aria-modal": "true",
+    "aria-labelledby": "all-title",
+    "aria-describedby": "all-sub"
+   },
+   "descendants": 15
+  },
+  {
+   "kind": "candidate-only",
+   "path": "body>dialog.dlg-full.dlg-year",
+   "rect": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "attrs": {
+    "aria-modal": "true",
+    "aria-labelledby": "yr-title",
+    "aria-describedby": "yr-sub"
+   },
+   "descendants": 24
+  },
+  {
+   "kind": "candidate-only",
+   "path": "body>dialog.dlg-day",
+   "rect": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "attrs": {
+    "aria-modal": "true",
+    "aria-labelledby": "day-title",
+    "aria-describedby": "day-sub"
+   },
+   "descendants": 11
+  },
+  {
+   "kind": "candidate-only",
+   "path": "body>dialog.dlg-del",
+   "rect": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "attrs": {
+    "role": "alertdialog",
+    "aria-modal": "true",
+    "aria-labelledby": "del-title",
+    "aria-describedby": "del-body"
+   },
+   "descendants": 7
+  }
+ ]
+}

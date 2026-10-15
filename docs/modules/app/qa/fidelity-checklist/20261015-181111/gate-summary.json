@@ -1,0 +1,2070 @@
+{
+ "captures": [
+  {
+   "folder": "docs/modules/app/qa/fidelity-today-360x780/20261015-180906",
+   "golden": "./docs/design/today.html",
+   "viewport": [
+    360,
+    780
+   ],
+   "candidate_init_script": "tests/browser/fidelity/seed-sample.js",
+   "candidate_after_load": null,
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    360,
+    780
+   ],
+   "candidate_size": [
+    360,
+    780
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 3.7,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 6492,
+    "port": 65295,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "65295",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-today-390x844/20261015-180910",
+   "golden": "./docs/design/today.html",
+   "viewport": [
+    390,
+    844
+   ],
+   "candidate_init_script": "tests/browser/fidelity/seed-sample.js",
+   "candidate_after_load": null,
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    390,
+    844
+   ],
+   "candidate_size": [
+    390,
+    844
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 3.6,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 6492,
+    "port": 65295,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "65295",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-today-1280x800/20261015-180913",
+   "golden": "./docs/design/today.html",
+   "viewport": [
+    1280,
+    800
+   ],
+   "candidate_init_script": "tests/browser/fidelity/seed-sample.js",
+   "candidate_after_load": null,
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    1280,
+    800
+   ],
+   "candidate_size": [
+    1280,
+    800
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 4.1,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 6492,
+    "port": 65295,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "65295",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-day-editor-360x780/20261015-180918",
+   "golden": "./docs/design/day-editor.html",
+   "viewport": [
+    360,
+    780
+   ],
+   "candidate_init_script": "tests/browser/fidelity/seed-sample.js",
+   "candidate_after_load": "tests/browser/fidelity/open-day-editor.js",
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    360,
+    780
+   ],
+   "candidate_size": [
+    360,
+    780
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 3.9,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 6492,
+    "port": 65295,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "65295",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-day-editor-390x844/20261015-180921",
+   "golden": "./docs/design/day-editor.html",
+   "viewport": [
+    390,
+    844
+   ],
+   "candidate_init_script": "tests/browser/fidelity/seed-sample.js",
+   "candidate_after_load": "tests/browser/fidelity/open-day-editor.js",
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    390,
+    844
+   ],
+   "candidate_size": [
+    390,
+    844
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 3.9,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 6492,
+    "port": 65295,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "65295",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-day-editor-1280x800/20261015-180925",
+   "golden": "./docs/design/day-editor.html",
+   "viewport": [
+    1280,
+    800
+   ],
+   "candidate_init_script": "tests/browser/fidelity/seed-sample.js",
+   "candidate_after_load": "tests/browser/fidelity/open-day-editor.js",
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    1280,
+    800
+   ],
+   "candidate_size": [
+    1280,
+    800
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 3.9,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 6492,
+    "port": 65295,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "65295",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-year-view-360x780/20261015-180929",
+   "golden": "./docs/design/year-view.html",
+   "viewport": [
+    360,
+    780
+   ],
+   "candidate_init_script": "tests/browser/fidelity/seed-sample.js",
+   "candidate_after_load": "tests/browser/fidelity/open-year-view.js",
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    360,
+    780
+   ],
+   "candidate_size": [
+    360,
+    780
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 3.9,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 6492,
+    "port": 65295,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "65295",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-year-view-390x844/20261015-180933",
+   "golden": "./docs/design/year-view.html",
+   "viewport": [
+    390,
+    844
+   ],
+   "candidate_init_script": "tests/browser/fidelity/seed-sample.js",
+   "candidate_after_load": "tests/browser/fidelity/open-year-view.js",
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    390,
+    844
+   ],
+   "candidate_size": [
+    390,
+    844
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 3.9,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 6492,
+    "port": 65295,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "65295",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-year-view-1280x800/20261015-180937",
+   "golden": "./docs/design/year-view.html",
+   "viewport": [
+    1280,
+    800
+   ],
+   "candidate_init_script": "tests/browser/fidelity/seed-sample.js",
+   "candidate_after_load": "tests/browser/fidelity/open-year-view.js",
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    1280,
+    800
+   ],
+   "candidate_size": [
+    1280,
+    800
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 4.0,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 6492,
+    "port": 65295,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "65295",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-overview-360x780/20261015-180941",
+   "golden": "./docs/design/overview.html",
+   "viewport": [
+    360,
+    780
+   ],
+   "candidate_init_script": "tests/browser/fidelity/seed-sample.js",
+   "candidate_after_load": "tests/browser/fidelity/open-overview.js",
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    360,
+    780
+   ],
+   "candidate_size": [
+    360,
+    780
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 3.9,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 6492,
+    "port": 65295,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "65295",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-overview-390x844/20261015-180945",
+   "golden": "./docs/design/overview.html",
+   "viewport": [
+    390,
+    844
+   ],
+   "candidate_init_script": "tests/browser/fidelity/seed-sample.js",
+   "candidate_after_load": "tests/browser/fidelity/open-overview.js",
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    390,
+    844
+   ],
+   "candidate_size": [
+    390,
+    844
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 3.9,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 6492,
+    "port": 65295,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "65295",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-overview-year-360x780/20261015-180949",
+   "golden": "./docs/design/overview-year.html",
+   "viewport": [
+    360,
+    780
+   ],
+   "candidate_init_script": "tests/browser/fidelity/seed-sample.js",
+   "candidate_after_load": "tests/browser/fidelity/open-overview-year.js",
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    360,
+    780
+   ],
+   "candidate_size": [
+    360,
+    780
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 3.9,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 6492,
+    "port": 65295,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "65295",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-overview-year-390x844/20261015-180953",
+   "golden": "./docs/design/overview-year.html",
+   "viewport": [
+    390,
+    844
+   ],
+   "candidate_init_script": "tests/browser/fidelity/seed-sample.js",
+   "candidate_after_load": "tests/browser/fidelity/open-overview-year.js",
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    390,
+    844
+   ],
+   "candidate_size": [
+    390,
+    844
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 3.9,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 6492,
+    "port": 65295,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "65295",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-overview-year-1280x800/20261015-180957",
+   "golden": "./docs/design/overview-year.html",
+   "viewport": [
+    1280,
+    800
+   ],
+   "candidate_init_script": "tests/browser/fidelity/seed-sample.js",
+   "candidate_after_load": "tests/browser/fidelity/open-overview-year.js",
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    1280,
+    800
+   ],
+   "candidate_size": [
+    1280,
+    800
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 4.0,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 6492,
+    "port": 65295,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "65295",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-delete-dialog-360x780/20261015-181001",
+   "golden": "./docs/design/delete-dialog.html",
+   "viewport": [
+    360,
+    780
+   ],
+   "candidate_init_script": "tests/browser/fidelity/seed-sample.js",
+   "candidate_after_load": "tests/browser/fidelity/open-delete-dialog.js",
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    360,
+    780
+   ],
+   "candidate_size": [
+    360,
+    780
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 3.6,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 6492,
+    "port": 65295,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "65295",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-delete-dialog-390x844/20261015-181005",
+   "golden": "./docs/design/delete-dialog.html",
+   "viewport": [
+    390,
+    844
+   ],
+   "candidate_init_script": "tests/browser/fidelity/seed-sample.js",
+   "candidate_after_load": "tests/browser/fidelity/open-delete-dialog.js",
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    390,
+    844
+   ],
+   "candidate_size": [
+    390,
+    844
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 3.7,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 6492,
+    "port": 65295,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "65295",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-delete-dialog-1280x800/20261015-181008",
+   "golden": "./docs/design/delete-dialog.html",
+   "viewport": [
+    1280,
+    800
+   ],
+   "candidate_init_script": "tests/browser/fidelity/seed-sample.js",
+   "candidate_after_load": "tests/browser/fidelity/open-delete-dialog.js",
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    1280,
+    800
+   ],
+   "candidate_size": [
+    1280,
+    800
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 3.9,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 6492,
+    "port": 65295,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "65295",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-today-empty-360x780/20261015-181012",
+   "golden": "./docs/design/today-empty.html",
+   "viewport": [
+    360,
+    780
+   ],
+   "candidate_init_script": null,
+   "candidate_after_load": null,
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    360,
+    780
+   ],
+   "candidate_size": [
+    360,
+    780
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 3.6,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 6492,
+    "port": 65295,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "65295",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-today-empty-390x844/20261015-181016",
+   "golden": "./docs/design/today-empty.html",
+   "viewport": [
+    390,
+    844
+   ],
+   "candidate_init_script": null,
+   "candidate_after_load": null,
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    390,
+    844
+   ],
+   "candidate_size": [
+    390,
+    844
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 3.6,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 6492,
+    "port": 65295,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "65295",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-today-empty-1280x800/20261015-181020",
+   "golden": "./docs/design/today-empty.html",
+   "viewport": [
+    1280,
+    800
+   ],
+   "candidate_init_script": null,
+   "candidate_after_load": null,
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    1280,
+    800
+   ],
+   "candidate_size": [
+    1280,
+    800
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 3.8,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 6492,
+    "port": 65295,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "65295",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-today-full-360x780/20261015-181023",
+   "golden": "./docs/design/today-full.html",
+   "viewport": [
+    360,
+    780
+   ],
+   "candidate_init_script": "tests/browser/fidelity/seed-twelve.js",
+   "candidate_after_load": null,
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    360,
+    780
+   ],
+   "candidate_size": [
+    360,
+    780
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 3.7,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 6492,
+    "port": 65295,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "65295",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-today-full-390x844/20261015-181027",
+   "golden": "./docs/design/today-full.html",
+   "viewport": [
+    390,
+    844
+   ],
+   "candidate_init_script": "tests/browser/fidelity/seed-twelve.js",
+   "candidate_after_load": null,
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    390,
+    844
+   ],
+   "candidate_size": [
+    390,
+    844
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 3.7,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 6492,
+    "port": 65295,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "65295",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-today-full-1280x800/20261015-181031",
+   "golden": "./docs/design/today-full.html",
+   "viewport": [
+    1280,
+    800
+   ],
+   "candidate_init_script": "tests/browser/fidelity/seed-twelve.js",
+   "candidate_after_load": null,
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    1280,
+    800
+   ],
+   "candidate_size": [
+    1280,
+    800
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 3.9,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 6492,
+    "port": 65295,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "65295",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  }
+ ],
+ "controls": [
+  {
+   "folder": "docs/modules/app/qa/fidelity-controls/20261015-180740/negative-today-1280x800",
+   "golden": "./docs/design/today.html",
+   "viewport": [
+    1280,
+    800
+   ],
+   "candidate_init_script": null,
+   "candidate_after_load": null,
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 46874,
+   "dimensions_match": true,
+   "golden_size": [
+    1280,
+    800
+   ],
+   "candidate_size": [
+    1280,
+    800
+   ],
+   "pixels_differing_any_level": 130860,
+   "png_bytes_identical": false,
+   "exit_code": 0,
+   "seconds": 3.1,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 2940,
+    "port": 2721,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "2721",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-controls/20261015-180740/negative-today-360x780",
+   "golden": "./docs/design/today.html",
+   "viewport": [
+    360,
+    780
+   ],
+   "candidate_init_script": null,
+   "candidate_after_load": null,
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 15843,
+   "dimensions_match": true,
+   "golden_size": [
+    360,
+    780
+   ],
+   "candidate_size": [
+    360,
+    780
+   ],
+   "pixels_differing_any_level": 82493,
+   "png_bytes_identical": false,
+   "exit_code": 0,
+   "seconds": 2.7,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 2940,
+    "port": 2721,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "2721",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-controls/20261015-180740/negative-today-390x844",
+   "golden": "./docs/design/today.html",
+   "viewport": [
+    390,
+    844
+   ],
+   "candidate_init_script": null,
+   "candidate_after_load": null,
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 16524,
+   "dimensions_match": true,
+   "golden_size": [
+    390,
+    844
+   ],
+   "candidate_size": [
+    390,
+    844
+   ],
+   "pixels_differing_any_level": 87767,
+   "png_bytes_identical": false,
+   "exit_code": 0,
+   "seconds": 2.8,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 2940,
+    "port": 2721,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "2721",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-day-editor-1280x800",
+   "golden": "./docs/design/day-editor.html",
+   "viewport": [
+    1280,
+    800
+   ],
+   "candidate_init_script": null,
+   "candidate_after_load": null,
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    1280,
+    800
+   ],
+   "candidate_size": [
+    1280,
+    800
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 3.2,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 2940,
+    "port": 2721,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "2721",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-day-editor-360x780",
+   "golden": "./docs/design/day-editor.html",
+   "viewport": [
+    360,
+    780
+   ],
+   "candidate_init_script": null,
+   "candidate_after_load": null,
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    360,
+    780
+   ],
+   "candidate_size": [
+    360,
+    780
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 3.1,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 2940,
+    "port": 2721,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "2721",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-day-editor-390x844",
+   "golden": "./docs/design/day-editor.html",
+   "viewport": [
+    390,
+    844
+   ],
+   "candidate_init_script": null,
+   "candidate_after_load": null,
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    390,
+    844
+   ],
+   "candidate_size": [
+    390,
+    844
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 3.0,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 2940,
+    "port": 2721,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "2721",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-delete-dialog-1280x800",
+   "golden": "./docs/design/delete-dialog.html",
+   "viewport": [
+    1280,
+    800
+   ],
+   "candidate_init_script": null,
+   "candidate_after_load": null,
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    1280,
+    800
+   ],
+   "candidate_size": [
+    1280,
+    800
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 3.1,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 2940,
+    "port": 2721,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "2721",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-delete-dialog-360x780",
+   "golden": "./docs/design/delete-dialog.html",
+   "viewport": [
+    360,
+    780
+   ],
+   "candidate_init_script": null,
+   "candidate_after_load": null,
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    360,
+    780
+   ],
+   "candidate_size": [
+    360,
+    780
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 2.8,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 2940,
+    "port": 2721,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "2721",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-delete-dialog-390x844",
+   "golden": "./docs/design/delete-dialog.html",
+   "viewport": [
+    390,
+    844
+   ],
+   "candidate_init_script": null,
+   "candidate_after_load": null,
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    390,
+    844
+   ],
+   "candidate_size": [
+    390,
+    844
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 2.8,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 2940,
+    "port": 2721,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "2721",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-overview-360x780",
+   "golden": "./docs/design/overview.html",
+   "viewport": [
+    360,
+    780
+   ],
+   "candidate_init_script": null,
+   "candidate_after_load": null,
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    360,
+    780
+   ],
+   "candidate_size": [
+    360,
+    780
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 3.1,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 2940,
+    "port": 2721,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "2721",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-overview-390x844",
+   "golden": "./docs/design/overview.html",
+   "viewport": [
+    390,
+    844
+   ],
+   "candidate_init_script": null,
+   "candidate_after_load": null,
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    390,
+    844
+   ],
+   "candidate_size": [
+    390,
+    844
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 3.0,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 2940,
+    "port": 2721,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "2721",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-overview-year-1280x800",
+   "golden": "./docs/design/overview-year.html",
+   "viewport": [
+    1280,
+    800
+   ],
+   "candidate_init_script": null,
+   "candidate_after_load": null,
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    1280,
+    800
+   ],
+   "candidate_size": [
+    1280,
+    800
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 3.2,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 2940,
+    "port": 2721,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "2721",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-overview-year-360x780",
+   "golden": "./docs/design/overview-year.html",
+   "viewport": [
+    360,
+    780
+   ],
+   "candidate_init_script": null,
+   "candidate_after_load": null,
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    360,
+    780
+   ],
+   "candidate_size": [
+    360,
+    780
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 3.0,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 2940,
+    "port": 2721,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "2721",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-overview-year-390x844",
+   "golden": "./docs/design/overview-year.html",
+   "viewport": [
+    390,
+    844
+   ],
+   "candidate_init_script": null,
+   "candidate_after_load": null,
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    390,
+    844
+   ],
+   "candidate_size": [
+    390,
+    844
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 3.1,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 2940,
+    "port": 2721,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "2721",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-today-1280x800",
+   "golden": "./docs/design/today.html",
+   "viewport": [
+    1280,
+    800
+   ],
+   "candidate_init_script": null,
+   "candidate_after_load": null,
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    1280,
+    800
+   ],
+   "candidate_size": [
+    1280,
+    800
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 3.1,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 2940,
+    "port": 2721,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "2721",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-today-360x780",
+   "golden": "./docs/design/today.html",
+   "viewport": [
+    360,
+    780
+   ],
+   "candidate_init_script": null,
+   "candidate_after_load": null,
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    360,
+    780
+   ],
+   "candidate_size": [
+    360,
+    780
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 2.9,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 2940,
+    "port": 2721,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "2721",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-today-390x844",
+   "golden": "./docs/design/today.html",
+   "viewport": [
+    390,
+    844
+   ],
+   "candidate_init_script": null,
+   "candidate_after_load": null,
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    390,
+    844
+   ],
+   "candidate_size": [
+    390,
+    844
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 2.8,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 2940,
+    "port": 2721,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "2721",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-today-empty-1280x800",
+   "golden": "./docs/design/today-empty.html",
+   "viewport": [
+    1280,
+    800
+   ],
+   "candidate_init_script": null,
+   "candidate_after_load": null,
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    1280,
+    800
+   ],
+   "candidate_size": [
+    1280,
+    800
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 3.0,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 2940,
+    "port": 2721,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "2721",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-today-empty-360x780",
+   "golden": "./docs/design/today-empty.html",
+   "viewport": [
+    360,
+    780
+   ],
+   "candidate_init_script": null,
+   "candidate_after_load": null,
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    360,
+    780
+   ],
+   "candidate_size": [
+    360,
+    780
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 2.8,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 2940,
+    "port": 2721,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "2721",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-today-empty-390x844",
+   "golden": "./docs/design/today-empty.html",
+   "viewport": [
+    390,
+    844
+   ],
+   "candidate_init_script": null,
+   "candidate_after_load": null,
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    390,
+    844
+   ],
+   "candidate_size": [
+    390,
+    844
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 2.8,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 2940,
+    "port": 2721,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "2721",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-today-full-1280x800",
+   "golden": "./docs/design/today-full.html",
+   "viewport": [
+    1280,
+    800
+   ],
+   "candidate_init_script": null,
+   "candidate_after_load": null,
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    1280,
+    800
+   ],
+   "candidate_size": [
+    1280,
+    800
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 3.1,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 2940,
+    "port": 2721,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "2721",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-today-full-360x780",
+   "golden": "./docs/design/today-full.html",
+   "viewport": [
+    360,
+    780
+   ],
+   "candidate_init_script": null,
+   "candidate_after_load": null,
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    360,
+    780
+   ],
+   "candidate_size": [
+    360,
+    780
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 3.0,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 2940,
+    "port": 2721,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "2721",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-today-full-390x844",
+   "golden": "./docs/design/today-full.html",
+   "viewport": [
+    390,
+    844
+   ],
+   "candidate_init_script": null,
+   "candidate_after_load": null,
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    390,
+    844
+   ],
+   "candidate_size": [
+    390,
+    844
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 2.9,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 2940,
+    "port": 2721,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "2721",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-year-view-1280x800",
+   "golden": "./docs/design/year-view.html",
+   "viewport": [
+    1280,
+    800
+   ],
+   "candidate_init_script": null,
+   "candidate_after_load": null,
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    1280,
+    800
+   ],
+   "candidate_size": [
+    1280,
+    800
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 3.2,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 2940,
+    "port": 2721,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "2721",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-year-view-360x780",
+   "golden": "./docs/design/year-view.html",
+   "viewport": [
+    360,
+    780
+   ],
+   "candidate_init_script": null,
+   "candidate_after_load": null,
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    360,
+    780
+   ],
+   "candidate_size": [
+    360,
+    780
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 3.1,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 2940,
+    "port": 2721,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "2721",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  },
+  {
+   "folder": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-year-view-390x844",
+   "golden": "./docs/design/year-view.html",
+   "viewport": [
+    390,
+    844
+   ],
+   "candidate_init_script": null,
+   "candidate_after_load": null,
+   "fixed_time": "2026-10-10T09:00:00",
+   "color_scheme": "dark",
+   "dpr": 1.0,
+   "threshold": 0.1,
+   "full_page": true,
+   "mismatch_pixels": 0,
+   "dimensions_match": true,
+   "golden_size": [
+    390,
+    844
+   ],
+   "candidate_size": [
+    390,
+    844
+   ],
+   "pixels_differing_any_level": 0,
+   "png_bytes_identical": true,
+   "exit_code": 0,
+   "seconds": 3.1,
+   "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+   "server": {
+    "pid": 2940,
+    "port": 2721,
+    "command": [
+     "C:\\Python314\\python.exe",
+     "-m",
+     "http.server",
+     "2721",
+     "--bind",
+     "127.0.0.1"
+    ]
+   }
+  }
+ ],
+ "totals": {
+  "captures": 23,
+  "captures_at_budget": 23,
+  "positive_controls_at_0": 23,
+  "negative_controls_above_0": 3
+ }
+}

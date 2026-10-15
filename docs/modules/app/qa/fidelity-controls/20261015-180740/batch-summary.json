@@ -1,0 +1,573 @@
+{
+ "batch": "controls",
+ "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+ "server": {
+  "pid": 2940,
+  "port": 2721,
+  "command": [
+   "C:\\Python314\\python.exe",
+   "-m",
+   "http.server",
+   "2721",
+   "--bind",
+   "127.0.0.1"
+  ]
+ },
+ "stopped": {
+  "server_pid": 2940,
+  "port": 2721,
+  "exit_code": 1,
+  "port_refuses": true
+ },
+ "tree_before": "",
+ "tree_after": "",
+ "seconds": 79.8,
+ "rows": [
+  {
+   "out": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-today-360x780",
+   "exit_code": 0,
+   "status": "finished",
+   "seconds": 2.9,
+   "mismatch_pixels": 0,
+   "mismatch_pct": 0.0,
+   "dimensions_match": true,
+   "golden_size": [
+    360,
+    780
+   ],
+   "candidate_size": [
+    360,
+    780
+   ],
+   "recount_mismatch_at_0_1": 0,
+   "pixels_differing_any_level": 0,
+   "max_channel_delta": 0,
+   "png_bytes_identical": true
+  },
+  {
+   "out": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-today-390x844",
+   "exit_code": 0,
+   "status": "finished",
+   "seconds": 2.8,
+   "mismatch_pixels": 0,
+   "mismatch_pct": 0.0,
+   "dimensions_match": true,
+   "golden_size": [
+    390,
+    844
+   ],
+   "candidate_size": [
+    390,
+    844
+   ],
+   "recount_mismatch_at_0_1": 0,
+   "pixels_differing_any_level": 0,
+   "max_channel_delta": 0,
+   "png_bytes_identical": true
+  },
+  {
+   "out": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-today-1280x800",
+   "exit_code": 0,
+   "status": "finished",
+   "seconds": 3.1,
+   "mismatch_pixels": 0,
+   "mismatch_pct": 0.0,
+   "dimensions_match": true,
+   "golden_size": [
+    1280,
+    800
+   ],
+   "candidate_size": [
+    1280,
+    800
+   ],
+   "recount_mismatch_at_0_1": 0,
+   "pixels_differing_any_level": 0,
+   "max_channel_delta": 0,
+   "png_bytes_identical": true
+  },
+  {
+   "out": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-day-editor-360x780",
+   "exit_code": 0,
+   "status": "finished",
+   "seconds": 3.1,
+   "mismatch_pixels": 0,
+   "mismatch_pct": 0.0,
+   "dimensions_match": true,
+   "golden_size": [
+    360,
+    780
+   ],
+   "candidate_size": [
+    360,
+    780
+   ],
+   "recount_mismatch_at_0_1": 0,
+   "pixels_differing_any_level": 0,
+   "max_channel_delta": 0,
+   "png_bytes_identical": true
+  },
+  {
+   "out": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-day-editor-390x844",
+   "exit_code": 0,
+   "status": "finished",
+   "seconds": 3.0,
+   "mismatch_pixels": 0,
+   "mismatch_pct": 0.0,
+   "dimensions_match": true,
+   "golden_size": [
+    390,
+    844
+   ],
+   "candidate_size": [
+    390,
+    844
+   ],
+   "recount_mismatch_at_0_1": 0,
+   "pixels_differing_any_level": 0,
+   "max_channel_delta": 0,
+   "png_bytes_identical": true
+  },
+  {
+   "out": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-day-editor-1280x800",
+   "exit_code": 0,
+   "status": "finished",
+   "seconds": 3.2,
+   "mismatch_pixels": 0,
+   "mismatch_pct": 0.0,
+   "dimensions_match": true,
+   "golden_size": [
+    1280,
+    800
+   ],
+   "candidate_size": [
+    1280,
+    800
+   ],
+   "recount_mismatch_at_0_1": 0,
+   "pixels_differing_any_level": 0,
+   "max_channel_delta": 0,
+   "png_bytes_identical": true
+  },
+  {
+   "out": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-year-view-360x780",
+   "exit_code": 0,
+   "status": "finished",
+   "seconds": 3.1,
+   "mismatch_pixels": 0,
+   "mismatch_pct": 0.0,
+   "dimensions_match": true,
+   "golden_size": [
+    360,
+    780
+   ],
+   "candidate_size": [
+    360,
+    780
+   ],
+   "recount_mismatch_at_0_1": 0,
+   "pixels_differing_any_level": 0,
+   "max_channel_delta": 0,
+   "png_bytes_identical": true
+  },
+  {
+   "out": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-year-view-390x844",
+   "exit_code": 0,
+   "status": "finished",
+   "seconds": 3.1,
+   "mismatch_pixels": 0,
+   "mismatch_pct": 0.0,
+   "dimensions_match": true,
+   "golden_size": [
+    390,
+    844
+   ],
+   "candidate_size": [
+    390,
+    844
+   ],
+   "recount_mismatch_at_0_1": 0,
+   "pixels_differing_any_level": 0,
+   "max_channel_delta": 0,
+   "png_bytes_identical": true
+  },
+  {
+   "out": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-year-view-1280x800",
+   "exit_code": 0,
+   "status": "finished",
+   "seconds": 3.2,
+   "mismatch_pixels": 0,
+   "mismatch_pct": 0.0,
+   "dimensions_match": true,
+   "golden_size": [
+    1280,
+    800
+   ],
+   "candidate_size": [
+    1280,
+    800
+   ],
+   "recount_mismatch_at_0_1": 0,
+   "pixels_differing_any_level": 0,
+   "max_channel_delta": 0,
+   "png_bytes_identical": true
+  },
+  {
+   "out": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-overview-360x780",
+   "exit_code": 0,
+   "status": "finished",
+   "seconds": 3.1,
+   "mismatch_pixels": 0,
+   "mismatch_pct": 0.0,
+   "dimensions_match": true,
+   "golden_size": [
+    360,
+    780
+   ],
+   "candidate_size": [
+    360,
+    780
+   ],
+   "recount_mismatch_at_0_1": 0,
+   "pixels_differing_any_level": 0,
+   "max_channel_delta": 0,
+   "png_bytes_identical": true
+  },
+  {
+   "out": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-overview-390x844",
+   "exit_code": 0,
+   "status": "finished",
+   "seconds": 3.0,
+   "mismatch_pixels": 0,
+   "mismatch_pct": 0.0,
+   "dimensions_match": true,
+   "golden_size": [
+    390,
+    844
+   ],
+   "candidate_size": [
+    390,
+    844
+   ],
+   "recount_mismatch_at_0_1": 0,
+   "pixels_differing_any_level": 0,
+   "max_channel_delta": 0,
+   "png_bytes_identical": true
+  },
+  {
+   "out": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-overview-year-360x780",
+   "exit_code": 0,
+   "status": "finished",
+   "seconds": 3.0,
+   "mismatch_pixels": 0,
+   "mismatch_pct": 0.0,
+   "dimensions_match": true,
+   "golden_size": [
+    360,
+    780
+   ],
+   "candidate_size": [
+    360,
+    780
+   ],
+   "recount_mismatch_at_0_1": 0,
+   "pixels_differing_any_level": 0,
+   "max_channel_delta": 0,
+   "png_bytes_identical": true
+  },
+  {
+   "out": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-overview-year-390x844",
+   "exit_code": 0,
+   "status": "finished",
+   "seconds": 3.1,
+   "mismatch_pixels": 0,
+   "mismatch_pct": 0.0,
+   "dimensions_match": true,
+   "golden_size": [
+    390,
+    844
+   ],
+   "candidate_size": [
+    390,
+    844
+   ],
+   "recount_mismatch_at_0_1": 0,
+   "pixels_differing_any_level": 0,
+   "max_channel_delta": 0,
+   "png_bytes_identical": true
+  },
+  {
+   "out": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-overview-year-1280x800",
+   "exit_code": 0,
+   "status": "finished",
+   "seconds": 3.2,
+   "mismatch_pixels": 0,
+   "mismatch_pct": 0.0,
+   "dimensions_match": true,
+   "golden_size": [
+    1280,
+    800
+   ],
+   "candidate_size": [
+    1280,
+    800
+   ],
+   "recount_mismatch_at_0_1": 0,
+   "pixels_differing_any_level": 0,
+   "max_channel_delta": 0,
+   "png_bytes_identical": true
+  },
+  {
+   "out": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-delete-dialog-360x780",
+   "exit_code": 0,
+   "status": "finished",
+   "seconds": 2.8,
+   "mismatch_pixels": 0,
+   "mismatch_pct": 0.0,
+   "dimensions_match": true,
+   "golden_size": [
+    360,
+    780
+   ],
+   "candidate_size": [
+    360,
+    780
+   ],
+   "recount_mismatch_at_0_1": 0,
+   "pixels_differing_any_level": 0,
+   "max_channel_delta": 0,
+   "png_bytes_identical": true
+  },
+  {
+   "out": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-delete-dialog-390x844",
+   "exit_code": 0,
+   "status": "finished",
+   "seconds": 2.8,
+   "mismatch_pixels": 0,
+   "mismatch_pct": 0.0,
+   "dimensions_match": true,
+   "golden_size": [
+    390,
+    844
+   ],
+   "candidate_size": [
+    390,
+    844
+   ],
+   "recount_mismatch_at_0_1": 0,
+   "pixels_differing_any_level": 0,
+   "max_channel_delta": 0,
+   "png_bytes_identical": true
+  },
+  {
+   "out": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-delete-dialog-1280x800",
+   "exit_code": 0,
+   "status": "finished",
+   "seconds": 3.1,
+   "mismatch_pixels": 0,
+   "mismatch_pct": 0.0,
+   "dimensions_match": true,
+   "golden_size": [
+    1280,
+    800
+   ],
+   "candidate_size": [
+    1280,
+    800
+   ],
+   "recount_mismatch_at_0_1": 0,
+   "pixels_differing_any_level": 0,
+   "max_channel_delta": 0,
+   "png_bytes_identical": true
+  },
+  {
+   "out": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-today-empty-360x780",
+   "exit_code": 0,
+   "status": "finished",
+   "seconds": 2.8,
+   "mismatch_pixels": 0,
+   "mismatch_pct": 0.0,
+   "dimensions_match": true,
+   "golden_size": [
+    360,
+    780
+   ],
+   "candidate_size": [
+    360,
+    780
+   ],
+   "recount_mismatch_at_0_1": 0,
+   "pixels_differing_any_level": 0,
+   "max_channel_delta": 0,
+   "png_bytes_identical": true
+  },
+  {
+   "out": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-today-empty-390x844",
+   "exit_code": 0,
+   "status": "finished",
+   "seconds": 2.8,
+   "mismatch_pixels": 0,
+   "mismatch_pct": 0.0,
+   "dimensions_match": true,
+   "golden_size": [
+    390,
+    844
+   ],
+   "candidate_size": [
+    390,
+    844
+   ],
+   "recount_mismatch_at_0_1": 0,
+   "pixels_differing_any_level": 0,
+   "max_channel_delta": 0,
+   "png_bytes_identical": true
+  },
+  {
+   "out": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-today-empty-1280x800",
+   "exit_code": 0,
+   "status": "finished",
+   "seconds": 3.0,
+   "mismatch_pixels": 0,
+   "mismatch_pct": 0.0,
+   "dimensions_match": true,
+   "golden_size": [
+    1280,
+    800
+   ],
+   "candidate_size": [
+    1280,
+    800
+   ],
+   "recount_mismatch_at_0_1": 0,
+   "pixels_differing_any_level": 0,
+   "max_channel_delta": 0,
+   "png_bytes_identical": true
+  },
+  {
+   "out": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-today-full-360x780",
+   "exit_code": 0,
+   "status": "finished",
+   "seconds": 3.0,
+   "mismatch_pixels": 0,
+   "mismatch_pct": 0.0,
+   "dimensions_match": true,
+   "golden_size": [
+    360,
+    780
+   ],
+   "candidate_size": [
+    360,
+    780
+   ],
+   "recount_mismatch_at_0_1": 0,
+   "pixels_differing_any_level": 0,
+   "max_channel_delta": 0,
+   "png_bytes_identical": true
+  },
+  {
+   "out": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-today-full-390x844",
+   "exit_code": 0,
+   "status": "finished",
+   "seconds": 2.9,
+   "mismatch_pixels": 0,
+   "mismatch_pct": 0.0,
+   "dimensions_match": true,
+   "golden_size": [
+    390,
+    844
+   ],
+   "candidate_size": [
+    390,
+    844
+   ],
+   "recount_mismatch_at_0_1": 0,
+   "pixels_differing_any_level": 0,
+   "max_channel_delta": 0,
+   "png_bytes_identical": true
+  },
+  {
+   "out": "docs/modules/app/qa/fidelity-controls/20261015-180740/positive-today-full-1280x800",
+   "exit_code": 0,
+   "status": "finished",
+   "seconds": 3.1,
+   "mismatch_pixels": 0,
+   "mismatch_pct": 0.0,
+   "dimensions_match": true,
+   "golden_size": [
+    1280,
+    800
+   ],
+   "candidate_size": [
+    1280,
+    800
+   ],
+   "recount_mismatch_at_0_1": 0,
+   "pixels_differing_any_level": 0,
+   "max_channel_delta": 0,
+   "png_bytes_identical": true
+  },
+  {
+   "out": "docs/modules/app/qa/fidelity-controls/20261015-180740/negative-today-360x780",
+   "exit_code": 0,
+   "status": "finished",
+   "seconds": 2.7,
+   "mismatch_pixels": 15843,
+   "mismatch_pct": 5.6421,
+   "dimensions_match": true,
+   "golden_size": [
+    360,
+    780
+   ],
+   "candidate_size": [
+    360,
+    780
+   ],
+   "recount_mismatch_at_0_1": 15843,
+   "pixels_differing_any_level": 82493,
+   "max_channel_delta": 231,
+   "png_bytes_identical": false
+  },
+  {
+   "out": "docs/modules/app/qa/fidelity-controls/20261015-180740/negative-today-390x844",
+   "exit_code": 0,
+   "status": "finished",
+   "seconds": 2.8,
+   "mismatch_pixels": 16524,
+   "mismatch_pct": 5.0201,
+   "dimensions_match": true,
+   "golden_size": [
+    390,
+    844
+   ],
+   "candidate_size": [
+    390,
+    844
+   ],
+   "recount_mismatch_at_0_1": 16524,
+   "pixels_differing_any_level": 87767,
+   "max_channel_delta": 231,
+   "png_bytes_identical": false
+  },
+  {
+   "out": "docs/modules/app/qa/fidelity-controls/20261015-180740/negative-today-1280x800",
+   "exit_code": 0,
+   "status": "finished",
+   "seconds": 3.1,
+   "mismatch_pixels": 46874,
+   "mismatch_pct": 4.5775,
+   "dimensions_match": true,
+   "golden_size": [
+    1280,
+    800
+   ],
+   "candidate_size": [
+    1280,
+    800
+   ],
+   "recount_mismatch_at_0_1": 46874,
+   "pixels_differing_any_level": 130860,
+   "max_channel_delta": 223,
+   "png_bytes_identical": false
+  }
+ ]
+}

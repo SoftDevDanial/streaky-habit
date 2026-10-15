@@ -1,0 +1,66 @@
+{
+ "command": [
+  "C:\\Python314\\python.exe",
+  "-B",
+  "{sdlc}/harness/fidelity.py",
+  "--golden",
+  "./docs/design/day-editor.html",
+  "--candidate",
+  "http://127.0.0.1:51422/",
+  "--viewport",
+  "1280x800",
+  "--dpr",
+  "1",
+  "--color-scheme",
+  "dark",
+  "--fixed-time",
+  "2026-10-10T09:00:00",
+  "--candidate-init-script",
+  "tests/browser/fidelity/seed-sample.js",
+  "--candidate-after-load",
+  "{temp}/claude/{project-id}/34019cfb-f1a7-415f-a7eb-c47e4619e819/scratchpad/streaks-fidelity-28/noblur-open-day-editor.js",
+  "--out",
+  "docs/modules/app/qa/fidelity-checklist/20261015-181111/noblur/day-editor-1280x800/"
+ ],
+ "cwd": "{workspace}\\examples\\streaks",
+ "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+ "server": {
+  "pid": 9440,
+  "port": 51422,
+  "command": [
+   "C:\\Python314\\python.exe",
+   "-m",
+   "http.server",
+   "51422",
+   "--bind",
+   "127.0.0.1"
+  ]
+ },
+ "started": "2026-10-15T18:18:47",
+ "seconds": 4.0,
+ "harness_pid": 21632,
+ "exit_code": 0,
+ "status": "finished",
+ "stdout": "{\"mismatch_pct\": 0.1788, \"dimensions_match\": true, \"golden_size\": [1280, 800], \"candidate_size\": [1280, 800], \"out\": \"docs\\\\modules\\\\app\\\\qa\\\\fidelity-checklist\\\\20261015-181111\\\\noblur\\\\day-editor-1280x800\"}",
+ "stderr": "",
+ "exact": {
+  "golden_sha256": "3af491aa341949c973e787bdffad53d8388b9d4e5e475c0135bd3ed531a6bee3",
+  "candidate_sha256": "f63c1cca99d45a46e4eda518e5ce3ab447e08c9b2c3b4a4b2cd6f9a6cb263f07",
+  "png_bytes_identical": false,
+  "recount_mismatch_at_0_1": 1831,
+  "pixels_differing_any_level": 1854,
+  "max_channel_delta": 195,
+  "any_level_box_xywh": [
+   441,
+   342,
+   398,
+   60
+  ],
+  "mismatch_box_xywh": [
+   441,
+   342,
+   398,
+   60
+  ]
+ }
+}

@@ -1,0 +1,153 @@
+{
+ "batch": "noblur",
+ "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+ "server": {
+  "pid": 9440,
+  "port": 51422,
+  "command": [
+   "C:\\Python314\\python.exe",
+   "-m",
+   "http.server",
+   "51422",
+   "--bind",
+   "127.0.0.1"
+  ]
+ },
+ "stopped": {
+  "server_pid": 9440,
+  "port": 51422,
+  "exit_code": 1,
+  "port_refuses": true
+ },
+ "tree_before": "",
+ "tree_after": "",
+ "seconds": 24.9,
+ "rows": [
+  {
+   "out": "docs/modules/app/qa/fidelity-checklist/20261015-181111/noblur/day-editor-390x844",
+   "exit_code": 0,
+   "status": "finished",
+   "seconds": 3.9,
+   "mismatch_pixels": 1663,
+   "mismatch_pct": 0.5052,
+   "dimensions_match": true,
+   "golden_size": [
+    390,
+    844
+   ],
+   "candidate_size": [
+    390,
+    844
+   ],
+   "recount_mismatch_at_0_1": 1663,
+   "pixels_differing_any_level": 1686,
+   "max_channel_delta": 195,
+   "png_bytes_identical": false
+  },
+  {
+   "out": "docs/modules/app/qa/fidelity-checklist/20261015-181111/noblur/day-editor-1280x800",
+   "exit_code": 0,
+   "status": "finished",
+   "seconds": 4.0,
+   "mismatch_pixels": 1831,
+   "mismatch_pct": 0.1788,
+   "dimensions_match": true,
+   "golden_size": [
+    1280,
+    800
+   ],
+   "candidate_size": [
+    1280,
+    800
+   ],
+   "recount_mismatch_at_0_1": 1831,
+   "pixels_differing_any_level": 1854,
+   "max_channel_delta": 195,
+   "png_bytes_identical": false
+  },
+  {
+   "out": "docs/modules/app/qa/fidelity-checklist/20261015-181111/noblur/year-view-390x844",
+   "exit_code": 0,
+   "status": "finished",
+   "seconds": 4.0,
+   "mismatch_pixels": 347,
+   "mismatch_pct": 0.1054,
+   "dimensions_match": true,
+   "golden_size": [
+    390,
+    844
+   ],
+   "candidate_size": [
+    390,
+    844
+   ],
+   "recount_mismatch_at_0_1": 347,
+   "pixels_differing_any_level": 388,
+   "max_channel_delta": 195,
+   "png_bytes_identical": false
+  },
+  {
+   "out": "docs/modules/app/qa/fidelity-checklist/20261015-181111/noblur/overview-390x844",
+   "exit_code": 0,
+   "status": "finished",
+   "seconds": 3.9,
+   "mismatch_pixels": 347,
+   "mismatch_pct": 0.1054,
+   "dimensions_match": true,
+   "golden_size": [
+    390,
+    844
+   ],
+   "candidate_size": [
+    390,
+    844
+   ],
+   "recount_mismatch_at_0_1": 347,
+   "pixels_differing_any_level": 388,
+   "max_channel_delta": 195,
+   "png_bytes_identical": false
+  },
+  {
+   "out": "docs/modules/app/qa/fidelity-checklist/20261015-181111/noblur/overview-year-390x844",
+   "exit_code": 0,
+   "status": "finished",
+   "seconds": 4.0,
+   "mismatch_pixels": 347,
+   "mismatch_pct": 0.1054,
+   "dimensions_match": true,
+   "golden_size": [
+    390,
+    844
+   ],
+   "candidate_size": [
+    390,
+    844
+   ],
+   "recount_mismatch_at_0_1": 347,
+   "pixels_differing_any_level": 388,
+   "max_channel_delta": 195,
+   "png_bytes_identical": false
+  },
+  {
+   "out": "docs/modules/app/qa/fidelity-checklist/20261015-181111/noblur/delete-dialog-390x844",
+   "exit_code": 0,
+   "status": "finished",
+   "seconds": 3.7,
+   "mismatch_pixels": 878,
+   "mismatch_pct": 0.2667,
+   "dimensions_match": true,
+   "golden_size": [
+    390,
+    844
+   ],
+   "candidate_size": [
+    390,
+    844
+   ],
+   "recount_mismatch_at_0_1": 878,
+   "pixels_differing_any_level": 898,
+   "max_channel_delta": 195,
+   "png_bytes_identical": false
+  }
+ ]
+}

@@ -1,0 +1,32 @@
+{
+  "mismatch_pixels": 0,
+  "total_pixels": 1024000,
+  "mismatch_pct": 0.0,
+  "dimensions_match": true,
+  "golden_size": [
+    1280,
+    800
+  ],
+  "candidate_size": [
+    1280,
+    800
+  ],
+  "compared_size": [
+    1280,
+    800
+  ],
+  "threshold": 0.1,
+  "golden": "./docs/design/today-full.html",
+  "candidate": "http://127.0.0.1:2721/docs/design/today-full.html",
+  "viewport": [
+    1280,
+    800
+  ],
+  "dpr": 1.0,
+  "full_page": true,
+  "color_scheme": "dark",
+  "browser_args": [],
+  "fixed_time": "2026-10-10T09:00:00",
+  "candidate_init_script": null,
+  "candidate_after_load": null
+}

@@ -1,0 +1,5201 @@
+{
+ "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+ "server": {
+  "pid": 12832,
+  "port": 5408,
+  "command": [
+   "C:\\Python314\\python.exe",
+   "-m",
+   "http.server",
+   "5408",
+   "--bind",
+   "127.0.0.1"
+  ]
+ },
+ "rows": {},
+ "viewports": {
+  "360x780": {
+   "verdict": {
+    "ST-01": {
+     "result": "FAIL",
+     "comparisons": 7,
+     "property_comparisons": 213,
+     "checks": 7,
+     "fails": [
+      "ST-01 composer"
+     ]
+    },
+    "ST-02": {
+     "result": "FAIL",
+     "comparisons": 7,
+     "property_comparisons": 213,
+     "checks": 7,
+     "fails": [
+      "ST-02 composer"
+     ]
+    },
+    "ST-03": {
+     "result": "FAIL",
+     "comparisons": 7,
+     "property_comparisons": 213,
+     "checks": 7,
+     "fails": [
+      "ST-03 composer"
+     ]
+    },
+    "ST-04": {
+     "result": "PASS",
+     "comparisons": 2,
+     "property_comparisons": 58,
+     "checks": 4,
+     "fails": []
+    },
+    "ST-05": {
+     "result": "PASS",
+     "comparisons": 13,
+     "property_comparisons": 419,
+     "checks": 7,
+     "fails": []
+    },
+    "ST-06": {
+     "result": "PASS",
+     "comparisons": 1,
+     "property_comparisons": 0,
+     "checks": 0,
+     "fails": []
+    }
+   },
+   "rows": {
+    "ST-01": [
+     {
+      "case": "ST-01 message",
+      "specimen": "section[aria-labelledby=s2a] p.field-msg",
+      "live": "#nh-msg",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [
+       "inline-size",
+       "perspective-origin",
+       "transform-origin",
+       "width"
+      ],
+      "text": [
+       "Name the habit first.",
+       "Name the habit first."
+      ],
+      "tag": [
+       "p",
+       "p"
+      ],
+      "children": [
+       [],
+       []
+      ],
+      "rect": [
+       [
+        31,
+        111,
+        311.03,
+        20
+       ],
+       [
+        27,
+        653,
+        308,
+        20
+       ]
+      ],
+      "attrs": [
+       {
+        "id": "m1",
+        "class": "field-msg err",
+        "aria-live": "polite"
+       },
+       {
+        "id": "nh-msg",
+        "class": "field-msg err",
+        "aria-live": "polite"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false,
+      "checks": [
+       {
+        "check": "text",
+        "result": "PASS",
+        "detail": [
+         "Name the habit first.",
+         "Name the habit first."
+        ]
+       },
+       {
+        "check": "classes field-msg err",
+        "result": "PASS",
+        "detail": "field-msg err"
+       },
+       {
+        "check": "aria-live polite",
+        "result": "PASS",
+        "detail": null
+       }
+      ]
+     },
+     {
+      "case": "ST-01 field",
+      "specimen": "section[aria-labelledby=s2a] input.input",
+      "live": "#nh",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {
+       "outline-offset": [
+        "0px",
+        "2px"
+       ],
+       "outline-style": [
+        "none",
+        "solid"
+       ],
+       "outline-width": [
+        "3px",
+        "2px"
+       ]
+      },
+      "layout_properties_differing": [
+       "inline-size",
+       "perspective-origin",
+       "transform-origin",
+       "width"
+      ],
+      "text": [
+       "",
+       ""
+      ],
+      "tag": [
+       "input",
+       "input"
+      ],
+      "children": [
+       [],
+       []
+      ],
+      "rect": [
+       [
+        29,
+        165,
+        211,
+        48
+       ],
+       [
+        25,
+        707,
+        207.97,
+        48
+       ]
+      ],
+      "attrs": [
+       {
+        "id": "n1",
+        "class": "input",
+        "type": "text",
+        "autocomplete": "off",
+        "spellcheck": "false",
+        "aria-describedby": "m1",
+        "aria-invalid": "true",
+        "style": ""
+       },
+       {
+        "id": "nh",
+        "class": "input",
+        "type": "text",
+        "autocomplete": "off",
+        "spellcheck": "false",
+        "aria-describedby": "nh-msg",
+        "aria-invalid": "true",
+        "style": ""
+       }
+      ],
+      "value": [
+       "",
+       ""
+      ],
+      "live_focused": true,
+      "checks": [
+       {
+        "check": "aria-invalid true",
+        "result": "PASS",
+        "detail": "true"
+       },
+       {
+        "check": "field value equals the specimen's",
+        "result": "PASS",
+        "detail": [
+         "",
+         ""
+        ]
+       },
+       {
+        "check": "the field did not move",
+        "result": "PASS",
+        "detail": [
+         [
+          25,
+          707,
+          207.97,
+          48
+         ],
+         [
+          25,
+          707,
+          207.97,
+          48
+         ]
+        ]
+       },
+       {
+        "check": "against K1's field only the edge colour changed, to --danger",
+        "result": "PASS",
+        "detail": {
+         "border-top-color": [
+          "rgb(124, 127, 136)",
+          "rgb(255, 107, 102)"
+         ],
+         "border-right-color": [
+          "rgb(124, 127, 136)",
+          "rgb(255, 107, 102)"
+         ],
+         "border-bottom-color": [
+          "rgb(124, 127, 136)",
+          "rgb(255, 107, 102)"
+         ],
+         "border-left-color": [
+          "rgb(124, 127, 136)",
+          "rgb(255, 107, 102)"
+         ]
+        }
+       }
+      ]
+     },
+     {
+      "case": "ST-01 label",
+      "specimen": "section[aria-labelledby=s2a] label.add-label",
+      "live": "form.composer label.add-label",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [
+       "inline-size",
+       "perspective-origin",
+       "transform-origin",
+       "width"
+      ],
+      "text": [
+       "New habit",
+       "New habit"
+      ],
+      "tag": [
+       "label",
+       "label"
+      ],
+      "children": [
+       [],
+       []
+      ],
+      "rect": [
+       [
+        31,
+        139,
+        311.03,
+        20
+       ],
+       [
+        27,
+        681,
+        308,
+        20
+       ]
+      ],
+      "attrs": [
+       {
+        "for": "n1",
+        "class": "add-label"
+       },
+       {
+        "for": "nh",
+        "class": "add-label"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false
+     },
+     {
+      "case": "ST-01 Add",
+      "specimen": "section[aria-labelledby=s2a] button.btn-primary",
+      "live": "#add-btn",
+      "kind": "button",
+      "result": "PASS",
+      "compared": 31,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "Add",
+       "Add"
+      ],
+      "tag": [
+       "button",
+       "button"
+      ],
+      "children": [
+       [
+        "svg"
+       ],
+       [
+        "svg"
+       ]
+      ],
+      "rect": [
+       [
+        248,
+        165,
+        94.03,
+        48
+       ],
+       [
+        240.97,
+        707,
+        94.03,
+        48
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "btn btn-primary",
+        "type": "submit"
+       },
+       {
+        "id": "add-btn",
+        "class": "btn btn-primary",
+        "type": "submit"
+       }
+      ],
+      "value": [
+       "",
+       ""
+      ],
+      "live_focused": false
+     },
+     {
+      "case": "ST-01 Add icon",
+      "specimen": "section[aria-labelledby=s2a] button.btn-primary svg.ph",
+      "live": "#add-btn svg.ph",
+      "kind": "svg",
+      "result": "PASS",
+      "compared": 37,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "",
+       ""
+      ],
+      "tag": [
+       "svg",
+       "svg"
+      ],
+      "children": [
+       [
+        "use"
+       ],
+       [
+        "use"
+       ]
+      ],
+      "rect": [
+       [
+        266,
+        179,
+        20,
+        20
+       ],
+       [
+        258.97,
+        721,
+        20,
+        20
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "ph",
+        "aria-hidden": "true"
+       },
+       {
+        "class": "ph",
+        "aria-hidden": "true"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false
+     },
+     {
+      "case": "ST-01 composer",
+      "specimen": "section[aria-labelledby=s2a] form.composer",
+      "live": "form.composer",
+      "kind": "box",
+      "result": "FAIL",
+      "compared": 29,
+      "differences": {
+       "margin-top": [
+        "0px",
+        "188px"
+       ]
+      },
+      "other_properties_differing": {
+       "margin-block-start": [
+        "0px",
+        "188px"
+       ]
+      },
+      "layout_properties_differing": [
+       "inline-size",
+       "perspective-origin",
+       "transform-origin",
+       "width"
+      ],
+      "text": [
+       "\n      Name the habit first.\n      \n        New habit\n        \n          \n          Add\n        \n      \n    ",
+       "\n      Name the habit first.\n      \n        New habit\n        \n          \n          Add\n        \n      \n    "
+      ],
+      "tag": [
+       "form",
+       "form"
+      ],
+      "children": [
+       [
+        "p.field-msg.err",
+        "div.add-row"
+       ],
+       [
+        "p.field-msg.err",
+        "div.add-row"
+       ]
+      ],
+      "rect": [
+       [
+        16,
+        100,
+        339.03,
+        126
+       ],
+       [
+        12,
+        642,
+        336,
+        126
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "composer",
+        "novalidate": ""
+       },
+       {
+        "class": "composer",
+        "novalidate": ""
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false
+     },
+     {
+      "case": "ST-01 add-ctl",
+      "specimen": "section[aria-labelledby=s2a] div.add-ctl",
+      "live": "form.composer div.add-ctl",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [
+       "inline-size",
+       "perspective-origin",
+       "transform-origin",
+       "width"
+      ],
+      "text": [
+       "\n          \n          Add\n        ",
+       "\n          \n          Add\n        "
+      ],
+      "tag": [
+       "div",
+       "div"
+      ],
+      "children": [
+       [
+        "input.input",
+        "button.btn.btn-primary"
+       ],
+       [
+        "input.input",
+        "button.btn.btn-primary"
+       ]
+      ],
+      "rect": [
+       [
+        29,
+        165,
+        313.03,
+        48
+       ],
+       [
+        25,
+        707,
+        310,
+        48
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "add-ctl"
+       },
+       {
+        "class": "add-ctl"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false
+     }
+    ],
+    "ST-02": [
+     {
+      "case": "ST-02 message",
+      "specimen": "section[aria-labelledby=s2b] p.field-msg",
+      "live": "#nh-msg",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [
+       "inline-size",
+       "perspective-origin",
+       "transform-origin",
+       "width"
+      ],
+      "text": [
+       "Keep it to 40 characters or fewer.",
+       "Keep it to 40 characters or fewer."
+      ],
+      "tag": [
+       "p",
+       "p"
+      ],
+      "children": [
+       [],
+       []
+      ],
+      "rect": [
+       [
+        31,
+        297,
+        311.03,
+        20
+       ],
+       [
+        27,
+        653,
+        308,
+        20
+       ]
+      ],
+      "attrs": [
+       {
+        "id": "m2",
+        "class": "field-msg err",
+        "aria-live": "polite"
+       },
+       {
+        "id": "nh-msg",
+        "class": "field-msg err",
+        "aria-live": "polite"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false,
+      "checks": [
+       {
+        "check": "text",
+        "result": "PASS",
+        "detail": [
+         "Keep it to 40 characters or fewer.",
+         "Keep it to 40 characters or fewer."
+        ]
+       },
+       {
+        "check": "classes field-msg err",
+        "result": "PASS",
+        "detail": "field-msg err"
+       },
+       {
+        "check": "aria-live polite",
+        "result": "PASS",
+        "detail": null
+       }
+      ]
+     },
+     {
+      "case": "ST-02 field",
+      "specimen": "section[aria-labelledby=s2b] input.input",
+      "live": "#nh",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {
+       "outline-offset": [
+        "0px",
+        "2px"
+       ],
+       "outline-style": [
+        "none",
+        "solid"
+       ],
+       "outline-width": [
+        "3px",
+        "2px"
+       ]
+      },
+      "layout_properties_differing": [
+       "inline-size",
+       "perspective-origin",
+       "transform-origin",
+       "width"
+      ],
+      "text": [
+       "",
+       ""
+      ],
+      "tag": [
+       "input",
+       "input"
+      ],
+      "children": [
+       [],
+       []
+      ],
+      "rect": [
+       [
+        29,
+        351,
+        211,
+        48
+       ],
+       [
+        25,
+        707,
+        207.97,
+        48
+       ]
+      ],
+      "attrs": [
+       {
+        "id": "n2",
+        "class": "input",
+        "type": "text",
+        "autocomplete": "off",
+        "spellcheck": "false",
+        "aria-describedby": "m2",
+        "aria-invalid": "true",
+        "value": "Read twenty pages of a novel before bed each night",
+        "style": ""
+       },
+       {
+        "id": "nh",
+        "class": "input",
+        "type": "text",
+        "autocomplete": "off",
+        "spellcheck": "false",
+        "aria-describedby": "nh-msg",
+        "style": "",
+        "aria-invalid": "true"
+       }
+      ],
+      "value": [
+       "Read twenty pages of a novel before bed each night",
+       "Read twenty pages of a novel before bed each night"
+      ],
+      "live_focused": true,
+      "checks": [
+       {
+        "check": "aria-invalid true",
+        "result": "PASS",
+        "detail": "true"
+       },
+       {
+        "check": "field value equals the specimen's",
+        "result": "PASS",
+        "detail": [
+         "Read twenty pages of a novel before bed each night",
+         "Read twenty pages of a novel before bed each night"
+        ]
+       },
+       {
+        "check": "the field did not move",
+        "result": "PASS",
+        "detail": [
+         [
+          25,
+          707,
+          207.97,
+          48
+         ],
+         [
+          25,
+          707,
+          207.97,
+          48
+         ]
+        ]
+       },
+       {
+        "check": "against K1's field only the edge colour changed, to --danger",
+        "result": "PASS",
+        "detail": {
+         "border-top-color": [
+          "rgb(124, 127, 136)",
+          "rgb(255, 107, 102)"
+         ],
+         "border-right-color": [
+          "rgb(124, 127, 136)",
+          "rgb(255, 107, 102)"
+         ],
+         "border-bottom-color": [
+          "rgb(124, 127, 136)",
+          "rgb(255, 107, 102)"
+         ],
+         "border-left-color": [
+          "rgb(124, 127, 136)",
+          "rgb(255, 107, 102)"
+         ]
+        }
+       }
+      ]
+     },
+     {
+      "case": "ST-02 label",
+      "specimen": "section[aria-labelledby=s2b] label.add-label",
+      "live": "form.composer label.add-label",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [
+       "inline-size",
+       "perspective-origin",
+       "transform-origin",
+       "width"
+      ],
+      "text": [
+       "New habit",
+       "New habit"
+      ],
+      "tag": [
+       "label",
+       "label"
+      ],
+      "children": [
+       [],
+       []
+      ],
+      "rect": [
+       [
+        31,
+        325,
+        311.03,
+        20
+       ],
+       [
+        27,
+        681,
+        308,
+        20
+       ]
+      ],
+      "attrs": [
+       {
+        "for": "n2",
+        "class": "add-label"
+       },
+       {
+        "for": "nh",
+        "class": "add-label"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false
+     },
+     {
+      "case": "ST-02 Add",
+      "specimen": "section[aria-labelledby=s2b] button.btn-primary",
+      "live": "#add-btn",
+      "kind": "button",
+      "result": "PASS",
+      "compared": 31,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "Add",
+       "Add"
+      ],
+      "tag": [
+       "button",
+       "button"
+      ],
+      "children": [
+       [
+        "svg"
+       ],
+       [
+        "svg"
+       ]
+      ],
+      "rect": [
+       [
+        248,
+        351,
+        94.03,
+        48
+       ],
+       [
+        240.97,
+        707,
+        94.03,
+        48
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "btn btn-primary",
+        "type": "submit"
+       },
+       {
+        "id": "add-btn",
+        "class": "btn btn-primary",
+        "type": "submit"
+       }
+      ],
+      "value": [
+       "",
+       ""
+      ],
+      "live_focused": false
+     },
+     {
+      "case": "ST-02 Add icon",
+      "specimen": "section[aria-labelledby=s2b] button.btn-primary svg.ph",
+      "live": "#add-btn svg.ph",
+      "kind": "svg",
+      "result": "PASS",
+      "compared": 37,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "",
+       ""
+      ],
+      "tag": [
+       "svg",
+       "svg"
+      ],
+      "children": [
+       [
+        "use"
+       ],
+       [
+        "use"
+       ]
+      ],
+      "rect": [
+       [
+        266,
+        365,
+        20,
+        20
+       ],
+       [
+        258.97,
+        721,
+        20,
+        20
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "ph",
+        "aria-hidden": "true"
+       },
+       {
+        "class": "ph",
+        "aria-hidden": "true"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false
+     },
+     {
+      "case": "ST-02 composer",
+      "specimen": "section[aria-labelledby=s2b] form.composer",
+      "live": "form.composer",
+      "kind": "box",
+      "result": "FAIL",
+      "compared": 29,
+      "differences": {
+       "margin-top": [
+        "0px",
+        "188px"
+       ]
+      },
+      "other_properties_differing": {
+       "margin-block-start": [
+        "0px",
+        "188px"
+       ]
+      },
+      "layout_properties_differing": [
+       "inline-size",
+       "perspective-origin",
+       "transform-origin",
+       "width"
+      ],
+      "text": [
+       "\n      Keep it to 40 characters or fewer.\n      \n        New habit\n        \n          \n          Add\n        \n      \n    ",
+       "\n      Keep it to 40 characters or fewer.\n      \n        New habit\n        \n          \n          Add\n        \n      \n    "
+      ],
+      "tag": [
+       "form",
+       "form"
+      ],
+      "children": [
+       [
+        "p.field-msg.err",
+        "div.add-row"
+       ],
+       [
+        "p.field-msg.err",
+        "div.add-row"
+       ]
+      ],
+      "rect": [
+       [
+        16,
+        286,
+        339.03,
+        126
+       ],
+       [
+        12,
+        642,
+        336,
+        126
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "composer",
+        "novalidate": ""
+       },
+       {
+        "class": "composer",
+        "novalidate": ""
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false
+     },
+     {
+      "case": "ST-02 add-ctl",
+      "specimen": "section[aria-labelledby=s2b] div.add-ctl",
+      "live": "form.composer div.add-ctl",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [
+       "inline-size",
+       "perspective-origin",
+       "transform-origin",
+       "width"
+      ],
+      "text": [
+       "\n          \n          Add\n        ",
+       "\n          \n          Add\n        "
+      ],
+      "tag": [
+       "div",
+       "div"
+      ],
+      "children": [
+       [
+        "input.input",
+        "button.btn.btn-primary"
+       ],
+       [
+        "input.input",
+        "button.btn.btn-primary"
+       ]
+      ],
+      "rect": [
+       [
+        29,
+        351,
+        313.03,
+        48
+       ],
+       [
+        25,
+        707,
+        310,
+        48
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "add-ctl"
+       },
+       {
+        "class": "add-ctl"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false
+     }
+    ],
+    "ST-03": [
+     {
+      "case": "ST-03 message",
+      "specimen": "section[aria-labelledby=s2c] p.field-msg",
+      "live": "#nh-msg",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [
+       "inline-size",
+       "perspective-origin",
+       "transform-origin",
+       "width"
+      ],
+      "text": [
+       "You already track this habit.",
+       "You already track this habit."
+      ],
+      "tag": [
+       "p",
+       "p"
+      ],
+      "children": [
+       [],
+       []
+      ],
+      "rect": [
+       [
+        31,
+        483,
+        311.03,
+        20
+       ],
+       [
+        27,
+        653,
+        308,
+        20
+       ]
+      ],
+      "attrs": [
+       {
+        "id": "m3",
+        "class": "field-msg err",
+        "aria-live": "polite"
+       },
+       {
+        "id": "nh-msg",
+        "class": "field-msg err",
+        "aria-live": "polite"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false,
+      "checks": [
+       {
+        "check": "text",
+        "result": "PASS",
+        "detail": [
+         "You already track this habit.",
+         "You already track this habit."
+        ]
+       },
+       {
+        "check": "classes field-msg err",
+        "result": "PASS",
+        "detail": "field-msg err"
+       },
+       {
+        "check": "aria-live polite",
+        "result": "PASS",
+        "detail": null
+       }
+      ]
+     },
+     {
+      "case": "ST-03 field",
+      "specimen": "section[aria-labelledby=s2c] input.input",
+      "live": "#nh",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {
+       "outline-offset": [
+        "0px",
+        "2px"
+       ],
+       "outline-style": [
+        "none",
+        "solid"
+       ],
+       "outline-width": [
+        "3px",
+        "2px"
+       ]
+      },
+      "layout_properties_differing": [
+       "inline-size",
+       "perspective-origin",
+       "transform-origin",
+       "width"
+      ],
+      "text": [
+       "",
+       ""
+      ],
+      "tag": [
+       "input",
+       "input"
+      ],
+      "children": [
+       [],
+       []
+      ],
+      "rect": [
+       [
+        29,
+        537,
+        211,
+        48
+       ],
+       [
+        25,
+        707,
+        207.97,
+        48
+       ]
+      ],
+      "attrs": [
+       {
+        "id": "n3",
+        "class": "input",
+        "type": "text",
+        "autocomplete": "off",
+        "spellcheck": "false",
+        "aria-describedby": "m3",
+        "aria-invalid": "true",
+        "value": "read 20 pages",
+        "style": ""
+       },
+       {
+        "id": "nh",
+        "class": "input",
+        "type": "text",
+        "autocomplete": "off",
+        "spellcheck": "false",
+        "aria-describedby": "nh-msg",
+        "style": "",
+        "aria-invalid": "true"
+       }
+      ],
+      "value": [
+       "read 20 pages",
+       "read 20 pages"
+      ],
+      "live_focused": true,
+      "checks": [
+       {
+        "check": "aria-invalid true",
+        "result": "PASS",
+        "detail": "true"
+       },
+       {
+        "check": "field value equals the specimen's",
+        "result": "PASS",
+        "detail": [
+         "read 20 pages",
+         "read 20 pages"
+        ]
+       },
+       {
+        "check": "the field did not move",
+        "result": "PASS",
+        "detail": [
+         [
+          25,
+          707,
+          207.97,
+          48
+         ],
+         [
+          25,
+          707,
+          207.97,
+          48
+         ]
+        ]
+       },
+       {
+        "check": "against K1's field only the edge colour changed, to --danger",
+        "result": "PASS",
+        "detail": {
+         "border-top-color": [
+          "rgb(124, 127, 136)",
+          "rgb(255, 107, 102)"
+         ],
+         "border-right-color": [
+          "rgb(124, 127, 136)",
+          "rgb(255, 107, 102)"
+         ],
+         "border-bottom-color": [
+          "rgb(124, 127, 136)",
+          "rgb(255, 107, 102)"
+         ],
+         "border-left-color": [
+          "rgb(124, 127, 136)",
+          "rgb(255, 107, 102)"
+         ]
+        }
+       }
+      ]
+     },
+     {
+      "case": "ST-03 label",
+      "specimen": "section[aria-labelledby=s2c] label.add-label",
+      "live": "form.composer label.add-label",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [
+       "inline-size",
+       "perspective-origin",
+       "transform-origin",
+       "width"
+      ],
+      "text": [
+       "New habit",
+       "New habit"
+      ],
+      "tag": [
+       "label",
+       "label"
+      ],
+      "children": [
+       [],
+       []
+      ],
+      "rect": [
+       [
+        31,
+        511,
+        311.03,
+        20
+       ],
+       [
+        27,
+        681,
+        308,
+        20
+       ]
+      ],
+      "attrs": [
+       {
+        "for": "n3",
+        "class": "add-label"
+       },
+       {
+        "for": "nh",
+        "class": "add-label"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false
+     },
+     {
+      "case": "ST-03 Add",
+      "specimen": "section[aria-labelledby=s2c] button.btn-primary",
+      "live": "#add-btn",
+      "kind": "button",
+      "result": "PASS",
+      "compared": 31,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "Add",
+       "Add"
+      ],
+      "tag": [
+       "button",
+       "button"
+      ],
+      "children": [
+       [
+        "svg"
+       ],
+       [
+        "svg"
+       ]
+      ],
+      "rect": [
+       [
+        248,
+        537,
+        94.03,
+        48
+       ],
+       [
+        240.97,
+        707,
+        94.03,
+        48
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "btn btn-primary",
+        "type": "submit"
+       },
+       {
+        "id": "add-btn",
+        "class": "btn btn-primary",
+        "type": "submit"
+       }
+      ],
+      "value": [
+       "",
+       ""
+      ],
+      "live_focused": false
+     },
+     {
+      "case": "ST-03 Add icon",
+      "specimen": "section[aria-labelledby=s2c] button.btn-primary svg.ph",
+      "live": "#add-btn svg.ph",
+      "kind": "svg",
+      "result": "PASS",
+      "compared": 37,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "",
+       ""
+      ],
+      "tag": [
+       "svg",
+       "svg"
+      ],
+      "children": [
+       [
+        "use"
+       ],
+       [
+        "use"
+       ]
+      ],
+      "rect": [
+       [
+        266,
+        551,
+        20,
+        20
+       ],
+       [
+        258.97,
+        721,
+        20,
+        20
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "ph",
+        "aria-hidden": "true"
+       },
+       {
+        "class": "ph",
+        "aria-hidden": "true"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false
+     },
+     {
+      "case": "ST-03 composer",
+      "specimen": "section[aria-labelledby=s2c] form.composer",
+      "live": "form.composer",
+      "kind": "box",
+      "result": "FAIL",
+      "compared": 29,
+      "differences": {
+       "margin-top": [
+        "0px",
+        "188px"
+       ]
+      },
+      "other_properties_differing": {
+       "margin-block-start": [
+        "0px",
+        "188px"
+       ]
+      },
+      "layout_properties_differing": [
+       "inline-size",
+       "perspective-origin",
+       "transform-origin",
+       "width"
+      ],
+      "text": [
+       "\n      You already track this habit.\n      \n        New habit\n        \n          \n          Add\n        \n      \n    ",
+       "\n      You already track this habit.\n      \n        New habit\n        \n          \n          Add\n        \n      \n    "
+      ],
+      "tag": [
+       "form",
+       "form"
+      ],
+      "children": [
+       [
+        "p.field-msg.err",
+        "div.add-row"
+       ],
+       [
+        "p.field-msg.err",
+        "div.add-row"
+       ]
+      ],
+      "rect": [
+       [
+        16,
+        472,
+        339.03,
+        126
+       ],
+       [
+        12,
+        642,
+        336,
+        126
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "composer",
+        "novalidate": ""
+       },
+       {
+        "class": "composer",
+        "novalidate": ""
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false
+     },
+     {
+      "case": "ST-03 add-ctl",
+      "specimen": "section[aria-labelledby=s2c] div.add-ctl",
+      "live": "form.composer div.add-ctl",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [
+       "inline-size",
+       "perspective-origin",
+       "transform-origin",
+       "width"
+      ],
+      "text": [
+       "\n          \n          Add\n        ",
+       "\n          \n          Add\n        "
+      ],
+      "tag": [
+       "div",
+       "div"
+      ],
+      "children": [
+       [
+        "input.input",
+        "button.btn.btn-primary"
+       ],
+       [
+        "input.input",
+        "button.btn.btn-primary"
+       ]
+      ],
+      "rect": [
+       [
+        29,
+        537,
+        313.03,
+        48
+       ],
+       [
+        25,
+        707,
+        310,
+        48
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "add-ctl"
+       },
+       {
+        "class": "add-ctl"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false
+     }
+    ],
+    "ST-04": [
+     {
+      "case": "ST-04 banner",
+      "specimen": "section[aria-labelledby=s4] div.banner.warn",
+      "live": "div.banners div.banner.warn",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [
+       "inline-size",
+       "perspective-origin",
+       "transform-origin",
+       "width"
+      ],
+      "text": [
+       "Your habits are not being saved on this device. Changes will be lost when you close this tab.",
+       "Your habits are not being saved on this device. Changes will be lost when you close this tab."
+      ],
+      "tag": [
+       "div",
+       "div"
+      ],
+      "children": [
+       [
+        "p"
+       ],
+       [
+        "p"
+       ]
+      ],
+      "rect": [
+       [
+        16,
+        678,
+        339.03,
+        94
+       ],
+       [
+        12,
+        94,
+        336,
+        94
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "banner warn",
+        "role": "status"
+       },
+       {
+        "class": "banner warn",
+        "role": "status"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false,
+      "checks": [
+       {
+        "check": "role status",
+        "result": "PASS",
+        "detail": null
+       },
+       {
+        "check": "holds only a p, no button",
+        "result": "PASS",
+        "detail": [
+         [
+          "p"
+         ],
+         [
+          "p"
+         ]
+        ]
+       },
+       {
+        "check": "between the band (desktop) or the header (phone) and the list",
+        "result": "PASS",
+        "detail": {
+         "header": [
+          12,
+          82
+         ],
+         "band": null,
+         "banners": [
+          94,
+          188
+         ],
+         "frame": [
+          200,
+          548
+         ],
+         "first_in_banners": "banner warn"
+        }
+       }
+      ]
+     },
+     {
+      "case": "ST-04 text",
+      "specimen": "section[aria-labelledby=s4] div.banner.warn p",
+      "live": "div.banners div.banner.warn p",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [
+       "inline-size",
+       "perspective-origin",
+       "transform-origin",
+       "width"
+      ],
+      "text": [
+       "Your habits are not being saved on this device. Changes will be lost when you close this tab.",
+       "Your habits are not being saved on this device. Changes will be lost when you close this tab."
+      ],
+      "tag": [
+       "p",
+       "p"
+      ],
+      "children": [
+       [],
+       []
+      ],
+      "rect": [
+       [
+        33,
+        691,
+        305.03,
+        68
+       ],
+       [
+        29,
+        107,
+        302,
+        68
+       ]
+      ],
+      "attrs": [
+       {},
+       {}
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false,
+      "checks": [
+       {
+        "check": "text",
+        "result": "PASS",
+        "detail": [
+         "Your habits are not being saved on this device. Changes will be lost when you close this tab.",
+         "Your habits are not being saved on this device. Changes will be lost when you close this tab."
+        ]
+       }
+      ]
+     }
+    ],
+    "ST-05": [
+     {
+      "case": "ST-05 banner",
+      "specimen": "section[aria-labelledby=s5] div.banner.note",
+      "live": "div.banners div.banner.note",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [
+       "inline-size",
+       "perspective-origin",
+       "transform-origin",
+       "width"
+      ],
+      "text": [
+       "Your saved habits could not be read, so the list was reset.",
+       "Your saved habits could not be read, so the list was reset."
+      ],
+      "tag": [
+       "div",
+       "div"
+      ],
+      "children": [
+       [
+        "p",
+        "button.icon-btn"
+       ],
+       [
+        "p",
+        "button.icon-btn"
+       ]
+      ],
+      "rect": [
+       [
+        16,
+        852,
+        339.03,
+        74
+       ],
+       [
+        12,
+        94,
+        336,
+        74
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "banner note",
+        "role": "status"
+       },
+       {
+        "class": "banner note",
+        "role": "status"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false,
+      "checks": [
+       {
+        "check": "role status",
+        "result": "PASS",
+        "detail": null
+       },
+       {
+        "check": "children p then button.icon-btn",
+        "result": "PASS",
+        "detail": [
+         [
+          "p",
+          "button.icon-btn"
+         ],
+         [
+          "p",
+          "button.icon-btn"
+         ]
+        ]
+       },
+       {
+        "check": "12 apart from the empty list, as the specimen",
+        "result": "PASS",
+        "detail": [
+         12,
+         12
+        ]
+       }
+      ]
+     },
+     {
+      "case": "ST-05 text",
+      "specimen": "section[aria-labelledby=s5] div.banner.note p",
+      "live": "div.banners div.banner.note p",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [
+       "inline-size",
+       "perspective-origin",
+       "transform-origin",
+       "width"
+      ],
+      "text": [
+       "Your saved habits could not be read, so the list was reset.",
+       "Your saved habits could not be read, so the list was reset."
+      ],
+      "tag": [
+       "p",
+       "p"
+      ],
+      "children": [
+       [],
+       []
+      ],
+      "rect": [
+       [
+        33,
+        857,
+        265.03,
+        64
+       ],
+       [
+        29,
+        99,
+        262,
+        64
+       ]
+      ],
+      "attrs": [
+       {},
+       {}
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false,
+      "checks": [
+       {
+        "check": "text",
+        "result": "PASS",
+        "detail": [
+         "Your saved habits could not be read, so the list was reset.",
+         "Your saved habits could not be read, so the list was reset."
+        ]
+       }
+      ]
+     },
+     {
+      "case": "ST-05 Dismiss",
+      "specimen": "section[aria-labelledby=s5] button.icon-btn",
+      "live": "div.banner.note button.icon-btn",
+      "kind": "button",
+      "result": "PASS",
+      "compared": 31,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "",
+       ""
+      ],
+      "tag": [
+       "button",
+       "button"
+      ],
+      "children": [
+       [
+        "svg"
+       ],
+       [
+        "svg"
+       ]
+      ],
+      "rect": [
+       [
+        306.03,
+        857,
+        44,
+        44
+       ],
+       [
+        299,
+        99,
+        44,
+        44
+       ]
+      ],
+      "attrs": [
+       {
+        "type": "button",
+        "class": "icon-btn",
+        "aria-label": "Dismiss note"
+       },
+       {
+        "class": "icon-btn",
+        "type": "button",
+        "aria-label": "Dismiss note"
+       }
+      ],
+      "value": [
+       "",
+       ""
+      ],
+      "live_focused": false,
+      "checks": [
+       {
+        "check": "named Dismiss note",
+        "result": "PASS",
+        "detail": null
+       }
+      ]
+     },
+     {
+      "case": "ST-05 Dismiss icon",
+      "specimen": "section[aria-labelledby=s5] button.icon-btn svg.ph",
+      "live": "div.banner.note button.icon-btn svg.ph",
+      "kind": "svg",
+      "result": "PASS",
+      "compared": 37,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "",
+       ""
+      ],
+      "tag": [
+       "svg",
+       "svg"
+      ],
+      "children": [
+       [
+        "use"
+       ],
+       [
+        "use"
+       ]
+      ],
+      "rect": [
+       [
+        318.03,
+        869,
+        20,
+        20
+       ],
+       [
+        311,
+        111,
+        20,
+        20
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "ph",
+        "aria-hidden": "true"
+       },
+       {
+        "class": "ph",
+        "aria-hidden": "true"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false
+     },
+     {
+      "case": "ST-05 Dismiss icon use",
+      "specimen": "section[aria-labelledby=s5] button.icon-btn svg.ph use",
+      "live": "div.banner.note button.icon-btn svg.ph use",
+      "kind": "svg",
+      "result": "PASS",
+      "compared": 37,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "",
+       ""
+      ],
+      "tag": [
+       "use",
+       "use"
+      ],
+      "children": [
+       [],
+       []
+      ],
+      "rect": [
+       [
+        321.78,
+        872.75,
+        12.5,
+        12.5
+       ],
+       [
+        314.75,
+        114.75,
+        12.5,
+        12.5
+       ]
+      ],
+      "attrs": [
+       {
+        "href": "#i-x"
+       },
+       {
+        "href": "#i-x"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false
+     },
+     {
+      "case": "ST-05 li.empty",
+      "specimen": "section[aria-labelledby=s5] li.empty",
+      "live": "ul.rows li.empty",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {
+       "grid-template-columns": [
+        "96px 193.031px",
+        "96px 190px"
+       ]
+      },
+      "layout_properties_differing": [
+       "inline-size",
+       "perspective-origin",
+       "transform-origin",
+       "width"
+      ],
+      "text": [
+       "No habits yet.Add one you want to do every day.",
+       "No habits yet.Add one you want to do every day."
+      ],
+      "tag": [
+       "li",
+       "li"
+      ],
+      "children": [
+       [
+        "svg",
+        "div"
+       ],
+       [
+        "svg",
+        "div"
+       ]
+      ],
+      "rect": [
+       [
+        17,
+        939,
+        337.03,
+        128
+       ],
+       [
+        13,
+        182,
+        334,
+        128
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "empty"
+       },
+       {
+        "class": "empty"
+       }
+      ],
+      "value": [
+       0,
+       0
+      ],
+      "live_focused": false
+     },
+     {
+      "case": "ST-05 li.empty svg",
+      "specimen": "section[aria-labelledby=s5] li.empty svg",
+      "live": "ul.rows li.empty svg",
+      "kind": "svg",
+      "result": "PASS",
+      "compared": 37,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "",
+       ""
+      ],
+      "tag": [
+       "svg",
+       "svg"
+      ],
+      "children": [
+       [
+        "circle",
+        "circle"
+       ],
+       [
+        "circle",
+        "circle"
+       ]
+      ],
+      "rect": [
+       [
+        33,
+        955,
+        96,
+        96
+       ],
+       [
+        29,
+        198,
+        96,
+        96
+       ]
+      ],
+      "attrs": [
+       {
+        "viewBox": "0 0 120 120",
+        "aria-hidden": "true"
+       },
+       {
+        "viewBox": "0 0 120 120",
+        "aria-hidden": "true"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false
+     },
+     {
+      "case": "ST-05 li.empty circle.e-orbit",
+      "specimen": "section[aria-labelledby=s5] li.empty circle.e-orbit",
+      "live": "ul.rows li.empty circle.e-orbit",
+      "kind": "svg",
+      "result": "PASS",
+      "compared": 37,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "",
+       ""
+      ],
+      "tag": [
+       "circle",
+       "circle"
+      ],
+      "children": [
+       [],
+       []
+      ],
+      "rect": [
+       [
+        41,
+        963,
+        80,
+        80
+       ],
+       [
+        37,
+        206,
+        80,
+        80
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "e-orbit",
+        "cx": "60",
+        "cy": "60",
+        "r": "50"
+       },
+       {
+        "class": "e-orbit",
+        "cx": "60",
+        "cy": "60",
+        "r": "50"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false
+     },
+     {
+      "case": "ST-05 li.empty circle.e-core",
+      "specimen": "section[aria-labelledby=s5] li.empty circle.e-core",
+      "live": "ul.rows li.empty circle.e-core",
+      "kind": "svg",
+      "result": "PASS",
+      "compared": 37,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "",
+       ""
+      ],
+      "tag": [
+       "circle",
+       "circle"
+      ],
+      "children": [
+       [],
+       []
+      ],
+      "rect": [
+       [
+        66.6,
+        988.6,
+        28.8,
+        28.8
+       ],
+       [
+        62.6,
+        231.6,
+        28.8,
+        28.8
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "e-core",
+        "cx": "60",
+        "cy": "60",
+        "r": "18"
+       },
+       {
+        "class": "e-core",
+        "cx": "60",
+        "cy": "60",
+        "r": "18"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false
+     },
+     {
+      "case": "ST-05 li.empty > div",
+      "specimen": "section[aria-labelledby=s5] li.empty > div",
+      "live": "ul.rows li.empty > div",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [
+       "inline-size",
+       "perspective-origin",
+       "transform-origin",
+       "width"
+      ],
+      "text": [
+       "No habits yet.Add one you want to do every day.",
+       "No habits yet.Add one you want to do every day."
+      ],
+      "tag": [
+       "div",
+       "div"
+      ],
+      "children": [
+       [
+        "p.lead",
+        "p.line"
+       ],
+       [
+        "p.lead",
+        "p.line"
+       ]
+      ],
+      "rect": [
+       [
+        145,
+        969,
+        193.03,
+        68
+       ],
+       [
+        141,
+        212,
+        190,
+        68
+       ]
+      ],
+      "attrs": [
+       {},
+       {}
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false
+     },
+     {
+      "case": "ST-05 li.empty p.lead",
+      "specimen": "section[aria-labelledby=s5] li.empty p.lead",
+      "live": "ul.rows li.empty p.lead",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [
+       "inline-size",
+       "perspective-origin",
+       "transform-origin",
+       "width"
+      ],
+      "text": [
+       "No habits yet.",
+       "No habits yet."
+      ],
+      "tag": [
+       "p",
+       "p"
+      ],
+      "children": [
+       [],
+       []
+      ],
+      "rect": [
+       [
+        145,
+        969,
+        193.03,
+        24
+       ],
+       [
+        141,
+        212,
+        190,
+        24
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "lead"
+       },
+       {
+        "class": "lead"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false,
+      "checks": [
+       {
+        "check": "text",
+        "result": "PASS",
+        "detail": [
+         "No habits yet.",
+         "No habits yet."
+        ]
+       }
+      ]
+     },
+     {
+      "case": "ST-05 li.empty p.line",
+      "specimen": "section[aria-labelledby=s5] li.empty p.line",
+      "live": "ul.rows li.empty p.line",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [
+       "inline-size",
+       "perspective-origin",
+       "transform-origin",
+       "width"
+      ],
+      "text": [
+       "Add one you want to do every day.",
+       "Add one you want to do every day."
+      ],
+      "tag": [
+       "p",
+       "p"
+      ],
+      "children": [
+       [],
+       []
+      ],
+      "rect": [
+       [
+        145,
+        997,
+        193.03,
+        40
+       ],
+       [
+        141,
+        240,
+        190,
+        40
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "line"
+       },
+       {
+        "class": "line"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false,
+      "checks": [
+       {
+        "check": "text",
+        "result": "PASS",
+        "detail": [
+         "Add one you want to do every day.",
+         "Add one you want to do every day."
+        ]
+       }
+      ]
+     },
+     {
+      "case": "ST-05 ul.rows",
+      "specimen": "section[aria-labelledby=s5] ul.rows",
+      "live": "div.frame ul.rows",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [
+       "inline-size",
+       "perspective-origin",
+       "transform-origin",
+       "width"
+      ],
+      "text": [
+       "No habits yet.Add one you want to do every day.",
+       "No habits yet.Add one you want to do every day."
+      ],
+      "tag": [
+       "ul",
+       "ul"
+      ],
+      "children": [
+       [
+        "li.empty"
+       ],
+       [
+        "li.empty"
+       ]
+      ],
+      "rect": [
+       [
+        17,
+        939,
+        337.03,
+        128
+       ],
+       [
+        13,
+        182,
+        334,
+        128
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "rows"
+       },
+       {
+        "class": "rows",
+        "aria-labelledby": "h-habits"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false
+     }
+    ],
+    "ST-06": [
+     {
+      "case": "ST-06 sheet chrome absent",
+      "chrome": {
+       "selectors": [
+        "main.sheet",
+        ".spec",
+        ".stack",
+        "#n1",
+        "#n2",
+        "#n3",
+        "#m1",
+        "#m2",
+        "#m3"
+       ],
+       "texts": [
+        "Streaky Habit states",
+        "S2, Add pressed with no name (K1's add field)",
+        "S2, a name longer than 40 characters",
+        "S2, a name already tracked, ignoring case",
+        "S4, the save warning (K1, between the band or header and the list)",
+        "S5, saved habits could not be read (S1 with the note above the list)"
+       ]
+      },
+      "found_in_live_dom": [
+       {
+        "state": "sample",
+        "selectors": [],
+        "texts": []
+       },
+       {
+        "state": "fresh",
+        "selectors": [],
+        "texts": []
+       },
+       {
+        "state": "twelve",
+        "selectors": [],
+        "texts": []
+       },
+       {
+        "state": "unreadable",
+        "selectors": [],
+        "texts": []
+       },
+       {
+        "state": "save-fails",
+        "selectors": [],
+        "texts": []
+       }
+      ],
+      "styles_css_hits": [],
+      "result": "PASS"
+     }
+    ]
+   }
+  },
+  "1280x800": {
+   "verdict": {
+    "ST-01": {
+     "result": "FAIL",
+     "comparisons": 7,
+     "property_comparisons": 213,
+     "checks": 7,
+     "fails": [
+      "ST-01 composer"
+     ]
+    },
+    "ST-02": {
+     "result": "FAIL",
+     "comparisons": 7,
+     "property_comparisons": 213,
+     "checks": 7,
+     "fails": [
+      "ST-02 composer"
+     ]
+    },
+    "ST-03": {
+     "result": "FAIL",
+     "comparisons": 7,
+     "property_comparisons": 213,
+     "checks": 7,
+     "fails": [
+      "ST-03 composer"
+     ]
+    },
+    "ST-04": {
+     "result": "PASS",
+     "comparisons": 2,
+     "property_comparisons": 58,
+     "checks": 4,
+     "fails": []
+    },
+    "ST-05": {
+     "result": "PASS",
+     "comparisons": 13,
+     "property_comparisons": 419,
+     "checks": 7,
+     "fails": []
+    },
+    "ST-06": {
+     "result": "PASS",
+     "comparisons": 1,
+     "property_comparisons": 0,
+     "checks": 0,
+     "fails": []
+    }
+   },
+   "rows": {
+    "ST-01": [
+     {
+      "case": "ST-01 message",
+      "specimen": "section[aria-labelledby=s2a] p.field-msg",
+      "live": "#nh-msg",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "Name the habit first.",
+       "Name the habit first."
+      ],
+      "tag": [
+       "p",
+       "p"
+      ],
+      "children": [
+       [],
+       []
+      ],
+      "rect": [
+       [
+        248.23,
+        121,
+        874.77,
+        20
+       ],
+       [
+        248.23,
+        699,
+        874.77,
+        20
+       ]
+      ],
+      "attrs": [
+       {
+        "id": "m1",
+        "class": "field-msg err",
+        "aria-live": "polite"
+       },
+       {
+        "id": "nh-msg",
+        "class": "field-msg err",
+        "aria-live": "polite"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false,
+      "checks": [
+       {
+        "check": "text",
+        "result": "PASS",
+        "detail": [
+         "Name the habit first.",
+         "Name the habit first."
+        ]
+       },
+       {
+        "check": "classes field-msg err",
+        "result": "PASS",
+        "detail": "field-msg err"
+       },
+       {
+        "check": "aria-live polite",
+        "result": "PASS",
+        "detail": null
+       }
+      ]
+     },
+     {
+      "case": "ST-01 field",
+      "specimen": "section[aria-labelledby=s2a] input.input",
+      "live": "#nh",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {
+       "outline-offset": [
+        "0px",
+        "2px"
+       ],
+       "outline-style": [
+        "none",
+        "solid"
+       ],
+       "outline-width": [
+        "3px",
+        "2px"
+       ]
+      },
+      "layout_properties_differing": [],
+      "text": [
+       "",
+       ""
+      ],
+      "tag": [
+       "input",
+       "input"
+      ],
+      "children": [
+       [],
+       []
+      ],
+      "rect": [
+       [
+        246.23,
+        149,
+        774.73,
+        48
+       ],
+       [
+        246.23,
+        727,
+        774.73,
+        48
+       ]
+      ],
+      "attrs": [
+       {
+        "id": "n1",
+        "class": "input",
+        "type": "text",
+        "autocomplete": "off",
+        "spellcheck": "false",
+        "aria-describedby": "m1",
+        "aria-invalid": "true",
+        "style": ""
+       },
+       {
+        "id": "nh",
+        "class": "input",
+        "type": "text",
+        "autocomplete": "off",
+        "spellcheck": "false",
+        "aria-describedby": "nh-msg",
+        "aria-invalid": "true",
+        "style": ""
+       }
+      ],
+      "value": [
+       "",
+       ""
+      ],
+      "live_focused": true,
+      "checks": [
+       {
+        "check": "aria-invalid true",
+        "result": "PASS",
+        "detail": "true"
+       },
+       {
+        "check": "field value equals the specimen's",
+        "result": "PASS",
+        "detail": [
+         "",
+         ""
+        ]
+       },
+       {
+        "check": "the field did not move",
+        "result": "PASS",
+        "detail": [
+         [
+          246.23,
+          727,
+          774.73,
+          48
+         ],
+         [
+          246.23,
+          727,
+          774.73,
+          48
+         ]
+        ]
+       },
+       {
+        "check": "against K1's field only the edge colour changed, to --danger",
+        "result": "PASS",
+        "detail": {
+         "border-top-color": [
+          "rgb(124, 127, 136)",
+          "rgb(255, 107, 102)"
+         ],
+         "border-right-color": [
+          "rgb(124, 127, 136)",
+          "rgb(255, 107, 102)"
+         ],
+         "border-bottom-color": [
+          "rgb(124, 127, 136)",
+          "rgb(255, 107, 102)"
+         ],
+         "border-left-color": [
+          "rgb(124, 127, 136)",
+          "rgb(255, 107, 102)"
+         ]
+        }
+       }
+      ]
+     },
+     {
+      "case": "ST-01 label",
+      "specimen": "section[aria-labelledby=s2a] label.add-label",
+      "live": "form.composer label.add-label",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "New habit",
+       "New habit"
+      ],
+      "tag": [
+       "label",
+       "label"
+      ],
+      "children": [
+       [],
+       []
+      ],
+      "rect": [
+       [
+        165,
+        163,
+        65.23,
+        20
+       ],
+       [
+        165,
+        741,
+        65.23,
+        20
+       ]
+      ],
+      "attrs": [
+       {
+        "for": "n1",
+        "class": "add-label"
+       },
+       {
+        "for": "nh",
+        "class": "add-label"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false
+     },
+     {
+      "case": "ST-01 Add",
+      "specimen": "section[aria-labelledby=s2a] button.btn-primary",
+      "live": "#add-btn",
+      "kind": "button",
+      "result": "PASS",
+      "compared": 31,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "Add",
+       "Add"
+      ],
+      "tag": [
+       "button",
+       "button"
+      ],
+      "children": [
+       [
+        "svg"
+       ],
+       [
+        "svg"
+       ]
+      ],
+      "rect": [
+       [
+        1028.97,
+        149,
+        94.03,
+        48
+       ],
+       [
+        1028.97,
+        727,
+        94.03,
+        48
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "btn btn-primary",
+        "type": "submit"
+       },
+       {
+        "id": "add-btn",
+        "class": "btn btn-primary",
+        "type": "submit"
+       }
+      ],
+      "value": [
+       "",
+       ""
+      ],
+      "live_focused": false
+     },
+     {
+      "case": "ST-01 Add icon",
+      "specimen": "section[aria-labelledby=s2a] button.btn-primary svg.ph",
+      "live": "#add-btn svg.ph",
+      "kind": "svg",
+      "result": "PASS",
+      "compared": 37,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "",
+       ""
+      ],
+      "tag": [
+       "svg",
+       "svg"
+      ],
+      "children": [
+       [
+        "use"
+       ],
+       [
+        "use"
+       ]
+      ],
+      "rect": [
+       [
+        1046.97,
+        163,
+        20,
+        20
+       ],
+       [
+        1046.97,
+        741,
+        20,
+        20
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "ph",
+        "aria-hidden": "true"
+       },
+       {
+        "class": "ph",
+        "aria-hidden": "true"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false
+     },
+     {
+      "case": "ST-01 composer",
+      "specimen": "section[aria-labelledby=s2a] form.composer",
+      "live": "form.composer",
+      "kind": "box",
+      "result": "FAIL",
+      "compared": 29,
+      "differences": {
+       "margin-top": [
+        "0px",
+        "42px"
+       ]
+      },
+      "other_properties_differing": {
+       "margin-block-start": [
+        "0px",
+        "42px"
+       ]
+      },
+      "layout_properties_differing": [],
+      "text": [
+       "\n      Name the habit first.\n      \n        New habit\n        \n          \n          Add\n        \n      \n    ",
+       "\n      Name the habit first.\n      \n        New habit\n        \n          \n          Add\n        \n      \n    "
+      ],
+      "tag": [
+       "form",
+       "form"
+      ],
+      "children": [
+       [
+        "p.field-msg.err",
+        "div.add-row"
+       ],
+       [
+        "p.field-msg.err",
+        "div.add-row"
+       ]
+      ],
+      "rect": [
+       [
+        144,
+        108,
+        992,
+        102
+       ],
+       [
+        144,
+        686,
+        992,
+        102
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "composer",
+        "novalidate": ""
+       },
+       {
+        "class": "composer",
+        "novalidate": ""
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false
+     },
+     {
+      "case": "ST-01 add-ctl",
+      "specimen": "section[aria-labelledby=s2a] div.add-ctl",
+      "live": "form.composer div.add-ctl",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "\n          \n          Add\n        ",
+       "\n          \n          Add\n        "
+      ],
+      "tag": [
+       "div",
+       "div"
+      ],
+      "children": [
+       [
+        "input.input",
+        "button.btn.btn-primary"
+       ],
+       [
+        "input.input",
+        "button.btn.btn-primary"
+       ]
+      ],
+      "rect": [
+       [
+        246.23,
+        149,
+        876.77,
+        48
+       ],
+       [
+        246.23,
+        727,
+        876.77,
+        48
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "add-ctl"
+       },
+       {
+        "class": "add-ctl"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false
+     }
+    ],
+    "ST-02": [
+     {
+      "case": "ST-02 message",
+      "specimen": "section[aria-labelledby=s2b] p.field-msg",
+      "live": "#nh-msg",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "Keep it to 40 characters or fewer.",
+       "Keep it to 40 characters or fewer."
+      ],
+      "tag": [
+       "p",
+       "p"
+      ],
+      "children": [
+       [],
+       []
+      ],
+      "rect": [
+       [
+        248.23,
+        283,
+        874.77,
+        20
+       ],
+       [
+        248.23,
+        699,
+        874.77,
+        20
+       ]
+      ],
+      "attrs": [
+       {
+        "id": "m2",
+        "class": "field-msg err",
+        "aria-live": "polite"
+       },
+       {
+        "id": "nh-msg",
+        "class": "field-msg err",
+        "aria-live": "polite"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false,
+      "checks": [
+       {
+        "check": "text",
+        "result": "PASS",
+        "detail": [
+         "Keep it to 40 characters or fewer.",
+         "Keep it to 40 characters or fewer."
+        ]
+       },
+       {
+        "check": "classes field-msg err",
+        "result": "PASS",
+        "detail": "field-msg err"
+       },
+       {
+        "check": "aria-live polite",
+        "result": "PASS",
+        "detail": null
+       }
+      ]
+     },
+     {
+      "case": "ST-02 field",
+      "specimen": "section[aria-labelledby=s2b] input.input",
+      "live": "#nh",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {
+       "outline-offset": [
+        "0px",
+        "2px"
+       ],
+       "outline-style": [
+        "none",
+        "solid"
+       ],
+       "outline-width": [
+        "3px",
+        "2px"
+       ]
+      },
+      "layout_properties_differing": [],
+      "text": [
+       "",
+       ""
+      ],
+      "tag": [
+       "input",
+       "input"
+      ],
+      "children": [
+       [],
+       []
+      ],
+      "rect": [
+       [
+        246.23,
+        311,
+        774.73,
+        48
+       ],
+       [
+        246.23,
+        727,
+        774.73,
+        48
+       ]
+      ],
+      "attrs": [
+       {
+        "id": "n2",
+        "class": "input",
+        "type": "text",
+        "autocomplete": "off",
+        "spellcheck": "false",
+        "aria-describedby": "m2",
+        "aria-invalid": "true",
+        "value": "Read twenty pages of a novel before bed each night",
+        "style": ""
+       },
+       {
+        "id": "nh",
+        "class": "input",
+        "type": "text",
+        "autocomplete": "off",
+        "spellcheck": "false",
+        "aria-describedby": "nh-msg",
+        "style": "",
+        "aria-invalid": "true"
+       }
+      ],
+      "value": [
+       "Read twenty pages of a novel before bed each night",
+       "Read twenty pages of a novel before bed each night"
+      ],
+      "live_focused": true,
+      "checks": [
+       {
+        "check": "aria-invalid true",
+        "result": "PASS",
+        "detail": "true"
+       },
+       {
+        "check": "field value equals the specimen's",
+        "result": "PASS",
+        "detail": [
+         "Read twenty pages of a novel before bed each night",
+         "Read twenty pages of a novel before bed each night"
+        ]
+       },
+       {
+        "check": "the field did not move",
+        "result": "PASS",
+        "detail": [
+         [
+          246.23,
+          727,
+          774.73,
+          48
+         ],
+         [
+          246.23,
+          727,
+          774.73,
+          48
+         ]
+        ]
+       },
+       {
+        "check": "against K1's field only the edge colour changed, to --danger",
+        "result": "PASS",
+        "detail": {
+         "border-top-color": [
+          "rgb(124, 127, 136)",
+          "rgb(255, 107, 102)"
+         ],
+         "border-right-color": [
+          "rgb(124, 127, 136)",
+          "rgb(255, 107, 102)"
+         ],
+         "border-bottom-color": [
+          "rgb(124, 127, 136)",
+          "rgb(255, 107, 102)"
+         ],
+         "border-left-color": [
+          "rgb(124, 127, 136)",
+          "rgb(255, 107, 102)"
+         ]
+        }
+       }
+      ]
+     },
+     {
+      "case": "ST-02 label",
+      "specimen": "section[aria-labelledby=s2b] label.add-label",
+      "live": "form.composer label.add-label",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "New habit",
+       "New habit"
+      ],
+      "tag": [
+       "label",
+       "label"
+      ],
+      "children": [
+       [],
+       []
+      ],
+      "rect": [
+       [
+        165,
+        325,
+        65.23,
+        20
+       ],
+       [
+        165,
+        741,
+        65.23,
+        20
+       ]
+      ],
+      "attrs": [
+       {
+        "for": "n2",
+        "class": "add-label"
+       },
+       {
+        "for": "nh",
+        "class": "add-label"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false
+     },
+     {
+      "case": "ST-02 Add",
+      "specimen": "section[aria-labelledby=s2b] button.btn-primary",
+      "live": "#add-btn",
+      "kind": "button",
+      "result": "PASS",
+      "compared": 31,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "Add",
+       "Add"
+      ],
+      "tag": [
+       "button",
+       "button"
+      ],
+      "children": [
+       [
+        "svg"
+       ],
+       [
+        "svg"
+       ]
+      ],
+      "rect": [
+       [
+        1028.97,
+        311,
+        94.03,
+        48
+       ],
+       [
+        1028.97,
+        727,
+        94.03,
+        48
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "btn btn-primary",
+        "type": "submit"
+       },
+       {
+        "id": "add-btn",
+        "class": "btn btn-primary",
+        "type": "submit"
+       }
+      ],
+      "value": [
+       "",
+       ""
+      ],
+      "live_focused": false
+     },
+     {
+      "case": "ST-02 Add icon",
+      "specimen": "section[aria-labelledby=s2b] button.btn-primary svg.ph",
+      "live": "#add-btn svg.ph",
+      "kind": "svg",
+      "result": "PASS",
+      "compared": 37,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "",
+       ""
+      ],
+      "tag": [
+       "svg",
+       "svg"
+      ],
+      "children": [
+       [
+        "use"
+       ],
+       [
+        "use"
+       ]
+      ],
+      "rect": [
+       [
+        1046.97,
+        325,
+        20,
+        20
+       ],
+       [
+        1046.97,
+        741,
+        20,
+        20
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "ph",
+        "aria-hidden": "true"
+       },
+       {
+        "class": "ph",
+        "aria-hidden": "true"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false
+     },
+     {
+      "case": "ST-02 composer",
+      "specimen": "section[aria-labelledby=s2b] form.composer",
+      "live": "form.composer",
+      "kind": "box",
+      "result": "FAIL",
+      "compared": 29,
+      "differences": {
+       "margin-top": [
+        "0px",
+        "42px"
+       ]
+      },
+      "other_properties_differing": {
+       "margin-block-start": [
+        "0px",
+        "42px"
+       ]
+      },
+      "layout_properties_differing": [],
+      "text": [
+       "\n      Keep it to 40 characters or fewer.\n      \n        New habit\n        \n          \n          Add\n        \n      \n    ",
+       "\n      Keep it to 40 characters or fewer.\n      \n        New habit\n        \n          \n          Add\n        \n      \n    "
+      ],
+      "tag": [
+       "form",
+       "form"
+      ],
+      "children": [
+       [
+        "p.field-msg.err",
+        "div.add-row"
+       ],
+       [
+        "p.field-msg.err",
+        "div.add-row"
+       ]
+      ],
+      "rect": [
+       [
+        144,
+        270,
+        992,
+        102
+       ],
+       [
+        144,
+        686,
+        992,
+        102
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "composer",
+        "novalidate": ""
+       },
+       {
+        "class": "composer",
+        "novalidate": ""
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false
+     },
+     {
+      "case": "ST-02 add-ctl",
+      "specimen": "section[aria-labelledby=s2b] div.add-ctl",
+      "live": "form.composer div.add-ctl",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "\n          \n          Add\n        ",
+       "\n          \n          Add\n        "
+      ],
+      "tag": [
+       "div",
+       "div"
+      ],
+      "children": [
+       [
+        "input.input",
+        "button.btn.btn-primary"
+       ],
+       [
+        "input.input",
+        "button.btn.btn-primary"
+       ]
+      ],
+      "rect": [
+       [
+        246.23,
+        311,
+        876.77,
+        48
+       ],
+       [
+        246.23,
+        727,
+        876.77,
+        48
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "add-ctl"
+       },
+       {
+        "class": "add-ctl"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false
+     }
+    ],
+    "ST-03": [
+     {
+      "case": "ST-03 message",
+      "specimen": "section[aria-labelledby=s2c] p.field-msg",
+      "live": "#nh-msg",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "You already track this habit.",
+       "You already track this habit."
+      ],
+      "tag": [
+       "p",
+       "p"
+      ],
+      "children": [
+       [],
+       []
+      ],
+      "rect": [
+       [
+        248.23,
+        445,
+        874.77,
+        20
+       ],
+       [
+        248.23,
+        699,
+        874.77,
+        20
+       ]
+      ],
+      "attrs": [
+       {
+        "id": "m3",
+        "class": "field-msg err",
+        "aria-live": "polite"
+       },
+       {
+        "id": "nh-msg",
+        "class": "field-msg err",
+        "aria-live": "polite"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false,
+      "checks": [
+       {
+        "check": "text",
+        "result": "PASS",
+        "detail": [
+         "You already track this habit.",
+         "You already track this habit."
+        ]
+       },
+       {
+        "check": "classes field-msg err",
+        "result": "PASS",
+        "detail": "field-msg err"
+       },
+       {
+        "check": "aria-live polite",
+        "result": "PASS",
+        "detail": null
+       }
+      ]
+     },
+     {
+      "case": "ST-03 field",
+      "specimen": "section[aria-labelledby=s2c] input.input",
+      "live": "#nh",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {
+       "outline-offset": [
+        "0px",
+        "2px"
+       ],
+       "outline-style": [
+        "none",
+        "solid"
+       ],
+       "outline-width": [
+        "3px",
+        "2px"
+       ]
+      },
+      "layout_properties_differing": [],
+      "text": [
+       "",
+       ""
+      ],
+      "tag": [
+       "input",
+       "input"
+      ],
+      "children": [
+       [],
+       []
+      ],
+      "rect": [
+       [
+        246.23,
+        473,
+        774.73,
+        48
+       ],
+       [
+        246.23,
+        727,
+        774.73,
+        48
+       ]
+      ],
+      "attrs": [
+       {
+        "id": "n3",
+        "class": "input",
+        "type": "text",
+        "autocomplete": "off",
+        "spellcheck": "false",
+        "aria-describedby": "m3",
+        "aria-invalid": "true",
+        "value": "read 20 pages",
+        "style": ""
+       },
+       {
+        "id": "nh",
+        "class": "input",
+        "type": "text",
+        "autocomplete": "off",
+        "spellcheck": "false",
+        "aria-describedby": "nh-msg",
+        "style": "",
+        "aria-invalid": "true"
+       }
+      ],
+      "value": [
+       "read 20 pages",
+       "read 20 pages"
+      ],
+      "live_focused": true,
+      "checks": [
+       {
+        "check": "aria-invalid true",
+        "result": "PASS",
+        "detail": "true"
+       },
+       {
+        "check": "field value equals the specimen's",
+        "result": "PASS",
+        "detail": [
+         "read 20 pages",
+         "read 20 pages"
+        ]
+       },
+       {
+        "check": "the field did not move",
+        "result": "PASS",
+        "detail": [
+         [
+          246.23,
+          727,
+          774.73,
+          48
+         ],
+         [
+          246.23,
+          727,
+          774.73,
+          48
+         ]
+        ]
+       },
+       {
+        "check": "against K1's field only the edge colour changed, to --danger",
+        "result": "PASS",
+        "detail": {
+         "border-top-color": [
+          "rgb(124, 127, 136)",
+          "rgb(255, 107, 102)"
+         ],
+         "border-right-color": [
+          "rgb(124, 127, 136)",
+          "rgb(255, 107, 102)"
+         ],
+         "border-bottom-color": [
+          "rgb(124, 127, 136)",
+          "rgb(255, 107, 102)"
+         ],
+         "border-left-color": [
+          "rgb(124, 127, 136)",
+          "rgb(255, 107, 102)"
+         ]
+        }
+       }
+      ]
+     },
+     {
+      "case": "ST-03 label",
+      "specimen": "section[aria-labelledby=s2c] label.add-label",
+      "live": "form.composer label.add-label",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "New habit",
+       "New habit"
+      ],
+      "tag": [
+       "label",
+       "label"
+      ],
+      "children": [
+       [],
+       []
+      ],
+      "rect": [
+       [
+        165,
+        487,
+        65.23,
+        20
+       ],
+       [
+        165,
+        741,
+        65.23,
+        20
+       ]
+      ],
+      "attrs": [
+       {
+        "for": "n3",
+        "class": "add-label"
+       },
+       {
+        "for": "nh",
+        "class": "add-label"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false
+     },
+     {
+      "case": "ST-03 Add",
+      "specimen": "section[aria-labelledby=s2c] button.btn-primary",
+      "live": "#add-btn",
+      "kind": "button",
+      "result": "PASS",
+      "compared": 31,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "Add",
+       "Add"
+      ],
+      "tag": [
+       "button",
+       "button"
+      ],
+      "children": [
+       [
+        "svg"
+       ],
+       [
+        "svg"
+       ]
+      ],
+      "rect": [
+       [
+        1028.97,
+        473,
+        94.03,
+        48
+       ],
+       [
+        1028.97,
+        727,
+        94.03,
+        48
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "btn btn-primary",
+        "type": "submit"
+       },
+       {
+        "id": "add-btn",
+        "class": "btn btn-primary",
+        "type": "submit"
+       }
+      ],
+      "value": [
+       "",
+       ""
+      ],
+      "live_focused": false
+     },
+     {
+      "case": "ST-03 Add icon",
+      "specimen": "section[aria-labelledby=s2c] button.btn-primary svg.ph",
+      "live": "#add-btn svg.ph",
+      "kind": "svg",
+      "result": "PASS",
+      "compared": 37,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "",
+       ""
+      ],
+      "tag": [
+       "svg",
+       "svg"
+      ],
+      "children": [
+       [
+        "use"
+       ],
+       [
+        "use"
+       ]
+      ],
+      "rect": [
+       [
+        1046.97,
+        487,
+        20,
+        20
+       ],
+       [
+        1046.97,
+        741,
+        20,
+        20
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "ph",
+        "aria-hidden": "true"
+       },
+       {
+        "class": "ph",
+        "aria-hidden": "true"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false
+     },
+     {
+      "case": "ST-03 composer",
+      "specimen": "section[aria-labelledby=s2c] form.composer",
+      "live": "form.composer",
+      "kind": "box",
+      "result": "FAIL",
+      "compared": 29,
+      "differences": {
+       "margin-top": [
+        "0px",
+        "42px"
+       ]
+      },
+      "other_properties_differing": {
+       "margin-block-start": [
+        "0px",
+        "42px"
+       ]
+      },
+      "layout_properties_differing": [],
+      "text": [
+       "\n      You already track this habit.\n      \n        New habit\n        \n          \n          Add\n        \n      \n    ",
+       "\n      You already track this habit.\n      \n        New habit\n        \n          \n          Add\n        \n      \n    "
+      ],
+      "tag": [
+       "form",
+       "form"
+      ],
+      "children": [
+       [
+        "p.field-msg.err",
+        "div.add-row"
+       ],
+       [
+        "p.field-msg.err",
+        "div.add-row"
+       ]
+      ],
+      "rect": [
+       [
+        144,
+        432,
+        992,
+        102
+       ],
+       [
+        144,
+        686,
+        992,
+        102
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "composer",
+        "novalidate": ""
+       },
+       {
+        "class": "composer",
+        "novalidate": ""
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false
+     },
+     {
+      "case": "ST-03 add-ctl",
+      "specimen": "section[aria-labelledby=s2c] div.add-ctl",
+      "live": "form.composer div.add-ctl",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "\n          \n          Add\n        ",
+       "\n          \n          Add\n        "
+      ],
+      "tag": [
+       "div",
+       "div"
+      ],
+      "children": [
+       [
+        "input.input",
+        "button.btn.btn-primary"
+       ],
+       [
+        "input.input",
+        "button.btn.btn-primary"
+       ]
+      ],
+      "rect": [
+       [
+        246.23,
+        473,
+        876.77,
+        48
+       ],
+       [
+        246.23,
+        727,
+        876.77,
+        48
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "add-ctl"
+       },
+       {
+        "class": "add-ctl"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false
+     }
+    ],
+    "ST-04": [
+     {
+      "case": "ST-04 banner",
+      "specimen": "section[aria-labelledby=s4] div.banner.warn",
+      "live": "div.banners div.banner.warn",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "Your habits are not being saved on this device. Changes will be lost when you close this tab.",
+       "Your habits are not being saved on this device. Changes will be lost when you close this tab."
+      ],
+      "tag": [
+       "div",
+       "div"
+      ],
+      "children": [
+       [
+        "p"
+       ],
+       [
+        "p"
+       ]
+      ],
+      "rect": [
+       [
+        144,
+        594,
+        992,
+        50
+       ],
+       [
+        144,
+        422,
+        992,
+        50
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "banner warn",
+        "role": "status"
+       },
+       {
+        "class": "banner warn",
+        "role": "status"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false,
+      "checks": [
+       {
+        "check": "role status",
+        "result": "PASS",
+        "detail": null
+       },
+       {
+        "check": "holds only a p, no button",
+        "result": "PASS",
+        "detail": [
+         [
+          "p"
+         ],
+         [
+          "p"
+         ]
+        ]
+       },
+       {
+        "check": "between the band (desktop) or the header (phone) and the list",
+        "result": "PASS",
+        "detail": {
+         "header": [
+          12,
+          44
+         ],
+         "band": [
+          56,
+          410
+         ],
+         "banners": [
+          422,
+          472
+         ],
+         "frame": [
+          484,
+          694
+         ],
+         "first_in_banners": "banner warn"
+        }
+       }
+      ]
+     },
+     {
+      "case": "ST-04 text",
+      "specimen": "section[aria-labelledby=s4] div.banner.warn p",
+      "live": "div.banners div.banner.warn p",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "Your habits are not being saved on this device. Changes will be lost when you close this tab.",
+       "Your habits are not being saved on this device. Changes will be lost when you close this tab."
+      ],
+      "tag": [
+       "p",
+       "p"
+      ],
+      "children": [
+       [],
+       []
+      ],
+      "rect": [
+       [
+        161,
+        607,
+        958,
+        24
+       ],
+       [
+        161,
+        435,
+        958,
+        24
+       ]
+      ],
+      "attrs": [
+       {},
+       {}
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false,
+      "checks": [
+       {
+        "check": "text",
+        "result": "PASS",
+        "detail": [
+         "Your habits are not being saved on this device. Changes will be lost when you close this tab.",
+         "Your habits are not being saved on this device. Changes will be lost when you close this tab."
+        ]
+       }
+      ]
+     }
+    ],
+    "ST-05": [
+     {
+      "case": "ST-05 banner",
+      "specimen": "section[aria-labelledby=s5] div.banner.note",
+      "live": "div.banners div.banner.note",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "Your saved habits could not be read, so the list was reset.",
+       "Your saved habits could not be read, so the list was reset."
+      ],
+      "tag": [
+       "div",
+       "div"
+      ],
+      "children": [
+       [
+        "p",
+        "button.icon-btn"
+       ],
+       [
+        "p",
+        "button.icon-btn"
+       ]
+      ],
+      "rect": [
+       [
+        144,
+        704,
+        992,
+        54
+       ],
+       [
+        144,
+        422,
+        992,
+        54
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "banner note",
+        "role": "status"
+       },
+       {
+        "class": "banner note",
+        "role": "status"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false,
+      "checks": [
+       {
+        "check": "role status",
+        "result": "PASS",
+        "detail": null
+       },
+       {
+        "check": "children p then button.icon-btn",
+        "result": "PASS",
+        "detail": [
+         [
+          "p",
+          "button.icon-btn"
+         ],
+         [
+          "p",
+          "button.icon-btn"
+         ]
+        ]
+       },
+       {
+        "check": "12 apart from the empty list, as the specimen",
+        "result": "PASS",
+        "detail": [
+         12,
+         12
+        ]
+       }
+      ]
+     },
+     {
+      "case": "ST-05 text",
+      "specimen": "section[aria-labelledby=s5] div.banner.note p",
+      "live": "div.banners div.banner.note p",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "Your saved habits could not be read, so the list was reset.",
+       "Your saved habits could not be read, so the list was reset."
+      ],
+      "tag": [
+       "p",
+       "p"
+      ],
+      "children": [
+       [],
+       []
+      ],
+      "rect": [
+       [
+        161,
+        709,
+        918,
+        42
+       ],
+       [
+        161,
+        427,
+        918,
+        42
+       ]
+      ],
+      "attrs": [
+       {},
+       {}
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false,
+      "checks": [
+       {
+        "check": "text",
+        "result": "PASS",
+        "detail": [
+         "Your saved habits could not be read, so the list was reset.",
+         "Your saved habits could not be read, so the list was reset."
+        ]
+       }
+      ]
+     },
+     {
+      "case": "ST-05 Dismiss",
+      "specimen": "section[aria-labelledby=s5] button.icon-btn",
+      "live": "div.banner.note button.icon-btn",
+      "kind": "button",
+      "result": "PASS",
+      "compared": 31,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "",
+       ""
+      ],
+      "tag": [
+       "button",
+       "button"
+      ],
+      "children": [
+       [
+        "svg"
+       ],
+       [
+        "svg"
+       ]
+      ],
+      "rect": [
+       [
+        1087,
+        709,
+        44,
+        44
+       ],
+       [
+        1087,
+        427,
+        44,
+        44
+       ]
+      ],
+      "attrs": [
+       {
+        "type": "button",
+        "class": "icon-btn",
+        "aria-label": "Dismiss note"
+       },
+       {
+        "class": "icon-btn",
+        "type": "button",
+        "aria-label": "Dismiss note"
+       }
+      ],
+      "value": [
+       "",
+       ""
+      ],
+      "live_focused": false,
+      "checks": [
+       {
+        "check": "named Dismiss note",
+        "result": "PASS",
+        "detail": null
+       }
+      ]
+     },
+     {
+      "case": "ST-05 Dismiss icon",
+      "specimen": "section[aria-labelledby=s5] button.icon-btn svg.ph",
+      "live": "div.banner.note button.icon-btn svg.ph",
+      "kind": "svg",
+      "result": "PASS",
+      "compared": 37,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "",
+       ""
+      ],
+      "tag": [
+       "svg",
+       "svg"
+      ],
+      "children": [
+       [
+        "use"
+       ],
+       [
+        "use"
+       ]
+      ],
+      "rect": [
+       [
+        1099,
+        721,
+        20,
+        20
+       ],
+       [
+        1099,
+        439,
+        20,
+        20
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "ph",
+        "aria-hidden": "true"
+       },
+       {
+        "class": "ph",
+        "aria-hidden": "true"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false
+     },
+     {
+      "case": "ST-05 Dismiss icon use",
+      "specimen": "section[aria-labelledby=s5] button.icon-btn svg.ph use",
+      "live": "div.banner.note button.icon-btn svg.ph use",
+      "kind": "svg",
+      "result": "PASS",
+      "compared": 37,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "",
+       ""
+      ],
+      "tag": [
+       "use",
+       "use"
+      ],
+      "children": [
+       [],
+       []
+      ],
+      "rect": [
+       [
+        1102.75,
+        724.75,
+        12.5,
+        12.5
+       ],
+       [
+        1102.75,
+        442.75,
+        12.5,
+        12.5
+       ]
+      ],
+      "attrs": [
+       {
+        "href": "#i-x"
+       },
+       {
+        "href": "#i-x"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false
+     },
+     {
+      "case": "ST-05 li.empty",
+      "specimen": "section[aria-labelledby=s5] li.empty",
+      "live": "ul.rows li.empty",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "No habits yet.Add one you want to do every day.",
+       "No habits yet.Add one you want to do every day."
+      ],
+      "tag": [
+       "li",
+       "li"
+      ],
+      "children": [
+       [
+        "svg",
+        "div"
+       ],
+       [
+        "svg",
+        "div"
+       ]
+      ],
+      "rect": [
+       [
+        145,
+        771,
+        990,
+        128
+       ],
+       [
+        145,
+        490,
+        990,
+        128
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "empty"
+       },
+       {
+        "class": "empty"
+       }
+      ],
+      "value": [
+       0,
+       0
+      ],
+      "live_focused": false
+     },
+     {
+      "case": "ST-05 li.empty svg",
+      "specimen": "section[aria-labelledby=s5] li.empty svg",
+      "live": "ul.rows li.empty svg",
+      "kind": "svg",
+      "result": "PASS",
+      "compared": 37,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "",
+       ""
+      ],
+      "tag": [
+       "svg",
+       "svg"
+      ],
+      "children": [
+       [
+        "circle",
+        "circle"
+       ],
+       [
+        "circle",
+        "circle"
+       ]
+      ],
+      "rect": [
+       [
+        161,
+        787,
+        96,
+        96
+       ],
+       [
+        161,
+        506,
+        96,
+        96
+       ]
+      ],
+      "attrs": [
+       {
+        "viewBox": "0 0 120 120",
+        "aria-hidden": "true"
+       },
+       {
+        "viewBox": "0 0 120 120",
+        "aria-hidden": "true"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false
+     },
+     {
+      "case": "ST-05 li.empty circle.e-orbit",
+      "specimen": "section[aria-labelledby=s5] li.empty circle.e-orbit",
+      "live": "ul.rows li.empty circle.e-orbit",
+      "kind": "svg",
+      "result": "PASS",
+      "compared": 37,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "",
+       ""
+      ],
+      "tag": [
+       "circle",
+       "circle"
+      ],
+      "children": [
+       [],
+       []
+      ],
+      "rect": [
+       [
+        169,
+        795,
+        80,
+        80
+       ],
+       [
+        169,
+        514,
+        80,
+        80
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "e-orbit",
+        "cx": "60",
+        "cy": "60",
+        "r": "50"
+       },
+       {
+        "class": "e-orbit",
+        "cx": "60",
+        "cy": "60",
+        "r": "50"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false
+     },
+     {
+      "case": "ST-05 li.empty circle.e-core",
+      "specimen": "section[aria-labelledby=s5] li.empty circle.e-core",
+      "live": "ul.rows li.empty circle.e-core",
+      "kind": "svg",
+      "result": "PASS",
+      "compared": 37,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "",
+       ""
+      ],
+      "tag": [
+       "circle",
+       "circle"
+      ],
+      "children": [
+       [],
+       []
+      ],
+      "rect": [
+       [
+        194.6,
+        820.6,
+        28.8,
+        28.8
+       ],
+       [
+        194.6,
+        539.6,
+        28.8,
+        28.8
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "e-core",
+        "cx": "60",
+        "cy": "60",
+        "r": "18"
+       },
+       {
+        "class": "e-core",
+        "cx": "60",
+        "cy": "60",
+        "r": "18"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false
+     },
+     {
+      "case": "ST-05 li.empty > div",
+      "specimen": "section[aria-labelledby=s5] li.empty > div",
+      "live": "ul.rows li.empty > div",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "No habits yet.Add one you want to do every day.",
+       "No habits yet.Add one you want to do every day."
+      ],
+      "tag": [
+       "div",
+       "div"
+      ],
+      "children": [
+       [
+        "p.lead",
+        "p.line"
+       ],
+       [
+        "p.lead",
+        "p.line"
+       ]
+      ],
+      "rect": [
+       [
+        273,
+        811,
+        846,
+        48
+       ],
+       [
+        273,
+        530,
+        846,
+        48
+       ]
+      ],
+      "attrs": [
+       {},
+       {}
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false
+     },
+     {
+      "case": "ST-05 li.empty p.lead",
+      "specimen": "section[aria-labelledby=s5] li.empty p.lead",
+      "live": "ul.rows li.empty p.lead",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "No habits yet.",
+       "No habits yet."
+      ],
+      "tag": [
+       "p",
+       "p"
+      ],
+      "children": [
+       [],
+       []
+      ],
+      "rect": [
+       [
+        273,
+        811,
+        846,
+        24
+       ],
+       [
+        273,
+        530,
+        846,
+        24
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "lead"
+       },
+       {
+        "class": "lead"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false,
+      "checks": [
+       {
+        "check": "text",
+        "result": "PASS",
+        "detail": [
+         "No habits yet.",
+         "No habits yet."
+        ]
+       }
+      ]
+     },
+     {
+      "case": "ST-05 li.empty p.line",
+      "specimen": "section[aria-labelledby=s5] li.empty p.line",
+      "live": "ul.rows li.empty p.line",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "Add one you want to do every day.",
+       "Add one you want to do every day."
+      ],
+      "tag": [
+       "p",
+       "p"
+      ],
+      "children": [
+       [],
+       []
+      ],
+      "rect": [
+       [
+        273,
+        839,
+        846,
+        20
+       ],
+       [
+        273,
+        558,
+        846,
+        20
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "line"
+       },
+       {
+        "class": "line"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false,
+      "checks": [
+       {
+        "check": "text",
+        "result": "PASS",
+        "detail": [
+         "Add one you want to do every day.",
+         "Add one you want to do every day."
+        ]
+       }
+      ]
+     },
+     {
+      "case": "ST-05 ul.rows",
+      "specimen": "section[aria-labelledby=s5] ul.rows",
+      "live": "div.frame ul.rows",
+      "kind": "box",
+      "result": "PASS",
+      "compared": 29,
+      "differences": {},
+      "other_properties_differing": {},
+      "layout_properties_differing": [],
+      "text": [
+       "No habits yet.Add one you want to do every day.",
+       "No habits yet.Add one you want to do every day."
+      ],
+      "tag": [
+       "ul",
+       "ul"
+      ],
+      "children": [
+       [
+        "li.empty"
+       ],
+       [
+        "li.empty"
+       ]
+      ],
+      "rect": [
+       [
+        145,
+        771,
+        990,
+        128
+       ],
+       [
+        145,
+        490,
+        990,
+        128
+       ]
+      ],
+      "attrs": [
+       {
+        "class": "rows"
+       },
+       {
+        "class": "rows",
+        "aria-labelledby": "h-habits"
+       }
+      ],
+      "value": [
+       null,
+       null
+      ],
+      "live_focused": false
+     }
+    ],
+    "ST-06": [
+     {
+      "case": "ST-06 sheet chrome absent",
+      "chrome": {
+       "selectors": [
+        "main.sheet",
+        ".spec",
+        ".stack",
+        "#n1",
+        "#n2",
+        "#n3",
+        "#m1",
+        "#m2",
+        "#m3"
+       ],
+       "texts": [
+        "Streaky Habit states",
+        "S2, Add pressed with no name (K1's add field)",
+        "S2, a name longer than 40 characters",
+        "S2, a name already tracked, ignoring case",
+        "S4, the save warning (K1, between the band or header and the list)",
+        "S5, saved habits could not be read (S1 with the note above the list)"
+       ]
+      },
+      "found_in_live_dom": [
+       {
+        "state": "sample",
+        "selectors": [],
+        "texts": []
+       },
+       {
+        "state": "fresh",
+        "selectors": [],
+        "texts": []
+       },
+       {
+        "state": "twelve",
+        "selectors": [],
+        "texts": []
+       },
+       {
+        "state": "unreadable",
+        "selectors": [],
+        "texts": []
+       },
+       {
+        "state": "save-fails",
+        "selectors": [],
+        "texts": []
+       }
+      ],
+      "styles_css_hits": [],
+      "result": "PASS"
+     }
+    ]
+   }
+  }
+ },
+ "browser_version": "149.0.7827.55",
+ "stopped": {
+  "server_pid": 12832,
+  "port": 5408,
+  "exit_code": 1,
+  "port_refuses": true
+ }
+}

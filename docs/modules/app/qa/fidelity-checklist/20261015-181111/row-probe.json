@@ -1,0 +1,5477 @@
+{
+ "server": {
+  "pid": 2708,
+  "port": 36271,
+  "command": [
+   "C:\\Python314\\python.exe",
+   "-m",
+   "http.server",
+   "36271",
+   "--bind",
+   "127.0.0.1"
+  ]
+ },
+ "head": "56e3c7bd792ed3526a156dc07383d18829198984",
+ "checks": [
+  {
+   "capture": "today-360x780",
+   "row": "K1-03",
+   "check": "tab title",
+   "expected": "Danial's Streaky Habit",
+   "app": "Danial's Streaky Habit",
+   "golden": "Danial's Streaky Habit",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-360x780",
+   "row": "K1-03",
+   "check": "icon link href (R29)",
+   "expected": "src/icon.svg",
+   "app": "src/icon.svg",
+   "golden": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cstyle%3E.fi{fill:%23FFB020}@media (prefers-color-scheme:light){.fi{fill:%239A5B00}}%3C/style%3E%3Cpath class='fi' fill='%23FFB020' d='M8.5 5H11.5A2.5 2.5 0 1 1 11.5 8H8.5A2.5 2.5 0 0 1 8 8.5V11.5A2.5 2.5 0 1 1 5 11.5V8.5A2.5 2.5 0 1 1 8.5 5ZM13.5 11A2.5 2.5 0 0 1 13.5 16A2.5 2.5 0 0 1 13.5 11ZM13.5 12A1.5 1.5 0 0 0 13.5 15A1.5 1.5 0 0 0 13.5 12ZM0.02 7A6.5 6.5 0 0 1 7 0.02V2.03A4.5 4.5 0 0 0 2.03 7Z'/%3E%3C/svg%3E",
+   "app_only": true,
+   "app_matches_row": true,
+   "golden_matches_row": null,
+   "app_equals_golden": false
+  },
+  {
+   "capture": "today-360x780",
+   "row": "K1-02",
+   "check": "sprite symbols",
+   "expected": [
+    "i-x",
+    "i-plus",
+    "i-check",
+    "i-trash"
+   ],
+   "app": [
+    "i-x",
+    "i-plus",
+    "i-check",
+    "i-trash"
+   ],
+   "golden": [
+    "i-x",
+    "i-plus",
+    "i-check",
+    "i-trash"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-360x780",
+   "row": "K1-08",
+   "check": "word",
+   "expected": "Streaky Habit",
+   "app": "Streaky Habit",
+   "golden": "Streaky Habit",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-360x780",
+   "row": "K1-11",
+   "check": "date text",
+   "expected": "Saturday 10 October",
+   "app": "Saturday 10 October",
+   "golden": "Saturday 10 October",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-360x780",
+   "row": "K1-11",
+   "check": "date datetime",
+   "expected": "2026-10-10",
+   "app": "2026-10-10",
+   "golden": "2026-10-10",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-360x780",
+   "row": "K1-25",
+   "check": "banners empty and not displayed",
+   "expected": [
+    0,
+    "none"
+   ],
+   "app": [
+    0,
+    "none"
+   ],
+   "golden": [
+    0,
+    "none"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-360x780",
+   "row": "K1-26",
+   "check": "hidden heading",
+   "expected": "Habits",
+   "app": "Habits",
+   "golden": "Habits",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-360x780",
+   "row": "K1-26",
+   "check": "list labelled by it",
+   "expected": "h-habits",
+   "app": "h-habits",
+   "golden": "h-habits",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-360x780",
+   "row": "K1-39",
+   "check": "composer novalidate",
+   "expected": true,
+   "app": true,
+   "golden": true,
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-360x780",
+   "row": "K1-40",
+   "check": "field label",
+   "expected": "New habit",
+   "app": "New habit",
+   "golden": "New habit",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-360x780",
+   "row": "K1-41",
+   "check": "field attributes",
+   "expected": [
+    "input",
+    "off",
+    "false",
+    "nh-msg",
+    false,
+    ""
+   ],
+   "app": [
+    "input",
+    "off",
+    "false",
+    "nh-msg",
+    false,
+    ""
+   ],
+   "golden": [
+    "input",
+    "off",
+    "false",
+    "nh-msg",
+    false,
+    ""
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-360x780",
+   "row": "K1-42",
+   "check": "Add button",
+   "expected": [
+    "submit",
+    "Add",
+    "#i-plus"
+   ],
+   "app": [
+    "submit",
+    "Add",
+    "#i-plus"
+   ],
+   "golden": [
+    "submit",
+    "Add",
+    "#i-plus"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-360x780",
+   "row": "K1-43",
+   "check": "message line",
+   "expected": [
+    "polite",
+    true,
+    ""
+   ],
+   "app": [
+    "polite",
+    true,
+    ""
+   ],
+   "golden": [
+    "polite",
+    true,
+    ""
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-360x780",
+   "row": "K1-09",
+   "check": "Overview name",
+   "expected": "Overview, today 1 of 3 habits done",
+   "app": "Overview, today 1 of 3 habits done",
+   "golden": "Overview, today 1 of 3 habits done",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-360x780",
+   "row": "K1-13",
+   "check": "band heading and Year",
+   "expected": [
+    "Last 12 weeks",
+    "Year view, all habits",
+    "Year"
+   ],
+   "app": [
+    "Last 12 weeks",
+    "Year view, all habits",
+    "Year"
+   ],
+   "golden": [
+    "Last 12 weeks",
+    "Year view, all habits",
+    "Year"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-360x780",
+   "row": "K1-14",
+   "check": "band hint",
+   "expected": "Tap a day to change it.",
+   "app": "Tap a day to change it.",
+   "golden": "Tap a day to change it.",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-360x780",
+   "row": "K1-17",
+   "check": "month axis",
+   "expected": [
+    "Jul",
+    "",
+    "Aug",
+    "",
+    "",
+    "",
+    "",
+    "Sep",
+    "",
+    "",
+    "",
+    "Oct"
+   ],
+   "app": [
+    "Jul",
+    "",
+    "Aug",
+    "",
+    "",
+    "",
+    "",
+    "Sep",
+    "",
+    "",
+    "",
+    "Oct"
+   ],
+   "golden": [
+    "Jul",
+    "",
+    "Aug",
+    "",
+    "",
+    "",
+    "",
+    "Sep",
+    "",
+    "",
+    "",
+    "Oct"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-360x780",
+   "row": "K1-18",
+   "check": "weekday axis",
+   "expected": [
+    "M",
+    "T",
+    "W",
+    "T",
+    "F",
+    "S",
+    "S"
+   ],
+   "app": [
+    "M",
+    "T",
+    "W",
+    "T",
+    "F",
+    "S",
+    "S"
+   ],
+   "golden": [
+    "M",
+    "T",
+    "W",
+    "T",
+    "F",
+    "S",
+    "S"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-360x780",
+   "row": "K1-19",
+   "check": "band day buttons, first and last name",
+   "expected": [
+    83,
+    "Mon 20 Jul, 2 of 3 habits",
+    "Sat 10 Oct, 1 of 3 habits"
+   ],
+   "app": [
+    83,
+    "Mon 20 Jul, 2 of 3 habits",
+    "Sat 10 Oct, 1 of 3 habits"
+   ],
+   "golden": [
+    83,
+    "Mon 20 Jul, 2 of 3 habits",
+    "Sat 10 Oct, 1 of 3 habits"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-360x780",
+   "row": "K1-23",
+   "check": "today cell",
+   "expected": [
+    "2026-10-10",
+    "BUTTON"
+   ],
+   "app": [
+    "2026-10-10",
+    "BUTTON"
+   ],
+   "golden": [
+    "2026-10-10",
+    "BUTTON"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-360x780",
+   "row": "K1-24",
+   "check": "after today",
+   "expected": [
+    1,
+    "true",
+    0
+   ],
+   "app": [
+    1,
+    "true",
+    0
+   ],
+   "golden": [
+    1,
+    "true",
+    0
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-360x780",
+   "row": "K1-30",
+   "check": "habit names",
+   "expected": [
+    "Read 20 pages",
+    "Stretch 10 minutes",
+    "No phone after 11pm"
+   ],
+   "app": [
+    "Read 20 pages",
+    "Stretch 10 minutes",
+    "No phone after 11pm"
+   ],
+   "golden": [
+    "Read 20 pages",
+    "Stretch 10 minutes",
+    "No phone after 11pm"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-360x780",
+   "row": "K1-31",
+   "check": "bin names",
+   "expected": [
+    "Delete \"Read 20 pages\"",
+    "Delete \"Stretch 10 minutes\"",
+    "Delete \"No phone after 11pm\""
+   ],
+   "app": [
+    "Delete \"Read 20 pages\"",
+    "Delete \"Stretch 10 minutes\"",
+    "Delete \"No phone after 11pm\""
+   ],
+   "golden": [
+    "Delete \"Read 20 pages\"",
+    "Delete \"Stretch 10 minutes\"",
+    "Delete \"No phone after 11pm\""
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-360x780",
+   "row": "K1-33",
+   "check": "Current numbers",
+   "expected": [
+    "4",
+    "2"
+   ],
+   "app": [
+    "4",
+    "2"
+   ],
+   "golden": [
+    "4",
+    "2"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-360x780",
+   "row": "K1-34",
+   "check": "No streak yet",
+   "expected": [
+    "No streak yet"
+   ],
+   "app": [
+    "No streak yet"
+   ],
+   "golden": [
+    "No streak yet"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-360x780",
+   "row": "K1-35",
+   "check": "Best numbers",
+   "expected": [
+    "9",
+    "5",
+    "14"
+   ],
+   "app": [
+    "9",
+    "5",
+    "14"
+   ],
+   "golden": [
+    "9",
+    "5",
+    "14"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-360x780",
+   "row": "K1-36",
+   "check": "Year names",
+   "expected": [
+    "Year view, Read 20 pages",
+    "Year view, Stretch 10 minutes",
+    "Year view, No phone after 11pm"
+   ],
+   "app": [
+    "Year view, Read 20 pages",
+    "Year view, Stretch 10 minutes",
+    "Year view, No phone after 11pm"
+   ],
+   "golden": [
+    "Year view, Read 20 pages",
+    "Year view, Stretch 10 minutes",
+    "Year view, No phone after 11pm"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-360x780",
+   "row": "K1-37/38",
+   "check": "Done today pressed states",
+   "expected": [
+    "true",
+    "false",
+    "false"
+   ],
+   "app": [
+    "true",
+    "false",
+    "false"
+   ],
+   "golden": [
+    "true",
+    "false",
+    "false"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-360x780",
+   "row": "K1-44",
+   "check": "no dialog open",
+   "expected": 0,
+   "app": 0,
+   "golden": 0,
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-360x780",
+   "row": "K1-09",
+   "check": "Overview displayed below 1024",
+   "expected": "flex",
+   "app": "flex",
+   "golden": "flex",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-360x780",
+   "row": "K1-12",
+   "check": "band not displayed below 1024",
+   "expected": "none",
+   "app": "none",
+   "golden": "none",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-390x844",
+   "row": "K1-03",
+   "check": "tab title",
+   "expected": "Danial's Streaky Habit",
+   "app": "Danial's Streaky Habit",
+   "golden": "Danial's Streaky Habit",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-390x844",
+   "row": "K1-03",
+   "check": "icon link href (R29)",
+   "expected": "src/icon.svg",
+   "app": "src/icon.svg",
+   "golden": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cstyle%3E.fi{fill:%23FFB020}@media (prefers-color-scheme:light){.fi{fill:%239A5B00}}%3C/style%3E%3Cpath class='fi' fill='%23FFB020' d='M8.5 5H11.5A2.5 2.5 0 1 1 11.5 8H8.5A2.5 2.5 0 0 1 8 8.5V11.5A2.5 2.5 0 1 1 5 11.5V8.5A2.5 2.5 0 1 1 8.5 5ZM13.5 11A2.5 2.5 0 0 1 13.5 16A2.5 2.5 0 0 1 13.5 11ZM13.5 12A1.5 1.5 0 0 0 13.5 15A1.5 1.5 0 0 0 13.5 12ZM0.02 7A6.5 6.5 0 0 1 7 0.02V2.03A4.5 4.5 0 0 0 2.03 7Z'/%3E%3C/svg%3E",
+   "app_only": true,
+   "app_matches_row": true,
+   "golden_matches_row": null,
+   "app_equals_golden": false
+  },
+  {
+   "capture": "today-390x844",
+   "row": "K1-02",
+   "check": "sprite symbols",
+   "expected": [
+    "i-x",
+    "i-plus",
+    "i-check",
+    "i-trash"
+   ],
+   "app": [
+    "i-x",
+    "i-plus",
+    "i-check",
+    "i-trash"
+   ],
+   "golden": [
+    "i-x",
+    "i-plus",
+    "i-check",
+    "i-trash"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-390x844",
+   "row": "K1-08",
+   "check": "word",
+   "expected": "Streaky Habit",
+   "app": "Streaky Habit",
+   "golden": "Streaky Habit",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-390x844",
+   "row": "K1-11",
+   "check": "date text",
+   "expected": "Saturday 10 October",
+   "app": "Saturday 10 October",
+   "golden": "Saturday 10 October",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-390x844",
+   "row": "K1-11",
+   "check": "date datetime",
+   "expected": "2026-10-10",
+   "app": "2026-10-10",
+   "golden": "2026-10-10",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-390x844",
+   "row": "K1-25",
+   "check": "banners empty and not displayed",
+   "expected": [
+    0,
+    "none"
+   ],
+   "app": [
+    0,
+    "none"
+   ],
+   "golden": [
+    0,
+    "none"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-390x844",
+   "row": "K1-26",
+   "check": "hidden heading",
+   "expected": "Habits",
+   "app": "Habits",
+   "golden": "Habits",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-390x844",
+   "row": "K1-26",
+   "check": "list labelled by it",
+   "expected": "h-habits",
+   "app": "h-habits",
+   "golden": "h-habits",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-390x844",
+   "row": "K1-39",
+   "check": "composer novalidate",
+   "expected": true,
+   "app": true,
+   "golden": true,
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-390x844",
+   "row": "K1-40",
+   "check": "field label",
+   "expected": "New habit",
+   "app": "New habit",
+   "golden": "New habit",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-390x844",
+   "row": "K1-41",
+   "check": "field attributes",
+   "expected": [
+    "input",
+    "off",
+    "false",
+    "nh-msg",
+    false,
+    ""
+   ],
+   "app": [
+    "input",
+    "off",
+    "false",
+    "nh-msg",
+    false,
+    ""
+   ],
+   "golden": [
+    "input",
+    "off",
+    "false",
+    "nh-msg",
+    false,
+    ""
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-390x844",
+   "row": "K1-42",
+   "check": "Add button",
+   "expected": [
+    "submit",
+    "Add",
+    "#i-plus"
+   ],
+   "app": [
+    "submit",
+    "Add",
+    "#i-plus"
+   ],
+   "golden": [
+    "submit",
+    "Add",
+    "#i-plus"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-390x844",
+   "row": "K1-43",
+   "check": "message line",
+   "expected": [
+    "polite",
+    true,
+    ""
+   ],
+   "app": [
+    "polite",
+    true,
+    ""
+   ],
+   "golden": [
+    "polite",
+    true,
+    ""
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-390x844",
+   "row": "K1-09",
+   "check": "Overview name",
+   "expected": "Overview, today 1 of 3 habits done",
+   "app": "Overview, today 1 of 3 habits done",
+   "golden": "Overview, today 1 of 3 habits done",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-390x844",
+   "row": "K1-13",
+   "check": "band heading and Year",
+   "expected": [
+    "Last 12 weeks",
+    "Year view, all habits",
+    "Year"
+   ],
+   "app": [
+    "Last 12 weeks",
+    "Year view, all habits",
+    "Year"
+   ],
+   "golden": [
+    "Last 12 weeks",
+    "Year view, all habits",
+    "Year"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-390x844",
+   "row": "K1-14",
+   "check": "band hint",
+   "expected": "Tap a day to change it.",
+   "app": "Tap a day to change it.",
+   "golden": "Tap a day to change it.",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-390x844",
+   "row": "K1-17",
+   "check": "month axis",
+   "expected": [
+    "Jul",
+    "",
+    "Aug",
+    "",
+    "",
+    "",
+    "",
+    "Sep",
+    "",
+    "",
+    "",
+    "Oct"
+   ],
+   "app": [
+    "Jul",
+    "",
+    "Aug",
+    "",
+    "",
+    "",
+    "",
+    "Sep",
+    "",
+    "",
+    "",
+    "Oct"
+   ],
+   "golden": [
+    "Jul",
+    "",
+    "Aug",
+    "",
+    "",
+    "",
+    "",
+    "Sep",
+    "",
+    "",
+    "",
+    "Oct"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-390x844",
+   "row": "K1-18",
+   "check": "weekday axis",
+   "expected": [
+    "M",
+    "T",
+    "W",
+    "T",
+    "F",
+    "S",
+    "S"
+   ],
+   "app": [
+    "M",
+    "T",
+    "W",
+    "T",
+    "F",
+    "S",
+    "S"
+   ],
+   "golden": [
+    "M",
+    "T",
+    "W",
+    "T",
+    "F",
+    "S",
+    "S"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-390x844",
+   "row": "K1-19",
+   "check": "band day buttons, first and last name",
+   "expected": [
+    83,
+    "Mon 20 Jul, 2 of 3 habits",
+    "Sat 10 Oct, 1 of 3 habits"
+   ],
+   "app": [
+    83,
+    "Mon 20 Jul, 2 of 3 habits",
+    "Sat 10 Oct, 1 of 3 habits"
+   ],
+   "golden": [
+    83,
+    "Mon 20 Jul, 2 of 3 habits",
+    "Sat 10 Oct, 1 of 3 habits"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-390x844",
+   "row": "K1-23",
+   "check": "today cell",
+   "expected": [
+    "2026-10-10",
+    "BUTTON"
+   ],
+   "app": [
+    "2026-10-10",
+    "BUTTON"
+   ],
+   "golden": [
+    "2026-10-10",
+    "BUTTON"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-390x844",
+   "row": "K1-24",
+   "check": "after today",
+   "expected": [
+    1,
+    "true",
+    0
+   ],
+   "app": [
+    1,
+    "true",
+    0
+   ],
+   "golden": [
+    1,
+    "true",
+    0
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-390x844",
+   "row": "K1-30",
+   "check": "habit names",
+   "expected": [
+    "Read 20 pages",
+    "Stretch 10 minutes",
+    "No phone after 11pm"
+   ],
+   "app": [
+    "Read 20 pages",
+    "Stretch 10 minutes",
+    "No phone after 11pm"
+   ],
+   "golden": [
+    "Read 20 pages",
+    "Stretch 10 minutes",
+    "No phone after 11pm"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-390x844",
+   "row": "K1-31",
+   "check": "bin names",
+   "expected": [
+    "Delete \"Read 20 pages\"",
+    "Delete \"Stretch 10 minutes\"",
+    "Delete \"No phone after 11pm\""
+   ],
+   "app": [
+    "Delete \"Read 20 pages\"",
+    "Delete \"Stretch 10 minutes\"",
+    "Delete \"No phone after 11pm\""
+   ],
+   "golden": [
+    "Delete \"Read 20 pages\"",
+    "Delete \"Stretch 10 minutes\"",
+    "Delete \"No phone after 11pm\""
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-390x844",
+   "row": "K1-33",
+   "check": "Current numbers",
+   "expected": [
+    "4",
+    "2"
+   ],
+   "app": [
+    "4",
+    "2"
+   ],
+   "golden": [
+    "4",
+    "2"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-390x844",
+   "row": "K1-34",
+   "check": "No streak yet",
+   "expected": [
+    "No streak yet"
+   ],
+   "app": [
+    "No streak yet"
+   ],
+   "golden": [
+    "No streak yet"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-390x844",
+   "row": "K1-35",
+   "check": "Best numbers",
+   "expected": [
+    "9",
+    "5",
+    "14"
+   ],
+   "app": [
+    "9",
+    "5",
+    "14"
+   ],
+   "golden": [
+    "9",
+    "5",
+    "14"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-390x844",
+   "row": "K1-36",
+   "check": "Year names",
+   "expected": [
+    "Year view, Read 20 pages",
+    "Year view, Stretch 10 minutes",
+    "Year view, No phone after 11pm"
+   ],
+   "app": [
+    "Year view, Read 20 pages",
+    "Year view, Stretch 10 minutes",
+    "Year view, No phone after 11pm"
+   ],
+   "golden": [
+    "Year view, Read 20 pages",
+    "Year view, Stretch 10 minutes",
+    "Year view, No phone after 11pm"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-390x844",
+   "row": "K1-37/38",
+   "check": "Done today pressed states",
+   "expected": [
+    "true",
+    "false",
+    "false"
+   ],
+   "app": [
+    "true",
+    "false",
+    "false"
+   ],
+   "golden": [
+    "true",
+    "false",
+    "false"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-390x844",
+   "row": "K1-44",
+   "check": "no dialog open",
+   "expected": 0,
+   "app": 0,
+   "golden": 0,
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-390x844",
+   "row": "K1-09",
+   "check": "Overview displayed below 1024",
+   "expected": "flex",
+   "app": "flex",
+   "golden": "flex",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-390x844",
+   "row": "K1-12",
+   "check": "band not displayed below 1024",
+   "expected": "none",
+   "app": "none",
+   "golden": "none",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-1280x800",
+   "row": "K1-03",
+   "check": "tab title",
+   "expected": "Danial's Streaky Habit",
+   "app": "Danial's Streaky Habit",
+   "golden": "Danial's Streaky Habit",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-1280x800",
+   "row": "K1-03",
+   "check": "icon link href (R29)",
+   "expected": "src/icon.svg",
+   "app": "src/icon.svg",
+   "golden": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cstyle%3E.fi{fill:%23FFB020}@media (prefers-color-scheme:light){.fi{fill:%239A5B00}}%3C/style%3E%3Cpath class='fi' fill='%23FFB020' d='M8.5 5H11.5A2.5 2.5 0 1 1 11.5 8H8.5A2.5 2.5 0 0 1 8 8.5V11.5A2.5 2.5 0 1 1 5 11.5V8.5A2.5 2.5 0 1 1 8.5 5ZM13.5 11A2.5 2.5 0 0 1 13.5 16A2.5 2.5 0 0 1 13.5 11ZM13.5 12A1.5 1.5 0 0 0 13.5 15A1.5 1.5 0 0 0 13.5 12ZM0.02 7A6.5 6.5 0 0 1 7 0.02V2.03A4.5 4.5 0 0 0 2.03 7Z'/%3E%3C/svg%3E",
+   "app_only": true,
+   "app_matches_row": true,
+   "golden_matches_row": null,
+   "app_equals_golden": false
+  },
+  {
+   "capture": "today-1280x800",
+   "row": "K1-02",
+   "check": "sprite symbols",
+   "expected": [
+    "i-x",
+    "i-plus",
+    "i-check",
+    "i-trash"
+   ],
+   "app": [
+    "i-x",
+    "i-plus",
+    "i-check",
+    "i-trash"
+   ],
+   "golden": [
+    "i-x",
+    "i-plus",
+    "i-check",
+    "i-trash"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-1280x800",
+   "row": "K1-08",
+   "check": "word",
+   "expected": "Streaky Habit",
+   "app": "Streaky Habit",
+   "golden": "Streaky Habit",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-1280x800",
+   "row": "K1-11",
+   "check": "date text",
+   "expected": "Saturday 10 October",
+   "app": "Saturday 10 October",
+   "golden": "Saturday 10 October",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-1280x800",
+   "row": "K1-11",
+   "check": "date datetime",
+   "expected": "2026-10-10",
+   "app": "2026-10-10",
+   "golden": "2026-10-10",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-1280x800",
+   "row": "K1-25",
+   "check": "banners empty and not displayed",
+   "expected": [
+    0,
+    "none"
+   ],
+   "app": [
+    0,
+    "none"
+   ],
+   "golden": [
+    0,
+    "none"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-1280x800",
+   "row": "K1-26",
+   "check": "hidden heading",
+   "expected": "Habits",
+   "app": "Habits",
+   "golden": "Habits",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-1280x800",
+   "row": "K1-26",
+   "check": "list labelled by it",
+   "expected": "h-habits",
+   "app": "h-habits",
+   "golden": "h-habits",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-1280x800",
+   "row": "K1-39",
+   "check": "composer novalidate",
+   "expected": true,
+   "app": true,
+   "golden": true,
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-1280x800",
+   "row": "K1-40",
+   "check": "field label",
+   "expected": "New habit",
+   "app": "New habit",
+   "golden": "New habit",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-1280x800",
+   "row": "K1-41",
+   "check": "field attributes",
+   "expected": [
+    "input",
+    "off",
+    "false",
+    "nh-msg",
+    false,
+    ""
+   ],
+   "app": [
+    "input",
+    "off",
+    "false",
+    "nh-msg",
+    false,
+    ""
+   ],
+   "golden": [
+    "input",
+    "off",
+    "false",
+    "nh-msg",
+    false,
+    ""
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-1280x800",
+   "row": "K1-42",
+   "check": "Add button",
+   "expected": [
+    "submit",
+    "Add",
+    "#i-plus"
+   ],
+   "app": [
+    "submit",
+    "Add",
+    "#i-plus"
+   ],
+   "golden": [
+    "submit",
+    "Add",
+    "#i-plus"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-1280x800",
+   "row": "K1-43",
+   "check": "message line",
+   "expected": [
+    "polite",
+    true,
+    ""
+   ],
+   "app": [
+    "polite",
+    true,
+    ""
+   ],
+   "golden": [
+    "polite",
+    true,
+    ""
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-1280x800",
+   "row": "K1-09",
+   "check": "Overview name",
+   "expected": "Overview, today 1 of 3 habits done",
+   "app": "Overview, today 1 of 3 habits done",
+   "golden": "Overview, today 1 of 3 habits done",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-1280x800",
+   "row": "K1-13",
+   "check": "band heading and Year",
+   "expected": [
+    "Last 12 weeks",
+    "Year view, all habits",
+    "Year"
+   ],
+   "app": [
+    "Last 12 weeks",
+    "Year view, all habits",
+    "Year"
+   ],
+   "golden": [
+    "Last 12 weeks",
+    "Year view, all habits",
+    "Year"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-1280x800",
+   "row": "K1-14",
+   "check": "band hint",
+   "expected": "Tap a day to change it.",
+   "app": "Tap a day to change it.",
+   "golden": "Tap a day to change it.",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-1280x800",
+   "row": "K1-17",
+   "check": "month axis",
+   "expected": [
+    "Jul",
+    "",
+    "Aug",
+    "",
+    "",
+    "",
+    "",
+    "Sep",
+    "",
+    "",
+    "",
+    "Oct"
+   ],
+   "app": [
+    "Jul",
+    "",
+    "Aug",
+    "",
+    "",
+    "",
+    "",
+    "Sep",
+    "",
+    "",
+    "",
+    "Oct"
+   ],
+   "golden": [
+    "Jul",
+    "",
+    "Aug",
+    "",
+    "",
+    "",
+    "",
+    "Sep",
+    "",
+    "",
+    "",
+    "Oct"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-1280x800",
+   "row": "K1-18",
+   "check": "weekday axis",
+   "expected": [
+    "M",
+    "T",
+    "W",
+    "T",
+    "F",
+    "S",
+    "S"
+   ],
+   "app": [
+    "M",
+    "T",
+    "W",
+    "T",
+    "F",
+    "S",
+    "S"
+   ],
+   "golden": [
+    "M",
+    "T",
+    "W",
+    "T",
+    "F",
+    "S",
+    "S"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-1280x800",
+   "row": "K1-19",
+   "check": "band day buttons, first and last name",
+   "expected": [
+    83,
+    "Mon 20 Jul, 2 of 3 habits",
+    "Sat 10 Oct, 1 of 3 habits"
+   ],
+   "app": [
+    83,
+    "Mon 20 Jul, 2 of 3 habits",
+    "Sat 10 Oct, 1 of 3 habits"
+   ],
+   "golden": [
+    83,
+    "Mon 20 Jul, 2 of 3 habits",
+    "Sat 10 Oct, 1 of 3 habits"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-1280x800",
+   "row": "K1-23",
+   "check": "today cell",
+   "expected": [
+    "2026-10-10",
+    "BUTTON"
+   ],
+   "app": [
+    "2026-10-10",
+    "BUTTON"
+   ],
+   "golden": [
+    "2026-10-10",
+    "BUTTON"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-1280x800",
+   "row": "K1-24",
+   "check": "after today",
+   "expected": [
+    1,
+    "true",
+    0
+   ],
+   "app": [
+    1,
+    "true",
+    0
+   ],
+   "golden": [
+    1,
+    "true",
+    0
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-1280x800",
+   "row": "K1-30",
+   "check": "habit names",
+   "expected": [
+    "Read 20 pages",
+    "Stretch 10 minutes",
+    "No phone after 11pm"
+   ],
+   "app": [
+    "Read 20 pages",
+    "Stretch 10 minutes",
+    "No phone after 11pm"
+   ],
+   "golden": [
+    "Read 20 pages",
+    "Stretch 10 minutes",
+    "No phone after 11pm"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-1280x800",
+   "row": "K1-31",
+   "check": "bin names",
+   "expected": [
+    "Delete \"Read 20 pages\"",
+    "Delete \"Stretch 10 minutes\"",
+    "Delete \"No phone after 11pm\""
+   ],
+   "app": [
+    "Delete \"Read 20 pages\"",
+    "Delete \"Stretch 10 minutes\"",
+    "Delete \"No phone after 11pm\""
+   ],
+   "golden": [
+    "Delete \"Read 20 pages\"",
+    "Delete \"Stretch 10 minutes\"",
+    "Delete \"No phone after 11pm\""
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-1280x800",
+   "row": "K1-33",
+   "check": "Current numbers",
+   "expected": [
+    "4",
+    "2"
+   ],
+   "app": [
+    "4",
+    "2"
+   ],
+   "golden": [
+    "4",
+    "2"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-1280x800",
+   "row": "K1-34",
+   "check": "No streak yet",
+   "expected": [
+    "No streak yet"
+   ],
+   "app": [
+    "No streak yet"
+   ],
+   "golden": [
+    "No streak yet"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-1280x800",
+   "row": "K1-35",
+   "check": "Best numbers",
+   "expected": [
+    "9",
+    "5",
+    "14"
+   ],
+   "app": [
+    "9",
+    "5",
+    "14"
+   ],
+   "golden": [
+    "9",
+    "5",
+    "14"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-1280x800",
+   "row": "K1-36",
+   "check": "Year names",
+   "expected": [
+    "Year view, Read 20 pages",
+    "Year view, Stretch 10 minutes",
+    "Year view, No phone after 11pm"
+   ],
+   "app": [
+    "Year view, Read 20 pages",
+    "Year view, Stretch 10 minutes",
+    "Year view, No phone after 11pm"
+   ],
+   "golden": [
+    "Year view, Read 20 pages",
+    "Year view, Stretch 10 minutes",
+    "Year view, No phone after 11pm"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-1280x800",
+   "row": "K1-37/38",
+   "check": "Done today pressed states",
+   "expected": [
+    "true",
+    "false",
+    "false"
+   ],
+   "app": [
+    "true",
+    "false",
+    "false"
+   ],
+   "golden": [
+    "true",
+    "false",
+    "false"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-1280x800",
+   "row": "K1-44",
+   "check": "no dialog open",
+   "expected": 0,
+   "app": 0,
+   "golden": 0,
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-1280x800",
+   "row": "K1-09",
+   "check": "Overview not displayed from 1024",
+   "expected": "none",
+   "app": "none",
+   "golden": "none",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-1280x800",
+   "row": "K1-12",
+   "check": "band displayed from 1024",
+   "expected": "grid",
+   "app": "grid",
+   "golden": "grid",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "day-editor-360x780",
+   "row": "P1-08",
+   "check": "title",
+   "expected": "Tuesday 22 September",
+   "app": "Tuesday 22 September",
+   "golden": "Tuesday 22 September",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "day-editor-360x780",
+   "row": "P1-09",
+   "check": "subtitle",
+   "expected": "1 of 3 habits",
+   "app": "1 of 3 habits",
+   "golden": "1 of 3 habits",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "day-editor-360x780",
+   "row": "P1-10",
+   "check": "Close",
+   "expected": "Close",
+   "app": "Close",
+   "golden": "Close",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "day-editor-360x780",
+   "row": "P1-12",
+   "check": "tick names",
+   "expected": [
+    "Read 20 pages",
+    "Stretch 10 minutes",
+    "No phone after 11pm"
+   ],
+   "app": [
+    "Read 20 pages",
+    "Stretch 10 minutes",
+    "No phone after 11pm"
+   ],
+   "golden": [
+    "Read 20 pages",
+    "Stretch 10 minutes",
+    "No phone after 11pm"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "day-editor-360x780",
+   "row": "P1-13/14",
+   "check": "tick pressed",
+   "expected": [
+    "false",
+    "false",
+    "true"
+   ],
+   "app": [
+    "false",
+    "false",
+    "true"
+   ],
+   "golden": [
+    "false",
+    "false",
+    "true"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "day-editor-360x780",
+   "row": "P1-16",
+   "check": "tick numbers",
+   "expected": [
+    "Current 4 days Best 9",
+    "Current 2 days Best 5",
+    "No streak yet Best 14"
+   ],
+   "app": [
+    "Current 4 daysBest 9",
+    "Current 2 daysBest 5",
+    "No streak yetBest 14"
+   ],
+   "golden": [
+    "Current 4 daysBest 9",
+    "Current 2 daysBest 5",
+    "No streak yetBest 14"
+   ],
+   "app_only": false,
+   "app_matches_row": false,
+   "golden_matches_row": false,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "day-editor-360x780",
+   "row": "P1-03",
+   "check": "open day cell",
+   "expected": [
+    "2026-09-22"
+   ],
+   "app": [
+    "2026-09-22"
+   ],
+   "golden": [
+    "2026-09-22"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "day-editor-360x780",
+   "row": "P1-01/02",
+   "check": "P1 is modal",
+   "expected": true,
+   "app": true,
+   "golden": false,
+   "app_only": true,
+   "app_matches_row": true,
+   "golden_matches_row": null,
+   "app_equals_golden": false
+  },
+  {
+   "capture": "day-editor-390x844",
+   "row": "P1-08",
+   "check": "title",
+   "expected": "Tuesday 22 September",
+   "app": "Tuesday 22 September",
+   "golden": "Tuesday 22 September",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "day-editor-390x844",
+   "row": "P1-09",
+   "check": "subtitle",
+   "expected": "1 of 3 habits",
+   "app": "1 of 3 habits",
+   "golden": "1 of 3 habits",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "day-editor-390x844",
+   "row": "P1-10",
+   "check": "Close",
+   "expected": "Close",
+   "app": "Close",
+   "golden": "Close",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "day-editor-390x844",
+   "row": "P1-12",
+   "check": "tick names",
+   "expected": [
+    "Read 20 pages",
+    "Stretch 10 minutes",
+    "No phone after 11pm"
+   ],
+   "app": [
+    "Read 20 pages",
+    "Stretch 10 minutes",
+    "No phone after 11pm"
+   ],
+   "golden": [
+    "Read 20 pages",
+    "Stretch 10 minutes",
+    "No phone after 11pm"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "day-editor-390x844",
+   "row": "P1-13/14",
+   "check": "tick pressed",
+   "expected": [
+    "false",
+    "false",
+    "true"
+   ],
+   "app": [
+    "false",
+    "false",
+    "true"
+   ],
+   "golden": [
+    "false",
+    "false",
+    "true"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "day-editor-390x844",
+   "row": "P1-16",
+   "check": "tick numbers",
+   "expected": [
+    "Current 4 days Best 9",
+    "Current 2 days Best 5",
+    "No streak yet Best 14"
+   ],
+   "app": [
+    "Current 4 daysBest 9",
+    "Current 2 daysBest 5",
+    "No streak yetBest 14"
+   ],
+   "golden": [
+    "Current 4 daysBest 9",
+    "Current 2 daysBest 5",
+    "No streak yetBest 14"
+   ],
+   "app_only": false,
+   "app_matches_row": false,
+   "golden_matches_row": false,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "day-editor-390x844",
+   "row": "P1-03",
+   "check": "open day cell",
+   "expected": [
+    "2026-09-22"
+   ],
+   "app": [
+    "2026-09-22"
+   ],
+   "golden": [
+    "2026-09-22"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "day-editor-390x844",
+   "row": "P1-01/02",
+   "check": "P1 is modal",
+   "expected": true,
+   "app": true,
+   "golden": false,
+   "app_only": true,
+   "app_matches_row": true,
+   "golden_matches_row": null,
+   "app_equals_golden": false
+  },
+  {
+   "capture": "day-editor-1280x800",
+   "row": "P1-08",
+   "check": "title",
+   "expected": "Tuesday 22 September",
+   "app": "Tuesday 22 September",
+   "golden": "Tuesday 22 September",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "day-editor-1280x800",
+   "row": "P1-09",
+   "check": "subtitle",
+   "expected": "1 of 3 habits",
+   "app": "1 of 3 habits",
+   "golden": "1 of 3 habits",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "day-editor-1280x800",
+   "row": "P1-10",
+   "check": "Close",
+   "expected": "Close",
+   "app": "Close",
+   "golden": "Close",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "day-editor-1280x800",
+   "row": "P1-12",
+   "check": "tick names",
+   "expected": [
+    "Read 20 pages",
+    "Stretch 10 minutes",
+    "No phone after 11pm"
+   ],
+   "app": [
+    "Read 20 pages",
+    "Stretch 10 minutes",
+    "No phone after 11pm"
+   ],
+   "golden": [
+    "Read 20 pages",
+    "Stretch 10 minutes",
+    "No phone after 11pm"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "day-editor-1280x800",
+   "row": "P1-13/14",
+   "check": "tick pressed",
+   "expected": [
+    "false",
+    "false",
+    "true"
+   ],
+   "app": [
+    "false",
+    "false",
+    "true"
+   ],
+   "golden": [
+    "false",
+    "false",
+    "true"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "day-editor-1280x800",
+   "row": "P1-16",
+   "check": "tick numbers",
+   "expected": [
+    "Current 4 days Best 9",
+    "Current 2 days Best 5",
+    "No streak yet Best 14"
+   ],
+   "app": [
+    "Current 4 daysBest 9",
+    "Current 2 daysBest 5",
+    "No streak yetBest 14"
+   ],
+   "golden": [
+    "Current 4 daysBest 9",
+    "Current 2 daysBest 5",
+    "No streak yetBest 14"
+   ],
+   "app_only": false,
+   "app_matches_row": false,
+   "golden_matches_row": false,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "day-editor-1280x800",
+   "row": "P1-03",
+   "check": "open day cell",
+   "expected": [
+    "2026-09-22"
+   ],
+   "app": [
+    "2026-09-22"
+   ],
+   "golden": [
+    "2026-09-22"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "day-editor-1280x800",
+   "row": "P1-01/02",
+   "check": "P1 is modal",
+   "expected": true,
+   "app": true,
+   "golden": false,
+   "app_only": true,
+   "app_matches_row": true,
+   "golden_matches_row": null,
+   "app_equals_golden": false
+  },
+  {
+   "capture": "year-view-360x780",
+   "row": "P2-04",
+   "check": "title and subtitle",
+   "expected": [
+    "Read 20 pages",
+    "The last 12 months"
+   ],
+   "app": [
+    "Read 20 pages",
+    "The last 12 months"
+   ],
+   "golden": [
+    "Read 20 pages",
+    "The last 12 months"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "year-view-360x780",
+   "row": "P2-05",
+   "check": "numbers",
+   "expected": [
+    "4",
+    "9"
+   ],
+   "app": [
+    "4",
+    "9"
+   ],
+   "golden": [
+    "4",
+    "9"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "year-view-360x780",
+   "row": "P2-06",
+   "check": "Delete habit",
+   "expected": [
+    "button",
+    "Delete habit"
+   ],
+   "app": [
+    "button",
+    "Delete habit"
+   ],
+   "golden": [
+    "button",
+    "Delete habit"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "year-view-360x780",
+   "row": "P2-07",
+   "check": "hint",
+   "expected": "Tap a day to mark it done or not done.",
+   "app": "Tap a day to mark it done or not done.",
+   "golden": "Tap a day to mark it done or not done.",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "year-view-360x780",
+   "row": "P2-11",
+   "check": "month titles",
+   "expected": [
+    13,
+    "October 2026",
+    "October 2025"
+   ],
+   "app": [
+    13,
+    "October 2026",
+    "October 2025"
+   ],
+   "golden": [
+    13,
+    "October 2026",
+    "October 2025"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "year-view-360x780",
+   "row": "P2-13",
+   "check": "lead cells",
+   "expected": 39,
+   "app": 39,
+   "golden": 39,
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "year-view-360x780",
+   "row": "P2-15/16/21",
+   "check": "day buttons, first and last name",
+   "expected": [
+    366,
+    "Mark Fri 10 Oct 2025 as done",
+    "Mark Sat 10 Oct 2026 as done"
+   ],
+   "app": [
+    366,
+    "Mark Thu 1 Oct 2026 as done",
+    "Mark Fri 31 Oct 2025 as done"
+   ],
+   "golden": [
+    366,
+    "Mark Thu 1 Oct 2026 as done",
+    "Mark Fri 31 Oct 2025 as done"
+   ],
+   "app_only": false,
+   "app_matches_row": false,
+   "golden_matches_row": false,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "year-view-360x780",
+   "row": "P2-16",
+   "check": "done beads",
+   "expected": 250,
+   "app": 250,
+   "golden": 250,
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "year-view-360x780",
+   "row": "P2-15",
+   "check": "not-done beads",
+   "expected": 116,
+   "app": 116,
+   "golden": 116,
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "year-view-360x780",
+   "row": "P2-18",
+   "check": "today",
+   "expected": "Mark Sat 10 Oct 2026 as done",
+   "app": "Mark Sat 10 Oct 2026 as done",
+   "golden": "Mark Sat 10 Oct 2026 as done",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "year-view-360x780",
+   "row": "P2-01/02",
+   "check": "P2 is modal",
+   "expected": true,
+   "app": true,
+   "golden": false,
+   "app_only": true,
+   "app_matches_row": true,
+   "golden_matches_row": null,
+   "app_equals_golden": false
+  },
+  {
+   "capture": "year-view-390x844",
+   "row": "P2-04",
+   "check": "title and subtitle",
+   "expected": [
+    "Read 20 pages",
+    "The last 12 months"
+   ],
+   "app": [
+    "Read 20 pages",
+    "The last 12 months"
+   ],
+   "golden": [
+    "Read 20 pages",
+    "The last 12 months"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "year-view-390x844",
+   "row": "P2-05",
+   "check": "numbers",
+   "expected": [
+    "4",
+    "9"
+   ],
+   "app": [
+    "4",
+    "9"
+   ],
+   "golden": [
+    "4",
+    "9"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "year-view-390x844",
+   "row": "P2-06",
+   "check": "Delete habit",
+   "expected": [
+    "button",
+    "Delete habit"
+   ],
+   "app": [
+    "button",
+    "Delete habit"
+   ],
+   "golden": [
+    "button",
+    "Delete habit"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "year-view-390x844",
+   "row": "P2-07",
+   "check": "hint",
+   "expected": "Tap a day to mark it done or not done.",
+   "app": "Tap a day to mark it done or not done.",
+   "golden": "Tap a day to mark it done or not done.",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "year-view-390x844",
+   "row": "P2-11",
+   "check": "month titles",
+   "expected": [
+    13,
+    "October 2026",
+    "October 2025"
+   ],
+   "app": [
+    13,
+    "October 2026",
+    "October 2025"
+   ],
+   "golden": [
+    13,
+    "October 2026",
+    "October 2025"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "year-view-390x844",
+   "row": "P2-13",
+   "check": "lead cells",
+   "expected": 39,
+   "app": 39,
+   "golden": 39,
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "year-view-390x844",
+   "row": "P2-15/16/21",
+   "check": "day buttons, first and last name",
+   "expected": [
+    366,
+    "Mark Fri 10 Oct 2025 as done",
+    "Mark Sat 10 Oct 2026 as done"
+   ],
+   "app": [
+    366,
+    "Mark Thu 1 Oct 2026 as done",
+    "Mark Fri 31 Oct 2025 as done"
+   ],
+   "golden": [
+    366,
+    "Mark Thu 1 Oct 2026 as done",
+    "Mark Fri 31 Oct 2025 as done"
+   ],
+   "app_only": false,
+   "app_matches_row": false,
+   "golden_matches_row": false,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "year-view-390x844",
+   "row": "P2-16",
+   "check": "done beads",
+   "expected": 250,
+   "app": 250,
+   "golden": 250,
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "year-view-390x844",
+   "row": "P2-15",
+   "check": "not-done beads",
+   "expected": 116,
+   "app": 116,
+   "golden": 116,
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "year-view-390x844",
+   "row": "P2-18",
+   "check": "today",
+   "expected": "Mark Sat 10 Oct 2026 as done",
+   "app": "Mark Sat 10 Oct 2026 as done",
+   "golden": "Mark Sat 10 Oct 2026 as done",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "year-view-390x844",
+   "row": "P2-01/02",
+   "check": "P2 is modal",
+   "expected": true,
+   "app": true,
+   "golden": false,
+   "app_only": true,
+   "app_matches_row": true,
+   "golden_matches_row": null,
+   "app_equals_golden": false
+  },
+  {
+   "capture": "year-view-1280x800",
+   "row": "P2-04",
+   "check": "title and subtitle",
+   "expected": [
+    "Read 20 pages",
+    "The last 12 months"
+   ],
+   "app": [
+    "Read 20 pages",
+    "The last 12 months"
+   ],
+   "golden": [
+    "Read 20 pages",
+    "The last 12 months"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "year-view-1280x800",
+   "row": "P2-05",
+   "check": "numbers",
+   "expected": [
+    "4",
+    "9"
+   ],
+   "app": [
+    "4",
+    "9"
+   ],
+   "golden": [
+    "4",
+    "9"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "year-view-1280x800",
+   "row": "P2-06",
+   "check": "Delete habit",
+   "expected": [
+    "button",
+    "Delete habit"
+   ],
+   "app": [
+    "button",
+    "Delete habit"
+   ],
+   "golden": [
+    "button",
+    "Delete habit"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "year-view-1280x800",
+   "row": "P2-07",
+   "check": "hint",
+   "expected": "Tap a day to mark it done or not done.",
+   "app": "Tap a day to mark it done or not done.",
+   "golden": "Tap a day to mark it done or not done.",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "year-view-1280x800",
+   "row": "P2-11",
+   "check": "month titles",
+   "expected": [
+    13,
+    "October 2026",
+    "October 2025"
+   ],
+   "app": [
+    13,
+    "October 2026",
+    "October 2025"
+   ],
+   "golden": [
+    13,
+    "October 2026",
+    "October 2025"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "year-view-1280x800",
+   "row": "P2-13",
+   "check": "lead cells",
+   "expected": 39,
+   "app": 39,
+   "golden": 39,
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "year-view-1280x800",
+   "row": "P2-15/16/21",
+   "check": "day buttons, first and last name",
+   "expected": [
+    366,
+    "Mark Fri 10 Oct 2025 as done",
+    "Mark Sat 10 Oct 2026 as done"
+   ],
+   "app": [
+    366,
+    "Mark Thu 1 Oct 2026 as done",
+    "Mark Fri 31 Oct 2025 as done"
+   ],
+   "golden": [
+    366,
+    "Mark Thu 1 Oct 2026 as done",
+    "Mark Fri 31 Oct 2025 as done"
+   ],
+   "app_only": false,
+   "app_matches_row": false,
+   "golden_matches_row": false,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "year-view-1280x800",
+   "row": "P2-16",
+   "check": "done beads",
+   "expected": 250,
+   "app": 250,
+   "golden": 250,
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "year-view-1280x800",
+   "row": "P2-15",
+   "check": "not-done beads",
+   "expected": 116,
+   "app": 116,
+   "golden": 116,
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "year-view-1280x800",
+   "row": "P2-18",
+   "check": "today",
+   "expected": "Mark Sat 10 Oct 2026 as done",
+   "app": "Mark Sat 10 Oct 2026 as done",
+   "golden": "Mark Sat 10 Oct 2026 as done",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "year-view-1280x800",
+   "row": "P2-01/02",
+   "check": "P2 is modal",
+   "expected": true,
+   "app": true,
+   "golden": false,
+   "app_only": true,
+   "app_matches_row": true,
+   "golden_matches_row": null,
+   "app_equals_golden": false
+  },
+  {
+   "capture": "overview-360x780",
+   "row": "P3-02",
+   "check": "head",
+   "expected": [
+    "Last 12 weeks",
+    "Tap a day to change it.",
+    "Year view, all habits"
+   ],
+   "app": [
+    "Last 12 weeks",
+    "Tap a day to change it.",
+    "Year view, all habits"
+   ],
+   "golden": [
+    "Last 12 weeks",
+    "Tap a day to change it.",
+    "Year view, all habits"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "overview-360x780",
+   "row": "P3-04",
+   "check": "weekday letters",
+   "expected": [
+    "M",
+    "T",
+    "W",
+    "T",
+    "F",
+    "S",
+    "S"
+   ],
+   "app": [
+    "M",
+    "T",
+    "W",
+    "T",
+    "F",
+    "S",
+    "S"
+   ],
+   "golden": [
+    "M",
+    "T",
+    "W",
+    "T",
+    "F",
+    "S",
+    "S"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "overview-360x780",
+   "row": "P3-05",
+   "check": "month column",
+   "expected": [
+    "Oct",
+    "",
+    "",
+    "",
+    "Sep",
+    "",
+    "",
+    "",
+    "",
+    "Aug",
+    "",
+    "Jul"
+   ],
+   "app": [
+    "Oct",
+    "",
+    "",
+    "",
+    "Sep",
+    "",
+    "",
+    "",
+    "",
+    "Aug",
+    "",
+    "Jul"
+   ],
+   "golden": [
+    "Oct",
+    "",
+    "",
+    "",
+    "Sep",
+    "",
+    "",
+    "",
+    "",
+    "Aug",
+    "",
+    "Jul"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "overview-360x780",
+   "row": "P3-06",
+   "check": "cells, first and last",
+   "expected": [
+    83,
+    "2026-10-05",
+    "2026-07-26"
+   ],
+   "app": [
+    83,
+    "2026-10-05",
+    "2026-07-26"
+   ],
+   "golden": [
+    83,
+    "2026-10-05",
+    "2026-07-26"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "overview-360x780",
+   "row": "P3-09",
+   "check": "empty cell",
+   "expected": 1,
+   "app": 1,
+   "golden": 1,
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "overview-360x780",
+   "row": "P3-01",
+   "check": "P3 is modal",
+   "expected": true,
+   "app": true,
+   "golden": false,
+   "app_only": true,
+   "app_matches_row": true,
+   "golden_matches_row": null,
+   "app_equals_golden": false
+  },
+  {
+   "capture": "overview-390x844",
+   "row": "P3-02",
+   "check": "head",
+   "expected": [
+    "Last 12 weeks",
+    "Tap a day to change it.",
+    "Year view, all habits"
+   ],
+   "app": [
+    "Last 12 weeks",
+    "Tap a day to change it.",
+    "Year view, all habits"
+   ],
+   "golden": [
+    "Last 12 weeks",
+    "Tap a day to change it.",
+    "Year view, all habits"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "overview-390x844",
+   "row": "P3-04",
+   "check": "weekday letters",
+   "expected": [
+    "M",
+    "T",
+    "W",
+    "T",
+    "F",
+    "S",
+    "S"
+   ],
+   "app": [
+    "M",
+    "T",
+    "W",
+    "T",
+    "F",
+    "S",
+    "S"
+   ],
+   "golden": [
+    "M",
+    "T",
+    "W",
+    "T",
+    "F",
+    "S",
+    "S"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "overview-390x844",
+   "row": "P3-05",
+   "check": "month column",
+   "expected": [
+    "Oct",
+    "",
+    "",
+    "",
+    "Sep",
+    "",
+    "",
+    "",
+    "",
+    "Aug",
+    "",
+    "Jul"
+   ],
+   "app": [
+    "Oct",
+    "",
+    "",
+    "",
+    "Sep",
+    "",
+    "",
+    "",
+    "",
+    "Aug",
+    "",
+    "Jul"
+   ],
+   "golden": [
+    "Oct",
+    "",
+    "",
+    "",
+    "Sep",
+    "",
+    "",
+    "",
+    "",
+    "Aug",
+    "",
+    "Jul"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "overview-390x844",
+   "row": "P3-06",
+   "check": "cells, first and last",
+   "expected": [
+    83,
+    "2026-10-05",
+    "2026-07-26"
+   ],
+   "app": [
+    83,
+    "2026-10-05",
+    "2026-07-26"
+   ],
+   "golden": [
+    83,
+    "2026-10-05",
+    "2026-07-26"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "overview-390x844",
+   "row": "P3-09",
+   "check": "empty cell",
+   "expected": 1,
+   "app": 1,
+   "golden": 1,
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "overview-390x844",
+   "row": "P3-01",
+   "check": "P3 is modal",
+   "expected": true,
+   "app": true,
+   "golden": false,
+   "app_only": true,
+   "app_matches_row": true,
+   "golden_matches_row": null,
+   "app_equals_golden": false
+  },
+  {
+   "capture": "overview-year-360x780",
+   "row": "P4-03",
+   "check": "head",
+   "expected": [
+    "All habits",
+    "The last 12 months"
+   ],
+   "app": [
+    "All habits",
+    "The last 12 months"
+   ],
+   "golden": [
+    "All habits",
+    "The last 12 months"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "overview-year-360x780",
+   "row": "P4-04",
+   "check": "hint",
+   "expected": "Tap a day to change it.",
+   "app": "Tap a day to change it.",
+   "golden": "Tap a day to change it.",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "overview-year-360x780",
+   "row": "P4-05",
+   "check": "months",
+   "expected": [
+    13,
+    "October 2026",
+    "October 2025"
+   ],
+   "app": [
+    13,
+    "October 2026",
+    "October 2025"
+   ],
+   "golden": [
+    13,
+    "October 2026",
+    "October 2025"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "overview-year-360x780",
+   "row": "P4-08",
+   "check": "rings, first and last name",
+   "expected": [
+    366,
+    "Fri 10 Oct 2025, 3 of 3 habits",
+    "Sat 10 Oct 2026, 1 of 3 habits"
+   ],
+   "app": [
+    366,
+    "Thu 1 Oct 2026, 2 of 3 habits",
+    "Fri 31 Oct 2025, 3 of 3 habits"
+   ],
+   "golden": [
+    366,
+    "Thu 1 Oct 2026, 2 of 3 habits",
+    "Fri 31 Oct 2025, 3 of 3 habits"
+   ],
+   "app_only": false,
+   "app_matches_row": false,
+   "golden_matches_row": false,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "overview-year-360x780",
+   "row": "P4-09",
+   "check": "closed days",
+   "expected": 21,
+   "app": 21,
+   "golden": 21,
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "overview-year-360x780",
+   "row": "P4-10",
+   "check": "blank cells",
+   "expected": 9,
+   "app": 9,
+   "golden": 9,
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "overview-year-360x780",
+   "row": "P4-01/02",
+   "check": "P4 is modal",
+   "expected": true,
+   "app": true,
+   "golden": false,
+   "app_only": true,
+   "app_matches_row": true,
+   "golden_matches_row": null,
+   "app_equals_golden": false
+  },
+  {
+   "capture": "overview-year-390x844",
+   "row": "P4-03",
+   "check": "head",
+   "expected": [
+    "All habits",
+    "The last 12 months"
+   ],
+   "app": [
+    "All habits",
+    "The last 12 months"
+   ],
+   "golden": [
+    "All habits",
+    "The last 12 months"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "overview-year-390x844",
+   "row": "P4-04",
+   "check": "hint",
+   "expected": "Tap a day to change it.",
+   "app": "Tap a day to change it.",
+   "golden": "Tap a day to change it.",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "overview-year-390x844",
+   "row": "P4-05",
+   "check": "months",
+   "expected": [
+    13,
+    "October 2026",
+    "October 2025"
+   ],
+   "app": [
+    13,
+    "October 2026",
+    "October 2025"
+   ],
+   "golden": [
+    13,
+    "October 2026",
+    "October 2025"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "overview-year-390x844",
+   "row": "P4-08",
+   "check": "rings, first and last name",
+   "expected": [
+    366,
+    "Fri 10 Oct 2025, 3 of 3 habits",
+    "Sat 10 Oct 2026, 1 of 3 habits"
+   ],
+   "app": [
+    366,
+    "Thu 1 Oct 2026, 2 of 3 habits",
+    "Fri 31 Oct 2025, 3 of 3 habits"
+   ],
+   "golden": [
+    366,
+    "Thu 1 Oct 2026, 2 of 3 habits",
+    "Fri 31 Oct 2025, 3 of 3 habits"
+   ],
+   "app_only": false,
+   "app_matches_row": false,
+   "golden_matches_row": false,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "overview-year-390x844",
+   "row": "P4-09",
+   "check": "closed days",
+   "expected": 21,
+   "app": 21,
+   "golden": 21,
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "overview-year-390x844",
+   "row": "P4-10",
+   "check": "blank cells",
+   "expected": 9,
+   "app": 9,
+   "golden": 9,
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "overview-year-390x844",
+   "row": "P4-01/02",
+   "check": "P4 is modal",
+   "expected": true,
+   "app": true,
+   "golden": false,
+   "app_only": true,
+   "app_matches_row": true,
+   "golden_matches_row": null,
+   "app_equals_golden": false
+  },
+  {
+   "capture": "overview-year-1280x800",
+   "row": "P4-03",
+   "check": "head",
+   "expected": [
+    "All habits",
+    "The last 12 months"
+   ],
+   "app": [
+    "All habits",
+    "The last 12 months"
+   ],
+   "golden": [
+    "All habits",
+    "The last 12 months"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "overview-year-1280x800",
+   "row": "P4-04",
+   "check": "hint",
+   "expected": "Tap a day to change it.",
+   "app": "Tap a day to change it.",
+   "golden": "Tap a day to change it.",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "overview-year-1280x800",
+   "row": "P4-05",
+   "check": "months",
+   "expected": [
+    13,
+    "October 2026",
+    "October 2025"
+   ],
+   "app": [
+    13,
+    "October 2026",
+    "October 2025"
+   ],
+   "golden": [
+    13,
+    "October 2026",
+    "October 2025"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "overview-year-1280x800",
+   "row": "P4-08",
+   "check": "rings, first and last name",
+   "expected": [
+    366,
+    "Fri 10 Oct 2025, 3 of 3 habits",
+    "Sat 10 Oct 2026, 1 of 3 habits"
+   ],
+   "app": [
+    366,
+    "Thu 1 Oct 2026, 2 of 3 habits",
+    "Fri 31 Oct 2025, 3 of 3 habits"
+   ],
+   "golden": [
+    366,
+    "Thu 1 Oct 2026, 2 of 3 habits",
+    "Fri 31 Oct 2025, 3 of 3 habits"
+   ],
+   "app_only": false,
+   "app_matches_row": false,
+   "golden_matches_row": false,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "overview-year-1280x800",
+   "row": "P4-09",
+   "check": "closed days",
+   "expected": 21,
+   "app": 21,
+   "golden": 21,
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "overview-year-1280x800",
+   "row": "P4-10",
+   "check": "blank cells",
+   "expected": 9,
+   "app": 9,
+   "golden": 9,
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "overview-year-1280x800",
+   "row": "P4-01/02",
+   "check": "P4 is modal",
+   "expected": true,
+   "app": true,
+   "golden": false,
+   "app_only": true,
+   "app_matches_row": true,
+   "golden_matches_row": null,
+   "app_equals_golden": false
+  },
+  {
+   "capture": "delete-dialog-360x780",
+   "row": "M1-03",
+   "check": "dialog attributes",
+   "expected": [
+    "alertdialog",
+    "true",
+    "del-title",
+    "del-body"
+   ],
+   "app": [
+    "alertdialog",
+    "true",
+    "del-title",
+    "del-body"
+   ],
+   "golden": [
+    "alertdialog",
+    "true",
+    "del-title",
+    "del-body"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "delete-dialog-360x780",
+   "row": "M1-03",
+   "check": "opened with showModal",
+   "expected": true,
+   "app": true,
+   "golden": false,
+   "app_only": true,
+   "app_matches_row": true,
+   "golden_matches_row": null,
+   "app_equals_golden": false
+  },
+  {
+   "capture": "delete-dialog-360x780",
+   "row": "M1-05",
+   "check": "title with the isolate marks",
+   "expected": "Delete \"\u2068Stretch 10 minutes\u2069\"?",
+   "app": "Delete \"\u2068Stretch 10 minutes\u2069\"?",
+   "golden": "Delete \"Stretch 10 minutes\"?",
+   "app_only": true,
+   "app_matches_row": true,
+   "golden_matches_row": null,
+   "app_equals_golden": false
+  },
+  {
+   "capture": "delete-dialog-360x780",
+   "row": "M1-06",
+   "check": "body",
+   "expected": "Its history is deleted too.",
+   "app": "Its history is deleted too.",
+   "golden": "Its history is deleted too.",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "delete-dialog-360x780",
+   "row": "M1-08/09",
+   "check": "buttons",
+   "expected": [
+    [
+     "btn btn-secondary",
+     "button",
+     "Cancel"
+    ],
+    [
+     "btn btn-danger",
+     "button",
+     "Delete habit"
+    ]
+   ],
+   "app": [
+    [
+     "btn btn-secondary",
+     "button",
+     "Cancel"
+    ],
+    [
+     "btn btn-danger",
+     "button",
+     "Delete habit"
+    ]
+   ],
+   "golden": [
+    [
+     "btn btn-secondary",
+     "button",
+     "Cancel"
+    ],
+    [
+     "btn btn-danger",
+     "button",
+     "Delete habit"
+    ]
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "delete-dialog-360x780",
+   "row": "M1-01",
+   "check": "a page button cannot take focus",
+   "expected": false,
+   "app": false,
+   "golden": false,
+   "app_only": true,
+   "app_matches_row": true,
+   "golden_matches_row": null,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "delete-dialog-360x780",
+   "row": "M1-03",
+   "check": "dialog width",
+   "expected": 328,
+   "app": 328,
+   "golden": 328,
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "delete-dialog-390x844",
+   "row": "M1-03",
+   "check": "dialog attributes",
+   "expected": [
+    "alertdialog",
+    "true",
+    "del-title",
+    "del-body"
+   ],
+   "app": [
+    "alertdialog",
+    "true",
+    "del-title",
+    "del-body"
+   ],
+   "golden": [
+    "alertdialog",
+    "true",
+    "del-title",
+    "del-body"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "delete-dialog-390x844",
+   "row": "M1-03",
+   "check": "opened with showModal",
+   "expected": true,
+   "app": true,
+   "golden": false,
+   "app_only": true,
+   "app_matches_row": true,
+   "golden_matches_row": null,
+   "app_equals_golden": false
+  },
+  {
+   "capture": "delete-dialog-390x844",
+   "row": "M1-05",
+   "check": "title with the isolate marks",
+   "expected": "Delete \"\u2068Stretch 10 minutes\u2069\"?",
+   "app": "Delete \"\u2068Stretch 10 minutes\u2069\"?",
+   "golden": "Delete \"Stretch 10 minutes\"?",
+   "app_only": true,
+   "app_matches_row": true,
+   "golden_matches_row": null,
+   "app_equals_golden": false
+  },
+  {
+   "capture": "delete-dialog-390x844",
+   "row": "M1-06",
+   "check": "body",
+   "expected": "Its history is deleted too.",
+   "app": "Its history is deleted too.",
+   "golden": "Its history is deleted too.",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "delete-dialog-390x844",
+   "row": "M1-08/09",
+   "check": "buttons",
+   "expected": [
+    [
+     "btn btn-secondary",
+     "button",
+     "Cancel"
+    ],
+    [
+     "btn btn-danger",
+     "button",
+     "Delete habit"
+    ]
+   ],
+   "app": [
+    [
+     "btn btn-secondary",
+     "button",
+     "Cancel"
+    ],
+    [
+     "btn btn-danger",
+     "button",
+     "Delete habit"
+    ]
+   ],
+   "golden": [
+    [
+     "btn btn-secondary",
+     "button",
+     "Cancel"
+    ],
+    [
+     "btn btn-danger",
+     "button",
+     "Delete habit"
+    ]
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "delete-dialog-390x844",
+   "row": "M1-01",
+   "check": "a page button cannot take focus",
+   "expected": false,
+   "app": false,
+   "golden": false,
+   "app_only": true,
+   "app_matches_row": true,
+   "golden_matches_row": null,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "delete-dialog-390x844",
+   "row": "M1-03",
+   "check": "dialog width",
+   "expected": 358,
+   "app": 358,
+   "golden": 358,
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "delete-dialog-1280x800",
+   "row": "M1-03",
+   "check": "dialog attributes",
+   "expected": [
+    "alertdialog",
+    "true",
+    "del-title",
+    "del-body"
+   ],
+   "app": [
+    "alertdialog",
+    "true",
+    "del-title",
+    "del-body"
+   ],
+   "golden": [
+    "alertdialog",
+    "true",
+    "del-title",
+    "del-body"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "delete-dialog-1280x800",
+   "row": "M1-03",
+   "check": "opened with showModal",
+   "expected": true,
+   "app": true,
+   "golden": false,
+   "app_only": true,
+   "app_matches_row": true,
+   "golden_matches_row": null,
+   "app_equals_golden": false
+  },
+  {
+   "capture": "delete-dialog-1280x800",
+   "row": "M1-05",
+   "check": "title with the isolate marks",
+   "expected": "Delete \"\u2068Stretch 10 minutes\u2069\"?",
+   "app": "Delete \"\u2068Stretch 10 minutes\u2069\"?",
+   "golden": "Delete \"Stretch 10 minutes\"?",
+   "app_only": true,
+   "app_matches_row": true,
+   "golden_matches_row": null,
+   "app_equals_golden": false
+  },
+  {
+   "capture": "delete-dialog-1280x800",
+   "row": "M1-06",
+   "check": "body",
+   "expected": "Its history is deleted too.",
+   "app": "Its history is deleted too.",
+   "golden": "Its history is deleted too.",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "delete-dialog-1280x800",
+   "row": "M1-08/09",
+   "check": "buttons",
+   "expected": [
+    [
+     "btn btn-secondary",
+     "button",
+     "Cancel"
+    ],
+    [
+     "btn btn-danger",
+     "button",
+     "Delete habit"
+    ]
+   ],
+   "app": [
+    [
+     "btn btn-secondary",
+     "button",
+     "Cancel"
+    ],
+    [
+     "btn btn-danger",
+     "button",
+     "Delete habit"
+    ]
+   ],
+   "golden": [
+    [
+     "btn btn-secondary",
+     "button",
+     "Cancel"
+    ],
+    [
+     "btn btn-danger",
+     "button",
+     "Delete habit"
+    ]
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "delete-dialog-1280x800",
+   "row": "M1-01",
+   "check": "a page button cannot take focus",
+   "expected": false,
+   "app": false,
+   "golden": false,
+   "app_only": true,
+   "app_matches_row": true,
+   "golden_matches_row": null,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "delete-dialog-1280x800",
+   "row": "M1-03",
+   "check": "dialog width",
+   "expected": 400,
+   "app": 400,
+   "golden": 400,
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-360x780",
+   "row": "K1-03",
+   "check": "tab title",
+   "expected": "Danial's Streaky Habit",
+   "app": "Danial's Streaky Habit",
+   "golden": "Danial's Streaky Habit",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-360x780",
+   "row": "K1-03",
+   "check": "icon link href (R29)",
+   "expected": "src/icon.svg",
+   "app": "src/icon.svg",
+   "golden": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cstyle%3E.fi{fill:%23FFB020}@media (prefers-color-scheme:light){.fi{fill:%239A5B00}}%3C/style%3E%3Cpath class='fi' fill='%23FFB020' d='M8.5 5H11.5A2.5 2.5 0 1 1 11.5 8H8.5A2.5 2.5 0 0 1 8 8.5V11.5A2.5 2.5 0 1 1 5 11.5V8.5A2.5 2.5 0 1 1 8.5 5ZM13.5 11A2.5 2.5 0 0 1 13.5 16A2.5 2.5 0 0 1 13.5 11ZM13.5 12A1.5 1.5 0 0 0 13.5 15A1.5 1.5 0 0 0 13.5 12ZM0.02 7A6.5 6.5 0 0 1 7 0.02V2.03A4.5 4.5 0 0 0 2.03 7Z'/%3E%3C/svg%3E",
+   "app_only": true,
+   "app_matches_row": true,
+   "golden_matches_row": null,
+   "app_equals_golden": false
+  },
+  {
+   "capture": "today-empty-360x780",
+   "row": "K1-02",
+   "check": "sprite symbols",
+   "expected": [
+    "i-x",
+    "i-plus",
+    "i-check",
+    "i-trash"
+   ],
+   "app": [
+    "i-x",
+    "i-plus",
+    "i-check",
+    "i-trash"
+   ],
+   "golden": [
+    "i-plus"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": false,
+   "app_equals_golden": false
+  },
+  {
+   "capture": "today-empty-360x780",
+   "row": "K1-08",
+   "check": "word",
+   "expected": "Streaky Habit",
+   "app": "Streaky Habit",
+   "golden": "Streaky Habit",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-360x780",
+   "row": "K1-11",
+   "check": "date text",
+   "expected": "Saturday 10 October",
+   "app": "Saturday 10 October",
+   "golden": "Saturday 10 October",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-360x780",
+   "row": "K1-11",
+   "check": "date datetime",
+   "expected": "2026-10-10",
+   "app": "2026-10-10",
+   "golden": "2026-10-10",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-360x780",
+   "row": "K1-25",
+   "check": "banners empty and not displayed",
+   "expected": [
+    0,
+    "none"
+   ],
+   "app": [
+    0,
+    "none"
+   ],
+   "golden": [
+    0,
+    "none"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-360x780",
+   "row": "K1-26",
+   "check": "hidden heading",
+   "expected": "Habits",
+   "app": "Habits",
+   "golden": "Habits",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-360x780",
+   "row": "K1-26",
+   "check": "list labelled by it",
+   "expected": "h-habits",
+   "app": "h-habits",
+   "golden": "h-habits",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-360x780",
+   "row": "K1-39",
+   "check": "composer novalidate",
+   "expected": true,
+   "app": true,
+   "golden": true,
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-360x780",
+   "row": "K1-40",
+   "check": "field label",
+   "expected": "New habit",
+   "app": "New habit",
+   "golden": "New habit",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-360x780",
+   "row": "K1-41",
+   "check": "field attributes",
+   "expected": [
+    "input",
+    "off",
+    "false",
+    "nh-msg",
+    false,
+    ""
+   ],
+   "app": [
+    "input",
+    "off",
+    "false",
+    "nh-msg",
+    false,
+    ""
+   ],
+   "golden": [
+    "input",
+    "off",
+    "false",
+    "nh-msg",
+    false,
+    ""
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-360x780",
+   "row": "K1-42",
+   "check": "Add button",
+   "expected": [
+    "submit",
+    "Add",
+    "#i-plus"
+   ],
+   "app": [
+    "submit",
+    "Add",
+    "#i-plus"
+   ],
+   "golden": [
+    "submit",
+    "Add",
+    "#i-plus"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-360x780",
+   "row": "K1-43",
+   "check": "message line",
+   "expected": [
+    "polite",
+    true,
+    ""
+   ],
+   "app": [
+    "polite",
+    true,
+    ""
+   ],
+   "golden": [
+    "polite",
+    true,
+    ""
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-360x780",
+   "row": "S1-03",
+   "check": "lead and line",
+   "expected": [
+    "No habits yet.",
+    "Add one you want to do every day."
+   ],
+   "app": [
+    "No habits yet.",
+    "Add one you want to do every day."
+   ],
+   "golden": [
+    "No habits yet.",
+    "Add one you want to do every day."
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-360x780",
+   "row": "S1-04",
+   "check": "band day names",
+   "expected": [
+    83,
+    "Mon 20 Jul, 0 of 0 habits",
+    "Sat 10 Oct, 0 of 0 habits"
+   ],
+   "app": [
+    83,
+    "Mon 20 Jul, 0 of 0 habits",
+    "Sat 10 Oct, 0 of 0 habits"
+   ],
+   "golden": [
+    83,
+    "Mon 20 Jul, 0 of 0 habits",
+    "Sat 10 Oct, 0 of 0 habits"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-360x780",
+   "row": "S1-07",
+   "check": "Overview name",
+   "expected": "Overview, today 0 of 0 habits done",
+   "app": "Overview, today 0 of 0 habits done",
+   "golden": "Overview, today 0 of 0 habits done",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-360x780",
+   "row": "S1-08",
+   "check": "frame holds only the empty state",
+   "expected": [
+    "empty"
+   ],
+   "app": [
+    "empty"
+   ],
+   "golden": [
+    "empty"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-360x780",
+   "row": "S1-09",
+   "check": "composer enabled",
+   "expected": [
+    false,
+    false
+   ],
+   "app": [
+    false,
+    false
+   ],
+   "golden": [
+    false,
+    false
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-360x780",
+   "row": "K1-09",
+   "check": "Overview displayed below 1024",
+   "expected": "flex",
+   "app": "flex",
+   "golden": "flex",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-360x780",
+   "row": "K1-12",
+   "check": "band not displayed below 1024",
+   "expected": "none",
+   "app": "none",
+   "golden": "none",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-390x844",
+   "row": "K1-03",
+   "check": "tab title",
+   "expected": "Danial's Streaky Habit",
+   "app": "Danial's Streaky Habit",
+   "golden": "Danial's Streaky Habit",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-390x844",
+   "row": "K1-03",
+   "check": "icon link href (R29)",
+   "expected": "src/icon.svg",
+   "app": "src/icon.svg",
+   "golden": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cstyle%3E.fi{fill:%23FFB020}@media (prefers-color-scheme:light){.fi{fill:%239A5B00}}%3C/style%3E%3Cpath class='fi' fill='%23FFB020' d='M8.5 5H11.5A2.5 2.5 0 1 1 11.5 8H8.5A2.5 2.5 0 0 1 8 8.5V11.5A2.5 2.5 0 1 1 5 11.5V8.5A2.5 2.5 0 1 1 8.5 5ZM13.5 11A2.5 2.5 0 0 1 13.5 16A2.5 2.5 0 0 1 13.5 11ZM13.5 12A1.5 1.5 0 0 0 13.5 15A1.5 1.5 0 0 0 13.5 12ZM0.02 7A6.5 6.5 0 0 1 7 0.02V2.03A4.5 4.5 0 0 0 2.03 7Z'/%3E%3C/svg%3E",
+   "app_only": true,
+   "app_matches_row": true,
+   "golden_matches_row": null,
+   "app_equals_golden": false
+  },
+  {
+   "capture": "today-empty-390x844",
+   "row": "K1-02",
+   "check": "sprite symbols",
+   "expected": [
+    "i-x",
+    "i-plus",
+    "i-check",
+    "i-trash"
+   ],
+   "app": [
+    "i-x",
+    "i-plus",
+    "i-check",
+    "i-trash"
+   ],
+   "golden": [
+    "i-plus"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": false,
+   "app_equals_golden": false
+  },
+  {
+   "capture": "today-empty-390x844",
+   "row": "K1-08",
+   "check": "word",
+   "expected": "Streaky Habit",
+   "app": "Streaky Habit",
+   "golden": "Streaky Habit",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-390x844",
+   "row": "K1-11",
+   "check": "date text",
+   "expected": "Saturday 10 October",
+   "app": "Saturday 10 October",
+   "golden": "Saturday 10 October",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-390x844",
+   "row": "K1-11",
+   "check": "date datetime",
+   "expected": "2026-10-10",
+   "app": "2026-10-10",
+   "golden": "2026-10-10",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-390x844",
+   "row": "K1-25",
+   "check": "banners empty and not displayed",
+   "expected": [
+    0,
+    "none"
+   ],
+   "app": [
+    0,
+    "none"
+   ],
+   "golden": [
+    0,
+    "none"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-390x844",
+   "row": "K1-26",
+   "check": "hidden heading",
+   "expected": "Habits",
+   "app": "Habits",
+   "golden": "Habits",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-390x844",
+   "row": "K1-26",
+   "check": "list labelled by it",
+   "expected": "h-habits",
+   "app": "h-habits",
+   "golden": "h-habits",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-390x844",
+   "row": "K1-39",
+   "check": "composer novalidate",
+   "expected": true,
+   "app": true,
+   "golden": true,
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-390x844",
+   "row": "K1-40",
+   "check": "field label",
+   "expected": "New habit",
+   "app": "New habit",
+   "golden": "New habit",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-390x844",
+   "row": "K1-41",
+   "check": "field attributes",
+   "expected": [
+    "input",
+    "off",
+    "false",
+    "nh-msg",
+    false,
+    ""
+   ],
+   "app": [
+    "input",
+    "off",
+    "false",
+    "nh-msg",
+    false,
+    ""
+   ],
+   "golden": [
+    "input",
+    "off",
+    "false",
+    "nh-msg",
+    false,
+    ""
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-390x844",
+   "row": "K1-42",
+   "check": "Add button",
+   "expected": [
+    "submit",
+    "Add",
+    "#i-plus"
+   ],
+   "app": [
+    "submit",
+    "Add",
+    "#i-plus"
+   ],
+   "golden": [
+    "submit",
+    "Add",
+    "#i-plus"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-390x844",
+   "row": "K1-43",
+   "check": "message line",
+   "expected": [
+    "polite",
+    true,
+    ""
+   ],
+   "app": [
+    "polite",
+    true,
+    ""
+   ],
+   "golden": [
+    "polite",
+    true,
+    ""
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-390x844",
+   "row": "S1-03",
+   "check": "lead and line",
+   "expected": [
+    "No habits yet.",
+    "Add one you want to do every day."
+   ],
+   "app": [
+    "No habits yet.",
+    "Add one you want to do every day."
+   ],
+   "golden": [
+    "No habits yet.",
+    "Add one you want to do every day."
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-390x844",
+   "row": "S1-04",
+   "check": "band day names",
+   "expected": [
+    83,
+    "Mon 20 Jul, 0 of 0 habits",
+    "Sat 10 Oct, 0 of 0 habits"
+   ],
+   "app": [
+    83,
+    "Mon 20 Jul, 0 of 0 habits",
+    "Sat 10 Oct, 0 of 0 habits"
+   ],
+   "golden": [
+    83,
+    "Mon 20 Jul, 0 of 0 habits",
+    "Sat 10 Oct, 0 of 0 habits"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-390x844",
+   "row": "S1-07",
+   "check": "Overview name",
+   "expected": "Overview, today 0 of 0 habits done",
+   "app": "Overview, today 0 of 0 habits done",
+   "golden": "Overview, today 0 of 0 habits done",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-390x844",
+   "row": "S1-08",
+   "check": "frame holds only the empty state",
+   "expected": [
+    "empty"
+   ],
+   "app": [
+    "empty"
+   ],
+   "golden": [
+    "empty"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-390x844",
+   "row": "S1-09",
+   "check": "composer enabled",
+   "expected": [
+    false,
+    false
+   ],
+   "app": [
+    false,
+    false
+   ],
+   "golden": [
+    false,
+    false
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-390x844",
+   "row": "K1-09",
+   "check": "Overview displayed below 1024",
+   "expected": "flex",
+   "app": "flex",
+   "golden": "flex",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-390x844",
+   "row": "K1-12",
+   "check": "band not displayed below 1024",
+   "expected": "none",
+   "app": "none",
+   "golden": "none",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-1280x800",
+   "row": "K1-03",
+   "check": "tab title",
+   "expected": "Danial's Streaky Habit",
+   "app": "Danial's Streaky Habit",
+   "golden": "Danial's Streaky Habit",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-1280x800",
+   "row": "K1-03",
+   "check": "icon link href (R29)",
+   "expected": "src/icon.svg",
+   "app": "src/icon.svg",
+   "golden": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cstyle%3E.fi{fill:%23FFB020}@media (prefers-color-scheme:light){.fi{fill:%239A5B00}}%3C/style%3E%3Cpath class='fi' fill='%23FFB020' d='M8.5 5H11.5A2.5 2.5 0 1 1 11.5 8H8.5A2.5 2.5 0 0 1 8 8.5V11.5A2.5 2.5 0 1 1 5 11.5V8.5A2.5 2.5 0 1 1 8.5 5ZM13.5 11A2.5 2.5 0 0 1 13.5 16A2.5 2.5 0 0 1 13.5 11ZM13.5 12A1.5 1.5 0 0 0 13.5 15A1.5 1.5 0 0 0 13.5 12ZM0.02 7A6.5 6.5 0 0 1 7 0.02V2.03A4.5 4.5 0 0 0 2.03 7Z'/%3E%3C/svg%3E",
+   "app_only": true,
+   "app_matches_row": true,
+   "golden_matches_row": null,
+   "app_equals_golden": false
+  },
+  {
+   "capture": "today-empty-1280x800",
+   "row": "K1-02",
+   "check": "sprite symbols",
+   "expected": [
+    "i-x",
+    "i-plus",
+    "i-check",
+    "i-trash"
+   ],
+   "app": [
+    "i-x",
+    "i-plus",
+    "i-check",
+    "i-trash"
+   ],
+   "golden": [
+    "i-plus"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": false,
+   "app_equals_golden": false
+  },
+  {
+   "capture": "today-empty-1280x800",
+   "row": "K1-08",
+   "check": "word",
+   "expected": "Streaky Habit",
+   "app": "Streaky Habit",
+   "golden": "Streaky Habit",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-1280x800",
+   "row": "K1-11",
+   "check": "date text",
+   "expected": "Saturday 10 October",
+   "app": "Saturday 10 October",
+   "golden": "Saturday 10 October",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-1280x800",
+   "row": "K1-11",
+   "check": "date datetime",
+   "expected": "2026-10-10",
+   "app": "2026-10-10",
+   "golden": "2026-10-10",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-1280x800",
+   "row": "K1-25",
+   "check": "banners empty and not displayed",
+   "expected": [
+    0,
+    "none"
+   ],
+   "app": [
+    0,
+    "none"
+   ],
+   "golden": [
+    0,
+    "none"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-1280x800",
+   "row": "K1-26",
+   "check": "hidden heading",
+   "expected": "Habits",
+   "app": "Habits",
+   "golden": "Habits",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-1280x800",
+   "row": "K1-26",
+   "check": "list labelled by it",
+   "expected": "h-habits",
+   "app": "h-habits",
+   "golden": "h-habits",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-1280x800",
+   "row": "K1-39",
+   "check": "composer novalidate",
+   "expected": true,
+   "app": true,
+   "golden": true,
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-1280x800",
+   "row": "K1-40",
+   "check": "field label",
+   "expected": "New habit",
+   "app": "New habit",
+   "golden": "New habit",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-1280x800",
+   "row": "K1-41",
+   "check": "field attributes",
+   "expected": [
+    "input",
+    "off",
+    "false",
+    "nh-msg",
+    false,
+    ""
+   ],
+   "app": [
+    "input",
+    "off",
+    "false",
+    "nh-msg",
+    false,
+    ""
+   ],
+   "golden": [
+    "input",
+    "off",
+    "false",
+    "nh-msg",
+    false,
+    ""
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-1280x800",
+   "row": "K1-42",
+   "check": "Add button",
+   "expected": [
+    "submit",
+    "Add",
+    "#i-plus"
+   ],
+   "app": [
+    "submit",
+    "Add",
+    "#i-plus"
+   ],
+   "golden": [
+    "submit",
+    "Add",
+    "#i-plus"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-1280x800",
+   "row": "K1-43",
+   "check": "message line",
+   "expected": [
+    "polite",
+    true,
+    ""
+   ],
+   "app": [
+    "polite",
+    true,
+    ""
+   ],
+   "golden": [
+    "polite",
+    true,
+    ""
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-1280x800",
+   "row": "S1-03",
+   "check": "lead and line",
+   "expected": [
+    "No habits yet.",
+    "Add one you want to do every day."
+   ],
+   "app": [
+    "No habits yet.",
+    "Add one you want to do every day."
+   ],
+   "golden": [
+    "No habits yet.",
+    "Add one you want to do every day."
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-1280x800",
+   "row": "S1-04",
+   "check": "band day names",
+   "expected": [
+    83,
+    "Mon 20 Jul, 0 of 0 habits",
+    "Sat 10 Oct, 0 of 0 habits"
+   ],
+   "app": [
+    83,
+    "Mon 20 Jul, 0 of 0 habits",
+    "Sat 10 Oct, 0 of 0 habits"
+   ],
+   "golden": [
+    83,
+    "Mon 20 Jul, 0 of 0 habits",
+    "Sat 10 Oct, 0 of 0 habits"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-1280x800",
+   "row": "S1-07",
+   "check": "Overview name",
+   "expected": "Overview, today 0 of 0 habits done",
+   "app": "Overview, today 0 of 0 habits done",
+   "golden": "Overview, today 0 of 0 habits done",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-1280x800",
+   "row": "S1-08",
+   "check": "frame holds only the empty state",
+   "expected": [
+    "empty"
+   ],
+   "app": [
+    "empty"
+   ],
+   "golden": [
+    "empty"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-1280x800",
+   "row": "S1-09",
+   "check": "composer enabled",
+   "expected": [
+    false,
+    false
+   ],
+   "app": [
+    false,
+    false
+   ],
+   "golden": [
+    false,
+    false
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-1280x800",
+   "row": "K1-09",
+   "check": "Overview not displayed from 1024",
+   "expected": "none",
+   "app": "none",
+   "golden": "none",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-empty-1280x800",
+   "row": "K1-12",
+   "check": "band displayed from 1024",
+   "expected": "grid",
+   "app": "grid",
+   "golden": "grid",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-full-360x780",
+   "row": "S3-02",
+   "check": "twelve rows",
+   "expected": 12,
+   "app": 12,
+   "golden": 12,
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-full-360x780",
+   "row": "S3-03",
+   "check": "frame scrolls at its top with the bottom fade",
+   "expected": [
+    true,
+    0,
+    "frame-wrap more-below"
+   ],
+   "app": [
+    true,
+    0,
+    "frame-wrap more-below"
+   ],
+   "golden": [
+    true,
+    0,
+    "frame-wrap more-below"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-full-360x780",
+   "row": "S3-06",
+   "check": "composer full, field and Add disabled",
+   "expected": [
+    "composer is-full",
+    true,
+    true
+   ],
+   "app": [
+    "composer is-full",
+    true,
+    true
+   ],
+   "golden": [
+    "composer is-full",
+    true,
+    true
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-full-360x780",
+   "row": "S3-07",
+   "check": "note",
+   "expected": [
+    "field-msg note",
+    false,
+    "You track 12 habits, the most this app holds. Delete one to add another."
+   ],
+   "app": [
+    "field-msg note",
+    false,
+    "You track 12 habits, the most this app holds. Delete one to add another."
+   ],
+   "golden": [
+    "field-msg note",
+    false,
+    "You track 12 habits, the most this app holds. Delete one to add another."
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-full-360x780",
+   "row": "S3-09",
+   "check": "Overview name",
+   "expected": "Overview, today 7 of 12 habits done",
+   "app": "Overview, today 7 of 12 habits done",
+   "golden": "Overview, today 7 of 12 habits done",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-full-360x780",
+   "row": "S3-09",
+   "check": "first band day name",
+   "expected": "Mon 20 Jul, 7 of 12 habits",
+   "app": "Mon 20 Jul, 7 of 12 habits",
+   "golden": "Mon 20 Jul, 7 of 12 habits",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-full-360x780",
+   "row": "S3-10",
+   "check": "no page scroll",
+   "expected": "equal",
+   "app": [
+    780,
+    780
+   ],
+   "golden": [
+    780,
+    780
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-full-360x780",
+   "row": "K1-09",
+   "check": "Overview displayed below 1024",
+   "expected": "flex",
+   "app": "flex",
+   "golden": "flex",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-full-360x780",
+   "row": "K1-12",
+   "check": "band not displayed below 1024",
+   "expected": "none",
+   "app": "none",
+   "golden": "none",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-full-390x844",
+   "row": "S3-02",
+   "check": "twelve rows",
+   "expected": 12,
+   "app": 12,
+   "golden": 12,
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-full-390x844",
+   "row": "S3-03",
+   "check": "frame scrolls at its top with the bottom fade",
+   "expected": [
+    true,
+    0,
+    "frame-wrap more-below"
+   ],
+   "app": [
+    true,
+    0,
+    "frame-wrap more-below"
+   ],
+   "golden": [
+    true,
+    0,
+    "frame-wrap more-below"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-full-390x844",
+   "row": "S3-06",
+   "check": "composer full, field and Add disabled",
+   "expected": [
+    "composer is-full",
+    true,
+    true
+   ],
+   "app": [
+    "composer is-full",
+    true,
+    true
+   ],
+   "golden": [
+    "composer is-full",
+    true,
+    true
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-full-390x844",
+   "row": "S3-07",
+   "check": "note",
+   "expected": [
+    "field-msg note",
+    false,
+    "You track 12 habits, the most this app holds. Delete one to add another."
+   ],
+   "app": [
+    "field-msg note",
+    false,
+    "You track 12 habits, the most this app holds. Delete one to add another."
+   ],
+   "golden": [
+    "field-msg note",
+    false,
+    "You track 12 habits, the most this app holds. Delete one to add another."
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-full-390x844",
+   "row": "S3-09",
+   "check": "Overview name",
+   "expected": "Overview, today 7 of 12 habits done",
+   "app": "Overview, today 7 of 12 habits done",
+   "golden": "Overview, today 7 of 12 habits done",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-full-390x844",
+   "row": "S3-09",
+   "check": "first band day name",
+   "expected": "Mon 20 Jul, 7 of 12 habits",
+   "app": "Mon 20 Jul, 7 of 12 habits",
+   "golden": "Mon 20 Jul, 7 of 12 habits",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-full-390x844",
+   "row": "S3-10",
+   "check": "no page scroll",
+   "expected": "equal",
+   "app": [
+    844,
+    844
+   ],
+   "golden": [
+    844,
+    844
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-full-390x844",
+   "row": "K1-09",
+   "check": "Overview displayed below 1024",
+   "expected": "flex",
+   "app": "flex",
+   "golden": "flex",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-full-390x844",
+   "row": "K1-12",
+   "check": "band not displayed below 1024",
+   "expected": "none",
+   "app": "none",
+   "golden": "none",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-full-1280x800",
+   "row": "S3-02",
+   "check": "twelve rows",
+   "expected": 12,
+   "app": 12,
+   "golden": 12,
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-full-1280x800",
+   "row": "S3-03",
+   "check": "frame scrolls at its top with the bottom fade",
+   "expected": [
+    true,
+    0,
+    "frame-wrap more-below"
+   ],
+   "app": [
+    true,
+    0,
+    "frame-wrap more-below"
+   ],
+   "golden": [
+    true,
+    0,
+    "frame-wrap more-below"
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-full-1280x800",
+   "row": "S3-06",
+   "check": "composer full, field and Add disabled",
+   "expected": [
+    "composer is-full",
+    true,
+    true
+   ],
+   "app": [
+    "composer is-full",
+    true,
+    true
+   ],
+   "golden": [
+    "composer is-full",
+    true,
+    true
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-full-1280x800",
+   "row": "S3-07",
+   "check": "note",
+   "expected": [
+    "field-msg note",
+    false,
+    "You track 12 habits, the most this app holds. Delete one to add another."
+   ],
+   "app": [
+    "field-msg note",
+    false,
+    "You track 12 habits, the most this app holds. Delete one to add another."
+   ],
+   "golden": [
+    "field-msg note",
+    false,
+    "You track 12 habits, the most this app holds. Delete one to add another."
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-full-1280x800",
+   "row": "S3-09",
+   "check": "Overview name",
+   "expected": "Overview, today 7 of 12 habits done",
+   "app": "Overview, today 7 of 12 habits done",
+   "golden": "Overview, today 7 of 12 habits done",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-full-1280x800",
+   "row": "S3-09",
+   "check": "first band day name",
+   "expected": "Mon 20 Jul, 7 of 12 habits",
+   "app": "Mon 20 Jul, 7 of 12 habits",
+   "golden": "Mon 20 Jul, 7 of 12 habits",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-full-1280x800",
+   "row": "S3-10",
+   "check": "no page scroll",
+   "expected": "equal",
+   "app": [
+    800,
+    800
+   ],
+   "golden": [
+    800,
+    800
+   ],
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-full-1280x800",
+   "row": "K1-09",
+   "check": "Overview not displayed from 1024",
+   "expected": "none",
+   "app": "none",
+   "golden": "none",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  },
+  {
+   "capture": "today-full-1280x800",
+   "row": "K1-12",
+   "check": "band displayed from 1024",
+   "expected": "grid",
+   "app": "grid",
+   "golden": "grid",
+   "app_only": false,
+   "app_matches_row": true,
+   "golden_matches_row": true,
+   "app_equals_golden": true
+  }
+ ],
+ "stopped": {
+  "server_pid": 2708,
+  "port": 36271,
+  "exit_code": 1,
+  "port_refuses": true
+ },
+ "totals": {
+  "checks": 297,
+  "app_matches_row": 288,
+  "golden_matches_row": 259,
+  "app_only": 26
+ }
+}
