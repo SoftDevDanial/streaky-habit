@@ -3,6 +3,7 @@
 > Test contract. Every scenario is tagged `@R#` and maps to a requirement in `spec.md`.
 > Written by: the solutions architect (sdlc planner), 2026-10-08.
 > v1.1.0 delta by the planner (solutions architect role), 2026-10-13. Scenarios marked `(v1.1.0 changed)` replace their 1.0 form (kept in tag `v1.0.0`). Scenarios of retired requirements (R5, R11) are kept as text only under "Feature: Retired in v1.1.0" at the end of the Gherkin, each with a `# Retired in v1.1.0` comment, and their tests are removed. New scenarios carry `(v1.1.0 new)`. Every new or changed R# (R9, R10, R17, R18, R19, R20) has at least one scenario. Changed 2026-10-13 after the plan check (F10). The three retired scenarios first sat inside the live Features "Week strip and streaks" and "Heatmap", and one comment covered both `@R11` scenarios, so a tag count read `No habits means level 0` as live.
+> Changed 2026-10-15 in execute (planner touch after step 5, code review WR-02 of this module). The scenario "yearMonths reads no clock" now states what its test checks, a `Date` stand-in that throws on a clock read. The change carries its dated note. No scenario was added or removed.
 
 ## How these scenarios run
 - This module has no UI. Its "running app" is the module code itself, exercised by Node's built-in test runner.
@@ -482,8 +483,14 @@ Feature: The year (v1.1.0 new)
 
   @R20 @R16
   Scenario: yearMonths reads no clock (v1.1.0 new)
-    Given the purity scan of @R16 over src/habits.js with the new exports
-    Then it passes, and yearMonths called twice with the same key gives equal results
+    # Changed 2026-10-15 in execute (planner touch after step 5, code review WR-02, with the re-check's correction to
+    # the solver's wording). The Given first read ~~the purity scan of @R16 over src/habits.js with the new exports~~
+    # and the Then ~~it passes, and yearMonths called twice with the same key gives equal results~~. Two calls in the
+    # same millisecond cannot show a clock read, and the scan is "No clock, DOM, storage or locale access in the
+    # source" (Feature "Purity"). With the stand-in, a clock read inside a function body throws, an aliased one
+    # included. An alias taken at module scope is the residual R16 names.
+    Given globalThis.Date is a stand-in that throws when it is called with no argument and from Date.now
+    Then yearMonths called twice with the same key gives equal results and throws nothing
 
 Feature: Names and the habit list
 

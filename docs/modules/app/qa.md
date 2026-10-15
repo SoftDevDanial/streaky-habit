@@ -8,6 +8,7 @@
 > Changed 2026-10-13 after the plan re-check (F12, F13, F14, N9). The new section "Scenarios that wait on a later task" names, for W1 to W22, the task from which each is green (F12). "Controls are watched failing first" lists the stubs for names and files under test (F13). Two new scenarios (`@R6 @R32` and `@R32`) succeed two `test_tick.py` tests that had no scenario (F14). The Feature "Two engines" names its two finder checks (N9). Each change carries its own dated note.
 > Changed 2026-10-14 in execute (planner touch-up, ledger H-03, S1 row 8, S7 row 15). H-03, the two P3 rows "2026-07-20" of W22 hold through P3's room for rule 4 (spec R36), built at task 20, and one new `@R36` scenario checks the room. Q1 and Q2, two lines follow the goldens as ruled ORCH (the field's box with twelve habits, the Overview button's computed `flex`). Q3, two scenarios name the popup's `dialog` as WebKit's focus after a click inside a popup. Each change carries its own dated note.
 > Changed 2026-10-14 in execute (planner follow-up, ledger H-03, owner ruling 2026-10-14 16:32 "Same fix for P4 (Recommended)"). The room scenario covers the host of P1, P3 or P4, with two P4 rows, and W22's row "390x844 P4 2025-10-10" holds through P4's room. One new `@R36` scenario holds a gap smaller than a day with twelve habits (ruled ORCH). The fidelity inputs scenario waits on a WebKit measurement at task 26 (ruled ORCH). Each change carries its own dated note.
+> Changed 2026-10-15 in execute (planner touch after step 5, ledger S1 rows 16 to 20, S3 row 3, S4 row 5, S7 rows 16 and 18). Six new scenarios and one new Examples row give each test that the step 5 solver round added a scenario or row of its own (code review WR-01, WR-04, WR-05 and WR-07, the QA re-check). Eight scenarios gain the lines the round's tests now check (WR-01 to WR-03). The pop scenario names the width each ring is read at (Q-25-1). The engine table gains the focus return on a close (CR-01, WR-06, with the code review re-check's correction) and the Escape pace (Q-25-2). "Controls are watched failing first", the conftest table and one delete scenario record what tasks 21 and 22 found. 175 live scenarios. Each change carries its own dated note.
 > Phase skills. The plan phase has none assigned. The builder of each UI task loads the design row of `docs/phase-skills.md` (`taste-skill`, `frontend-design`) before writing UI (spec, Tasks).
 
 ## How these scenarios run
@@ -66,6 +67,8 @@ Task 11's probe may add a row only for Chromium-only tooling (class (c) of spec 
   | 13 | the `@R42` Node scenarios (`tests/ring.test.js`) | `src/ring.js` | the stub that `../habit-logic/qa.md` states, with `new Date()` in it for "ring.js is pure" | each value, and the purity scan |
   | 26 | "The fidelity state scripts are right" (`test_fidelity_inputs.py`) | each state script that task 26 adds (Fidelity gate) | an empty file of each new name | each script's text checks |
 
+  Changed 2026-10-15 in execute (planner touch after step 5, the qa notes of tasks 21 and 22, ledger S7 row 16 and S3 row 3). The sentence "A browser test that reaches the app through the page needs none either" did not hold for every browser test of tasks 21 to 25, in two cases. (a) The gesture cannot finish before the code exists. At task 21 a click on Add waited on the form submission that the CSP's `form-action 'none'` blocks until Playwright's timeout, and at task 22 a bin opened nothing, so most delete tests stopped in their Given. (b) The property already holds before the code, for example "No message while typing" and "Loading writes nothing". The RED then comes from a throwaway stub of `src/` of the right kind with a wrong value (a), or from a planted defect that breaks the property (b), never committed and gone before the code is written. `BUILD.md` names each task's stubs and defects under "RED first".
+
 - **A test that waits on a later task** follows the rule in spec, Tasks, and the next section names each one. Added 2026-10-13 after the plan re-check (F12).
 - `docs/design/` is read-only. Tests read the goldens and `sample-history.json` and never write there.
 
@@ -108,11 +111,13 @@ Added 2026-10-14 in execute (planner follow-up, owner ruling H-03 of 16:32 "Same
 | Focus after a mouse click on a button inside an open popup (added at task 18) | the clicked button | the popup's `dialog` element, not `body` (measured at task 18 on P1's ticks, in WebKit 26.5) | WebKit's mouse press finds no mouse-focusable element and focuses the modal dialog. A click on a popup's text with no control focuses the dialog in both engines. Scenarios that read "In WebKit document.activeElement is body" after a click inside a popup assert the dialog. Added 2026-10-14 in execute (planner touch-up, Q3, ruled ORCH). The two such scenarios, "Ticking a past day in P1" and "Ticking a day in the year view", now name the dialog in their own text |
 | Focus after a keyboard press on a button | the button | the button | both engines |
 | Focus the app sets (Cancel on M1, Close on P2, P3 and P4, the first tick on P1, the opener on close, the field after a name error or Dismiss, rule 3 after a delete) | as the requirement says | as the requirement says | spec R40, the app sets it by hand |
+| Focus back on the opener when a popup closes (R40, added 2026-10-15) | the browser's own restore inside `close()` lands on the same opener before the app's close handler runs | an opener pressed with the mouse never had focus (rows above), so the browser's restore does not land on it and only the app's focus does | Code review WR-06 and its re-check, with a planted defect that sets no focus on close, under which every close-focus test stays green in Chromium and fails in WebKit. So R40's return of focus to the opener is proven by the WebKit run. In Chromium a focus read after the popup's close event (`watch_close` and `wait_for_close` in `conftest.py`) shows that nothing moved focus after the app's handler, not that the app moved it. A test reads what that handler clears (P1's `is-open` marks and the host's room of spec R36) after the close event, never on the opener's focus alone (code review CR-01). Added 2026-10-15 in execute (planner touch after step 5, code review CR-01 and WR-06, with the re-check's correction to the solver's wording) |
 | Tab reaches every button | yes | yes, on Windows | research webkit-testing section 2 |
 | `detail` of the second of two quick taps | 2, and a `dblclick` follows (measured at task 11) | 1, and no `dblclick` (measured at task 11) | no scenario depends on it, the R13 guard is spatial first |
 | CSP refusal | a console error and a `securitypolicyviolation` event | a `securitypolicyviolation` event and one console error, wording measured at task 11 | scenarios assert the event, never the console text |
 | Colour scheme of the SVG tab icon | follows the scheme | open WebKit bugs, the light colour in both schemes (measured at task 11) | CO-1 |
 | Serialisation of the computed `outline` shorthand (added at task 11) | `rgb(28, 37, 35) solid 2px` | `2px solid rgb(28, 37, 35)` | the longhands `outline-width`, `outline-style`, `outline-color` and `outline-offset` are equal in both, so scenarios read the longhands, never the shorthand string |
+| Three Escape presses sent back to back over P1, P4 and P3, opened by keyboard at 390 x 844 (measured at task 25) | all three close (5 of 5 runs) | P3 stays open (5 of 5 runs) | `docs/modules/app/qa/escape-pace-probe/20261014-231840-chromium-webkit/results.json`. With each press sent once the previous popup has lost its `open` attribute, both engines close all three (5 of 5). Engine timing, not an app defect, and an app Escape handler is a non-goal (spec Non-goals). A scenario that closes several popups with Escape sends each press once the previous popup has closed, as a person's presses are paced (`BUILD.md` task 25, judgment call 3). Added 2026-10-15 in execute (planner touch after step 5, Q-25-2 of task 25, ledger S7 row 18) |
 
 #### Task 11 measurements (2026-10-14)
 Added 2026-10-14 by the frontend builder (app task 11), from the probe run and the WebKit baseline in `docs/modules/app/qa/webkit-baseline/20261014-125500-webkit/` (`probes.json`, `baseline.md`). Chromium 149.0.7827.55 and WebKit 26.5 (Playwright 1.61.0), headless, on this Windows machine.
@@ -153,6 +158,9 @@ Added 2026-10-14 by the frontend builder (app task 11), from the probe run and t
 | `press_twice(page, x, y, how)` | two presses at one point at the same instant of a paused clock, `how` being `"mouse"` (`mouse.dblclick`) or `"touch"` (two `touchscreen.tap`) |
 | `animation_log(page)` | a test-side handle (`page.evaluate_handle`) on an array that a `document` listener fills with each `animationstart` (its `animationName` and its target's class list). It adds no property to `window` |
 | `mutation_log(page, selector)` | a test-side handle on the child additions and removals a `MutationObserver` sees on one element |
+| `watch_close(page, selector)`, `wait_for_close(watch)` | added at task 22. A test-side listener for a dialog's next `close` event, added after the app's, and a wait for it bounded at 5 seconds. Once it has come, the app's close handler has run (Engine differences by design, the focus back on the opener). Row added 2026-10-15 |
+
+Changed 2026-10-15 in execute (planner touch after step 5, task 21's qa note 2, ledger S7 row 16). This table named `press_twice`, `animation_log` and `mutation_log` before `conftest.py` held them. Each came with the first test that used it, `press_twice` at task 22, `mutation_log` at task 23 and `animation_log` at task 25, so a helper here can land after the table names it. The row for `watch_close` and `wait_for_close` is new.
 
 ### Named starting states
 - **the sample day.** `open_app` with the clock fixed at `2026-10-10T12:00:00+08:00` and storage `sample_state()`. Today is Saturday 10 October 2026. Habits in order "Read 20 pages", "Stretch 10 minutes", "No phone after 11pm". Read is done today, the others are not. Viewport 390 x 844 unless the scenario says 360 x 780 or 1280 x 800.
@@ -603,6 +611,26 @@ Feature: Rings and the legend
     When the user clicks Overview and then P3's "Sat 10 Oct, 1 of 3 habits"
     Then div.day-mini's ring holds three path.seg, only the first with "on", and no text, no circle.c-today and no circle.c-core
 
+  @R42
+  Scenario: Every svg part in the page and the popups is in the SVG namespace and draws (v1.1.0 new)
+    # Added 2026-10-15 in execute (planner touch after step 5, code review WR-01 (a), the QA re-check, spec R42's note of
+    # 2026-10-15). The 1.0 review's guard, lost when the tests were written again. An svg, use, path, circle or text in
+    # the HTML namespace draws nothing and has no getBBox. The test came with the step 5 solver round (commit adcb981).
+    Given the sample day at 1280 x 800
+    Then the first path.seg of the band's 2026-10-10 ring has a getBBox() wider than 0
+    When the user clicks the band's Year and then P4's "Tue 22 Sep 2026, 1 of 3 habits", so P1 opens over P4
+    Then every svg, use, path, circle and text in the document is in the SVG namespace, and each of the five names is there at least once
+    When the user presses Escape twice, then clicks "Year view, Read 20 pages" and P2's Delete habit, so M1 opens over P2
+    Then every svg, use, path, circle and text in the document is in the SVG namespace, and each of the five names is there at least once
+    Given, in a second context, the sample day at 390 x 844
+    Then the first path.seg of the Overview button's ring has a getBBox() wider than 0
+    When the user clicks Overview
+    Then the first path.seg of P3's 2026-10-10 ring has a getBBox() wider than 0
+    And every svg, use, path, circle and text in the document is in the SVG namespace, and each of the five names is there at least once
+    Given, in a third context, storage holding "{" at 390 x 844, so S1 shows with the note
+    Then li.empty's circle.e-orbit has a getBBox() wider than 0
+    And every svg, use, path, circle and text in the document is in the SVG namespace, and each of the five names is there at least once
+
 Feature: Done today and every view at once
   # tests/browser/test_today.py (task 16)
   # W7 to W13 wait on later tasks ("Scenarios that wait on a later task", added 2026-10-13 after the plan re-check, F12)
@@ -875,6 +903,17 @@ Feature: The overview popup and the year of all habits
       | 390x844  | P3's Year       | clicks Close                         | P3 is open        |
       | 390x844  | P3's Year       | presses Escape                       | P3 is open        |
 
+  @R39
+  Scenario: P4 opens again at its top after it closed scrolled (v1.1.0 new)
+    # Added 2026-10-15 in execute (planner touch after step 5, code review WR-04, the QA re-check). The test came with
+    # the step 5 solver round (commit 5b07fc4). P3 has no such scenario, because its body has nothing to scroll once the
+    # room of spec R36 is gone ("On a phone the host of P1 gets room ...", its after column).
+    Given the sample day at 390 x 844 with P4 open from P3's Year
+    When the user clicks P4's "Fri 10 Oct 2025, 3 of 3 habits", so P1 opens over P4 and rule 4 scrolls P4's div.sheet-body
+    And the user presses Escape twice, P1 closing and then P4, with P4's div.sheet-body at a scrollTop above 0 before each press
+    And the user clicks P3's Year again
+    Then P4 is open and its div.sheet-body has scrollTop 0
+
 Feature: The day editor
   # tests/browser/test_day_editor.py (tasks 18 and 20)
   # Task 20 writes the scenarios and rows that use P4, among them the two P4 rows of W22 ("Scenarios that wait on a
@@ -913,6 +952,19 @@ Feature: The day editor
       | clicks Close                     |
       | presses Escape                   |
       | clicks the viewport point (5, 5) |
+
+  @R36
+  Scenario: P1 lists the habits there are when it opens (v1.1.0 new)
+    # Added 2026-10-15 in execute (planner touch after step 5, code review WR-05 (a), the QA re-check). P1's list is
+    # built at each opening, so an add or a delete made while P1 is closed shows the next time it opens. The test came
+    # with the step 5 solver round (commit 5b07fc4).
+    Given the sample day at 1280 x 800
+    When the user clicks the band's "Tue 22 Sep, 1 of 3 habits"
+    Then P1's ticks are named "Read 20 pages", "Stretch 10 minutes" and "No phone after 11pm", in that order, and p#day-sub reads "1 of 3 habits"
+    When the user presses Escape, adds "Drink water" and clicks the band's 2026-09-22 again
+    Then P1's ticks are named "Read 20 pages", "Stretch 10 minutes", "No phone after 11pm" and "Drink water", in that order, and p#day-sub reads "1 of 4 habits"
+    When the user presses Escape, deletes "Stretch 10 minutes" with its bin and confirm_delete, and clicks the band's 2026-09-22 again
+    Then P1's ticks are named "Read 20 pages", "No phone after 11pm" and "Drink water", in that order, and p#day-sub reads "1 of 3 habits"
 
   @R36
   Scenario Outline: On a phone the chosen day stays in sight above P1 (v1.1.0 new)
@@ -1003,7 +1055,9 @@ Feature: The day editor
   Scenario: Ticking a past day in P1 (v1.1.0 new)
     Given the sample day at 1280 x 800 with count_writes, P1 open for 2026-09-22 from the band, and a handle to the tick "Read 20 pages"
     When the user clicks that tick
-    Then the same handle is still connected, has aria-pressed "true" and the classes "on" and "pop", and P1 is still open
+    # Changed 2026-10-15 in execute (planner touch after step 5, code review WR-02). The next line gained "no other tick
+    # has "pop"", because R32 says an element that did not change carries no class from the edit.
+    Then the same handle is still connected, has aria-pressed "true" and the classes "on" and "pop", no other tick has "pop", and P1 is still open
     And its span.tstat reads "Current 4 days" and "Best 13"
     And p#day-sub reads "2 of 3 habits" and the mini ring has its first and third path.seg on
     And the band's 2026-09-22 is named "Tue 22 Sep, 2 of 3 habits" and keeps "is-open"
@@ -1064,6 +1118,16 @@ Feature: A habit's year view
       | 1280x800 | clicks the viewport point (5, 5) |
 
   @R33
+  Scenario: P2 opens again at its top after it closed scrolled (v1.1.0 new)
+    # Added 2026-10-15 in execute (planner touch after step 5, code review WR-04, the QA re-check). The test came with
+    # the step 5 solver round (commit 5b07fc4).
+    Given the sample day at 390 x 844 with P2 open for Read
+    When the user turns the mouse wheel down by 900 pixels over P2's div.sheet-body
+    Then its scrollTop is above 0
+    When the user presses Escape, P2 closes, and the user clicks "Year view, Read 20 pages" again
+    Then P2 is open and its div.sheet-body has scrollTop 0
+
+  @R33
   Scenario Outline: P2 per width (v1.1.0 new)
     Given the sample day at <viewport> with P2 open for Read
     Then its div.dlg-box <box>
@@ -1079,7 +1143,9 @@ Feature: A habit's year view
     Given the sample day at 390 x 844 with count_writes, P2 open for "No phone after 11pm", and a handle to the bead 2026-10-09
     When the user clicks that bead
     Then the same handle is still connected, has aria-pressed "true" and the classes "on", "l" and "pop", and not "r"
-    And the bead 2026-10-08 has gained "r"
+    # Changed 2026-10-15 in execute (planner touch after step 5, code review WR-02). The next line gained "and no other
+    # bead has "pop", 2026-10-08 included". A neighbour whose thread changed did not change its done state (R32, R34).
+    And the bead 2026-10-08 has gained "r", and no other bead has "pop", 2026-10-08 included
     And p.yr-stats holds Current "8" "days" and Best "14"
     And exactly one write was made and the No phone row reads "Current 8 days"
     # Changed 2026-10-14 in execute (planner touch-up, Q3, ledger S1 row 8, ruled ORCH). The next line first ended
@@ -1143,6 +1209,9 @@ Feature: Add a habit
     Then the fourth li.row has h3#rn-4 "Drink water"
     And the band's 2026-07-21 is named "Tue 21 Jul, 3 of 4 habits" and its ring holds four path.seg with the d attributes arcPath(0, 4) to arcPath(3, 4), three of them on, and no circle.c-core
     And the band's 2026-10-10 is named "Sat 10 Oct, 1 of 4 habits"
+    # Added 2026-10-15 in execute (planner touch after step 5, code review WR-03). The legend is drawn again when the
+    # number of habits changes (R42, R32), and no line read it after an add.
+    And the band's legend holds "None", four rings with 0, 2, 3 and 4 of their four path.seg on (the d attributes arcPath(0, 4) to arcPath(3, 4), the last ring with circle.c-core), and "All"
     And the last habit in stored(page) is {"name":"Drink water","done":[]}
     And the field is still document.activeElement
 
@@ -1156,12 +1225,15 @@ Feature: Add a habit
 
   @R11
   Scenario Outline: Rejected names keep the text and show one message above the field (v1.1.0 changed)
-    Given the sample day at <viewport>, the stored text S and the field's top position P
+    # Changed 2026-10-15 in execute (planner touch after step 5, code review WR-01 (b)). The Given gained "with
+    # count_writes" and the last line "and no write was made". A save of the same habits writes the same text, so only
+    # the count shows that a refused name saved nothing (R16).
+    Given the sample day at <viewport> with count_writes, the stored text S and the field's top position P
     When the user types "<typed>" into the field and clicks Add
     Then #nh-msg is shown with the class list "field-msg err" and reads "<message>"
     And the bottom of #nh-msg is at or above the top of the field, and the field's top is still P
     And the field has aria-invalid "true", its value is still "<typed>", and it is document.activeElement in both engines
-    And there are still 3 li.row and stored(page) equals S
+    And there are still 3 li.row, stored(page) equals S, and no write was made
 
     Examples:
       | viewport | typed                                               | message                            |
@@ -1215,6 +1287,15 @@ Feature: Add a habit
     And #nh-msg is shown with the class list "field-msg note" and reads "You track 12 habits, the most this app holds. Delete one to add another."
     And the field has aria-describedby "nh-msg" and no aria-invalid
     And document.activeElement is neither the field nor any control in ul.rows (the app moved no focus)
+
+  @R12
+  Scenario: A render at twelve habits does not write the note again (v1.1.0 new)
+    # Added 2026-10-15 in execute (planner touch after step 5, code review WR-05 (b), the QA re-check, spec R12's note
+    # of 2026-10-15). The test came with the step 5 solver round (commit 5b07fc4).
+    Given twelve habits, #nh-msg holding the 12-habit note, and mutation_log on #nh-msg
+    When the user clicks the first row's Done today
+    Then its aria-pressed has flipped
+    And #nh-msg saw no child added or removed, and still holds the 12-habit note
 
   @R12
   Scenario Outline: Twelve habits at load (v1.1.0 changed)
@@ -1346,6 +1427,10 @@ Feature: Delete a habit
 
   @R14
   Scenario: Esc after an earlier delete still keeps the habit (v1.1.0 changed)
+    # Added 2026-10-15 in execute (planner touch after step 5, task 22's qa note, ledger S3 row 3). This scenario guards
+    # 1.0's defect where M1 kept the returnValue of a delete, so a later Esc deleted again. That defect does not
+    # reproduce in Chromium 149, so its RED at task 22 came from the same defect planted in app state, a confirm flag
+    # never reset (BUILD.md task 22, RED first, run G). The steps are unchanged.
     Given the sample day
     When the user deletes "No phone after 11pm" with its bin and confirm_delete
     And then opens M1 from 'Delete "Stretch 10 minutes"' and presses Escape
@@ -1390,6 +1475,11 @@ Feature: Delete a habit
       | 1280x800 | mouse | P1 for 2026-09-22, from the band       | the band's "Mon 20 Jul, 2 of 3 habits"        | no P1 is open                            |
       | 390x844  | mouse | P3, then P1 for 2026-09-22             | P3's "Mon 5 Oct, 3 of 3 habits"               | P3 is open and no P1 is open             |
       | 390x844  | touch | P3, then P1 for 2026-09-22             | P3's "Mon 5 Oct, 3 of 3 habits"               | P3 is open and no P1 is open             |
+      | 1280x800 | mouse | P2 for Read, then M1 from its Delete habit | P2's backdrop at the point (5, 5), outside both boxes | P2 is still open                  |
+    # Row 8 added 2026-10-15 in execute (planner touch after step 5, code review WR-07, the QA re-check), the test id
+    # [1280x800-mouse-P2-then-M1]. It presses the point (5, 5), not a centre. The first press closes M1 from its
+    # backdrop, and the second lands on P2's dialog element, which is P2's backdrop. P2 lay beneath M1, so that press is
+    # held and P2 stays open (R14).
 
   @R14
   Scenario Outline: A double press on Close does not reach the control behind it (v1.1.0 new, CG-11 ruled)
@@ -1475,6 +1565,9 @@ Feature: Delete a habit
     Then M1 is closed and 2 li.row remain, "Read 20 pages" (rn-1) and "No phone after 11pm" (rn-2)
     And focus is on 'Delete "No phone after 11pm"'
     And the band's 2026-07-21 is named "Tue 21 Jul, 2 of 2 habits" and holds circle.c-core, and the band's 2026-10-10 is named "Sat 10 Oct, 1 of 2 habits"
+    # Added 2026-10-15 in execute (planner touch after step 5, code review WR-03). The legend is drawn again when the
+    # number of habits changes (R42, R32), and no line read it after a delete.
+    And the band's legend holds "None", three rings with 0, 1 and 2 of their two path.seg on (the d attributes arcPath(0, 2) and arcPath(1, 2), the last ring with circle.c-core), and "All"
     And stored(page) holds the two remaining sample habits, unchanged, in order
 
   @R15
@@ -1490,6 +1583,8 @@ Feature: Delete a habit
     When the user adds "Read 20 pages", clicks its Done today, then deletes it with its bin and confirm_delete
     Then ul.rows holds li.empty and no li.row, and focus is on the field
     And the band's 2026-10-10 is named "Sat 10 Oct, 0 of 0 habits" and its ring holds one circle.seg without "on"
+    # Added 2026-10-15 in execute (planner touch after step 5, code review WR-03).
+    And the band's legend holds span "None", one svg holding one circle.seg and nothing else, and span "All"
     And stored(page) is exactly '{"version":1,"habits":[]}'
 
   @R15 @R33
@@ -1654,9 +1749,12 @@ Feature: Kept on the device
 
   @R17 @R22
   Scenario: Dismiss removes the note, moves focus to the field, and the note does not come back (v1.1.0 changed)
-    Given the clock is fixed at 2026-10-10T12:00:00+08:00 and storage holds "{"
+    # Changed 2026-10-15 in execute (planner touch after step 5, code review WR-01 (b)). The Given gained "and
+    # count_writes" and the first Then "and no write was made after the reset save". The reset save of R17 is the one
+    # save at load, and Dismiss saves nothing (R16).
+    Given the clock is fixed at 2026-10-10T12:00:00+08:00, storage holds "{", and count_writes
     When the user clicks "Dismiss note"
-    Then there is no div.banner.note, li.empty is still shown, and the field is document.activeElement in both engines
+    Then there is no div.banner.note, li.empty is still shown, the field is document.activeElement in both engines, and no write was made after the reset save
     When the page reloads
     Then there is no div.banner.note
     When storage is set to "{" again through the "__seed__" page and the app is opened again
@@ -1763,6 +1861,8 @@ Feature: Kept on the device
 Feature: Rolling over midnight
   # tests/browser/test_rollover.py (task 24). Each scenario installs the clock 30 seconds before the instant it pauses
   # at, opens the page, and pauses there (page.clock.pause_at), so no wall time passes before the clock runs.
+  # Changed 2026-10-15 in execute (planner touch after step 5). "A page booted ten seconds before midnight shows the new
+  # day thirty seconds after it" installs the clock 9 seconds before its pause, because it measures from the boot.
 
   @R19 @R35
   Scenario: The view moves to the new day within a minute while visible (v1.1.0 changed)
@@ -1776,6 +1876,19 @@ Feature: Rolling over midnight
     And the band still runs from 2026-07-20 to 2026-10-11, now as 84 buttons and no span.hc
     And the 2026-10-11 button is named "Sun 11 Oct, 0 of 3 habits" with aria-current "date" and circle.c-today, and the 2026-10-10 button is named "Sat 10 Oct, 1 of 3 habits" with neither
     And the Overview button is named "Overview, today 0 of 3 habits done"
+
+  @R19
+  Scenario: A page booted ten seconds before midnight shows the new day thirty seconds after it (v1.1.0 new)
+    # Added 2026-10-15 in execute (planner touch after step 5, code review WR-01 (c), the QA re-check). It pins R19's
+    # check every 30 seconds, which the scenario above cannot, since it reads only at 00:01:00. A page booted at about
+    # 23:59:50 checks at about 00:00:20, and a check every 45 seconds or more first runs after 00:00:30. The test came
+    # with the step 5 solver round (commit adcb981).
+    Given storage holds the sample, the viewport is 1280 x 800, the clock is installed at 2026-10-10T23:59:50+08:00, and the page is open
+    And the clock is paused at 2026-10-10T23:59:59+08:00
+    When the clock runs for 900 ms (to 23:59:59.9)
+    Then time.date still has datetime "2026-10-10" and reads "Saturday 10 October"
+    When the clock runs for 30100 ms more (to 2026-10-11T00:00:30+08:00)
+    Then the date, the rows, their Done today states, the band and the Overview button read as "The view moves to the new day within a minute while visible" lists them after the rollover
 
   @R19 @R35 @R38
   Scenario: The band and P3 move when a new week starts (v1.1.0 changed, CG-16 ruled)
@@ -2015,16 +2128,28 @@ Feature: Platform
 
   @R23 @R32
   Scenario: A change pops what changed and bumps its number, and replays on the next change (v1.1.0 new)
-    Given the sample day at 1280 x 800 with reduced motion "no-preference" and animation_log
+    # Changed 2026-10-15 in execute (planner touch after step 5, Q-25-1 of task 25, ledger S7 row 18, and code review
+    # WR-02). The first Given read ~~the sample day at 1280 x 800 with reduced motion "no-preference" and
+    # animation_log~~, the first Then ~~within 1 second the log holds, and holds only, "pop" on Stretch's span.dot,
+    # "pop" on the svg of the band's 2026-10-10, "pop" on the svg in span.ov-ring and "bump" on Stretch's Current
+    # span.val~~, and the line after it ~~And their computed animation-durations are "0.26s", "0.3s", "0.3s" and
+    # "0.28s"~~. From 1024 px the Overview button is not displayed (R4, R38), below 1024 px the band is not, and an
+    # element that is not displayed starts no animation, so no one width shows both rings play. The Overview button's
+    # ring is seen playing at 390 x 844 and read by its class and computed animation at 1280 x 800. The last two Then
+    # lines gained "and no "pop" on any other ..." (WR-02).
+    Given the sample day at 390 x 844 with reduced motion "no-preference" and animation_log
     When the user clicks "Done today, Stretch 10 minutes"
-    Then within 1 second the log holds, and holds only, "pop" on Stretch's span.dot, "pop" on the svg of the band's 2026-10-10, "pop" on the svg in span.ov-ring and "bump" on Stretch's Current span.val
-    And their computed animation-durations are "0.26s", "0.3s", "0.3s" and "0.28s"
+    Then within 1 second the log holds, and holds only, "pop" on Stretch's span.dot, "pop" on the svg in span.ov-ring and "bump" on Stretch's Current span.val, with the computed animation-durations "0.26s", "0.3s" and "0.28s"
+    Given, in a second context, the sample day at 1280 x 800 with reduced motion "no-preference" and animation_log
+    When the user clicks "Done today, Stretch 10 minutes"
+    Then within 1 second the log holds, and holds only, "pop" on Stretch's span.dot, "pop" on the svg of the band's 2026-10-10 and "bump" on Stretch's Current span.val, with the computed animation-durations "0.26s", "0.3s" and "0.28s"
+    And span.ov-ring has the class "pop", and its svg has the computed animation-name "pop" and animation-duration "0.3s"
     When the user clicks the same button again 100 ms later (real time), while the first pop still runs
     Then within 1 second the log holds a second "pop" on Stretch's span.dot and a second "bump" on its Current span.val
     When the user opens P1 for 2026-09-22 from the band and clicks the tick "Read 20 pages"
-    Then the log gains "pop" on that tick's span.tbox with the duration "0.26s"
+    Then the log gains "pop" on that tick's span.tbox with the duration "0.26s", and no "pop" on any other tick's span.tbox
     When the user closes P1, opens P2 for Read and clicks the bead 2026-10-06
-    Then the log gains "pop" on that bead's span.bead with the duration "0.26s"
+    Then the log gains "pop" on that bead's span.bead with the duration "0.26s", and no "pop" on any other bead's span.bead
 
   @R23
   Scenario: Everything appears at once under reduced motion (v1.1.0 changed)
@@ -2646,7 +2771,7 @@ Feature: Looks right
 - Re-run the Node suite (`node --test "tests/**/*.test.js"`), the browser suite in Chromium and in WebKit (two runs, two evidence folders), the 23 fidelity captures with their controls and the states check in Chromium, and the `@R27` cold-boot gate in Chromium and in WebKit, in the final parallel all-modules pass. Each engine's pass, fail and skip counts and run time go into `docs/regression/REGRESSION.md`.
 
 ## Coverage by R#
-Counted from the Gherkin above on 2026-10-13 by the planner, recounted by script after the plan-check fixes. A scenario with two tags counts for both. An outline counts once. ~~167 live scenarios (92 new, 71 changed, 4 unchanged from 1.0)~~ 169 live scenarios (94 new, 71 changed, 4 unchanged from 1.0, recounted 2026-10-14, see the last two notes of this paragraph), 18 retired scenarios kept as text, 1 Chromium-only scenario (CO-1). Every live R# has at least one scenario. Changed 2026-10-13 after the plan check (F5), the live gate's control scenario added one new `@R27` scenario (164 and 89 before). Changed 2026-10-13 after the plan re-check (F14), the two successors of the `test_tick.py` tests added one `@R6 @R32` and one `@R32` scenario (165 and 90 before, R6 5 and R32 12 before). Changed 2026-10-14 in execute (planner touch-up, ledger H-03), the `@R36` scenario of P3's room added one new scenario, so the counts became 168 live scenarios (93 new, 71 changed, 4 unchanged) and R36 7 (6 before). Recounted by script. Changed 2026-10-14 in execute (planner follow-up, ruled ORCH), the `@R36` scenario of a gap smaller than a day with twelve habits added one new scenario, so 169 live scenarios (94 new, 71 changed, 4 unchanged), and R36 has 8. Recounted by script.
+Counted from the Gherkin above on 2026-10-13 by the planner, recounted by script after the plan-check fixes. A scenario with two tags counts for both. An outline counts once. ~~167 live scenarios (92 new, 71 changed, 4 unchanged from 1.0)~~ ~~169 live scenarios (94 new, 71 changed, 4 unchanged from 1.0, recounted 2026-10-14, see the last two notes of this paragraph)~~ 175 live scenarios (100 new, 71 changed, 4 unchanged from 1.0, recounted 2026-10-15, see the last note of this paragraph), 18 retired scenarios kept as text, 1 Chromium-only scenario (CO-1). Every live R# has at least one scenario. Changed 2026-10-13 after the plan check (F5), the live gate's control scenario added one new `@R27` scenario (164 and 89 before). Changed 2026-10-13 after the plan re-check (F14), the two successors of the `test_tick.py` tests added one `@R6 @R32` and one `@R32` scenario (165 and 90 before, R6 5 and R32 12 before). Changed 2026-10-14 in execute (planner touch-up, ledger H-03), the `@R36` scenario of P3's room added one new scenario, so the counts became 168 live scenarios (93 new, 71 changed, 4 unchanged) and R36 7 (6 before). Recounted by script. Changed 2026-10-14 in execute (planner follow-up, ruled ORCH), the `@R36` scenario of a gap smaller than a day with twelve habits added one new scenario, so 169 live scenarios (94 new, 71 changed, 4 unchanged), and R36 has 8. Recounted by script. Changed 2026-10-15 in execute (planner touch after step 5), six new scenarios, one each for `@R12`, `@R19`, `@R33`, `@R36`, `@R39` and `@R42`, give the tests of the step 5 solver round their own scenarios, so 175 live scenarios (100 new, 71 changed, 4 unchanged), R12 4, R19 11, R33 7, R36 9, R39 6 and R42 14. The round's eighth backdrop id is a new Examples row of an `@R14` outline, so R14 stays 13. Recounted by script.
 
 | R# | Spec status | Live scenarios | Retired kept | R# | Spec status | Live scenarios | Retired kept |
 |---|---|---|---|---|---|---|---|
@@ -2661,16 +2786,16 @@ Counted from the Gherkin above on 2026-10-13 by the planner, recounted by script
 | R9 | retired | 0 | 2 | R30 | new | 7 | 0 |
 | R10 | changed | 6 | 0 | R31 | new | 5 | 0 |
 | R11 | changed | 5 | 0 | R32 | new | 14 | 0 |
-| R12 | changed | 3 | 0 | R33 | new | 6 | 0 |
+| R12 | changed | ~~3~~ 4 (2026-10-15) | 0 | R33 | new | ~~6~~ 7 (2026-10-15) | 0 |
 | R13 | changed | 13 | 3 | R34 | new | 6 | 0 |
 | R14 | changed | 13 | 1 | R35 | new | 6 | 0 |
-| R15 | changed | 12 | 4 | R36 | new | 8 (6 before 2026-10-14, then 7 with H-03's room) | 0 |
+| R15 | changed | 12 | 4 | R36 | new | ~~8~~ 9 (6 before 2026-10-14, then 7 with H-03's room, 8 with the gap smaller than a day, 9 from 2026-10-15) | 0 |
 | R16 | changed | 9 | 1 | R37 | new | 5 | 0 |
 | R17 | changed | 6 | 1 | R38 | new | 5 | 0 |
-| R18 | retired | 0 | 2 | R39 | new | 5 | 0 |
-| R19 | changed | 10 | 1 | R40 | new | 10 | 0 |
+| R18 | retired | 0 | 2 | R39 | new | ~~5~~ 6 (2026-10-15) | 0 |
+| R19 | changed | ~~10~~ 11 (2026-10-15) | 1 | R40 | new | 10 | 0 |
 | R20 | unchanged | 1 | 0 | R41 | new | 10 | 0 |
-| R21 | changed | 4 | 0 | R42 | new | 13 | 0 |
+| R21 | changed | 4 | 0 | R42 | new | ~~13~~ 14 (2026-10-15) | 0 |
 
 Scenarios that apply a clarify gate part 2 ruling (each names it in its title, all ruled 2026-10-13 with the recommended answers). CG-10, 6 (the R13 guard). CG-11, 7 (the R14 tap-through guard). CG-12, 1. CG-14, 1. CG-15, 1. CG-16, 2. CG-17, 1. CG-18, 1. CG-19, 1. CG-13 touches habit-logic only (its qa). Changed 2026-10-13 after the plan check (F1), this paragraph first listed them as waiting on open items.
 
