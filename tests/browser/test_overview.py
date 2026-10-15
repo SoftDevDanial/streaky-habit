@@ -13,10 +13,12 @@ from conftest import (
     ARCS3,
     CORE,
     DESIGN_DIR,
+    NOON,
     TODAY,
     TODAY_CIRCLE,
     grid_children,
     legend_parts,
+    let_guard_pass,
     number,
     ring_of,
     ring_parts,
@@ -280,6 +282,23 @@ def test_R39_p4_on_a_phone_covers_p3(app):
     assert all(abs(found - wanted) <= 0.5 for found, wanted in zip(
         (box["x"], box["y"], box["width"], box["height"]), (0, 0, 390, 844))), box
     expect(page.locator("dialog.dlg-all").get_by_role("button", name="Close", exact=True)).to_be_focused()
+
+
+def test_R39_p4_opens_again_at_its_top_after_it_closed_scrolled(app):
+    page = app(viewport=PHONE, storage=sample_state(), install_time=NOON)
+    open_p4_from_p3(page)
+    body = page.locator("dialog.dlg-all div.sheet-body")
+    page.locator('dialog.dlg-all button.hc[data-key="2025-10-10"]').click()
+    expect(page.locator("dialog.dlg-day")).to_have_attribute("open", "")
+    for name in ("dlg-day", "dlg-all"):
+        assert body.evaluate("(node) => node.scrollTop") > 0, f"P4 is not scrolled before {name} closes"
+        watch = watch_close(page, f"dialog.{name}")
+        page.keyboard.press("Escape")
+        wait_for_close(watch)
+    let_guard_pass(page)  # the click on P4's day holds clicks on P3 and the page for 500 ms (R14)
+    page.locator("dialog.dlg-ov button.btn-all").click()
+    expect(page.locator("dialog.dlg-all")).to_have_attribute("open", "")
+    assert body.evaluate("(node) => node.scrollTop") == 0, "P4 opened again where it was scrolled to"
 
 
 @pytest.mark.parametrize(

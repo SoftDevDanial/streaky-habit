@@ -262,6 +262,22 @@ def test_R33_R40_p2_closes_and_gives_focus_back_to_its_year(app, viewport, actio
     expect(year_btn(page, "Read 20 pages")).to_be_focused()
 
 
+def test_R33_p2_opens_again_at_its_top_after_it_closed_scrolled(app):
+    page = app(viewport=PHONE, storage=sample_state())
+    open_year(page, "Read 20 pages")
+    wait_until_still(page)
+    body = year_dialog(page).locator("div.sheet-body")
+    box = body.bounding_box()
+    page.mouse.move(box["x"] + box["width"] / 2, box["y"] + box["height"] / 2)
+    page.mouse.wheel(0, 900)
+    page.wait_for_function("() => document.querySelector('dialog.dlg-year div.sheet-body').scrollTop > 0", timeout=5000)
+    watch = watch_close(page, "dialog.dlg-year")
+    page.keyboard.press("Escape")
+    wait_for_close(watch)
+    open_year(page, "Read 20 pages")
+    assert body.evaluate("(node) => node.scrollTop") == 0, "P2 opened again where it was scrolled to"
+
+
 @pytest.mark.parametrize("viewport", [pytest.param(PHONE, id="390x844"), pytest.param(DESKTOP, id="1280x800")])
 def test_R33_p2_per_width(app, viewport):
     page = app(viewport=viewport, storage=sample_state())

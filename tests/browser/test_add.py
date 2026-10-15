@@ -4,7 +4,6 @@ a habit").
 Each test types and presses with real gestures and reads the DOM, the focus, boxes and the saved text.
 """
 import json
-import math
 
 import pytest
 from playwright.sync_api import expect
@@ -18,11 +17,16 @@ from conftest import (
     TODAY_CIRCLE,
     add_button,
     add_habit,
+    arc_path,
     band_day,
     bin_btn,
     confirm_delete,
     current_block,
     done_btn,
+    legend_of,
+    legend_parts,
+    mutation_log,
+    mutations,
     number,
     plain_state,
     ring_of,
@@ -105,25 +109,6 @@ def field_top(page):
     return page.locator("#nh").evaluate("(field) => field.getBoundingClientRect().top")
 
 
-def js_number(value):
-    """`Math.round(value * 100) / 100` written as JavaScript writes the number (spec R42)."""
-    rounded = math.floor(value * 100 + 0.5) / 100
-    return str(int(rounded)) if rounded.is_integer() else repr(rounded)
-
-
-def arc_path(i, n):
-    """The `d` of segment i of n by spec R42's arc rule, worked out here so the test does not reuse src/ring.js."""
-    step = 360 / n
-    gap = min(22, 0.3 * step)
-    large = 1 if step - gap > 180 else 0
-
-    def point(degrees):
-        angle = math.radians(degrees)
-        return f"{js_number(20 + 15 * math.sin(angle))} {js_number(20 - 15 * math.cos(angle))}"
-
-    return f"M{point(i * step + gap / 2)}A15 15 0 {large} 1 {point((i + 1) * step - gap / 2)}"
-
-
 # ---------------------------------------------------------------------------------------------------------------
 
 
@@ -162,6 +147,7 @@ def test_R10_R32_enter_adds_at_the_bottom_trimmed_and_the_band_recounts(app):
     expected = [seg(arc_path(i, 4), i < 3) for i in range(4)] + [number(21)]
     assert ring_parts(page, 'section.band button.hc[data-key="2026-07-21"] > svg') == ring_of(expected)
     expect(band_day(page, TODAY)).to_have_attribute("aria-label", "Sat 10 Oct, 1 of 4 habits")
+    assert legend_parts(page, "section.band div.legend") == legend_of(4, [0, 2, 3, 4]), "the legend did not recount"
     saved = json.loads(stored(page))["habits"]
     assert saved == [*SAMPLE_HABITS, {"name": "Drink water", "done": []}]
     assert active_control(page) == "field"
@@ -275,6 +261,19 @@ def test_R12_the_twelfth_habit_closes_the_composer(app):
     assert state["message"] == NOTE, state
     assert (state["describedBy"], state["invalid"]) == ("nh-msg", None), state
     assert active_control(page) not in ("field", "a control in ul.rows")
+
+
+def test_R12_a_render_at_twelve_habits_does_not_write_the_note_again(app):
+    """The note sits in the live region #nh-msg, so writing it again on every render would announce it again."""
+    page = app(storage=twelve_state())
+    assert composer(page)["message"] == NOTE
+    log = mutation_log(page, "#nh-msg")
+    done = page.locator("ul.rows > li.row button.btn-done").first
+    pressed = done.get_attribute("aria-pressed")
+    done.click()
+    expect(done).to_have_attribute("aria-pressed", "false" if pressed == "true" else "true")
+    assert mutations(log) == {"added": 0, "removed": 0}, "a render wrote the 12-habit note again"
+    assert composer(page)["message"] == NOTE
 
 
 @pytest.mark.parametrize("viewport", [pytest.param(PHONE, id="390x844"), pytest.param(DESKTOP, id="1280x800")])

@@ -13,10 +13,15 @@ from playwright.sync_api import expect
 from conftest import (
     ARCS3,
     CIRCLE_SEG,
+    NOON,
     TODAY,
+    add_habit,
     band_day,
+    bin_btn,
+    confirm_delete,
     done_btn,
     focus_after_a_click_in_a_popup,
+    let_guard_pass,
     p3_day,
     p4_day,
     ring_of,
@@ -324,6 +329,36 @@ def test_R36_R39_a_p4_day_opens_p1_over_p4_on_a_desktop(app):
     wait_for_close(watch)
     expect(page.locator("dialog.dlg-all")).to_have_attribute("open", "")
     expect(p4_day(page, SEP_22)).to_be_focused()
+
+
+TICK_NAMES_JS = "() => Array.from(document.querySelectorAll('dialog.dlg-day ul.day-list button.tick'), (tick) => tick.getAttribute('aria-label'))"
+
+
+def test_R36_p1_lists_the_habits_there_are_when_it_opens(app):
+    page = app(viewport=DESKTOP, storage=sample_state(), install_time=NOON)
+
+    def reopen():
+        open_from_band(page, SEP_22)
+        return page.evaluate(TICK_NAMES_JS), day_dialog(page).locator("p#day-sub").text_content()
+
+    def close():
+        watch = watch_close(page, "dialog.dlg-day")
+        page.keyboard.press("Escape")
+        wait_for_close(watch)
+
+    assert reopen() == (["Read 20 pages", "Stretch 10 minutes", "No phone after 11pm"], "1 of 3 habits")
+    close()
+    add_habit(page, "Drink water", enter=True)
+    expect(page.locator("ul.rows > li.row")).to_have_count(4)
+    assert reopen() == (["Read 20 pages", "Stretch 10 minutes", "No phone after 11pm", "Drink water"], "1 of 4 habits")
+    close()
+    opener = bin_btn(page, "Stretch 10 minutes")
+    opener.click()
+    expect(page.locator("dialog.dlg-del")).to_have_attribute("open", "")
+    confirm_delete(page, opener)
+    expect(page.locator("ul.rows > li.row")).to_have_count(3)
+    let_guard_pass(page)  # the click on Delete habit holds the page's clicks for 500 ms (R14)
+    assert reopen() == (["Read 20 pages", "No phone after 11pm", "Drink water"], "1 of 3 habits")
 
 
 def test_R36_R3_a_day_opens_p1_when_there_are_no_habits(app):

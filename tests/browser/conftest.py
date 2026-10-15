@@ -11,6 +11,7 @@ localStorage before it loads.
 """
 import datetime
 import json
+import math
 import os
 import pathlib
 import re
@@ -939,6 +940,39 @@ def number(day, on=False):
 
 def ring_of(parts):
     return {"viewBox": "0 0 40 40", "hidden": "true", "parts": parts}
+
+
+def js_number(value):
+    """`Math.round(value * 100) / 100` written as JavaScript writes the number (spec R42)."""
+    rounded = math.floor(value * 100 + 0.5) / 100
+    return str(int(rounded)) if rounded.is_integer() else repr(rounded)
+
+
+def arc_path(i, n):
+    """The `d` of segment i of n by spec R42's arc rule, worked out here so the tests do not reuse src/ring.js.
+    `test_R10_R32_enter_adds_...` checks first that it reproduces the goldens' arcs."""
+    step = 360 / n
+    gap = min(22, 0.3 * step)
+    large = 1 if step - gap > 180 else 0
+
+    def point(degrees):
+        angle = math.radians(degrees)
+        return f"{js_number(20 + 15 * math.sin(angle))} {js_number(20 - 15 * math.cos(angle))}"
+
+    return f"M{point(i * step + gap / 2)}A15 15 0 {large} 1 {point((i + 1) * step - gap / 2)}"
+
+
+def legend_of(habit_count, counts):
+    """A legend as `legend_parts` reads it for `habit_count` habits, one ring per number of segments on in `counts`,
+    which the test writes out instead of taking src/ring.js `legendCounts` (spec R42)."""
+
+    def ring(count):
+        if habit_count < 2:
+            return ring_of([CIRCLE_SEG_ON, CORE] if count else [CIRCLE_SEG])
+        parts = [seg(arc_path(i, habit_count), i < count) for i in range(habit_count)]
+        return ring_of(parts + ([CORE] if count == habit_count else []))
+
+    return ["span:None", *map(ring, counts), "span:All"]
 
 
 def focused(page):

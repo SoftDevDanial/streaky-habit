@@ -34,6 +34,8 @@ from conftest import (
     done_btn,
     encode,
     first_difference,
+    legend_of,
+    legend_parts,
     let_guard_pass,
     p3_day,
     point_beside,
@@ -815,6 +817,7 @@ def test_R15_R32_deleting_from_a_bin_moves_focus_to_the_next_bin_and_recounts(ap
     july_21 = band_day(page, "2026-07-21")
     expect(july_21).to_have_attribute("aria-label", "Tue 21 Jul, 2 of 2 habits")
     expect(july_21.locator(":scope > svg > circle.c-core")).to_have_count(1)
+    assert legend_parts(page, "section.band div.legend") == legend_of(2, [0, 1, 2]), "the legend did not recount"
     expect(band_day(page, "2026-10-10")).to_have_attribute("aria-label", "Sat 10 Oct, 1 of 2 habits")
     assert json.loads(stored(page)) == {"version": 1, "habits": [SAMPLE_HABITS[0], SAMPLE_HABITS[2]]}
 
@@ -849,6 +852,7 @@ def test_R15_R3_deleting_the_only_habit_shows_the_empty_list(app):
     expect(today).to_have_attribute("aria-label", "Sat 10 Oct, 0 of 0 habits")
     expect(today.locator(":scope > svg > circle.seg")).to_have_count(1)
     expect(today.locator(":scope > svg > .seg.on")).to_have_count(0)
+    assert legend_parts(page, "section.band div.legend") == legend_of(0, [0]), "the legend is not the one thin circle"
     assert stored(page) == '{"version":1,"habits":[]}'
 
 
