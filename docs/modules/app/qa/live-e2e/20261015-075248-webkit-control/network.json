@@ -1,0 +1,45 @@
+{
+  "requests": [
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:61810/"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:61810/src/styles.css"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:61810/src/app.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:61810/src/calendar.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:61810/src/dates.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:61810/src/habits.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:61810/src/popups.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:61810/src/storage.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:61810/src/view.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:61810/src/ring.js"
+    }
+  ],
+  "outside_the_rule": []
+}

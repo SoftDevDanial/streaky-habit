@@ -963,6 +963,12 @@ def short_date(key):
     return f"{_WEEKDAYS[moment.weekday()][:3]} {moment.day} {_MONTHS[moment.month - 1][:3]}"
 
 
+def long_date(key):
+    """'Tuesday 22 September' for '2026-09-22', the header date and P1's title, for a date the test only knows at run time."""
+    moment = datetime.date.fromisoformat(key)
+    return f"{_WEEKDAYS[moment.weekday()]} {moment.day} {_MONTHS[moment.month - 1]}"
+
+
 def year_date(key):
     """'Fri 10 Oct 2025' for '2025-10-10', the short date with its year (the year views' day names)."""
     return f"{short_date(key)} {key[:4]}"

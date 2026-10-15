@@ -911,3 +911,64 @@ No `src/` or `index.html` change. No test hook in the app. The scripts are test-
 ### For the README reconcile
 - No `src/` change.
 - `tests/browser/fidelity/` now holds the two v1.1.0 seed scripts and the five after-load scripts the fidelity harness takes.
+
+---
+
+## v1.1.0 task 27, the cold-boot live gate in both engines (2026-10-15)
+> Written by the frontend builder (senior frontend dev agent), 2026-10-15. Requirements R27 and R30. The commit is the one whose message starts `test(app): the v1.1.0 cold-boot live gate`.
+
+### Phase skills
+None loaded. Task 27 writes a test script and changes no file in `src/` and not `index.html` (spec, Tasks, "Every UI task (12 and up except 14, 27 and 28)").
+
+### What changed
+- `tests/browser/live_e2e.py`, written again for v1.1.0 (the 1.0 steps drove the strip and the heatmap, which are gone).
+  - `Scenario` holds the 21 steps of qa.md's `@R27` scenario as named methods, one per When and its Then lines, and `run` does them in order until one fails. Gestures are clicks (locator clicks and the one `page.mouse.click` of `confirm_delete`), `keyboard.type`, `keyboard.press`, `reload` and one `set_viewport_size`. The 600 ms pauses (`PAUSE_MS`) sit where qa.md puts them, for the page guard of R14.
+  - `Gate.step` does the gesture, then reads the page with `SNAPSHOT_JS` (read only, one round trip) until the step's check finds no problem and still finds none 150 ms later (`SETTLE_MS`), or until 5 seconds pass. It saves a full-page screenshot and the record. Each check returns the list of properties that failed (`mismatches`, `focus_on`, `band_difference`), so a red step names its property in `steps.json` and on the console.
+  - `--control seeded` (`CONTROLS`, `seed`). Its one write is the sample through `__seed__` before the app loads. A control run never reports `pass` true. `summary.json` gains `control_red_on_its_property`, true only when the first failing step is the first visit and its problems include "stored(page) is null" and `ul.rows holds li.empty with "No habits yet."` (`STORED_IS_NULL`, `EMPTY_LIST`).
+  - `evidence_folder` makes the last part of `--out` end with `-<engine>`, or with `-<engine>-control` for a control run. The script refuses an `--out` that already holds files, one outside the project, and a `--base-url` without its last `/`.
+  - `wait_until_still` waits until a popup opened in the same step has risen before a click inside it (P3, P2 and M1, judgment call 4).
+  - `summary.json` holds `control`, `engine`, `browser_version`, `base_url`, `start_date`, `end_date`, `date_unchanged`, `steps_planned`, `steps_run`, `steps_passed`, `first_failing_step`, the counts of requests, requests outside the rule, console errors, page errors and clipboard markers, and `pass`. `steps.json` holds per step its number, name, gesture, expected, observed, problems, pass, `at`, `seconds` and screenshot. `console.json` and `network.json` are as in 1.0, and the request rule now allows `/src/icon.svg`.
+- `tests/browser/conftest.py` gains `long_date`, beside `short_date` and `year_date`.
+- `spec.md` task 27 ticked.
+
+### The watched failure (the control, spec R27)
+The live gate is written after the app, so its control run is its watched failure (qa.md, "Controls are watched failing first"). In each engine the control ran just before the green run, against the same server, and stopped red at step 01 "first visit" on its asserted property.
+- Chromium, `docs/modules/app/qa/live-e2e/20261015-075531-chromium-control/`. Five problems. `stored(page)` holds the sample (10646 characters), not null. `ul.rows` holds no `li.empty`. There are 3 `li.row`. The Overview button reads "Overview, today 0 of 3 habits done". The band's first day reads "Mon 27 Jul, 2 of 3 habits". `pass` false, `first_failing_step` "first visit", `control_red_on_its_property` true. 6.4 s.
+- WebKit, `docs/modules/app/qa/live-e2e/20261015-075552-webkit-control/`. The same five problems and the same summary values. 6.1 s.
+Each control folder holds `01-first-visit.png` (the three sample rows), `steps.json`, `console.json`, `network.json` and `summary.json`, and nothing of an earlier run.
+
+### Proof
+- Chromium 149.0.7827.55, `docs/modules/app/qa/live-e2e/20261015-075537-chromium/`. 21 of 21 steps, 30 requests and 0 outside the rule, 0 console errors, 0 page errors, 0 clipboard markers, T 2026-10-15 at the start and the end, `pass` true. 10.3 s.
+- WebKit 26.5, `docs/modules/app/qa/live-e2e/20261015-075558-webkit/`. The same values, 21 of 21, `pass` true. 12.2 s.
+- The observed values of every step were read against the scenario, and the screenshots were looked at. Every focus line is the control the app sets, in both engines. Where the scenario asserts nothing, WebKit shows its engine differences (focus on `body` after a mouse press on a page button, on the popup's `dialog` after one inside a popup).
+- The first pair of each engine (`20261015-075147-chromium-control`, `20261015-075156-chromium`, `20261015-075248-webkit-control`, `20261015-075255-webkit`) ran the text before `wait_until_still` covered P3 and P2. Same verdicts (each control red at the first visit on its property, each green run 21 of 21). Kept as history, superseded by the pair above.
+- The script's guards, checked with no server and no browser. An `--out` that holds an earlier control run is refused and its 5 files stay 5. A `--base-url` without its last `/`, an `--out` outside the project and `--engine firefox` are refused, and no folder was made. `evidence_folder` gives a name ending with `-webkit-control` for a control run from a bare name, from one ending with `-webkit` and from one ending with `-webkit-control`.
+- Suites, with `src/` and `index.html` unchanged. Node, `node --test "tests/**/*.test.js"`, 137 of 137. Chromium **348 passed**, 135.1 s (`docs/modules/app/qa/functional/20261015-075706-chromium/junit.xml`), the count of `20261014-233936-chromium`. WebKit **347 passed, 1 skipped (CO-1, counted with its reason)**, 217.5 s (`docs/modules/app/qa/functional/20261015-075929-webkit/junit.xml`), the count of `20261014-234211-webkit`. No failure in either.
+
+### Judgment calls (named, for the orchestrator)
+1. **The run stops at the first failing step**, in both modes. qa.md says the control stops at the first-visit step, and every later step builds on the state the earlier ones left, so a later result after a failure proves nothing. The 1.0 gate ran on after a failure.
+2. **A control run never reports `pass` true.** qa.md says the control can only make the run fail and only a run without it can meet the gate. Whether the control did its job is the separate `control_red_on_its_property`, which needs both properties of R27 among the first-visit step's problems. A control run exits 1, and that exit code is not its verdict.
+3. **A step passes only when its check still holds 150 ms later** (`SETTLE_MS`). In Chromium the browser restores focus to a clicked opener before the app's queued close handler runs (task 22, judgment call 5), and a focus line must not pass on the browser's work. The gate adds no close listener to the page, because qa.md allows no `evaluate` that writes.
+4. **A click inside a popup that opened in the same step waits until the popup has risen** (`wait_until_still`, bounded at 5 s). Measured by a scratch probe in both engines at 390 x 844. With P2 at rest, the bead of 14 October sits at y 344 with nothing over it and a click there leaves `scrollTop` 0. A click sent straight after Year, while P2 rose, made Playwright scroll P2's body to 144 first. That scroll is the tool's, not the app's or a person's, and a wait is not a gesture.
+5. **The first-visit band check is exact.** "every band day button up to T" is read as the buttons being exactly the days from the Monday 11 weeks before T's week to T, each named "<shortDate>, 0 of 0 habits", and only T's with `aria-current` "date" (R3, R35). Checking only the buttons found would pass a band with none. That step's record keeps the band's days (81 on 2026-10-15), the other steps leave them out.
+6. **Some Then lines are read a little more strictly than written**, each with a property the spec states. Rows compare whole (name, Current, Best and Done today), `#nh-msg` must also be shown (R11), and T's band ring compares its parts in R42's order with the day's number.
+7. **`long_date` joined `conftest.py`**, beside `short_date` and `year_date`, because the calendar names live there and the gate needs P1's title for a date it learns at run time. No test used one before.
+8. **The clipboard check repeats a short expression** that `test_engines.py` (`STAND_IN_JS`) and `test_fidelity_inputs.py` (`STANDIN_IN_PLACE_JS`) also hold. Here it is one key of `SNAPSHOT_JS` and also accepts a missing `writeText`, as qa.md's Given line allows. One copy in `conftest.py` would touch two committed files outside this task, so it is named for the code reviewer instead.
+9. **The context sets only the viewport** besides the clipboard stand-in. No time zone, locale or colour scheme, because the gate runs on the real clock and the browser's own date, and the app reads no scheme.
+
+### Open questions
+None for the planner. One line for the orchestrator. `CLAUDE.md`'s live gate command has no control line, and the control command under "How to run" below is the one to add there.
+
+### Deviations
+- None in the code.
+- Process. Two read-only commands ended with `2>&1`, a redirection the brief rules out (the `--engine firefox` refusal check and a `cat` of pytest config files that do not exist). Neither wrote a file. Each only merged error output into its pipe.
+
+### Non-goals honoured
+No change in `src/` or `index.html`. No hook, seed or flag in the app. The gate writes nothing to the page except the control's one `setItem` on `__seed__`, installs no clock and starts nothing. Every context has the clipboard stand-in, and every browser is headless.
+
+### How to run
+- Serve the root with `python -m http.server <port> --bind 127.0.0.1`. Then, once per engine, the control first, `python tests/browser/live_e2e.py --engine <engine> --base-url http://127.0.0.1:<port>/ --out docs/modules/app/qa/live-e2e/<datetimestamp>-<engine>-control/ --control seeded`, which must print `CONTROL seeded RED at the first-visit step on its property`. Then the gate, `python tests/browser/live_e2e.py --engine <engine> --base-url http://127.0.0.1:<port>/ --out docs/modules/app/qa/live-e2e/<datetimestamp>-<engine>/`, which must print `GATE PASS`. Stop the server and check that its port refuses.
+
+### For the README reconcile
+- `tests/browser/live_e2e.py`, written again. `Scenario` (21 steps), `Gate` (`step`, `settle`, `read`), `SNAPSHOT_JS`, `mismatches`, `focus_on`, `band_difference`, `wait_until_still`, `seed`, `evidence_folder`, and `run(engine, base_url, out, control)`. New option `--control seeded`. `summary.json` gains `control`, `date_unchanged`, `steps_planned`, `steps_run`, `first_failing_step`, `clipboard_marks` and, in a control run, `control_red_on_its_property`. The run stops at the first failing step.
+- `tests/browser/conftest.py` gains `long_date`.

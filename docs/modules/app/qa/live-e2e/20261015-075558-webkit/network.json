@@ -1,0 +1,125 @@
+{
+  "requests": [
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42436/"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42436/src/styles.css"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42436/src/app.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42436/src/calendar.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42436/src/dates.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42436/src/habits.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42436/src/popups.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42436/src/storage.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42436/src/view.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42436/src/ring.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42436/"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42436/src/styles.css"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42436/src/app.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42436/src/calendar.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42436/src/dates.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42436/src/habits.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42436/src/popups.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42436/src/storage.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42436/src/view.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42436/src/ring.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42436/"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42436/src/styles.css"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42436/src/app.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42436/src/calendar.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42436/src/dates.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42436/src/habits.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42436/src/popups.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42436/src/storage.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42436/src/view.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42436/src/ring.js"
+    }
+  ],
+  "outside_the_rule": []
+}
