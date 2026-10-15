@@ -170,7 +170,8 @@ every add, tick and delete, and read once at boot.
 
 `decodeState` treats the stored text as untrusted and accepts it only under the readable rule in
 `docs/modules/app/spec.md` (Contracts). Anything else resets the list to empty and shows a short note
-saying so. If storage is blocked or full, the page keeps working in memory and shows a warning that changes
+saying so. Dismiss on that note (`dismissNote` in `src/view.js`) puts focus on the name field, or on the
+page's first control (`firstControl`) when twelve habits have disabled the field. If storage is blocked or full, the page keeps working in memory and shows a warning that changes
 are not being saved. A browser that drops site data on its own reports nothing, see Known limits.
 
 - Habit names reach the page only as text. `src/` contains no `innerHTML`, `eval` or similar, and the page adds nothing to `window`.

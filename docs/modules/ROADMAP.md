@@ -112,6 +112,7 @@ No dependency deadlock. `app` uses `habit-logic`, never the reverse.
 | 25 | Platform checks, `test_platform.py` | R21, R22, R23, R24, R25, R26 | none |
 | 26 | The fidelity state scripts, each seed script starting with the clipboard stand-in, and `test_fidelity_inputs.py` | R28 | none |
 | 27 | `live_e2e.py`, the v1.1.0 cold-boot gate in both engines, with its control mode `--control seeded` | R27, R30 | none |
+| 27a | Dismiss with the field disabled sends focus to the page's first control, `dismissNote` (owner ruling H-05). Row added 2026-10-15 by the orchestrator to mirror `app/spec.md` task 27a (commit `bd07675`) | R17 | none |
 | 28 | The gates, after the finders are green in both engines. Fidelity in Chromium, then the live gate in Chromium and WebKit, each with its control run | R28, R27 | every task above |
 
 Changed 2026-10-13 after the plan check (B1, F1, F3, F4, F5). The "Waits on" column first held CG-10 to CG-19 for tasks 8, 17, 18, 21, 22, 23, 24 and 27. The owner ruled all ten on 2026-10-13 (Clarify gate, part 2), so no task waits on any of them. Rows 11, 12, 15, 19, 21, 26, 27 and 28 follow the app spec's tasks.
