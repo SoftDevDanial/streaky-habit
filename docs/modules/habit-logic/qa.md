@@ -4,7 +4,7 @@
 > Written by: the solutions architect (sdlc planner), 2026-10-08.
 > v1.1.0 delta by the planner (solutions architect role), 2026-10-13. Scenarios marked `(v1.1.0 changed)` replace their 1.0 form (kept in tag `v1.0.0`). Scenarios of retired requirements (R5, R11) are kept as text only under "Feature: Retired in v1.1.0" at the end of the Gherkin, each with a `# Retired in v1.1.0` comment, and their tests are removed. New scenarios carry `(v1.1.0 new)`. Every new or changed R# (R9, R10, R17, R18, R19, R20) has at least one scenario. Changed 2026-10-13 after the plan check (F10). The three retired scenarios first sat inside the live Features "Week strip and streaks" and "Heatmap", and one comment covered both `@R11` scenarios, so a tag count read `No habits means level 0` as live.
 > Changed 2026-10-15 in execute (planner touch after step 5, code review WR-02 of this module). The scenario "yearMonths reads no clock" now states what its test checks, a `Date` stand-in that throws on a clock read. The change carries its dated note. No scenario was added or removed.
-> Changed 2026-10-15 in the v1.1.0 regression (planner, solutions architect role, ledger H-06, owner ruling USER 2026-10-15 21:03, option 1). One `@R20` Scenario Outline is added, "yearMonths ends for every key and returns at most 13 months", for the bound on `yearMonths`. It is a contract. The test is written at task 9a and nothing is built yet. The file now holds 43 live scenarios and 3 retired ones, counted by script.
+> Changed 2026-10-15 in the v1.1.0 regression (planner, solutions architect role, ledger H-06, owner ruling USER 2026-10-15 21:03, option 1). One `@R20` Scenario Outline is added, "yearMonths ends for every key and returns at most 13 months", for the bound on `yearMonths`. ~~It is a contract. The test is written at task 9a and nothing is built yet.~~ Built 2026-10-15, commit `eafc9e5` (task 9a). The test is `@R20 yearMonths ends for every key and returns at most 13 months` in `tests/habits.test.js`, its 13 Examples rows run as subtests of one `test()`. RED first in `qa/red-first/20261015-223234-task9a-node/`, green in `qa/solver/20261015-224014-node/` (151 of 151, it was 137). Re-checked the same day, code review clean (`findings/regression-code-review.md`) and security closing SEC-R01 (`../app/findings/regression-security.md`, section "Re-check 2026-10-15, task 9a"). The file now holds 43 live scenarios and 3 retired ones, counted by script.
 
 ## How these scenarios run
 - This module has no UI. Its "running app" is the module code itself, exercised by Node's built-in test runner.
@@ -496,7 +496,8 @@ Feature: The year (v1.1.0 new)
   @R20
   Scenario Outline: yearMonths ends for every key and returns at most 13 months (v1.1.0 regression, H-06)
     # Added 2026-10-15 in the v1.1.0 regression (planner, ledger H-06, owner ruling USER 2026-10-15 21:03, option 1,
-    # security finder SEC-R01). Contracted here and built at task 9a, not built yet. The two scenarios above keep the
+    # security finder SEC-R01). ~~Contracted here and built at task 9a, not built yet.~~ Built 2026-10-15 at task 9a,
+    # commit eafc9e5, re-checked the same day by code review and security. The two scenarios above keep the
     # exact months of the valid keys and stay unchanged. This one holds only that the call ends and how many months
     # it returns.
     # Method. A call that may never end cannot be failed from its own thread. Each row calls yearMonths inside a worker
