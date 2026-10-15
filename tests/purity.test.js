@@ -60,9 +60,34 @@ test("@R16 the source has no clock or random read, even in a comment", () => {
   for (const [name, text] of Object.entries(SOURCES)) assertNoClockRead(name, text);
 });
 
+/**
+ * A Date that throws on every read of the device clock and builds any date it is given. While it stands in for
+ * `globalThis.Date`, a clock read inside a function body throws, an aliased one (`const Clock = Date`) included, which
+ * the source scan above cannot see and two calls in the same millisecond cannot tell apart.
+ */
+class ClockReadDate extends Date {
+  constructor(...args) {
+    if (args.length === 0) throw new Error("a clock read, new Date() with no argument");
+    super(...args);
+  }
+
+  static now() {
+    throw new Error("a clock read, Date.now()");
+  }
+}
+
 test("@R20 @R16 yearMonths reads no clock, so two calls with one key give equal results", () => {
-  assertNoClockRead("habits.js", SOURCES["habits.js"]);
-  assert.deepEqual(habits.yearMonths(TODAY), habits.yearMonths(TODAY));
+  const realDate = globalThis.Date;
+  globalThis.Date = ClockReadDate;
+  let first;
+  let second;
+  try {
+    first = habits.yearMonths(TODAY);
+    second = habits.yearMonths(TODAY);
+  } finally {
+    globalThis.Date = realDate;
+  }
+  assert.deepEqual(first, second);
 });
 
 test("@R16 the code has no DOM, storage, network, timer, global or locale access and builds no code from strings", () => {
