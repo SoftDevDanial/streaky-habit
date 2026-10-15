@@ -124,3 +124,13 @@ RED first. The code under test landed in task 8, so a missing export could not b
 Proof. `node --test "tests/**/*.test.js"` gives 137 tests, 137 pass (dates 18, habits 43, sample-history 14, purity 6, ring 16, storage 40). Chromium browser suite, 8 passed, 2 xfailed (strict).
 
 Deviations: none. Non-goals honored: `docs/design/` read only, nothing written there.
+
+## v1.1.0 solver round on the step 5 code review (2026-10-15)
+> Written by the dev solver (solver role), 2026-10-15. The verdicts are in `findings/code-review.md`, section "Solver round 2026-10-15".
+
+- WR-01 (`0f7f68b`). Tasks 6 to 9 ticked in `spec.md` with a dated note, rows 6 to 9 in "Tasks to commits" above, the 1.0 count and the 1.0 non-goals paragraph each with a dated line.
+- WR-02 (`9fe4a70`). `tests/purity.test.js` calls `yearMonths` while `globalThis.Date` is `ClockReadDate`, which throws on `new Date()` with no argument and on `Date.now`, restored in a `finally`. The scan line the test repeated is gone, `@R16 the source has no clock or random read` holds it. RED under the aliased-clock mutants H12 and H13 (only this test fails, "a clock read, new Date() with no argument"), green on the code, `docs/modules/habit-logic/qa/solver/20261015-142752-wr02-node/`. The folder `20261015-142734-wr02-node/` before it is void, its load hook did not apply on the CRLF checkout.
+- WR-03 is the orchestrator's (the README).
+- Proof. `docs/modules/app/qa/functional/20261015-142907-node/`, 137 of 137.
+
+For the planner. qa.md "yearMonths reads no clock" reads "Given the purity scan of @R16 over src/habits.js with the new exports / Then it passes, and yearMonths called twice with the same key gives equal results". Recommended. "Given globalThis.Date is a stand-in that throws when it is called with no argument and from Date.now / Then yearMonths called twice with the same key gives equal results and throws nothing, and Date is the real one again after the test".

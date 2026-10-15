@@ -973,3 +973,60 @@ No change in `src/` or `index.html`. No hook, seed or flag in the app. The gate 
 ### For the README reconcile
 - `tests/browser/live_e2e.py`, written again. `Scenario` (21 steps), `Gate` (`step`, `settle`, `read`), `SNAPSHOT_JS`, `mismatches`, `focus_on`, `band_difference`, `wait_until_still`, `seed`, `evidence_folder`, and `run(engine, base_url, out, control)`. New option `--control seeded`. `summary.json` gains `control`, `date_unchanged`, `steps_planned`, `steps_run`, `first_failing_step`, `clipboard_marks` and, in a control run, `control_red_on_its_property`. The run stops at the first failing step.
 - `tests/browser/conftest.py` gains `long_date`.
+
+---
+
+## v1.1.0 solver round on the step 5 findings (2026-10-15)
+> Written by the dev solver (solver role), 2026-10-15, from `findings/code-review.md` (CR-01, WR-01 to WR-11) and `findings/qa.md` (the `@R36` room row). The verdict of each finding is in its findings file, section "Solver round 2026-10-15". Evidence is under `docs/modules/app/qa/solver/` and `docs/modules/app/qa/functional/`, folders named below.
+
+### Phase skills
+The design row was not loaded. The `src/` changes are one comment, two helpers moved between modules and one argument, with no change to markup, style or copy. The whole Chromium suite, the golden markup comparisons included, was green before and after (WR-10). Named here as a process deviation.
+
+### What changed
+- CR-01 (`7d3bd78`). Six close tests take `watch_close` before the gesture and `wait_for_close` before reading. No app change, the app was right.
+- WR-01 (`adcb981`). `_CANON_JS` and `_RING_PARTS_JS` show a node outside the namespace the HTML parser gives it. New `test_R42_every_svg_part_in_the_page_and_the_popups_is_in_the_svg_namespace_and_draws`. The rejected-name rows and the Dismiss test count writes. New `test_R19_a_page_booted_ten_seconds_before_midnight_shows_the_new_day_thirty_seconds_after_it`.
+- WR-02 (`7fdc358`). The P1 tick, P2 bead and motion tests read every popped tick and bead (`settled_entries` in `test_platform.py`).
+- WR-03, WR-04, WR-05 (`5b07fc4`). `legend_of`, `arc_path` and `js_number` in `conftest.py` (the last two moved from `test_add.py`). New `test_R33_p2_opens_again_at_its_top_after_it_closed_scrolled`, `test_R39_p4_opens_again_at_its_top_after_it_closed_scrolled`, `test_R36_p1_lists_the_habits_there_are_when_it_opens`, `test_R12_a_render_at_twelve_habits_does_not_write_the_note_again`.
+- WR-07 (`945e8b4`). The comment in `guardTapThrough` gives the true reason. The backdrop double press test gains the row `1280x800-mouse-P2-then-M1` (its `at` column) and `UNDER_JS` takes a dialog found at the point as its backdrop.
+- WR-08 (`8bfb05f`). The mark's comment in `index.html` names `src/icon.svg`.
+- WR-10 (`bfe0320`). `dayUnit` and `icon` moved from `calendar.js` to `view.js`, and `popups.js` imports them from there. `render` passes `doneFlags` for today to `renderRows(habits, todayKey, todayFlags, animate)`, and `syncRow` reads it.
+- WR-11 (`d05c9fb`). One `STANDIN_IN_PLACE_JS` in `conftest.py`, read by `test_engines.py`, `test_fidelity_inputs.py` and `SNAPSHOT_JS`.
+- WR-06 (`f009b01`). The `SETTLE_MS` comment and judgment call 3 of task 27.
+
+### RED first and proof
+Each new or changed check was run against the finder's planted defect, served from memory over the working tree (no file of `src/` written), then on the code. All in Chromium unless named.
+- `solver/20261015-140740-cr01-chromium/`. A2 (room never released) red on 5 of 6 room rows on the padding line (the 800x900 row has no room by design). Control 22 of 22.
+- `solver/20261015-140949-wr01-chromium/` and `20261015-141045-wr01-chromium/`. B1 red (draws nothing, and the namespace markers in `ring_parts` and `canon_tree`), B3 red ("Dismiss saved"), B4 red on 7 of 7 rows, the 45, 60, 85 and 115 second checks red (the header still Saturday at 00:00:30). The first folder also holds the first version of the namespace test failing its control, because the R14 guard held its Year click. Control 12 of 12 in the second.
+- `solver/20261015-141137-wr02-chromium/`. A11 and A11b red. Control 3 of 3.
+- `solver/20261015-141339-wr03-05-chromium/` and `20261015-141405-wr03-05-chromium/`. A65 red on the add and bin-delete rows (the only-habit row stays green under A65, its legend was drawn for 0 habits at boot), A17 red (900 and 3332), A60 red, A9 red. Control 7 of 7 in the second.
+- `solver/20261015-141510-wr07-chromium/`. P-G0 red on 8 of 8 rows, P-G1 red on the two P3 rows and the new row. Control 8 of 8.
+- `solver/20261015-141626-wr08-chromium/`. Entry tests green.
+- `solver/20261015-141655-wr10-before-chromium/` and `20261015-142011-wr10-after-chromium/`. 354 passed before and after (the 1 skip is the sub-path test under a named base URL).
+- `solver/20261015-142435-wr11-chromium/`. With the stand-in removed from the context in a throwaway copy, W21's test and the gate's first-visit step red. On the code 30 passed and GATE PASS 21 of 21.
+- `solver/20261015-142537-wr06-a1-chromium/` and `20261015-142545-wr06-a1-webkit/`. A1 green on the 16 close-focus tests in Chromium, red 16 of 16 in WebKit.
+- Suites. Node `functional/20261015-142907-node/`, 137 of 137. Chromium `functional/20261015-142914-chromium/`, 355 tests, 0 failures, 0 skipped. WebKit `functional/20261015-143150-webkit/`, 355 tests, 0 failures, 1 skipped (CO-1). The `@R36` row `360x780 P3 2026-07-20` ten times, `functional/20261015-143559-r36-x10-chromium/`, 10 of 10 passed.
+
+### For the planner (contract and qa.md lines the findings ask for, recommended wording)
+1. CR-01, spec R36. "... through a function of `src/popups.js`, before focus returns to the day button." becomes "... through a function of `src/popups.js`, before the app returns focus to the day button. In Chromium the browser returns focus inside `close()` first, so a test reads the room and the focus only after the close event."
+2. WR-01, qa.md. "Ring parts and their order" or a new `@R42` scenario. "Then every svg, use, path, circle and text of the page, and of P1 over P4, M1 over P2 and P3, is in the SVG namespace, and the band's ring for today, the Overview ring, a P3 day ring and the empty list's orbit each have a getBBox() wider than 0."
+3. WR-01, qa.md "Rejected names keep the text ...". Given gains "with count_writes", and the last Then gains "and no write was made".
+4. WR-01, qa.md "Dismiss removes the note ...". Given gains "with count_writes", and the first Then gains "and no write was made after the reset save".
+5. WR-01, qa.md, a new `@R19` scenario "A page booted ten seconds before midnight shows the new day thirty seconds after it". "Given storage holds the sample, the viewport is 1280 x 800, and the clock is installed at 2026-10-10T23:59:50+08:00 and paused at 23:59:59. When the clock runs for 900 ms, Then the date still reads "Saturday 10 October". When the clock runs for 30100 ms more (to 00:00:30.0), Then the page shows Sunday 11 October as the within-a-minute scenario lists it."
+6. WR-02, qa.md "Ticking a past day in P1". After "has aria-pressed "true" and the classes "on" and "pop"", add "and no other tick has "pop"". "Ticking a day in the year view". After "the bead 2026-10-08 has gained "r"", add "and no other bead has "pop", 2026-10-08 included". The motion scenario. "the log gains "pop" on that tick's span.tbox" and "on that bead's span.bead" become "gains, and gains only among ticks" and "gains, and gains only among beads".
+7. WR-03, qa.md. "Enter adds at the bottom ..." gains "And the band's legend holds "None", rings with 0, 2, 3 and 4 of four segments on, the last with circle.c-core, and "All"". "Deleting from a bin ..." gains the same with 0, 1 and 2 of two. "Deleting the only habit ..." gains "and the band's legend holds "None", one circle.seg and "All"".
+8. WR-04, qa.md, R33 and R39. "P2 opens again at its top after it closed scrolled" (scroll P2's body with the wheel at 390 x 844, Esc, Year again, scrollTop 0) and "P4 opens again at its top after it closed scrolled" (on a phone, P4 from P3, its 2025-10-10 day, Esc twice, P3's Year again, scrollTop 0). P3 is left out, its body has nothing to scroll once P1's room is gone.
+9. WR-05, qa.md. "P1 lists the habits there are when it opens" (`@R36`, open, close, add, open with four ticks, close, delete, open with three) and "A render at twelve habits does not write the note again" (`@R12`, a Done today press at twelve habits leaves `#nh-msg`'s children alone).
+10. WR-06, qa.md "Engine differences by design". A row "Focus returned to the opener on a close (R40) | the browser's own restore inside `close()` lands on the same opener before the app's close handler runs | the app's focus is the only one | so R40's return of focus is proven by the WebKit run, and a Chromium test reads focus only after the close event".
+11. WR-07, qa.md "A double press on a backdrop does not reach the control behind it". The row "| 1280x800 | mouse | P2 for Read, then M1 from its Delete habit | P2's backdrop at the point (5, 5), outside both boxes | P2 is still open |".
+12. WR-08, spec Contracts "Uses from habit-logic". Take `monthTitle` and `yearStart` out of the two lists and add "`monthTitle` and `yearStart` are reached through `yearMonths` and `toggleDay`, no app file imports them (changed 2026-10-15, code-review WR-08)."
+
+### For the README reconcile
+- `src/view.js` exports `dayUnit` and `icon` (moved from `src/calendar.js`, which no longer exports them). `renderRows(habits, todayKey, todayFlags, animate)` takes habit-logic's `doneFlags` for today.
+- `src/popups.js` imports `dayUnit`, `icon` and `renderStats` from `view.js`.
+- `src/app.js` `render` computes `doneFlags` for today once. The comment in `guardTapThrough` changed, the code did not.
+- `tests/browser/conftest.py` gains `STANDIN_IN_PLACE_JS`, `legend_of`, `arc_path`, `js_number`. `test_engines.py` no longer has `STAND_IN_JS` and `test_fidelity_inputs.py` no longer defines `STANDIN_IN_PLACE_JS`.
+- No tracked file was deleted.
+
+### Deviations
+- None from the spec. No dependency, no contract change.
+- Process. Two read-only shell commands used a redirection the brief rules out (`2>&1` on an `ls`, `2>/dev/null` on an `ls`). Neither wrote a file. The design row was not loaded (above).
