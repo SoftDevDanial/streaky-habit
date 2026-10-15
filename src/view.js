@@ -275,9 +275,8 @@ export function dismissNote() {
 }
 
 /**
- * The page's first control that can take focus, where focus goes when a new day took away the day that held it and
- * no popup is open (CG-14). It is the Overview button below 1024 px and the band's Year from 1024 px, where the CSS
- * hides the Overview button, so it is the first shown control in page order.
+ * The page's first shown control that is not disabled, in page order. It is the Overview button below 1024 px
+ * and the band's Year from 1024 px, where the CSS hides the Overview button.
  */
 export const firstControl = () =>
   Array.from(document.querySelectorAll("div.app button, div.app input")).find((control) => !control.disabled && control.getClientRects().length > 0);
