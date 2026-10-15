@@ -1,0 +1,15 @@
+Run 1 of rs9a_memory.py (23:17:48 to 23:20:38), an instrument fault, kept as a record and not used.
+
+Run 1 walked the process tree by ParentProcessId alone. In the WebKit control case it counted three Discord.exe
+processes (PID 2252 at 491 MiB, 18764 at 176 MiB, 8504 at 169 MiB, 15 processes in all) as descendants of the probe,
+and its powershell.exe samplers. Windows keeps a dead parent's PID in ParentProcessId and reuses PIDs, so an old
+process whose parent had exited matched a PID in the probe's tree. The finder only read Win32_Process. No process
+outside the probe's own tree was touched, signalled or stopped. The Chromium cases of run 1 were clean (6 processes,
+renderer 94 to 145 MiB at 10000-10-15, the same picture as run 2).
+
+Fix in run 2. A child counts only when its CreationDate is at or after its parent's, and the sampler's own
+powershell.exe and conhost.exe under the probe's python are left out. Run 2 is rs9a_memory.txt.
+
+Raw stdout of run 1, kept in the finder's scratch folder only.
+  out_memory_run1_chromium.txt sha256 8b3622975d80824296f97b210beb08f699acdddd6b37573f908d3ea37d2451f1
+  out_memory_run1_webkit.txt   sha256 0f2522ae48bae196e105cafa017051eb71364e480295380c20f866be3e420477

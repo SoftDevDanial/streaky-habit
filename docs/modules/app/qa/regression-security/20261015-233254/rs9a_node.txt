@@ -1,0 +1,40 @@
+$ timeout 900 node rs9a_node.mjs sweep   (started 23:29:45, ran beside the diff, Node v24.11.1)
+$ timeout 900 node rs9a_node.mjs diff    (started 23:29:45, ended by 23:32:00)
+Both read src/habits.js of the committed tree (40848ce under src). The diff's old function is
+`git show a6f7e18:src/habits.js` with `git show a6f7e18:src/dates.js`, copied into the finder's scratch folder.
+Stdout saved with the Write tool, unchanged.
+
+{"part":"sweep","ended":true,"why":null,"exitCode":0,"seconds":10.387,"keys":616624,"lengths":{"11":108482,"13":930},"maxLength":13,"throws":{"TypeError: Cannot read properties of undefined (reading 'slice')":507212},"slowest":{"ms":11.63,"key":"10000-11-09"}}
+sweep exit 0
+{"part":"diff","set":"every day 1999-01-01 to 2101-12-31","keys":37620,"differences":0,"newNotThirteen":0,"seconds":32.344}
+{"part":"diff","set":"first day of every month 0001 to 9999","keys":119988,"differences":0,"newNotThirteen":0,"seconds":102.335}
+diff exit 0
+
+$ timeout 600 node --test "tests/**/*.test.js"   (23:32:16 to 23:32:17, project root, tail of the output)
+tests 151, pass 151, fail 0, cancelled 0, skipped 0, todo 0, duration_ms 889.5393
+
+$ timeout 120 node --test --test-name-pattern="yearMonths ends" tests/habits.test.js   (lines kept by grep)
+> @R20 yearMonths ends for every key and returns at most 13 months
+  ok 2026-10-10, it returned 13 months (25.6597ms)
+  ok 0001-01-01, it returned 13 months (22.1374ms)
+  ok 9999-12-31, it returned 13 months (21.0369ms)
+  ok 10000-10-01, it returned at most 13 months (21.5831ms)
+  ok 10000-10-15, it returned at most 13 months (21.4338ms)
+  ok 10000-12-31, it returned at most 13 months (22.5923ms)
+  ok 10005-11-20, it returned at most 13 months (20.5495ms)
+  ok 10009-10-01, it returned at most 13 months (20.378ms)
+  ok 10009-12-31, it returned at most 13 months (20.5626ms)
+  ok every day of October, November and December of the years 10000 to 10009 (920 keys), it returned at most 13 months for each key (253.1286ms)
+  ok 10000-01-05, it returned at most 13 months or threw (21.9729ms)
+  ok 10010-10-15, it returned at most 13 months or threw (21.7908ms)
+  ok 100000-10-15, it returned at most 13 months or threw (20.7004ms)
+ok @R20 yearMonths ends for every key and returns at most 13 months (515.8089ms)
+tests 14, pass 14, fail 0
+(The reporter's check marks are written here as "ok", the text is otherwise as printed.)
+
+Reading (security finder). The sweep covers every key a device clock can give past 9999 at day level for 10000 to 10200,
+99990 to 100010 and 275750 to 275760, and two days of every year up to 275760, the last year a JavaScript Date holds.
+Every call ended. 930 returned 13 months (the October to December days of 10000 to 10009 in the set), 108,482 returned
+11, 507,212 threw the TypeError, none returned more than 13, and the slowest call took 11.63 ms. For a key that passes
+isDateKey the bound changes nothing, 157,608 keys with 0 differences, the same counts the planner and the solver
+reported.

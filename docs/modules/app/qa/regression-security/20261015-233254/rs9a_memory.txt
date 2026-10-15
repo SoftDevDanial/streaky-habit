@@ -1,0 +1,74 @@
+$ timeout 300 python -u -B rs9a_memory.py chromium   (run 2, 23:20:58 to 23:22:19)
+$ timeout 300 python -u -B rs9a_memory.py webkit     (run 2, 23:22:19 to 23:23:47)
+HEAD c00bc8c, tree of 40848ce under src, tests and index.html. Stdout of both runs, saved with the Write tool, unchanged.
+Fields. totalMiB is the summed working set of every process descended from the probe's own python (Playwright driver
+node.exe, the browser and its children), with the http.server and the sampler's own powershell.exe left out. largest
+is the three biggest [MiB, name, PID]. The renderer is chrome-headless-shell.exe 17904 / 17740 (Chromium) and
+WebKitWebProcess.exe 25648 / 23340 (WebKit). Run 1 is not used, see rs9a_memory_run1_note.txt.
+
+[server] started pid=20876 port=28798 dir={workspace}\examples\streaks
+{"engine": "chromium", "case": "control 9999-10-15", "step": "before any year view", "answers": true, "totalMiB": 364, "largest": [[124, "node.exe", 5620], [96, "chrome-headless-shell.exe", 17904], [57, "chrome-headless-shell.exe", 1052]], "processes": 5}
+{"engine": "chromium", "case": "control 9999-10-15", "step": "pressed P2", "press": "returned", "open": true}
+{"engine": "chromium", "case": "control 9999-10-15", "step": "P2 open, sample at 1.0 s", "answers": true, "totalMiB": 398, "largest": [[125, "node.exe", 5620], [124, "chrome-headless-shell.exe", 17904], [62, "chrome-headless-shell.exe", 1052]], "processes": 5}
+{"engine": "chromium", "case": "control 9999-10-15", "step": "P2 open, sample at 4.0 s", "answers": true, "totalMiB": 396, "largest": [[125, "node.exe", 5620], [121, "chrome-headless-shell.exe", 17904], [62, "chrome-headless-shell.exe", 1052]], "processes": 5}
+{"engine": "chromium", "case": "control 9999-10-15", "step": "P2 open, sample at 8.0 s", "answers": true, "totalMiB": 354, "largest": [[116, "chrome-headless-shell.exe", 17904], [94, "node.exe", 5620], [56, "chrome-headless-shell.exe", 1052]], "processes": 5}
+{"engine": "chromium", "case": "control 9999-10-15", "step": "P2 open, sample at 12.0 s", "answers": true, "totalMiB": 353, "largest": [[116, "chrome-headless-shell.exe", 17904], [93, "node.exe", 5620], [56, "chrome-headless-shell.exe", 1052]], "processes": 5}
+{"engine": "chromium", "case": "control 9999-10-15", "step": "pressed P4", "press": "returned", "open": true}
+{"engine": "chromium", "case": "control 9999-10-15", "step": "P4 open, sample at 1.0 s", "answers": true, "totalMiB": 376, "largest": [[133, "chrome-headless-shell.exe", 17904], [94, "node.exe", 5620], [61, "chrome-headless-shell.exe", 1052]], "processes": 5}
+{"engine": "chromium", "case": "control 9999-10-15", "step": "P4 open, sample at 4.0 s", "answers": true, "totalMiB": 377, "largest": [[133, "chrome-headless-shell.exe", 17904], [95, "node.exe", 5620], [61, "chrome-headless-shell.exe", 1052]], "processes": 5}
+{"engine": "chromium", "case": "control 9999-10-15", "step": "P4 open, sample at 8.0 s", "answers": true, "totalMiB": 366, "largest": [[127, "chrome-headless-shell.exe", 17904], [95, "node.exe", 5620], [56, "chrome-headless-shell.exe", 1052]], "processes": 5}
+{"engine": "chromium", "case": "control 9999-10-15", "step": "P4 open, sample at 12.0 s", "answers": true, "totalMiB": 366, "largest": [[127, "chrome-headless-shell.exe", 17904], [95, "node.exe", 5620], [56, "chrome-headless-shell.exe", 1052]], "processes": 5}
+{"engine": "chromium", "case": "control 9999-10-15", "step": "after 20 open and close cycles of P2 and P4", "opened": 40, "of": 40, "cycleSeconds": 4.4, "pageErrors": 0, "answers": true, "totalMiB": 397, "largest": [[155, "chrome-headless-shell.exe", 17904], [97, "node.exe", 5620], [57, "chrome-headless-shell.exe", 1052]], "processes": 5}
+{"engine": "chromium", "case": "control 9999-10-15", "step": "4 s later", "answers": true, "totalMiB": 392, "largest": [[150, "chrome-headless-shell.exe", 17904], [97, "node.exe", 5620], [57, "chrome-headless-shell.exe", 1052]], "processes": 5}
+{"engine": "chromium", "case": "control 9999-10-15", "step": "browser closed", "closeSeconds": 0.03}
+{"engine": "chromium", "case": "10000-10-15", "step": "before any year view", "answers": true, "totalMiB": 337, "largest": [[99, "node.exe", 5620], [94, "chrome-headless-shell.exe", 17740], [57, "chrome-headless-shell.exe", 22504]], "processes": 5}
+{"engine": "chromium", "case": "10000-10-15", "step": "pressed P2", "press": "returned", "open": true}
+{"engine": "chromium", "case": "10000-10-15", "step": "P2 open, sample at 1.0 s", "answers": true, "totalMiB": 366, "largest": [[119, "chrome-headless-shell.exe", 17740], [98, "node.exe", 5620], [62, "chrome-headless-shell.exe", 22504]], "processes": 5}
+{"engine": "chromium", "case": "10000-10-15", "step": "P2 open, sample at 4.0 s", "answers": true, "totalMiB": 362, "largest": [[115, "chrome-headless-shell.exe", 17740], [98, "node.exe", 5620], [62, "chrome-headless-shell.exe", 22504]], "processes": 5}
+{"engine": "chromium", "case": "10000-10-15", "step": "P2 open, sample at 8.0 s", "answers": true, "totalMiB": 350, "largest": [[110, "chrome-headless-shell.exe", 17740], [98, "node.exe", 5620], [55, "chrome-headless-shell.exe", 22504]], "processes": 5}
+{"engine": "chromium", "case": "10000-10-15", "step": "P2 open, sample at 12.0 s", "answers": true, "totalMiB": 350, "largest": [[110, "chrome-headless-shell.exe", 17740], [98, "node.exe", 5620], [55, "chrome-headless-shell.exe", 22504]], "processes": 5}
+{"engine": "chromium", "case": "10000-10-15", "step": "pressed P4", "press": "returned", "open": true}
+{"engine": "chromium", "case": "10000-10-15", "step": "P4 open, sample at 1.0 s", "answers": true, "totalMiB": 374, "largest": [[129, "chrome-headless-shell.exe", 17740], [98, "node.exe", 5620], [60, "chrome-headless-shell.exe", 22504]], "processes": 5}
+{"engine": "chromium", "case": "10000-10-15", "step": "P4 open, sample at 4.0 s", "answers": true, "totalMiB": 374, "largest": [[129, "chrome-headless-shell.exe", 17740], [98, "node.exe", 5620], [60, "chrome-headless-shell.exe", 22504]], "processes": 5}
+{"engine": "chromium", "case": "10000-10-15", "step": "P4 open, sample at 8.0 s", "answers": true, "totalMiB": 364, "largest": [[124, "chrome-headless-shell.exe", 17740], [98, "node.exe", 5620], [55, "chrome-headless-shell.exe", 22504]], "processes": 5}
+{"engine": "chromium", "case": "10000-10-15", "step": "P4 open, sample at 12.0 s", "answers": true, "totalMiB": 364, "largest": [[124, "chrome-headless-shell.exe", 17740], [98, "node.exe", 5620], [55, "chrome-headless-shell.exe", 22504]], "processes": 5}
+{"engine": "chromium", "case": "10000-10-15", "step": "after 20 open and close cycles of P2 and P4", "opened": 40, "of": 40, "cycleSeconds": 4.3, "pageErrors": 0, "answers": true, "totalMiB": 411, "largest": [[164, "chrome-headless-shell.exe", 17740], [102, "node.exe", 5620], [57, "chrome-headless-shell.exe", 22504]], "processes": 5}
+{"engine": "chromium", "case": "10000-10-15", "step": "4 s later", "answers": true, "totalMiB": 405, "largest": [[158, "chrome-headless-shell.exe", 17740], [102, "node.exe", 5620], [57, "chrome-headless-shell.exe", 22504]], "processes": 5}
+{"engine": "chromium", "case": "10000-10-15", "step": "browser closed", "closeSeconds": 0.03}
+[server] stopped pid=20876 exit=1 port 28798 refuses=True
+[server] started pid=25912 port=15231 dir={workspace}\examples\streaks
+{"engine": "webkit", "case": "control 9999-10-15", "step": "before any year view", "answers": true, "totalMiB": 316, "largest": [[124, "node.exe", 15540], [82, "WebKitWebProcess.exe", 25648], [32, "Playwright.exe", 6600]], "processes": 8}
+{"engine": "webkit", "case": "control 9999-10-15", "step": "pressed P2", "press": "returned", "open": true}
+{"engine": "webkit", "case": "control 9999-10-15", "step": "P2 open, sample at 1.0 s", "answers": true, "totalMiB": 333, "largest": [[125, "node.exe", 15540], [97, "WebKitWebProcess.exe", 25648], [32, "Playwright.exe", 6600]], "processes": 8}
+{"engine": "webkit", "case": "control 9999-10-15", "step": "P2 open, sample at 4.0 s", "answers": true, "totalMiB": 333, "largest": [[125, "node.exe", 15540], [96, "WebKitWebProcess.exe", 25648], [32, "Playwright.exe", 6600]], "processes": 8}
+{"engine": "webkit", "case": "control 9999-10-15", "step": "P2 open, sample at 8.0 s", "answers": true, "totalMiB": 301, "largest": [[96, "WebKitWebProcess.exe", 25648], [93, "node.exe", 15540], [32, "Playwright.exe", 6600]], "processes": 8}
+{"engine": "webkit", "case": "control 9999-10-15", "step": "P2 open, sample at 12.0 s", "answers": true, "totalMiB": 300, "largest": [[95, "WebKitWebProcess.exe", 25648], [94, "node.exe", 15540], [32, "Playwright.exe", 6600]], "processes": 8}
+{"engine": "webkit", "case": "control 9999-10-15", "step": "pressed P4", "press": "returned", "open": true}
+{"engine": "webkit", "case": "control 9999-10-15", "step": "P4 open, sample at 1.0 s", "answers": true, "totalMiB": 311, "largest": [[105, "WebKitWebProcess.exe", 25648], [95, "node.exe", 15540], [32, "Playwright.exe", 6600]], "processes": 8}
+{"engine": "webkit", "case": "control 9999-10-15", "step": "P4 open, sample at 4.0 s", "answers": true, "totalMiB": 311, "largest": [[105, "WebKitWebProcess.exe", 25648], [95, "node.exe", 15540], [32, "Playwright.exe", 6600]], "processes": 8}
+{"engine": "webkit", "case": "control 9999-10-15", "step": "P4 open, sample at 8.0 s", "answers": true, "totalMiB": 309, "largest": [[103, "WebKitWebProcess.exe", 25648], [95, "node.exe", 15540], [32, "Playwright.exe", 6600]], "processes": 8}
+{"engine": "webkit", "case": "control 9999-10-15", "step": "P4 open, sample at 12.0 s", "answers": true, "totalMiB": 309, "largest": [[103, "WebKitWebProcess.exe", 25648], [95, "node.exe", 15540], [32, "Playwright.exe", 6600]], "processes": 8}
+{"engine": "webkit", "case": "control 9999-10-15", "step": "after 20 open and close cycles of P2 and P4", "opened": 40, "of": 40, "cycleSeconds": 8.5, "pageErrors": 0, "answers": true, "totalMiB": 348, "largest": [[138, "WebKitWebProcess.exe", 25648], [98, "node.exe", 15540], [32, "Playwright.exe", 6600]], "processes": 8}
+{"engine": "webkit", "case": "control 9999-10-15", "step": "4 s later", "answers": true, "totalMiB": 348, "largest": [[138, "WebKitWebProcess.exe", 25648], [98, "node.exe", 15540], [32, "Playwright.exe", 6600]], "processes": 8}
+{"engine": "webkit", "case": "control 9999-10-15", "step": "browser closed", "closeSeconds": 0.02}
+{"engine": "webkit", "case": "10000-10-15", "step": "before any year view", "answers": true, "totalMiB": 292, "largest": [[99, "node.exe", 15540], [82, "WebKitWebProcess.exe", 23340], [32, "Playwright.exe", 4196]], "processes": 8}
+{"engine": "webkit", "case": "10000-10-15", "step": "pressed P2", "press": "returned", "open": true}
+{"engine": "webkit", "case": "10000-10-15", "step": "P2 open, sample at 1.0 s", "answers": true, "totalMiB": 307, "largest": [[100, "node.exe", 15540], [95, "WebKitWebProcess.exe", 23340], [32, "Playwright.exe", 4196]], "processes": 8}
+{"engine": "webkit", "case": "10000-10-15", "step": "P2 open, sample at 4.0 s", "answers": true, "totalMiB": 306, "largest": [[100, "node.exe", 15540], [94, "WebKitWebProcess.exe", 23340], [32, "Playwright.exe", 4196]], "processes": 8}
+{"engine": "webkit", "case": "10000-10-15", "step": "P2 open, sample at 8.0 s", "answers": true, "totalMiB": 305, "largest": [[99, "node.exe", 15540], [94, "WebKitWebProcess.exe", 23340], [32, "Playwright.exe", 4196]], "processes": 8}
+{"engine": "webkit", "case": "10000-10-15", "step": "P2 open, sample at 12.0 s", "answers": true, "totalMiB": 305, "largest": [[99, "node.exe", 15540], [94, "WebKitWebProcess.exe", 23340], [32, "Playwright.exe", 4196]], "processes": 8}
+{"engine": "webkit", "case": "10000-10-15", "step": "pressed P4", "press": "returned", "open": true}
+{"engine": "webkit", "case": "10000-10-15", "step": "P4 open, sample at 1.0 s", "answers": true, "totalMiB": 311, "largest": [[100, "WebKitWebProcess.exe", 23340], [99, "node.exe", 15540], [32, "Playwright.exe", 4196]], "processes": 8}
+{"engine": "webkit", "case": "10000-10-15", "step": "P4 open, sample at 4.0 s", "answers": true, "totalMiB": 311, "largest": [[100, "WebKitWebProcess.exe", 23340], [99, "node.exe", 15540], [32, "Playwright.exe", 4196]], "processes": 8}
+{"engine": "webkit", "case": "10000-10-15", "step": "P4 open, sample at 8.0 s", "answers": true, "totalMiB": 311, "largest": [[100, "WebKitWebProcess.exe", 23340], [99, "node.exe", 15540], [32, "Playwright.exe", 4196]], "processes": 8}
+{"engine": "webkit", "case": "10000-10-15", "step": "P4 open, sample at 12.0 s", "answers": true, "totalMiB": 310, "largest": [[99, "node.exe", 15540], [99, "WebKitWebProcess.exe", 23340], [32, "Playwright.exe", 4196]], "processes": 8}
+{"engine": "webkit", "case": "10000-10-15", "step": "after 20 open and close cycles of P2 and P4", "opened": 40, "of": 40, "cycleSeconds": 8.4, "pageErrors": 0, "answers": true, "totalMiB": 330, "largest": [[115, "WebKitWebProcess.exe", 23340], [102, "node.exe", 15540], [32, "Playwright.exe", 4196]], "processes": 8}
+{"engine": "webkit", "case": "10000-10-15", "step": "4 s later", "answers": true, "totalMiB": 329, "largest": [[114, "WebKitWebProcess.exe", 23340], [102, "node.exe", 15540], [32, "Playwright.exe", 4196]], "processes": 8}
+{"engine": "webkit", "case": "10000-10-15", "step": "browser closed", "closeSeconds": 0.01}
+[server] stopped pid=25912 exit=1 port 15231 refuses=True
+
+Reading (security finder). At 10000-10-15 the renderer's working set went 94 to 129 MiB in Chromium and 82 to 100 MiB in
+WebKit across both year views, then stayed level or fell from 1 s to 12 s, and the page answered at every sample. The
+9999-10-15 control moved the same way (96 to 133 MiB, 82 to 105 MiB). 40 of 40 opens after the views succeeded, with
+the renderer at 164 MiB (Chromium) and 115 MiB (WebKit), the control at 155 and 138. The 1.1.0 freeze at the same clock
+grew 107 to 1,301 MiB in 12 s (20261015-192841/probe_12_hang_memory.txt). Memory is flat.

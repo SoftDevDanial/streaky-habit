@@ -1,0 +1,63 @@
+The first audit's probes run again on the committed tree (HEAD c00bc8c, 40848ce under src, tests and index.html).
+probe_11_year10000.py, probe_14_rollover_hang.py and probe_12_hang_memory.py were copied from
+docs/modules/app/qa/regression-security/20261015-192841/ into the finder's scratch folder and are byte for byte the same
+(cmp). lib.py differs in one line only, ROOT, because the copy no longer sits five folders under the project:
+  < ROOT = HERE.parents[5]  # <root>/docs/modules/app/qa/security/<stamp>
+  > ROOT = pathlib.Path(r"{workspace}/examples/streaks")  # re-check: the copy lives in scratch
+Stdout saved with the Write tool, unchanged.
+
+$ timeout 300 python -u -B probe_11_year10000.py chromium hang   (from 23:26:27)
+[server] started pid=27104 port=45479 dir={workspace}\examples\streaks
+{"engine": "chromium", "version": "149.0.7827.55", "groups": ["hang"]}
+{"engine": "chromium", "case": "B-P2 10000-10-15", "step": "added Read, clicked Done today", "header": "10000-10-15", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}", "rows": 1, "doneToday": "false", "banners": "", "band": 84, "open": "", "p2Beads": 0, "p4Days": 0, "p1": null, "p1Ticks": "", "focus": "button.btn-done", "pageErrors": 0, "standIn": true}
+{"engine": "chromium", "case": "B-P2 10000-10-15", "step": "pressed ul.rows > li.row button.btn-year", "press": "returned", "pressSeconds": 0.05, "pageAnswersWithin3s": true, "waitSeconds": 0.02, "pageErrors": 0, "lastError": null}
+{"engine": "chromium", "case": "B-P2 10000-10-15", "step": "second page of the same context reads storage during the hang", "answered": true, "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}"}
+{"engine": "chromium", "case": "B-P2 10000-10-15", "step": "second page boots the app during the hang", "rows": 1, "banners": "", "header": "10000-10-15", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}"}
+{"engine": "chromium", "case": "B-P2 10000-10-15", "step": "browser closed", "closeSeconds": 0.04, "caseSeconds": 0.48}
+{"engine": "chromium", "case": "B-P4 10000-10-15", "step": "added Read, clicked Done today", "header": "10000-10-15", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}", "rows": 1, "doneToday": "false", "banners": "", "band": 84, "open": "", "p2Beads": 0, "p4Days": 0, "p1": null, "p1Ticks": "", "focus": "button.btn-done", "pageErrors": 0, "standIn": true}
+{"engine": "chromium", "case": "B-P4 10000-10-15", "step": "pressed section.band button.btn-all", "press": "returned", "pressSeconds": 0.05, "pageAnswersWithin3s": true, "waitSeconds": 0.01, "pageErrors": 0, "lastError": null}
+{"engine": "chromium", "case": "B-P4 10000-10-15", "step": "second page of the same context reads storage during the hang", "answered": true, "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}"}
+{"engine": "chromium", "case": "B-P4 10000-10-15", "step": "second page boots the app during the hang", "rows": 1, "banners": "", "header": "10000-10-15", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}"}
+{"engine": "chromium", "case": "B-P4 10000-10-15", "step": "browser closed", "closeSeconds": 0.04, "caseSeconds": 0.38}
+[server] stopped pid=27104 exit=1 port 45479 refuses=True
+
+$ timeout 300 python -u -B probe_11_year10000.py webkit hang   (from 23:27:44)
+[server] started pid=28128 port=3850 dir={workspace}\examples\streaks
+{"engine": "webkit", "version": "26.5", "groups": ["hang"]}
+{"engine": "webkit", "case": "B-P2 10000-10-15", "step": "added Read, clicked Done today", "header": "10000-10-15", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}", "rows": 1, "doneToday": "false", "banners": "", "band": 84, "open": "", "p2Beads": 0, "p4Days": 0, "p1": null, "p1Ticks": "", "focus": "body.", "pageErrors": 0, "standIn": true}
+{"engine": "webkit", "case": "B-P2 10000-10-15", "step": "pressed ul.rows > li.row button.btn-year", "press": "returned", "pressSeconds": 0.13, "pageAnswersWithin3s": true, "waitSeconds": 0.03, "pageErrors": 0, "lastError": null}
+{"engine": "webkit", "case": "B-P2 10000-10-15", "step": "second page of the same context reads storage during the hang", "answered": true, "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}"}
+{"engine": "webkit", "case": "B-P2 10000-10-15", "step": "second page boots the app during the hang", "rows": 1, "banners": "", "header": "10000-10-15", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}"}
+{"engine": "webkit", "case": "B-P2 10000-10-15", "step": "browser closed", "closeSeconds": 0.02, "caseSeconds": 0.85}
+{"engine": "webkit", "case": "B-P4 10000-10-15", "step": "added Read, clicked Done today", "header": "10000-10-15", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}", "rows": 1, "doneToday": "false", "banners": "", "band": 84, "open": "", "p2Beads": 0, "p4Days": 0, "p1": null, "p1Ticks": "", "focus": "body.", "pageErrors": 0, "standIn": true}
+{"engine": "webkit", "case": "B-P4 10000-10-15", "step": "pressed section.band button.btn-all", "press": "returned", "pressSeconds": 0.13, "pageAnswersWithin3s": true, "waitSeconds": 0.02, "pageErrors": 0, "lastError": null}
+{"engine": "webkit", "case": "B-P4 10000-10-15", "step": "second page of the same context reads storage during the hang", "answered": true, "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}"}
+{"engine": "webkit", "case": "B-P4 10000-10-15", "step": "second page boots the app during the hang", "rows": 1, "banners": "", "header": "10000-10-15", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}"}
+{"engine": "webkit", "case": "B-P4 10000-10-15", "step": "browser closed", "closeSeconds": 0.02, "caseSeconds": 0.8}
+[server] stopped pid=28128 exit=1 port 3850 refuses=True
+
+$ timeout 300 python -u -B probe_14_rollover_hang.py chromium   (to 23:27:44)
+[server] started pid=6436 port=19322 dir={workspace}\examples\streaks
+{"engine": "chromium", "case": "control, nothing open", "step": "before midnight", "answers": true, "header": "10000-09-30", "open": "", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}", "pageErrors": 0, "lastError": null}
+{"engine": "chromium", "case": "control, nothing open", "step": "after 35 s of real time", "answers": true, "answerWaitSeconds": 0.0, "header": "10000-10-01", "open": "", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}", "pageErrors": 0, "lastError": null}
+{"engine": "chromium", "case": "control, nothing open", "step": "browser closed", "closeSeconds": 0.04}
+{"engine": "chromium", "case": "P4 open at midnight", "step": "before midnight", "answers": true, "header": "10000-09-30", "open": "dlg-full dlg-all", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}", "pageErrors": 1, "lastError": "Cannot read properties of undefined (reading 'slice')"}
+{"engine": "chromium", "case": "P4 open at midnight", "step": "after 35 s of real time", "answers": true, "answerWaitSeconds": 0.0, "header": "10000-10-01", "open": "dlg-full dlg-all", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}", "pageErrors": 1, "lastError": "Cannot read properties of undefined (reading 'slice')"}
+{"engine": "chromium", "case": "P4 open at midnight", "step": "browser closed", "closeSeconds": 0.06}
+[server] stopped pid=6436 exit=1 port 19322 refuses=True
+
+$ timeout 300 python -u -B probe_14_rollover_hang.py webkit   (to 23:29:01)
+[server] started pid=9156 port=3898 dir={workspace}\examples\streaks
+{"engine": "webkit", "case": "control, nothing open", "step": "before midnight", "answers": true, "header": "10000-09-30", "open": "", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}", "pageErrors": 0, "lastError": null}
+{"engine": "webkit", "case": "control, nothing open", "step": "after 35 s of real time", "answers": true, "answerWaitSeconds": 0.01, "header": "10000-10-01", "open": "", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}", "pageErrors": 0, "lastError": null}
+{"engine": "webkit", "case": "control, nothing open", "step": "browser closed", "closeSeconds": 0.02}
+{"engine": "webkit", "case": "P4 open at midnight", "step": "before midnight", "answers": true, "header": "10000-09-30", "open": "dlg-full dlg-all", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}", "pageErrors": 1, "lastError": "undefined is not an object (evaluating 'month.slice')"}
+{"engine": "webkit", "case": "P4 open at midnight", "step": "after 35 s of real time", "answers": true, "answerWaitSeconds": 0.01, "header": "10000-10-01", "open": "dlg-full dlg-all", "stored": "{\"version\":1,\"habits\":[{\"name\":\"Read\",\"done\":[]}]}", "pageErrors": 1, "lastError": "undefined is not an object (evaluating 'month.slice')"}
+{"engine": "webkit", "case": "P4 open at midnight", "step": "browser closed", "closeSeconds": 0.02}
+[server] stopped pid=9156 exit=1 port 3898 refuses=True
+
+Reading (security finder). The control captures of the freeze are in 20261015-192841 (probe_11_*_hang.txt,
+probe_14_rollover_hang.txt), where every press timed out and the P4 midnight case did not answer. On the bound both
+presses return in 0.05 s (Chromium) and 0.13 s (WebKit), the page answers, and P4 open at the midnight into
+10000-10-01 answers in both engines. The same result the solver recorded in
+docs/modules/habit-logic/qa/solver/20261015-224907-probes-chromium/ and -225045-probes-webkit/.
