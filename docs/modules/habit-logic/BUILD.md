@@ -11,8 +11,13 @@
 | 3 | `src/habits.js` part 2 (`heatLevel`, `heatmapCells`, `monthLabels`) and its scenarios | R10, R11, R12 | `56ab40e` |
 | 4 | `src/habits.js` part 3 (`validateName`, `addHabit`, `deleteHabit`) and its scenarios | R13, R14, R15 | `a25431f` |
 | 5 | `tests/sample-history.test.js` and `tests/purity.test.js` | R5, R6, R7, R8, R10, R11, R12, R16 | `eaf8f9f` |
+| 6 | v1.1.0. The test data fix, the 1.0 sample as a fixture and the 1.0 suites pointed at it | R6, R7, R10, R12, R16 | `6188e66` |
+| 7 | v1.1.0. `src/dates.js` gains `yearDate` and `monthTitle` | R17 | `964678b` |
+| 8 | v1.1.0. The year in `src/habits.js` (`yearStart`, `doneFlags`, `yearMonths`, `toggleDay` on the year, `heatmapCells` with `done`), the strip and the level removed | R9, R10, R16, R18, R19, R20 | `9a79991` |
+| 9 | v1.1.0. The v1.1.0 sample checks in `tests/sample-history.test.js` | R10, R19, R20 | `3676fe5` |
 
 5 of 5 tasks done. Every commit was made with the full suite green.
+Changed 2026-10-15 (code-review WR-01, solver). The line above is 1.0's count. Rows 6 to 9 are the v1.1.0 tasks, each built and committed, so 9 of 9 tasks are done. The task sections below give each one's proof.
 
 ## Final test run
 
@@ -40,6 +45,8 @@ Unspecified edges, noted and not built (outside every R#):
 - `validateName` expects a string. A non-string `raw` throws a `TypeError`. The storage decoder in `app` must type-check before calling it.
 
 ## Non-goals honoured
+
+Changed 2026-10-15 (code-review WR-01, solver). The paragraph below is 1.0's. Its sentence that `toggleDay` refuses days older than 7 and any day outside the strip is no longer true, because v1.1.0's R9 makes `toggleDay` accept any day of the year (`yearStart` to today). The v1.1.0 non-goals are in the task sections below.
 
 No DOM, rendering, storage or decoding. No clock read and no timer (`todayKey` is always an argument; `purity.test.js` scans for it). No `Intl`, no locale, English tables only. No stored time zones and no UTC day keys. No user-facing copy beyond the R4 labels. No cache or memoisation. No weekly targets, no rename or reorder function, `toggleDay` refuses days older than 7 and any day outside the strip, `done` is a set of days, no stats beyond current streak, best streak and the heatmap, no export or import. Habit objects are rebuilt as `{ name, done }` literals (Threat model, row Object integrity. Why, see the comment on `copyHabit`), and the only regular expression on stored data is `^\d{4}-\d{2}-\d{2}$`.
 
