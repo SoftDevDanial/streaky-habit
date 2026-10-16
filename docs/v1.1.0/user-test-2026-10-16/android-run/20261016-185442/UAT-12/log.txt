@@ -1,0 +1,40 @@
+UAT-12 log. Android-layout run 20261016-185442, automated UAT pre-run agent (read-only).
+Engine headless Chromium 149.0.7827.55. App http://127.0.0.1:8741/ (the orchestrator's server, PID 12668, not touched).
+Contexts. pixel7-412x839 is Playwright's Pixel 7 descriptor as is (Android 14 Chrome user agent, isMobile, hasTouch,
+412 x 839, DPR 2.625). pixel7-412x664 is the same with the viewport height set to 664. android-360x740 is the Pixel 7
+user agent, isMobile, hasTouch, DPR 3, 360 x 740. Clock by page.clock.install at the run's wall time, Friday
+16 October 2026, UTC+08:00. Clipboard stand-in loaded before every page, 0 writes recorded.
+Every line of this case needs Safari's tab overview, iOS Settings, Safari's Share menu or the iOS home screen.
+None of them exists in headless Chromium, so every line is IPHONE-ONLY and none is counted as matching or failing.
+The icon reads at the end are context only. They are the icon file opened as a document, not a tab strip.
+
+== UAT-12 in pixel7-412x839 ==
+step 0. Before you start, the iPhone in dark mode
+    note. precondition, iOS Settings, not drivable. The context emulates prefers-color-scheme dark {"context_only":{"title":"Danial's Streaky Habit","icons":["icon src/icon.svg"]}}
+step 1. Tap the tabs button at the bottom right of Safari
+  l1 IPHONE-ONLY. The tab overview opens | Safari's tab overview. Headless Chromium has no browser interface
+  l2 IPHONE-ONLY. The app's tab shows the mark beside "Danial's Streaky Habit" | {"context_only":{"title":"Danial's Streaky Habit","icons":["icon src/icon.svg"]}}
+  l3 IPHONE-ONLY. The mark is the darker amber, not the bright amber of Chrome's dark tab | Safari's tab overview, and the claim is Safari's own handling of the icon's light and dark switch
+step 2. Settings, Display and Brightness, Light
+  l1 IPHONE-ONLY. The iPhone turns light | iOS Settings
+step 3. Go back to Safari's tab overview
+  l1 IPHONE-ONLY. The mark is the same darker amber as at step 1 | Safari's tab overview
+  l2 IPHONE-ONLY. The mark is easy to see on the light tab | Safari's tab overview
+step 4. Tap the app's tab
+  l1 IPHONE-ONLY. The app shows again | Safari's tab overview, nothing to return from
+step 5. Share menu, Add to Home Screen
+  l1 IPHONE-ONLY. A panel shows the name "Danial's Streaky Habit" or a shortened form of it | Safari's Share menu
+  l2 IPHONE-ONLY. An icon sits beside the name | Safari's Share menu
+step 6. Tap Add
+  l1 IPHONE-ONLY. A new icon for the app sits on your home screen | the iOS home screen
+    note. context only, not a tab strip: the icon file opened as a document in Chromium {"scheme":"dark","computedFill":"rgb(255, 176, 32)"}
+    note. context only, not a tab strip: the icon file opened as a document in Chromium {"scheme":"light","computedFill":"rgb(154, 91, 0)"}
+  pixel7-412x839 totals {'iphone-only': 10}. Touch gestures 0: hit-tested on target 0, missed 0, taps at a fixed point by design 0
+
+== UAT-12 in pixel7-412x664 ==
+  The same 10 lines, all IPHONE-ONLY for the same reasons. Icon file context reads, dark rgb(255, 176, 32), light rgb(154, 91, 0).
+  pixel7-412x664 totals {'iphone-only': 10}. Touch gestures 0.
+
+== UAT-12 in android-360x740 ==
+  The same 10 lines, all IPHONE-ONLY for the same reasons. Icon file context reads, dark rgb(255, 176, 32), light rgb(154, 91, 0).
+  android-360x740 totals {'iphone-only': 10}. Touch gestures 0.

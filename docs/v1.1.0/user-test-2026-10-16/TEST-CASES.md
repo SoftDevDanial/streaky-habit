@@ -74,10 +74,10 @@ can PASS with a cross when you decide the difference does not matter. The cross 
 
 | | Verdict | Note |
 |---|---|---|
-| **Tester** (an AI agent, before you) | PASS | Every line matched in Chromium at 1280 x 800, on the re-run after step 3 was reworded. Nothing here was out of its reach. |
-| **You** | | |
-| **Your marks** | | |
-| **Next step** (written by the AI agent, agreed with you) | | |
+| **Tester** (an AI agent, before you) | PASS | Every line matched in Chromium at 1280 x 800, on the re-run after step 3 was reworded. Nothing here was out of its reach. Probe P-A, 2026-10-16 19:05. The first run hid scrollbars. With the scrollbar drawn, as desktop Chrome on Windows draws it, the All habits top row holds two months at every window width from 1024 to 1920 px, so the step 10 line does not hold there (findings U1, android-run/20261016-185442/probe-a/). |
+| **You** (2026-10-16) | PASS | |
+| **Your marks** | | 69 matching, 1 not matching, 0 not marked<br>✗ step 10. The top row holds three months, October 2026 first |
+| **Next step** (written by the AI agent, agreed with you) | | Deferred to the next version, the owner's ruling of 2026-10-16. Desktop Chrome on Windows draws a scrollbar in the All habits window, which leaves room for two months per row, not three, and the design file has the same 2 px shortfall. Recorded as a bug found at UAT in docs/future/bugs-found.md and in the README's known limits (findings U1, ledger H-09). |
 
 ---
 
@@ -107,9 +107,9 @@ can PASS with a cross when you decide the difference does not matter. The cross 
 | | Verdict | Note |
 |---|---|---|
 | **Tester** (an AI agent, before you) | PASS | Every line matched in Chromium at 1280 x 800. Nothing here was out of its reach. |
-| **You** | | |
-| **Your marks** | | |
-| **Next step** (written by the AI agent, agreed with you) | | |
+| **You** (2026-10-16) | PASS | |
+| **Your marks** | | 31 matching, 0 not matching, 0 not marked |
+| **Next step** (written by the AI agent, agreed with you) | | None. Accepted. |
 
 ---
 
@@ -139,9 +139,9 @@ can PASS with a cross when you decide the difference does not matter. The cross 
 | | Verdict | Note |
 |---|---|---|
 | **Tester** (an AI agent, before you) | PASS | Every line matched in Chromium at 1280 x 800. The list scrolled inside its box while the header, the band and the New habit box stayed put. Nothing here was out of its reach. |
-| **You** | | |
-| **Your marks** | | |
-| **Next step** (written by the AI agent, agreed with you) | | |
+| **You** (2026-10-16) | PASS | This 12 habit limitation is intentional as stated before. Make sure it is properly documented as a known and intentional limitation. In the future upgrades note, one of the thing needed to do is change the habits logic so that we can have infinite habits. Plan is instead a habit inhabiting all the dates as a grey line, remove the grey line al together and only light up for ones that is ticked. Example, if we have HAbit 1, HAbit 2 and Habit 3. Habit 1 is ticked on 5th october 2026, All the other days will not have a grey line. Only 5th october will have a full amber outline. If i do the same for Habit 2, then it will have 2 amber outline that is divided equally into 2. Same logic for if i do for habit 3. This makes it so that we can have hundreds of habits. Also, im thinking of adding each habit with a color and can be changed witha  color picker but cant have an overlapping color of different habits. So we can differentiate on each day which is ticked. The streak in each habits years will connect with the same color. When clicking a day in the  band, it will have a scrollable list of the habits so we can click which one we did that day. I prefer a scrollable box of the list instead of the whole modal is scrollable.  |
+| **Your marks** | | 48 matching, 0 not matching, 0 not marked |
+| **Next step** (written by the AI agent, agreed with you) | | Done in 1.1.0. The 12 habit limit is listed in the README as a known and intentional limit. The future upgrade is written up in docs/future/unlimited-habits.md for a brainstorm in a later version (ledger off-scope rows 27 and 28). |
 
 ---
 
@@ -171,9 +171,9 @@ can PASS with a cross when you decide the difference does not matter. The cross 
 | | Verdict | Note |
 |---|---|---|
 | **Tester** (an AI agent, before you) | PASS | Every line matched in Chromium at 1280 x 800 on the re-run. The quick double click's dialog showed for about 140 ms and closed, Esc then changed nothing, and nothing was deleted. Delete habit acted at once. Its first run was blocked by the old step 3 wording, fixed before you got it. |
-| **You** | | |
-| **Your marks** | | |
-| **Next step** (written by the AI agent, agreed with you) | | |
+| **You** (2026-10-16) | PASS | |
+| **Your marks** | | 27 matching, 0 not matching, 0 not marked |
+| **Next step** (written by the AI agent, agreed with you) | | None. Accepted. |
 
 ---
 
@@ -202,9 +202,9 @@ can PASS with a cross when you decide the difference does not matter. The cross 
 | | Verdict | Note |
 |---|---|---|
 | **Tester** (an AI agent, before you) | BLOCKED | Blocked by its seat, not the app. It could check 3 of 13 lines and all 3 match, the amber mark with no letter and the page staying dark under a light preference. It has no browser tab, no Windows mode switch and no Firefox, so only you can check steps 2, 4, 6 and 8, step 3 line 1, and the Firefox steps 5 and 7. |
-| **You** | | |
-| **Your marks** | | |
-| **Next step** (written by the AI agent, agreed with you) | | |
+| **You** (2026-10-16) | PASS | |
+| **Your marks** | | 10 matching, 0 not matching, 3 not marked |
+| **Next step** (written by the AI agent, agreed with you) | | None. Accepted, 3 lines left unmarked. |
 
 ---
 
@@ -226,9 +226,9 @@ can PASS with a cross when you decide the difference does not matter. The cross 
 | | Verdict | Note |
 |---|---|---|
 | **Tester** (an AI agent, before you) | PASS | The header and the mark matched. It has no tab hover card, so only you can check step 1. The page title does read Danial's Streaky Habit. |
-| **You** | | |
-| **Your marks** | | |
-| **Next step** (written by the AI agent, agreed with you) | | |
+| **You** (2026-10-16) | PASS | |
+| **Your marks** | | 3 matching, 0 not matching, 0 not marked |
+| **Next step** (written by the AI agent, agreed with you) | | None. Accepted. |
 
 ---
 
@@ -257,9 +257,9 @@ can PASS with a cross when you decide the difference does not matter. The cross 
 | | Verdict | Note |
 |---|---|---|
 | **Tester** (an AI agent, before you) | PASS | Every line it could drive matched. It cannot open Chrome's settings pages, so only you can check steps 1, 2, 3 and 7. A stand-in blocked and freed storage in their place, so it could not see whether Chrome keeps the saved habits during a block. |
-| **You** | | |
-| **Your marks** | | |
-| **Next step** (written by the AI agent, agreed with you) | | |
+| **You** (2026-10-16) | PASS | |
+| **Your marks** | | 19 matching, 0 not matching, 0 not marked |
+| **Next step** (written by the AI agent, agreed with you) | | None. Accepted. |
 
 ---
 
@@ -298,10 +298,10 @@ can PASS with a cross when you decide the difference does not matter. The cross 
 
 | | Verdict | Note |
 |---|---|---|
-| **Tester** (an AI agent, before you) | BLOCKED | Blocked by the script at 390 x 664, on step 8 line 6 only. The Jul label was below the screen edge there. That line was reworded after the run in the tester's own words and not run again. Every other line it could drive matched at 390 x 664, and every one matched at 390 x 844. It has no on-screen keyboard, so only you can check step 2 and step 6. The white rings of A1 showed round Close, the first habit and Cancel, as listed. It ran Safari's engine on Windows, not an iPhone. |
-| **You** | | |
-| **Your marks** | | |
-| **Next step** (written by the AI agent, agreed with you) | | |
+| **Tester** (an AI agent, before you) | BLOCKED | Blocked by the script at 390 x 664, on step 8 line 6 only. The Jul label was below the screen edge there. That line was reworded after the run in the tester's own words and not run again. Every other line it could drive matched at 390 x 664, and every one matched at 390 x 844. It has no on-screen keyboard, so only you can check step 2 and step 6. The white rings of A1 showed round Close, the first habit and Cancel, as listed. It ran Safari's engine on Windows, not an iPhone. Android layout run, 2026-10-16 19:05, the owner's ruling, evidence only. PASS, 64 of 64 checkable lines in three Android seats (Pixel 7 at 412 x 839 and 412 x 664, and 360 x 740). 9 iPhone-only lines not checked, the iOS keyboard and Safari's white ring of A1 (android-run/20261016-185442/UAT-08/). |
+| **You** (2026-10-16) | BLOCKED | Skipping iphone for now |
+| **Your marks** | | 0 matching, 0 not matching, 73 not marked |
+| **Next step** (written by the AI agent, agreed with you) | | Not run on an iPhone. The owner's ruling of 2026-10-16, phone cases stay BLOCKED with the reason, an untested case is never counted as passed, and the release does not depend on the iPhone. The tester's Android layout run is recorded beside, as evidence only. |
 
 ---
 
@@ -332,10 +332,10 @@ can PASS with a cross when you decide the difference does not matter. The cross 
 
 | | Verdict | Note |
 |---|---|---|
-| **Tester** (an AI agent, before you) | PASS | Every line matched at 390 x 664 and at 390 x 844 on the re-run, in Safari's engine on Windows. At 390 x 664 steps 1 and 4 needed the scrolls their lines allow. 27 July and 16 October 2025 each showed whole above the day editor. Only you can check it on a real iPhone. |
-| **You** | | |
-| **Your marks** | | |
-| **Next step** (written by the AI agent, agreed with you) | | |
+| **Tester** (an AI agent, before you) | PASS | Every line matched at 390 x 664 and at 390 x 844 on the re-run, in Safari's engine on Windows. At 390 x 664 steps 1 and 4 needed the scrolls their lines allow. 27 July and 16 October 2025 each showed whole above the day editor. Only you can check it on a real iPhone. Android layout run, 2026-10-16 19:05, evidence only. PASS, 32 of 32 checkable lines in all three seats (android-run/20261016-185442/UAT-09/). |
+| **You** (2026-10-16) | BLOCKED | Assume this is iphone and is put on hold. Need proper reference next time on which phone type. Right now possible is android through browser resize. Priority is on android for now |
+| **Your marks** | | 0 matching, 0 not matching, 32 not marked |
+| **Next step** (written by the AI agent, agreed with you) | | Not run on an iPhone. The owner's ruling of 2026-10-16, phone cases stay BLOCKED with the reason, an untested case is never counted as passed, and the release does not depend on the iPhone. The tester's Android layout run is recorded beside, as evidence only. |
 
 ---
 
@@ -363,10 +363,10 @@ can PASS with a cross when you decide the difference does not matter. The cross 
 
 | | Verdict | Note |
 |---|---|---|
-| **Tester** (an AI agent, before you) | PASS | Every line matched at 390 x 664 and at 390 x 844 on the re-run. Each quick double tap's dialog closed again on the dim page after about 140 ms, and nothing was deleted. Its taps are clicks in Safari's engine on Windows, so how real fingers land is yours to check. |
-| **You** | | |
-| **Your marks** | | |
-| **Next step** (written by the AI agent, agreed with you) | | |
+| **Tester** (an AI agent, before you) | PASS | Every line matched at 390 x 664 and at 390 x 844 on the re-run. Each quick double tap's dialog closed again on the dim page after about 140 ms, and nothing was deleted. Its taps are clicks in Safari's engine on Windows, so how real fingers land is yours to check. Android layout run, 2026-10-16 19:05, evidence only. PASS, 17 of 17 checkable lines in all three seats. No double tap deleted anything (android-run/20261016-185442/UAT-10/). |
+| **You** (2026-10-16) | BLOCKED | Same as 9 |
+| **Your marks** | | 0 matching, 0 not matching, 17 not marked |
+| **Next step** (written by the AI agent, agreed with you) | | Not run on an iPhone. The owner's ruling of 2026-10-16, phone cases stay BLOCKED with the reason, an untested case is never counted as passed, and the release does not depend on the iPhone. The tester's Android layout run is recorded beside, as evidence only. |
 
 ---
 
@@ -393,10 +393,10 @@ can PASS with a cross when you decide the difference does not matter. The cross 
 
 | | Verdict | Note |
 |---|---|---|
-| **Tester** (an AI agent, before you) | PASS | Every line it could drive matched. It has no iOS Settings and no on-screen keyboard, so only you can check steps 1, 4 and 6. A stand-in blocked and freed storage in place of Block All Cookies, so it could not see what Safari's own setting does to the saved habits. |
-| **You** | | |
-| **Your marks** | | |
-| **Next step** (written by the AI agent, agreed with you) | | |
+| **Tester** (an AI agent, before you) | PASS | Every line it could drive matched. It has no iOS Settings and no on-screen keyboard, so only you can check steps 1, 4 and 6. A stand-in blocked and freed storage in place of Block All Cookies, so it could not see what Safari's own setting does to the saved habits. Android layout run, 2026-10-16 19:05, evidence only. PASS, 16 of 16 checkable lines with a storage stand-in in place of Block All Cookies. 3 iPhone-only lines not checked, the iOS Settings switch and the iOS keyboard (android-run/20261016-185442/UAT-11/). |
+| **You** (2026-10-16) | BLOCKED | same as 9 |
+| **Your marks** | | 0 matching, 0 not matching, 19 not marked |
+| **Next step** (written by the AI agent, agreed with you) | | Not run on an iPhone. The owner's ruling of 2026-10-16, phone cases stay BLOCKED with the reason, an untested case is never counted as passed, and the release does not depend on the iPhone. The tester's Android layout run is recorded beside, as evidence only. |
 
 ---
 
@@ -422,10 +422,10 @@ can PASS with a cross when you decide the difference does not matter. The cross 
 
 | | Verdict | Note |
 |---|---|---|
-| **Tester** (an AI agent, before you) | BLOCKED | Blocked by its seat, not the app. Every line needs Safari's tab overview, iOS Settings, the Share menu or the home screen, so the whole case is yours alone. |
-| **You** | | |
-| **Your marks** | | |
-| **Next step** (written by the AI agent, agreed with you) | | |
+| **Tester** (an AI agent, before you) | BLOCKED | Blocked by its seat, not the app. Every line needs Safari's tab overview, iOS Settings, the Share menu or the home screen, so the whole case is yours alone. Android layout run, 2026-10-16 19:05, evidence only. BLOCKED by seat. All 10 lines need Safari's tab overview, iOS Settings, Safari's Share menu or the home screen (android-run/20261016-185442/UAT-12/). |
+| **You** (2026-10-16) | BLOCKED | same as 9 |
+| **Your marks** | | 0 matching, 0 not matching, 10 not marked |
+| **Next step** (written by the AI agent, agreed with you) | | Not run on an iPhone. The owner's ruling of 2026-10-16, phone cases stay BLOCKED with the reason, an untested case is never counted as passed, and the release does not depend on the iPhone. The tester's Android layout run is recorded beside, as evidence only. |
 
 ---
 
@@ -433,18 +433,22 @@ can PASS with a cross when you decide the difference does not matter. The cross 
 
 | case | sitting | scope | T tester | U user | crosses | next step |
 |---|---|---|---|---|---|---|
-| UAT-01 | 1 | S1 | PASS | | | |
-| UAT-02 | 1 | S2 | PASS | | | |
-| UAT-03 | 1 | S7 | PASS | | | |
-| UAT-04 | 1 | S3 | PASS | | | |
-| UAT-05 | 1 | S6 | BLOCKED (seat) | | | |
-| UAT-06 | 1 | S8 | PASS | | | |
-| UAT-07 | 1 | S4 | PASS | | | |
-| UAT-08 | 2 | S5 | BLOCKED (script, step 8 line 6, reworded, not run again) | | | |
-| UAT-09 | 2 | S5 with S1 | PASS | | | |
-| UAT-10 | 2 | S5 with S3 | PASS | | | |
-| UAT-11 | 2 | S5 with S4 | PASS | | | |
-| UAT-12 | 2 | S5 with S6 | BLOCKED (seat) | | | |
+| UAT-01 | 1 | S1 | PASS | PASS | 1 (step 10) | Deferred to the next version (findings U1, ledger H-09) |
+| UAT-02 | 1 | S2 | PASS | PASS | 0 | None. Accepted. |
+| UAT-03 | 1 | S7 | PASS | PASS | 0 | Done in 1.1.0. README known limit, future note written |
+| UAT-04 | 1 | S3 | PASS | PASS | 0 | None. Accepted. |
+| UAT-05 | 1 | S6 | BLOCKED (seat) | PASS | 0 | None. Accepted, 3 lines left unmarked. |
+| UAT-06 | 1 | S8 | PASS | PASS | 0 | None. Accepted. |
+| UAT-07 | 1 | S4 | PASS | PASS | 0 | None. Accepted. |
+| UAT-08 | 2 | S5 | BLOCKED (script, step 8 line 6, reworded, not run again) | BLOCKED | 0 | Not run on an iPhone, stays BLOCKED |
+| UAT-09 | 2 | S5 with S1 | PASS | BLOCKED | 0 | Not run on an iPhone, stays BLOCKED |
+| UAT-10 | 2 | S5 with S3 | PASS | BLOCKED | 0 | Not run on an iPhone, stays BLOCKED |
+| UAT-11 | 2 | S5 with S4 | PASS | BLOCKED | 0 | Not run on an iPhone, stays BLOCKED |
+| UAT-12 | 2 | S5 with S6 | BLOCKED (seat) | BLOCKED | 0 | Not run on an iPhone, stays BLOCKED |
+
+**Owner's results.** Received 2026-10-16 18:17 from the sheet. UAT-01 to UAT-07 PASS, UAT-08 to UAT-12 BLOCKED, word for word in `OWNER-RESULTS-sitting-1.md`. The one cross is UAT-01 step 10. UAT-05 has 3 lines left unmarked.
+
+**Android layout run.** 2026-10-16 19:05, the owner's ruling, evidence only, recorded beside the owner's verdicts and never in place of them. Three Android seats (Pixel 7 at 412 x 839 and 412 x 664, and 360 x 740). UAT-08 PASS, 64 of 64 checkable lines, 9 iPhone-only lines not checked. UAT-09 PASS, 32 of 32. UAT-10 PASS, 17 of 17. UAT-11 PASS, 16 of 16, 3 iPhone-only lines not checked. UAT-12 BLOCKED by seat, all 10 lines need iOS. Evidence in `android-run/20261016-185442/`. Probe P-A on UAT-01 step 10 is recorded under UAT-01 (findings U1).
 
 ---
 
@@ -462,7 +466,7 @@ can PASS with a cross when you decide the difference does not matter. The cross 
 | **Why it needs you** | It is a visible difference from the approved design on your iPhone, and removing it changes how focus is set or changes the design. It went unseen because the pixel match runs in Chrome's engine only, your ruling for S5. |
 | **Options** | (1) Keep it. A line in the test notes and the ledger, nothing to build. (2) Remove it. Back to the plan, which would tell Safari the focus is not from a keyboard against the approved focus rule, or back to the design. |
 | **Recommendation** | (1). It is Safari's own rule, and the ring helps someone who uses a keyboard. For v1.2.0, a look check of the open popups in Safari's engine would catch the next difference of this kind. |
-| **Your ruling** | |
+| **Your ruling** | "Safari is apple or iphone. So again same logic with 1." With his item 1, "Iphone test cases and even phones just remain as blocked or fail or as not run. Yes its not what the apps themselves do but data integrity saying its passed when its not tested is bad. So not run is better with note on why. But the release is still good to be released as it doesnt depend on iphone." Outcome, not verified on an iPhone, nothing built, the README says so. |
 
 ### H-08. Saved habits can be overwritten when storage comes back while the page is open
 
@@ -472,7 +476,7 @@ can PASS with a cross when you decide the difference does not matter. The cross 
 | **Why it needs you** | It is data loss in a path the contract allows, and any fix changes what the page does after a failed start. That is a logic change, which goes back through the plan. |
 | **Options** | (1) After a failed start, save nothing until a reload, so the warning stays and the old habits survive. Anything added in that page is lost, as the warning already says. (2) Before the first save after a failed start, read the saved habits again and refuse to write over any found there, with the warning kept. (3) Keep it, as a limit row in the README. |
 | **Recommendation** | (1). It is the simplest rule that never loses saved habits, and the warning already says that page is not saving. Whether it is built in 1.1.0 or 1.2.0 is your call. |
-| **Your ruling** | |
+| **Your ruling** | "No fix needed. Its intended as we already gave a warning." Outcome, option 3, kept as a README known limit. |
 
 ### A2. How your iPhone reaches the app for sitting 2 (new)
 
@@ -482,7 +486,7 @@ can PASS with a cross when you decide the difference does not matter. The cross 
 | **Why it needs you** | The first option opens a port on your home network for the length of the sitting, so it is your call. |
 | **Options** | (1) The orchestrator serves the app on this PC's Wi-Fi address for sitting 2 only. Windows asks once whether to let Python through its firewall, and you answer that prompt. The server stops when the sitting ends. (2) The iPhone cases wait for the published page after the seal. |
 | **Recommendation** | (1). The iPhone cases are the only check on a real phone, and they should inform the seal, not follow it. |
-| **Your ruling** | |
+| **Your ruling** | "For the safari problem, test it in a phone android layout instead by the testers. If all is green, then i conclude that its passed. Im lazy to test it out and want this to be finished as soon as possible." Outcome, no iPhone sitting, the Android run is evidence only (see A1). |
 
 ### A3. The README header shows 1.0 until the seal (review D2)
 
@@ -492,7 +496,7 @@ can PASS with a cross when you decide the difference does not matter. The cross 
 | **Why it needs you** | It is a deferral we made. You can overturn it. |
 | **Options** | (1) Keep it, and make the header at the seal from the sealed build. (2) Update it now from this build. |
 | **Recommendation** | (1), so the pictures show exactly what you seal. |
-| **Your ruling** | |
+| **Your ruling** | "Yes but there are readme changes so make sure limitations and all that is properly recorded" Outcome, the header is made at the seal from the sealed build, the known limits are updated now. |
 
 ### A4. Many habits on a phone, the chosen day shows only in part above the day editor (review D4)
 
@@ -502,7 +506,7 @@ can PASS with a cross when you decide the difference does not matter. The cross 
 | **Why it needs you** | No rule covered it, so we ruled it ourselves. It is visible. |
 | **Options** | (1) Accept it for 1.1.0. (2) Ask for a design change in a later version. |
 | **Recommendation** | (1). Most lists hold fewer habits, and the day stays outlined. Look at (2) for v1.2.0 if it bothers you. |
-| **Your ruling** | |
+| **Your ruling** | "Yes. Like i said, limitations just clarify in readme. Future upgrade decision should solve this" Outcome, accepted for 1.1.0, a README known limit, the future note covers it. |
 
 ### A5. Local paths in the repository before it goes public (off-scope row 20)
 
@@ -522,7 +526,17 @@ can PASS with a cross when you decide the difference does not matter. The cross 
 | **Why it needs you** | Each one is ours and reversible. |
 | **Options** | Accept all, or name the ones you want changed. |
 | **Recommendation** | Accept all. None changes what you see in normal use. |
-| **Your ruling** | |
+| **Your ruling** | "Lazy to check, i assume and trust your judgement. As long as this is recorded so that in the future we have references" Outcome, all accepted, recorded in the ledger. |
+
+### A7. The All habits window shows two months per row on a Windows desktop (H-09, new at this test)
+
+| | |
+|---|---|
+| **What it is** | On a Windows desktop, Chrome draws a scrollbar in the All habits window. The scrollbar leaves 920 px for the months and three months need 922 px, so the top row holds two months, not three, at every window width from 1024 to 1920 px. The design file has the same 2 px shortfall, so the app matches a flaw in the design. It was found from your cross on UAT-01 step 10, since the tester's first run hid scrollbars (findings U1, ledger H-09). |
+| **Why it needs you** | The fix changes the design file, and the design files are fixed unless you decide otherwise. |
+| **Options** | (1) Fix it in 1.1.1. The orchestrator corrects the design file under your decision and the app follows. (2) Keep it as a README limit and fix it in 1.2.0. |
+| **Recommendation** | (1). The design's own notes promise three months across, and the shortfall is only 2 px. |
+| **Your ruling** | "Thats more of a bugfix right so its 1.1.1? If its quick, then sure." then "Either we make a quick bugfix on this or just ignore and add this to future upgrades and bug founds so we can display this in sdlc showcase" then "seal both". Outcome, deferred to the next version on the orchestrator's recommendation, a bug found at UAT in docs/future/bugs-found.md and a README known limit. |
 
 ---
 

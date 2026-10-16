@@ -106,12 +106,17 @@ model notes) and `docs/modules/app/findings/security.md`.
 | A slow double click (more than half a second between clicks) where the trash button and "Delete habit" overlap can still delete | 1.0.0 | fixed in 1.1.0 by the guard in Behaviour worth knowing |
 | Another page on the same `github.io` origin can read the saved names | 1.0.0 | kept, no way to isolate it on that host |
 | Two open tabs do not see each other's changes, and the last save wins | 1.0.0 | kept, one tab at a time by design |
+| At most 12 habits. The field is disabled at twelve | 1.0.0 | kept on purpose, an intentional limit the owner confirmed at the 1.1.0 UAT. Lifting it is a future upgrade, `docs/future/unlimited-habits.md` |
 | If storage is blocked or full, changes stay on screen but are not saved, with no message | 1.0.0 | 1.1.0 shows a warning while saving fails |
 | Private browsing, Safari's 7-day clean-up of site data and clearing site data lose every habit, with no failure the page can see | 1.1.0 | kept, the browser reports nothing the page could show |
 | A name made of many combining marks draws over its neighbours | 1.0.0 | kept, cosmetic, typed by the user or planted by another page on the same origin |
 | With the device clock set to the year 10000 or later, Done today does nothing and no day can be ticked, but nothing unreadable is saved and a reload keeps every habit (1.0 reset every habit). From January to September of those years, and in six-digit years, the first press of Year opens nothing and a second press of the band's Year opens an empty year view. From October to December the year views open with 13 months that are not a real calendar (one-day months, then locked months of 9999 up to 10009, 11 one-day months from 10010). The overview popup opens | 1.0.0 | kept. The 1.1.0 freeze of the year views in October to December of 10000 to 10009 is fixed by `yearMonths` stopping after 13 months (ledger H-06, task 9a) |
 | In a desktop browser window narrower than 768 px with classic scrollbars, the overview popup shows a thin scrollbar while the day editor is open over it | 1.1.0 | kept, the room that keeps the chosen day in sight makes the popup scroll |
-| Only Chromium is tested. Safari and Firefox are not verified | 1.0.0 | 1.1.0 tests Chromium and WebKit, Safari's engine. Firefox is not verified |
+| Only Chromium is tested. Safari and Firefox are not verified | 1.0.0 | 1.1.0 tests Chromium and WebKit, Safari's engine. Firefox is not verified. No real iPhone or Android phone was used at the 1.1.0 UAT. Phone layouts were checked in emulation (WebKit at iPhone sizes, Chromium in Android seats), and the iPhone-only cases stay untested, by the owner's ruling |
+| If storage is blocked when the page opens and is allowed again with no reload, the next change saves the short list over the habits saved before. A reload first keeps them | 1.1.0 | kept on purpose, the save warning already says that page is not saving. The owner's ruling at the 1.1.0 UAT (H-08) |
+| On a phone with nine or more habits the day editor reaches its full height, and the chosen day can show only in part above it | 1.1.0 | kept for 1.1.0, the unlimited habits upgrade redesigns the day editor's list (`docs/future/unlimited-habits.md`) |
+| In Safari's engine a popup opened by a tap shows the keyboard focus ring on its first control. The design and Chrome draw none | 1.1.0 | kept as built, not checked on a real iPhone (H-07) |
+| On a desktop browser that draws scrollbars (Chrome on Windows) the All habits window shows two months per row, not the three the design promises | 1.1.0 | a bug found at the 1.1.0 UAT (H-09), deferred to the next version (`docs/future/bugs-found.md`) |
 
 <details>
 <summary><b>How it is built</b></summary>
