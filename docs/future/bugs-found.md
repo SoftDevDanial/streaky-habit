@@ -25,3 +25,20 @@ not only a number. It changes the approved design file, which only the design ph
 **The fix, next version.** Correct the design so three months fit with a scrollbar drawn (for example a narrower month
 gap, a wider dialog, or room kept for the scrollbar), then run the pixel match and the browser tests with scrollbars
 drawn.
+
+## Design notes found by the README work after the seal (v1.1.0)
+
+**Found.** 2026-10-16, after the seal, in the fixes after review of the README drafts, and checked by the README
+designer in the running app. None is a crash or a
+data loss. Each is for the next version's brainstorm, the owner decides.
+
+- **"No streak yet" beside a best streak.** A habit with no current streak shows "No streak yet" next to "Best 1" or
+  more, in the habit row and the day editor (`src/view.js`, `src/popups.js`). The spec's own sample does the same
+  (app R6), but readers take it to mean the habit never had a streak. A wording such as "No current streak" would fix it.
+- **A new habit clears past full days.** No start date is stored for a habit, and each day's ring counts every habit,
+  so adding a habit takes the full centre off every earlier day (three habits gave 37 full days in 12 weeks, after a
+  fourth was added there were 0). It follows from a design decision, and the README now says so. Storing a start date
+  would let past days keep their centre.
+- **Two week rows labelled "Oct" on a phone.** The phone overview labels the newest week and any week that starts on
+  day 1 to 7 of a month, so in mid October two rows in a row read "Oct". This is the spec rule as written. Labelling
+  only the week a month starts in would avoid it.
