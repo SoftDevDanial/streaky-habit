@@ -32,3 +32,6 @@ favicon is the same geometry at m = 1 px, with every edge on a whole pixel.
   trace a system font into paths (that copies licensed outlines).
 - The word is `--bead-deep` on light pages, the same as the app's header.
 - The favicon goes into the app in v1.1.0, through the design phase. The v1.0 screens and goldens do not change.
+
+## Use of the name and logo
+The names "Danial's Streaky Habit" and "Streaky Habit" and the logo in every file here, and in `src/icon.svg`, are not covered by the MIT licence in `LICENSE`. They stay all rights reserved. A copy or fork of the code uses its own name and logo.
