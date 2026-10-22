@@ -1,4 +1,6 @@
-# Lifecycle: Streaks v1.0.0
+# Lifecycle, Streaks (Danial's Streaky Habit)
+
+## v1.0.0 (sealed 2026-10-10, tag `v1.0.0`)
 
 How this version went from an idea to a reviewed build, phase by phase. Written at review on 2026-10-10 from
 `docs/progress/STATE-LOG.md`, the CHANGE-LEDGER and the findings files. The owner delegated the run on
@@ -17,7 +19,7 @@ reversible. The human test column and the seal are the owner's.
 | Brand | 2026-10-10 | Logo, README redesign, static badges, a showcase image from real pixel-gate captures. Docs only, no app change | Logo in the repo now, the favicon in v1.1.0 through the design phase (USER) |
 | Review | 2026-10-10 | Drove every brainstorm flow and rule on a cold boot with real gestures: 32 of 32 checks pass. See the verdict below | Shippable for the owner's test |
 
-## Review verdict (stakeholder seat, 2026-10-10)
+### v1.0.0 review verdict (stakeholder seat, 2026-10-10)
 
 **Shippable for UAT.** Every capability C1 to C7 works on a cold boot with no seed. The four key flows, the name
 rules, the 12-habit limit, the week strip, both streak rules, the heatmap levels and names, the midnight rollover,
@@ -39,9 +41,9 @@ No out-of-project artifacts are logged (`docs/progress/out-of-project-artifacts.
 
 ---
 
-# Lifecycle, Danial's Streaky Habit v1.1.0
+## v1.1.0 (sealed 2026-10-16, tag `v1.1.0`)
 
-Added at review on 2026-10-16 by the stakeholder reviewer (agent), from `docs/v1.1.0/CHANGE-LEDGER.md`, `docs/regression/REGRESSION.md` and the handoffs in `docs/progress/handoff/`. The v1.0 text above is unchanged. This version was not delegated. The owner ran the design round with him in it, so his decisions are tagged USER and the orchestrator's in between are ORCH and reversible. UAT and the seal are his.
+Added at review on 2026-10-16 by the stakeholder reviewer (agent), from `docs/v1.1.0/CHANGE-LEDGER.md`, `docs/regression/REGRESSION.md` and the handoffs in `docs/progress/handoff/`. The v1.0 text above is unchanged. This version was not delegated. The owner ran the design round with him in it, so his decisions are tagged USER and the orchestrator's in between are ORCH and reversible. UAT and the seal are his. On 2026-10-22, after the seal, the page took one title with a heading per version, and the UAT and seal rows were added from `docs/v1.1.0/SEAL.md` and its ledger.
 
 | Phase | When | What happened | Key decisions |
 |---|---|---|---|
@@ -51,8 +53,10 @@ Added at review on 2026-10-16 by the stakeholder reviewer (agent), from `docs/v1
 | Execute | 2026-10-14 12:34 to 2026-10-15 18:34 | habit-logic tasks 6 to 9, app tasks 11 to 28 with 27a, each seen RED first. The owner halted the build at 13:50 on 2026-10-14 after seeing the 1.0 page in a baseline run, a check showed the goldens intact and he resumed it. Step 5, QA one failure (the test was wrong, CR-01), code review 1 BLOCKER and 11 WARNING in app and 3 in habit-logic, security PASS with 0 findings. One solver round resolved all 16, re-checks held. Fidelity 23 of 23 captures at 0 px and 139 of 139 rows. Cold-boot live gate 21 of 21 in both engines with red controls | Room under the day editor on a phone, for P3 then P4 (USER, H-03). The solver's skipped design row accepted (USER, H-04). Focus after Dismiss with the field disabled (USER, H-05). Records committed at every session end (ORCH, after the owner asked) |
 | Regression | 2026-10-15 18:34 to 23:58 | `--full` under the 1.0 economy ruling. QA PASS (Node 137, Chromium 358, WebKit 358 with one counted skip). App code review CLEAN, consistency sweep 0 BLOCKER. Security found SEC-R01 (the year views froze the tab with the device clock in late 10000). Bound built as habit-logic task 9a with app task 28a, both re-checks CLEAN and SEC-R01 closed. Cold boot 21 of 21 in both engines | The 13-month bound in `yearMonths` (USER, H-06). Three sweep items deferred to the v1.2.0 plan (ORCH) |
 | Review | 2026-10-16 00:13 | Drove every v1.1.0 capability on a cold boot with no seed and the real clock, real taps at 390 x 844 and clicks and keys at 1280 x 800, in Chromium and WebKit. 264 checks pass, 0 fail. See the verdict below | Shippable to UAT, one new item for the owner |
+| UAT | 2026-10-16 01:23 to 19:38 | 12 cases in two sittings. The tester's pre-run, script repairs and a re-run. The owner's desk sitting passed UAT-01 to UAT-07, with one crossed line in UAT-01, the All habits window showing two months per row in Chrome on Windows (H-09). The phone sitting, UAT-08 to UAT-12, was not run on an iPhone and stays BLOCKED. A tester run in Android layouts is kept as evidence only. Script, verdicts in his words and findings in `docs/v1.1.0/user-test-2026-10-16/` | H-09 deferred to the next version and written up in `docs/future/bugs-found.md`. Phone cases stay recorded as not run, with the reason, and the release does not depend on them. H-07 and H-08 kept as built (USER) |
+| Seal | 2026-10-16 19:50 | `docs/v1.1.0/SEAL.md`, tag `v1.1.0`, residuals listed as ruled | "seal both" (USER) |
 
-## Review verdict (stakeholder seat, 2026-10-16)
+### v1.1.0 review verdict (stakeholder seat, 2026-10-16)
 
 **Shippable to UAT.** The full report is `docs/review/20261016-001319/review.md`. Every capability of the delta works in both engines, the first visit equals its golden to the pixel in each engine, and nothing leaves the device.
 

@@ -4,10 +4,12 @@
 
 <p align="center">Keep your daily habits in view, one ring a day, with everything saved in your own browser.</p>
 
+<p align="center">
 <picture>
   <source media="(prefers-reduced-motion: reduce)" srcset="docs/readme/hero-still.png">
   <img src="docs/readme/hero.png" width="948" alt="A recording of Danial's Streaky Habit on a desktop. It opens on the finished day. Three habits show the last 12 weeks as rings, many past days with a full centre. “Done today” is pressed for each habit, and today's ring gains an arc for each until its centre fills. A habit's year opens, then a past day is opened and a forgotten habit is ticked, which fills that day's centre.">
 </picture>
+</p>
 
 <p align="center"><sub>Recorded from the running app in headless Chromium at 1024 x 800. Every habit and tick was entered with mouse and key events. The panel on the left is an overlay added for the recording. The white circle marks each click.</sub></p>
 
@@ -17,15 +19,15 @@
   <a href="#run-it-on-your-machine"><img src="docs/readme/button-run.svg" height="44" alt="Run it on your machine"></a>
 </p>
 
-<!-- SHOWCASE_URL is a placeholder. Replace it with the address of the showcase hub once it exists, keeping each #anchor. -->
-<p align="center"><sub>Made with sdlc, a multi-agent pipeline for Claude Code that I designed. <a href="SHOWCASE_URL#streaky-habit">See how it was built</a>.</sub></p>
+<!-- The showcase hub is not built yet. Each mention of it below has no link and says (under construction), and the two test badges have no link. When the hub exists, link them to its page with the anchors #streaky-habit and #streaky-habit-tests, and remove the marks. -->
+<p align="center"><sub>Made with sdlc, a multi-agent pipeline for Claude Code that I designed. See how it was built in the showcase (under construction).</sub></p>
 
 <p align="center">
   <img src="docs/readme/badge-version.svg" alt="version 1.1.0">
   <img src="docs/readme/badge-dependencies.svg" alt="0 runtime dependencies">
   <img src="docs/readme/badge-network.svg" alt="no network calls">
-  <a href="SHOWCASE_URL#streaky-habit-tests"><img src="docs/readme/badge-chromium.svg" alt="browser tests in Chromium, 358 passed"></a>
-  <a href="SHOWCASE_URL#streaky-habit-tests"><img src="docs/readme/badge-webkit.svg" alt="browser tests in WebKit, 357 passed and 1 skipped"></a>
+  <img src="docs/readme/badge-chromium.svg" alt="browser tests in Chromium, 358 passed">
+  <img src="docs/readme/badge-webkit.svg" alt="browser tests in WebKit, 357 passed and 1 skipped">
 </p>
 
 ## What it does
@@ -106,7 +108,7 @@ Planned next are a fix for the known bug below and unlimited habits, each in its
 
 ## Good to know
 
-**A known bug.** In desktop browsers that show classic scrollbars, such as Chrome on Windows, the **All habits** view shows two months per row instead of the three in the design. The fix is planned for the next version, and the [showcase](SHOWCASE_URL#streaky-habit) tells how it was found.
+**A known bug.** In desktop browsers that show classic scrollbars, such as Chrome on Windows, the **All habits** view shows two months per row instead of the three in the design. The fix is planned for the next version, and the showcase (under construction) tells how it was found.
 
 - Your habits are lost without warning in private browsing, after Safari's 7-day limit on stored site data, or when site data is cleared. The browser gives the page no signal in any of these.
 - If storage is blocked when the page opens and is allowed again without a reload, the next change overwrites the saved habits with the shorter list on screen. Reloading first prevents this. This is not fixed in 1.1.0. The save warning stays on screen the whole time storage is blocked.
@@ -118,14 +120,14 @@ Planned next are a fix for the known bug below and unlimited habits, each in its
 <details>
 <summary><b>Every known limit, in full</b></summary>
 
-Each limit below was found in testing. Its status says whether it was fixed in 1.1.0, is by design, is an accepted low risk, is planned for the next version, or comes from the browser or the host. The [showcase](SHOWCASE_URL#streaky-habit) explains each call, and the records are in [`docs/`](docs/).
+Each limit below was found in testing. Its status says whether it was fixed in 1.1.0, is by design, is an accepted low risk, is planned for the next version, or comes from the browser or the host. The showcase (under construction) explains each call, and the records are in [`docs/`](docs/).
 
 | Limit | Found in | Status |
 |---|---|---|
 | Private browsing, Safari's 7-day limit on stored site data and clearing site data lose every habit. The browser reports nothing, so no warning shows | 1.1.0 | Browser limit, the page cannot detect it |
 | If storage is blocked when the page opens and is allowed again without a reload, the next change overwrites the saved habits with the shorter list on screen. Reloading first prevents this | 1.1.0 | Not fixed in 1.1.0. The save warning stays on screen the whole time storage is blocked |
 | If storage is blocked or full, changes stay on screen but are not saved, with no message | 1.0.0 | Fixed in 1.1.0. A warning shows while saving fails |
-| In desktop browsers that show classic scrollbars, such as Chrome on Windows, the **All habits** view shows two months per row instead of the three in the design | 1.1.0 | Planned for the next version ([how it was found](SHOWCASE_URL#streaky-habit)) |
+| In desktop browsers that show classic scrollbars, such as Chrome on Windows, the **All habits** view shows two months per row instead of the three in the design | 1.1.0 | Planned for the next version. The showcase (under construction) tells how it was found |
 | Changes in one tab do not appear in another open tab. The last save wins | 1.0.0 | By design |
 | Any other page on the same `<user>.github.io` origin, my other projects included, can read and change the saved habits, and the page can be framed. GitHub Pages cannot set the headers that would isolate the page or stop it being framed | 1.0.0 | GitHub Pages limit |
 | A slow double click (more than half a second between clicks) where the bin icon and the **Delete habit** button overlap could delete the habit | 1.0.0 | Fixed in 1.1.0 by the guard described under **Behaviour worth knowing** below |
@@ -148,7 +150,11 @@ Each limit below was found in testing. Its status says whether it was fixed in 1
 
 ## How it was built
 
-Danial's Streaky Habit was made with [sdlc](SHOWCASE_URL), a multi-agent pipeline for Claude Code. I designed the pipeline and every agent in it. Claude builder agents wrote the code from approved specs, separate checking agents tested and reviewed it without being allowed to fix anything, fixing agents repaired what they found, and only I can release a version. I made or approved every product decision and tested each version myself before release. The [showcase](SHOWCASE_URL#streaky-habit) shows what the checking agents caught, what they missed, and where my verdict differed from theirs. The records are in [`docs/`](docs/).
+Danial's Streaky Habit was made with sdlc, a multi-agent pipeline for Claude Code. I designed the pipeline, most of its agents and its release gates, and I wrote its orchestrator, phases and rules. Some parts build on open-source work. The researcher, planner and plan checker roles began as forks of [GSD](https://github.com/gsd-build/get-shit-done). GSD also gave the plan and execute phases their general shape and informed two fixing agents and the design fidelity check. The brainstorm's way of asking one question at a time is adapted from Matt Pocock's [grill-me](https://github.com/mattpocock/skills).
+
+Claude builder agents wrote the code from approved specs. Separate checking agents tested and reviewed it under instructions to report problems and never fix them, fixing agents repaired what they found, and only I can release a version. The agents commit under my name, so every commit shows me as its author.
+
+Version 1.0 was a delegated run from start to finish, to test the pipeline. The orchestrator made most of the product calls, the idea and the design direction among them, and the records mark each one as its own. In 1.1 I made the product decisions myself, such as the layout with a Done today button and a year view for each habit, editing days up to 12 months back and deleting a habit from its year view. The orchestrator's smaller calls in between are marked as its own. I tested each version myself before release. The showcase (under construction) shows what the checking agents caught, what they missed, and where my verdict differed from theirs. The records are in [`docs/`](docs/).
 
 Its sister app, [Danial's Splity Tab](https://github.com/SoftDevDanial/splity-tab), was made the same way.
 
@@ -171,7 +177,7 @@ python -m pytest tests/browser -q
 python -m pytest tests/browser -q --engine webkit
 ```
 
-The unit tests run on Node 24 (keep the glob in quotes, because a bare `node --test tests/` fails on Node 24). The browser tests need Python with pytest and Playwright. They run headless in Chromium and then WebKit, start and stop the local servers they need, and never touch the system clipboard. The screenshot comparison and the other checks are explained in the [showcase](SHOWCASE_URL#streaky-habit-tests).
+The unit tests run on Node 24 (keep the glob in quotes, because a bare `node --test tests/` fails on Node 24). The browser tests need Python with pytest and Playwright. They run headless in Chromium and then WebKit, start and stop the local servers they need, and never touch the system clipboard. The screenshot comparison and the other checks are explained in the showcase (under construction).
 
 Every time-dependent test controls the clock with Playwright's clock API, never with a hook in the app.
 
